@@ -21,6 +21,7 @@ Proposed. Not endorsed. To become a standard it needs, in order: review by the M
 | D-009 | 2026-11-06 | Loading the critical data asset example into the record builder lost its licence. | The example used the compact form of the licence value; the licence list holds full addresses, so no option matched. | Lists match compact and full forms of the same value. | tools/check_browser.py: the critical data asset example must conform in the builder |
 | D-010 | 2026-11-06 | Escape did not close search when text had been typed. | In a search box the browser uses the first Escape to clear the text. | Escape in the search box closes the dialog. | tools/check_browser.py palette checks |
 | D-011 | 2026-11-06 | The lineage said 20 xGov MEM issues were open; there were 22. | Miscounted by hand from the API listing. | Counted from the backlog register itself. | tests/test_profile.py ReadmeCounts: totals must equal the register, and the README counts must match it |
+| D-012 | 2026-11-06 | The overflow check failed on random pages after a browser update. | It measured the width straight after resizing, before the global bar had folded its items into More. | The check waits two animation frames for resize handlers before measuring. | tools/check_browser.py overflow, with its "overflow" break still caught |
 
 ## Open register
 

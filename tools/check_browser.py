@@ -63,6 +63,8 @@ def run(site, verbose=True):
                 if scheme == 'light':
                     for w in WIDTHS:
                         pg.set_viewport_size({'width': w, 'height': 900})
+                        # let resize handlers (the global bar folds into More) run before measuring (D-012)
+                        pg.evaluate('new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)))')
                         over = pg.evaluate('document.documentElement.scrollWidth - document.documentElement.clientWidth')
                         if over > 1:
                             wide = pg.evaluate("""() => [...document.querySelectorAll('body *')].filter(e => e.getBoundingClientRect().right > document.documentElement.clientWidth + 1 && !e.closest('.table-wrap,pre,.graph')).slice(0,3).map(e => e.tagName + '.' + e.className)""")
