@@ -13,6 +13,20 @@ A minor release: a new name, tools for suppliers and buyers, and a richer portal
 - Display options moved to the masthead, beside search and help.
 
 ### Added
+- A requirements stream (`content/requirements.yaml`, the requirements page, `downloads/requirements.csv` and `.json`
+  and a blank template): requirements by theme, layer and status, evidenced and traced, with a proposed work
+  programme, L0 to L4 layering, release gates and the chain from evidence to release. Communities are named by kind only (ADR 0015).
+- The weaver reads Apache Atlas entities (the Microsoft Purview data map) and never invents a value: no default
+  description, licence, language, contact name or classification (RQ-21, RQ-22).
+- A candidate geodesy extension: reference frame, coordinate epoch, vertical reference, observation technique and
+  uncertainty with confidence level (RQ-23).
+- `dcatuk:MissingValue`: say why a property is empty (unknown, withheld, not applicable, not collected, not yet
+  available), mapped to the GML and INSPIRE nil reasons. Rule Q-02 warns when it is used for a mandatory property,
+  contradicts a value, or names a property the class does not have. A recommended property explained this way is not
+  flagged as missing.
+- Catalogue records can carry a security classification of their own.
+- NATO Core Metadata Specification and the GML nil reasons on the standards map.
+- Check C-22: no protective markings or handling caveats anywhere public.
 - Pages: user guide, tutorials, metadata weaver, lineage explorer, standards map, insights, integrations,
   avoiding lock-in, value types and licence; a visual site map.
 - Guided tours on seven pages.
@@ -28,7 +42,7 @@ A minor release: a new name, tools for suppliers and buyers, and a richer portal
 - Repository: a conformance claim issue form, labels as code, release note categories, CodeQL, support and governance files.
 
 ### Fixed
-- D-017 to D-027; see the defect register.
+- D-017 to D-028; see the defect register.
 
 ## [1.1.0-rc.1] - 2026-11-06
 

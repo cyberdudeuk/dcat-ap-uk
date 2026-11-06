@@ -550,3 +550,99 @@ extensions:
         keyword: [network capacity, electricity]
     breaks:
       - {key: energy-without-triage, rule: M-01, remove: [openDataTriage]}
+
+  - id: geodesy
+    label: Geodesy
+    icon: target
+    status: Candidate
+    for: Geodetic and positioning teams, national mapping and survey bodies, and anyone publishing coordinates, reference frame products or observation time series whose meaning depends on the frame, the epoch and the uncertainty.
+    summary: A candidate module on top of the geospatial extension. It says which reference frame and epoch the coordinates are in, how they were observed, and how uncertain they are, so precise positions are not silently mixed across frames or dates. Requirement RQ-23.
+    aligned_to:
+      - {name: GeoDCAT-AP 3.1.0, source: geodcat, prov: S}
+    differences:
+      - A candidate for discussion with geodetic specialists, not an agreed module. Its terms are in the dcatuk namespace for now; whether modules get namespaces of their own is open (RQ-07).
+      - Details of stations and other infrastructure are left out on purpose. They can be sensitive, and belong in a controlled layer if they are needed at all.
+      - Give the frame and the vertical reference as standard identifiers, such as EPSG codes. The epoch is a decimal year, such as 2025.0.
+    classes:
+      Dataset:
+        - {p: spatial, ob: M, card: 1..n}
+        - {p: referenceFrame, ob: M, card: '1'}
+        - {p: coordinateEpoch, ob: R, card: '0..1'}
+        - {p: verticalReference, ob: O, card: '0..1'}
+        - {p: observationTechnique, ob: R, card: 0..n}
+        - {p: horizontalUncertainty, ob: R, card: '0..1'}
+        - {p: verticalUncertainty, ob: O, card: '0..1'}
+        - {p: confidenceLevel, ob: R, card: '0..1'}
+    properties:
+      referenceFrame:
+        uri: dcatuk:referenceFrame
+        label: Reference frame
+        kind: iri
+        definition: The coordinate reference system or terrestrial reference frame, and its realisation, that the coordinates are given in.
+        guidance: Use the identifier of a published definition, such as an EPSG code. Name the realisation, not only the family of frames.
+        example: http://www.opengis.net/def/crs/EPSG/0/4258
+        provisional: true
+        mem: {change: new}
+      coordinateEpoch:
+        uri: dcatuk:coordinateEpoch
+        label: Coordinate epoch
+        kind: decimal
+        definition: The date the coordinates refer to, as a decimal year, for frames in which positions move over time.
+        guidance: Give it for any frame fixed to the moving Earth's crust, where the same point has different coordinates at different dates.
+        example: '2025.0'
+        provisional: true
+        mem: {change: new}
+      verticalReference:
+        uri: dcatuk:verticalReference
+        label: Vertical reference
+        kind: iri
+        definition: The height system the vertical values use, such as a national height datum or the ellipsoid.
+        example: http://www.opengis.net/def/crs/EPSG/0/5701
+        provisional: true
+        mem: {change: new}
+      observationTechnique:
+        uri: dcatuk:observationTechnique
+        label: Observation technique
+        kind: concept
+        codelist: geodetic-technique
+        definition: How the positions or heights were observed.
+        provisional: true
+        mem: {change: new}
+      horizontalUncertainty:
+        uri: dcatuk:horizontalUncertainty
+        label: Horizontal uncertainty (metres)
+        kind: decimal
+        definition: The typical horizontal uncertainty of the positions, in metres, at the confidence level given.
+        guidance: Always give the confidence level with it; an uncertainty without one cannot be compared.
+        example: '0.01'
+        provisional: true
+        mem: {change: new}
+      verticalUncertainty:
+        uri: dcatuk:verticalUncertainty
+        label: Vertical uncertainty (metres)
+        kind: decimal
+        definition: The typical vertical uncertainty, in metres, at the confidence level given.
+        example: '0.02'
+        provisional: true
+        mem: {change: new}
+      confidenceLevel:
+        uri: dcatuk:confidenceLevel
+        label: Confidence level (per cent)
+        kind: decimal
+        definition: The confidence level the uncertainties are stated at, as a percentage, such as 95.
+        example: '95'
+        provisional: true
+        mem: {change: new}
+    example:
+      add:
+        title: Synthetic coordinate time series for a survey control network
+        spatial: ['http://statistics.data.gov.uk/id/statistical-geography/K03000001']
+        referenceFrame: http://www.opengis.net/def/crs/EPSG/0/4258
+        coordinateEpoch: '2025.0'
+        observationTechnique: [ukcl:geodetic-technique/gnss]
+        horizontalUncertainty: '0.01'
+        verticalUncertainty: '0.02'
+        confidenceLevel: '95'
+    breaks:
+      - {key: geodesy-without-frame, rule: M-01, remove: [referenceFrame]}
+      - {key: geodesy-bad-technique, rule: V-01, set: {observationTechnique: ['ukcl:geodetic-technique/dowsing']}}

@@ -44,6 +44,9 @@ The profile is named after other national DCAT-AP profiles (DCAT-AP-NO, DCAT-AP-
 - For suppliers: a conformance kit with expected verdicts, level badges, and the validator as a command line, a local HTTP API and a GitHub Action.
 - For buyers: how open standards prevent lock-in and technical debt, with model contract clauses.
 - A user guide, guided tours and tutorials; display options in the masthead.
+- A requirements stream: requirements by theme, layer (L0 to L4) and status, evidenced and traced to release, with release gates and a proposed work programme. Communities are named by kind only.
+- The weaver reads Apache Atlas (Microsoft Purview data map) entities and invents nothing; a candidate geodesy module.
+- Record-level security classification, and explicit missing values with a reason (rule Q-02).
 - From the xGov MEM portal: class diagrams, value types, the profile in tables, a licence page and a feedback link on every page.
 
 ### Use it in a pipeline
@@ -100,7 +103,7 @@ docs/                       registers and decisions, generated from content/port
 pip install -r requirements.txt && npm ci && python3 -m playwright install chromium
 python3 -I -m unittest discover -s tests        # profile, schemas and validator agree; every break fails
 python3 -I tools/build.py                        # writes site/ and docs/
-python3 -I tools/check_site.py                   # 21 structural checks
+python3 -I tools/check_site.py                   # 22 structural checks
 python3 -I tools/check_site.py --vaccinate       # proves each check catches its deliberate break
 python3 -I tools/check_browser.py                # axe-core, widths 320-1920, light and dark, keyboard, tools, no-script
 ```

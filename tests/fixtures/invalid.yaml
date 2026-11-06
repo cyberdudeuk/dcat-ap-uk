@@ -71,3 +71,34 @@
 - key: checksum-algorithm-not-spdx
   rule: V-01
   record: {class: Distribution, id: 'https://example.org/x#f', accessURL: ['https://example.org/f'], checksum: {algorithm: 'https://example.org/my-hash', checksumValue: abc}}
+
+- key: missing-value-bad-reason
+  rule: V-01
+  record:
+    class: Dataset
+    id: https://example.org/x
+    title: t
+    description: d
+    identifier: x
+    publisher: https://example.org/o
+    contactPoint: [{fn: Team, hasURL: 'https://example.org/c'}]
+    accessRights: ukcl:access-rights/open
+    securityClassification: ukcl:security-classification/official
+    licence: http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/
+    accrualPeriodicity: eufreq:MONTHLY
+    missingValue: [{missingProperty: 'dct:temporal', missingReason: 'ukcl:missing-reason/forgot'}]
+- key: missing-value-no-reason
+  rule: M-01
+  record:
+    class: Dataset
+    id: https://example.org/x
+    title: t
+    description: d
+    identifier: x
+    publisher: https://example.org/o
+    contactPoint: [{fn: Team, hasURL: 'https://example.org/c'}]
+    accessRights: ukcl:access-rights/open
+    securityClassification: ukcl:security-classification/official
+    licence: http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/
+    accrualPeriodicity: eufreq:MONTHLY
+    missingValue: [{missingProperty: 'dct:temporal'}]

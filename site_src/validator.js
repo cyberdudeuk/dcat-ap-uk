@@ -39,6 +39,13 @@
     if (!C) { add('error', 'class', 'S-02', 'Unknown or missing class "' + ck + '". Use one of: ' + Object.keys(P.classes).join(', ') + '.'); return finish(issues); }
     var known = { 'class': 1, id: 1 };
     var cda = String(rec.criticalDataAsset) === 'true';
+    // properties the record explains as missing, with a reason (see Q-02 below)
+    var explained = {};
+    asList(rec.missingValue).forEach(function (mv) {
+      if (!mv || typeof mv !== 'object' || !mv.missingProperty || !present(mv.missingReason)) return;
+      var full = expand(P, String(mv.missingProperty));
+      Object.keys(P.props).forEach(function (k) { if (expand(P, P.props[k].uri) === full || k === String(mv.missingProperty)) explained[k] = 1; });
+    });
     C.props.forEach(function (x) {
       known[x.p] = 1;
       var prop = P.props[x.p];
@@ -48,7 +55,7 @@
       if (!has) {
         if (ob === 'M') add('error', x.p, cda && x.cda === 'M' && x.ob !== 'M' ? 'R-04' : 'M-01',
           (cda && x.cda === 'M' && x.ob !== 'M' ? 'Critical data assets must give ' : 'Give ') + prop.label.toLowerCase() + '.');
-        else if (ob === 'R') add('warning', x.p, 'R-00', 'Recommended: ' + prop.label.toLowerCase() + '.');
+        else if (ob === 'R' && !explained[x.p]) add('warning', x.p, 'R-00', 'Recommended: ' + prop.label.toLowerCase() + '.');
         return;
       }
       if ((x.card === '1' || x.card === '0..1') && vals.length > 1) add('error', x.p, 'C-01', prop.label + ' takes one value, not ' + vals.length + '.');
@@ -84,6 +91,21 @@
         }
       });
     });
+    // Q-02: a missing-value statement explains an empty recommended or optional property. It never stands in for a mandatory one,
+    // and it must not contradict a value the record gives.
+    if (present(rec.missingValue)) {
+      asList(rec.missingValue).forEach(function (mv, i) {
+        if (!mv || typeof mv !== 'object' || !mv.missingProperty) return;
+        var name = String(mv.missingProperty), full = expand(P, name);
+        var key = Object.keys(P.props).filter(function (k) { var u = P.props[k].uri; return u === name || expand(P, u) === full || k === name; })[0];
+        var where = 'missingValue' + (asList(rec.missingValue).length > 1 ? '[' + i + ']' : '') + '.missingProperty';
+        var slot = key && C.props.filter(function (x) { return x.p === key; })[0];
+        if (!slot) { add('warning', where, 'Q-02', name + ' is not a property of ' + C.label.toLowerCase() + ', so it cannot be missing from it.'); return; }
+        var ob = (cda && slot.cda) ? slot.cda : slot.ob;
+        if (ob === 'M') add('warning', where, 'Q-02', P.props[key].label + ' is mandatory: give a value. Saying why it is missing does not satisfy it.');
+        if (present(rec[key])) add('warning', where, 'Q-02', 'The record says ' + P.props[key].label.toLowerCase() + ' is missing, but gives a value for it.');
+      });
+    }
     Object.keys(rec).forEach(function (k) { if (!known[k]) add('error', k, 'S-04', '"' + k + '" is not a property of ' + C.label.toLowerCase() + ' in this profile.'); });
     if (C.one_of && C.one_of.length) {
       if (!C.one_of.some(function (k) { return present(rec[k]); })) {
@@ -482,7 +504,8 @@
   function contactFrom(v, notes) {
     var c = Array.isArray(v) ? v[0] : v;
     if (!c) return undefined;
-    var o = { fn: c.fn || c.name || 'Data team' }, url = c.hasURL || c.url || c.contactUrl || c.contact_uri;
+    var o = {}, url = c.hasURL || c.url || c.contactUrl || c.contact_uri;
+    if (c.fn || c.name) o.fn = c.fn || c.name; else notes.push('The contact has no team name. Add one; a name was not made up (RQ-22).');
     if (c.hasEmail || c.email || EMAIL_RX.test(JSON.stringify(c))) notes.push('A contact email address was not carried. Give a contact form address instead.');
     if (url && URL_RE.test(url) && !/^mailto:/.test(url)) o.hasURL = url;
     return o.hasURL ? [o] : (notes.push('No contact form address was found. Add one.'), undefined);
@@ -502,6 +525,28 @@
     var s = JSON.stringify(rec);
     if (EMAIL_RX.test(s)) { notes.push('An email address in the source was removed.'); rec = JSON.parse(s.replace(new RegExp(EMAIL_RX.source, 'g'), '')); }
     return rec;
+  }
+
+  // Apache Atlas entity model, as used by Microsoft Purview's data map (RQ-21). Built from Atlas's published v2 entity model;
+  // nothing is invented: a value the entity does not hold stays missing, with a note saying where to get it.
+  var ATLAS_THEME = { 'microsoft.government': 'government', 'government': 'government', 'transport': 'transport', 'environment': 'environment',
+    'health': 'health', 'education': 'education', 'crime and justice': 'crime-and-justice', 'defence': 'defence', 'mapping': 'mapping',
+    'business and economy': 'business-and-economy', 'microsoft.financial': 'business-and-economy', 'government spending': 'government-spending', 'society': 'society',
+    'towns and cities': 'towns-and-cities' };
+  function epochDate(v) {
+    if (v === undefined || v === null || v === '') return undefined;
+    var n = Number(v);
+    if (isFinite(n) && n > 0) return new Date(n).toISOString().slice(0, 10);
+    return DATE.test(String(v).slice(0, 10)) ? String(v).slice(0, 10) : undefined;
+  }
+  function classificationFrom(P, label, notes) {
+    if (!label) { notes.push('No sensitivity label: give the security classification. It is not assumed to be OFFICIAL.'); return undefined; }
+    var k = String(label).toUpperCase().replace(/[^A-Z]+/g, ' ').trim();
+    if (k === 'OFFICIAL') return 'ukcl:security-classification/official';
+    if (k === 'OFFICIAL SENSITIVE') return 'ukcl:security-classification/official-sensitive';
+    if (k === 'SECRET' || k === 'TOP SECRET' || k === 'HIGHLY CONFIDENTIAL') { notes.push('The label "' + label + '" suggests data above OFFICIAL. Records about SECRET or TOP SECRET data do not belong in an OFFICIAL catalogue: check before publishing.'); return undefined; }
+    notes.push('The label "' + label + '" is not a Government Security Classification. Map it with your information assurance team; it was not guessed.');
+    return undefined;
   }
 
   var READERS = {
@@ -545,6 +590,46 @@
       put(rec, map, 'resources', 'distribution', res);
       notes.push('Add access rights and security classification: CKAN does not hold them by default.');
       Object.keys(x).forEach(function (k) { if (['title', 'notes', 'tags', 'license_id', 'license_url', 'url', 'version', 'organization', 'extras', 'resources', 'name', 'id', 'metadata_created', 'metadata_modified', 'maintainer', 'author'].indexOf(k) < 0) map.push([k, null]); });
+      return { record: finishRec(rec, notes), notes: notes, map: map };
+    },
+    atlas: function (P, x) {
+      var e = (x && x.entity) || (x && x.entities && x.entities[0]) || x || {}, a = e.attributes || {}, notes = [], map = [];
+      var svc = /api|service|endpoint/i.test(e.typeName || '');
+      var rec = { 'class': svc ? 'DataService' : 'Dataset' };
+      map.push(['typeName', null]);
+      if (e.typeName) notes.push('The Atlas type ' + e.typeName + ' became a ' + (svc ? 'data service' : 'dataset') + '. Check that is right.');
+      put(rec, map, 'attributes.name', 'title', a.name);
+      put(rec, map, 'attributes.description', 'description', a.description || a.userDescription);
+      if (!a.description && !a.userDescription) notes.push('No description in the source. Write one: a placeholder description is not given.');
+      put(rec, map, 'guid', 'identifier', e.guid);
+      if (e.guid) notes.push('The Atlas GUID is kept as the identifier. Give the record a persistent web identifier (an https address) as its id.');
+      put(rec, map, 'attributes.createTime', 'issued', epochDate(a.createTime || e.createTime));
+      put(rec, map, 'attributes.updateTime', 'modified', epochDate(a.updateTime || e.updateTime));
+      put(rec, map, 'labels', 'keyword', asList(e.labels).filter(Boolean));
+      var themes = [], unmapped = [];
+      asList(e.classifications).forEach(function (c) {
+        var n = String((c && c.typeName) || c || ''), key = n.toLowerCase().replace(/^custom:\s*/, '');
+        if (/personal/i.test(n)) { notes.push('The classification ' + n + ' suggests personal data. Answer personal data; it was not set for you.'); return; }
+        var hit = ATLAS_THEME[key] || ATLAS_THEME[key.split('.').slice(0, 2).join('.')];
+        if (hit) themes.push('ukcl:theme/' + hit); else if (n) unmapped.push(n);
+      });
+      if (unmapped.length) notes.push('Not mapped to a theme: ' + unmapped.join(', ') + '. Add them to your mapping, or choose themes by hand.');
+      put(rec, map, 'classifications', 'theme', themes.filter(function (t, i) { return themes.indexOf(t) === i; }));
+      put(rec, map, 'sensitivityLabel', 'securityClassification', classificationFrom(P, e.sensitivityLabel || a.sensitivityLabel || (e.label && e.label.name), notes));
+      notes.push('Access rights are not taken from the sensitivity label: who may have the data is a separate decision. Add them.');
+      ['owner', 'experts', 'expert', 'stewards', 'steward', 'createdBy', 'contacts'].forEach(function (k) {
+        if (a[k] || e[k] || (k === 'createdBy' && e.createdBy)) { map.push([k, null]); notes.push('The ' + k + ' field names people, so it was not carried. Give a publisher organisation and a team contact form.'); }
+      });
+      var qn = a.qualifiedName;
+      if (qn && URL_RE.test(qn)) {
+        var d = { 'class': 'Distribution', accessURL: [qn] }, mt = mediaFrom(a.mimeType || a.contentType);
+        if (mt) d.mediaType = mt;
+        if (a.size !== undefined && /^\d+$/.test(String(a.size))) d.byteSize = String(a.size);
+        if (svc) put(rec, map, 'attributes.qualifiedName', 'endpointURL', [qn]); else put(rec, map, 'attributes.qualifiedName', 'distribution', [d]);
+      } else if (qn) { map.push(['attributes.qualifiedName', null]); notes.push('The qualified name ' + qn + ' is not a web address, so no access address was made from it. Give one by hand.'); }
+      if (String(e.status || '').toUpperCase() === 'DELETED') notes.push('The entity is deleted in the source. Do not publish it.');
+      notes.push('Atlas does not hold publisher, update frequency, licence, temporal or spatial coverage. Add them, or say why they are missing.');
+      Object.keys(a).forEach(function (k) { if (['name', 'description', 'userDescription', 'createTime', 'updateTime', 'qualifiedName', 'mimeType', 'contentType', 'size', 'sensitivityLabel', 'owner', 'experts', 'expert', 'stewards', 'steward', 'contacts'].indexOf(k) < 0) map.push(['attributes.' + k, null]); });
       return { record: finishRec(rec, notes), notes: notes, map: map };
     },
     dcatus: function (P, x) {

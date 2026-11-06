@@ -229,7 +229,7 @@ properties:
     codelist: security-classification
     definition: The classification under the Government Security Classifications Policy that the data itself carries.
     purpose: Stops data being shared with people or systems that cannot protect it, and keeps catalogues in scope.
-    distinct_from: Access rights (who may have it) and the classification of the metadata record, which is usually OFFICIAL even when the data is not.
+    distinct_from: Access rights (who may have it). On a catalogue record the same property gives the classification of the record itself, which is usually OFFICIAL even when the data is not (RQ-03).
     guidance: >-
       Most public sector data is OFFICIAL. Use the OFFICIAL-SENSITIVE marking where it applies. Records about SECRET or TOP SECRET
       data must not be put in an OFFICIAL catalogue; the Data Asset Management Policy covers OFFICIAL assets only.
@@ -886,7 +886,37 @@ properties:
     provisional: true
     mem: {change: new}
 
+  missingValue:
+    uri: dcatuk:missingValue
+    label: Missing value
+    kind: object
+    range: MissingValue
+    definition: A property this record leaves empty on purpose, and why.
+    purpose: Lets a strict harvester tell a value that is unknown, withheld or not applicable from one that was simply forgotten, without guessing.
+    distinct_from: Leaving the property out, which says nothing about why it is empty.
+    guidance: Use it for recommended or optional properties you cannot give. It never satisfies a mandatory property, which must have a value; the validator warns if you try (rule Q-02). Say withheld only when a value exists but cannot be published in this record.
+    example: '{"missingProperty": "dct:temporal", "missingReason": "unknown"}'
+    mem: {change: new}
+  missingProperty:
+    uri: dcatuk:missingProperty
+    label: Property left empty
+    kind: iri
+    definition: The property that has no value, as its prefixed name or full IRI.
+    guidance: Use the name as it appears on the property's page, such as dct:temporal or dcat:spatialResolutionInMeters.
+    example: dct:temporal
+    mem: {change: new}
+  missingReason:
+    uri: dcatuk:missingReason
+    label: Why it is empty
+    kind: concept
+    codelist: missing-reason
+    definition: The reason the property has no value, from a list based on the GML and INSPIRE nil reasons.
+    guidance: Choose the most specific reason. Withheld says a value exists but is not divulged in this record.
+    example: ukcl:missing-reason/unknown
+    mem: {change: new}
+
 # Classes, in order of precedence. For each property: ob (obligation), card (cardinality), cda (obligation for critical data assets).
+
 classes:
   Dataset:
     uri: dcat:Dataset
@@ -943,6 +973,7 @@ classes:
       - {p: hasPolicy, ob: O, card: 0..n}
       - {p: jurisdiction, ob: O, card: 0..n}
       - {p: transferMechanism, ob: C, card: 0..n, condition: 'Mandatory when the data contains personal data and is held in or sent to anywhere outside the UK (rule R-08).'}
+      - {p: missingValue, ob: O, card: 0..n}
   DataService:
     uri: dcat:DataService
     label: Data service
@@ -984,6 +1015,7 @@ classes:
       - {p: jurisdiction, ob: O, card: 0..n}
       - {p: transferMechanism, ob: C, card: 0..n, condition: 'Mandatory when the data contains personal data and is held in or sent to anywhere outside the UK (rule R-08).'}
       - {p: transportSecurity, ob: O, card: '0..1'}
+      - {p: missingValue, ob: O, card: 0..n}
   Distribution:
     uri: dcat:Distribution
     label: Distribution
@@ -1063,6 +1095,8 @@ classes:
       - {p: conformsTo, ob: R, card: 0..n}
       - {p: issued, ob: R, card: '0..1'}
       - {p: metadataAudience, ob: O, card: '0..1'}
+      - {p: securityClassification, ob: O, card: '0..1'}
+      - {p: missingValue, ob: O, card: 0..n}
   Agent:
     uri: foaf:Agent
     label: Organisation
@@ -1142,6 +1176,16 @@ classes:
     properties:
       - {p: agent, ob: M, card: '1'}
       - {p: hadRole, ob: M, card: '1'}
+  MissingValue:
+    uri: dcatuk:MissingValue
+    label: Missing value
+    ob: O
+    icon: circle-help
+    definition: A statement that one property is empty on purpose, and why, modelled on the nil reasons of GML and INSPIRE.
+    mem: null
+    properties:
+      - {p: missingProperty, ob: M, card: '1'}
+      - {p: missingReason, ob: M, card: '1'}
 
 # Rules that need more than a single property shape. Each is enforced by the generated SHACL, the JSON Schema where it can be,
 # and the browser validator. "issue" ties a rule to the backlog item that created it.

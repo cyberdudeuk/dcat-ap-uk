@@ -235,3 +235,28 @@
         mediaType: https://www.iana.org/assignments/media-types/text/csv
         checksum: {algorithm: spdx:checksumAlgorithm_sha384, checksumValue: 0a1b2c3d4e5f60718293a4b5c6d7e8f90a1b2c3d4e5f60718293a4b5c6d7e8f90a1b2c3d4e5f60718293a4b5c6d7e8f9}
         hasPolicy: [https://cyberdudeuk.github.io/dcat-uk-ap/downloads/policies/agreement-required.jsonld]
+
+- key: dataset-missing-values
+  label: Values left empty on purpose (synthetic)
+  teaches: Saying why a recommended property is empty, so a strict harvester can tell unknown or withheld from forgotten. The record keeps every mandatory property; a missing-value statement never replaces one (rule Q-02).
+  synthetic: true
+  record:
+    class: Dataset
+    id: https://example.org/id/dataset/estate-condition
+    title: Condition of the departmental estate
+    description: Condition grades for buildings in a synthetic departmental estate, collected each year by surveyors.
+    identifier: estate-condition
+    publisher: https://example.org/id/org/example-department
+    contactPoint:
+      - {fn: Estates data team, hasURL: 'https://example.org/contact/estates'}
+    accessRights: ukcl:access-rights/internal
+    rights: Available to public sector bodies under a data sharing agreement. Ask through the contact form.
+    securityClassification: ukcl:security-classification/official
+    licence: ukcl:licences/data-sharing-agreement-required
+    accrualPeriodicity: eufreq:ANNUAL
+    personalData: ukcl:personal-data/none
+    modified: '2026-10-01'
+    missingValue:
+      - {missingProperty: 'dct:temporal', missingReason: 'ukcl:missing-reason/unknown'}
+      - {missingProperty: 'dct:spatial', missingReason: 'ukcl:missing-reason/withheld'}
+      - {missingProperty: 'dcat:spatialResolutionInMeters', missingReason: 'ukcl:missing-reason/inapplicable'}

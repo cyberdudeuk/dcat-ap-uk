@@ -59,6 +59,8 @@ standards:
   - {id: ofgem, label: Ofgem Data Best Practice, group: sector, url: 'https://www.ofgem.gov.uk/', prov: S}
   - {id: iso19115, label: ISO 19115, group: sector, url: 'https://www.iso.org/standard/53798.html'}
   - {id: inspire, label: INSPIRE metadata, group: sector, url: 'https://inspire.ec.europa.eu/'}
+  - {id: nilreason, label: GML and INSPIRE nil reasons, short: GML nil reasons, group: vocab, url: 'https://dd.eionet.europa.eu/vocabulary/common/NilReasonType/view', prov: S, note: 'Standard reasons for an empty value. The missing-reason list maps to them (RQ-04).'}
+  - {id: ncms, label: NATO Core Metadata Specification (ADatP-5636), short: NATO core metadata, group: sector, url: 'https://nhqc3s.hq.nato.int/apps/architecture/nisp/volume1/apd.html', prov: S, note: 'NATO standard for core metadata, accepted 2022. Any mapping is a controlled layer, not made here (RQ-15).'}
   - {id: dcatus, label: DCAT-US 3.0, group: national, url: 'https://resources.data.gov/', prov: S}
   - {id: dcatno, label: DCAT-AP-NO, group: national, url: 'https://data.norge.no/specification/dcat-ap-no', prov: S}
   - {id: dcatde, label: DCAT-AP.de, group: national, url: 'https://www.dcat-ap.de/'}
@@ -69,6 +71,7 @@ standards:
   - {id: dcmes, label: Dublin Core 15 elements, group: model, url: 'https://www.dublincore.org/specifications/dublin-core/dces/'}
   - {id: ddi, label: DDI Codebook, group: model, url: 'https://ddialliance.org/Specification/DDI-Codebook/2.5/'}
   - {id: ckan, label: CKAN and ckanext-dcat, group: model, url: 'https://github.com/ckan/ckanext-dcat'}
+  - {id: atlas, label: Apache Atlas entity model, short: Apache Atlas, group: tool, url: 'https://atlas.apache.org/', note: 'The type system behind the Microsoft Purview data map. The weaver reads its entities (RQ-21).'}
   - {id: openapi, label: OpenAPI, group: tech, url: 'https://spec.openapis.org/oas/latest.html'}
   - {id: shacl, label: SHACL, group: tech, url: 'https://www.w3.org/TR/shacl/'}
   - {id: jsonschema, label: JSON Schema 2020-12, group: tech, url: 'https://json-schema.org/'}
@@ -160,6 +163,11 @@ links:
   - [ukap, serialises, llmstxt]
   - [ukap, governs, dam]
   - [ukap, governs, gsc]
+  - [ukap, aligns, nilreason]
+  - [ukap, maps, atlas]
+
+  - [ncms, aligns, dct]
+  - [nilreason, aligns, inspire]
   - [ukap, governs, ukgdpr]
   - [ukap, governs, ogl]
   - [ukap, aligns, ncsc]

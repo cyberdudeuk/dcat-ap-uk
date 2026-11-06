@@ -93,7 +93,7 @@ TYPES = {  # value kinds used by the profile (K: author's summary of DCAT, SHACL
 SECTION = {'index': 'home', 'profile': 'profile', 'properties': 'profile', 'codelists': 'profile', 'types': 'profile', 'extensions': 'profile',
            'builder': 'tools', 'validate': 'tools', 'bulk': 'tools', 'weaver': 'tools', 'openapi': 'tools', 'examples': 'tools',
            'adopt': 'adopt', 'integrations': 'adopt', 'lockin': 'adopt', 'international': 'adopt', 'ai-ready': 'adopt', 'quantum': 'adopt', 'landscape': 'adopt',
-           'knowledge': 'knowledge', 'lineage': 'knowledge', 'standards': 'knowledge', 'insights': 'knowledge', 'changes': 'changes', 'strategy': 'strategy',
+           'knowledge': 'knowledge', 'lineage': 'knowledge', 'standards': 'knowledge', 'insights': 'knowledge', 'changes': 'changes', 'strategy': 'strategy', 'requirements': 'strategy',
            'guide': 'roles', 'tutorials': 'roles', 'roles': 'roles', 'downloads': 'downloads', 'estate': 'estate',
            'governance': 'about', 'accessibility': 'about', 'contact': 'about', 'sitemap': 'about', 'licence': 'about', 'whats-new': 'about', '404': 'about'}
 
@@ -105,7 +105,7 @@ NAV = [
     ('Tools', 'Tools', 'wrench', ['builder', 'validate', 'bulk', 'weaver', 'openapi', 'examples']),
     ('Adopt', 'Adopt', 'package', ['adopt', 'integrations', 'lockin', 'international', 'ai-ready', 'quantum', 'landscape']),
     ('Knowledge', 'Knowledge', 'network', ['knowledge', 'lineage', 'standards', 'insights']),
-    ('Context', 'Context', 'route', ['changes', 'strategy']),
+    ('Context', 'Context', 'route', ['changes', 'strategy', 'requirements']),
     ('Help', 'Help', 'circle-help', ['guide', 'tutorials', 'roles']),
     ('downloads', 'Downloads', 'download', None),
     ('estate', 'Estate', 'compass', None),
@@ -113,7 +113,7 @@ NAV = [
 ]
 TITLES = {
     'index': 'Home', 'profile': 'The profile at a glance', 'properties': 'Every property', 'codelists': 'Codelists', 'builder': 'Build a record',
-    'validate': 'Check records', 'examples': 'Worked examples', 'changes': "What's changed from the xGov MEM", 'strategy': 'How it fits the strategy',
+    'validate': 'Check records', 'examples': 'Worked examples', 'changes': "What's changed from the xGov MEM", 'strategy': 'How it fits the strategy', 'requirements': 'Requirements stream',
     'roles': 'Your role', 'knowledge': 'Knowledge', 'downloads': 'Downloads and API', 'estate': 'The estate: four portals',
     'governance': 'Design and governance', 'accessibility': 'Accessibility statement', 'contact': 'Contact', 'sitemap': 'Site map',
     'whats-new': "What's new", '404': 'Page not found', 'extensions': 'Sector extensions', 'bulk': 'Check many records',
@@ -131,6 +131,7 @@ DESC = {
     'validate': 'Check DCAT-AP-UK records, or convert xGov MEM records, in your browser. Nothing is uploaded.',
     'examples': 'Worked DCAT-AP-UK records for datasets, data services, a series, a critical data asset and a catalogue.',
     'changes': 'How DCAT-AP-UK differs from the xGov MEM, and how every issue in its backlog was dealt with.',
+    'requirements': 'What communities need from DCAT-AP-UK, how each need is evidenced, and how it is met: a common core, governed layers and a proposed work programme.',
     'strategy': 'How DCAT-AP-UK supports the roadmap for modern digital government, the National Data Library and the DAM Policy.',
     'roles': 'Routes through DCAT-AP-UK for catalogue managers, data owners, leaders, engineers, suppliers and users.',
     'knowledge': 'Glossary, thesaurus, taxonomy and knowledge graph for DCAT-AP-UK.',
@@ -238,6 +239,7 @@ class Site:
         self.sd = yaml.safe_load((ROOT / 'content' / 'standards.yaml').read_text(encoding='utf-8'))
         self.lk = yaml.safe_load((ROOT / 'content' / 'lockin.yaml').read_text(encoding='utf-8'))
         self.ig = yaml.safe_load((ROOT / 'content' / 'integrations.yaml').read_text(encoding='utf-8'))
+        self.rq = yaml.safe_load((ROOT / 'content' / 'requirements.yaml').read_text(encoding='utf-8'))
         self.src = {s['id']: s for s in p.lineage['sources'] + self.t['sources']}
 
     # -- helpers ----------------------------------------------------------------
@@ -447,6 +449,7 @@ class Site:
         self.weaver_page()
         self.integrations_page()
         self.lockin_page()
+        self.requirements_page()
         self.standards_page()
         self.insights_page()
         self.changes_page()
@@ -1260,7 +1263,10 @@ class Site:
             '<a href="integrations.html">Integrations</a>: a conformance kit with expected verdicts, level badges, a command line, a local HTTP API and a GitHub Action.',
             '<a href="lockin.html">Avoiding lock-in and technical debt</a>, with model contract clauses to download.',
             'From the xGov MEM: a class diagram on each class page, a <a href="types.html">value types</a> page, the profile in tables on the home page, a <a href="licence.html">licence</a> page and "Suggest a change to this page" in every footer.',
-            'A visual <a href="sitemap.html">site map</a>, colour by section and more icons.'])
+            'A visual <a href="sitemap.html">site map</a>, colour by section and more icons.',
+            'A <a href="requirements.html">requirements stream</a>: requirements from cross-government engagement and public sources, by theme, layer (L0 to L4) and status, traced from evidence to release, with release gates and a proposed work programme (ADR 0015).',
+            'The weaver reads Apache Atlas entities, the model behind the Microsoft Purview data map, and invents nothing: every gap becomes a note. A candidate <a href="extensions.html#ext-geodesy">geodesy module</a> adds reference frame, epoch, technique and uncertainty.',
+            'Catalogue records can carry their own security classification, and any record can say why a property is empty, with a reason from a list based on the GML and INSPIRE nil reasons (<a href="class-missingvalue.html">missing value</a>, rule Q-02).'])
         body += '<h2 id="v11">1.1.0-rc.1, 2026-11-06</h2>' + ul([
             f'Nine <a href="extensions.html">sector extensions</a> (health, geospatial, statistics, transport, high-value datasets, AI-ready, data spaces, private and voluntary sector, energy), each with its own shapes, schema, example and break.',
             'Cross-border flows: where data is held or sent, across the UK nations, Crown Dependencies, Overseas Territories, Commonwealth and partners, and the UK GDPR transfer safeguard (rule R-08).',
@@ -1648,7 +1654,7 @@ class Site:
         self.page('tutorials', body, drawer, crumbs=[('Help', None), ('Tutorials', None)])
 
     WEAVE_MODELS = [('ukap', 'DCAT-AP-UK (JSON)', True, True), ('mem', 'xGov MEM', True, False), ('ckan', 'CKAN', True, True), ('dcatus', 'DCAT-US (data.json)', True, True),
-                    ('schemaorg', 'schema.org', True, True), ('dc', 'Dublin Core', True, True), ('ddi', 'DDI Codebook', True, True), ('jsonld', 'DCAT-AP-UK (JSON-LD)', False, True),
+                    ('schemaorg', 'schema.org', True, True), ('dc', 'Dublin Core', True, True), ('ddi', 'DDI Codebook', True, True), ('atlas', 'Apache Atlas (Microsoft Purview)', True, False), ('jsonld', 'DCAT-AP-UK (JSON-LD)', False, True),
                     ('turtle', 'DCAT-AP-UK (Turtle)', False, True), ('croissant', 'Croissant 1.1', False, True)]
 
     def weave_samples(self):
@@ -1678,6 +1684,11 @@ class Site:
             'ddi': {'titl': 'Example household survey', 'IDNo': 'example-hhs-2025', 'abstract': 'An invented survey, used to show the weaver. It does not exist.', 'keyword': ['households', 'income'],
                     'producer': 'Example Statistics Office', 'timePrd': {'start': '2025-01-01', 'end': '2025-12-31'}, 'universe': 'Private households in the UK',
                     'restrctn': 'Available to registered users under an end user licence.', 'version': '1.0', 'distDate': '2026-03-01'},
+            'atlas': {'entity': {'typeName': 'azure_datalake_gen2_path', 'guid': '00000000-0000-4000-8000-000000000001', 'status': 'ACTIVE', 'labels': ['expenditure', 'quarterly'],
+                                 'classifications': [{'typeName': 'Microsoft.Government'}, {'typeName': 'Custom: Spend analysis'}], 'sensitivityLabel': 'OFFICIAL',
+                                 'attributes': {'name': 'Example quarterly spending extract', 'description': 'An invented data map entity, used to show the weaver. It does not exist.',
+                                                'qualifiedName': 'https://example.org/lake/spending/quarterly.csv', 'mimeType': 'text/csv', 'size': 245678,
+                                                'createTime': 1767225600000, 'updateTime': 1780444800000, 'owner': 'a-person-or-object-id'}}},
         }
 
     def weaver_page(self):
@@ -1854,6 +1865,21 @@ class Site:
         e('standard:gsc', 'prop:securityClassification')
         e('standard:ukgdpr', 'prop:transferMechanism')
         e('standard:ncsc', 'prop:transportSecurity')
+        for r in self.rq['requirements']:
+            rid = n('req:' + r['id'], f'{r["id"]}: {r["statement"][:90]}', 'requirement', f'requirements.html#{r["id"].lower()}', r['statement'])
+            for k in r['traces'].get('properties', []):
+                e(rid, 'prop:' + k)
+            for t in r['traces'].get('fixtures', []):
+                e(rid, 'test:' + t)
+            for sid in r.get('sources', []):
+                e('standard:' + sid, rid)
+            e('standard:ukap', rid)
+            if r['layer'] == 'mappings':
+                for cid in p.crosswalks:
+                    e(rid, 'crosswalk:' + cid)
+            if r['layer'] == 'sector':
+                for eid in p.extensions:
+                    e(rid, 'ext:' + eid)
         used = {a for a, b in edges} | {b for a, b in edges}
         out = [v for k, v in nodes.items() if k in used]
         return {'nodes': out, 'edges': sorted([list(x) for x in edges]), 'kinds': sorted({v['kind'] for v in out})}
@@ -1866,7 +1892,7 @@ class Site:
         for nd in lg['nodes']:
             kinds.setdefault(nd['kind'], []).append(nd)
         KL = {'source': 'Sources', 'mem': 'xGov MEM slots', 'property': 'Properties', 'class': 'Classes', 'codelist': 'Codelists', 'rule': 'Rules', 'issue': 'Backlog issues',
-              'example': 'Worked examples', 'test': 'Deliberate breaks (tests)', 'extension': 'Extensions', 'crosswalk': 'Crosswalks', 'defect': 'Defects'}
+              'example': 'Worked examples', 'test': 'Deliberate breaks (tests)', 'extension': 'Extensions', 'crosswalk': 'Crosswalks', 'defect': 'Defects', 'requirement': 'Requirements'}
         legend = ''.join(f'<li><span class="sw k-{k} ksw"></span>{E(KL.get(k, k))} ({len(v)})</li>' for k, v in kinds.items())
         nos = ''.join(f'<details><summary>{E(KL.get(k, k))} ({len(v)})</summary><ul>' + ''.join(f'<li><a href="{E(x["href"])}">{E(x["label"])}</a></li>' for x in v[:400]) + '</ul></details>' for k, v in kinds.items())
         kopt = ''.join(f'<option value="{E(k)}">{E(KL.get(k, k))}</option>' for k in kinds)
@@ -2079,7 +2105,7 @@ class Site:
         pos = {'ukap': (cx, cy)}
         others = [s for s in sd['standards'] if s['id'] != 'ukap']
         rings = {'core': 140, 'vocab': 330, 'sector': 250, 'national': 330, 'model': 250, 'tech': 330, 'policy': 330, 'tool': 330}
-        order = ['core', 'sector', 'model', 'national', 'vocab', 'tech', 'policy']
+        order = [g['id'] for g in sd['groups']]  # D-028: a hand-written list left out the tool group, so its standards were never drawn
         seq = [s for g in order for s in others if s['group'] == g]
         import math
         for i, s in enumerate(seq):
@@ -2141,6 +2167,116 @@ class Site:
            'tech': ('Must', 'For publishing, validation and interfaces.'), 'sector': ('Must, where the sector applies', 'When the buyer names the sector extension.'),
            'model': ('Should', 'Import and export, through the weaver mappings or natively.'), 'national': ('Should', 'Accept for exchange with partner countries.'),
            'policy': ('Must comply', 'As law, policy or guidance requires.'), 'tool': ('May', 'Where useful.')}
+
+    def requirements_page(self):
+        rq, p = self.rq, self.p
+        th = {t['id']: t for t in rq['themes']}
+        cm = {c['id']: c for c in rq['communities']}
+        ly = {x['id']: x for x in rq['layers']}
+        st = rq['statuses']
+        src = {x['id']: x for x in rq['public_sources']}
+        TAG = {'met': 'ok', 'partly': 'warn', 'planned': 'brand', 'controlled': '', 'done': 'ok'}
+        reqs = rq['requirements']
+        for r in reqs:
+            for k in r['traces'].get('properties', []):
+                assert k in p.props, f'{r["id"]} traces unknown property {k}'
+            assert r['layer'] in ly and r['theme'] in th and r['status'] in st, r['id']
+        # downloads: the catalogue as JSON and CSV; the CSV header is also the template
+        cols = ['id', 'theme', 'statement', 'rationale', 'communities', 'evidence', 'priority', 'layer', 'acceptance', 'validation', 'status', 'gap']
+        dl = self.out / 'downloads'
+        (dl / 'requirements.json').write_text(json.dumps({'profile': self.m['short_title'], 'version': self.m['version'], 'handling': 'Public. Communities by kind only; no people, meetings or controlled material.',
+                                                           'requirements': reqs}, ensure_ascii=False, indent=1) + '\n', encoding='utf-8')
+        import csv, io
+        buf = io.StringIO(); w = csv.writer(buf, lineterminator='\n'); w.writerow(cols)
+        for r in reqs:
+            w.writerow([' '.join(r[c]) if isinstance(r.get(c), list) else r.get(c, '') for c in cols])
+        (dl / 'requirements.csv').write_text(buf.getvalue(), encoding='utf-8')
+        (dl / 'requirements-template.csv').write_text(','.join(cols) + '\n', encoding='utf-8')
+        for r in reqs:
+            self.add_search(r['id'] + ' ' + r['statement'][:60], 'Requirement', f'requirements.html#{r["id"].lower()}', r['rationale'])
+        counts = {k: sum(1 for r in reqs if r['status'] == k) for k in st}
+        tiles = ''.join(f'<div class="card"><p class="stat">{n}</p><p><strong class="tag {TAG[k]}">{E(st[k]["label"])}</strong> {E(st[k]["text"])}</p></div>' for k, n in counts.items())
+        # theme by status matrix
+        mrows = []
+        for t in rq['themes']:
+            mrows.append([f'{icon(t["icon"])} {E(t["label"])}'] + [str(sum(1 for r in reqs if r['theme'] == t['id'] and r['status'] == k) or '') for k in st] + [str(sum(1 for r in reqs if r['theme'] == t['id']))])
+        matrix = table('t-rqm', 'Requirements by theme and status', ['Theme'] + [st[k]['label'] for k in st] + ['All'], mrows, num=tuple(range(1, len(st) + 2)))
+        # layers
+        lay = ''.join(f'<li class="layer{" alongside" if x["level"] == "Alongside" else ""}"><span class="lnum">{E(x["level"] if x["level"] != "Alongside" else "+")}</span><div><h3>{E(x["label"])} <strong class="tag {TAG[x["status"]]}">{E(st[x["status"]]["label"])}</strong></h3><p>{E(x["text"])}</p>'
+                      f'<p class="small"><a href="{E(x["link"])}">{"Why this layer is not here" if x["status"] == "controlled" else "See it"}</a>' + (f' · {n} requirement{"s" if n != 1 else ""}' if (n := sum(1 for r in reqs if r["layer"] == x["id"])) else '') + '</p></div></li>'
+                      for x in rq['layers'])
+        # catalogue table
+        rows, attrs = [], []
+        def ev(codes):
+            return ' '.join(f'<abbr class="prov {c}" title="{E(rq["evidence"][c]["text"])}" data-tip="{E(rq["evidence"][c]["text"])}">{c}</abbr>' for c in codes)
+        for r in reqs:
+            tr = r['traces']
+            links = [f'<a href="properties.html#p-{k}"><code>{E(p.props[k]["uri"])}</code></a>' for k in tr.get('properties', [])]
+            links += [f'<a href="{E(pg)}">{E(TITLES.get(pg.split(".")[0], pg.split(".")[0].replace("class-", "").replace("-", " ")))}</a>' for pg in tr.get('pages', [])]
+            srcs = ''.join(f'<li><a href="{E(src[x]["url"])}">{E(src[x]["label"])}</a> {prov("V", src[x]["checked"])}</li>' for x in r.get('sources', []))
+            detail = (f'<details><summary>Acceptance and validation</summary><dl><dt>Acceptance</dt><dd>{E(r["acceptance"])}</dd><dt>Validation</dt><dd>{E(r["validation"])}</dd>'
+                      + (f'<dt>Public sources</dt><dd><ul>{srcs}</ul></dd>' if srcs else '') + f'<dt>Priority</dt><dd>{E(r["priority"].capitalize())}</dd></dl></details>')
+            gap = f'<p class="small"><strong>Gap:</strong> {E(r["gap"])}</p>' if r.get('gap') else ''
+            new = f' <strong class="tag brand">New in {E(r["added"])}</strong>' if r.get('added') else ''
+            rows.append([f'<span id="{r["id"].lower()}"><strong>{r["id"]}</strong></span>',
+                         f'<p class="small">{icon(th[r["theme"]]["icon"])} {E(th[r["theme"]]["label"])} · {E(ly[r["layer"]]["label"])}</p><p>{E(r["statement"])}{new}</p><p class="small">{E(r["rationale"])}</p>{gap}{detail}',
+                         ', '.join(E(cm[c]['label']) for c in r['communities']), ev(r['evidence']),
+                         f'<strong class="tag {TAG[r["status"]]}">{E(st[r["status"]]["label"])}</strong>', ('<ul class="tl">' + ''.join(f'<li>{x}</li>' for x in links) + '</ul>') if links else '—'])
+            attrs.append(f' data-theme="{r["theme"]}" data-status="{r["status"]}" data-layer="{r["layer"]}" data-community="{" ".join(r["communities"])}"')
+        opt = lambda d: ''.join(f'<option value="{k}">{E(v["label"])}</option>' for k, v in d.items())
+        filt = (f'<div class="filters" data-for="t-rq"><label>Search<input type="search" placeholder="words or RQ number"></label>'
+                f'<label>Theme<select data-col="theme"><option value="">All</option>{opt(th)}</select></label>'
+                f'<label>Status<select data-col="status"><option value="">All</option>{opt(st)}</select></label>'
+                f'<label>Layer<select data-col="layer"><option value="">All</option>{opt(ly)}</select></label>'
+                f'<label>Community<select data-col="community"><option value="">All</option>{opt(cm)}</select></label><output aria-live="polite"></output></div>')
+        cat = filt + table('t-rq', 'The requirements catalogue', ['ID', 'Requirement', 'Raised by', 'Evidence', 'Status', 'Traced to'], rows, row_attrs=attrs)
+        prog = ''.join(f'<li><strong>{E(x["label"])}</strong> <strong class="tag {TAG.get(x["status"], "grey")}">{E({"done": "Done", "partly": "Started", "planned": "Planned"}[x["status"]])}</strong>'
+                       f'<span class="small"> · {E(x["when"])}</span><br>{E(x["output"])}</li>' for x in rq['programme'])
+        srows = [[f'<a href="{E(x["url"])}">{E(x["label"])}</a>', E(x['says']), prov('V', x['checked']), ', '.join(r['id'] for r in reqs if x['id'] in r.get('sources', []))] for x in rq['public_sources']]
+        body = self.hero('list-checks', 'Context', 'Requirements stream', self.gloss(' '.join(rq['intro'].split())))
+        body += (f'<div class="panel"><p><strong>How this is evidenced.</strong> {E(" ".join(rq["method"].split()))}</p>'
+                 f'<p class="small">Evidence: ' + '; '.join(f'{ev([k])} {E(v["text"])}' for k, v in rq['evidence'].items()) + '</p></div>')
+        body += f'<h2 id="glance">At a glance</h2><div class="grid">{tiles}</div>{matrix}'
+        body += (f'<h2 id="layers">A family of profiles, on one core</h2><p>From the foundation up, L0 to L4: each level builds on the ones before it, shares one validator, and exists only with its own tests. '
+                 'Layers marked + sit alongside the spine. Reuse before inventing; profiles, not forks; discovery stays separate from access.</p>'
+                 f'<ol class="layers">{lay}</ol>')
+        # the traceability chain, with the count at each link
+        lg_reqs = {r['id'] for r in reqs}
+        props = {k for r in reqs for k in r['traces'].get('properties', [])}
+        fx = yaml.safe_load((ROOT / 'tests' / 'fixtures' / 'invalid.yaml').read_text(encoding='utf-8'))
+        nbreaks = len(fx) + sum(len(x['breaks']) for x in p.extensions.values())
+        chain = [('Evidence and user need', f'{len(rq["public_sources"])} public sources, plus engagement', 'book-open'),
+                 ('Requirement', f'{len(lg_reqs)} requirements', 'list-checks'),
+                 ('Property or pattern', f'{len(props)} properties traced', 'tag'),
+                 ('Shape or schema rule', f'{len(p.classes)} class shapes, {len(p.rules)} rules', 'braces'),
+                 ('Positive and negative tests', f'{len(p.examples)} examples, {nbreaks} deliberate breaks', 'clipboard-check'),
+                 ('Validation evidence', 'three validators, one verdict', 'badge-check'),
+                 ('Decision or issue', f'{len(self.c["governance"]["adrs"])} decisions', 'scale'),
+                 ('Release status', E(self.m['version']), 'git-branch')]
+        body += ('<h2 id="chain">From evidence to release</h2><p>Every requirement should be traceable along this chain. The counts are taken from the profile and its tests at build time.</p><ol class="chain">'
+                 + ''.join(f'<li>{icon(ic)}<strong>{E(t)}</strong><span class="small">{n}</span></li>' for t, n, ic in chain) + '</ol>')
+        grows = [[E(g['gate']), f'<strong class="tag {TAG[g["status"]]}">{E(st[g["status"]]["label"])}</strong>', E(g['evidence'])] for g in rq['gates']]
+        body += '<h2 id="gates">Release gates</h2><p>A release is ready when all four gates are met (RQ-26).</p>' + table('t-gates', 'Release gates and where they stand', ['Gate', 'Status', 'Evidence'], grows, sortable=False)
+        body += f'<h2 id="principles">Design principles</h2><ol>' + ''.join(f'<li>{E(x["text"])}</li>' for x in rq['principles']) + '</ol>'
+        body += (f'<h2 id="catalogue">The requirements</h2><p>{len(reqs)} requirements in {len(th)} themes. Each says who raised it, by kind of community; how it is evidenced; what would show it met; and where it is traced. '
+                 'Select one in the <a href="lineage.html">lineage explorer</a> to follow it to properties and tests.</p>' + cat
+                 + '<p><a class="btn secondary" href="downloads/requirements.csv" download>' + icon('download') + ' Requirements (CSV)</a> '
+                 '<a class="btn secondary" href="downloads/requirements.json" download>' + icon('download') + ' Requirements (JSON)</a> '
+                 '<a class="btn secondary" href="downloads/requirements-template.csv" download>' + icon('download') + ' Blank template (CSV)</a></p>')
+        body += f'<h2 id="sources">Public sources</h2>' + table('t-rqs', 'Public sources behind the requirements', ['Source', 'What it says', 'Checked', 'Requirements'], srows, sortable=False)
+        body += (f'<h2 id="controlled">Controlled layers</h2><p>{E(" ".join(rq["controlled"]["text"].split()))}</p><p>What the open core gives those layers to attach to:</p>'
+                 + ul([E(x) for x in rq['controlled']['extension_points']]))
+        body += f'<h2 id="programme">Proposed work programme</h2><p>This project\'s proposal. Nothing here is commissioned or endorsed.</p><ol class="steps">{prog}</ol>'
+        body += '<h2 id="against">The case against</h2>' + ''.join(f'<div class="panel"><p><strong>{E(x["claim"])}</strong></p><p>{E(x["answer"])}</p></div>' for x in rq['case_against'])
+        self.page('requirements', body, [{'title': 'Requirements stream', 'icon': 'list-checks', 'items': [
+            {'id': 'glance', 'label': 'At a glance', 'icon': 'gauge'}, {'id': 'layers', 'label': 'Family of profiles', 'icon': 'layers', 'count': len(rq['layers'])},
+            {'id': 'chain', 'label': 'Evidence to release', 'icon': 'git-branch'}, {'id': 'gates', 'label': 'Release gates', 'icon': 'badge-check', 'count': len(rq['gates'])},
+            {'id': 'principles', 'label': 'Design principles', 'icon': 'compass', 'count': len(rq['principles'])},
+            {'id': 'catalogue', 'label': 'Requirements', 'icon': 'list-checks', 'count': len(reqs), 'new': True},
+            {'id': 'sources', 'label': 'Public sources', 'icon': 'book-open', 'count': len(rq['public_sources'])},
+            {'id': 'controlled', 'label': 'Controlled layers', 'icon': 'shield-check'}, {'id': 'programme', 'label': 'Work programme', 'icon': 'route', 'count': len(rq['programme'])},
+            {'id': 'against', 'label': 'The case against', 'icon': 'scale', 'count': len(rq['case_against'])}]}],
+                  crumbs=[('Context', 'strategy.html'), ('Requirements stream', None)])
 
     def lockin_page(self):
         lk, sd = self.lk, self.sd

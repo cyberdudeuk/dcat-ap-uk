@@ -396,3 +396,26 @@ open-data-triage:
     - {code: public, label: Public, definition: 'Available to anyone, but under a licence with conditions that make it not open.'}
     - {code: shared, label: Shared, definition: 'Shared with named people or organisations, or groups of them, under conditions.'}
     - {code: closed, label: Closed, definition: 'Not shared outside the organisation, for reasons recorded in the triage, such as security or privacy.'}
+
+missing-reason:
+  label: Reasons a value is missing
+  definition: Why a property is empty on purpose. Based on the nil reasons of GML 3.2 and the INSPIRE void reasons, so records can be mapped to geospatial and allied metadata that use the same idea.
+  concepts:
+    - {code: unknown, label: Unknown, maps: {close: 'http://dd.eionet.europa.eu/vocabulary/common/NilReasonType/unknown', prov: S}, definition: 'The correct value is not known to the publisher and cannot be worked out, but it probably exists.'}
+    - {code: withheld, label: Withheld, maps: {close: 'http://dd.eionet.europa.eu/vocabulary/common/NilReasonType/withheld', prov: S}, definition: 'A value exists but is not given in this record, for example because the record is shared more widely than the value may be.'}
+    - {code: inapplicable, label: Not applicable, maps: {close: 'http://dd.eionet.europa.eu/vocabulary/common/NilReasonType/inapplicable', prov: S}, definition: 'The property does not apply to this resource, so there is no value to give.'}
+    - {code: unpopulated, label: Not collected, maps: {close: 'http://dd.eionet.europa.eu/vocabulary/common/NilReasonType/unpopulated', prov: S}, definition: 'The publisher does not hold this kind of value for any of its resources.'}
+    - {code: template, label: Not yet available, maps: {close: 'http://dd.eionet.europa.eu/vocabulary/common/NilReasonType/template', prov: S}, definition: 'The value will be given later, for example once the data is published.'}
+
+geodetic-technique:
+  label: Geodetic observation techniques
+  definition: How geodetic positions, heights or reference frame products were observed. A candidate list for the geodesy module.
+  provisional: true
+  concepts:
+    - {code: gnss, label: Global navigation satellite systems (GNSS), definition: 'Positions from satellite navigation signals, such as GPS and Galileo.'}
+    - {code: slr, label: Satellite laser ranging (SLR), definition: 'Distances to satellites measured by laser.'}
+    - {code: vlbi, label: Very long baseline interferometry (VLBI), definition: 'Radio telescopes observing distant sources, which ties the frame to space.'}
+    - {code: doris, label: DORIS, definition: 'Doppler orbitography and radiopositioning integrated by satellite.'}
+    - {code: insar, label: Interferometric synthetic aperture radar (InSAR), definition: 'Ground movement measured from repeated radar images.'}
+    - {code: levelling, label: Levelling, definition: 'Height differences measured on the ground.'}
+    - {code: gravimetry, label: Gravimetry, definition: 'Measurements of gravity, used for heights and the geoid.'}

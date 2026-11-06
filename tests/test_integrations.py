@@ -34,7 +34,7 @@ class Weaver(unittest.TestCase):
         built()
         html = (SITE / 'weaver.html').read_text(encoding='utf-8')
         samples = {m.group(1): json.loads(m.group(2).replace('<\\/', '</')) for m in re.finditer(r'<script type="application/json" id="w-sample-([a-z]+)">(.*?)</script>', html, re.S)}
-        self.assertEqual({'ukap', 'mem', 'ckan', 'dcatus', 'schemaorg', 'dc', 'ddi'}, set(samples))
+        self.assertEqual({'ukap', 'mem', 'ckan', 'dcatus', 'schemaorg', 'dc', 'ddi', 'atlas'}, set(samples))
         writers = js('return V.writers;', None)
         for fr, rec in samples.items():
             for to in writers:
@@ -89,6 +89,13 @@ class Lineage(unittest.TestCase):
 
 
 class Standards(unittest.TestCase):
+    def test_every_standard_is_drawn_on_the_map(self):
+        """D-028: a group missing from the layout could not be drawn; adding its first standard broke the build."""
+        sd = yaml.safe_load((ROOT / 'content' / 'standards.yaml').read_text(encoding='utf-8'))
+        html = (SITE / 'standards.html').read_text(encoding='utf-8')
+        drawn = set(re.findall(r'class="sm-n[^"]*" data-id="([^"]+)"', html))
+        self.assertEqual([], sorted({s['id'] for s in sd['standards']} - drawn - {'ukap'}))
+
     def test_links_name_known_standards_and_relations(self):
         sd = yaml.safe_load((ROOT / 'content' / 'standards.yaml').read_text(encoding='utf-8'))
         ids = {s['id'] for s in sd['standards']}
@@ -207,3 +214,88 @@ class RepoAsCode(unittest.TestCase):
 
     def test_check_catches_a_numeric_colour(self):
         self.assertEqual(self.check(yaml.safe_load('- {name: x, color: 942514, description: y}')), ['x'])
+
+
+class RequirementsStream(unittest.TestCase):
+    """RQ-18 and ADR 0015: the requirements catalogue is public, so its shape allows only kinds of community, never people,
+    meetings or documents; and every claim of status is backed by something checkable."""
+
+    RQ = yaml.safe_load((ROOT / 'content' / 'requirements.yaml').read_text(encoding='utf-8'))
+    KEYS = {'id', 'theme', 'statement', 'rationale', 'communities', 'evidence', 'sources', 'priority', 'layer', 'acceptance', 'validation',
+            'traces', 'status', 'gap', 'added'}
+
+    def shape_problems(self, reqs):
+        rq, bad = self.RQ, []
+        cm = {c['id'] for c in rq['communities']}
+        for r in reqs:
+            extra = set(r) - self.KEYS
+            if extra:
+                bad.append(f'{r["id"]}: fields not allowed in a public catalogue: {sorted(extra)}')
+            if not set(r['communities']) <= cm:
+                bad.append(f'{r["id"]}: raised by something that is not a kind of community: {sorted(set(r["communities"]) - cm)}')
+            if not set(r['evidence']) <= set(rq['evidence']):
+                bad.append(f'{r["id"]}: unknown evidence code')
+            if r['status'] == 'partly' and not r.get('gap'):
+                bad.append(f'{r["id"]}: partly met but says no gap')
+            if r['status'] == 'met' and r['validation'].lower().startswith('planned'):
+                bad.append(f'{r["id"]}: met, but its validation is only planned')
+            if r['status'] == 'controlled' and r['validation'] != 'Outside this repository':
+                bad.append(f'{r["id"]}: controlled, but claims validation here')
+            for k in r['traces'].get('properties', []):
+                if k not in P.props:
+                    bad.append(f'{r["id"]}: traces unknown property {k}')
+            for s in r.get('sources', []):
+                if s not in {x['id'] for x in rq['public_sources']}:
+                    bad.append(f'{r["id"]}: unknown public source {s}')
+        return bad
+
+    def test_catalogue_is_well_formed_and_public_safe(self):
+        self.assertEqual([], self.shape_problems(self.RQ['requirements']))
+
+    def test_shape_check_catches_a_named_raiser_and_an_unsupported_claim(self):
+        r = dict(self.RQ['requirements'][0], raised_by='a named person', communities=['a named forum'], status='partly')
+        r.pop('gap', None)
+        msgs = ' '.join(self.shape_problems([r]))
+        self.assertIn('fields not allowed', msgs)
+        self.assertIn('not a kind of community', msgs)
+        self.assertIn('says no gap', msgs)
+
+    def test_every_requirement_is_on_the_page_and_in_the_lineage(self):
+        html = (SITE / 'requirements.html').read_text(encoding='utf-8')
+        lg = json.loads((SITE / 'downloads' / 'lineage.json').read_text(encoding='utf-8'))
+        ids = {n['id'] for n in lg['nodes']}
+        for r in self.RQ['requirements']:
+            self.assertIn(f'id="{r["id"].lower()}"', html)
+            self.assertIn('req:' + r['id'], ids, f'{r["id"]} is not linked to anything in the lineage')
+
+
+class AtlasReader(unittest.TestCase):
+    """RQ-21: the Apache Atlas (Purview) reader carries what the entity holds and invents nothing."""
+
+    def weave(self, ent):
+        return js('return V.weave(P,"atlas","ukap",d);', {'entity': ent})
+
+    def test_dates_keywords_and_classification(self):
+        r = self.weave({'typeName': 'azure_sql_table', 'guid': 'g-1', 'labels': ['a'], 'sensitivityLabel': 'OFFICIAL - SENSITIVE',
+                        'attributes': {'name': 'T', 'description': 'D', 'createTime': 1767225600000}})['record']
+        self.assertEqual('2026-01-01', r['issued'])
+        self.assertEqual(['a'], r['keyword'])
+        self.assertEqual('ukcl:security-classification/official-sensitive', r['securityClassification'])
+
+    def test_nothing_is_invented(self):
+        out = self.weave({'typeName': 'azure_sql_table', 'guid': 'g-2', 'attributes': {'name': 'T', 'qualifiedName': 'mssql://server/db/t'}})
+        r = out['record']
+        for k in ('description', 'licence', 'language', 'securityClassification', 'accessRights', 'publisher', 'contactPoint', 'distribution'):
+            self.assertNotIn(k, r, f'{k} was invented')
+        self.assertTrue(any('not assumed to be OFFICIAL' in n for n in out['notes']))
+
+    def test_above_official_and_personal_are_flagged_not_mapped(self):
+        out = self.weave({'typeName': 'x', 'sensitivityLabel': 'Highly Confidential', 'classifications': [{'typeName': 'Microsoft.Personal.Name'}],
+                          'attributes': {'name': 'T', 'owner': 'someone'}})
+        self.assertNotIn('securityClassification', out['record'])
+        self.assertNotIn('personalData', out['record'])
+        self.assertNotIn('someone', json.dumps(out['record']))
+        text = ' '.join(out['notes'])
+        self.assertIn('above OFFICIAL', text)
+        self.assertIn('personal data', text)
+        self.assertIn('names people', text)

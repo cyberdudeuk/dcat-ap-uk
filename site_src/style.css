@@ -393,3 +393,17 @@ details.faq{border-bottom:1px solid var(--rule);padding:.5rem 0}details.faq summ
 @media (max-width:48em){.gbar ul.top{position:relative}.gbar ul.top>li{position:static}.gbar ul.top>li>.sub{left:0;right:0;min-width:0}}
 .gbar ul.top>li>.sub.flip{left:auto;right:0}
 .mast a.mast-link[aria-current]{box-shadow:inset 0 -4px 0 var(--accent-on-dark,#ffdd00)}
+.layers{list-style:none;padding:0;margin:1rem 0;display:flex;flex-direction:column;gap:.5rem}
+.layers .layer{display:flex;gap:1rem;align-items:flex-start;border:1px solid var(--border);border-left:6px solid var(--accent);border-radius:4px;padding:.75rem 1rem;background:var(--bg)}
+.layers .layer h3{margin:0 0 .25rem;font-size:1.1rem}.layers .layer p{margin:.25rem 0}
+.layers .lnum{flex:none;width:2rem;height:2rem;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:700;background:var(--accent);color:var(--bg)}
+.steps li{margin:.5rem 0}
+.k-requirement{--k-node:var(--d4)}
+#t-rq td:first-child,#t-rq th:first-child{white-space:nowrap}#t-rq td:nth-child(2){min-width:22rem}#t-rq td:nth-child(2) p{margin:.25rem 0}
+.layers .layer.alongside{border-left-style:dashed}.layers .lnum{width:auto;min-width:2.4rem;padding:0 .4rem;border-radius:1rem}
+.chain{list-style:none;padding:0;margin:1rem 0;display:flex;flex-wrap:wrap;gap:.5rem;counter-reset:ch}
+.chain li{position:relative;flex:1 1 9rem;display:flex;flex-direction:column;gap:.25rem;padding:.6rem .75rem;border:1px solid var(--border);border-top:4px solid var(--accent);border-radius:4px;background:var(--bg)}
+.chain li svg.i{width:1.4rem;height:1.4rem}
+th{overflow-wrap:normal;word-break:normal}td{overflow-wrap:break-word}td code{overflow-wrap:anywhere}
+.tl{list-style:none;margin:0;padding:0}.tl li{margin:0 0 .5rem;line-height:1.4}.tl a{display:inline-block;padding:.15rem 0}
+.filters label{max-width:100%}.filters select{max-width:100%}

@@ -226,3 +226,55 @@ class MCPServer(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class MissingValues(unittest.TestCase):
+    """RQ-04: a record says why a property is empty. Rule Q-02 keeps it from standing in for a mandatory value."""
+
+    def base(self):
+        return copy.deepcopy([e for e in P.examples if e['key'] == 'dataset-missing-values'][0]['record'])
+
+    def rules(self, rec, level):
+        return [i for i in js('return V.validate(P,d);', rec)['issues'] if i['level'] == level]
+
+    def test_example_conforms_and_explained_values_are_not_nagged(self):
+        rec = self.base()
+        self.assertTrue(js('return V.validate(P,d);', rec)['ok'])
+        nag = {i['prop'] for i in self.rules(rec, 'warning') if i['rule'] == 'R-00'}
+        self.assertNotIn('temporal', nag)
+        self.assertNotIn('spatial', nag)
+
+    def test_a_mandatory_property_cannot_be_explained_away(self):
+        rec = self.base()
+        rec.pop('title')
+        rec['missingValue'].append({'missingProperty': 'dct:title', 'missingReason': 'ukcl:missing-reason/withheld'})
+        r = js('return V.validate(P,d);', rec)
+        self.assertFalse(r['ok'])
+        self.assertIn('M-01', {i['rule'] for i in r['issues'] if i['level'] == 'error'})
+        self.assertIn('Q-02', {i['rule'] for i in r['issues'] if i['level'] == 'warning'})
+
+    def test_contradiction_and_unknown_property_warn(self):
+        rec = self.base()
+        rec['temporal'] = {'startDate': '2020-01-01'}
+        rec['missingValue'].append({'missingProperty': 'ex:notAProperty', 'missingReason': 'ukcl:missing-reason/unknown'})
+        msgs = [i['text'] for i in self.rules(rec, 'warning') if i['rule'] == 'Q-02']
+        self.assertTrue(any('gives a value' in m for m in msgs), msgs)
+        self.assertTrue(any('not a property' in m for m in msgs), msgs)
+
+
+class Offline(unittest.TestCase):
+    """RQ-13: validation runs in disconnected environments. validator.js makes no network calls."""
+
+    PATTERNS = ('fetch(', 'XMLHttpRequest', "require('http", 'require("http', "require('net", 'WebSocket', 'navigator.sendBeacon', 'import(')
+
+    def scan(self, text):
+        return [p for p in self.PATTERNS if p in text]
+
+    def test_validator_has_no_network_calls(self):
+        self.assertEqual([], self.scan((ROOT / 'site_src' / 'validator.js').read_text(encoding='utf-8')))
+
+    def test_command_line_reads_only_local_files(self):
+        self.assertEqual([], self.scan((ROOT / 'integrations' / 'cli' / 'validate.js').read_text(encoding='utf-8')))
+
+    def test_scan_catches_a_network_call(self):
+        self.assertEqual(['fetch('], self.scan("var x = fetch('https://example.org');"))

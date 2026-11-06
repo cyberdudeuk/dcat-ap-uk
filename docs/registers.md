@@ -37,6 +37,7 @@ Proposed. Not endorsed. To become a standard it needs, in order: review by the M
 | D-025 | 2026-11-06 | Pressing Enter in a form with one text field, such as Describe an API from OpenAPI, froze the page. | The browser tried to submit the form; the content security policy (form-action none) blocked it. | No form on the portal submits; the page handles every submit itself. | tools/check_browser.py submit: Enter in three forms, no error and no hang (break: submit) |
 | D-026 | 2026-11-06 | On About pages, and others whose section was folded into More, the bar did not show which section you were in. | The current-section marker stayed on the folded item, out of sight inside More. | More carries the marker when the current section is inside it. | tools/check_browser.py current section at six widths (break: current) |
 | D-027 | 2026-11-06 | On a phone with the largest text, opening About inside More showed nothing: its links were below the part of More in view. | More scrolls when it is taller than the screen, and opening a group inside it did not bring the group into view. Found when the menu check was extended to the largest text, because the shorter bar (ADR 0014) no longer exercised the right-edge rule at standard sizes. | Opening a group inside More scrolls its links into view. | tools/check_browser.py menus at six widths, standard and largest text (breaks: moreview, menuedge) |
+| D-028 | 2026-11-06 | The standards map could not draw any standard in the products and connectors group: adding the first one, Apache Atlas, broke the build. | The map placed groups from a hand-written list that left that group out. The group had no standards until now, so nothing showed it. | The map takes its groups from the data. | tests/test_integrations.py Standards: every standard is drawn on the map |
 
 ## Open register
 
@@ -61,6 +62,13 @@ Proposed. Not endorsed. To become a standard it needs, in order: review by the M
 | O-18 | Set the repository settings the build cannot set: description, topics, Pages from gh-pages, private vulnerability reporting, secret scanning, merge options and social preview (docs/repo-settings.md). | Repository owner |
 | O-19 | Check the 22 product entries on the integrations page with each supplier before anyone relies on them. | Owning team, with suppliers |
 | O-20 | Have commercial and legal specialists review the model contract clauses before use in any procurement. | Commercial and legal specialists |
+| O-21 | Agree a governance route and an accountable owner for the requirements stream, including who may validate controlled requirements (ADR 0015). | Owning team, with data and architecture leadership |
+| O-22 | Run the community workshops in the proposed work programme and record which requirements each one confirmed, changed or rejected. | Owning team |
+| O-23 | Decide whether data product becomes a class of its own or a stated mapping (RQ-10). | Owning team, with data asset management leads |
+| O-24 | Add a way for a harvested copy to point to the record it came from and say what was enriched (RQ-08). | Owning team |
+| O-25 | Compare obligations with the statistics producers' application profile and decide every difference (RQ-27). Its public repository was not found on 6 November 2026, so the comparison needs the current version from its owners. | Owning team, with official statistics producers |
+| O-26 | Review the candidate geodesy module with geodetic specialists, including which frames, epochs and uncertainty rules to enforce (RQ-23). | Owning team, with geodesy specialists |
+| O-27 | Add geospatial representation type and OGC service conformance to the geospatial extension (RQ-24). | Owning team, with geospatial specialists |
 
 ## Backlog from the xGov MEM
 

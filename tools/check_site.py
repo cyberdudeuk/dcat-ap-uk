@@ -321,6 +321,21 @@ def c_feedback(site, docs):
     return bad
 
 
+# Protective markings and handling caveats from the Government Security Classifications Policy and NATO practice. The page may
+# name the three classifications (it explains them); it must never carry a caveat or a release marking.
+MARKINGS = re.compile(r'\b(UK EYES ONLY|EYES ONLY|FVEY|NOFORN|REL(?:EASABLE)? TO\b|REL [A-Z]{3}(?:[ ,/][A-Z]{3})*\b|NATO (?:RESTRICTED|CONFIDENTIAL|SECRET|UNCLASSIFIED)|COSMIC TOP SECRET|ORCON|CABINET OFFICE EYES)')
+
+
+def c_markings(site, docs):
+    """C-22 no protective markings or handling caveats anywhere public: pages, downloads and the requirements file (ADR 0015, RQ-18)."""
+    bad = []
+    files = list(site.glob('*.html')) + list((site / 'downloads').glob('requirements*')) + [ROOT / 'content' / 'requirements.yaml']
+    for f in files:
+        for m in MARKINGS.finditer(f.read_text(encoding='utf-8')):
+            bad.append(f'{f.name}: carries the marking "{m.group(0)}"')
+    return bad
+
+
 def c_email_repo(site, docs):
     """C-17 no email address in the repository's own files either; test fixtures may use reserved example domains only."""
     bad = []
@@ -336,7 +351,7 @@ def c_email_repo(site, docs):
     return bad
 
 
-CHECKS = [c_csp, c_external, c_email, c_ids, c_links, c_tables, c_meta, c_colophon, c_skip, c_deck_film, c_inline, c_banner, c_lang_title, c_weight, c_svg_names, c_unrendered, c_email_repo, c_llms, c_no_style_attr, c_tours, c_feedback]
+CHECKS = [c_csp, c_external, c_email, c_ids, c_links, c_tables, c_meta, c_colophon, c_skip, c_deck_film, c_inline, c_banner, c_lang_title, c_weight, c_svg_names, c_unrendered, c_email_repo, c_llms, c_no_style_attr, c_tours, c_feedback, c_markings]
 
 
 def run(site, quiet=False):
@@ -392,6 +407,7 @@ BREAKS = {
     'C-17': lambda s: _plant_repo(s),
     'C-19': lambda s: _sub(s / 'index.html', '<main id="main"', '<main style="color:red" id="main"'),
     'C-20': lambda s: _sub(s / 'builder.html', 'id="b-level"', 'id="b-level-gone"'),
+    'C-22': lambda s: _sub(s / 'requirements.html', '<h2 id="controlled">', '<p>REL FVEY</p><h2 id="controlled">'),
     'C-21': lambda s: _sub(s / 'types.html', 'template=change-request.yml', 'template=no-such-form.yml'),
     'C-18': lambda s: _sub(s / 'llms.txt', 'downloads/profile.json)', 'downloads/no-such-file.json)'),
     'C-15': lambda s: _sub(s / 'profile.html', 'role="group" aria-labelledby="model-t"', 'role="img"'),

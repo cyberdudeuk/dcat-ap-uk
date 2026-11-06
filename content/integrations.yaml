@@ -32,14 +32,14 @@ products:
   - {name: Tyler Data and Insights (Socrata), kind: Open data platform, licence: Commercial, category: related, note: 'Publishes data.json catalogues; weave on export.'}
   - {name: Dataverse, kind: Research data repository, licence: Open source, category: related, note: 'Exports schema.org and DDI; weave on export.'}
   - {name: data.world, kind: Data catalogue, licence: Commercial, category: native, note: 'Built on a knowledge graph; can hold DCAT terms directly.'}
-  - {name: Microsoft Purview, kind: Data governance and catalogue, licence: Commercial, category: api, note: 'Own model; connect through its API.'}
+  - {name: Microsoft Purview, kind: Data governance and catalogue, licence: Commercial, category: api, note: 'Own model (Apache Atlas types). The weaver reads exported data map entities and says what is missing; publisher, frequency, licence and coverage must be added (RQ-21).'}
   - {name: Collibra, kind: Data governance and catalogue, licence: Commercial, category: api, note: 'Own model; connect through its API.'}
   - {name: Alation, kind: Data catalogue, licence: Commercial, category: api, note: 'Own model; connect through its API.'}
   - {name: Atlan, kind: Data catalogue, licence: Commercial, category: api, note: 'Own model; connect through its API.'}
   - {name: Informatica Cloud Data Governance and Catalog, kind: Data governance and catalogue, licence: Commercial, category: api, note: 'Own model; connect through its API.'}
   - {name: OpenMetadata, kind: Metadata platform, licence: Open source, category: api, note: 'Own JSON Schema model; build a connector.'}
   - {name: DataHub, kind: Metadata platform, licence: Open source, category: api, note: 'Own model; build a connector.'}
-  - {name: Apache Atlas, kind: Metadata platform, licence: Open source, category: api, note: 'Own type system; build a connector.'}
+  - {name: Apache Atlas, kind: Metadata platform, licence: Open source, category: api, note: 'Own type system. The weaver reads its v2 entity JSON into DCAT-AP-UK, with a note for every gap (RQ-21).'}
   - {name: Databricks Unity Catalog, kind: Lakehouse catalogue, licence: Commercial, category: api, note: 'Own model; connect through its API.'}
   - {name: Amazon DataZone, kind: Data platform catalogue, licence: Commercial, category: api, note: 'Own model; connect through its API.'}
   - {name: Google Cloud Dataplex, kind: Data platform catalogue, licence: Commercial, category: api, note: 'Own model; connect through its API.'}
