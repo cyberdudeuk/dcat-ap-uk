@@ -148,6 +148,50 @@ def run(site, verbose=True):
         if pg.evaluate("document.getElementById('palette').open"):
             fails.append('palette: Escape did not close it')
         pg.close()
+        # D-024: every global menu opens at every width, including groups folded into More (and its items can be clicked)
+        for w in WIDTHS:
+            mp = ctx.new_page(); mp.set_viewport_size({'width': w, 'height': 900}); mp.goto(base + 'index.html')
+            groups = mp.evaluate("[...document.querySelectorAll('.gbar li.grp > button')].map(b => b.textContent.trim())")
+            for g in groups:
+                mp.goto(base + 'index.html')
+                inmore = mp.evaluate("(g) => { const b = [...document.querySelectorAll('.gbar li.grp > button')].find(x => x.textContent.trim() === g); return !!b.closest('li.more'); }", g)
+                try:
+                    if inmore:
+                        mp.locator('.gbar li.more > button').click(timeout=3000)
+                    mp.locator('.gbar li.grp > button', has_text=g).first.click(timeout=3000)
+                except Exception as e:
+                    fails.append(f'menu {w}px {g}: cannot be clicked{" inside More" if inmore else ""} ({type(e).__name__})')
+                    continue
+                ok = mp.evaluate("""(g) => { const b = [...document.querySelectorAll('.gbar li.grp > button')].find(x => x.textContent.trim() === g);
+                    const a = b.parentNode.querySelector(':scope > ul > li > a'); if (!a) return 'no items';
+                    const r = a.getBoundingClientRect(); if (!r.width) return 'did not open';
+                    const m = b.parentNode.querySelector(':scope > ul').getBoundingClientRect();
+                    if (m.left < -1 || m.right > document.documentElement.clientWidth + 1) return 'runs off the screen';
+                    const h = document.elementFromPoint(r.left + 4, r.top + r.height / 2); return a.contains(h) ? '' : 'covered'; }""", g)
+                if ok:
+                    fails.append(f'menu {w}px {g}: {ok}')
+            mp.close()
+        # D-026: the bar always shows the current section, even when it is folded into More
+        for w in WIDTHS:
+            cp = ctx.new_page(); cp.set_viewport_size({'width': w, 'height': 900}); cp.goto(base + 'governance.html')
+            shown = cp.evaluate("""() => [...document.querySelectorAll('.gbar ul.top > li.current, .gbar ul.top > li > a[aria-current="page"]')]
+                .some(x => x.getBoundingClientRect().width > 0)""")
+            if not shown:
+                fails.append(f'current section {w}px governance.html: not shown in the bar')
+            cp.close()
+        # D-025: pressing Enter in a form does not try to submit it (form-action 'none' would block it and hang the page)
+        sp = ctx.new_page(); serrs = []
+        sp.on('console', lambda m: serrs.append(m.text[:120]) if m.type == 'error' else None)
+        sp.set_default_timeout(5000)
+        for name, sel in (('openapi.html', '#oas-url'), ('builder.html', '#b-id'), ('lineage.html', '#tr-q')):
+            sp.goto(base + name)
+            try:
+                sp.locator(sel).fill('acc'); sp.locator(sel).press('Enter'); sp.wait_for_timeout(150)
+            except Exception as e:
+                serrs.append(f'{name}: Enter hung ({type(e).__name__})')
+        if serrs:
+            fails.append(f'submit: {serrs[:2]}')
+        sp.close()
         # degraded: scripts blocked, content still there
         ctx2 = b.new_context(java_script_enabled=False)
         pg = ctx2.new_page()
@@ -181,6 +225,10 @@ BREAKS = {
     'validator': lambda s: _sub(s / 'validator.js', "if (ob === 'M') add('error'", "if (false) add('error'"),
     'csp': lambda s: _sub(s / 'index.html', '<main id="main"', '<main style="color:red" id="main"'),
     'bulk': lambda s: _sub(s / 'validator.js', "var rows = parseCSV(text), notes = [];", "var rows = [], notes = [];"),
+    'menus': lambda s: _sub(s / 'app.js', 'if (except && li.contains(except)) return;', 'if (li === except) return;'),
+    'menuedge': lambda s: _sub(s / 'style.css', '.gbar ul.top>li>.sub.flip{left:auto;right:0}', ''),
+    'current': lambda s: _sub(s / 'app.js', "more.classList.toggle('current', ", "more.classList.toggle('x-current', "),
+    'submit': lambda s: _sub(s / 'app.js', "doc.addEventListener('submit', function (e) { e.preventDefault(); }, true);", ''),
     'meter': lambda s: _sub(s / 'app.js', '<span data-w="\' + Math.round(', '<span style="width:\' + Math.round('),
     'nested': lambda s: _sub(s / 'standards.html', 'id="std-svg" viewBox', 'id="std-svg" role="img" viewBox'),
     'extension': lambda s: _sub(s / 'validator.js', "Object.keys(e.props).forEach(function (k) { Q.props[k] = e.props[k]; });", ""),

@@ -38,6 +38,11 @@
     doc.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !dpPanel.hidden) { dpPanel.hidden = true; dpBtn.setAttribute('aria-expanded', 'false'); dpBtn.focus(); } });
   }
 
+  /* D-025: no form on the portal sends anything anywhere, and the content security policy says form-action 'none'.
+     Pressing Enter in a one-field form tried to submit it, the policy blocked that and the page hung. Every submit is
+     handled here; a form that does something on submit has its own handler (find-an-item on the lineage page). */
+  doc.addEventListener('submit', function (e) { e.preventDefault(); }, true);
+
   /* ---- drawer: in-page navigation, retractable, independent of the masthead ----------------------------- */
   var drawer = $('#drawer'), dt = $('#drawer-toggle');
   function setDrawer(open) {
@@ -54,24 +59,45 @@
 
   /* ---- global bar: grouped menus, and folding before it would overflow --------------------------------- */
   var gbar = $('.gbar');
-  function closeMenus(except) { $$('.gbar li.open').forEach(function (li) { if (li !== except) { li.classList.remove('open'); $('button', li).setAttribute('aria-expanded', 'false'); } }); }
+  /* D-024: a group folded into More is nested inside it, so closing every other open menu also closed More, the group's
+     own parent, and the group could never open. Ancestors of the menu being opened now stay open. */
+  function closeMenus(except) {
+    $$('.gbar li.open').forEach(function (li) {
+      if (except && li.contains(except)) return;
+      li.classList.remove('open'); var b = $(':scope > button', li); if (b) b.setAttribute('aria-expanded', 'false');
+    });
+  }
   if (gbar) {
     gbar.addEventListener('click', function (e) {
-      var b = e.target.closest('button[aria-expanded]'); if (!b) return;
+      var b = e.target.closest('button[aria-expanded]'); if (!b || !gbar.contains(b)) return;
       var li = b.parentNode, open = !li.classList.contains('open');
       closeMenus(li); li.classList.toggle('open', open); b.setAttribute('aria-expanded', String(open));
+      // a menu that would run past the right edge opens leftwards instead
+      var sub = open && $(':scope > ul', li);
+      if (sub) { sub.classList.remove('flip'); if (sub.getBoundingClientRect().right > root.clientWidth) sub.classList.add('flip'); }
+      if (!open) $$('li.open', li).forEach(function (x) { x.classList.remove('open'); var xb = $(':scope > button', x); if (xb) xb.setAttribute('aria-expanded', 'false'); });
     });
     doc.addEventListener('click', function (e) { if (!e.target.closest('.gbar')) closeMenus(); });
+    gbar.addEventListener('keydown', function (e) {
+      if (e.key !== 'Escape') return;
+      var li = e.target.closest('li.open') || (e.target.closest('li') && e.target.closest('li').parentNode.closest('li.open'));
+      if (!li) return;
+      e.preventDefault(); e.stopPropagation();
+      li.classList.remove('open'); var b = $(':scope > button', li); b.setAttribute('aria-expanded', 'false'); b.focus();
+    });
+    gbar.addEventListener('focusout', function (e) { if (e.relatedTarget && !gbar.contains(e.relatedTarget)) closeMenus(); });
     var top = $('ul.top', gbar), more = $('li.more', gbar), moreList = more && $('.sub', more);
     var originals = $$(':scope > li:not(.more)', top);
     gbar.classList.add('js-fold');
     var fold = function () {
       originals.forEach(function (li) { top.insertBefore(li, more); });
-      gbar.classList.remove('folding');
+      gbar.classList.remove('folding'); more.classList.remove('current');
       if (top.scrollWidth <= top.clientWidth + 1) return;
       gbar.classList.add('folding');
       var items = $$(':scope > li:not(.more)', top);
       for (var i = items.length - 1; i > 0 && top.scrollWidth > top.clientWidth + 1; i--) moreList.insertBefore(items[i], moreList.firstChild);
+      // D-026: when the current section is folded into More, More shows it, so the bar always says where you are
+      more.classList.toggle('current', !!$('li.current, [aria-current="page"]', moreList));
     };
     if (top && more) { fold(); window.addEventListener('resize', fold); }
   }
@@ -165,7 +191,8 @@
     var b = e.target.closest('[data-copy]');
     if (b) {
       var src = doc.getElementById(b.getAttribute('data-copy')); var text = src ? (src.value || src.textContent) : '';
-      var done = function () { announce('Copied'); b.textContent = 'Copied'; setTimeout(function () { b.textContent = 'Copy'; }, 1500); };
+      var was = b.getAttribute('data-was') || b.innerHTML; b.setAttribute('data-was', was);
+      var done = function () { announce('Copied'); b.textContent = 'Copied'; setTimeout(function () { b.innerHTML = was; }, 1500); };
       if (navigator.clipboard) navigator.clipboard.writeText(text).then(done, function () { announce('Copy failed: select the text and copy it'); });
       return;
     }
@@ -173,7 +200,8 @@
     if (s) {
       var url = location.href;
       if (navigator.share) navigator.share({ title: doc.title, url: url }).catch(function () {});
-      else if (navigator.clipboard) navigator.clipboard.writeText(url).then(function () { announce('Link copied'); });
+      else if (navigator.clipboard) navigator.clipboard.writeText(url).then(function () { announce('Link copied'); }, function () { announce('Copy the address from the address bar'); });
+      else announce('Copy the address from the address bar');
     }
   });
 
@@ -432,8 +460,8 @@
         if (!m[1]) return '';
         var a = ls[i].getBoundingClientRect(), b = rs[R.indexOf(m[1])].getBoundingClientRect();
         var y1 = a.top + a.height / 2 - sb.top, y2 = b.top + b.height / 2 - sb.top, w = sb.width;
-        var key = String(m[1]).replace(/^[a-z]+:/, ''), c = 'var(--d' + (FAM[key] || FAM[m[0]] || ((i % 8) + 1)) + ')';
-        return '<path d="M0,' + y1 + ' C' + w / 2 + ',' + y1 + ' ' + w / 2 + ',' + y2 + ' ' + w + ',' + y2 + '" stroke="' + c + '"/>';
+        var key = String(m[1]).replace(/^[a-z]+:/, ''), c = 'd' + (FAM[key] || FAM[m[0]] || ((i % 8) + 1));
+        return '<path class="' + c + '" d="M0,' + y1 + ' C' + w / 2 + ',' + y1 + ' ' + w / 2 + ',' + y2 + ' ' + w + ',' + y2 + '"/>';
       }).join('');
     };
     var run = function () {

@@ -74,7 +74,9 @@ svg.i{width:1.15em;height:1.15em;vertical-align:-.2em;fill:none;stroke:currentCo
 .gbar .sub a{border-bottom:0;font-weight:400}
 .gbar .more{display:none}
 .gbar.folding .more{display:block}
-.gbar .more .sub{right:0;left:auto}
+.gbar .more .sub{right:0;left:auto;max-height:calc(100vh - 8rem);overflow-y:auto}
+.gbar .more .sub .sub{position:static;min-width:0;border:0;border-left:3px solid var(--accent);margin:0 0 .25rem 1rem;padding:0;box-shadow:none;max-height:none;overflow:visible}
+.gbar .more .sub button{width:100%}
 
 /* layout: drawer (in-page navigation only, independent of the masthead) + main */
 .wrap{display:flex;align-items:flex-start;max-width:var(--maxw);margin:0 auto}
@@ -386,3 +388,7 @@ details.faq{border-bottom:1px solid var(--rule);padding:.5rem 0}details.faq summ
 .kg-class{background:#1d70b8}.kg-codelist{background:#00703c}.kg-issue{background:#d4351c}.kg-source{background:#b58840}.kg-portal{background:#912b88}
 
 @media (max-width:30em){.hero{flex-direction:column;gap:.75rem}.hero .tile{width:3rem;height:3rem}}
+.weave path.d1{stroke:var(--d1)}.weave path.d2{stroke:var(--d2)}.weave path.d3{stroke:var(--d3)}.weave path.d4{stroke:var(--d4)}.weave path.d5{stroke:var(--d5)}.weave path.d6{stroke:var(--d6)}.weave path.d7{stroke:var(--d7)}.weave path.d8{stroke:var(--d8)}
+/* D-024: on narrow screens a menu anchored to its own item ran off the edge of the screen. Menus there span the bar. */
+@media (max-width:48em){.gbar ul.top{position:relative}.gbar ul.top>li{position:static}.gbar ul.top>li>.sub{left:0;right:0;min-width:0}}
+.gbar ul.top>li>.sub.flip{left:auto;right:0}

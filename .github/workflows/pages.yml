@@ -51,7 +51,7 @@ jobs:
         run: python -I tools/check_browser.py
       - name: Browser checks catch their deliberate breaks
         run: |
-          for b in contrast overflow label console skip validator bulk extension csp meter nested; do
+          for b in contrast overflow label console skip validator bulk extension csp meter nested menus menuedge current submit; do
             python -I tools/check_browser.py --break "$b"
           done
       - name: Health run (sources, review date, page weight)

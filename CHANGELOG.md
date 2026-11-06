@@ -28,7 +28,7 @@ A minor release: a new name, tools for suppliers and buyers, and a richer portal
 - Repository: a conformance claim issue form, labels as code, release note categories, CodeQL, support and governance files.
 
 ### Fixed
-- D-017 to D-023; see the defect register.
+- D-017 to D-026; see the defect register.
 
 ## [1.1.0-rc.1] - 2026-11-06
 
