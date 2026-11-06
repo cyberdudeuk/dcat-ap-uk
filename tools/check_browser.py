@@ -149,8 +149,12 @@ def run(site, verbose=True):
             fails.append('palette: Escape did not close it')
         pg.close()
         # D-024: every global menu opens at every width, including groups folded into More (and its items can be clicked)
-        for w in WIDTHS:
-            mp = ctx.new_page(); mp.set_viewport_size({'width': w, 'height': 900}); mp.goto(base + 'index.html')
+        # also with the largest text from Display options, where menus are wider and reach the screen edge
+        ctx_xl = b.new_context(viewport={'width': 1280, 'height': 900})
+        ctx_xl.add_init_script("try { localStorage.setItem('ukap:dp-text', 'xl'); } catch (e) {}")
+        for w, mctx in [(w, c) for c in (ctx, ctx_xl) for w in WIDTHS]:
+            tag = '' if mctx is ctx else ' (largest text)'
+            mp = mctx.new_page(); mp.set_viewport_size({'width': w, 'height': 900}); mp.goto(base + 'index.html')
             groups = mp.evaluate("[...document.querySelectorAll('.gbar li.grp > button')].map(b => b.textContent.trim())")
             for g in groups:
                 mp.goto(base + 'index.html')
@@ -160,7 +164,7 @@ def run(site, verbose=True):
                         mp.locator('.gbar li.more > button').click(timeout=3000)
                     mp.locator('.gbar li.grp > button', has_text=g).first.click(timeout=3000)
                 except Exception as e:
-                    fails.append(f'menu {w}px {g}: cannot be clicked{" inside More" if inmore else ""} ({type(e).__name__})')
+                    fails.append(f'menu {w}px{tag} {g}: cannot be clicked{" inside More" if inmore else ""} ({type(e).__name__})')
                     continue
                 ok = mp.evaluate("""(g) => { const b = [...document.querySelectorAll('.gbar li.grp > button')].find(x => x.textContent.trim() === g);
                     const a = b.parentNode.querySelector(':scope > ul > li > a'); if (!a) return 'no items';
@@ -169,7 +173,7 @@ def run(site, verbose=True):
                     if (m.left < -1 || m.right > document.documentElement.clientWidth + 1) return 'runs off the screen';
                     const h = document.elementFromPoint(r.left + 4, r.top + r.height / 2); return a.contains(h) ? '' : 'covered'; }""", g)
                 if ok:
-                    fails.append(f'menu {w}px {g}: {ok}')
+                    fails.append(f'menu {w}px{tag} {g}: {ok}')
             mp.close()
         # D-026: the bar always shows the current section, even when it is folded into More
         for w in WIDTHS:
@@ -235,6 +239,7 @@ BREAKS = {
     'menuedge': lambda s: _sub(s / 'style.css', '.gbar ul.top>li>.sub.flip{left:auto;right:0}', ''),
     'current': lambda s: _sub(s / 'app.js', "more.classList.toggle('current', ", "more.classList.toggle('x-current', "),
     'fold': lambda s: _sub(s / 'style.css', 'padding:.7rem .6rem;', 'padding:.7rem 1.6rem;'),
+    'moreview': lambda s: _sub(s / 'app.js', "if (first) first.scrollIntoView({ block: 'nearest' });", ''),
     'submit': lambda s: _sub(s / 'app.js', "doc.addEventListener('submit', function (e) { e.preventDefault(); }, true);", ''),
     'meter': lambda s: _sub(s / 'app.js', '<span data-w="\' + Math.round(', '<span style="width:\' + Math.round('),
     'nested': lambda s: _sub(s / 'standards.html', 'id="std-svg" viewBox', 'id="std-svg" role="img" viewBox'),

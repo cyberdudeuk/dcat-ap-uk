@@ -75,6 +75,9 @@
       // a menu that would run past the right edge opens leftwards instead
       var sub = open && $(':scope > ul', li);
       if (sub) { sub.classList.remove('flip'); if (sub.getBoundingClientRect().right > root.clientWidth) sub.classList.add('flip'); }
+      // D-027: a group opened inside More can sit below the part of More that is in view; bring its items into view
+      var inMore = open && li.parentNode.closest('li.more'), first = inMore && $(':scope > ul > li > a', li);
+      if (first) first.scrollIntoView({ block: 'nearest' });
       if (!open) $$('li.open', li).forEach(function (x) { x.classList.remove('open'); var xb = $(':scope > button', x); if (xb) xb.setAttribute('aria-expanded', 'false'); });
     });
     doc.addEventListener('click', function (e) { if (!e.target.closest('.gbar')) closeMenus(); });
