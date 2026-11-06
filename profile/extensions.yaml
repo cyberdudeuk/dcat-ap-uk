@@ -10,6 +10,7 @@
 prefixes:
   healthdcatap: http://healthdataportal.eu/ns/health#
   geodcatap: http://data.europa.eu/930/
+  inspiresrt: http://inspire.ec.europa.eu/metadata-codelist/SpatialRepresentationType/
   statdcatap: http://data.europa.eu/(xyz)/statdcat-ap/
   mobilitydcatap: https://w3id.org/mobilitydcat-ap#
   dspace: https://w3id.org/dspace/2025/1/
@@ -173,6 +174,10 @@ extensions:
         - {p: topicCategory, ob: R, card: 0..n}
         - {p: lineage, ob: R, card: 0..n}
         - {p: purpose, ob: O, card: 0..n}
+      Distribution:
+        - {p: representationTechnique, ob: R, card: '0..1'}
+      DataService:
+        - {p: conformsTo, ob: M, card: 1..n}
     new_classes:
       ProvenanceStatement:
         uri: dct:ProvenanceStatement
@@ -197,6 +202,15 @@ extensions:
         range: ProvenanceStatement
         definition: How the data was made, from what sources, and the processes applied.
         mem: {change: new}
+      representationTechnique:
+        uri: adms:representationTechnique
+        label: Spatial representation type
+        kind: concept
+        codelist: spatial-representation-type
+        definition: How the geographic information in this distribution is represented, such as vector or grid, from the INSPIRE list that GeoDCAT-AP uses.
+        guidance: Give it on each distribution, because one dataset can be offered as vector and as grid. On a geospatial data service, give the OGC standards it conforms to in conforms to (RQ-24).
+        example: inspiresrt:vector
+        mem: {change: new}
       purpose:
         uri: geodcatap:purpose
         label: Purpose
@@ -216,8 +230,11 @@ extensions:
         spatialResolutionInMeters: ['1']
         topicCategory: [http://inspire.ec.europa.eu/metadata-codelist/TopicCategory/location]
         lineage: [{statement: 'Point locations derived from address data, updated each quarter.'}]
+        distribution:
+          - {class: Distribution, title: 'Postcode locations, GeoPackage', accessURL: ['https://www.ordnancesurvey.co.uk/products/code-point-open'], mediaType: 'https://www.iana.org/assignments/media-types/application/geopackage+sqlite3', representationTechnique: 'inspiresrt:vector'}
     breaks:
       - {key: geo-without-crs, rule: M-01, remove: [conformsTo]}
+      - {key: geo-bad-representation, rule: V-01, set: {distribution: [{class: Distribution, accessURL: ['https://example.org/f'], representationTechnique: 'inspiresrt:hologram'}]}}
 
   - id: statistics
     label: Official statistics
@@ -562,7 +579,7 @@ extensions:
     differences:
       - A candidate for discussion with geodetic specialists, not an agreed module. Its terms are in the dcatuk namespace for now; whether modules get namespaces of their own is open (RQ-07).
       - Details of stations and other infrastructure are left out on purpose. They can be sensitive, and belong in a controlled layer if they are needed at all.
-      - Give the frame and the vertical reference as standard identifiers, such as EPSG codes. The epoch is a decimal year, such as 2025.0.
+      - Give the frame and the vertical reference as standard identifiers, such as EPSG codes, and name a realisation rather than an ensemble. EPSG 9067 is ETRF2000, a realisation of ETRS89; EPSG 4258, the ETRS89 ensemble, is accurate only to about 0.1 metres. EPSG 5701 is ODN height. Codes checked at the EPSG registry on 6 November 2026. The epoch is a decimal year, such as 2025.0.
     classes:
       Dataset:
         - {p: spatial, ob: M, card: 1..n}
@@ -580,7 +597,7 @@ extensions:
         kind: iri
         definition: The coordinate reference system or terrestrial reference frame, and its realisation, that the coordinates are given in.
         guidance: Use the identifier of a published definition, such as an EPSG code. Name the realisation, not only the family of frames.
-        example: http://www.opengis.net/def/crs/EPSG/0/4258
+        example: http://www.opengis.net/def/crs/EPSG/0/9067
         provisional: true
         mem: {change: new}
       coordinateEpoch:
@@ -637,7 +654,7 @@ extensions:
       add:
         title: Synthetic coordinate time series for a survey control network
         spatial: ['http://statistics.data.gov.uk/id/statistical-geography/K03000001']
-        referenceFrame: http://www.opengis.net/def/crs/EPSG/0/4258
+        referenceFrame: http://www.opengis.net/def/crs/EPSG/0/9067
         coordinateEpoch: '2025.0'
         observationTechnique: [ukcl:geodetic-technique/gnss]
         horizontalUncertainty: '0.01'

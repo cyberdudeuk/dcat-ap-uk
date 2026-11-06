@@ -1,0 +1,11 @@
+# linkml-lint configuration for the generated schema (site/downloads/dcat-ap-uk.linkml.yaml).
+# Two rules are turned off on purpose; every other rule stays at its default.
+extends: recommended
+rules:
+  # Codelist values are the codes and IRIs records use (open, ukcl:access-rights/open), so they keep their
+  # hyphens and slashes rather than LinkML's preferred naming.
+  standard_naming:
+    level: disabled
+  # The prefixes are the ones DCAT-AP and its specifications use (dct, adms, odrl, geodcatap).
+  canonical_prefixes:
+    level: disabled

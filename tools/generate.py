@@ -299,31 +299,51 @@ def context(p):
 
 
 def linkml(p):
+    """LinkML rendering of the JSON form. D-029: it must accept every worked example and reject every deliberate break, like the
+    other three validators; tools/check_linkml.py checks that with LinkML's own validator."""
     slots, classes, enums = {}, {}, {}
-    rng = {'text': 'string', 'literal': 'string', 'date': 'date', 'integer': 'integer', 'decimal': 'decimal', 'boolean': 'boolean',
-           'duration': 'string', 'wkt': 'string', 'iri': 'uriorcurie', 'url': 'uri', 'email': 'string'}
+    DATE = r'^\d{4}(-\d{2}(-\d{2}(T\d{2}:\d{2}(:\d{2}(\.\d+)?)?(Z|[+-]\d{2}:\d{2}))?)?)?$'
+    pat = {'date': DATE, 'integer': r'^\d+$', 'decimal': r'^\d+(\.\d+)?$', 'boolean': r'^(true|false)$', 'email': r'^(mailto:)?[^@\s]+@[^@\s]+$', 'url': r'^https?://'}
+    rng = {'text': 'string', 'literal': 'string', 'duration': 'string', 'wkt': 'string', 'iri': 'uriorcurie'}
+    # not an identifier slot: LinkML would then treat every link to a class as a reference only, and drop nested objects
+    slots['id'] = {'range': 'uriorcurie', 'description': 'The web identifier of the resource.'}
+    slots['class'] = {'designates_type': True, 'range': 'string', 'description': 'The class of the record, as named in this profile.'}
     for k, v in p.props.items():
         s = {'slot_uri': v['uri'], 'description': v['definition']}
         if v['kind'] == 'object':
-            s['range'] = v['range']
-        elif v['kind'] == 'concept':
+            s['any_of'] = [{'range': v['range']}, {'range': 'uriorcurie'}]
+            s['inlined'] = True
+        elif v['kind'] == 'concept' and v['codelist'] not in ukap.OPEN_CODELISTS:
             s['range'] = ''.join(w.title() for w in v['codelist'].split('-')) + 'Values'
+        elif v['kind'] == 'concept':
+            s['range'] = 'uriorcurie'
+        elif v['kind'] in pat:
+            s['range'] = 'string'
+            s['pattern'] = pat[v['kind']]
         else:
-            s['range'] = rng[v['kind']]
+            s['range'] = rng.get(v['kind'], 'string')
         if v.get('mem', {}).get('slot'):
             s['aliases'] = [v['mem']['slot']]
         slots[k] = s
     for ck, c in p.classes.items():
-        classes[ck] = {'class_uri': c['uri'], 'description': c['definition'], 'slots': [x['p'] for x in c['properties']],
+        classes[ck] = {'class_uri': c['uri'], 'description': c['definition'], 'slots': ['id', 'class'] + [x['p'] for x in c['properties']],
                        'slot_usage': {x['p']: {k2: v2 for k2, v2 in (('required', x['ob'] == 'M'), ('recommended', x['ob'] == 'R'),
                                                                    ('multivalued', p.multi(x))) if v2} for x in c['properties']}}
     for sk, s in p.codelists.items():
-        enums[''.join(w.title() for w in sk.split('-')) + 'Values'] = {
-            'description': s['definition'],
-            'permissible_values': {c['code']: {'meaning': p.concept_iri(sk, c['code']), 'description': c['label']} for c in s['concepts']}}
+        if sk in ukap.OPEN_CODELISTS:
+            continue
+        pv = {}
+        forms = compact_forms(p, sk)
+        for c in s['concepts']:
+            full = p.concept_iri(sk, c['code'])
+            for f in [x for x in forms if x == full or x.endswith('/' + c['code']) or x.endswith(':' + c['code']) or x == c.get('compact')]:
+                pv.setdefault(f, {'meaning': full, 'description': c['label']})
+        enums[''.join(w.title() for w in sk.split('-')) + 'Values'] = {'description': s['definition'], 'permissible_values': pv}
     doc = {'id': p.meta['namespace'].rstrip('#'), 'name': 'dcat-ap-uk', 'title': p.meta['title'], 'version': p.meta['version'],
            'license': 'https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/',
-           'description': 'LinkML rendering of DCAT-AP-UK, generated for continuity with the xGov MEM toolchain. The source of truth is profile/dcat-ap-uk.yaml.',
+           'description': ('LinkML rendering of DCAT-AP-UK, generated for continuity with the xGov MEM toolchain. The source of truth is profile/dcat-ap-uk.yaml. '
+                           'It describes the JSON form with every multi-valued property as a list; the JSON form also accepts a single value, which '
+                           'tools/check_linkml.py wraps in a list before validating. Cross-property rules (R-01 to R-08) are in the SHACL shapes, not here.'),
            'prefixes': {k: v for k, v in p.prefixes.items()} | {'linkml': 'https://w3id.org/linkml/'},
            'default_prefix': 'dcatuk', 'default_range': 'string', 'imports': ['linkml:types'],
            'classes': classes, 'slots': slots, 'enums': enums}

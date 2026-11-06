@@ -915,6 +915,26 @@ properties:
     example: ukcl:missing-reason/unknown
     mem: {change: new}
 
+  sourceRecord:
+    uri: dct:source
+    label: Source record
+    kind: iri
+    definition: The original metadata record this record was harvested or converted from.
+    purpose: Lets anyone go back to the authoritative description, and stops a harvested copy from being mistaken for the original.
+    distinct_from: Describes (the dataset or service), and the dataset's own provenance, which is about the data rather than the record.
+    guidance: Give the web address of the record in the catalogue it came from. DCAT-AP uses the same property for source metadata (RQ-08).
+    example: https://example.org/catalogue/record/road-casualties
+    mem: {change: new}
+  enrichedProperty:
+    uri: dcatuk:enrichedProperty
+    label: Property added or changed on the way
+    kind: iri
+    definition: A property whose value was added or changed by the harvester or converter, rather than taken from the source record.
+    purpose: Shows which values the original publisher did not give, so nobody is held accountable for, or misled by, values someone else added.
+    guidance: Give the property's prefixed name, such as dcat:theme, once for each property the harvester filled or changed.
+    example: dcat:theme
+    mem: {change: new}
+
 # Classes, in order of precedence. For each property: ob (obligation), card (cardinality), cda (obligation for critical data assets).
 
 classes:
@@ -1097,6 +1117,8 @@ classes:
       - {p: metadataAudience, ob: O, card: '0..1'}
       - {p: securityClassification, ob: O, card: '0..1'}
       - {p: missingValue, ob: O, card: 0..n}
+      - {p: sourceRecord, ob: O, card: '0..1'}
+      - {p: enrichedProperty, ob: O, card: 0..n}
   Agent:
     uri: foaf:Agent
     label: Organisation

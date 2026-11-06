@@ -12,6 +12,6 @@ One profile file; a small Python generator for SHACL, JSON Schema, JSON-LD conte
 
 ## Consequences
 
-Fewer dependencies to patch. The LinkML file is not checked by LinkML tools in CI (open register O-09).
+Fewer dependencies to patch. CI checks the generated LinkML file with LinkML's own validator and linter, so it cannot drift from the other validators (D-029).
 
 <!-- Generated from content/portal.yaml by tools/build.py. Edit there. -->

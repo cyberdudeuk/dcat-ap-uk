@@ -177,11 +177,10 @@ requirements:
     evidence: [E]
     priority: must
     layer: core
-    acceptance: Records carry publisher, creator and qualified attribution; harvested copies keep the original identifier.
-    validation: Generated shapes; weaver notes
-    traces: {properties: [publisher, creator, qualifiedAttribution, identifier, otherIdentifier]}
-    status: partly
-    gap: There is no property yet for a harvested copy to point to the record it came from, or to say what was enriched.
+    acceptance: Records carry publisher, creator and qualified attribution; harvested copies keep the original identifier, point to the record they came from (source record) and list the properties they enriched.
+    validation: Generated shapes; weaver notes; worked example record-harvested
+    traces: {properties: [publisher, creator, qualifiedAttribution, identifier, otherIdentifier, sourceRecord, enrichedProperty]}
+    status: met
   - id: RQ-09
     theme: provenance
     statement: Every mapping says what it loses.
@@ -385,10 +384,9 @@ requirements:
     priority: should
     layer: geo
     acceptance: Shapes in the geospatial extension for each of the four, with deliberate breaks.
-    validation: Extension break geo-without-crs
-    traces: {properties: [conformsTo, spatialResolutionInMeters], pages: [extensions.html], fixtures: [geo-without-crs]}
-    status: partly
-    gap: The coordinate reference system and resolution (in metres) are covered. Representation type and OGC service conformance are not yet in the extension.
+    validation: Extension breaks geo-without-crs and geo-bad-representation; a data service without conforms to fails under the extension
+    traces: {properties: [conformsTo, spatialResolutionInMeters], pages: [extensions.html], fixtures: [geo-without-crs, geo-bad-representation]}
+    status: met
   - id: RQ-25
     theme: conformance
     statement: A record declares which profile, layers and versions it was written to.
@@ -398,7 +396,7 @@ requirements:
     priority: should
     layer: core
     acceptance: Catalogue records give the profile and each layer as versioned identifiers in conforms to.
-    validation: Generated shapes for CatalogueRecord
+    validation: Generated shapes for CatalogueRecord; worked example record-harvested
     traces: {properties: [conformsTo], pages: [class-cataloguerecord.html]}
     status: partly
     gap: The property exists, but there is no published identifier per layer version yet, and no rule checks that the identifier is a known one.

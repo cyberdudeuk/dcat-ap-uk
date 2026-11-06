@@ -38,6 +38,7 @@ Proposed. Not endorsed. To become a standard it needs, in order: review by the M
 | D-026 | 2026-11-06 | On About pages, and others whose section was folded into More, the bar did not show which section you were in. | The current-section marker stayed on the folded item, out of sight inside More. | More carries the marker when the current section is inside it. | tools/check_browser.py current section at six widths (break: current) |
 | D-027 | 2026-11-06 | On a phone with the largest text, opening About inside More showed nothing: its links were below the part of More in view. | More scrolls when it is taller than the screen, and opening a group inside it did not bring the group into view. Found when the menu check was extended to the largest text, because the shorter bar (ADR 0014) no longer exercised the right-edge rule at standard sizes. | Opening a group inside More scrolls its links into view. | tools/check_browser.py menus at six widths, standard and largest text (breaks: moreview, menuedge) |
 | D-028 | 2026-11-06 | The standards map could not draw any standard in the products and connectors group: adding the first one, Apache Atlas, broke the build. | The map placed groups from a hand-written list that left that group out. The group had no standards until now, so nothing showed it. | The map takes its groups from the data. | tests/test_integrations.py Standards: every standard is drawn on the map |
+| D-029 | 2026-11-06 | LinkML's own validator rejected every worked example, so the LinkML file disagreed with the SHACL, JSON Schema and portal validators. | The generated schema had no id slot, treated every link as a bare reference, and listed codes where records use compact or full IRIs. Nothing ran LinkML tools on it. | The generator now writes an id slot that is not an identifier, accepts nested objects or IRIs, and keys closed codelists by the forms records use. | tools/check_linkml.py, with its --break, and linkml-lint in CI |
 
 ## Open register
 
@@ -46,29 +47,25 @@ Proposed. Not endorsed. To become a standard it needs, in order: review by the M
 | O-01 | Test the portal and the profile with at least five people from four of the personas, including disabled people. | User researcher |
 | O-02 | Review by the Metadata Implementation Working Group. | Owning team |
 | O-03 | Endorsement by the Data Standards Authority Steering Board. | Owning team |
-| O-04 | Check every mapping marked K (EU themes, access rights, frequency, schema.org) against its source. | Metadata specialist |
-| O-05 | Register the w3id.org namespace (issue 13). | Owning team |
+| O-04 | Check every mapping marked K against its source. On 6 November 2026 the EU access-right values and data-theme codes were found at source and relabelled S; the frequency and schema.org mappings are still K. | Metadata specialist |
 | O-06 | A manual accessibility audit with assistive technologies. | Accessibility specialist |
 | O-07 | A Welsh language version of the portal. | Owning team, with translation |
 | O-08 | Research the levels for "who can see this record" (issue 5) and the reference data property (issue 3) with catalogue owners and information assurance. | User researcher, information assurance |
-| O-09 | Check the generated LinkML file with LinkML tools. | Maintainers |
 | O-11 | Review the first UK GEMINI crosswalk (adoption toolkit) and the geospatial extension with the geospatial community. | Metadata specialist |
 | O-12 | Ask the co-cddo owners to point the xGov MEM repository and its open issues here. | Repository owner |
 | O-13 | Check every extension term and namespace marked K with its sector body (health, geospatial, statistics, transport, data spaces, energy, organisation identifiers). | Metadata specialist, with each sector |
 | O-14 | Reconcile this profile with the future pan-UK metadata architecture (co-cddo, private): base DCAT-AP version, namespace, extension names and validator, so there is one DCAT-AP-UK, not two. | Owning team |
 | O-15 | Check the UK adequacy column and the transfer safeguards against the ICO list, and the Crown Dependency and Overseas Territory entries with their regulators. | Data protection specialist |
 | O-16 | Rename the repository to dcat-ap-uk, after the DCAT-AP-NO, -SE and -NL naming, and update the site address. GitHub redirects the old name. | Repository owner |
-| O-17 | Register https://w3id.org/dcat-ap-uk/ (the namespace changed with the rename, ADR 0011) and retire the dcat-uk-ap spelling. | Owning team |
+| O-17 | Register https://w3id.org/dcat-ap-uk/ (the namespace changed with the rename, ADR 0011; this also covers issue 13) and retire the dcat-uk-ap spelling. The redirect rules are ready in docs/w3id/dcat-ap-uk/ for a pull request to w3id.org. | Owning team |
 | O-18 | Set the repository settings the build cannot set: description, topics, Pages from gh-pages, private vulnerability reporting, secret scanning, merge options and social preview (docs/repo-settings.md). | Repository owner |
 | O-19 | Check the 22 product entries on the integrations page with each supplier before anyone relies on them. | Owning team, with suppliers |
 | O-20 | Have commercial and legal specialists review the model contract clauses before use in any procurement. | Commercial and legal specialists |
 | O-21 | Agree a governance route and an accountable owner for the requirements stream, including who may validate controlled requirements (ADR 0015). | Owning team, with data and architecture leadership |
 | O-22 | Run the community workshops in the proposed work programme and record which requirements each one confirmed, changed or rejected. | Owning team |
 | O-23 | Decide whether data product becomes a class of its own or a stated mapping (RQ-10). | Owning team, with data asset management leads |
-| O-24 | Add a way for a harvested copy to point to the record it came from and say what was enriched (RQ-08). | Owning team |
 | O-25 | Compare obligations with the statistics producers' application profile and decide every difference (RQ-27). Its public repository was not found on 6 November 2026, so the comparison needs the current version from its owners. | Owning team, with official statistics producers |
-| O-26 | Review the candidate geodesy module with geodetic specialists, including which frames, epochs and uncertainty rules to enforce (RQ-23). | Owning team, with geodesy specialists |
-| O-27 | Add geospatial representation type and OGC service conformance to the geospatial extension (RQ-24). | Owning team, with geospatial specialists |
+| O-26 | Review the candidate geodesy module with geodetic specialists, including which frames, epochs and uncertainty rules to enforce (RQ-23). The EPSG codes it uses were checked at the EPSG registry on 6 November 2026. | Owning team, with geodesy specialists |
 
 ## Backlog from the xGov MEM
 

@@ -200,6 +200,25 @@
     dataset:
       - https://example.org/dcat-ap-uk/examples/eligibility-decisions
 
+- key: record-harvested
+  label: A harvested catalogue record (synthetic)
+  teaches: >-
+    A record kept by a central catalogue about a dataset it harvested. It points back to the source record, says which value the
+    harvester added, declares the profile it was written to, and carries its own classification and audience, separate from the
+    data's (RQ-03, RQ-08, RQ-25).
+  synthetic: true
+  record:
+    class: CatalogueRecord
+    id: https://example.org/central-catalogue/record/eligibility-decisions
+    primaryTopic: https://example.org/dcat-ap-uk/examples/eligibility-decisions
+    modified: '2026-11-06'
+    issued: '2026-10-01'
+    conformsTo: [https://w3id.org/dcat-ap-uk/1.2]
+    metadataAudience: ukcl:metadata-audience/public-sector
+    securityClassification: ukcl:security-classification/official
+    sourceRecord: https://example.org/catalogue/record/eligibility-decisions
+    enrichedProperty: ['dcat:theme']
+
 - key: dataset-cross-border
   label: Personal data shared across borders (synthetic)
   teaches: >-

@@ -1,0 +1,2 @@
+# The LinkML toolchain, used only to check the generated LinkML schema (tools/check_linkml.py, D-029).
+linkml==1.12.1

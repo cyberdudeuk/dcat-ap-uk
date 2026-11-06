@@ -14,19 +14,19 @@ access-rights:
       mem: OPEN
       definition: Anyone can get the data, without registering or asking.
       note: Usually published under the Open Government Licence. Check the security classification is OFFICIAL and the data contains no personal data unless lawfully published.
-      maps: {exact: 'euaccess:PUBLIC', prov: K}
+      maps: {exact: 'euaccess:PUBLIC', prov: S}
     - code: commercial
       label: Commercial
       mem: COMMERCIAL
       definition: The data is available to anyone, for a fee or under commercial terms.
       note: Say in the rights statement how to buy or licence it.
-      maps: {close: 'euaccess:RESTRICTED', prov: K}
+      maps: {close: 'euaccess:RESTRICTED', prov: S}
     - code: internal
       label: Internal to the public sector
       mem: INTERNAL
       definition: The data is available only to public sector organisations, or to named organisations, under an agreement.
       note: Say in the rights statement which agreement or legal gateway is needed. Finer levels are being researched (issue 5).
-      maps: {close: 'euaccess:NON_PUBLIC', prov: K}
+      maps: {close: 'euaccess:NON_PUBLIC', prov: S}
 
 security-classification:
   label: Security classification
@@ -122,7 +122,7 @@ theme:
   issues: [49]
   source: https://www.data.gov.uk/search
   source_prov: V
-  mapping_prov: K
+  mapping_prov: S
   definitions_prov: K
   concepts:
     - {code: business-and-economy, label: Business and economy, maps: {exact: 'eutheme:ECON'}, definition: 'Small businesses, industry, imports, exports and trade.'}
@@ -419,3 +419,15 @@ geodetic-technique:
     - {code: insar, label: Interferometric synthetic aperture radar (InSAR), definition: 'Ground movement measured from repeated radar images.'}
     - {code: levelling, label: Levelling, definition: 'Height differences measured on the ground.'}
     - {code: gravimetry, label: Gravimetry, definition: 'Measurements of gravity, used for heights and the geoid.'}
+
+spatial-representation-type:
+  label: Spatial representation types
+  definition: How geographic information is represented, from the INSPIRE register of ISO 19115 spatial representation types, as GeoDCAT-AP uses them.
+  compact_from_uri: true
+  concepts:
+    - {code: vector, label: Vector, uri: 'http://inspire.ec.europa.eu/metadata-codelist/SpatialRepresentationType/vector', compact: 'inspiresrt:vector', definition: 'Points, lines and polygons.'}
+    - {code: grid, label: Grid, uri: 'http://inspire.ec.europa.eu/metadata-codelist/SpatialRepresentationType/grid', compact: 'inspiresrt:grid', definition: 'A regular grid of cells, such as raster imagery or a gridded model.'}
+    - {code: text-table, label: Text table, uri: 'http://inspire.ec.europa.eu/metadata-codelist/SpatialRepresentationType/textTable', compact: 'inspiresrt:textTable', definition: 'Tables or text with location in them, such as addresses or coordinates in columns.'}
+    - {code: tin, label: Triangulated irregular network, uri: 'http://inspire.ec.europa.eu/metadata-codelist/SpatialRepresentationType/tin', compact: 'inspiresrt:tin', definition: 'A surface made of triangles, often for elevation.'}
+    - {code: stereo-model, label: Stereo model, uri: 'http://inspire.ec.europa.eu/metadata-codelist/SpatialRepresentationType/stereoModel', compact: 'inspiresrt:stereoModel', definition: 'A three-dimensional view from an overlapping pair of images.'}
+    - {code: video, label: Video, uri: 'http://inspire.ec.europa.eu/metadata-codelist/SpatialRepresentationType/video', compact: 'inspiresrt:video', definition: 'A scene from a video recording.'}

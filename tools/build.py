@@ -1266,7 +1266,9 @@ class Site:
             'A visual <a href="sitemap.html">site map</a>, colour by section and more icons.',
             'A <a href="requirements.html">requirements stream</a>: requirements from cross-government engagement and public sources, by theme, layer (L0 to L4) and status, traced from evidence to release, with release gates and a proposed work programme (ADR 0015).',
             'The weaver reads Apache Atlas entities, the model behind the Microsoft Purview data map, and invents nothing: every gap becomes a note. A candidate <a href="extensions.html#ext-geodesy">geodesy module</a> adds reference frame, epoch, technique and uncertainty.',
-            'Catalogue records can carry their own security classification, and any record can say why a property is empty, with a reason from a list based on the GML and INSPIRE nil reasons (<a href="class-missingvalue.html">missing value</a>, rule Q-02).'])
+            'Catalogue records can carry their own security classification, and any record can say why a property is empty, with a reason from a list based on the GML and INSPIRE nil reasons (<a href="class-missingvalue.html">missing value</a>, rule Q-02).',
+            'Harvested catalogue records can point to the record they came from and list what they enriched. The <a href="extensions.html#ext-geospatial">geospatial extension</a> adds representation type and OGC service conformance.',
+            'The generated LinkML file is now checked with LinkML\'s own tools, and agrees with the other three validators.'])
         body += '<h2 id="v11">1.1.0-rc.1, 2026-11-06</h2>' + ul([
             f'Nine <a href="extensions.html">sector extensions</a> (health, geospatial, statistics, transport, high-value datasets, AI-ready, data spaces, private and voluntary sector, energy), each with its own shapes, schema, example and break.',
             'Cross-border flows: where data is held or sent, across the UK nations, Crown Dependencies, Overseas Territories, Commonwealth and partners, and the UK GDPR transfer safeguard (rule R-08).',

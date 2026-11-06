@@ -40,9 +40,19 @@ A minor release: a new name, tools for suppliers and buyers, and a richer portal
 - Checks C-19 (no style attributes), C-20 (tour stops exist) and C-21 (feedback link on every page),
   each with a deliberate break; a browser pass with the content security policy on.
 - Repository: a conformance claim issue form, labels as code, release note categories, CodeQL, support and governance files.
+- The geospatial extension says how data is represented (`adms:representationTechnique`, from the INSPIRE spatial
+  representation types) and requires geospatial data services to state the OGC standards they conform to (RQ-24).
+- Catalogue records can point to the record they were harvested from (`dct:source`) and list the properties they
+  enriched (`dcatuk:enrichedProperty`), with a worked example (RQ-08).
+- CI checks the generated LinkML file with LinkML's own validator and linter (`tools/check_linkml.py`, with a
+  deliberate break), so it agrees with the SHACL, JSON Schema and portal validators (closes O-09).
+- Redirect rules for `https://w3id.org/dcat-ap-uk/`, ready for a pull request to w3id.org (`docs/w3id/`, O-17).
 
 ### Fixed
-- D-017 to D-028; see the defect register.
+- D-017 to D-029; see the defect register.
+- The geodesy example names the ETRF2000 realisation (EPSG 9067), not the ETRS89 ensemble, as its own guidance asks.
+- The EU access-right and data-theme mappings were checked at source and relabelled S (open register O-04).
+- Closed O-05 (merged into O-17), O-09, O-24 and O-27.
 
 ## [1.1.0-rc.1] - 2026-11-06
 

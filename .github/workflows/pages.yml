@@ -43,6 +43,12 @@ jobs:
         run: python -I tools/build.py
       - name: Generated docs are up to date
         run: git diff --exit-code -- docs/
+      - name: LinkML agrees with the other validators, and lints clean
+        run: |
+          python -m pip install --quiet -r requirements-linkml.txt
+          python -I tools/check_linkml.py
+          python -I tools/check_linkml.py --break
+          linkml-lint --config .linkmllint.yaml site/downloads/dcat-ap-uk.linkml.yaml
       - name: Structural checks
         run: python -I tools/check_site.py
       - name: Structural checks catch their deliberate breaks

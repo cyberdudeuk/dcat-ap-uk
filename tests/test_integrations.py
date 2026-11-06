@@ -2,6 +2,7 @@
 
 Run: python3 -I -m unittest discover -s tests   (the kit, lineage and API tests use a built site: python3 -I tools/build.py)
 """
+import copy
 import json
 import re
 import socket
@@ -299,3 +300,33 @@ class AtlasReader(unittest.TestCase):
         self.assertIn('above OFFICIAL', text)
         self.assertIn('personal data', text)
         self.assertIn('names people', text)
+
+
+class GeospatialServices(unittest.TestCase):
+    """RQ-24: with the geospatial extension, a data service must say which standards (such as OGC APIs) it conforms to."""
+
+    def test_service_without_conformance_fails_and_with_it_passes(self):
+        svc = copy.deepcopy([e for e in P.examples if e['record']['class'] == 'DataService'][0]['record'])
+        svc.pop('conformsTo', None)
+        r = js('return V.validate(V.withExtensions(P,["geospatial"]), d);', svc)
+        self.assertIn('conformsTo', {i['prop'] for i in r['issues'] if i['rule'] == 'M-01'})
+        svc['conformsTo'] = ['http://www.opengis.net/spec/ogcapi-features-1/1.0']
+        r = js('return V.validate(V.withExtensions(P,["geospatial"]), d);', svc)
+        self.assertNotIn('conformsTo', {i['prop'] for i in r['issues'] if i['rule'] == 'M-01'})
+
+
+class W3idRedirects(unittest.TestCase):
+    """O-17: the prepared w3id.org redirects point only at files and anchors the portal publishes."""
+
+    def test_every_redirect_target_exists(self):
+        ht = (ROOT / 'docs' / 'w3id' / 'dcat-ap-uk' / '.htaccess').read_text(encoding='utf-8')
+        targets = set(re.findall(r'https://cyberdudeuk\.github\.io/dcat-uk-ap/([^\s#$]*)', ht))
+        missing = sorted(t for t in targets if t and not (SITE / t).exists())
+        self.assertEqual([], missing)
+        html = (SITE / 'codelists.html').read_text(encoding='utf-8')
+        for k in P.codelists:
+            if k not in ('organisations',):
+                self.assertIn(f'id="cl-{k}"', html, k)
+        ext = (SITE / 'extensions.html').read_text(encoding='utf-8')
+        for k in P.extensions:
+            self.assertIn(f'id="ext-{k}"', ext, k)
