@@ -9,7 +9,7 @@ meta:
   id: DCAT-UK-AP
   title: DCAT-UK Application Profile
   short_title: DCAT-UK AP
-  version: 1.0.0-rc.1
+  version: 1.1.0-rc.1
   status: Proposed
   status_note: >-
     A proposed evolution of the UK Cross-Government Metadata Exchange Model (xGov MEM), offered for review by the
@@ -63,6 +63,8 @@ prefixes:
   euaccess: http://publications.europa.eu/resource/authority/access-right/
   eulang: http://publications.europa.eu/resource/authority/language/
   geosparql: http://www.opengis.net/ont/geosparql#
+  odrl: http://www.w3.org/ns/odrl/2/
+  dcatap: http://data.europa.eu/r5r/
 
 # Obligation levels. C is conditional: the condition is stated on the property.
 # "cda" on a class property means the obligation when the record describes a critical data asset (dcatuk:criticalDataAsset true),
@@ -780,8 +782,15 @@ properties:
   algorithm:
     uri: spdx:algorithm
     label: Algorithm
-    kind: iri
-    definition: The algorithm used, for example SHA-256.
+    kind: concept
+    codelist: checksum-algorithm
+    definition: The algorithm used to calculate the checksum, from the SPDX list.
+    purpose: Lets people check a file with the same algorithm, and lets owners find files still checked with weak algorithms.
+    guidance: >-
+      Use SHA-256 or stronger. For files that must stay trustworthy for many years, prefer SHA-384, SHA-512 or SHA3. MD5 and SHA-1
+      are accepted so old records still conform, but the validator warns about them (rule Q-01): they are broken against deliberate tampering today.
+      Quantum computers do not break these hash functions in the way they break public-key cryptography; see the quantum-ready page.
+    example: spdx:checksumAlgorithm_sha256
     mem: {change: new}
   checksumValue:
     uri: spdx:checksumValue
@@ -802,6 +811,79 @@ properties:
     label: Organisation
     kind: iri
     definition: The organisation that plays the role.
+    mem: {change: new}
+
+  # --- Law, policy and cross-border flows (added in 1.1) ---
+  applicableLegislation:
+    uri: dcatap:applicableLegislation
+    label: Applicable legislation
+    kind: iri
+    definition: Legislation that requires, governs or permits the publication or sharing of the resource.
+    purpose: Shows the legal basis at once, and lets catalogues group resources by the law that applies, as DCAT-AP 3 does.
+    distinct_from: Rights statement (what a person must do to get the data) and conforms to (a technical standard the data follows).
+    guidance: >-
+      Give the legislation.gov.uk address of the Act or regulation, for example https://www.legislation.gov.uk/ukpga/2017/30 for the
+      Digital Economy Act 2017. For EU law, give its European Legislation Identifier (ELI) address. Give one value per law.
+    example: https://www.legislation.gov.uk/ukpga/2017/30
+    mem: {change: new}
+  hasPolicy:
+    uri: odrl:hasPolicy
+    label: Usage policy
+    kind: iri
+    definition: A machine-readable policy, in the W3C Open Digital Rights Language (ODRL), saying what may and may not be done with the resource.
+    purpose: >-
+      Lets software, including AI systems and data space connectors, read permissions and prohibitions without a person reading the
+      licence: for example whether the data may be used to train AI models.
+    distinct_from: Licence (the legal document) and rights statement (words for people). The policy expresses them for machines; it does not replace them.
+    guidance: >-
+      Give the web address of a published ODRL policy. Start from the policy templates on the AI-ready page. Where a licence and a policy
+      disagree, the licence wins: say so in the rights statement.
+    example: https://cyberdudeuk.github.io/dcat-uk-ap/downloads/policies/ogl-open.jsonld
+    mem: {change: new}
+  jurisdiction:
+    uri: dcatuk:jurisdiction
+    label: Where the data is held or sent
+    kind: concept
+    codelist: jurisdiction
+    definition: Every country or territory where the data is stored or processed, or to which it is sent.
+    purpose: >-
+      Makes cross-border flows visible before anyone asks for the data, so the right transfer safeguards can be checked. Covers the UK nations,
+      the Crown Dependencies, the British Overseas Territories, the Commonwealth and any other country.
+    distinct_from: Spatial coverage (the places the data is about). Data about Wales may be held in Ireland.
+    guidance: >-
+      Choose every place that applies, including where a supplier or cloud region holds it. Use the UK nations when it stays in the UK.
+      For a country not on the list, use its ISO 3166-1 code in the same form, for example ukcl:jurisdiction/br.
+    example: ukcl:jurisdiction/gb-eng
+    provisional: true
+    mem: {change: new}
+  transferMechanism:
+    uri: dcatuk:transferMechanism
+    label: Transfer safeguard
+    kind: concept
+    codelist: transfer-mechanism
+    definition: The basis under UK GDPR on which personal data in the resource may be sent outside the UK.
+    purpose: Lets a person asking for data see at once whether a restricted transfer is covered, and lets catalogues report on cross-border personal data.
+    guidance: >-
+      Needed when the data contains personal data and is held in or sent to anywhere outside the UK (rule R-08). Follow the
+      Information Commissioner's Office guidance on international transfers, updated on 15 January 2026. This records the basis; it is not
+      legal advice and does not replace a transfer risk assessment.
+    example: ukcl:transfer-mechanism/uk-adequacy
+    provisional: true
+    mem: {change: new}
+  transportSecurity:
+    uri: dcatuk:transportSecurity
+    label: Connection security
+    kind: concept
+    codelist: transport-security
+    definition: The kind of key exchange the service's endpoint uses to protect data in transit, classical or post-quantum.
+    purpose: >-
+      Turns the catalogue into part of the cryptographic inventory the NCSC asks organisations to build by 2028, so services still
+      using only classical key exchange can be found and migrated.
+    guidance: >-
+      Say what the endpoint negotiates today. Choose hybrid when it offers a post-quantum key exchange (ML-KEM, FIPS 203) alongside a
+      classical one. Update it when the service changes. This describes the service; it does not make it secure.
+    example: ukcl:transport-security/tls13-classical
+    provisional: true
     mem: {change: new}
 
 # Classes, in order of precedence. For each property: ob (obligation), card (cardinality), cda (obligation for critical data assets).
@@ -857,6 +939,10 @@ classes:
       - {p: qualifiedRelation, ob: O, card: 0..n}
       - {p: documentation, ob: O, card: 0..n}
       - {p: metadataAudience, ob: O, card: '0..1'}
+      - {p: applicableLegislation, ob: O, card: 0..n}
+      - {p: hasPolicy, ob: O, card: 0..n}
+      - {p: jurisdiction, ob: O, card: 0..n}
+      - {p: transferMechanism, ob: C, card: 0..n, condition: 'Mandatory when the data contains personal data and is held in or sent to anywhere outside the UK (rule R-08).'}
   DataService:
     uri: dcat:DataService
     label: Data service
@@ -893,6 +979,11 @@ classes:
       - {p: language, ob: O, card: 0..n}
       - {p: personalData, ob: O, card: '0..1'}
       - {p: metadataAudience, ob: O, card: '0..1'}
+      - {p: applicableLegislation, ob: O, card: 0..n}
+      - {p: hasPolicy, ob: O, card: 0..n}
+      - {p: jurisdiction, ob: O, card: 0..n}
+      - {p: transferMechanism, ob: C, card: 0..n, condition: 'Mandatory when the data contains personal data and is held in or sent to anywhere outside the UK (rule R-08).'}
+      - {p: transportSecurity, ob: O, card: '0..1'}
   Distribution:
     uri: dcat:Distribution
     label: Distribution
@@ -918,6 +1009,7 @@ classes:
       - {p: language, ob: O, card: 0..n}
       - {p: compressFormat, ob: O, card: '0..1'}
       - {p: identifier, ob: O, card: '0..1'}
+      - {p: hasPolicy, ob: O, card: 0..n}
   DatasetSeries:
     uri: dcat:DatasetSeries
     label: Dataset series
@@ -1078,3 +1170,6 @@ rules:
     text: A period's end date must not be before its start date.
     class: PeriodOfTime
     issue: 2
+  - id: R-08
+    text: When the data contains personal data and is held in or sent to anywhere outside the UK, give the transfer safeguard.
+    class: Dataset

@@ -1,0 +1,552 @@
+# Sector and domain extensions of DCAT-UK AP.
+# An extension never weakens the base profile. It may raise an obligation (O or R to M), narrow a cardinality, add a pattern,
+# add properties and add classes. A record that conforms to an extension also conforms to DCAT-UK AP.
+# Each extension is generated into its own SHACL shapes and JSON Schema (base plus extension), and the browser validator applies it
+# when it is chosen. Each carries a valid example and at least one deliberate break, checked by all three validators on every build.
+#
+# Provenance of alignment claims: S search-sourced on 6 November 2026; K background knowledge, to be checked with the sector body
+# (open register O-13). Namespaces of other projects are theirs; this file only uses them.
+
+prefixes:
+  healthdcatap: http://healthdataportal.eu/ns/health#
+  geodcatap: http://data.europa.eu/930/
+  statdcatap: http://data.europa.eu/(xyz)/statdcat-ap/
+  mobilitydcatap: https://w3id.org/mobilitydcat-ap#
+  dspace: https://w3id.org/dspace/2025/1/
+
+# A synthetic base record the examples build on (example.org addresses, invented content).
+synthetic_base:
+  class: Dataset
+  id: https://example.org/dataset/synthetic
+  title: Synthetic example dataset
+  description: An invented dataset used to show an extension. It does not exist.
+  identifier: synthetic-0001
+  publisher: https://www.gov.uk/government/organisations/government-digital-service
+  contactPoint: [{fn: Example data team, hasURL: 'https://example.org/contact'}]
+  accessRights: ukcl:access-rights/open
+  securityClassification: ukcl:security-classification/official
+  personalData: ukcl:personal-data/none
+  licence: http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/
+  accrualPeriodicity: eufreq:MONTHLY
+  theme: [ukcl:theme/government]
+  keyword: [example]
+  modified: '2026-10-01'
+
+extensions:
+  - id: health
+    label: Health and care
+    icon: heart-pulse
+    status: Proposed
+    for: 'NHS bodies in all four nations, the UK Health Security Agency, social care, trusted research environments, health research charities and suppliers.'
+    summary: >-
+      Describes health and care data well enough for a researcher or analyst to judge it before asking: who is covered, how many
+      records, which clinical codes, and how access is controlled.
+    aligned_to:
+      - {name: HealthDCAT-AP Release 7, source: healthdcat, prov: S}
+      - {name: HDR UK Gateway dataset schema, source: hdruk, prov: S}
+    differences:
+      - 'HealthDCAT-AP names a Health Data Access Body under the European Health Data Space. The UK has none, so access is described by the rights statement and the trusted research environment address instead.'
+      - 'Counts of people follow the publisher''s disclosure control. Round them, and leave them out where disclosure control says so.'
+      - 'The NHS national data opt-out applies in England only; say whether it has been applied.'
+    classes:
+      Dataset:
+        - {p: personalData, ob: M, card: '1'}
+        - {p: sensitiveData, ob: M, card: 1..n}
+        - {p: temporal, ob: M, card: 1..n}
+        - {p: spatial, ob: M, card: 1..n}
+        - {p: healthCategory, ob: R, card: 0..n}
+        - {p: healthTheme, ob: O, card: 0..n}
+        - {p: populationCoverage, ob: R, card: 0..n}
+        - {p: numberOfRecords, ob: R, card: '0..1'}
+        - {p: numberOfUniqueIndividuals, ob: R, card: '0..1'}
+        - {p: minTypicalAge, ob: O, card: '0..1'}
+        - {p: maxTypicalAge, ob: O, card: '0..1'}
+        - {p: hasCodingSystem, ob: R, card: 0..n}
+        - {p: nationalDataOptOut, ob: R, card: '0..1'}
+        - {p: trustedResearchEnvironment, ob: O, card: 0..n}
+    properties:
+      healthCategory:
+        uri: healthdcatap:healthCategory
+        label: Health category
+        kind: iri
+        definition: The category of health data, such as electronic health records, registries or genomic data.
+        guidance: Use a concept from the HealthDCAT-AP health category vocabulary.
+        mem: {change: new}
+      healthTheme:
+        uri: healthdcatap:healthTheme
+        label: Health theme
+        kind: iri
+        definition: A disease, condition or topic the data is about, as an identifier.
+        guidance: Use a Wikidata or SNOMED CT identifier, for example http://www.wikidata.org/entity/Q12206 (diabetes).
+        mem: {change: new}
+      populationCoverage:
+        uri: healthdcatap:populationCoverage
+        label: Population covered
+        kind: text
+        definition: Who is in the data, in words, such as "patients registered with a GP practice in Wales".
+        mem: {change: new}
+      numberOfRecords:
+        uri: healthdcatap:numberOfRecords
+        label: Number of records
+        kind: integer
+        definition: How many records the data holds, rounded.
+        mem: {change: new}
+      numberOfUniqueIndividuals:
+        uri: healthdcatap:numberOfUniqueIndividuals
+        label: Number of people
+        kind: integer
+        definition: How many different people the data is about, rounded and subject to disclosure control.
+        mem: {change: new}
+      minTypicalAge:
+        uri: healthdcatap:minTypicalAge
+        label: Youngest typical age
+        kind: integer
+        definition: The youngest age, in years, typical of people in the data.
+        mem: {change: new}
+      maxTypicalAge:
+        uri: healthdcatap:maxTypicalAge
+        label: Oldest typical age
+        kind: integer
+        definition: The oldest age, in years, typical of people in the data.
+        mem: {change: new}
+      hasCodingSystem:
+        uri: healthdcatap:hasCodingSystem
+        label: Clinical coding system
+        kind: iri
+        definition: A coding system used in the data, such as SNOMED CT, ICD-10, OPCS-4 or the Dictionary of medicines and devices.
+        guidance: For SNOMED CT give http://snomed.info/sct.
+        mem: {change: new}
+      nationalDataOptOut:
+        uri: dcatuk:nationalDataOptOut
+        label: National data opt-out applied
+        kind: boolean
+        definition: Whether patients' national data opt-out choices have been applied to the data (England).
+        provisional: true
+        mem: {change: new}
+      trustedResearchEnvironment:
+        uri: dcatuk:trustedResearchEnvironment
+        label: Trusted research environment
+        kind: url
+        definition: The web page of the trusted research environment or secure data environment where approved people can use the data.
+        provisional: true
+        mem: {change: new}
+    example:
+      add:
+        title: Synthetic GP appointments, Wales
+        description: An invented dataset of GP appointments, used to show the health extension. It does not exist.
+        accessRights: ukcl:access-rights/internal
+        rights: Available to approved researchers in a trusted research environment, under a data sharing agreement. Ask through the contact form.
+        licence: ukcl:licences/data-sharing-agreement-required
+        personalData: ukcl:personal-data/pseudonymised
+        sensitiveData: [ukcl:sensitive-data/special-category]
+        temporal: [{startDate: '2020-01-01', endDate: '2025-12-31'}]
+        spatial: [http://statistics.data.gov.uk/id/statistical-geography/W92000004]
+        jurisdiction: [ukcl:jurisdiction/gb-wls]
+        populationCoverage: People registered with a GP practice in Wales.
+        numberOfRecords: '12000000'
+        hasCodingSystem: [http://snomed.info/sct]
+        nationalDataOptOut: 'false'
+        trustedResearchEnvironment: [https://example.org/tre]
+    breaks:
+      - {key: health-without-period, rule: M-01, remove: [temporal]}
+
+  - id: geospatial
+    label: Geospatial
+    icon: map
+    status: Proposed
+    for: 'Mapping agencies, local authorities, environment and marine bodies, utilities, and anyone publishing location data to data.gov.uk or a spatial data infrastructure.'
+    summary: >-
+      Adds what GeoDCAT-AP and UK GEMINI ask for: coverage, coordinate reference system, resolution, topic category and lineage,
+      so geospatial records can sit in the same catalogue as everything else.
+    aligned_to:
+      - {name: GeoDCAT-AP 3.1.0, source: geodcat, prov: S}
+      - {name: UK GEMINI 2.3, source: gemini, prov: S}
+      - {name: MEDIN discovery metadata standard (marine), source: medin, prov: S}
+    differences:
+      - 'UK GEMINI is encoded in ISO 19139 XML. This extension is the DCAT side; the crosswalk on the adoption page maps the elements.'
+      - 'Give the coordinate reference system as a standard the data conforms to, for example http://www.opengis.net/def/crs/EPSG/0/27700 for British National Grid.'
+    classes:
+      Dataset:
+        - {p: spatial, ob: M, card: 1..n}
+        - {p: conformsTo, ob: M, card: 1..n}
+        - {p: spatialResolutionInMeters, ob: R, card: 0..n}
+        - {p: topicCategory, ob: R, card: 0..n}
+        - {p: lineage, ob: R, card: 0..n}
+        - {p: purpose, ob: O, card: 0..n}
+    new_classes:
+      ProvenanceStatement:
+        uri: dct:ProvenanceStatement
+        label: Lineage statement
+        ob: O
+        icon: history
+        definition: A statement of how the data was made and changed.
+        mem: null
+        properties:
+          - {p: statement, ob: M, card: 1..n}
+    properties:
+      topicCategory:
+        uri: geodcatap:topicCategory
+        label: Topic category
+        kind: iri
+        definition: An ISO 19115 topic category, such as boundaries, transportation or environment.
+        mem: {change: new}
+      lineage:
+        uri: dct:provenance
+        label: Lineage
+        kind: object
+        range: ProvenanceStatement
+        definition: How the data was made, from what sources, and the processes applied.
+        mem: {change: new}
+      purpose:
+        uri: geodcatap:purpose
+        label: Purpose
+        kind: text
+        definition: Why the data was made.
+        mem: {change: new}
+      statement:
+        uri: rdfs:label
+        label: Statement
+        kind: text
+        definition: The lineage, in words.
+        mem: {change: new}
+    example:
+      base: dataset-postcodes
+      add:
+        conformsTo: [http://www.opengis.net/def/crs/EPSG/0/27700]
+        spatialResolutionInMeters: ['1']
+        topicCategory: [http://inspire.ec.europa.eu/metadata-codelist/TopicCategory/location]
+        lineage: [{statement: 'Point locations derived from address data, updated each quarter.'}]
+    breaks:
+      - {key: geo-without-crs, rule: M-01, remove: [conformsTo]}
+
+  - id: statistics
+    label: Official statistics
+    icon: chart-column
+    status: Proposed
+    for: 'The Office for National Statistics, departmental statistics teams, the devolved statistics offices, and any producer of statistics.'
+    summary: >-
+      Says what status the statistics have under the Code of Practice, and describes their dimensions and measures so tables can be
+      found by what they count, as StatDCAT-AP does.
+    aligned_to:
+      - {name: StatDCAT-AP, source: statdcat, prov: K}
+      - {name: Code of Practice for Statistics, source: osr, prov: K}
+    differences:
+      - 'StatDCAT-AP version 3 is being revised. Its namespace in version 1 is a placeholder; check it before relying on these terms (open register O-13).'
+    classes:
+      Dataset:
+        - {p: statisticsStatus, ob: M, card: '1'}
+        - {p: temporal, ob: M, card: 1..n}
+        - {p: qualityAnnotation, ob: R, card: 0..n}
+        - {p: inSeries, ob: R, card: 0..n}
+        - {p: dimension, ob: R, card: 0..n}
+        - {p: statMeasure, ob: R, card: 0..n}
+        - {p: attribute, ob: O, card: 0..n}
+        - {p: numSeries, ob: O, card: '0..1'}
+    properties:
+      statisticsStatus:
+        uri: dcatuk:statisticsStatus
+        label: Statistics status
+        kind: concept
+        codelist: statistics-status
+        definition: The status of the statistics under the Code of Practice for Statistics.
+        provisional: true
+        mem: {change: new}
+      dimension:
+        uri: statdcatap:dimension
+        label: Dimension
+        kind: iri
+        definition: A dimension the statistics are broken down by, such as area, age or year, as an identifier.
+        mem: {change: new}
+      statMeasure:
+        uri: statdcatap:statMeasure
+        label: Measure
+        kind: iri
+        definition: What the statistics count or measure, as an identifier.
+        mem: {change: new}
+      attribute:
+        uri: statdcatap:attribute
+        label: Attribute
+        kind: iri
+        definition: An attribute of the observations, such as a unit or a status flag, as an identifier.
+        mem: {change: new}
+      numSeries:
+        uri: statdcatap:numSeries
+        label: Number of series
+        kind: integer
+        definition: How many time series the dataset holds.
+        mem: {change: new}
+    example:
+      add:
+        title: Synthetic quarterly statistics
+        statisticsStatus: ukcl:statistics-status/official
+        temporal: [{startDate: '2015-01-01'}]
+        dimension: [https://example.org/def/dimension/area]
+        statMeasure: [https://example.org/def/measure/count]
+    breaks:
+      - {key: stats-without-status, rule: M-01, remove: [statisticsStatus]}
+      - {key: stats-bad-status, rule: V-01, set: {statisticsStatus: ukcl:statistics-status/national}}
+
+  - id: transport
+    label: Transport and mobility
+    icon: bus
+    status: Proposed
+    for: 'The Department for Transport, transport authorities, operators, the bus and rail open data services, and suppliers.'
+    summary: >-
+      Says which mode of transport, which network and which data standard (TransXChange, NeTEx, SIRI, GTFS, DATEX II) a dataset
+      uses, as mobilityDCAT-AP does for European national access points.
+    aligned_to:
+      - {name: mobilityDCAT-AP, source: mobilitydcat, prov: K}
+    differences:
+      - 'Uses UK data standards, such as TransXChange and NaPTAN, as values of the data standard property.'
+    classes:
+      Dataset:
+        - {p: spatial, ob: M, card: 1..n}
+        - {p: mobilityTheme, ob: M, card: 1..n}
+        - {p: transportMode, ob: R, card: 0..n}
+        - {p: networkCoverage, ob: R, card: 0..n}
+        - {p: georeferencingMethod, ob: O, card: 0..n}
+      Distribution:
+        - {p: mobilityDataStandard, ob: R, card: 0..n}
+    properties:
+      mobilityTheme:
+        uri: mobilitydcatap:mobilityTheme
+        label: Mobility theme
+        kind: iri
+        definition: The kind of mobility data, such as timetables, real-time arrivals or road works, from the mobilityDCAT-AP vocabulary.
+        mem: {change: new}
+      transportMode:
+        uri: mobilitydcatap:transportMode
+        label: Transport mode
+        kind: iri
+        definition: The mode of transport, such as bus, rail or cycling.
+        mem: {change: new}
+      networkCoverage:
+        uri: mobilitydcatap:networkCoverage
+        label: Network covered
+        kind: iri
+        definition: The part of the network covered, such as the strategic road network.
+        mem: {change: new}
+      georeferencingMethod:
+        uri: mobilitydcatap:georeferencingMethod
+        label: Georeferencing method
+        kind: iri
+        definition: How locations are referenced, such as coordinates or a location referencing method.
+        mem: {change: new}
+      mobilityDataStandard:
+        uri: mobilitydcatap:mobilityDataStandard
+        label: Mobility data standard
+        kind: iri
+        definition: The data standard of the file or feed, such as TransXChange, NeTEx, SIRI, GTFS or DATEX II.
+        mem: {change: new}
+    example:
+      add:
+        title: Synthetic bus timetables
+        spatial: [http://statistics.data.gov.uk/id/statistical-geography/E92000001]
+        mobilityTheme: [https://w3id.org/mobilitydcat-ap/mobility-theme/timetables]
+        transportMode: [https://w3id.org/mobilitydcat-ap/transport-mode/bus]
+        distribution:
+          - {class: Distribution, accessURL: ['https://example.org/timetables'], mediaType: 'https://www.iana.org/assignments/media-types/application/xml', mobilityDataStandard: ['https://example.org/standard/transxchange']}
+    breaks:
+      - {key: transport-without-theme, rule: M-01, remove: [mobilityTheme]}
+
+  - id: hvd
+    label: High-value datasets (for EU exchange)
+    icon: gem
+    status: Proposed
+    for: 'UK bodies that also publish into EU portals, take part in EU programmes, or whose data EU partners harvest.'
+    summary: >-
+      Adds the two properties the DCAT-AP high-value datasets profile requires, so UK records can be harvested by EU catalogues that
+      report under the EU high-value datasets regulation.
+    aligned_to:
+      - {name: DCAT-AP HVD 3.0, source: hvd, prov: S}
+    differences:
+      - 'The EU high-value datasets regulation (EU) 2023/138 does not apply in UK law. This extension is for exchange only; it creates no UK obligation.'
+    classes:
+      Dataset:
+        - {p: hvdCategory, ob: M, card: 1..n}
+        - {p: applicableLegislation, ob: M, card: 1..n}
+    properties:
+      hvdCategory:
+        uri: dcatap:hvdCategory
+        label: High-value dataset category
+        kind: iri
+        definition: The category of high-value dataset, from the EU high-value dataset categories vocabulary.
+        mem: {change: new}
+    example:
+      add:
+        title: Synthetic geospatial high-value dataset
+        hvdCategory: [http://data.europa.eu/bna/c_ac64a52d]
+        applicableLegislation: [http://data.europa.eu/eli/reg_impl/2023/138/oj]
+    breaks:
+      - {key: hvd-without-legislation, rule: M-01, remove: [applicableLegislation]}
+
+  - id: ai-ready
+    label: AI-ready
+    icon: brain-circuit
+    status: Proposed
+    for: 'Anyone publishing data that may be used to train, fine-tune or evaluate AI models, and anyone building AI systems on public data.'
+    summary: >-
+      Makes the record answer the questions an AI team asks first: may we train on it, is it synthetic, where is the data card, what
+      policy applies, how good is it, and what period does it cover.
+    aligned_to:
+      - {name: MLDCAT-AP 3.x, source: mldcat, prov: S}
+      - {name: Croissant 1.1, source: croissant, prov: S}
+      - {name: Guidelines for AI-ready datasets (January 2026), source: aiready, prov: S}
+    differences:
+      - 'MLDCAT-AP describes models and their training data in detail. This extension covers the dataset side only; describe models with MLDCAT-AP itself.'
+      - 'The use for AI is a statement by the owner. The licence and the usage policy remain what binds people.'
+    classes:
+      Dataset:
+        - {p: aiUse, ob: M, card: '1'}
+        - {p: personalData, ob: M, card: '1'}
+        - {p: hasPolicy, ob: R, card: 0..n}
+        - {p: dataCard, ob: R, card: 0..n}
+        - {p: syntheticData, ob: R, card: '0..1'}
+        - {p: qualityAnnotation, ob: R, card: 0..n}
+        - {p: temporal, ob: R, card: 0..n}
+        - {p: documentation, ob: R, card: 0..n}
+        - {p: wasGeneratedBy, ob: O, card: 0..n}
+    properties:
+      aiUse:
+        uri: dcatuk:aiUse
+        label: Use for AI
+        kind: concept
+        codelist: ai-use
+        definition: Whether the data may be used to train, fine-tune or evaluate AI models.
+        provisional: true
+        mem: {change: new}
+      dataCard:
+        uri: dcatuk:dataCard
+        label: Data card
+        kind: url
+        definition: A page that documents how the data was collected, what it contains, what it is for and its known gaps and biases.
+        provisional: true
+        mem: {change: new}
+      syntheticData:
+        uri: dcatuk:syntheticData
+        label: Synthetic data
+        kind: boolean
+        definition: Whether the data was generated rather than collected.
+        provisional: true
+        mem: {change: new}
+      wasGeneratedBy:
+        uri: prov:wasGeneratedBy
+        label: Generated by
+        kind: iri
+        definition: The process, model or system that generated the data, as an identifier.
+        mem: {change: new}
+    example:
+      add:
+        title: Synthetic AI training dataset
+        aiUse: ukcl:ai-use/permitted
+        hasPolicy: [https://cyberdudeuk.github.io/dcat-uk-ap/downloads/policies/ogl-open.jsonld]
+        dataCard: [https://example.org/data-card]
+        syntheticData: 'true'
+        temporal: [{startDate: '2024-01-01', endDate: '2025-12-31'}]
+    breaks:
+      - {key: ai-without-use, rule: M-01, remove: [aiUse]}
+      - {key: ai-bad-use, rule: V-01, set: {aiUse: ukcl:ai-use/anything}}
+
+  - id: dataspace
+    label: Data spaces
+    icon: network
+    status: Proposed
+    for: 'Organisations taking part in data spaces and connector networks, in the UK or with European and international partners.'
+    summary: >-
+      Follows the Dataspace Protocol catalogue rules: every dataset carries a machine-readable usage policy, every distribution
+      names the service that gives it, and the catalogue names its participant.
+    aligned_to:
+      - {name: Eclipse Dataspace Protocol 1.0, source: dsp, prov: S}
+    differences:
+      - 'The protocol''s namespace is given as it was understood on 6 November 2026; check it against the release you use (open register O-13).'
+    classes:
+      Dataset:
+        - {p: hasPolicy, ob: M, card: 1..n}
+      Distribution:
+        - {p: accessService, ob: M, card: 1..n}
+      Catalogue:
+        - {p: participantId, ob: M, card: '1'}
+    properties:
+      participantId:
+        uri: dspace:participantId
+        label: Participant identifier
+        kind: literal
+        definition: The identifier of the data space participant that provides the catalogue.
+        mem: {change: new}
+    example:
+      add:
+        title: Synthetic data space offer
+        hasPolicy: [https://example.org/policy/offer-1]
+        distribution:
+          - {class: Distribution, accessURL: ['https://example.org/connector'], accessService: ['https://example.org/connector']}
+    breaks:
+      - {key: dataspace-without-policy, rule: M-01, remove: [hasPolicy]}
+
+  - id: organisations
+    label: Private and voluntary sector
+    icon: hand-heart
+    status: Proposed
+    for: 'Companies, charities, social enterprises, mutuals, universities, housing associations and other bodies outside government that share data with it or publish their own.'
+    summary: >-
+      GOV.UK organisation addresses only cover government. This extension asks for a registered identifier for every organisation,
+      in the org-id.guide form, so a charity in Scotland, a company in Northern Ireland and a council in Wales are named the same way.
+    aligned_to:
+      - {name: org-id.guide identifier lists, source: orgid, prov: K}
+    differences:
+      - 'Identifiers take the form PREFIX-identifier, for example GB-COH-01234567 for a company, GB-CHC-1234567 for a charity in England and Wales, GB-SC-SC012345 in Scotland, GB-NIC-100000 in Northern Ireland, or XI-LEI-... for a legal entity identifier.'
+    classes:
+      Agent:
+        - {p: identifier, ob: M, card: '1', pattern: '^[A-Z]{2}-[A-Z0-9]{2,8}-[A-Za-z0-9._/-]+$'}
+        - {p: agentType, ob: R, card: '0..1'}
+    properties: {}
+    example:
+      add:
+        title: Synthetic charity dataset
+        publisher: {class: Agent, name: Example Community Trust, identifier: GB-CHC-1234567, agentType: Registered charity}
+    breaks:
+      - {key: org-bad-identifier, rule: P-01, set: {publisher: {class: Agent, name: Example Community Trust, identifier: '1234567'}}}
+
+  - id: energy
+    label: Energy
+    icon: zap
+    status: Proposed
+    for: 'Network companies and other parties obliged to follow Ofgem Data Best Practice, energy suppliers, and the energy data community.'
+    summary: >-
+      Records the open data triage outcome for presumed-open energy system data, and asks for the Dublin Core elements the guidance
+      requires. Every Dublin Core element already has a DCAT-UK AP property.
+    aligned_to:
+      - {name: Ofgem Data Best Practice Guidance (1 April 2026), source: ofgem, prov: S}
+    differences:
+      - 'The triage outcomes follow the guidance as understood on 6 November 2026; Ofgem consulted on changing the triage approach in May 2026, so check the current guidance (open register O-13).'
+    classes:
+      Dataset:
+        - {p: openDataTriage, ob: M, card: '1'}
+        - {p: presumedOpen, ob: R, card: '0..1'}
+        - {p: keyword, ob: M, card: 1..n}
+        - {p: creator, ob: R, card: 0..n}
+        - {p: spatial, ob: R, card: 0..n}
+        - {p: temporal, ob: R, card: 0..n}
+    properties:
+      openDataTriage:
+        uri: dcatuk:openDataTriage
+        label: Open data triage outcome
+        kind: concept
+        codelist: open-data-triage
+        definition: The outcome of open data triage for data that is presumed open.
+        provisional: true
+        mem: {change: new}
+      presumedOpen:
+        uri: dcatuk:presumedOpen
+        label: Presumed open
+        kind: boolean
+        definition: Whether the data falls under the presumed open principle.
+        provisional: true
+        mem: {change: new}
+    example:
+      add:
+        title: Synthetic network capacity data
+        openDataTriage: ukcl:open-data-triage/open
+        presumedOpen: 'true'
+        keyword: [network capacity, electricity]
+    breaks:
+      - {key: energy-without-triage, rule: M-01, remove: [openDataTriage]}

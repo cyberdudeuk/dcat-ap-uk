@@ -19,6 +19,8 @@ git-pull-request git-branch history route target flag landmark lightbulb heart-h
 sparkles sliders-horizontal filter arrow-up-down table-2 code-xml braces file-json file-code-2 clipboard-check clipboard-list
 map globe workflow boxes blocks puzzle radar refresh-cw clock milestone signpost external-link circle-help mail-x lock lock-open
 user-round-x scroll-text pencil-ruler arrow-right arrow-left check minus plus tags tag waypoints split merge gauge leaf mountain
+heart-pulse chart-column bus gem brain-circuit hand-heart zap building briefcase-business bot atom telescope upload file-spreadsheet
+plane earth key-round shield-alert cpu library house-plus scan-search ruler package
 '''.split()))
 
 

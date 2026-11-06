@@ -1,0 +1,152 @@
+# Crosswalks from DCAT-UK AP to other metadata models. Each row: [DCAT-UK AP property, their element, note].
+# A property may be a base property or an extension property; the loader refuses a row naming neither.
+# "(class)" stands for the record's class. Provenance K: the author's mapping, to be checked with each community (open register O-04).
+# Crosswalks to DCAT-AP and DCAT-US are computed from the RDF terms themselves, so they are not listed here.
+
+ckan:
+  label: CKAN with ckanext-dcat
+  their: CKAN dataset and resource fields
+  source: ckandcat
+  prov: K
+  note: Field names as the ckanext-dcat European profile reads and writes them. Fields marked extras are stored as CKAN extras or scheming fields.
+  rows:
+    - [title, title, '']
+    - [description, notes, '']
+    - [keyword, tags, '']
+    - [identifier, extras identifier, '']
+    - [publisher, organization and extras publisher_uri, '']
+    - [contactPoint, extras contact_name and contact_uri, 'Use a contact form address for contact_uri, not an email address.']
+    - [licence, license_id, 'Map OGL v3.0 to the CKAN licence id your instance uses.']
+    - [issued, extras issued, '']
+    - [modified, extras modified, '']
+    - [landingPage, url, '']
+    - [version, version, '']
+    - [theme, extras theme, '']
+    - [spatial, extras spatial_uri, '']
+    - [temporal, extras temporal_start and temporal_end, '']
+    - [language, extras language, '']
+    - [accrualPeriodicity, extras frequency, '']
+    - [conformsTo, extras conforms_to, '']
+    - [accessRights, extras access_rights, '']
+    - [distribution, resources, 'One CKAN resource per distribution.']
+    - [accessURL, resource access_url, '']
+    - [downloadURL, resource download_url, '']
+    - [mediaType, resource mimetype, '']
+    - [format, resource format, '']
+    - [byteSize, resource size, '']
+    - [checksum, resource hash and hash_algorithm, '']
+    - [securityClassification, (none), 'Add a scheming field; harvesters that do not know it will drop it.']
+    - [criticalDataAsset, (none), 'Add a scheming field.']
+
+dublin-core:
+  label: Dublin Core (15 elements)
+  their: Dublin Core Metadata Element Set 1.1
+  source: dcmes
+  prov: K
+  note: Required by Ofgem Data Best Practice for energy system data. Every element has a DCAT-UK AP property, so a DCAT-UK AP record is also a Dublin Core description.
+  rows:
+    - [title, Title, '']
+    - [creator, Creator, '']
+    - [keyword, Subject, 'Also theme, for a controlled subject.']
+    - [description, Description, '']
+    - [publisher, Publisher, '']
+    - [qualifiedAttribution, Contributor, 'With the role played.']
+    - [issued, Date, 'Also created and modified.']
+    - [(class), Type, 'The record''s class; for a service also service type.']
+    - [mediaType, Format, 'On the distribution; also format.']
+    - [identifier, Identifier, '']
+    - [relation, Source, 'Use relation with a qualified relationship of role source.']
+    - [language, Language, '']
+    - [relation, Relation, '']
+    - [spatial, Coverage, 'And temporal, for coverage in time.']
+    - [rights, Rights, 'And licence and access rights.']
+
+gemini:
+  label: UK GEMINI 2.3
+  their: UK GEMINI elements
+  source: gemini
+  prov: K
+  note: UK GEMINI is encoded in ISO 19139 XML. Properties from the geospatial extension are marked. A first step towards closing open register O-11, which needs the geospatial community.
+  rows:
+    - [title, Title, '']
+    - [alternative, Alternative title, '']
+    - [language, Dataset language, '']
+    - [description, Abstract, 'Use abstract for a short summary as well.']
+    - [topicCategory, Topic category, 'Geospatial extension.']
+    - [keyword, Keyword, '']
+    - [temporal, Temporal extent, '']
+    - [issued, Dataset reference date, 'Publication date; also created and modified for the other date types.']
+    - [lineage, Lineage, 'Geospatial extension.']
+    - [spatial, Extent, 'A named area; use a GSS code where there is one.']
+    - [bbox, Bounding box, 'On the location.']
+    - [conformsTo, Spatial reference system, 'Give the coordinate reference system address. Mandatory in the geospatial extension.']
+    - [spatialResolutionInMeters, Spatial resolution, '']
+    - [accessURL, Resource locator, 'And download address.']
+    - [mediaType, Data format, 'And format.']
+    - [publisher, Responsible organisation, 'With contact point and responsible role for the other roles.']
+    - [accrualPeriodicity, Frequency of update, '']
+    - [accessRights, Limitations on public access, 'With the rights statement.']
+    - [licence, Use constraints, '']
+    - [conformsTo, Conformity, '']
+    - [identifier, Unique resource identifier, '']
+    - [inSeries, Parent identifier, '']
+    - [serviceType, Spatial data service type, '']
+    - [servesDataset, Coupled resource, '']
+    - [qualityAnnotation, Data quality, '']
+    - [(class), Resource type, '']
+
+hdruk:
+  label: HDR UK Gateway schema
+  their: HDR UK dataset schema fields
+  source: hdruk
+  prov: K
+  note: Field paths as in the HDR UK schemata. Properties from the health extension are marked. The HDR UK schema allows an email contact; DCAT-UK AP prefers a contact form.
+  rows:
+    - [title, summary.title, '']
+    - [abstract, summary.abstract, '']
+    - [description, documentation.description, '']
+    - [keyword, summary.keywords, '']
+    - [publisher, summary.publisher, '']
+    - [contactPoint, summary.contactPoint, 'Give a contact form address.']
+    - [otherIdentifier, summary.doiName, '']
+    - [identifier, identifier, '']
+    - [version, version, '']
+    - [issued, issued, '']
+    - [modified, modified, '']
+    - [rights, accessibility.access.accessRights, '']
+    - [jurisdiction, accessibility.access.jurisdiction, '']
+    - [hasPolicy, accessibility.usage.dataUseLimitation, 'Express the limitation as an ODRL policy, and in words in the rights statement.']
+    - [hasCodingSystem, accessibility.formatAndStandards.vocabularyEncodingScheme, 'Health extension.']
+    - [mediaType, accessibility.formatAndStandards.format, '']
+    - [language, accessibility.formatAndStandards.language, '']
+    - [temporal, provenance.temporal.startDate and endDate, '']
+    - [accrualPeriodicity, provenance.temporal.accrualPeriodicity, '']
+    - [spatial, coverage.spatial, '']
+    - [minTypicalAge, coverage.typicalAgeRange, 'Health extension; and oldest typical age.']
+    - [numberOfUniqueIndividuals, summary.populationSize, 'Health extension. Subject to disclosure control.']
+    - [trustedResearchEnvironment, accessibility.access.accessService, 'Health extension.']
+
+croissant:
+  label: Croissant 1.1 (ML datasets)
+  their: Croissant and schema.org properties
+  source: croissant
+  prov: K
+  note: Croissant describes datasets for machine learning on top of schema.org. DCAT-UK AP fills its dataset-level part; record sets (the columns and their types) are added with Croissant tools. The record builder exports this part.
+  rows:
+    - [title, name, '']
+    - [description, description, '']
+    - [licence, license, '']
+    - [landingPage, url, '']
+    - [issued, datePublished, '']
+    - [modified, dateModified, '']
+    - [version, version, '']
+    - [keyword, keywords, '']
+    - [creator, creator, '']
+    - [publisher, publisher, '']
+    - [distribution, distribution (cr:FileObject), '']
+    - [downloadURL, contentUrl, '']
+    - [mediaType, encodingFormat, '']
+    - [byteSize, contentSize, '']
+    - [checksum, sha256, 'Only when the algorithm is SHA-256.']
+    - [conformsTo, dct:conformsTo, 'The export adds the Croissant 1.1 specification address.']
+    - [dataCard, rai:dataCollection and related RAI properties, 'AI-ready extension. The data card holds what the responsible AI properties ask.']

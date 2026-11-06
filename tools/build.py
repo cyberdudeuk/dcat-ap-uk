@@ -23,6 +23,25 @@ import yaml  # noqa: E402
 import generate  # noqa: E402
 import ukap  # noqa: E402
 
+NODE_EXPORTS = r"""
+const V = require(process.argv[1]);
+const d = JSON.parse(require('fs').readFileSync(0, 'utf8'));
+const out = {};
+for (const k of Object.keys(d.records)) {
+  const x = d.records[k], Q = x.ext ? V.withExtensions(d.P, [x.ext]) : d.P;
+  out[k] = { fair: V.fair(Q, x.record), conformance: V.conformance(Q, x.record), schemaorg: V.toSchemaOrg(Q, x.record), croissant: V.toCroissant(Q, x.record) };
+}
+process.stdout.write(JSON.stringify(out));
+"""
+
+
+def node_exports(prof, records):
+    """Run the browser validator in Node, so the build shows the scores and exports the browser computes (one implementation)."""
+    import subprocess
+    res = subprocess.run(['node', '-e', NODE_EXPORTS, str(ROOT / 'site_src' / 'validator.js')], input=json.dumps({'P': prof, 'records': records}),
+                         capture_output=True, text=True, check=True)
+    return json.loads(res.stdout)
+
 ROOT = Path(__file__).resolve().parent.parent
 E = lambda s: html.escape(str(s if s is not None else ''), quote=True)  # noqa: E731
 OB_LABEL = {'M': 'Mandatory', 'R': 'Recommended', 'O': 'Optional', 'C': 'Conditional'}
@@ -38,8 +57,9 @@ PROV_TEXT = {'V': 'Verified against the primary source', 'K': 'Background knowle
 
 NAV = [
     ('index', 'Home', 'house', None),
-    ('Profile', 'The profile', 'layers', ['profile', 'properties', 'codelists']),
-    ('Tools', 'Tools', 'wrench', ['builder', 'validate', 'examples']),
+    ('Profile', 'The profile', 'layers', ['profile', 'properties', 'codelists', 'extensions']),
+    ('Tools', 'Tools', 'wrench', ['builder', 'validate', 'bulk', 'openapi', 'examples']),
+    ('Adopt', 'Adopt', 'package', ['adopt', 'international', 'ai-ready', 'quantum', 'landscape']),
     ('changes', "What's changed", 'git-pull-request', None),
     ('strategy', 'Strategy', 'route', None),
     ('roles', 'Your role', 'users-round', None),
@@ -53,7 +73,9 @@ TITLES = {
     'validate': 'Check records', 'examples': 'Worked examples', 'changes': "What's changed from the xGov MEM", 'strategy': 'How it fits the strategy',
     'roles': 'Your role', 'knowledge': 'Knowledge', 'downloads': 'Downloads and API', 'estate': 'The estate: four portals',
     'governance': 'Design and governance', 'accessibility': 'Accessibility statement', 'contact': 'Contact', 'sitemap': 'Site map',
-    'whats-new': "What's new", '404': 'Page not found'}
+    'whats-new': "What's new", '404': 'Page not found', 'extensions': 'Sector extensions', 'bulk': 'Check many records',
+    'openapi': 'Describe an API from OpenAPI', 'adopt': 'Adoption toolkit', 'international': 'Cross-border data flows', 'ai-ready': 'AI-ready metadata',
+    'quantum': 'Quantum-ready metadata', 'landscape': 'Profiles around the world'}
 DESC = {
     'index': 'A proposed UK application profile of DCAT for describing public sector datasets and data services, evolved from the xGov MEM.',
     'profile': 'The classes of DCAT-UK AP, how they connect, and every property with its obligation, filterable.',
@@ -71,7 +93,15 @@ DESC = {
     'governance': 'Status, versioning, change process, decisions, defects, open items, checks and self-assessment.',
     'accessibility': 'Accessibility statement for the DCAT-UK AP portal.',
     'contact': 'Ask a question, report a problem or request a change to DCAT-UK AP using the contact form.',
-    'sitemap': 'Every page of the DCAT-UK AP portal.', 'whats-new': 'Changes in each release of DCAT-UK AP.', '404': 'The page could not be found.'}
+    'sitemap': 'Every page of the DCAT-UK AP portal.', 'whats-new': 'Changes in each release of DCAT-UK AP.', '404': 'The page could not be found.',
+    'extensions': 'Extensions of DCAT-UK AP for health, geospatial, statistics, transport, AI, data spaces, the private and voluntary sector, energy and EU exchange.',
+    'bulk': 'Convert a spreadsheet of records to DCAT-UK AP and check them all in your browser. Nothing is uploaded.',
+    'openapi': 'Turn an OpenAPI description into a DCAT-UK AP data service record, checked, in your browser.',
+    'adopt': 'Conformance levels, sector routes, a checklist, crosswalks, harvesting, procurement clauses and identifiers for adopting DCAT-UK AP.',
+    'international': 'Describe where data is held and sent, and the safeguard for personal data leaving the UK, across the Crown Dependencies, Overseas Territories, Commonwealth and partners.',
+    'ai-ready': 'Make records ready for AI: permission to train, usage policies, schema.org and Croissant exports, llms.txt and an MCP server.',
+    'quantum': 'Prepare for post-quantum migration: strong checksums, crypto-agility and connection security in the catalogue.',
+    'landscape': 'A scan of DCAT profiles in Europe, the US and sectors, what each does best, and what DCAT-UK AP takes from them.'}
 SHORT_SRC = {'roadmap': 'Roadmap 2025 to 2030', 'ndl': 'National Data Library', 'dam': 'DAM Policy', 'rma2026': '2026 metadata guidance',
              'discovery': 'Discovery pattern', 'principles': 'Sharing principles', 'aiready': 'AI-ready data'}
 ICONS = json.loads((ROOT / 'site_src' / 'icons.json').read_text())['icons']
@@ -146,7 +176,8 @@ class Site:
             h.update(f.read_bytes())
         self.build_id = f'{self.m["id"]}-{self.m["version"]}-{h.hexdigest()[:10]}'
         self.gloss_terms = sorted(((t['term'], t) for t in portal['glossary']), key=lambda x: -len(x[0]))
-        self.src = {s['id']: s for s in p.lineage['sources']}
+        self.t = yaml.safe_load((ROOT / 'content' / 'toolkit.yaml').read_text(encoding='utf-8'))
+        self.src = {s['id']: s for s in p.lineage['sources'] + self.t['sources']}
 
     # -- helpers ----------------------------------------------------------------
     def gloss(self, text, used=None):
@@ -305,11 +336,20 @@ class Site:
         dl = self.out / 'downloads'
         (dl / 'examples').mkdir(parents=True, exist_ok=True)
         for name, text in files.items():
+            (dl / name).parent.mkdir(parents=True, exist_ok=True)
             (dl / name).write_text(text, encoding='utf-8')
         prof = json.loads(files['profile.json'])
         (self.out / 'profile-data.js').write_text('window.UKAP_PROFILE=' + files['profile.json'] + ';\nwindow.UKAP_EXAMPLES='
                                                   + json.dumps({e['key']: e['record'] for e in p.examples}, ensure_ascii=False) + ';\n', encoding='utf-8')
         self.files = files
+        recs = {e['key']: {'record': e['record']} for e in p.examples}
+        recs.update({'ext-' + eid: {'record': p.ext_example(eid), 'ext': eid} for eid in p.extensions})
+        self.js = node_exports(prof, recs)
+        for e in p.examples:
+            k = e['key']
+            (dl / 'examples' / f'{k}.schema.jsonld').write_text(json.dumps(self.js[k]['schemaorg'], indent=2, ensure_ascii=False) + '\n', encoding='utf-8')
+            if e['record']['class'] == 'Dataset':
+                (dl / 'examples' / f'{k}.croissant.jsonld').write_text(json.dumps(self.js[k]['croissant'], indent=2, ensure_ascii=False) + '\n', encoding='utf-8')
         self.home()
         self.profile_page()
         for ck in p.classes:
@@ -319,6 +359,14 @@ class Site:
         self.builder_page()
         self.validate_page()
         self.examples_page()
+        self.extensions_page()
+        self.bulk_page()
+        self.openapi_page()
+        self.adopt_page()
+        self.international_page()
+        self.ai_page()
+        self.quantum_page()
+        self.landscape_page()
         self.changes_page()
         self.strategy_page()
         self.roles_page()
@@ -332,6 +380,7 @@ class Site:
         self.notfound_page()
         self.sitemap_page()
         self.write_machine(prof)
+        self.write_llms()
         (self.out / 'search-index.js').write_text('window.UKAP_SEARCH=' + json.dumps(self.search, ensure_ascii=False, separators=(',', ':')) + ';\n', encoding='utf-8')
         (self.out / '.nojekyll').write_text('')
         (self.out / 'robots.txt').write_text(f'User-agent: *\nAllow: /\nSitemap: {self.m["site_url"]}sitemap.xml\n')
@@ -354,7 +403,8 @@ class Site:
         why = ''.join(f'<div class="card"><h3>{icon(w["icon"])} {E(w["title"])}</h3><p>{E(w["text"])}</p></div>' for w in c['why_matters'])
         stats = [(k['classes'], 'classes', 'profile.html'), (k['props'], 'properties', 'properties.html'), (k['codelists'], 'codelists', 'codelists.html'),
                  (f'{k["resolved"]} of {k["backlog"]}', 'backlog items resolved', 'changes.html#backlog'), (k['new'], 'new properties since the xGov MEM', 'changes.html#crosswalk'),
-                 (f'{k["orgs"]:,}', 'organisations to choose from', 'codelists.html#orgs')]
+                 (f'{k["orgs"]:,}', 'organisations to choose from', 'codelists.html#orgs'), (len(self.p.extensions), 'sector extensions', 'extensions.html'),
+                 (sum(1 for c in self.p.codelists['jurisdiction']['concepts']), 'jurisdictions for cross-border flows', 'international.html#jurisdictions')]
         st = ''.join(f'<div class="card"><p class="stat">{E(n)}</p><p><a href="{h}">{E(t)}</a></p></div>' for n, t, h in stats)
         easy = ''.join(f'<li>{E(x)}</li>' for x in c['easy_read'])
         layers = ''.join(f'<li>{"<strong>" if l.get("here") else ""}{E(l["title"])}{"</strong> (this profile)" if l.get("here") else ""}: {E(l["text"])}</li>' for l in reversed(c['infrastructure_layers']))
@@ -604,14 +654,18 @@ class Site:
 <div class="field"><label for="b-class">What are you describing?</label><select id="b-class">{opts}</select></div>
 <div class="field"><label for="b-id">Web address that identifies it (optional)</label><p class="hint" id="b-id-h">A stable address for the record, such as its page in your catalogue.</p><input type="url" id="b-id" aria-describedby="b-id-h" placeholder="https://"></div>
 <div class="field C"><label><input type="checkbox" id="b-cda"> This is a critical data asset</label><p class="hint">Under the Data Asset Management Policy. More properties become mandatory.</p></div>
+{self.ext_select("b-ext")}
 <div id="b-fields"></div><datalist id="orgs-list">{orgs}</datalist></form>
 <aside class="sticky" aria-labelledby="b-res-h"><h2 id="b-res-h">Checks</h2><div id="b-status" aria-live="polite"></div>
 <p class="small" id="b-m-t"></p><div class="meter" aria-hidden="true"><span id="b-m"></span></div><p class="small" id="b-r-t"></p><div class="meter" aria-hidden="true"><span id="b-r"></span></div>
+<div id="b-level" aria-live="polite"></div><details class="fair" id="b-fair-d"><summary>Quality score: <span id="b-fair-s"></span></summary><div id="b-fair"></div></details>
 <ul class="results" id="b-issues"></ul>
-<div class="tabs" id="b-tabs"><div role="tablist" aria-label="Output format"><button role="tab" id="t-json" aria-controls="o-json">JSON</button><button role="tab" id="t-jsonld" aria-controls="o-jsonld">JSON-LD</button><button role="tab" id="t-ttl" aria-controls="o-ttl">Turtle</button></div>
+<div class="tabs" id="b-tabs"><div role="tablist" aria-label="Output format"><button role="tab" id="t-json" aria-controls="o-json">JSON</button><button role="tab" id="t-jsonld" aria-controls="o-jsonld">JSON-LD</button><button role="tab" id="t-ttl" aria-controls="o-ttl">Turtle</button><button role="tab" id="t-sdo" aria-controls="o-sdo">schema.org</button><button role="tab" id="t-cr" aria-controls="o-cr">Croissant</button></div>
 <div role="tabpanel" id="o-json" aria-labelledby="t-json" tabindex="0"><pre id="b-json" tabindex="0"></pre><p class="btns"><button type="button" class="btn small" data-dl="json">{icon("download")} Download JSON</button><button type="button" class="btn secondary small" data-copy="b-json">Copy</button></p></div>
 <div role="tabpanel" id="o-jsonld" aria-labelledby="t-jsonld" tabindex="0" hidden><pre id="b-jsonld" tabindex="0"></pre><p class="btns"><button type="button" class="btn small" data-dl="jsonld">{icon("download")} Download JSON-LD</button><button type="button" class="btn secondary small" data-copy="b-jsonld">Copy</button></p></div>
-<div role="tabpanel" id="o-ttl" aria-labelledby="t-ttl" tabindex="0" hidden><pre id="b-ttl" tabindex="0"></pre><p class="btns"><button type="button" class="btn small" data-dl="ttl">{icon("download")} Download Turtle</button><button type="button" class="btn secondary small" data-copy="b-ttl">Copy</button></p></div></div>
+<div role="tabpanel" id="o-ttl" aria-labelledby="t-ttl" tabindex="0" hidden><pre id="b-ttl" tabindex="0"></pre><p class="btns"><button type="button" class="btn small" data-dl="ttl">{icon("download")} Download Turtle</button><button type="button" class="btn secondary small" data-copy="b-ttl">Copy</button></p></div>
+<div role="tabpanel" id="o-sdo" aria-labelledby="t-sdo" tabindex="0" hidden><p class="small">For search engines and AI crawlers that read schema.org.</p><pre id="b-sdo" tabindex="0"></pre><p class="btns"><button type="button" class="btn small" data-dl="sdo">{icon("download")} Download schema.org</button><button type="button" class="btn secondary small" data-copy="b-sdo">Copy</button></p></div>
+<div role="tabpanel" id="o-cr" aria-labelledby="t-cr" tabindex="0" hidden><p class="small">Croissant 1.1, dataset level: add record sets with Croissant tools.</p><pre id="b-cr" tabindex="0"></pre><p class="btns"><button type="button" class="btn small" data-dl="cr">{icon("download")} Download Croissant</button><button type="button" class="btn secondary small" data-copy="b-cr">Copy</button></p></div></div>
 <p class="small">The same rules as the published <a href="downloads.html">SHACL shapes</a>. The tests hold the two to the same verdict.</p></aside></div>'''
         self.page('builder', body, None, crumbs=[('Tools', None), ('Build a record', None)], scripts=('validator.js', 'profile-data.js'))
 
@@ -625,6 +679,7 @@ class Site:
         body += f'''<noscript><div class="panel warning"><p>Checking in the browser needs JavaScript. You can check records with the <a href="downloads.html">SHACL shapes or JSON Schema</a> in your own tools.</p></div></noscript>
 <form id="validate-form" novalidate aria-labelledby="v-h" onsubmit="return false"><h2 id="v-h">Your records</h2>
 <div class="field"><label for="v-mode">What are you pasting?</label><select id="v-mode"><option value="ap">A DCAT-UK AP record (compact JSON)</option><option value="mem">An xGov MEM record, to convert and check</option></select></div>
+{self.ext_select("v-ext")}
 <div class="field"><label for="v-input">Record</label><p class="hint" id="v-input-h">JSON, or simple YAML for xGov MEM records.</p><textarea id="v-input" aria-describedby="v-input-h" spellcheck="false"></textarea></div>
 <p class="btns"><button type="button" class="btn" id="v-run">{icon("clipboard-check")} Check</button><button type="button" class="btn secondary" data-sample="s-ap" data-mode="ap">Try a DCAT-UK AP example</button><button type="button" class="btn secondary" data-sample="s-mem" data-mode="mem">Try an xGov MEM example</button></p></form>
 <div id="v-out" aria-live="polite"></div>
@@ -931,6 +986,9 @@ class Site:
         cards = ''.join(f'<div class="card"><p class="caption">{E(x["bearing"])}</p><h3><a href="{E(x["url"])}">{E(x["name"])}</a>{" (this portal)" if x["id"] == "ap" else ""}</h3><p><strong>{E(x["question"])}</strong></p><p class="small">{E(x["status"])}</p></div>' for x in (names[o] for o in order))
         body = self.hero('compass', 'Estate', 'The estate: four portals', self.gloss(es['note']))
         body += f'<h2 id="portals">The four portals</h2><div class="grid">{cards}</div><p>Not sure where to start? The <a href="{E(es["compass"])}">estate compass</a> suggests a route across all four. DCAT-UK AP is its South bearing: the ground everything else stands on, because nothing can be found, governed or improved until it is described.</p>'
+        body += (f'<h2 id="architecture">The architecture it implements</h2><div class="panel notice"><p>The {self.src_link("panuk")} sets out DCAT-UK AP as the shared record for the UK’s data ecosystems. '
+                 'This portal is a working implementation of that record: the profile, its sector extensions, validators, migration from the xGov MEM and the adoption toolkit. '
+                 'The repository is private, so its contents are not reproduced here; reconciling the two is on the <a href="governance.html#open">open register</a> (O-14).</p></div>')
         for g in es['comparison']:
             rows = []
             for r in g['rows']:
@@ -944,7 +1002,7 @@ class Site:
         keys = table('t-keys', 'Shared keys', ['Key', 'Used for', 'Where'], [[E(k['key']), E(k['used_for']), E(k['where'])] for k in es['shared_keys']], sortable=False)
         jr = ''.join(f'<li><strong>{E(j["title"])}:</strong> ' + ' then '.join(f'<a href="{E(names[a]["url"])}">{E(names[a]["name"])}</a> ({E(t)})' for a, t in j['steps']) + '</li>' for j in es['journeys'])
         body += f'<h2 id="gains">What each gains from the others</h2><ul>{gains}</ul><h2 id="shared-keys">Shared keys</h2><p>Published in <a href="xref.json">xref.json</a>, in the same shape as the sister portals’ manifests.</p>{keys}<h2 id="journeys">Journeys across portals</h2><ul>{jr}</ul>'
-        drawer = [{'title': 'Estate', 'icon': 'compass', 'items': [{'id': 'portals', 'label': 'The four portals', 'icon': 'compass', 'count': 4}] + [{'id': f'cmp-{slug(g["group"])}', 'label': g['group'], 'icon': 'table-2', 'count': len(g['rows'])} for g in es['comparison']]
+        drawer = [{'title': 'Estate', 'icon': 'compass', 'items': [{'id': 'portals', 'label': 'The four portals', 'icon': 'compass', 'count': 4}, {'id': 'architecture', 'label': 'The architecture', 'icon': 'blocks'}] + [{'id': f'cmp-{slug(g["group"])}', 'label': g['group'], 'icon': 'table-2', 'count': len(g['rows'])} for g in es['comparison']]
                    + [{'id': 'gains', 'label': 'Gains', 'icon': 'merge'}, {'id': 'shared-keys', 'label': 'Shared keys', 'icon': 'link'}, {'id': 'journeys', 'label': 'Journeys', 'icon': 'route', 'count': len(es['journeys'])}]}]
         self.page('estate', body, drawer, crumbs=[('Estate', None)])
 
@@ -968,7 +1026,10 @@ class Site:
                  ('Every rule has a break', 'No rule exists without a record that breaks it.', 'tests/test_profile.py test_every_rule_has_a_break'),
                  ('Coverage', 'Every open xGov MEM issue is registered, every xGov MEM property is mapped, and every DCAT-AP mandatory property is mandatory here.', 'tests/test_profile.py Coverage'),
                  ('Pages', 'Unique ids, links that resolve, no email address anywhere, no external scripts or fonts, a Content Security Policy, captions on tables, colophon and self-describing metadata on every page, no deck or film files.', 'tools/check_site.py, with its own deliberate breaks'),
-                 ('In a real browser', 'axe-core with no serious or critical issues, no horizontal overflow from 320 to 1920 pixels, contrast in light and dark, keyboard, no console errors.', 'tools/check_browser.py')]
+                 ('Extensions', 'Every sector extension’s example passes and every break fails in all three validators; an extension that weakens the base is refused.', 'tests/test_toolkit.py Extensions'),
+                 ('Toolkit', 'Quality score, levels, CSV and OpenAPI converters, exports and usage policies; browser Turtle and build RDF are isomorphic.', 'tests/test_toolkit.py'),
+                 ('MCP server', 'Started and called over stdio: tools list, checks with and without extensions, errors.', 'tests/test_toolkit.py MCPServer'),
+                 ('In a real browser', 'axe-core with no serious or critical issues, no horizontal overflow from 320 to 1920 pixels, contrast in light and dark, keyboard, no console errors, and the builder, bulk checker, OpenAPI converter and checklist working.', 'tools/check_browser.py')]
         tt = table('checks-t', 'Checks on every change', ['Check', 'What it proves', 'Where'], [[E(a), E(b), f'<code>{E(c)}</code>'] for a, b, c in tests], sortable=False)
         body = self.hero('scale', 'About', 'Design and governance', self.gloss('How the profile is governed and changed, the decisions behind it, what is known to be wrong or missing, how it is checked, and an honest self-assessment.'))
         body += f'<h2 id="status">Status</h2><div class="panel warning"><p>{E(gv["status"])}</p></div>'
@@ -1020,7 +1081,16 @@ class Site:
 
     def whatsnew_page(self):
         body = self.hero('history', 'About', "What's new", 'Changes in each release, newest first.')
-        body += f'<h2 id="v1">{E(self.m["version"])}, {E(self.m["as_of"])}</h2>' + ul([
+        k = self.counts()
+        body += f'<h2 id="v11">{E(self.m["version"])}, {E(self.m["as_of"])}</h2>' + ul([
+            f'Nine <a href="extensions.html">sector extensions</a> (health, geospatial, statistics, transport, high-value datasets, AI-ready, data spaces, private and voluntary sector, energy), each with its own shapes, schema, example and break.',
+            'Cross-border flows: where data is held or sent, across the UK nations, Crown Dependencies, Overseas Territories, Commonwealth and partners, and the UK GDPR transfer safeguard (rule R-08).',
+            'A quality score on the five EU quality dimensions and three conformance levels, in the builder, the checker and the new bulk checker.',
+            'AI-ready: usage policies in ODRL, schema.org and Croissant exports, llms.txt and an MCP server. Quantum-ready: strong checksums, connection security and crypto-agility.',
+            'An adoption toolkit: routes by sector, a checklist, crosswalks (CKAN, Dublin Core, UK GEMINI, HDR UK, Croissant, DCAT-AP and DCAT-US), harvesting, contract clauses and organisation identifiers.',
+            'A scan of DCAT profiles around the world, and an OpenAPI to data service converter.',
+            'Linked to the future pan-UK metadata architecture it implements.'])
+        body += '<h2 id="v1">1.0.0-rc.1, 2026-11-06</h2>' + ul([
             'First release candidate of DCAT-UK AP, evolved from the xGov MEM v0.1.0.',
             'Profile, codelists, shapes, schema, context and examples generated from one source.',
             'Portal with record builder, validator and xGov MEM conversion, crosswalks, backlog register, strategy, roles, knowledge layer, estate comparison and governance.',
@@ -1043,6 +1113,331 @@ class Site:
             body += f'<ul>{lis}</ul>'
         self.page('sitemap', body, None, crumbs=[('About', None), ('Site map', None)])
 
+    # -- 1.1 pages: extensions, tools, adoption, international, AI, quantum, landscape ---------------------------
+    def score_tag(self, key):
+        j = self.js[key]
+        c, q = j['conformance'], j['fair']
+        cls = {0: 'err', 1: 'warn', 2: 'ok', 3: 'ok'}[c['level']]
+        return f'<strong class="tag {cls}">{E(c["label"])}</strong> <span class="small">Quality {q["score"]} of {q["max"]}, {E(q["rating"].lower())}</span>'
+
+    def ext_rows(self, eid):
+        p = self.p
+        e = p.extensions[eid]
+        q = p.with_extensions([eid])
+        rows = []
+        for ck, xs in e['classes'].items():
+            for x in xs:
+                prop = q.props[x['p']]
+                new = x['p'] in (e.get('properties') or {})
+                base = next((y for y in p.classes.get(ck, {}).get('properties', []) if y['p'] == x['p']), None)
+                what = 'New' if new else (f'Raised from {OB_LABEL[base["ob"]].lower()}' if base and base['ob'] != x['ob'] else 'Narrowed' if base else 'Added to class')
+                link = f'<a href="properties.html#p-{x["p"]}">{E(prop["label"])}</a>' if x['p'] in p.props else E(prop['label'])
+                pat = f' <span class="small">Pattern: <code>{E(x["pattern"])}</code></span>' if x.get('pattern') else ''
+                rows.append([link, E(q.classes[ck]['label']), tag(x['ob']) + (' <span class="tag warn">Provisional</span>' if prop.get('provisional') else ''),
+                             f'<code>{E(prop["uri"])}</code>', E(what), E(prop['definition']) + pat])
+        for ck, c in (e.get('new_classes') or {}).items():
+            for x in c['properties']:
+                prop = q.props[x['p']]
+                rows.append([E(prop['label']), E(c['label']) + ' (new class)', tag(x['ob']), f'<code>{E(prop["uri"])}</code>', 'New', E(prop['definition'])])
+        return rows
+
+    def extensions_page(self):
+        p = self.p
+        cards = ''.join(f'<div class="card"><h3>{icon(e["icon"])} <a href="#ext-{eid}">{E(e["label"])}</a></h3><p>{E(" ".join(e["summary"].split()))}</p><p class="small">{E(e["for"])}</p></div>' for eid, e in p.extensions.items())
+        body = self.hero('puzzle', 'The profile', 'Sector extensions', self.gloss(
+            'Extensions add what a sector needs on top of DCAT-UK AP, as DCAT-AP does for health, geospatial data and statistics. An extension never weakens the base: a record that conforms to an extension also conforms to DCAT-UK AP.'))
+        body += ('<h2 id="how">How extensions work</h2>' + ul([
+            'An extension may raise an obligation (optional or recommended to mandatory), narrow a cardinality, require a pattern, add properties and add classes. The build refuses an extension that would weaken the base.',
+            'Each has its own SHACL shapes and JSON Schema (the base plus the extension), a worked example and at least one record that must fail. All three validators are held to the same verdict on them on every build.',
+            'Choose one in the <a href="builder.html">record builder</a>, the <a href="validate.html">record checker</a> or the <a href="bulk.html">bulk checker</a>, or pass it to the MCP server.',
+            'Terms in another project’s namespace are that project’s. Terms this profile adds (dcatuk:) are provisional until reviewed with the sector (open register O-13).']))
+        body += f'<h2 id="all">The extensions</h2><div class="grid">{cards}</div>'
+        items = []
+        for eid, e in p.extensions.items():
+            al = ''.join(f'<li>{E(a["name"])}: {self.src_link(a["source"])}</li>' for a in e['aligned_to'])
+            rows = self.ext_rows(eid)
+            ex = self.files[f'extensions/{eid}.example.json']
+            dls = ' '.join(f'<a class="btn secondary small" href="downloads/extensions/{eid}.{x}" download>{icon("download")} {lab}</a>' for x, lab in
+                           (('shacl.ttl', 'SHACL shapes'), ('schema.json', 'JSON Schema'), ('example.json', 'Example JSON'), ('example.ttl', 'Example Turtle')))
+            body += (f'<section id="ext-{eid}" aria-labelledby="ext-{eid}-h"><h2 id="ext-{eid}-h">{icon(e["icon"])} {E(e["label"])} <strong class="tag warn">{E(e["status"])}</strong></h2>'
+                     f'<p>{self.gloss(" ".join(e["summary"].split()))}</p><dl class="facts"><dt>For</dt><dd>{E(e["for"])}</dd><dt>Aligned to</dt><dd><ul>{al}</ul></dd>'
+                     f'<dt>Identifier</dt><dd><code>{E(generate.ext_iri(p, eid))}</code> (proposed; does not resolve yet)</dd>'
+                     f'<dt>How the UK differs</dt><dd>{ul([E(d) for d in e.get("differences", [])])}</dd></dl>'
+                     + table(f't-ext-{eid}', f'What the {E(e["label"].lower())} extension adds', ['Property', 'Class', 'Obligation', 'Term', 'Change', 'Definition'], rows)
+                     + f'<p class="btns">{dls}</p><details><summary>The worked example: {self.score_tag("ext-" + eid)}</summary><pre id="c-ext-{eid}" tabindex="0">{E(ex)}</pre>'
+                     f'<p class="btns"><button type="button" class="btn secondary small" data-copy="c-ext-{eid}">Copy</button></p></details>'
+                     f'<p><a href="validate.html?ext={eid}">Check a record against this extension</a></p></section>')
+            items.append({'id': f'ext-{eid}', 'label': e['label'], 'icon': e['icon'], 'count': len(rows)})
+            self.add_search(e['label'] + ' extension', 'Extension', f'extensions.html#ext-{eid}', e['summary'])
+        body += ('<h2 id="propose">Propose an extension</h2><p>A sector body, or anyone, can propose an extension with the change request form. Say who it is for, what it adds, '
+                 f'which standard it aligns to and which records would use it.</p><p class="btns"><a class="btn" href="{E(self.m["change_request"])}">{icon("git-pull-request")} Propose an extension</a></p>')
+        drawer = [{'title': 'Extensions', 'icon': 'puzzle', 'items': [{'id': 'how', 'label': 'How they work', 'icon': 'circle-help'}, {'id': 'all', 'label': 'All extensions', 'icon': 'boxes', 'count': len(p.extensions)}]},
+                  {'title': 'Each extension', 'icon': 'puzzle', 'items': items + [{'id': 'propose', 'label': 'Propose one', 'icon': 'git-pull-request'}]}]
+        self.page('extensions', body, drawer, crumbs=[('The profile', 'profile.html'), ('Sector extensions', None)])
+
+    def ext_select(self, fid):
+        opts = ''.join(f'<option value="{E(eid)}">{E(e["label"])}</option>' for eid, e in self.p.extensions.items())
+        return (f'<div class="field"><label for="{fid}">Sector extension (optional)</label><p class="hint" id="{fid}-h">Adds the properties and rules of a sector. <a href="extensions.html">About extensions</a></p>'
+                f'<select id="{fid}" aria-describedby="{fid}-h"><option value="">None: DCAT-UK AP only</option>{opts}</select></div>')
+
+    def bulk_page(self):
+        cols = ', '.join(f'<code>{E(c)}</code>' for c in generate.TEMPLATE_COLUMNS)
+        body = self.hero('file-spreadsheet', 'Tools', 'Check many records', self.gloss(
+            'Fill in the spreadsheet template, one row per dataset, or export your catalogue as CSV. Load it here to convert every row to DCAT-UK AP, check it, see its conformance level and quality score, and download the records. Nothing leaves your browser.'))
+        body += ('<noscript><div class="panel warning"><p>The bulk checker needs JavaScript. You can check records with the <a href="downloads.html">SHACL shapes or JSON Schema</a> in your own tools.</p></div></noscript>'
+                 f'<p class="btns"><a class="btn secondary" href="downloads/template.csv" download>{icon("download")} Download the template (CSV)</a></p>'
+                 '<form id="bulk-form" novalidate aria-labelledby="bk-h"><h2 id="bk-h">Your records</h2>'
+                 '<div class="field"><label for="bk-file">Choose a CSV file</label><p class="hint" id="bk-file-h">Saved from a spreadsheet as CSV (comma separated), with the column names in the first row.</p><input type="file" id="bk-file" accept=".csv,text/csv" aria-describedby="bk-file-h"></div>'
+                 '<div class="field"><label for="bk-text">Or paste CSV</label><textarea id="bk-text" spellcheck="false"></textarea></div>'
+                 + self.ext_select('bk-ext') +
+                 f'<p class="btns"><button type="button" class="btn" id="bk-run">{icon("clipboard-check")} Convert and check</button><button type="button" class="btn secondary" id="bk-sample">Try the template’s example row</button></p></form>'
+                 '<div id="bk-out" aria-live="polite"></div>'
+                 '<h2 id="columns">The columns</h2><p>Each column is a property name, as in the <a href="downloads/data-dictionary.csv">data dictionary</a>. A part of a property is named with a dot, such as <code>contactPoint.hasURL</code> or <code>distribution.mediaType</code>. '
+                 'Separate repeated values with a vertical bar and spaces, as in <code>postcode | address</code>. Leave a cell empty when you have nothing to say. One distribution per row; add more in the record builder or your catalogue.</p>'
+                 f'<details><summary>All columns in the template</summary><p>{cols}</p></details>')
+        self.page('bulk', body, [{'title': 'Check many records', 'icon': 'file-spreadsheet', 'items': [{'id': 'bk-h', 'label': 'Your records', 'icon': 'upload'}, {'id': 'columns', 'label': 'The columns', 'icon': 'table-2'}]}],
+                  crumbs=[('Tools', None), ('Check many records', None)], scripts=('validator.js', 'profile-data.js'))
+
+    def openapi_page(self):
+        sample = {'openapi': '3.1.0', 'info': {'title': 'Example bus stops API', 'version': '2.0.0', 'description': 'An invented API, used to show the converter. It does not exist.',
+                                               'license': {'name': 'Open Government Licence v3.0', 'url': 'http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/'},
+                                               'contact': {'name': 'Example transport data team', 'url': 'https://example.org/contact'}},
+                  'servers': [{'url': 'https://api.example.org/bus-stops/v2'}], 'tags': [{'name': 'bus stops'}, {'name': 'transport'}],
+                  'paths': {'/stops': {'get': {'summary': 'List stops', 'responses': {'200': {'description': 'OK'}}}}}}
+        body = self.hero('plug', 'Tools', 'Describe an API from OpenAPI', self.gloss(
+            'Paste an OpenAPI description, as JSON, to draft a data service record. The converter copies what OpenAPI holds, lists what it could not find, and checks the result. It never copies an email address. Inspired by the Norwegian oastodcat tool.'))
+        body += ('<noscript><div class="panel warning"><p>The converter needs JavaScript.</p></div></noscript>'
+                 '<form id="oas-form" novalidate aria-labelledby="oas-h"><h2 id="oas-h">Your OpenAPI description</h2>'
+                 '<div class="field"><label for="oas-url">Where it is published (optional)</label><p class="hint" id="oas-url-h">Used as the endpoint description, and to complete relative server addresses.</p><input type="url" id="oas-url" aria-describedby="oas-url-h" placeholder="https://"></div>'
+                 '<div class="field"><label for="oas-text">OpenAPI description (JSON)</label><p class="hint" id="oas-text-h">For a YAML description, convert it to JSON first.</p><textarea id="oas-text" aria-describedby="oas-text-h" spellcheck="false"></textarea></div>'
+                 f'<p class="btns"><button type="button" class="btn" id="oas-run">{icon("plug")} Draft the record</button><button type="button" class="btn secondary" id="oas-sample">Try an example</button></p></form>'
+                 '<div id="oas-out" aria-live="polite"></div>'
+                 f'<details><summary>The example OpenAPI description</summary><pre id="oas-s" tabindex="0">{E(json.dumps(sample, indent=2))}</pre></details>'
+                 '<h2 id="mapping">What is copied</h2>') + table('t-oas', 'OpenAPI to DCAT-UK AP', ['OpenAPI', 'DCAT-UK AP', 'Note'], [
+            ['info.title', 'Title', ''], ['info.description', 'Description', ''], ['info.version', 'Version', ''], ['servers[].url', 'Endpoint address', 'Relative addresses are completed from where it is published.'],
+            ['(where it is published)', 'Endpoint description', ''], ['openapi', 'Conforms to', 'The OpenAPI specification version.'], ['info.license.url', 'Licence', ''],
+            ['info.contact.url and name', 'Contact point', 'An email address is never copied.'], ['tags[].name', 'Keywords', ''], ['components.securitySchemes', '(a note)', 'An API with security schemes is probably not open.']], sortable=False)
+        self.page('openapi', body, [{'title': 'OpenAPI', 'icon': 'plug', 'items': [{'id': 'oas-h', 'label': 'Your description', 'icon': 'upload'}, {'id': 'mapping', 'label': 'What is copied', 'icon': 'table-2'}]}],
+                  crumbs=[('Tools', None), ('Describe an API from OpenAPI', None)], scripts=('validator.js', 'profile-data.js'))
+
+    def crosswalk_tabs(self):
+        p = self.p
+        names = {}
+        for eid, e in p.extensions.items():
+            for k, v in (e.get('properties') or {}).items():
+                names[k] = (v['label'], eid)
+        tabs, panels = '', ''
+        for i, (cid, cw) in enumerate(p.crosswalks.items()):
+            rows = []
+            for r in cw['rows']:
+                if r[0] == '(class)':
+                    a = 'The record’s class'
+                elif r[0] in p.props:
+                    a = f'<a href="properties.html#p-{r[0]}">{E(p.props[r[0]]["label"])}</a>'
+                else:
+                    a = f'<a href="extensions.html#ext-{names[r[0]][1]}">{E(names[r[0]][0])}</a>'
+                rows.append([a, f'<code>{E(r[1])}</code>', E(r[2])])
+            tabs += f'<button role="tab" id="t-cw-{cid}" aria-controls="p-cw-{cid}">{E(cw["label"])}</button>'
+            panels += (f'<div role="tabpanel" id="p-cw-{cid}" aria-labelledby="t-cw-{cid}" tabindex="0"{"" if i == 0 else " hidden"}><p>{E(cw["note"])} {prov(cw["prov"])} Source: {self.src_link(cw["source"])}</p>'
+                       + table(f't-cwx-{cid}', E(cw['label']), ['DCAT-UK AP', E(cw['their']), 'Note'], rows)
+                       + f'<p><a href="downloads/crosswalks/{cid}.csv" download>{icon("download")} Download as CSV</a></p></div>')
+        rows = [[f'<a href="properties.html#p-{r[0]}">{E(p.props[r[0]]["label"])}</a>', f'<code>{E(r[1])}</code>', E(r[2])] for r in generate.computed_crosswalk(p)]
+        tabs += '<button role="tab" id="t-cw-eu" aria-controls="p-cw-eu">DCAT-AP and DCAT-US</button>'
+        panels += ('<div role="tabpanel" id="p-cw-eu" aria-labelledby="t-cw-eu" tabindex="0" hidden><p>Worked out from the RDF terms themselves: a shared term carries over as it is. DCAT-UK AP keeps every DCAT-AP mandatory property, so a conforming record is harvestable by EU tools. DCAT-US 3.0 is also built on DCAT 3; check its own obligations. ' + prov('K') + '</p>'
+                   + table('t-cwx-eu', 'Terms shared with DCAT-AP 3.0.1 and DCAT-US 3.0', ['DCAT-UK AP', 'Term', 'DCAT-AP and DCAT-US'], rows)
+                   + f'<p><a href="downloads/crosswalks/dcat-ap-and-dcat-us.csv" download>{icon("download")} Download as CSV</a></p></div>')
+        return f'<div class="tabs" id="cw-tabs"><div role="tablist" aria-label="Crosswalks">{tabs}</div>{panels}</div>'
+
+    def adopt_page(self):
+        a = self.t['adoption']
+        lv = table('t-levels', 'Conformance levels', ['Level', 'Test', 'What it means'], [[E(x['label']), E(x['test']), E(x['means'])] for x in a['levels']], sortable=False)
+        jr = ''.join(f'<div class="card"><h3>{icon(j["icon"])} {E(j["sector"])}</h3><ol>' + ''.join(f'<li>{E(s)}</li>' for s in j['steps']) + '</ol></div>' for j in a['journeys'])
+        groups = {}
+        for c in a['checklist']:
+            groups.setdefault(c['group'], []).append(c)
+        ck = ''.join(f'<fieldset><legend>{E(g)}</legend>' + ''.join(f'<div class="check"><input type="checkbox" id="ck-{c["id"]}" data-check="{c["id"]}"><label for="ck-{c["id"]}">{E(c["text"])}</label></div>' for c in cs) + '</fieldset>' for g, cs in groups.items())
+        hv = ''.join(f'<li><strong>{E(h["step"])}.</strong> {E(h["text"])}</li>' for h in a['harvest'])
+        pc = '\n'.join(f'{i + 1}. {c}' for i, c in enumerate(a['procurement']))
+        ids = table('t-ids', 'Identifiers for organisations', ['Scheme', 'Example', 'For'], [[E(x['scheme']), f'<code>{E(x["example"])}</code>', E(x['for'])] for x in a['identifiers']], sortable=False)
+        body = self.hero('package', 'Adopt', 'Adoption toolkit', self.gloss(
+            'Everything an organisation needs to adopt DCAT-UK AP, in any sector: what conformance means, a route for your sector, a checklist, crosswalks from the models you use now, how to be harvested, words for contracts, and how to name organisations outside government.'))
+        body += f'<h2 id="levels">Conformance levels</h2><p>The record builder, the checker and the bulk checker show the level of every record. The quality score follows the five dimensions of the EU metadata quality assessment. {prov("K")}</p>{lv}'
+        body += f'<h2 id="routes">A route for your sector</h2><div class="grid">{jr}</div>'
+        body += f'<h2 id="checklist">Adoption checklist</h2><p>Tick as you go. Your ticks stay in this browser only.</p><form id="checklist-form" class="checklist" aria-label="Adoption checklist">{ck}</form><p class="small" id="ck-count" aria-live="polite"></p>'
+        body += f'<h2 id="crosswalks">Crosswalks from the models you use now</h2>{self.crosswalk_tabs()}'
+        body += f'<h2 id="harvest">Being harvested</h2><ol>{hv}</ol>'
+        body += (f'<h2 id="procurement">Words for contracts</h2><p>Clauses a buyer can adapt when buying or replacing a catalogue product. They are a starting point, not legal or commercial advice.</p><pre id="proc" tabindex="0">{E(pc)}</pre>'
+                 '<p class="btns"><button type="button" class="btn secondary small" data-copy="proc">Copy the clauses</button></p>')
+        body += f'<h2 id="identifiers">Naming organisations outside government</h2><p>GOV.UK addresses only cover government. For everyone else use a registered identifier in the org-id.guide form; the <a href="extensions.html#ext-organisations">private and voluntary sector extension</a> checks the form. {prov("K")}</p>{ids}'
+        body += ('<h2 id="tools">The tools</h2>' + ul(['<a href="builder.html">Build a record</a>, with live checks, level and quality score', '<a href="validate.html">Check records</a>, or convert xGov MEM records',
+                                                     '<a href="bulk.html">Check many records</a> from a spreadsheet', '<a href="openapi.html">Describe an API</a> from its OpenAPI description',
+                                                     '<a href="downloads.html">Shapes, schemas and test records</a> for your own pipeline', '<a href="ai-ready.html#mcp">An MCP server</a> for AI assistants']))
+        drawer = [{'title': 'Adoption toolkit', 'icon': 'package', 'items': [{'id': 'levels', 'label': 'Conformance levels', 'icon': 'gauge', 'count': 3}, {'id': 'routes', 'label': 'Routes by sector', 'icon': 'route', 'count': len(a['journeys'])},
+                   {'id': 'checklist', 'label': 'Checklist', 'icon': 'list-checks', 'count': len(a['checklist'])}, {'id': 'crosswalks', 'label': 'Crosswalks', 'icon': 'merge', 'count': len(self.p.crosswalks) + 1},
+                   {'id': 'harvest', 'label': 'Being harvested', 'icon': 'refresh-cw'}, {'id': 'procurement', 'label': 'Words for contracts', 'icon': 'scroll-text'},
+                   {'id': 'identifiers', 'label': 'Identifiers', 'icon': 'tags'}, {'id': 'tools', 'label': 'The tools', 'icon': 'wrench'}]}]
+        self.page('adopt', body, drawer, crumbs=[('Adopt', None), ('Adoption toolkit', None)])
+
+    def international_page(self):
+        p, it = self.p, self.t['international']
+        gl = {g['id']: g['label'] for g in it['groups']}
+        rows, attrs = [], []
+        for c in p.codelists['jurisdiction']['concepts']:
+            adq = c.get('uk_adequacy')
+            if c['code'].startswith('gb'):
+                a = '<span class="small">Not a transfer</span>'
+            elif adq == 'full':
+                a = '<strong class="tag ok">Full</strong>'
+            elif adq == 'partial':
+                a = '<strong class="tag warn">Partial</strong>'
+            else:
+                a = '<span class="small">None listed</span>'
+            rows.append([E(c['label']), f'<code>ukcl:jurisdiction/{E(c["code"])}</code>', E(', '.join(gl[g] for g in c['groups'])),
+                         a + (f' <span class="small">{E(c["definition"])}</span>' if c.get('definition') else '')])
+            attrs.append(f' data-group="{E(" ".join(c["groups"]))}"')
+        sel = ''.join(f'<option value="{E(g["id"])}">{E(g["label"])}</option>' for g in it['groups'])
+        jt = (f'<div class="filters" data-for="t-jur"><label>Search<input type="search" placeholder="country or code"></label><label>Group<select data-col="group"><option value="">All</option>{sel}</select></label><output aria-live="polite"></output></div>'
+              + table('t-jur', f'Jurisdictions, with UK adequacy regulations as the ICO listed them {prov("K")}', ['Place', 'Code', 'Groups', 'UK adequacy'], rows, row_attrs=attrs))
+        tm = table('t-tm', 'Transfer safeguards', ['Safeguard', 'Code', 'What it means'], [[E(c['label']), f'<code>ukcl:transfer-mechanism/{E(c["code"])}</code>', E(c['definition'])] for c in p.codelists['transfer-mechanism']['concepts']], sortable=False)
+        groups = ''.join(f'<div class="card"><h3>{E(g["label"])}</h3><p>{E(g["text"])}</p><p class="small">{sum(1 for c in p.codelists["jurisdiction"]["concepts"] if g["id"] in c["groups"])} on the list</p></div>' for g in it['groups'])
+        al = ''.join(f'<li><strong>{E(a["name"])}:</strong> {E(a["text"])} {self.src_link(a["source"])}</li>' for a in it['alliances'])
+        r8 = next(r for r in p.rules if r['id'] == 'R-08')
+        steps = ''.join(f'<li>{E(x)}</li>' for x in it['steps'])
+        body = self.hero('earth', 'Adopt', 'Cross-border data flows', self.gloss(it['intro']))
+        body += f'<div class="panel warning" id="not-advice"><p>{E(" ".join(it["not_advice"].split()))}</p></div>'
+        body += f'<h2 id="groups">Where data goes</h2><div class="grid">{groups}</div>'
+        body += (f'<h2 id="describe">How to describe it</h2><ol>{steps}</ol>'
+                 f'<p><strong>Rule {E(r8["id"])}:</strong> {E(r8["text"])} It is checked by the SHACL shapes, the JSON Schema and the browser validator. See the <a href="examples.html#ex-dataset-cross-border">worked example</a>.</p>')
+        body += ('<h2 id="properties">The properties</h2>' + ul([f'<a href="properties.html#p-{k}">{E(p.props[k]["label"])}</a> (<code>{E(p.props[k]["uri"])}</code>): {E(p.props[k]["definition"])}' for k in ('jurisdiction', 'transferMechanism', 'applicableLegislation', 'hasPolicy', 'spatial')]))
+        body += f'<h2 id="jurisdictions">Jurisdictions</h2><p>{E(" ".join(p.codelists["jurisdiction"]["note"].split()))} Source: {self.src_link("ico")}</p>{jt}'
+        body += f'<h2 id="safeguards">Transfer safeguards</h2><p>As the ICO guidance sets them out. Source: {self.src_link("ico")}</p>{tm}'
+        body += f'<h2 id="partners">Alliances and partners</h2><ul>{al}</ul><p>The <a href="adopt.html#crosswalks">crosswalk to DCAT-AP and DCAT-US</a> shows which terms carry over.</p>'
+        drawer = [{'title': 'Cross-border flows', 'icon': 'earth', 'items': [{'id': 'not-advice', 'label': 'Not legal advice', 'icon': 'triangle-alert'}, {'id': 'groups', 'label': 'Where data goes', 'icon': 'globe', 'count': len(it['groups'])},
+                   {'id': 'describe', 'label': 'How to describe it', 'icon': 'list-checks'}, {'id': 'properties', 'label': 'The properties', 'icon': 'tags'},
+                   {'id': 'jurisdictions', 'label': 'Jurisdictions', 'icon': 'map', 'count': len(rows)}, {'id': 'safeguards', 'label': 'Transfer safeguards', 'icon': 'shield-check', 'count': len(p.codelists['transfer-mechanism']['concepts'])},
+                   {'id': 'partners', 'label': 'Alliances and partners', 'icon': 'heart-handshake'}]}]
+        self.page('international', body, drawer, crumbs=[('Adopt', None), ('Cross-border data flows', None)])
+
+    def mcp_tools(self):
+        src = (ROOT / 'integrations' / 'mcp' / 'server.js').read_text(encoding='utf-8')
+        return re.findall(r"\{ name: '([a-z_]+)', description: '([^']+)'", src)
+
+    def ai_page(self):
+        p, ai = self.p, self.t['ai']
+        pil = ''.join(f'<div class="card"><h3>{icon(x["icon"])} {E(x["title"])}</h3><p>{E(x["text"])}</p></div>' for x in ai['pillars'])
+        pols = generate.odrl_policies(p)
+        pt = table('t-pol', 'Usage policy templates (ODRL 2.2)', ['Policy', 'Type', 'File'], [[E(v['dct:title']['@value']), E(v['@type'].split(':')[1]), f'<a href="downloads/policies/{k}.jsonld" download>{E(k)}.jsonld</a>'] for k, v in pols.items()], sortable=False)
+        tools = table('t-mcp', 'Tools the MCP server offers', ['Tool', 'What it does'], [[f'<code>{E(n)}</code>', E(d)] for n, d in self.mcp_tools()], sortable=False)
+        ext = p.extensions['ai-ready']
+        exports = ul([f'<a href="downloads/examples/{e["key"]}.schema.jsonld">{E(e["label"])}, schema.org</a>' + (f' and <a href="downloads/examples/{e["key"]}.croissant.jsonld">Croissant</a>' if e['record']['class'] == 'Dataset' else '') for e in p.examples])
+        body = self.hero('brain-circuit', 'Adopt', 'AI-ready metadata', self.gloss(' '.join(ai['intro'].split())))
+        body += f'<h2 id="pillars">What AI-ready means here</h2><div class="grid">{pil}</div><p>It follows the {self.src_link("aiready")}.</p>'
+        body += (f'<h2 id="extension">The AI-ready extension</h2><p>{E(" ".join(ext["summary"].split()))} <a href="extensions.html#ext-ai-ready">See the extension</a>.</p>'
+                 + table('t-ai-ext', 'What the AI-ready extension adds', ['Property', 'Class', 'Obligation', 'Term', 'Change', 'Definition'], self.ext_rows('ai-ready')))
+        body += ('<h2 id="policies">Usage policies machines can read</h2><p>Link a policy with <a href="properties.html#p-hasPolicy">usage policy</a>. Each template is ODRL 2.2 in JSON-LD. Purposes such as training AI models are terms this profile adds, and are provisional. '
+                 f'Where a licence and a policy disagree, the licence wins. {self.src_link("odrl")}</p>{pt}')
+        body += ('<h2 id="exports">Exports for search engines and machine learning</h2><p>The <a href="builder.html">record builder</a> and the MCP server export any record as schema.org JSON-LD and as Croissant 1.1. '
+                 f'The Croissant export is dataset level only: add the record sets (columns and their types) with Croissant tools. {self.src_link("croissant")}</p>{exports}')
+        body += ('<h2 id="llms">A map for language models</h2><p><a href="llms.txt">llms.txt</a> lists the portal’s pages and files for language models, as the llms.txt proposal suggests; '
+                 f'<a href="llms-full.txt">llms-full.txt</a> holds every class, property and codelist as plain markdown. {self.src_link("llmstxt")}</p>')
+        body += ('<h2 id="mcp">An MCP server for AI assistants</h2><p>A small Model Context Protocol server lets an AI assistant look up the profile and check, score, convert and export records. It runs on your machine, uses the portal’s own validator, '
+                 f'makes no network requests and writes no files. The repository’s tests start it and call its tools.</p><pre tabindex="0">python3 -I tools/build.py\nnode integrations/mcp/server.js</pre>{tools}'
+                 f'<p><a href="{E(self.m["repo_url"])}/tree/main/integrations/mcp">The server and how to add it to an MCP client</a></p>')
+        drawer = [{'title': 'AI-ready', 'icon': 'brain-circuit', 'items': [{'id': 'pillars', 'label': 'What it means', 'icon': 'lightbulb', 'count': len(ai['pillars'])}, {'id': 'extension', 'label': 'The extension', 'icon': 'puzzle'},
+                   {'id': 'policies', 'label': 'Usage policies', 'icon': 'shield-check', 'count': len(pols)}, {'id': 'exports', 'label': 'Exports', 'icon': 'braces'},
+                   {'id': 'llms', 'label': 'llms.txt', 'icon': 'file-text'}, {'id': 'mcp', 'label': 'MCP server', 'icon': 'bot'}]}]
+        self.page('ai-ready', body, drawer, crumbs=[('Adopt', None), ('AI-ready metadata', None)])
+
+    def quantum_page(self):
+        p, qn = self.p, self.t['quantum']
+        ms = ''.join(f'<li><strong>By {E(m["year"])}:</strong> {E(m["text"])}</li>' for m in qn['milestones'])
+        th = table('t-q', 'What a quantum computer threatens, and what to do', ['Cryptography', 'The risk', 'What to do'], [[E(x['what']), E(x['risk']), E(x['action'])] for x in qn['threats']], sortable=False)
+        st = {'recommended': ('Recommended', 'ok'), 'acceptable': ('Acceptable', 'brand'), 'deprecated': ('Weak: warned', 'err')}
+        al = table('t-alg', 'Checksum algorithms', ['Algorithm', 'Advice', 'Identifier', 'Why'], [[E(c['label']), f'<strong class="tag {st[c["status"]][1]}">{st[c["status"]][0]}</strong>', f'<code>{E(c["compact"])}</code>', E(c['definition'])] for c in p.codelists['checksum-algorithm']['concepts']], sortable=False)
+        ts = table('t-ts', 'Connection security values', ['Value', 'Code', 'What it means'], [[E(c['label']), f'<code>ukcl:transport-security/{E(c["code"])}</code>', E(c['definition'])] for c in p.codelists['transport-security']['concepts']], sortable=False)
+        sparql = ('PREFIX dcat: <http://www.w3.org/ns/dcat#>\nPREFIX dcatuk: <https://w3id.org/dcat-uk-ap/ns#>\nPREFIX ukcl: <https://w3id.org/dcat-uk-ap/codelist/>\n\n'
+                  '# Services still on classical-only key exchange, or not yet assessed\nSELECT ?service ?endpoint WHERE {\n  ?service a dcat:DataService ; dcat:endpointURL ?endpoint .\n'
+                  '  OPTIONAL { ?service dcatuk:transportSecurity ?ts }\n  FILTER (!BOUND(?ts) || ?ts NOT IN (ukcl:transport-security/pqc-hybrid, ukcl:transport-security/pqc-only))\n}')
+        body = self.hero('atom', 'Adopt', 'Quantum-ready metadata', self.gloss(' '.join(qn['intro'].split())))
+        body += f'<div class="panel warning" id="honesty"><p>{E(" ".join(qn["honesty"].split()))}</p></div>'
+        body += f'<h2 id="milestones">The NCSC timeline</h2><ol>{ms}</ol><p>Source: {self.src_link("ncsc-pqc")}. The post-quantum standards: {self.src_link("fips")}.</p>'
+        body += f'<h2 id="threats">What is at risk</h2>{th}'
+        body += f'<h2 id="checksums">Checksums that stay trustworthy</h2><p>Every <a href="class-checksum.html">checksum</a> names its algorithm from this list. The validator warns about weak algorithms (rule Q-01) but still accepts them, so old records conform.</p>{al}'
+        body += ('<h2 id="inventory">The catalogue as a cryptographic inventory</h2><p>Data services can record <a href="properties.html#p-transportSecurity">connection security</a>: the key exchange their endpoint uses. '
+                 f'The NCSC asks for discovery by 2028; a catalogue that records this answers “which of our APIs still use classical-only key exchange?” with one query.</p>{ts}'
+                 f'<pre id="q-sparql" tabindex="0">{E(sparql)}</pre><p class="btns"><button type="button" class="btn secondary small" data-copy="q-sparql">Copy the query</button></p>')
+        body += f'<h2 id="agility">Crypto-agility in metadata</h2>{ul([E(x) for x in qn["agility"]])}'
+        drawer = [{'title': 'Quantum-ready', 'icon': 'atom', 'items': [{'id': 'honesty', 'label': 'What this does not do', 'icon': 'triangle-alert'}, {'id': 'milestones', 'label': 'NCSC timeline', 'icon': 'milestone', 'count': 3},
+                   {'id': 'threats', 'label': 'What is at risk', 'icon': 'shield-alert'}, {'id': 'checksums', 'label': 'Checksums', 'icon': 'fingerprint', 'count': len(p.codelists['checksum-algorithm']['concepts'])},
+                   {'id': 'inventory', 'label': 'Inventory', 'icon': 'scan-search'}, {'id': 'agility', 'label': 'Crypto-agility', 'icon': 'refresh-cw'}]}]
+        self.page('quantum', body, drawer, crumbs=[('Adopt', None), ('Quantum-ready metadata', None)])
+
+    def landscape_page(self):
+        ls = self.t['landscape']
+        cols = ls['columns']
+        names = {x['id']: x['name'] for x in ls['profiles']}
+        rows, attrs = [], []
+        for x in ls['profiles']:
+            rows.append([E(x['name']), E(x['scope']), E(x['area']), E(x['note']), self.src_link(x['source'])])
+            attrs.append(f' data-scope="{slug(x["scope"])}"')
+        scopes = sorted({x['scope'] for x in ls['profiles']})
+        sel = ''.join(f'<option value="{slug(sc)}">{E(sc)}</option>' for sc in scopes)
+        pt = (f'<div class="filters" data-for="t-ls"><label>Search<input type="search" placeholder="name or country"></label><label>Scope<select data-col="scope"><option value="">All</option>{sel}</select></label><output aria-live="polite"></output></div>'
+              + table('t-ls', f'Profiles scanned, as of {E(ls["as_of"])}', ['Profile', 'Scope', 'Area', 'What stands out', 'Source'], rows, row_attrs=attrs))
+
+        def lv(v):
+            t, cls = LEVEL[v]
+            return f'<strong class="tag {cls}">{t}</strong>'
+        mrows = [[E(x['name'])] + [lv(x['levels'][c]) for c, _ in cols] for x in ls['profiles']]
+        mrows.append(['<strong>DCAT-UK AP 1.1 (this profile)</strong>'] + [lv('full') for c, _ in cols])
+        mt = table('t-matrix', 'What each offers people who must comply (“Not seen” means not found in this scan)', ['Profile'] + [E(l) for _, l in cols], mrows)
+        em = ''.join(f'<div class="card"><h3><a href="{E(x["here"])}">{E(x["what"])}</a></h3><p>{E(x["how"])}</p><p class="small">Learned from: {E(", ".join(names.get(i) or self.src[i]["title"] for i in x["from"]))}</p></div>' for x in ls['emulate'])
+        own = ul(['A critical data asset switch that turns on the extra properties the Data Asset Management Policy asks for, in the same record.',
+                  'The Government Security Classifications in every record, with SECRET and TOP SECRET kept out of OFFICIAL catalogues.',
+                  'Where data is held and sent, and the UK GDPR transfer safeguard, checked by a rule (R-08).',
+                  'Connection security for the post-quantum inventory, and warnings on weak checksums.',
+                  'Contact forms preferred over mailboxes, and never a named person.',
+                  'Three independent validators held to the same verdict on every example and every deliberate break.'])
+        body = self.hero('telescope', 'Adopt', 'Profiles around the world', self.gloss(' '.join(ls['method'].split())))
+        body += f'<h2 id="profiles">The profiles scanned</h2>{pt}'
+        body += f'<h2 id="matrix">Compared like for like</h2><p>DCAT-UK AP’s own row is a self-assessment against the same columns, not an independent review.</p>{mt}'
+        body += f'<h2 id="emulate">What DCAT-UK AP takes from them</h2><div class="grid">{em}</div>'
+        body += f'<h2 id="own">What the UK adds that the scan did not find elsewhere</h2>{own}'
+        drawer = [{'title': 'Landscape', 'icon': 'telescope', 'items': [{'id': 'profiles', 'label': 'Profiles scanned', 'icon': 'globe', 'count': len(rows)}, {'id': 'matrix', 'label': 'Compared', 'icon': 'table-2'},
+                   {'id': 'emulate', 'label': 'What we take', 'icon': 'sparkles', 'count': len(ls['emulate'])}, {'id': 'own', 'label': 'What the UK adds', 'icon': 'flag'}]}]
+        self.page('landscape', body, drawer, crumbs=[('Adopt', None), ('Profiles around the world', None)])
+
+    def write_llms(self):
+        """llms.txt (a map for language models) and llms-full.txt (the profile as plain markdown). Both generated, never edited."""
+        p, m = self.p, self.m
+        u = m['site_url']
+        lines = [f'# {m["title"]} ({m["short_title"]})', '',
+                 f'> A proposed UK application profile of W3C DCAT 3, aligned with DCAT-AP 3.0.1, for describing datasets and data services so they can be found, judged and shared across catalogues. Version {m["version"]}, as of {m["as_of"]}. Proposed and not endorsed; not an official GOV.UK service.', '']
+        for k, label, ic, kids in NAV:
+            lines.append(f'## {label}')
+            for x in (kids or [k]):
+                lines.append(f'- [{TITLES[x]}]({u}{"" if x == "index" else x + ".html"}): {DESC[x]}')
+            lines.append('')
+        lines += ['## Machine-readable', f'- [SHACL shapes]({u}downloads/dcat-uk-ap.shacl.ttl)', f'- [JSON Schema]({u}downloads/dcat-uk-ap.schema.json)',
+                  f'- [JSON-LD context]({u}downloads/dcat-uk-ap.context.jsonld)', f'- [Profile for tools]({u}downloads/profile.json)', f'- [Codelists]({u}downloads/codelists.ttl)',
+                  f'- [Extensions]({u}downloads/extensions/index.json)', f'- [Cross-reference manifest]({u}xref.json)', '', '## Optional', f'- [The whole profile as markdown]({u}llms-full.txt)', '']
+        (self.out / 'llms.txt').write_text('\n'.join(lines), encoding='utf-8')
+        full = [f'# {m["title"]} {m["version"]}', '', ' '.join(m['status_note'].split()), '', '## Classes', '']
+        for ck, c in p.classes.items():
+            full += [f'### {c["label"]} ({c["uri"]})', '', c['definition'], '', '| Property | Term | Obligation | Cardinality |', '|---|---|---|---|']
+            full += [f'| {p.props[x["p"]]["label"]} | {p.props[x["p"]]["uri"]} | {OB_LABEL[x["ob"]]}{" (" + x["condition"] + ")" if x.get("condition") else ""} | {x["card"]} |' for x in c['properties']]
+            full.append('')
+        full += ['## Properties', '']
+        for k, v in p.props.items():
+            full += [f'### {v["label"]} (`{k}`, {v["uri"]})', '', v['definition'] + (' ' + ' '.join(str(v['guidance']).split()) if v.get('guidance') else ''), '']
+        full += ['## Rules', ''] + [f'- {r["id"]}: {r["text"]}' for r in p.rules] + ['', '## Codelists', '']
+        for sk, cl in p.codelists.items():
+            full += [f'### {cl["label"]} (`{sk}`)', '', ' '.join(cl['definition'].split()), '', ', '.join(c['label'] for c in cl['concepts'][:60]), '']
+        full += ['## Sector extensions', '']
+        for eid, e in p.extensions.items():
+            full += [f'### {e["label"]} (`{eid}`)', '', ' '.join(e['summary'].split()), '']
+        (self.out / 'llms-full.txt').write_text('\n'.join(full) + '\n', encoding='utf-8')
+
     def write_machine(self, prof):
         """xref.json for the estate, and a DCAT-UK AP description of the downloads (the profile describing itself)."""
         p, m = self.p, self.m
@@ -1052,7 +1447,8 @@ class Site:
                          'codelists': {k: {'label': v['label'], 'url': f'{m["site_url"]}codelists.html#cl-{k}'} for k, v in p.codelists.items()},
                          'terms': {t['id']: {'term': t['term'], 'url': f'{m["site_url"]}knowledge.html#g-{t["id"]}'} for t in self.c['glossary']},
                          'organisations': {'key': 'GOV.UK organisation slug', 'url': m['site_url'] + 'downloads/organisations.json'}},
-                'related': [{'id': x['id'], 'name': x['name'], 'url': x['url']} for x in self.c['estate']['portals'] if x['id'] != 'ap'] + [{'id': 'compass', 'name': 'Estate compass', 'url': self.c['estate']['compass']}]}
+                'related': [{'id': x['id'], 'name': x['name'], 'url': x['url']} for x in self.c['estate']['portals'] if x['id'] != 'ap'] + [{'id': 'compass', 'name': 'Estate compass', 'url': self.c['estate']['compass']},
+                            {'id': 'panuk-architecture', 'name': 'Future pan-UK metadata architecture (private)', 'url': self.src['panuk']['url'], 'relation': 'implements'}]}
         (self.out / 'xref.json').write_text(json.dumps(xref, indent=1, ensure_ascii=False) + '\n', encoding='utf-8')
         cat = {'class': 'Catalogue', 'id': m['site_url'] + 'downloads/', 'title': f'{m["title"]} {m["version"]} downloads',
                'description': 'The machine-readable forms of DCAT-UK AP, generated from one source on every build.',

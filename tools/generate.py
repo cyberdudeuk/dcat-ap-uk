@@ -25,6 +25,8 @@ from rdflib.namespace import DCTERMS, OWL, RDF, RDFS, SKOS, XSD
 import ukap
 
 SH = Namespace('http://www.w3.org/ns/shacl#')
+PERSONAL_TRIGGERS = ('personal', 'pseudonymised', 'unknown')  # rule R-08: values of personal data that make a transfer restricted
+UK_CODES = ('gb', 'gb-eng', 'gb-sct', 'gb-wls', 'gb-nir')  # jurisdictions inside the UK
 DATATYPES = {
     'integer': XSD.nonNegativeInteger, 'decimal': XSD.decimal, 'boolean': XSD.boolean, 'duration': XSD.duration,
 }
@@ -86,10 +88,18 @@ def prop_shape(p, g, x, prop, path):
         g.add((ps, SH.nodeKind, SH.BlankNodeOrIRI))
     if prop.get('max_length'):
         g.add((ps, SH.maxLength, Literal(prop['max_length'])))
+    pat = p.pattern_for(x, prop)
+    if pat:
+        g.add((ps, SH.pattern, Literal(sh_pattern(pat))))
     if x['p'] == 'startDate':
         g.add((ps, SH.lessThanOrEquals, URIRef(p.expand(p.props['endDate']['uri']))))
         g.add((ps, SH.message, Literal("A period's end date must not be before its start date (rule R-07).", lang='en')))
     return ps
+
+
+def sh_pattern(pat):
+    """SHACL patterns test the full IRI; the profile's patterns also accept the compact form. Both are written to match either."""
+    return pat
 
 
 def dt_shape(g, dt):
@@ -141,6 +151,21 @@ def shacl(p):
             has = BNode(); ph = BNode()
             g.add((has, SH.property, ph)); g.add((ph, SH.path, DCTERMS.rights)); g.add((ph, SH.minCount, Literal(1)))
             g.add((r3, SH['or'], sh_list(g, [opn, has])))
+            # R-08: personal data held or sent outside the UK needs a transfer safeguard
+            r8 = base[ck + 'TransferShape']
+            g.add((r8, RDF.type, SH.NodeShape))
+            g.add((r8, SH.targetClass, URIRef(p.expand(c['uri']))))
+            g.add((r8, SH.message, Literal('Personal data held in or sent to anywhere outside the UK needs a transfer safeguard (rule R-08).', lang='en')))
+            no_pd = BNode(); inner = BNode(); pp = BNode()
+            g.add((no_pd, SH['not'], inner)); g.add((inner, SH.property, pp))
+            g.add((pp, SH.path, URIRef(p.expand(p.props['personalData']['uri'])))); g.add((pp, SH.minCount, Literal(1)))
+            g.add((pp, SH['in'], sh_list(g, [URIRef(p.concept_iri('personal-data', k)) for k in PERSONAL_TRIGGERS])))
+            in_uk = BNode(); pj = BNode()
+            g.add((in_uk, SH.property, pj)); g.add((pj, SH.path, URIRef(p.expand(p.props['jurisdiction']['uri']))))
+            g.add((pj, SH['in'], sh_list(g, [URIRef(p.concept_iri('jurisdiction', k)) for k in UK_CODES])))
+            has_tm = BNode(); pt = BNode()
+            g.add((has_tm, SH.property, pt)); g.add((pt, SH.path, URIRef(p.expand(p.props['transferMechanism']['uri'])))); g.add((pt, SH.minCount, Literal(1)))
+            g.add((r8, SH['or'], sh_list(g, [no_pd, in_uk, has_tm])))
         if ck == 'Dataset':
             # R-04: critical data assets carry the extra mandatory properties
             r4 = base['CriticalDataAssetShape']
@@ -196,17 +221,23 @@ def compact_forms(p, cl):
     for c in p.codelists[cl]['concepts']:
         full = p.concept_iri(cl, c['code'])
         out.append(full)
-        out.append((pre + ':' + c['code']) if ext and pre else 'ukcl:' + cl + '/' + c['code'])
+        if p.codelists[cl].get('compact_from_uri') and c.get('compact'):
+            out.append(c['compact'])
+        else:
+            out.append((pre + ':' + c['code']) if ext and pre else 'ukcl:' + cl + '/' + c['code'])
     return out
 
 
-def json_schema(p):
+def json_schema(p, sid=None):
     defs = {}
     for ck, c in p.classes.items():
         props = {'class': {'const': ck}, 'id': {'type': 'string'}}
         req = []
         for x, prop in p.class_props(ck):
             v = js_value(p, prop)
+            pat = p.pattern_for(x, prop)
+            if pat:
+                v = dict(v, pattern=pat)
             props[x['p']] = {'description': prop['definition'], **(
                 {'anyOf': [v, {'type': 'array', 'items': v, 'minItems': 1}]} if p.multi(x) else v)}
             if prop.get('max_length'):
@@ -222,6 +253,12 @@ def json_schema(p):
             opens = [f for f in compact_forms(p, 'access-rights') if f.endswith('/open')]
             allof.append({'if': {'properties': {'accessRights': {'not': {'enum': opens}}}, 'required': ['accessRights']},
                           'then': {'required': ['rights']}})
+            pd = [f for f in compact_forms(p, 'personal-data') if f.rsplit('/', 1)[-1] in PERSONAL_TRIGGERS]
+            uk = [f for k in UK_CODES for f in (p.concept_iri('jurisdiction', k), 'ukcl:jurisdiction/' + k)]
+            allof.append({'if': {'required': ['personalData', 'jurisdiction'], 'properties': {
+                'personalData': {'enum': pd},
+                'jurisdiction': {'anyOf': [{'type': 'string', 'not': {'enum': uk}}, {'type': 'array', 'contains': {'not': {'enum': uk}}}]}}},
+                'then': {'required': ['transferMechanism']}})
         if ck == 'Dataset':
             cda = [x['p'] for x, _ in p.class_props(ck) if x.get('cda') == 'M']
             allof.append({'if': {'properties': {'criticalDataAsset': {'enum': ['true', True]}}, 'required': ['criticalDataAsset']},
@@ -231,7 +268,7 @@ def json_schema(p):
         defs[ck] = d
     return {
         '$schema': 'https://json-schema.org/draft/2020-12/schema',
-        '$id': p.meta['site_url'] + 'downloads/dcat-uk-ap.schema.json',
+        '$id': sid or p.meta['site_url'] + 'downloads/dcat-uk-ap.schema.json',
         'title': p.meta['title'] + ' ' + p.meta['version'],
         'description': 'JSON Schema for records in the compact JSON form of DCAT-UK AP. Pair it with the JSON-LD context to get RDF.',
         'oneOf': [{'$ref': f'#/$defs/{k}'} for k in p.classes],
@@ -311,6 +348,21 @@ def namespace_terms(p):
             g.add((t, RDFS.isDefinedBy, ont))
             if v.get('provisional'):
                 g.add((t, URIRef('http://www.w3.org/2003/06/sw-vocab-status/ns#term_status'), Literal('unstable')))
+    for e in p.extensions.values():
+        for k, v in (e.get('properties') or {}).items():
+            if v['uri'].startswith('dcatuk:'):
+                t = URIRef(p.expand(v['uri']))
+                g.add((t, RDF.type, RDF.Property))
+                g.add((t, RDFS.label, Literal(v['label'], lang='en')))
+                g.add((t, RDFS.comment, Literal(v['definition'] + f' (extension {e["id"]})', lang='en')))
+                g.add((t, RDFS.isDefinedBy, ont))
+                g.add((t, URIRef('http://www.w3.org/2003/06/sw-vocab-status/ns#term_status'), Literal('unstable')))
+    for k, (label, d) in POLICY_TERMS.items():
+        t = URIRef(p.meta['namespace'] + k)
+        g.add((t, RDF.type, SKOS.Concept))
+        g.add((t, SKOS.prefLabel, Literal(label, lang='en')))
+        g.add((t, SKOS.definition, Literal(d, lang='en')))
+        g.add((t, RDFS.isDefinedBy, ont))
     return g
 
 
@@ -405,14 +457,35 @@ def browser_profile(p):
            'prefixes': {k: v for k, v in p.prefixes.items() if k not in ('sh',)}, 'classes': {}, 'props': {}, 'codelists': {}, 'rules': p.rules}
     for ck, c in p.classes.items():
         out['classes'][ck] = {'uri': c['uri'], 'label': c['label'], 'one_of': c.get('one_of', []),
-                              'props': [{'p': x['p'], 'ob': x['ob'], 'card': x['card'], 'cda': x.get('cda'), 'condition': x.get('condition')} for x in c['properties']]}
+                              'props': [class_entry(x) for x in c['properties']]}
     for k, v in p.props.items():
-        out['props'][k] = {kk: v.get(kk) for kk in ('uri', 'label', 'kind', 'range', 'codelist', 'definition', 'guidance', 'example', 'max_length', 'provisional') if v.get(kk) is not None}
+        out['props'][k] = prop_entry(v)
     for sk, s in p.codelists.items():
-        out['codelists'][sk] = {'label': s['label'], 'open': sk in ukap.OPEN_CODELISTS,
+        out['codelists'][sk] = {'label': s['label'], 'open': sk in ukap.OPEN_CODELISTS, **({'pattern': s['pattern']} if s.get('pattern') else {}),
                                 'concepts': [{'code': c['code'], 'label': c['label'], 'iri': p.concept_iri(sk, c['code']),
-                                              'compact': compact_forms(p, sk)[i * 2 + 1], 'mem': c.get('mem')} for i, c in enumerate(s['concepts'])]}
+                                              'compact': compact_forms(p, sk)[i * 2 + 1], 'mem': c.get('mem'),
+                                              **{kk: c[kk] for kk in ('status', 'groups', 'uk_adequacy') if c.get(kk)}} for i, c in enumerate(s['concepts'])]}
+    out['triggers'] = {'personal': [p.concept_iri('personal-data', k) for k in PERSONAL_TRIGGERS], 'uk': [p.concept_iri('jurisdiction', k) for k in UK_CODES]}
+    out['extensions'] = {}
+    for eid, e in p.extensions.items():
+        out['extensions'][eid] = {'label': e['label'], 'iri': ext_iri(p, eid),
+                                  'props': {k: prop_entry(v) for k, v in (e.get('properties') or {}).items()},
+                                  'new_classes': {ck: {'uri': c['uri'], 'label': c['label'], 'one_of': c.get('one_of', []), 'props': [class_entry(x) for x in c['properties']]}
+                                                  for ck, c in (e.get('new_classes') or {}).items()},
+                                  'classes': {ck: [class_entry(x) for x in xs] for ck, xs in e['classes'].items()}}
     return out
+
+
+def class_entry(x):
+    return {k: x.get(k) for k in ('p', 'ob', 'card', 'cda', 'condition', 'pattern', 'ext') if x.get(k) is not None}
+
+
+def prop_entry(v):
+    return {kk: v.get(kk) for kk in ('uri', 'label', 'kind', 'range', 'codelist', 'definition', 'guidance', 'example', 'max_length', 'provisional', 'pattern') if v.get(kk) is not None}
+
+
+def ext_iri(p, eid):
+    return p.meta['namespace'].replace('ns#', 'ext/') + eid
 
 
 def jsonld_doc(p, g):
@@ -446,4 +519,122 @@ def generate(p):
         files[f'examples/{e["key"]}.ttl'] = g.serialize(format='turtle')
         files[f'examples/{e["key"]}.jsonld'] = json.dumps({'@context': p.meta['site_url'] + 'downloads/dcat-uk-ap.context.jsonld'} | {k: v for k, v in e['record'].items()}, indent=2, ensure_ascii=False) + '\n'
         files[f'examples/{e["key"]}.json'] = json.dumps(e['record'], indent=2, ensure_ascii=False) + '\n'
+    files.update(extension_files(p))
+    files.update(crosswalk_files(p))
+    for name, pol in odrl_policies(p).items():
+        files[f'policies/{name}.jsonld'] = json.dumps(pol, indent=2, ensure_ascii=False) + '\n'
+    files['template.csv'] = csv_template(p)
     return files
+
+
+# --- extensions -------------------------------------------------------------
+def extension_files(p):
+    files, idx = {}, []
+    base = p.meta['site_url'] + 'downloads/extensions/'
+    for eid, e in p.extensions.items():
+        q = p.with_extensions([eid])
+        files[f'extensions/{eid}.shacl.ttl'] = shacl(q).serialize(format='turtle')
+        files[f'extensions/{eid}.schema.json'] = json.dumps(json_schema(q, base + f'{eid}.schema.json'), indent=2, ensure_ascii=False) + '\n'
+        rec = p.ext_example(eid)
+        files[f'extensions/{eid}.example.json'] = json.dumps(rec, indent=2, ensure_ascii=False) + '\n'
+        files[f'extensions/{eid}.example.ttl'] = ukap.to_graph(q, rec).serialize(format='turtle')
+        idx.append({'id': eid, 'label': e['label'], 'iri': ext_iri(p, eid), 'status': e['status'], 'summary': ' '.join(e['summary'].split()),
+                    'aligned_to': [a['name'] for a in e['aligned_to']], 'shapes': base + f'{eid}.shacl.ttl', 'schema': base + f'{eid}.schema.json',
+                    'adds': sorted((e.get('properties') or {}).keys()), 'raises': sorted({x['p'] for xs in e['classes'].values() for x in xs} - set(e.get('properties') or {}))})
+    files['extensions/index.json'] = json.dumps({'profile': p.meta['id'], 'version': p.meta['version'], 'extensions': idx}, indent=2, ensure_ascii=False) + '\n'
+    return files
+
+
+# --- crosswalks -------------------------------------------------------------
+SHARED_NS = ('dcat', 'dct', 'foaf', 'vcard', 'adms', 'spdx', 'locn', 'prov', 'dqv', 'odrl', 'dcatap', 'skos', 'rdfs')
+
+
+def computed_crosswalk(p):
+    """DCAT-UK AP to DCAT-AP 3.0.1 and DCAT-US 3.0, from the RDF terms: a shared term carries over as it is."""
+    rows = []
+    for k, v in p.props.items():
+        pre = v['uri'].split(':', 1)[0]
+        if pre in SHARED_NS:
+            same = f'Same term ({v["uri"]}). Exchanged as it is.'
+            rows.append([k, v['uri'], same, same])
+        else:
+            rows.append([k, v['uri'], 'No equivalent. Kept as an extra term; a harvester that ignores unknown terms drops it.',
+                         'No equivalent. Kept as an extra term; a harvester that ignores unknown terms drops it.'])
+    return rows
+
+
+def crosswalk_files(p):
+    files = {}
+    for cid, cw in (p.crosswalks or {}).items():
+        files[f'crosswalks/{cid}.csv'] = csv_text([[r[0], r[1], r[2]] for r in cw['rows']], ['dcat_uk_ap_property', cw['their'], 'note'])
+    files['crosswalks/dcat-ap-and-dcat-us.csv'] = csv_text(computed_crosswalk(p), ['dcat_uk_ap_property', 'rdf_term', 'dcat_ap_3_0_1', 'dcat_us_3_0'])
+    return files
+
+
+# --- ODRL usage policy templates -----------------------------------------------
+POLICY_TERMS = {
+    'aiTraining': ('Training AI models', 'The purpose of training or fine-tuning an artificial intelligence model.'),
+    'aiEvaluation': ('Evaluating AI models', 'The purpose of testing or evaluating an artificial intelligence model, without training it.'),
+    'research': ('Research', 'The purpose of research in the public interest.'),
+    'agreement': ('Agreement in place', 'A left operand: the identifier of the data sharing agreement that must be in place.'),
+}
+
+
+def odrl_policies(p):
+    ns = p.meta['namespace']
+    base = p.meta['site_url'] + 'downloads/policies/'
+    ctx = {'odrl': p.prefixes['odrl'], 'dcatuk': ns, 'dct': p.prefixes['dct']}
+
+    def act(a):
+        return {'@id': 'odrl:' + a}
+
+    def purpose(term):
+        return {'odrl:leftOperand': {'@id': 'odrl:purpose'}, 'odrl:operator': {'@id': 'odrl:eq'}, 'odrl:rightOperand': {'@id': 'dcatuk:' + term}}
+
+    attribution = {'odrl:action': act('attribute')}
+    open_perm = {'odrl:action': [act('use'), act('reproduce'), act('distribute'), act('derive')], 'odrl:duty': [attribution]}
+
+    def pol(name, title, typ, perms, prohibs=()):
+        d = {'@context': ctx, '@id': base + name + '.jsonld', '@type': 'odrl:' + typ, 'dct:title': {'@value': title, '@language': 'en'},
+             'odrl:profile': {'@id': ns.rstrip('#')}, 'odrl:permission': list(perms)}
+        if prohibs:
+            d['odrl:prohibition'] = list(prohibs)
+        return d
+    return {
+        'ogl-open': pol('ogl-open', 'Open Government Licence v3.0, as a policy: use, copy, share and adapt, with attribution', 'Set', [open_perm]),
+        'ogl-no-ai-training': pol('ogl-no-ai-training', 'Open use with attribution, but not for training AI models', 'Set', [open_perm],
+                                  [{'odrl:action': act('use'), 'odrl:constraint': [purpose('aiTraining')]}]),
+        'ai-evaluation-only': pol('ai-evaluation-only', 'Use only to evaluate AI models, not to train them', 'Set',
+                                  [{'odrl:action': act('use'), 'odrl:constraint': [purpose('aiEvaluation')], 'odrl:duty': [attribution]}],
+                                  [{'odrl:action': act('use'), 'odrl:constraint': [purpose('aiTraining')]}]),
+        'research-only': pol('research-only', 'Use for research only, without sharing further', 'Set',
+                             [{'odrl:action': act('use'), 'odrl:constraint': [purpose('research')], 'odrl:duty': [attribution]}],
+                             [{'odrl:action': act('distribute')}]),
+        'agreement-required': pol('agreement-required', 'An offer: use under a data sharing agreement', 'Offer',
+                                  [{'odrl:action': act('use'), 'odrl:constraint': [{'odrl:leftOperand': {'@id': 'dcatuk:agreement'}, 'odrl:operator': {'@id': 'odrl:isA'},
+                                                                                    'odrl:rightOperand': {'@value': 'A signed data sharing agreement with the publisher'}}]}],
+                                  [{'odrl:action': act('distribute')}]),
+    }
+
+
+# --- spreadsheet template ---------------------------------------------------------
+TEMPLATE_COLUMNS = ['id', 'title', 'description', 'abstract', 'identifier', 'publisher', 'contactPoint.fn', 'contactPoint.hasURL', 'accessRights', 'rights',
+                    'securityClassification', 'personalData', 'licence', 'accrualPeriodicity', 'criticalDataAsset', 'creator', 'created', 'issued', 'modified',
+                    'theme', 'keyword', 'spatial', 'temporal.startDate', 'temporal.endDate', 'conformsTo', 'landingPage', 'language', 'jurisdiction',
+                    'transferMechanism', 'distribution.title', 'distribution.accessURL', 'distribution.downloadURL', 'distribution.mediaType', 'distribution.byteSize']
+
+
+def csv_template(p):
+    """A spreadsheet template for many datasets at once: one row per dataset, one distribution per row. Values that repeat are split by ' | '."""
+    rec = next(e['record'] for e in p.examples if e['key'] == 'dataset-postcodes')
+
+    def get(path):
+        head, _, tail = path.partition('.')
+        v = rec.get(head)
+        if tail:
+            v = (v[0] if isinstance(v, list) and v else v or {})
+            v = v.get(tail) if isinstance(v, dict) else None
+        if isinstance(v, list):
+            return ' | '.join(str(x) for x in v)
+        return '' if v is None else str(v)
+    return csv_text([[get(c) for c in TEMPLATE_COLUMNS]], TEMPLATE_COLUMNS)

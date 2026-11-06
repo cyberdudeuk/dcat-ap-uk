@@ -219,11 +219,29 @@
   }
 
   /* ---- record builder ------------------------------------------------------------------------------------- */
-  var P = window.UKAP_PROFILE, V = window.UKAPValidator;
+  var P0 = window.UKAP_PROFILE, P = P0, V = window.UKAPValidator;
+  // The profile in use: the base, or the base plus a sector extension chosen in a select.
+  function useExt(id) { P = id ? V.withExtensions(P0, [id]) : P0; return P; }
+  var qext = (/[?&]ext=([a-z-]+)/.exec(location.search) || [])[1];
   var bform = $('#builder-form');
   if (bform && P && V) builder();
   var vbox = $('#validate-form');
   if (vbox && P && V) validator();
+  if ($('#bulk-form') && P && V) bulk();
+  if ($('#oas-form') && P && V) openapi();
+  var ckf = $('#checklist-form');
+  if (ckf) checklist(ckf);
+
+  function fairHtml(q) {
+    return q.dimensions.map(function (d) {
+      return '<h3 class="h4">' + esc(d.label) + ' <span class="small">' + d.score + ' of ' + d.max + '</span></h3><div class="meter" aria-hidden="true"><span style="width:' + (100 * d.score / d.max) + '%"></span></div><ul class="results">' +
+        d.items.map(function (it) { return '<li class="' + (it.met ? 'ok' : 'warning') + '">' + (it.met ? 'Has ' : 'Missing: ') + esc(it.label.toLowerCase()) + ' <span class="small">(' + it.points + ')</span></li>'; }).join('') + '</ul>';
+    }).join('') + '<p class="small">Modelled on the five dimensions of the EU metadata quality assessment. Addresses are checked for form, not fetched.</p>';
+  }
+  function levelHtml(c) {
+    var cls = ['err', 'warn', 'ok', 'ok'][c.level];
+    return '<p><span class="tag ' + cls + '">' + esc(c.label) + '</span> ' + esc(c.next) + ' <a href="adopt.html#levels" class="small">About levels</a></p>';
+  }
 
   function plabel(path) {
     if (!path) return 'Record';
@@ -328,7 +346,13 @@
       var rec = record(), res = V.validate(P, rec), comp = V.completeness(P, rec);
       $('#b-json').textContent = JSON.stringify(rec, null, 2);
       $('#b-jsonld').textContent = JSON.stringify(Object.assign({ '@context': 'https://cyberdudeuk.github.io/dcat-uk-ap/downloads/dcat-uk-ap.context.jsonld' }, rec), null, 2);
-      $('#b-ttl').textContent = turtle(rec);
+      $('#b-ttl').textContent = V.toTurtle(P, rec);
+      $('#b-sdo').textContent = JSON.stringify(V.toSchemaOrg(P, rec), null, 2);
+      $('#b-cr').textContent = JSON.stringify(V.toCroissant(P, rec), null, 2);
+      var q = V.fair(P, rec);
+      $('#b-level').innerHTML = levelHtml(V.conformance(P, rec));
+      $('#b-fair-s').textContent = q.score + ' of ' + q.max + ' (' + q.rating.toLowerCase() + ')';
+      $('#b-fair').innerHTML = fairHtml(q);
       var m = comp.mandatory, r = comp.recommended;
       $('#b-m').style.width = (m[1] ? 100 * m[0] / m[1] : 0) + '%'; $('#b-m-t').textContent = m[0] + ' of ' + m[1] + ' mandatory';
       $('#b-r').style.width = (r[1] ? 100 * r[0] / r[1] : 0) + '%'; $('#b-r-t').textContent = r[0] + ' of ' + r[1] + ' recommended';
@@ -338,7 +362,10 @@
       $$('.field', fields).forEach(function (f) { f.classList.toggle('bad', errs.some(function (i) { return i.prop.split(/[.[]/)[0] === f.getAttribute('data-p'); })); });
     }
     clsSel.addEventListener('change', build); cdaBox.addEventListener('change', build); $('#b-id').addEventListener('input', update);
-    $$('[data-dl]').forEach(function (b) { b.addEventListener('click', function () { var k = b.getAttribute('data-dl'); download('record.' + k, $('#b-' + k.replace('.', '')).textContent, k === 'ttl' ? 'text/turtle' : 'application/json'); }); });
+    var bext = $('#b-ext');
+    if (bext) { if (qext) bext.value = qext; useExt(bext.value); bext.addEventListener('change', function () { useExt(bext.value); build(); announce(bext.value ? 'Extension applied' : 'Extension removed'); }); }
+    var NAMES = { json: 'record.json', jsonld: 'record.jsonld', ttl: 'record.ttl', sdo: 'record.schema.jsonld', cr: 'record.croissant.jsonld' };
+    $$('[data-dl]').forEach(function (b) { b.addEventListener('click', function () { var k = b.getAttribute('data-dl'); download(NAMES[k], $('#b-' + k).textContent, k === 'ttl' ? 'text/turtle' : 'application/ld+json'); }); });
     var ex = $('#b-example');
     if (ex) ex.addEventListener('change', function () {
       var e = (window.UKAP_EXAMPLES || {})[ex.value]; if (!e) return;
@@ -356,46 +383,21 @@
     build();
   }
 
-  function turtle(rec) {
-    var pre = ['dcat', 'dct', 'foaf', 'vcard', 'adms', 'dcatuk', 'ukcl', 'eufreq', 'eulang', 'xsd', 'prov', 'spdx', 'locn', 'schema', 'dqv'];
-    var head = pre.map(function (p) { return '@prefix ' + p + ': <' + P.prefixes[p] + '> .'; }).join('\n');
-    function iri(s) { var e = V.expand(P, s); return '<' + e.replace(/[<>"{}|^`\\\s]/g, encodeURIComponent) + '>'; }
-    function lit(s) { return '"' + String(s).replace(/\\/g, '\\\\').replace(/"/g, '\\"').replace(/\n/g, '\\n') + '"'; }
-    function val(prop, v, ind) {
-      if (prop.kind === 'object' && typeof v === 'object') return node(v, prop.range, ind + '    ');
-      if (/iri|url|concept|object|email/.test(prop.kind)) return iri(prop.kind === 'email' && !/^mailto:/.test(v) ? 'mailto:' + v : v);
-      if (prop.kind === 'date') return lit(v) + '^^xsd:' + (/T/.test(v) ? 'dateTime' : /^\d{4}-\d{2}-\d{2}$/.test(v) ? 'date' : /^\d{4}-\d{2}$/.test(v) ? 'gYearMonth' : 'gYear');
-      if (prop.kind === 'integer') return lit(v) + '^^xsd:nonNegativeInteger';
-      if (prop.kind === 'boolean') return lit(v) + '^^xsd:boolean';
-      if (prop.kind === 'decimal') return lit(v) + '^^xsd:decimal';
-      return lit(v);
-    }
-    function body(r, ck, ind) {
-      var lines = ['a ' + P.classes[ck].uri];
-      Object.keys(r).forEach(function (k) {
-        if (k === 'class' || k === 'id' || !P.props[k]) return;
-        var vs = Array.isArray(r[k]) ? r[k] : [r[k]];
-        lines.push(P.props[k].uri + ' ' + vs.map(function (v) { return val(P.props[k], v, ind); }).join(', '));
-      });
-      return lines.join(' ;\n' + ind);
-    }
-    function node(r, rng, ind) { var ck = r['class'] || rng; return r.id ? iri(r.id) : '[\n' + ind + body(r, ck, ind) + '\n' + ind.slice(4) + ']'; }
-    var subject = rec.id ? iri(rec.id) : '[]';
-    return head + '\n\n' + subject + '\n    ' + body(rec, rec['class'], '    ') + ' .\n';
-  }
-
   function validator() {
-    var ta = $('#v-input'), out = $('#v-out'), mode = $('#v-mode');
+    var ta = $('#v-input'), out = $('#v-out'), mode = $('#v-mode'), vext = $('#v-ext');
+    if (vext && qext) vext.value = qext;
     function run() {
       var text = ta.value.trim(); if (!text) { out.innerHTML = '<p>Paste a record to check it.</p>'; return; }
       var data, notes = [];
       try { data = /^\s*[{[]/.test(text) ? JSON.parse(text) : miniYaml(text); }
       catch (e) { out.innerHTML = '<div class="panel warning"><h3>The text could not be read</h3><p>' + esc(e.message) + '</p></div>'; return; }
+      useExt(vext ? vext.value : '');
       if (mode.value === 'mem') { var c = V.fromMem(P, data); data = c.record; notes = c.notes; }
       var recs = Array.isArray(data) ? data : [data];
       out.innerHTML = recs.map(function (r, n) {
-        var res = V.validate(P, r);
-        return '<section class="panel ' + (res.ok ? 'notice' : 'warning') + '"><h3>' + (recs.length > 1 ? 'Record ' + (n + 1) + ': ' : '') + (res.ok ? 'Conforms to DCAT-UK AP' : res.errors + ' to fix') + '</h3>' +
+        var res = V.validate(P, r), q = V.fair(P, r);
+        return '<section class="panel ' + (res.ok ? 'notice' : 'warning') + '"><h3>' + (recs.length > 1 ? 'Record ' + (n + 1) + ': ' : '') + (res.ok ? 'Conforms to DCAT-UK AP' + (P.applied && P.applied.length ? ' with the ' + esc(P0.extensions[P.applied[0]].label.toLowerCase()) + ' extension' : '') : res.errors + ' to fix') + '</h3>' +
+          levelHtml(V.conformance(P, r)) + '<details><summary>Quality score: ' + q.score + ' of ' + q.max + ' (' + esc(q.rating.toLowerCase()) + ')</summary>' + fairHtml(q) + '</details>' +
           (notes.length ? '<p><strong>Converted from the xGov MEM.</strong></p><ul>' + notes.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul>' : '') +
           '<ul class="results">' + res.issues.map(function (i) { return '<li class="' + i.level + '"><strong>' + esc(plabel(i.prop)) + '</strong>: ' + esc(i.text) + ' <span class="small">(' + esc(i.rule) + ')</span></li>'; }).join('') + '</ul>' +
           (mode.value === 'mem' ? '<h4>Converted record</h4><pre>' + esc(JSON.stringify(r, null, 2)) + '</pre>' : '') + '</section>';
@@ -404,6 +406,69 @@
     }
     $('#v-run').addEventListener('click', run);
     $$('[data-sample]').forEach(function (b) { b.addEventListener('click', function () { ta.value = doc.getElementById(b.getAttribute('data-sample')).textContent.trim(); mode.value = b.getAttribute('data-mode'); run(); }); });
+  }
+
+
+  function bulk() {
+    var out = $('#bk-out'), ta = $('#bk-text'), fi = $('#bk-file'), ext = $('#bk-ext');
+    if (ext && qext) ext.value = qext;
+    var last = [];
+    function run() {
+      var text = ta.value;
+      if (!text.trim()) { out.innerHTML = '<p>Choose a file or paste CSV first.</p>'; return; }
+      useExt(ext.value);
+      var conv = V.fromCSV(P, text);
+      last = conv.records;
+      var rows = conv.records.map(function (r, i) {
+        var res = V.validate(P, r), c = V.conformance(P, r), q = V.fair(P, r);
+        var first = res.issues.filter(function (x) { return x.level === 'error'; }).slice(0, 3).map(function (x) { return esc(plabel(x.prop)) + ': ' + esc(x.text); }).join('<br>');
+        return { c: c, html: '<tr data-level="' + c.level + '"><th scope="row">' + (i + 2) + '</th><td>' + esc(r.title || '(no title)') + '</td><td><span class="tag ' + ['err', 'warn', 'ok', 'ok'][c.level] + '">' + esc(c.label) + '</span></td><td class="num">' + res.errors + '</td><td class="num">' + q.score + '</td><td>' + (first || 'None') + '</td></tr>' };
+      });
+      var counts = [0, 0, 0, 0]; rows.forEach(function (r) { counts[r.c.level]++; });
+      out.innerHTML = '<section class="panel notice"><h2>' + rows.length + ' record' + (rows.length === 1 ? '' : 's') + ' checked</h2><p>' + counts[0] + ' do not conform, ' + counts[1] + ' at level 1, ' + counts[2] + ' at level 2, ' + counts[3] + ' at level 3.</p>' +
+        (conv.notes.length ? '<ul>' + conv.notes.map(function (n) { return '<li>' + esc(n) + '</li>'; }).join('') + '</ul>' : '') +
+        '<p class="btns"><button type="button" class="btn small" id="bk-dl-jsonld">Download all as JSON-LD</button><button type="button" class="btn secondary small" id="bk-dl-ttl">Download all as Turtle</button><button type="button" class="btn secondary small" id="bk-dl-json">Download all as JSON</button></p></section>' +
+        '<div class="table-wrap" role="region" aria-labelledby="bk-cap" tabindex="0"><table id="bk-t"><caption id="bk-cap">Every record, by spreadsheet row</caption><thead><tr><th scope="col">Row</th><th scope="col">Title</th><th scope="col">Level</th><th scope="col" class="num">Errors</th><th scope="col" class="num">Quality</th><th scope="col">First errors</th></tr></thead><tbody>' +
+        rows.map(function (r) { return r.html; }).join('') + '</tbody></table></div>';
+      $('#bk-dl-jsonld').addEventListener('click', function () { download('records.jsonld', JSON.stringify({ '@context': 'https://cyberdudeuk.github.io/dcat-uk-ap/downloads/dcat-uk-ap.context.jsonld', '@graph': last }, null, 1), 'application/ld+json'); });
+      $('#bk-dl-ttl').addEventListener('click', function () { download('records.ttl', last.map(function (r) { return V.toTurtle(P, r); }).join('\n'), 'text/turtle'); });
+      $('#bk-dl-json').addEventListener('click', function () { download('records.json', JSON.stringify(last, null, 1), 'application/json'); });
+      announce(rows.length + ' records checked');
+    }
+    fi.addEventListener('change', function () { var file = fi.files && fi.files[0]; if (!file) return; var rd = new FileReader(); rd.onload = function () { ta.value = String(rd.result); run(); }; rd.readAsText(file); });
+    $('#bk-run').addEventListener('click', run);
+    $('#bk-sample').addEventListener('click', function () {
+      var x = new XMLHttpRequest(); x.open('GET', 'downloads/template.csv'); x.onload = function () { if (x.status === 200) { ta.value = x.responseText; run(); } else out.innerHTML = '<p>The template could not be loaded. Download it with the button above.</p>'; };
+      x.onerror = function () { out.innerHTML = '<p>The template could not be loaded from this copy of the portal. Download it with the button above.</p>'; }; x.send();
+    });
+  }
+
+  function openapi() {
+    var out = $('#oas-out'), ta = $('#oas-text'), url = $('#oas-url');
+    function run() {
+      var oas;
+      try { oas = JSON.parse(ta.value); } catch (e) { out.innerHTML = '<div class="panel warning"><h2>The description could not be read</h2><p>It must be JSON. ' + esc(e.message) + '</p></div>'; return; }
+      useExt('');
+      var c = V.fromOpenAPI(P, oas, { url: url.value.trim() }), res = V.validate(P, c.record);
+      out.innerHTML = '<section class="panel ' + (res.ok ? 'notice' : 'warning') + '"><h2>Draft data service record</h2>' + levelHtml(V.conformance(P, c.record)) +
+        '<h3 class="h4">What to add or check</h3><ul>' + c.notes.map(function (n) { return '<li>' + esc(n) + '</li>'; }).join('') + '</ul>' +
+        '<ul class="results">' + res.issues.map(function (i) { return '<li class="' + i.level + '"><strong>' + esc(plabel(i.prop)) + '</strong>: ' + esc(i.text) + ' <span class="small">(' + esc(i.rule) + ')</span></li>'; }).join('') + '</ul>' +
+        '<pre id="oas-rec" tabindex="0">' + esc(JSON.stringify(c.record, null, 2)) + '</pre><p class="btns"><button type="button" class="btn small" id="oas-dl">Download JSON</button><button type="button" class="btn secondary small" data-copy="oas-rec">Copy</button></p></section>';
+      $('#oas-dl').addEventListener('click', function () { download('data-service.json', JSON.stringify(c.record, null, 2), 'application/json'); });
+      announce('Record drafted');
+    }
+    $('#oas-run').addEventListener('click', run);
+    $('#oas-sample').addEventListener('click', function () { ta.value = $('#oas-s').textContent.trim(); url.value = 'https://api.example.org/bus-stops/openapi.json'; run(); });
+  }
+
+  function checklist(form) {
+    var boxes = $$('input[data-check]', form);
+    function count() { var n = boxes.filter(function (b) { return b.checked; }).length; var c = $('#ck-count'); if (c) c.textContent = n + ' of ' + boxes.length + ' done'; }
+    boxes.forEach(function (b) {
+      b.checked = store.get('check:' + b.getAttribute('data-check')) === '1';
+      b.addEventListener('change', function () { store.set('check:' + b.getAttribute('data-check'), b.checked ? '1' : '0'); count(); });
+    });
+    count();
   }
 
   // A small YAML reader for flat records like the xGov MEM examples: key: value, lists, one level of nesting, block text.

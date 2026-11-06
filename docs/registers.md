@@ -22,6 +22,10 @@ Proposed. Not endorsed. To become a standard it needs, in order: review by the M
 | D-010 | 2026-11-06 | Escape did not close search when text had been typed. | In a search box the browser uses the first Escape to clear the text. | Escape in the search box closes the dialog. | tools/check_browser.py palette checks |
 | D-011 | 2026-11-06 | The lineage said 20 xGov MEM issues were open; there were 22. | Miscounted by hand from the API listing. | Counted from the backlog register itself. | tests/test_profile.py ReadmeCounts: totals must equal the register, and the README counts must match it |
 | D-012 | 2026-11-06 | The overflow check failed on random pages after a browser update. | It measured the width straight after resizing, before the global bar had folded its items into More. | The check waits two animation frames for resize handlers before measuring. | tools/check_browser.py overflow, with its "overflow" break still caught |
+| D-013 | 2026-11-06 | The build stopped with a type error while checking codelists. | YAML reads the bare code no (Norway) as false, so the code was not text. | The code is quoted, and the loader refuses any code that is not text with a message that says why. | tests/test_toolkit.py test_codelist_code_must_be_text, and Norway must still be on the list |
+| D-014 | 2026-11-06 | An unknown property name with a space crashed the Turtle export instead of being reported. | The name was used in an address without being encoded. | Unknown names are percent-encoded, so the record is kept and validation reports it. | tests/test_toolkit.py test_unknown_key_with_space_serialises |
+| D-015 | 2026-11-06 | The record builder’s Turtle dropped every property of a distribution that had its own address. | A nested node with an address was written as the address alone. | Such nodes are written as their own statements. | tests/test_toolkit.py test_turtle_matches_python: browser Turtle and build RDF must be isomorphic for every example |
+| D-016 | 2026-11-06 | The adoption page had two elements with the id checklist. | The section heading and the form were given the same id. | The form is checklist-form. | tools/check_site.py C-04 caught it before release |
 
 ## Open register
 
@@ -36,9 +40,11 @@ Proposed. Not endorsed. To become a standard it needs, in order: review by the M
 | O-07 | A Welsh language version of the portal. | Owning team, with translation |
 | O-08 | Research the levels for "who can see this record" (issue 5) and the reference data property (issue 3) with catalogue owners and information assurance. | User researcher, information assurance |
 | O-09 | Check the generated LinkML file with LinkML tools. | Maintainers |
-| O-10 | An MCP server so AI assistants can read the profile, as the sister portals have. | Maintainers |
-| O-11 | A crosswalk to UK GEMINI for geospatial records, with the geospatial community. | Metadata specialist |
+| O-11 | Review the first UK GEMINI crosswalk (adoption toolkit) and the geospatial extension with the geospatial community. | Metadata specialist |
 | O-12 | Ask the co-cddo owners to point the xGov MEM repository and its open issues here. | Repository owner |
+| O-13 | Check every extension term and namespace marked K with its sector body (health, geospatial, statistics, transport, data spaces, energy, organisation identifiers). | Metadata specialist, with each sector |
+| O-14 | Reconcile this profile with the future pan-UK metadata architecture (co-cddo, private): base DCAT-AP version, namespace, extension names and validator, so there is one DCAT-UK AP, not two. | Owning team |
+| O-15 | Check the UK adequacy column and the transfer safeguards against the ICO list, and the Crown Dependency and Overseas Territory entries with their regulators. | Data protection specialist |
 
 ## Backlog from the xGov MEM
 
@@ -83,5 +89,6 @@ Proposed. Not endorsed. To become a standard it needs, in order: review by the M
 - Wrote the profile as one YAML source, with codelists, lineage and worked examples.
 - Generated SHACL, JSON Schema, JSON-LD context, LinkML, SKOS and CSV; built the browser validator; held all three validators to the same verdict on every example and deliberate break.
 - Built the portal and its knowledge layer, compared the four portals like for like, and joined the estate compass as its fourth bearing.
+- 1.1: scanned DCAT profiles in Europe, the US and sectors; added nine sector extensions, cross-border flows, a quality score and levels, AI-ready and quantum-ready features, an adoption toolkit, bulk and OpenAPI converters and an MCP server; linked the future pan-UK metadata architecture.
 
 **Verdict:** Meets the brief as a proposal. Needs user research, specialist review of the K mappings and the governance steps before it can be a standard.

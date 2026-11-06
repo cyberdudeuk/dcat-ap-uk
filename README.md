@@ -1,6 +1,6 @@
 # DCAT-UK Application Profile (DCAT-UK AP)
 
-> **Proposed, not endorsed.** DCAT-UK AP 1.0.0-rc.1 is a proposal for review by the Metadata Implementation Working Group. It has not
+> **Proposed, not endorsed.** DCAT-UK AP 1.1.0-rc.1 is a proposal for review by the Metadata Implementation Working Group. It has not
 > been endorsed by the Data Standards Authority, and it is not an official GOV.UK service or policy. The endorsed model remains the
 > [UK Cross-Government Metadata Exchange Model](https://co-cddo.github.io/ukgov-metadata-exchange-model/) (xGov MEM) until a decision is made.
 
@@ -19,6 +19,9 @@ and evolved from the xGov MEM, whose whole backlog it resolves.
 | A chief data officer or policy coordinator | Decide whether to adopt it | [Strategy](https://cyberdudeuk.github.io/dcat-uk-ap/strategy.html) and [governance](https://cyberdudeuk.github.io/dcat-uk-ap/governance.html#status) |
 | An engineer or supplier | Validate and build to it | [Downloads](https://cyberdudeuk.github.io/dcat-uk-ap/downloads.html): SHACL, JSON Schema, JSON-LD context, codelists |
 | New to metadata | Understand why it matters | [Your role](https://cyberdudeuk.github.io/dcat-uk-ap/roles.html#start), with an Easy Read summary |
+| Any organisation, in any sector | Adopt it | [Adoption toolkit](https://cyberdudeuk.github.io/dcat-uk-ap/adopt.html), [sector extensions](https://cyberdudeuk.github.io/dcat-uk-ap/extensions.html) and [check many records](https://cyberdudeuk.github.io/dcat-uk-ap/bulk.html) |
+| Sharing data across borders | Record where data goes and on what basis | [Cross-border data flows](https://cyberdudeuk.github.io/dcat-uk-ap/international.html) |
+| Building with AI | Know what data may be used for, and let assistants read the profile | [AI-ready metadata](https://cyberdudeuk.github.io/dcat-uk-ap/ai-ready.html) and the [MCP server](integrations/mcp/) |
 
 ## What changed from the xGov MEM
 
@@ -29,6 +32,15 @@ and evolved from the xGov MEM, whose whole backlog it resolves.
 - Codelists are linked data (SKOS), mapped to the EU vocabularies DCAT-AP uses. Themes are the data.gov.uk topics.
 - Contact points prefer a contact form and never name a person.
 
+## New in 1.1
+
+- Nine sector extensions (health, geospatial, statistics, transport, high-value datasets, AI-ready, data spaces, private and voluntary sector, energy), aligned with HealthDCAT-AP, GeoDCAT-AP and UK GEMINI, StatDCAT-AP, mobilityDCAT-AP, DCAT-AP HVD, MLDCAT-AP and Croissant, the Dataspace Protocol, org-id.guide and Ofgem Data Best Practice.
+- Cross-border flows across the UK nations, Crown Dependencies, Overseas Territories, the Commonwealth and partners, with the UK GDPR transfer safeguard checked by rule R-08.
+- A quality score modelled on the EU metadata quality assessment, and three conformance levels.
+- AI-ready (usage policies, schema.org and Croissant, llms.txt, an MCP server) and quantum-ready (strong checksums, connection security for the post-quantum inventory).
+- An adoption toolkit, a bulk CSV checker, an OpenAPI converter, and a scan of DCAT profiles around the world.
+- It implements the [future pan-UK metadata architecture](https://github.com/co-cddo/future-panuk-metadata-architecture) (co-cddo; private repository). Reconciling the two is open register O-14.
+
 ## How this repository works
 
 One source, everything else generated:
@@ -36,10 +48,14 @@ One source, everything else generated:
 ```
 profile/dcat-uk-ap.yaml     the profile: classes, properties, obligations, rules  (edit here)
 profile/codelists.yaml      the codelists                                          (edit here)
+profile/extensions.yaml     sector extensions: only add properties or raise obligations    (edit here)
+profile/crosswalks.yaml     crosswalks to CKAN, Dublin Core, UK GEMINI, HDR UK, Croissant  (edit here)
 profile/organisations.json  GOV.UK organisations, reused from the GitHub Repos Asset Catalogue (tools/import_orgs.py)
 content/lineage.yaml        sources, the xGov MEM backlog and how each item was dealt with
 content/portal.yaml         roles, glossary, strategy, estate comparison, governance registers
+content/toolkit.yaml        landscape scan, adoption toolkit, cross-border, AI and quantum content
 examples/examples.yaml      worked examples, checked on every build
+integrations/mcp/           MCP server for AI assistants, using site_src/validator.js
 tools/                      ukap.py (load and check), generate.py (SHACL, JSON Schema, context, LinkML, SKOS, CSV), build.py (portal)
 site_src/                   stylesheet, behaviour, and the browser validator shared with the tests
 tests/                      the three validators held to the same verdict; deliberate breaks for every rule
@@ -52,7 +68,7 @@ docs/                       registers and decisions, generated from content/port
 pip install -r requirements.txt && npm ci && python3 -m playwright install chromium
 python3 -I -m unittest discover -s tests        # profile, schemas and validator agree; every break fails
 python3 -I tools/build.py                        # writes site/ and docs/
-python3 -I tools/check_site.py                   # 16 structural checks
+python3 -I tools/check_site.py                   # 18 structural checks
 python3 -I tools/check_site.py --vaccinate       # proves each check catches its deliberate break
 python3 -I tools/check_browser.py                # axe-core, widths 320-1920, light and dark, keyboard, tools, no-script
 ```

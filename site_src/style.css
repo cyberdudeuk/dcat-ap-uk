@@ -240,3 +240,11 @@ footer.colophon{border-top:6px solid var(--brand);background:var(--panel);margin
 }
 /* D-008: .small (muted text) must not recolour small buttons */
 .btn.small{color:#fff}.btn.secondary.small{color:var(--text)}
+/* 1.1: quality score, levels, checklist */
+.results li.ok{border-left-color:#00703c}
+.h4{font-size:1.05rem;margin:.8rem 0 .2rem}
+details.fair{margin:.5rem 0}
+.checklist fieldset{border:1px solid var(--border);padding:.6rem .9rem;margin:0 0 .8rem}
+.checklist legend{font-weight:700;padding:0 .3rem}
+.check{display:flex;gap:.6rem;align-items:flex-start;margin:.45rem 0}
+.check input{width:1.4rem;height:1.4rem;flex:0 0 auto;margin-top:.1rem;accent-color:var(--brand)}

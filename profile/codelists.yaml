@@ -191,3 +191,208 @@ agent-role:
     - {code: data-custodian, label: Data custodian, definition: 'Runs the systems that hold the data.'}
     - {code: information-asset-owner, label: Information asset owner, definition: 'The senior role accountable for the information asset under information assurance.'}
     - {code: distributor, label: Distributor, definition: 'Makes the data available on behalf of the publisher.'}
+
+jurisdiction:
+  label: Jurisdictions
+  definition: Countries and territories where data may be held, processed or sent, including the UK nations, the Crown Dependencies, the British Overseas Territories, the Commonwealth, the EEA and others.
+  open: true
+  pattern: '^(ukcl:jurisdiction/|https://w3id\.org/dcat-uk-ap/codelist/jurisdiction/)[a-z]{2,3}(-[a-z0-9]{1,3})?$'
+  note: >-
+    Codes are ISO 3166-1 alpha-2 (ISO 3166-2 for the UK nations), lower case. Any other country may be added in the same form. Adequacy is UK adequacy regulations as listed by the ICO; check the ICO list before relying on it (provenance K, 6 November 2026).
+  concepts:
+    - {code: gb, label: 'United Kingdom', groups: [uk], definition: 'The whole UK. Use a nation when you know it.'}
+    - {code: gb-eng, label: 'England', groups: [uk]}
+    - {code: gb-sct, label: 'Scotland', groups: [uk]}
+    - {code: gb-wls, label: 'Wales', groups: [uk]}
+    - {code: gb-nir, label: 'Northern Ireland', groups: [uk]}
+    - {code: je, label: 'Jersey', groups: [crown-dependency], uk_adequacy: full}
+    - {code: gg, label: 'Guernsey', groups: [crown-dependency], uk_adequacy: full, definition: 'The Bailiwick of Guernsey, including Alderney and Sark.'}
+    - {code: im, label: 'Isle of Man', groups: [crown-dependency], uk_adequacy: full}
+    - {code: ai, label: 'Anguilla', groups: [overseas-territory]}
+    - {code: bm, label: 'Bermuda', groups: [overseas-territory]}
+    - {code: bat, label: 'British Antarctic Territory', groups: [overseas-territory], definition: 'Has no ISO 3166-1 code of its own; this code is this profile’s.'}
+    - {code: io, label: 'British Indian Ocean Territory', groups: [overseas-territory]}
+    - {code: vg, label: 'British Virgin Islands', groups: [overseas-territory]}
+    - {code: ky, label: 'Cayman Islands', groups: [overseas-territory]}
+    - {code: fk, label: 'Falkland Islands', groups: [overseas-territory]}
+    - {code: gi, label: 'Gibraltar', groups: [overseas-territory], uk_adequacy: full}
+    - {code: ms, label: 'Montserrat', groups: [overseas-territory]}
+    - {code: pn, label: 'Pitcairn, Henderson, Ducie and Oeno Islands', groups: [overseas-territory]}
+    - {code: sh, label: 'St Helena, Ascension and Tristan da Cunha', groups: [overseas-territory]}
+    - {code: gs, label: 'South Georgia and the South Sandwich Islands', groups: [overseas-territory]}
+    - {code: sba, label: 'Sovereign Base Areas of Akrotiri and Dhekelia', groups: [overseas-territory], definition: 'Has no ISO 3166-1 code of its own; this code is this profile’s.'}
+    - {code: tc, label: 'Turks and Caicos Islands', groups: [overseas-territory]}
+    - {code: bw, label: 'Botswana', groups: [commonwealth]}
+    - {code: cm, label: 'Cameroon', groups: [commonwealth]}
+    - {code: sz, label: 'Eswatini', groups: [commonwealth]}
+    - {code: ga, label: 'Gabon', groups: [commonwealth]}
+    - {code: gm, label: 'The Gambia', groups: [commonwealth]}
+    - {code: gh, label: 'Ghana', groups: [commonwealth]}
+    - {code: ke, label: 'Kenya', groups: [commonwealth]}
+    - {code: ls, label: 'Lesotho', groups: [commonwealth]}
+    - {code: mw, label: 'Malawi', groups: [commonwealth]}
+    - {code: mu, label: 'Mauritius', groups: [commonwealth]}
+    - {code: mz, label: 'Mozambique', groups: [commonwealth]}
+    - {code: na, label: 'Namibia', groups: [commonwealth]}
+    - {code: ng, label: 'Nigeria', groups: [commonwealth]}
+    - {code: rw, label: 'Rwanda', groups: [commonwealth]}
+    - {code: sc, label: 'Seychelles', groups: [commonwealth]}
+    - {code: sl, label: 'Sierra Leone', groups: [commonwealth]}
+    - {code: za, label: 'South Africa', groups: [commonwealth]}
+    - {code: tg, label: 'Togo', groups: [commonwealth]}
+    - {code: ug, label: 'Uganda', groups: [commonwealth]}
+    - {code: tz, label: 'Tanzania', groups: [commonwealth]}
+    - {code: zm, label: 'Zambia', groups: [commonwealth]}
+    - {code: bd, label: 'Bangladesh', groups: [commonwealth]}
+    - {code: bn, label: 'Brunei Darussalam', groups: [commonwealth]}
+    - {code: in, label: 'India', groups: [commonwealth]}
+    - {code: my, label: 'Malaysia', groups: [commonwealth]}
+    - {code: mv, label: 'Maldives', groups: [commonwealth]}
+    - {code: pk, label: 'Pakistan', groups: [commonwealth]}
+    - {code: sg, label: 'Singapore', groups: [commonwealth]}
+    - {code: lk, label: 'Sri Lanka', groups: [commonwealth]}
+    - {code: ag, label: 'Antigua and Barbuda', groups: [commonwealth]}
+    - {code: bs, label: 'The Bahamas', groups: [commonwealth]}
+    - {code: bb, label: 'Barbados', groups: [commonwealth]}
+    - {code: bz, label: 'Belize', groups: [commonwealth]}
+    - {code: ca, label: 'Canada', groups: [commonwealth], uk_adequacy: partial, definition: 'Commercial organisations subject to PIPEDA.'}
+    - {code: dm, label: 'Dominica', groups: [commonwealth]}
+    - {code: gd, label: 'Grenada', groups: [commonwealth]}
+    - {code: gy, label: 'Guyana', groups: [commonwealth]}
+    - {code: jm, label: 'Jamaica', groups: [commonwealth]}
+    - {code: kn, label: 'St Kitts and Nevis', groups: [commonwealth]}
+    - {code: lc, label: 'St Lucia', groups: [commonwealth]}
+    - {code: vc, label: 'St Vincent and the Grenadines', groups: [commonwealth]}
+    - {code: tt, label: 'Trinidad and Tobago', groups: [commonwealth]}
+    - {code: cy, label: 'Cyprus', groups: [commonwealth, eea], uk_adequacy: full}
+    - {code: mt, label: 'Malta', groups: [commonwealth, eea], uk_adequacy: full}
+    - {code: au, label: 'Australia', groups: [commonwealth]}
+    - {code: fj, label: 'Fiji', groups: [commonwealth]}
+    - {code: ki, label: 'Kiribati', groups: [commonwealth]}
+    - {code: nr, label: 'Nauru', groups: [commonwealth]}
+    - {code: nz, label: 'New Zealand', groups: [commonwealth], uk_adequacy: full}
+    - {code: pg, label: 'Papua New Guinea', groups: [commonwealth]}
+    - {code: ws, label: 'Samoa', groups: [commonwealth]}
+    - {code: sb, label: 'Solomon Islands', groups: [commonwealth]}
+    - {code: to, label: 'Tonga', groups: [commonwealth]}
+    - {code: tv, label: 'Tuvalu', groups: [commonwealth]}
+    - {code: vu, label: 'Vanuatu', groups: [commonwealth]}
+    - {code: at, label: 'Austria', groups: [eea], uk_adequacy: full}
+    - {code: be, label: 'Belgium', groups: [eea], uk_adequacy: full}
+    - {code: bg, label: 'Bulgaria', groups: [eea], uk_adequacy: full}
+    - {code: hr, label: 'Croatia', groups: [eea], uk_adequacy: full}
+    - {code: cz, label: 'Czechia', groups: [eea], uk_adequacy: full}
+    - {code: dk, label: 'Denmark', groups: [eea], uk_adequacy: full}
+    - {code: ee, label: 'Estonia', groups: [eea], uk_adequacy: full}
+    - {code: fi, label: 'Finland', groups: [eea], uk_adequacy: full}
+    - {code: fr, label: 'France', groups: [eea], uk_adequacy: full}
+    - {code: de, label: 'Germany', groups: [eea], uk_adequacy: full}
+    - {code: gr, label: 'Greece', groups: [eea], uk_adequacy: full}
+    - {code: hu, label: 'Hungary', groups: [eea], uk_adequacy: full}
+    - {code: ie, label: 'Ireland', groups: [eea], uk_adequacy: full}
+    - {code: it, label: 'Italy', groups: [eea], uk_adequacy: full}
+    - {code: lv, label: 'Latvia', groups: [eea], uk_adequacy: full}
+    - {code: lt, label: 'Lithuania', groups: [eea], uk_adequacy: full}
+    - {code: lu, label: 'Luxembourg', groups: [eea], uk_adequacy: full}
+    - {code: nl, label: 'Netherlands', groups: [eea], uk_adequacy: full}
+    - {code: pl, label: 'Poland', groups: [eea], uk_adequacy: full}
+    - {code: pt, label: 'Portugal', groups: [eea], uk_adequacy: full}
+    - {code: ro, label: 'Romania', groups: [eea], uk_adequacy: full}
+    - {code: sk, label: 'Slovakia', groups: [eea], uk_adequacy: full}
+    - {code: si, label: 'Slovenia', groups: [eea], uk_adequacy: full}
+    - {code: es, label: 'Spain', groups: [eea], uk_adequacy: full}
+    - {code: se, label: 'Sweden', groups: [eea], uk_adequacy: full}
+    - {code: is, label: 'Iceland', groups: [eea], uk_adequacy: full}
+    - {code: li, label: 'Liechtenstein', groups: [eea], uk_adequacy: full}
+    - {code: 'no', label: 'Norway', groups: [eea], uk_adequacy: full}
+    - {code: ad, label: 'Andorra', groups: [other], uk_adequacy: full}
+    - {code: ar, label: 'Argentina', groups: [other], uk_adequacy: full}
+    - {code: fo, label: 'Faroe Islands', groups: [other], uk_adequacy: full}
+    - {code: il, label: 'Israel', groups: [other], uk_adequacy: full}
+    - {code: jp, label: 'Japan', groups: [other], uk_adequacy: partial, definition: 'Private sector organisations.'}
+    - {code: kr, label: 'Republic of Korea', groups: [other], uk_adequacy: full}
+    - {code: ch, label: 'Switzerland', groups: [other], uk_adequacy: full}
+    - {code: uy, label: 'Uruguay', groups: [other], uk_adequacy: full}
+    - {code: us, label: 'United States', groups: [other], uk_adequacy: partial, definition: 'Organisations certified to the UK Extension to the EU-US Data Privacy Framework (the UK-US data bridge).'}
+    - {code: cn, label: 'China', groups: [other]}
+    - {code: br, label: 'Brazil', groups: [other]}
+    - {code: ae, label: 'United Arab Emirates', groups: [other]}
+    - {code: sa, label: 'Saudi Arabia', groups: [other]}
+    - {code: ua, label: 'Ukraine', groups: [other]}
+    - {code: tr, label: 'Türkiye', groups: [other]}
+    - {code: mx, label: 'Mexico', groups: [other]}
+    - {code: ph, label: 'Philippines', groups: [other]}
+    - {code: id, label: 'Indonesia', groups: [other]}
+
+transfer-mechanism:
+  label: Transfer safeguards
+  definition: The bases in UK GDPR for sending personal data outside the UK, as the ICO guidance of 15 January 2026 sets them out (provenance S).
+  concepts:
+    - {code: not-restricted, label: Not a restricted transfer, definition: 'The ICO three-step test shows the flow is not a restricted transfer, for example because the receiver is not a separate legal entity, or the data is not personal data in the receiver''s hands.'}
+    - {code: uk-adequacy, label: UK adequacy regulations, definition: 'The receiver is in a country, territory or international organisation covered in full by UK adequacy regulations.'}
+    - {code: uk-adequacy-partial, label: Partial UK adequacy regulations, definition: 'Covered by adequacy regulations for a sector or a class of receiver only, such as organisations certified to the UK-US data bridge.'}
+    - {code: idta, label: International data transfer agreement (IDTA), definition: 'The ICO international data transfer agreement.'}
+    - {code: addendum, label: UK Addendum to the EU standard contractual clauses, definition: 'The EU standard contractual clauses with the ICO UK Addendum.'}
+    - {code: bcr, label: Binding corporate rules, definition: 'Binding corporate rules approved by the ICO, for transfers within a group.'}
+    - {code: public-body-instrument, label: Instrument between public authorities, definition: 'A legally binding and enforceable instrument between public authorities or bodies.'}
+    - {code: administrative-arrangement, label: Administrative arrangement between public bodies, definition: 'Provisions in an administrative arrangement between public authorities or bodies, authorised by the ICO.'}
+    - {code: code-or-certification, label: Approved code of conduct or certification, definition: 'An approved code of conduct or certification scheme, with binding commitments from the receiver.'}
+    - {code: exception, label: An exception (derogation), definition: 'One of the exceptions in Article 49 UK GDPR, such as explicit consent or important reasons of public interest. For occasional transfers only.'}
+    - {code: law-enforcement, label: Law enforcement transfer rules, definition: 'A transfer by a competent authority under Part 3 of the Data Protection Act 2018, which has its own rules.'}
+
+checksum-algorithm:
+  label: Checksum algorithms
+  definition: Algorithms in the SPDX list for checking a file has not changed, with this profile's advice on each for long-term and quantum-era trust.
+  compact_from_uri: true
+  concepts:
+    - {code: sha256, label: 'SHA-256', uri: 'http://spdx.org/rdf/terms#checksumAlgorithm_sha256', compact: 'spdx:checksumAlgorithm_sha256', status: acceptable, definition: 'Acceptable today and through the quantum transition for integrity checks. Prefer longer outputs for files that must be trusted for decades.'}
+    - {code: sha384, label: 'SHA-384', uri: 'http://spdx.org/rdf/terms#checksumAlgorithm_sha384', compact: 'spdx:checksumAlgorithm_sha384', status: recommended, definition: 'Recommended for long-lived records.'}
+    - {code: sha512, label: 'SHA-512', uri: 'http://spdx.org/rdf/terms#checksumAlgorithm_sha512', compact: 'spdx:checksumAlgorithm_sha512', status: recommended, definition: 'Recommended for long-lived records.'}
+    - {code: sha3-256, label: 'SHA3-256', uri: 'http://spdx.org/rdf/terms#checksumAlgorithm_sha3_256', compact: 'spdx:checksumAlgorithm_sha3_256', status: acceptable, definition: 'A different design from SHA-2; acceptable, and useful for crypto-agility.'}
+    - {code: sha3-384, label: 'SHA3-384', uri: 'http://spdx.org/rdf/terms#checksumAlgorithm_sha3_384', compact: 'spdx:checksumAlgorithm_sha3_384', status: recommended, definition: 'Recommended for long-lived records.'}
+    - {code: sha3-512, label: 'SHA3-512', uri: 'http://spdx.org/rdf/terms#checksumAlgorithm_sha3_512', compact: 'spdx:checksumAlgorithm_sha3_512', status: recommended, definition: 'Recommended for long-lived records.'}
+    - {code: blake2b-256, label: 'BLAKE2b-256', uri: 'http://spdx.org/rdf/terms#checksumAlgorithm_blake2b256', compact: 'spdx:checksumAlgorithm_blake2b256', status: acceptable, definition: 'Acceptable.'}
+    - {code: blake2b-512, label: 'BLAKE2b-512', uri: 'http://spdx.org/rdf/terms#checksumAlgorithm_blake2b512', compact: 'spdx:checksumAlgorithm_blake2b512', status: acceptable, definition: 'Acceptable.'}
+    - {code: blake3, label: 'BLAKE3', uri: 'http://spdx.org/rdf/terms#checksumAlgorithm_blake3', compact: 'spdx:checksumAlgorithm_blake3', status: acceptable, definition: 'Acceptable.'}
+    - {code: sha224, label: 'SHA-224', uri: 'http://spdx.org/rdf/terms#checksumAlgorithm_sha224', compact: 'spdx:checksumAlgorithm_sha224', status: deprecated, definition: 'Too short for new records. Use SHA-256 or longer.'}
+    - {code: sha1, label: 'SHA-1', uri: 'http://spdx.org/rdf/terms#checksumAlgorithm_sha1', compact: 'spdx:checksumAlgorithm_sha1', status: deprecated, definition: 'Broken against deliberate collisions. Kept so old records still conform; the validator warns (rule Q-01).'}
+    - {code: md5, label: 'MD5', uri: 'http://spdx.org/rdf/terms#checksumAlgorithm_md5', compact: 'spdx:checksumAlgorithm_md5', status: deprecated, definition: 'Broken. Kept so old records still conform; the validator warns (rule Q-01).'}
+
+transport-security:
+  label: Connection security
+  definition: The key exchange a service's endpoint uses to protect data in transit, for the post-quantum migration inventory.
+  concepts:
+    - {code: pqc-hybrid, label: Hybrid post-quantum, definition: 'Negotiates a post-quantum key exchange (ML-KEM, FIPS 203) combined with a classical one, such as X25519MLKEM768 in TLS 1.3.'}
+    - {code: pqc-only, label: Post-quantum only, definition: 'Negotiates a post-quantum key exchange alone.'}
+    - {code: tls13-classical, label: TLS 1.3 with classical key exchange, definition: 'Secure against today''s attackers, but data recorded now could be decrypted later by a quantum computer (harvest now, decrypt later). Plan the migration.'}
+    - {code: tls12-classical, label: TLS 1.2 with classical key exchange, definition: 'Upgrade to TLS 1.3 first; post-quantum key exchange needs it.'}
+    - {code: not-assessed, label: Not yet assessed, definition: 'Not yet checked. Checking is part of the discovery work the NCSC asks for by 2028.'}
+
+ai-use:
+  label: Use for artificial intelligence
+  definition: Whether the data may be used to train, fine-tune or evaluate AI models. Used by the AI-ready extension. Provisional.
+  concepts:
+    - {code: permitted, label: Training permitted, definition: 'The data may be used to train and fine-tune AI models under its licence, with no further conditions.'}
+    - {code: permitted-with-conditions, label: Training permitted with conditions, definition: 'The data may be used for AI training under conditions in the usage policy or rights statement, such as attribution, non-commercial use or a data sharing agreement.'}
+    - {code: evaluation-only, label: Evaluation only, definition: 'The data may be used to test or evaluate AI models, but not to train them.'}
+    - {code: not-permitted, label: Not permitted, definition: 'The data must not be used to train, fine-tune or evaluate AI models.'}
+    - {code: not-assessed, label: Not yet assessed, definition: 'The owner has not decided. Treat as not permitted until they do.'}
+
+statistics-status:
+  label: Official statistics status
+  definition: The status of statistics under the Code of Practice for Statistics, as the Office for Statistics Regulation names them. Used by the statistics extension (provenance K).
+  concepts:
+    - {code: accredited-official, label: Accredited official statistics, definition: 'Official statistics the Office for Statistics Regulation has assessed as complying with the Code of Practice.'}
+    - {code: official, label: Official statistics, definition: 'Statistics produced by a body named as producing official statistics.'}
+    - {code: official-in-development, label: Official statistics in development, definition: 'New or changed official statistics still being developed and tested with users.'}
+    - {code: management-information, label: Management information, definition: 'Data used to run a service, not published as official statistics.'}
+    - {code: other, label: Other statistics, definition: 'Statistics from a body that does not produce official statistics, such as a charity or company.'}
+
+open-data-triage:
+  label: Open data triage outcome
+  definition: The outcome of open data triage for data that is presumed open, as in the energy sector's Data Best Practice guidance. Used by the energy extension (provenance K).
+  concepts:
+    - {code: open, label: Open, definition: 'Published for anyone to use, under an open licence.'}
+    - {code: public, label: Public, definition: 'Available to anyone, but under a licence with conditions that make it not open.'}
+    - {code: shared, label: Shared, definition: 'Shared with named people or organisations, or groups of them, under conditions.'}
+    - {code: closed, label: Closed, definition: 'Not shared outside the organisation, for reasons recorded in the triage, such as security or privacy.'}

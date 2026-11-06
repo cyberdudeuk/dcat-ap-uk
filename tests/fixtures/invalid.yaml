@@ -56,3 +56,18 @@
 - key: dc-frequency-not-converted
   rule: V-01
   record: {class: Dataset, id: 'https://example.org/x', title: t, description: d, identifier: x, publisher: 'https://example.org/o', contactPoint: [{fn: Team, hasURL: 'https://example.org/c'}], accessRights: 'ukcl:access-rights/open', securityClassification: 'ukcl:security-classification/official', licence: 'http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/', accrualPeriodicity: 'freq:monthly'}
+- key: personal-data-abroad-without-safeguard
+  rule: R-08
+  record: {class: Dataset, id: 'https://example.org/x', title: t, description: d, identifier: x, personalData: 'ukcl:personal-data/pseudonymised', jurisdiction: ['ukcl:jurisdiction/gb-eng', 'ukcl:jurisdiction/in'], publisher: 'https://example.org/o', contactPoint: [{fn: Team, hasURL: 'https://example.org/c'}], accessRights: 'ukcl:access-rights/internal', rights: r, securityClassification: 'ukcl:security-classification/official', licence: 'ukcl:licences/data-sharing-agreement-required', accrualPeriodicity: 'eufreq:MONTHLY'}
+- key: service-personal-data-abroad
+  rule: R-08
+  record: {class: DataService, id: 'https://example.org/api', title: t, description: d, identifier: api, endpointURL: ['https://example.org/api'], personalData: 'ukcl:personal-data/personal', jurisdiction: 'ukcl:jurisdiction/us', publisher: 'https://example.org/o', contactPoint: [{fn: Team, hasURL: 'https://example.org/c'}], accessRights: 'ukcl:access-rights/internal', rights: r, securityClassification: 'ukcl:security-classification/official', licence: 'ukcl:licences/data-sharing-agreement-required', serviceStatus: 'ukcl:service-status/live'}
+- key: jurisdiction-not-a-code
+  rule: P-01
+  record: {class: Dataset, id: 'https://example.org/x', title: t, description: d, identifier: x, jurisdiction: ['ukcl:jurisdiction/India'], publisher: 'https://example.org/o', contactPoint: [{fn: Team, hasURL: 'https://example.org/c'}], accessRights: 'ukcl:access-rights/open', securityClassification: 'ukcl:security-classification/official', licence: 'http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/', accrualPeriodicity: 'eufreq:MONTHLY'}
+- key: unknown-transfer-safeguard
+  rule: V-01
+  record: {class: Dataset, id: 'https://example.org/x', title: t, description: d, identifier: x, transferMechanism: ['ukcl:transfer-mechanism/handshake'], publisher: 'https://example.org/o', contactPoint: [{fn: Team, hasURL: 'https://example.org/c'}], accessRights: 'ukcl:access-rights/open', securityClassification: 'ukcl:security-classification/official', licence: 'http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/', accrualPeriodicity: 'eufreq:MONTHLY'}
+- key: checksum-algorithm-not-spdx
+  rule: V-01
+  record: {class: Distribution, id: 'https://example.org/x#f', accessURL: ['https://example.org/f'], checksum: {algorithm: 'https://example.org/my-hash', checksumValue: abc}}

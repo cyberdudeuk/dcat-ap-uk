@@ -4,6 +4,7 @@ The profile (profile/dcat-uk-ap.yaml) and codelists (profile/codelists.yaml) are
 Everything else is generated. This module refuses to load a profile with a broken reference, so a mistake in the source
 stops the build rather than reaching a published page (build standard: regenerate, never text-patch).
 """
+import copy
 import json
 import re
 from pathlib import Path
@@ -17,7 +18,8 @@ OBLIGATIONS = {'M', 'R', 'O', 'C'}
 CHANGES = {'unchanged', 'new', 'uri-fixed', 'example-fixed', 'range-relaxed', 'range-changed', 'range-fixed',
            'obligation-changed', 'definition-fixed', 'codelist-mapped', 'codelist-added', 'value-restored', 'renamed', 'merged'}
 # Codelists the profile closes (only listed values are valid). Others are open: the list is a recommendation.
-OPEN_CODELISTS = {'licences', 'organisations', 'language'}
+OPEN_CODELISTS = {'licences', 'organisations', 'language', 'jurisdiction'}
+RANK = {'O': 0, 'R': 1, 'C': 2, 'M': 3}  # an extension may only move a property up this order
 EMAIL_RE = re.compile(r'[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}')
 
 
@@ -33,15 +35,24 @@ def load(root=ROOT):
     orgs = json.loads(orgs_path.read_text(encoding='utf-8')) if orgs_path.exists() else None
     lineage = yaml.safe_load((root / 'content' / 'lineage.yaml').read_text(encoding='utf-8'))
     examples = yaml.safe_load((root / 'examples' / 'examples.yaml').read_text(encoding='utf-8'))
-    p = Profile(prof, cls, orgs, lineage, examples)
+    ext_path = root / 'profile' / 'extensions.yaml'
+    ext = yaml.safe_load(ext_path.read_text(encoding='utf-8')) if ext_path.exists() else None
+    cw_path = root / 'profile' / 'crosswalks.yaml'
+    p = Profile(prof, cls, orgs, lineage, examples, ext)
+    p.crosswalks = yaml.safe_load(cw_path.read_text(encoding='utf-8')) if cw_path.exists() else {}
     p.check()
     return p
 
 
 class Profile:
-    def __init__(self, prof, codelists, orgs, lineage, examples):
+    def __init__(self, prof, codelists, orgs, lineage, examples, ext=None, applied=()):
+        self._raw = (prof, codelists, orgs, lineage, examples, ext)
+        self.ext_doc = ext or {'prefixes': {}, 'extensions': [], 'synthetic_base': {}}
+        self.extensions = {e['id']: e for e in self.ext_doc.get('extensions', [])}
+        self.applied = tuple(applied)
+        self.crosswalks = {}
         self.meta = prof['meta']
-        self.prefixes = prof['prefixes']
+        self.prefixes = dict(prof['prefixes'], **(self.ext_doc.get('prefixes') or {}))
         self.props = prof['properties']
         self.classes = prof['classes']
         self.rules = prof['rules']
@@ -83,9 +94,91 @@ class Profile:
             return []
         return [self.concept_iri(scheme, c['code']) for c in self.codelists[scheme]['concepts']]
 
+    # -- extensions -------------------------------------------------------------
+    def with_extensions(self, ids):
+        """A new Profile: the base plus the named extensions. Raises ProfileError if an extension would weaken the base."""
+        prof, codelists, orgs, lineage, examples, ext = self._raw
+        prof = copy.deepcopy(prof)
+        errs = []
+        for eid in ids:
+            e = self.extensions.get(eid)
+            if e is None:
+                raise ProfileError(f'unknown extension {eid}')
+            for k, v in (e.get('properties') or {}).items():
+                if k in prof['properties']:
+                    errs.append(f'extension {eid}: property {k} already exists')
+                prof['properties'][k] = copy.deepcopy(v)
+            for ck, c in (e.get('new_classes') or {}).items():
+                if ck in prof['classes']:
+                    errs.append(f'extension {eid}: class {ck} already exists')
+                prof['classes'][ck] = copy.deepcopy(c)
+            for ck, entries in (e.get('classes') or {}).items():
+                if ck not in prof['classes']:
+                    errs.append(f'extension {eid}: unknown class {ck}')
+                    continue
+                plist = prof['classes'][ck]['properties']
+                for x in entries:
+                    cur = next((y for y in plist if y['p'] == x['p']), None)
+                    if cur is None:
+                        plist.append(dict(x, ext=eid))
+                        continue
+                    if RANK.get(x.get('ob'), -1) < RANK.get(cur['ob'], 0):
+                        errs.append(f'extension {eid}: {ck}.{x["p"]} would weaken {cur["ob"]} to {x.get("ob")}')
+                    if str(cur['card']).endswith('..1') or str(cur['card']) == '1':
+                        if str(x.get('card', '')).endswith('n'):
+                            errs.append(f'extension {eid}: {ck}.{x["p"]} would widen cardinality {cur["card"]} to {x.get("card")}')
+                    cur.update({k2: v2 for k2, v2 in x.items() if k2 != 'p'}, ext=eid)
+        if errs:
+            raise ProfileError('\n'.join(errs))
+        prof['meta'] = dict(prof['meta'], id=prof['meta']['id'] + ''.join('+' + i for i in ids))
+        q = Profile(prof, codelists, orgs, lineage, examples, ext, applied=tuple(self.applied) + tuple(ids))
+        return q
+
+    def ext_example(self, eid, ex=None):
+        """The example record of an extension: a base example or the synthetic base, with the extension's additions."""
+        e = self.extensions[eid]
+        ex = ex or e['example']
+        if ex.get('base'):
+            rec = copy.deepcopy(next(x['record'] for x in self.examples if x['key'] == ex['base']))
+        else:
+            rec = copy.deepcopy(self.ext_doc['synthetic_base'])
+            rec['id'] = rec['id'].rsplit('/', 1)[0] + '/' + eid
+        rec.update(copy.deepcopy(ex.get('add') or {}))
+        return rec
+
+    def ext_break(self, eid, b):
+        rec = self.ext_example(eid)
+        for k in b.get('remove', []):
+            rec.pop(k, None)
+        rec.update(copy.deepcopy(b.get('set') or {}))
+        return rec
+
+    def pattern_for(self, x, prop):
+        """The regular expression a value must match: on the class property, the property, or its open codelist."""
+        return x.get('pattern') or prop.get('pattern') or (self.codelists.get(prop.get('codelist') or '', {}) or {}).get('pattern')
+
     # -- integrity --------------------------------------------------------------
     def check(self):
         errs = []
+        if not self.applied:
+            ext_props = {k for e in self.extensions.values() for k in (e.get('properties') or {})}
+            for cid, cw in (self.crosswalks or {}).items():
+                for row in cw['rows']:
+                    if row[0] != '(class)' and row[0] not in self.props and row[0] not in ext_props:
+                        errs.append(f'crosswalk {cid}: unknown property {row[0]}')
+            for eid, e in self.extensions.items():
+                for f in ('label', 'summary', 'for', 'aligned_to', 'classes', 'example', 'breaks'):
+                    if f not in e:
+                        errs.append(f'extension {eid}: missing {f}')
+                if not e.get('breaks'):
+                    errs.append(f'extension {eid}: has no deliberate break')
+                for t in ('summary', 'for'):
+                    if EMAIL_RE.search(str(e.get(t, ''))):
+                        errs.append(f'extension {eid}: {t} contains an email address (COL-02)')
+                try:
+                    self.with_extensions([eid]).check()
+                except ProfileError as ex:
+                    errs.append(f'extension {eid}: {ex}')
         for k, v in self.props.items():
             for f in ('uri', 'label', 'kind', 'definition', 'mem'):
                 if f not in v:
@@ -133,6 +226,11 @@ class Profile:
                     errs.append(f'class {ck}.{x["p"]}: mandatory but cardinality {card}')
                 if x.get('ob') != 'M' and card.startswith('1'):
                     errs.append(f'class {ck}.{x["p"]}: cardinality {card} but obligation {x.get("ob")}')
+                if x.get('pattern'):
+                    try:
+                        re.compile(x['pattern'])
+                    except re.error as ex:
+                        errs.append(f'class {ck}.{x["p"]}: bad pattern ({ex})')
             for o in c.get('one_of', []):
                 if o not in seen:
                     errs.append(f'class {ck}: one_of names {o}, not a property of the class')
@@ -141,6 +239,10 @@ class Profile:
                 errs.append(f'property {k}: not used by any class')
         for sk, s in self.codelists.items():
             codes = [c['code'] for c in s['concepts']]
+            for c in codes:
+                if not isinstance(c, str):
+                    errs.append(f'codelist {sk}: code {c!r} is not text (quote it in YAML; "no" reads as false)')
+            codes = [str(c) for c in codes]
             if len(codes) != len(set(codes)):
                 errs.append(f'codelist {sk}: duplicate codes')
             if not s.get('external'):
@@ -259,7 +361,8 @@ def to_graph(p, record, g=None):
             prop = p.props.get(key)
             if prop is None:
                 # unknown keys are kept under the profile namespace so validation can report them
-                g.add((n, URIRef(p.prefixes['dcatuk'] + 'unknown-' + key), Literal(str(v))))
+                from urllib.parse import quote
+                g.add((n, URIRef(p.prefixes['dcatuk'] + 'unknown-' + quote(str(key), safe='')), Literal(str(v))))
                 continue
             for item in (v if isinstance(v, list) else [v]):
                 g.add((n, URIRef(p.expand(prop['uri'])), value(prop, item)))

@@ -1,0 +1,194 @@
+# Content for the 1.1 pages: the landscape scan, the adoption toolkit, cross-border flows, AI-ready and quantum-ready.
+# Roles, not names. Provenance on every claim: V verified at the source, S search-sourced on 6 November 2026, K background knowledge.
+# Levels in feature matrices: full, partial, none, notseen ("not seen in this scan; may exist").
+
+sources:
+  - {id: dcatus, title: 'DCAT-US Schema v3.0', publisher: 'GSA, resources.data.gov', date: '2026', url: 'https://resources.data.gov/', prov: S, role: 'The US federal profile of DCAT 3, with JSON Schema, SHACL, a validator and a migration guide.'}
+  - {id: mqa, title: 'data.europa.eu Metadata Quality Assessment', publisher: 'Publications Office of the EU', date: '2025', url: 'https://data.europa.eu/mqa/methodology', prov: K, role: 'Scores DCAT-AP records on five dimensions out of 405 points.'}
+  - {id: dcatno, title: 'DCAT-AP-NO and the data.norge.no tools', publisher: 'Norwegian Digitalisation Agency', date: '2024', url: 'https://data.norge.no/specification/dcat-ap-no', prov: S, role: 'National profile with a showroom, templates, a validator and converters.'}
+  - {id: dcatde, title: 'DCAT-AP.de', publisher: 'GovData, Germany', date: '2025', url: 'https://www.dcat-ap.de/', prov: K, role: 'German national profile with conventions and a validator.'}
+  - {id: dcatse, title: 'DCAT-AP-SE', publisher: 'Agency for Digital Government, Sweden', date: '2025', url: 'https://docs.dataportal.se/dcat/', prov: K, role: 'Swedish national profile.'}
+  - {id: dcatnl, title: 'DCAT-AP-NL 3.0', publisher: 'Geonovum, Netherlands', date: '2025', url: 'https://www.geonovum.nl/', prov: S, role: 'Dutch national profile, with the high-value datasets rules built in.'}
+  - {id: dcatit, title: 'DCAT-AP_IT', publisher: 'AgID, Italy', date: '2025', url: 'https://www.dati.gov.it/', prov: S, role: 'Italian national profile; Italy led the EU metadata quality ranking in November 2025.'}
+  - {id: dcates, title: 'DCAT-AP-ES (NTI-RISP)', publisher: 'datos.gob.es, Spain', date: '2025', url: 'https://datos.gob.es/', prov: K, role: 'Spanish national profile under the technical interoperability standard for reuse.'}
+  - {id: dcatch, title: 'DCAT-AP-CH (eCH-0200)', publisher: 'eCH, Switzerland', date: '2024', url: 'https://www.ech.ch/', prov: K, role: 'Swiss national profile, version 2.'}
+  - {id: healthdcat, title: 'HealthDCAT-AP Release 7', publisher: 'European Commission, health data', date: '2026-04', url: 'https://healthdataeu.pages.code.europa.eu/healthdcat-ap/', prov: S, role: 'Health extension for the European Health Data Space. Release 6 was deprecated on 24 April 2026.'}
+  - {id: geodcat, title: 'GeoDCAT-AP 3.1.0', publisher: 'SEMIC, Interoperable Europe', date: '2026-02-23', url: 'https://semiceu.github.io/GeoDCAT-AP/', prov: S, role: 'Geospatial extension of DCAT-AP, aligned with DCAT-AP 3.0.1.'}
+  - {id: statdcat, title: 'StatDCAT-AP', publisher: 'SEMIC, Interoperable Europe', date: '2026', url: 'https://semiceu.github.io/StatDCAT-AP/', prov: K, role: 'Statistics extension of DCAT-AP. Version 3 in revision.'}
+  - {id: mobilitydcat, title: 'mobilityDCAT-AP', publisher: 'NAPCore', date: '2025', url: 'https://mobilitydcat-ap.github.io/mobilityDCAT-AP/', prov: K, role: 'Mobility extension for national access points for transport data.'}
+  - {id: bregdcat, title: 'BRegDCAT-AP', publisher: 'Interoperable Europe', date: '2024', url: 'https://interoperable-europe.ec.europa.eu/collection/access-base-registries/solution/bregdcat-ap', prov: S, role: 'Extension for base registries.'}
+  - {id: mldcat, title: 'MLDCAT-AP 3.0.0 and 3.1.0', publisher: 'SEMIC, Interoperable Europe', date: '2025-09-30', url: 'https://semiceu.github.io/MLDCAT-AP/', prov: S, role: 'Machine learning extension: models, their training data and their evaluation, aligned with the EU AI Act.'}
+  - {id: hvd, title: 'DCAT-AP HVD 3.0', publisher: 'SEMIC, Interoperable Europe', date: '2025', url: 'https://semiceu.github.io/DCAT-AP/releases/3.0.0-hvd/', prov: S, role: 'Rules for describing EU high-value datasets.'}
+  - {id: dsp, title: 'Eclipse Dataspace Protocol', publisher: 'Eclipse Foundation', date: '2026-09-10', url: 'https://projects.eclipse.org/projects/technology.dataspace-protocol-base', prov: S, role: 'Data space catalogues as DCAT, with usage control as ODRL policies. Version 1.0.0 in July 2025; 1.0.2 in September 2026.'}
+  - {id: croissant, title: 'Croissant 1.1', publisher: 'MLCommons', date: '2026-01-29', url: 'https://docs.mlcommons.org/croissant/', prov: S, role: 'Metadata for machine learning datasets, on top of schema.org, with provenance and responsible AI properties.'}
+  - {id: schemaorg, title: 'schema.org Dataset', publisher: 'schema.org', date: '2025', url: 'https://schema.org/Dataset', prov: K, role: 'How search engines and many AI crawlers read dataset descriptions.'}
+  - {id: gemini, title: 'UK GEMINI 2.3', publisher: 'Association for Geographic Information', date: '2018-06', url: 'https://www.agi.org.uk/gemini/', prov: S, role: 'The UK profile for geographic metadata, used for data.gov.uk and the UK spatial data infrastructures.'}
+  - {id: medin, title: 'MEDIN discovery metadata standard', publisher: 'Marine Environmental Data and Information Network', date: '2024', url: 'https://www.medin.org.uk/medin-discovery-metadata-standard', prov: S, role: 'Marine profile of UK GEMINI.'}
+  - {id: hdruk, title: 'HDR UK Gateway schemata', publisher: 'Health Data Research UK', date: '2025-08-11', url: 'https://github.com/HDRUK/schemata', prov: S, role: 'Metadata schema for health datasets on the HDR UK Gateway, with a weighted quality score.'}
+  - {id: ofgem, title: 'Data Best Practice Guidance', publisher: 'Ofgem', date: '2026-04-01', url: 'https://www.ofgem.gov.uk/sites/default/files/2026-03/data-best-practice-guidance.pdf', prov: S, role: 'Energy sector data principles: Dublin Core metadata, presumed open, open data triage.'}
+  - {id: osr, title: 'Code of Practice for Statistics', publisher: 'Office for Statistics Regulation', date: '2025', url: 'https://code.statisticsauthority.gov.uk/', prov: K, role: 'The standard official statistics are produced to.'}
+  - {id: orgid, title: 'org-id.guide', publisher: 'Open Data Services Co-operative', date: '2025', url: 'https://org-id.guide/', prov: K, role: 'Lists of organisation identifier schemes, such as Companies House and the charity registers.'}
+  - {id: ckandcat, title: 'ckanext-dcat', publisher: 'CKAN community', date: '2025', url: 'https://github.com/ckan/ckanext-dcat', prov: K, role: 'The CKAN extension that reads and writes DCAT and DCAT-AP, and can expose Croissant.'}
+  - {id: dcmes, title: 'Dublin Core Metadata Element Set 1.1', publisher: 'DCMI', date: '2012', url: 'https://www.dublincore.org/specifications/dublin-core/dces/', prov: K, role: 'The 15 core elements.'}
+  - {id: ico, title: 'International transfers (guidance updated 15 January 2026)', publisher: "Information Commissioner's Office", date: '2026-01-15', url: 'https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/international-transfers/', prov: S, role: 'How to tell if a transfer is restricted, the adequacy regulations, the safeguards and the exceptions.'}
+  - {id: ncsc-pqc, title: 'Timelines for migration to post-quantum cryptography', publisher: 'National Cyber Security Centre', date: '2025-03', url: 'https://www.ncsc.gov.uk/guidance/pqc-migration-timelines', prov: S, role: 'Discovery and a plan by 2028, high-priority migration by 2031, migration complete by 2035.'}
+  - {id: fips, title: 'FIPS 203, 204 and 205', publisher: 'NIST', date: '2024-08-13', url: 'https://csrc.nist.gov/projects/post-quantum-cryptography', prov: K, role: 'The first post-quantum standards: ML-KEM for key exchange, ML-DSA and SLH-DSA for signatures.'}
+  - {id: odrl, title: 'ODRL Information Model 2.2', publisher: 'W3C', date: '2018-02-15', url: 'https://www.w3.org/TR/odrl-model/', prov: K, role: 'The policy language DCAT, DCAT-AP and the Dataspace Protocol use for usage policies.'}
+  - {id: llmstxt, title: 'The llms.txt proposal', publisher: 'llmstxt.org', date: '2024', url: 'https://llmstxt.org/', prov: K, role: 'A plain markdown file at a site''s root that points language models at the content that matters.'}
+  - {id: nato-dcra, title: 'NATO Data Centric Reference Architecture', publisher: 'NATO', date: '2025', url: 'https://nhqc3s.hq.nato.int/', prov: S, role: 'Uses DCAT terms, including usage policies, for describing data.'}
+
+landscape:
+  as_of: '2026-11-06'
+  method: >-
+    A desk scan on 6 November 2026 of DCAT-based profiles at supranational, national and sector level, and of the UK sector standards
+    a pan-UK profile must sit beside. Each was read for what it offers people who must comply: specification, validator, examples,
+    machine-readable shapes and schema, quality scoring, converters, templates and extension mechanisms. It is not an audit:
+    "Not seen" means it was not found in the scan and may exist. No ranking is claimed beyond what each source says itself.
+  columns: [[spec, Specification], [shapes, SHACL shapes], [schema, JSON Schema], [validator, Validator], [examples, Examples or showroom], [quality, Quality score], [convert, Converters or migration], [extensions, Sector extensions]]
+  profiles:
+    - {id: dcatap, name: DCAT-AP 3.0.1, scope: Supranational, area: European Union, source: dcatap, levels: {spec: full, shapes: full, schema: notseen, validator: full, examples: full, quality: none, convert: notseen, extensions: full}, note: 'The base of every European profile, with a family of sector extensions.'}
+    - {id: mqa, name: data.europa.eu quality assessment, scope: Supranational, area: European Union, source: mqa, levels: {spec: partial, shapes: partial, schema: none, validator: partial, examples: none, quality: full, convert: none, extensions: none}, note: 'Scores every harvested record on findability, accessibility, interoperability, reusability and contextuality.'}
+    - {id: dcatus, name: DCAT-US 3.0, scope: National, area: United States, source: dcatus, levels: {spec: full, shapes: full, schema: full, validator: full, examples: full, quality: notseen, convert: full, extensions: notseen}, note: 'JSON Schema and SHACL, an online validator, field-by-field references, an implementation guide and a migration route from version 1.1.'}
+    - {id: dcatno, name: DCAT-AP-NO, scope: National, area: Norway, source: dcatno, levels: {spec: full, shapes: full, schema: notseen, validator: full, examples: full, quality: full, convert: full, extensions: partial}, note: 'A showroom of examples, a Turtle template, a validator, a converter from OpenAPI to data service records and a quality vocabulary.'}
+    - {id: dcatde, name: DCAT-AP.de, scope: National, area: Germany, source: dcatde, levels: {spec: full, shapes: full, schema: notseen, validator: full, examples: partial, quality: notseen, convert: notseen, extensions: notseen}, note: 'Conventions that settle how to fill each property, not just whether.'}
+    - {id: dcatse, name: DCAT-AP-SE, scope: National, area: Sweden, source: dcatse, levels: {spec: full, shapes: notseen, schema: notseen, validator: partial, examples: full, quality: notseen, convert: notseen, extensions: notseen}, note: 'Plain-language guidance with examples per property.'}
+    - {id: dcatnl, name: DCAT-AP-NL 3.0, scope: National, area: Netherlands, source: dcatnl, levels: {spec: full, shapes: partial, schema: notseen, validator: notseen, examples: partial, quality: notseen, convert: notseen, extensions: full}, note: 'Builds the high-value datasets rules into the national profile.'}
+    - {id: dcatit, name: DCAT-AP_IT, scope: National, area: Italy, source: dcatit, levels: {spec: full, shapes: partial, schema: notseen, validator: full, examples: partial, quality: full, convert: notseen, extensions: notseen}, note: 'Top of the EU metadata quality ranking in November 2025, by the national agency''s own account.'}
+    - {id: dcates, name: DCAT-AP-ES, scope: National, area: Spain, source: dcates, levels: {spec: full, shapes: notseen, schema: notseen, validator: partial, examples: partial, quality: notseen, convert: notseen, extensions: notseen}, note: 'Tied to a legal interoperability standard, so conformance is an obligation.'}
+    - {id: dcatch, name: DCAT-AP-CH, scope: National, area: Switzerland, source: dcatch, levels: {spec: full, shapes: notseen, schema: notseen, validator: notseen, examples: partial, quality: notseen, convert: notseen, extensions: notseen}, note: 'Multilingual by design: German, French, Italian and English.'}
+    - {id: healthdcat, name: HealthDCAT-AP Release 7, scope: Sector, area: European Union, source: healthdcat, levels: {spec: full, shapes: full, schema: notseen, validator: notseen, examples: full, quality: notseen, convert: notseen, extensions: none}, note: 'Population, record counts, coding systems and access bodies for health data.'}
+    - {id: geodcat, name: GeoDCAT-AP 3.1.0, scope: Sector, area: European Union, source: geodcat, levels: {spec: full, shapes: full, schema: notseen, validator: full, examples: full, quality: notseen, convert: full, extensions: none}, note: 'Maps ISO 19115 and INSPIRE metadata to DCAT, with a long-standing conversion route.'}
+    - {id: mldcat, name: MLDCAT-AP 3.x, scope: Sector, area: European Union, source: mldcat, levels: {spec: full, shapes: partial, schema: notseen, validator: notseen, examples: partial, quality: notseen, convert: notseen, extensions: none}, note: 'Models, training data and evaluation, aligned with the EU AI Act.'}
+    - {id: dsp, name: Dataspace Protocol, scope: Sector, area: International, source: dsp, levels: {spec: full, shapes: partial, schema: full, validator: notseen, examples: full, quality: none, convert: none, extensions: none}, note: 'Every dataset offer carries an ODRL policy; contract negotiation follows from the catalogue.'}
+    - {id: croissant, name: Croissant 1.1, scope: Sector, area: International, source: croissant, levels: {spec: full, shapes: none, schema: notseen, validator: full, examples: full, quality: none, convert: full, extensions: partial}, note: 'What machine learning tools read; adds provenance, usage policies and responsible AI properties.'}
+    - {id: gemini, name: UK GEMINI 2.3, scope: UK sector, area: United Kingdom, source: gemini, levels: {spec: full, shapes: none, schema: none, validator: full, examples: partial, quality: notseen, convert: notseen, extensions: partial}, note: 'XML, with Schematron rules; MEDIN extends it for marine data.'}
+    - {id: hdruk, name: HDR UK Gateway schema, scope: UK sector, area: United Kingdom, source: hdruk, levels: {spec: full, shapes: none, schema: full, validator: full, examples: partial, quality: full, convert: full, extensions: none}, note: 'JSON Schema with a weighted completeness and error score, and a translation service between versions.'}
+    - {id: ofgem, name: Ofgem Data Best Practice, scope: UK sector, area: Great Britain, source: ofgem, levels: {spec: partial, shapes: none, schema: none, validator: none, examples: partial, quality: none, convert: none, extensions: none}, note: 'Principles rather than a schema: Dublin Core, presumed open and open data triage.'}
+    - {id: mem, name: xGov MEM v0.1.0, scope: UK, area: United Kingdom, source: mem, levels: {spec: full, shapes: none, schema: partial, validator: none, examples: partial, quality: none, convert: none, extensions: none}, note: 'What DCAT-UK AP evolves.'}
+  emulate:
+    - {what: 'A validator anyone can use without installing anything', from: [dcatus, dcatno, dcatap], here: 'validate.html', how: 'Check records in the browser, nothing uploaded; the same verdict as the published SHACL and JSON Schema, proven on every build.'}
+    - {what: 'A quality score people can act on', from: [mqa, hdruk, dcatit], here: 'builder.html', how: 'The five quality dimensions and their points, shown live in the record builder and the bulk checker, with what to add next.'}
+    - {what: 'A showroom of complete examples', from: [dcatno, dcatse], here: 'examples.html', how: 'Worked examples for every kind of record and every extension, each passing three validators.'}
+    - {what: 'Conventions that settle how to fill a property', from: [dcatde, dcatse], here: 'properties.html', how: 'Each property says what it is for, how it differs from its neighbours, and gives guidance and an example.'}
+    - {what: 'A converter from OpenAPI to a data service record', from: [dcatno], here: 'openapi.html', how: 'Paste an OpenAPI description; get a draft record, checked, with the gaps listed.'}
+    - {what: 'A migration route from the old model', from: [dcatus], here: 'validate.html', how: 'xGov MEM records convert and are checked in one step, with notes on what changed.'}
+    - {what: 'Sector extensions on one base', from: [dcatap, healthdcat, geodcat, mldcat], here: 'extensions.html', how: 'Nine UK extensions that only raise obligations or add properties, each with its own shapes, schema, example and break.'}
+    - {what: 'High-value datasets rules inside the national profile', from: [dcatnl], here: 'extensions.html#ext-hvd', how: 'An optional extension for exchange with EU catalogues, which creates no UK obligation.'}
+    - {what: 'Usage policies machines can read', from: [dsp, croissant], here: 'ai-ready.html#policies', how: 'ODRL policy templates, including whether data may train AI models, and a property that links them.'}
+    - {what: 'Field-by-field references and a spreadsheet route', from: [dcatus, hdruk], here: 'bulk.html', how: 'A template with one row per dataset, and a bulk converter and checker in the browser.'}
+    - {what: 'Multilingual by design', from: [dcatch], here: 'governance.html#open', how: 'Records carry every UK language. A Welsh portal is on the open register (O-07).'}
+
+adoption:
+  levels:
+    - {n: 1, label: 'Level 1: Core', test: 'No errors.', means: 'The record can be harvested and found. Every mandatory property is there and every value is valid.'}
+    - {n: 2, label: 'Level 2: Rich', test: 'No errors, and every recommended property given.', means: 'People can judge the data without asking. This is the level to aim for.'}
+    - {n: 3, label: 'Level 3: Exemplary', test: 'Level 2, and a quality score of 351 or more out of 405.', means: 'Ready for reuse at scale, including by AI tools and other countries'' catalogues.'}
+  journeys:
+    - {sector: 'Central government departments and agencies', icon: landmark, steps: ['Find your critical data assets with the DAM playbooks.', 'Map your catalogue''s fields with the crosswalks.', 'Export records and check them in bulk.', 'Switch on the critical data asset flag where it applies.', 'Declare conformance in your catalogue record.']}
+    - {sector: 'Devolved governments', icon: flag, steps: ['Use the nation in the jurisdiction property and the right languages.', 'Record Welsh, Gaelic and Irish titles and descriptions as language-tagged values.', 'Map your national catalogue (for example the spatial data infrastructure of your nation) with the crosswalks.', 'Harvest to the National Data Library when it is ready.']}
+    - {sector: 'Local government', icon: building, steps: ['Start with the spreadsheet template; no new software is needed.', 'Use your GOV.UK organisation address or local authority code for the publisher.', 'Check records in bulk and fix the errors.', 'Publish the records as a DCAT catalogue file next to your open data.']}
+    - {sector: 'NHS, health and care', icon: heart-pulse, steps: ['Apply the health extension.', 'Describe access through a trusted research environment in the rights statement.', 'Apply disclosure control to counts of people.', 'Map existing HDR UK Gateway records with the crosswalk.']}
+    - {sector: 'Private sector and suppliers', icon: briefcase-business, steps: ['Apply the private and voluntary sector extension for your registered identifier.', 'Make your product export and import DCAT-UK AP, and pass the test records.', 'Use the data space extension if you take part in one.', 'Say which version you conform to.']}
+    - {sector: 'Voluntary sector and charities', icon: hand-heart, steps: ['Use your charity number in the org-id form (for example GB-CHC-1234567, GB-SC-SC012345 or GB-NIC-100000).', 'Use the spreadsheet template: no technical skills needed.', 'Say who may use the data, and for what, with a usage policy.', 'Ask for help with the contact form.']}
+    - {sector: 'Research, universities and data services', icon: graduation-cap, steps: ['Give a DOI as another identifier.', 'Apply the AI-ready extension for data used in machine learning.', 'Export Croissant for machine learning tools.', 'Describe cross-border access with jurisdiction and transfer safeguard.']}
+  checklist:
+    - {id: c1, group: Prepare, text: 'Name the role that owns your catalogue''s metadata, not a person.'}
+    - {id: c2, group: Prepare, text: 'List the catalogues and spreadsheets where records live today.'}
+    - {id: c3, group: Prepare, text: 'Choose the extensions that apply to your sector, if any.'}
+    - {id: c4, group: Map, text: 'Map each of your fields to a DCAT-UK AP property with the crosswalks and the data dictionary.'}
+    - {id: c5, group: Map, text: 'Map your values to the codelists: access rights, security classification, frequency, themes, licences.'}
+    - {id: c6, group: Map, text: 'Replace any named person in contact points with a team and a contact form.'}
+    - {id: c7, group: Check, text: 'Check a sample of records in the browser, then all of them with the bulk checker or the SHACL shapes.'}
+    - {id: c8, group: Check, text: 'Fix every error; reach level 1 for every record.'}
+    - {id: c9, group: Check, text: 'Raise your most-used records to level 2.'}
+    - {id: c10, group: Publish, text: 'Publish a catalogue file (Turtle or JSON-LD) at a stable address, or a CKAN DCAT endpoint.'}
+    - {id: c11, group: Publish, text: 'Declare conformance in the catalogue with conforms to, naming the version.'}
+    - {id: c12, group: Publish, text: 'Register the endpoint with the harvesting catalogue, such as data.gov.uk or the National Data Library.'}
+    - {id: c13, group: Sustain, text: 'Re-check records on every change, in your pipeline.'}
+    - {id: c14, group: Sustain, text: 'Review the transfer safeguard whenever data moves to a new place or supplier.'}
+    - {id: c15, group: Sustain, text: 'Watch the profile''s releases and plan for each minor version.'}
+  harvest:
+    - {step: 'Publish one catalogue file', text: 'A dcat:Catalog with every dataset and data service, as Turtle or JSON-LD, at a stable address such as /catalog.ttl. Give it a modified date.'}
+    - {step: 'Page large catalogues', text: 'Split catalogues of more than a few thousand records into pages, and link the pages, so harvesters do not time out.'}
+    - {step: 'Use stable identifiers', text: 'Each record''s address must not change when the record is edited; harvesters use it to match records and avoid duplicates.'}
+    - {step: 'Declare the profile', text: 'Give the catalogue dct:conformsTo with the profile version, and each catalogue record the same.'}
+    - {step: 'Serve the right media type', text: 'text/turtle for Turtle and application/ld+json for JSON-LD, with cross-origin access allowed so browser tools can read it.'}
+    - {step: 'Keep CKAN in step', text: 'CKAN sites can use ckanext-dcat to publish the catalogue; map the extra UK fields with scheming, as the CKAN crosswalk shows.'}
+  procurement:
+    - 'The supplier''s catalogue product must import and export records that conform to DCAT-UK AP version 1.1 or later, as Turtle and JSON-LD.'
+    - 'The product must accept every example record and reject every failing test record published with the profile, reporting the rule broken.'
+    - 'The product must publish a harvestable catalogue file and must not require a proprietary format to export metadata.'
+    - 'The product must support the sector extensions the buyer names, and new minor versions of the profile within six months of release.'
+    - 'Contact points must be stored as team names and contact form addresses; the product must not require a named person.'
+    - 'The buyer owns the metadata and may export all of it at any time without charge.'
+  identifiers:
+    - {scheme: 'GOV.UK organisation', example: 'https://www.gov.uk/government/organisations/ordnance-survey', for: 'Departments, agencies and public bodies on GOV.UK'}
+    - {scheme: 'Companies House (GB-COH)', example: 'GB-COH-01234567', for: 'Companies registered in the UK'}
+    - {scheme: 'Charity Commission for England and Wales (GB-CHC)', example: 'GB-CHC-1234567', for: 'Charities in England and Wales'}
+    - {scheme: 'Scottish Charity Regulator (GB-SC)', example: 'GB-SC-SC012345', for: 'Charities in Scotland'}
+    - {scheme: 'Charity Commission for Northern Ireland (GB-NIC)', example: 'GB-NIC-100000', for: 'Charities in Northern Ireland'}
+    - {scheme: 'Mutuals Public Register (GB-MPR)', example: 'GB-MPR-12345R', for: 'Co-operatives and community benefit societies'}
+    - {scheme: 'Education providers (GB-UKPRN)', example: 'GB-UKPRN-10007788', for: 'Colleges, universities and training providers'}
+    - {scheme: 'Legal Entity Identifier (XI-LEI)', example: 'XI-LEI-213800ABCDEFGHIJKL01', for: 'Any legal entity, worldwide, including in financial services'}
+
+international:
+  intro: >-
+    Data moves between the UK nations, to and from the Crown Dependencies and the British Overseas Territories, across the Commonwealth,
+    and with allies and partners. DCAT-UK AP records where data is held and sent, and on what basis personal data leaves the UK, so
+    the question is answered before anyone asks for the data.
+  groups:
+    - {id: uk, label: 'The UK nations', text: 'England, Scotland, Wales and Northern Ireland. Data that stays here is not an international transfer, though devolved law may still differ.'}
+    - {id: crown-dependency, label: 'Crown Dependencies', text: 'Jersey, Guernsey and the Isle of Man are not part of the UK. Each has its own data protection law and UK adequacy regulations cover them.'}
+    - {id: overseas-territory, label: 'British Overseas Territories', text: 'Fourteen territories under UK sovereignty but outside the UK for data protection. Gibraltar has UK adequacy regulations; for the others, check the safeguard each time.'}
+    - {id: commonwealth, label: 'The Commonwealth', text: '56 member countries, including the UK. Membership says nothing about data protection: check each country.'}
+    - {id: eea, label: 'The European Economic Area', text: 'The EU states, Iceland, Liechtenstein and Norway. Covered by UK adequacy regulations.'}
+    - {id: other, label: 'Other partners', text: 'Countries the UK often shares with. Some have full or partial UK adequacy regulations.'}
+  alliances:
+    - {name: 'Five Eyes and defence partners', text: 'Security and defence sharing has its own rules and classifications. DCAT-UK AP describes OFFICIAL data only; records about classified data must not be in an OFFICIAL catalogue. NATO''s data-centric reference architecture uses DCAT terms, including usage policies.', source: nato-dcra}
+    - {name: 'European Union', text: 'DCAT-UK AP keeps every DCAT-AP mandatory property, so UK records can be harvested by EU portals. The high-value datasets extension adds what EU reporting needs.', source: dcatap}
+    - {name: 'United States', text: 'DCAT-US 3.0 is also built on DCAT 3, so shared terms carry over. The crosswalk shows which UK terms have no US equivalent.', source: dcatus}
+    - {name: 'Data spaces', text: 'The data space extension follows the Dataspace Protocol, so UK catalogues can offer data to European and international data space participants under machine-readable policies.', source: dsp}
+  steps:
+    - 'Give every place the data is held or sent in "where the data is held or sent", including a supplier''s cloud region.'
+    - 'If the data contains personal data and any place is outside the UK, give the transfer safeguard (rule R-08). The validator checks this.'
+    - 'Give the law that applies, as legislation.gov.uk addresses.'
+    - 'Express what may be done with the data as an ODRL usage policy, so a partner''s systems can read it.'
+    - 'Keep the transfer risk assessment, if one is needed, with the data owner. The record says what the basis is; it is not the assessment.'
+  not_advice: >-
+    This is not legal advice. Whether a transfer is restricted, and what covers it, is for the controller to decide with the ICO's guidance.
+    The adequacy column is as the ICO listed it when this was written (provenance K); it changes, so check before relying on it.
+
+ai:
+  intro: >-
+    AI-ready metadata answers what an AI team, or an AI system, needs before using data: what it is, whether it may be used for
+    training, how good it is, what it covers, and under what policy. It also lets AI assistants read the profile itself.
+  pillars:
+    - {title: 'Described for machines', icon: braces, text: 'Every record converts to JSON-LD, Turtle, schema.org and Croissant. The profile publishes its own shapes, schema and context.'}
+    - {title: 'Permission to train, stated', icon: shield-check, text: 'The AI-ready extension makes the owner say whether the data may train, fine-tune or evaluate models. A usage policy says it for machines.'}
+    - {title: 'Quality you can see', icon: gauge, text: 'A quality score on five dimensions, and a link to the data quality report, so models are not trained on data nobody can judge.'}
+    - {title: 'An assistant that knows the profile', icon: bot, text: 'An MCP server lets AI assistants look up properties, check records and convert them, using the same rules as the shapes.'}
+    - {title: 'A map for language models', icon: file-text, text: 'llms.txt and llms-full.txt at the site root point language models at the profile''s content in plain markdown.'}
+    - {title: 'Honest limits', icon: triangle-alert, text: 'The use for AI is the owner''s statement. The licence and the law still bind. An AI system must not treat a missing statement as permission.'}
+
+quantum:
+  intro: >-
+    Quantum computers able to break today's public-key cryptography do not exist yet, but data recorded now can be decrypted later.
+    The NCSC asks organisations to plan now. Metadata helps in two ways: it can record the cryptography that protects data in transit,
+    so catalogues become part of the inventory, and it can carry integrity checks that stay trustworthy for decades.
+  milestones:
+    - {year: '2028', text: 'Define migration goals, complete discovery of where cryptography is used, and build an initial plan.'}
+    - {year: '2031', text: 'Complete the highest-priority migration activities.'}
+    - {year: '2035', text: 'Complete migration to post-quantum cryptography across all systems, services and products.'}
+  threats:
+    - {what: 'Public-key key exchange (RSA, elliptic-curve Diffie-Hellman)', risk: 'Broken by a large quantum computer. Data in transit recorded today could be decrypted later.', action: 'Move to ML-KEM (FIPS 203), first as a hybrid with a classical key exchange. Record it with connection security.'}
+    - {what: 'Digital signatures (RSA, ECDSA)', risk: 'Broken by a large quantum computer. Signatures could be forged.', action: 'Plan for ML-DSA (FIPS 204) or SLH-DSA (FIPS 205) where metadata or data is signed.'}
+    - {what: 'Hash functions (SHA-2, SHA-3)', risk: 'Weakened only modestly. SHA-256 stays acceptable for integrity checks.', action: 'Use SHA-384, SHA-512 or SHA3 for files that must be trusted for decades. Stop using MD5 and SHA-1, which are broken by classical means already.'}
+    - {what: 'Symmetric encryption (AES)', risk: 'Weakened only modestly.', action: 'AES-256 for long-lived secrets. Not recorded in metadata.'}
+  agility:
+    - 'Record algorithms as identifiers from a list, never as free text, so they can be found and changed.'
+    - 'Keep the algorithm with every checksum. A checksum without its algorithm cannot be checked.'
+    - 'Prefer standards that let algorithms change without changing the format.'
+    - 'Treat the catalogue as part of the cryptographic inventory: services with classical-only key exchange are findable with one filter.'
+  honesty: >-
+    DCAT-UK AP does not make data or services quantum-safe. It records what protects them, so owners can find and fix what is not.
+    "Quantum-ready" here means ready for the migration, not finished with it.

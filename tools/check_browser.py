@@ -92,6 +92,34 @@ def run(site, verbose=True):
         pg.fill('#f-title', '')
         if 'to fix' not in pg.inner_text('#b-status'):
             fails.append('builder: clearing the title did not raise an error')
+        if 'conform' not in pg.inner_text('#b-level').lower():
+            fails.append('builder: no conformance level shown')
+        pg.select_option('#b-example', '')
+        pg.select_option('#b-ext', 'health')
+        if not pg.query_selector('#f-numberOfRecords'):
+            fails.append('builder: choosing the health extension did not add its fields')
+        pg.goto(base + 'bulk.html')
+        pg.click('#bk-sample')
+        try:
+            pg.wait_for_selector('#bk-t tbody tr', timeout=5000)
+        except Exception:  # a broken converter shows no table; report it rather than crash
+            pass
+        bt = pg.inner_text('#bk-out')
+        if '1 record checked' not in bt or 'Level 1' not in bt and 'Level 2' not in bt and 'Level 3' not in bt:
+            fails.append(f'bulk: the template row did not convert and conform: {bt[:300]}')
+        pg.goto(base + 'openapi.html')
+        pg.click('#oas-sample')
+        ot = pg.inner_text('#oas-out')
+        if 'Draft data service record' not in ot or 'https://api.example.org/bus-stops/v2' not in ot:
+            fails.append(f'openapi: the example did not convert: {ot[:300]}')
+        pg.goto(base + 'adopt.html')
+        pg.check('#ck-c1')
+        pg.reload()
+        if not pg.is_checked('#ck-c1'):
+            fails.append('checklist: a tick was not remembered')
+        pg.goto(base + 'validate.html?ext=ai-ready')
+        if pg.input_value('#v-ext') != 'ai-ready':
+            fails.append('validator: ?ext= did not choose the extension')
         pg.goto(base + 'validate.html')
         pg.click('button[data-sample="s-mem"]')
         out = pg.inner_text('#v-out')
@@ -138,6 +166,8 @@ BREAKS = {
     'console': lambda s: (s / 'app.js').write_text((s / 'app.js').read_text() + '\nthrow new Error("deliberate");\n'),
     'skip': lambda s: _sub(s / 'index.html', '<a class="skip" href="#main">Skip to main content</a>', ''),
     'validator': lambda s: _sub(s / 'validator.js', "if (ob === 'M') add('error'", "if (false) add('error'"),
+    'bulk': lambda s: _sub(s / 'validator.js', "var rows = parseCSV(text), notes = [];", "var rows = [], notes = [];"),
+    'extension': lambda s: _sub(s / 'validator.js', "Object.keys(e.props).forEach(function (k) { Q.props[k] = e.props[k]; });", ""),
 }
 
 

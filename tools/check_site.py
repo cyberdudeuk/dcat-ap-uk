@@ -250,6 +250,30 @@ def c_unrendered(site, docs):
     return bad
 
 
+def c_llms(site, docs):
+    """C-18 llms.txt and llms-full.txt exist, every page is listed in llms.txt, and every link in it resolves to a built file."""
+    bad = []
+    lt, lf = site / 'llms.txt', site / 'llms-full.txt'
+    if not lt.exists() or not lf.exists():
+        return ['llms.txt or llms-full.txt is missing']
+    text = lt.read_text(encoding='utf-8')
+    base = re.search(r'https://[^/]+/[^/]+/', text)
+    base = base.group(0) if base else ''
+    for u in re.findall(r'\]\(([^)]+)\)', text):
+        rel = u[len(base):] if base and u.startswith(base) else None
+        if rel is None:
+            bad.append(f'llms.txt: link outside the site {u}')
+            continue
+        if not (site / (rel or 'index.html')).exists():
+            bad.append(f'llms.txt: {u} does not resolve')
+    for p, d in docs:
+        name = '' if p.name == 'index.html' else p.name
+        if p.name not in ('404.html',) and not p.name.startswith('class-') and (base + name) + ')' not in text and (base + name + ':') not in text:
+            if f'({base}{name})' not in text:
+                bad.append(f'llms.txt does not list {p.name}')
+    return bad
+
+
 def c_email_repo(site, docs):
     """C-17 no email address in the repository's own files either; test fixtures may use reserved example domains only."""
     bad = []
@@ -265,7 +289,7 @@ def c_email_repo(site, docs):
     return bad
 
 
-CHECKS = [c_csp, c_external, c_email, c_ids, c_links, c_tables, c_meta, c_colophon, c_skip, c_deck_film, c_inline, c_banner, c_lang_title, c_weight, c_svg_names, c_unrendered, c_email_repo]
+CHECKS = [c_csp, c_external, c_email, c_ids, c_links, c_tables, c_meta, c_colophon, c_skip, c_deck_film, c_inline, c_banner, c_lang_title, c_weight, c_svg_names, c_unrendered, c_email_repo, c_llms]
 
 
 def run(site, quiet=False):
@@ -319,6 +343,7 @@ BREAKS = {
     'C-14': lambda s: (s / 'style.css').write_text((s / 'style.css').read_text() + '/*' + 'x' * 1_600_000 + '*/'),
     'C-16': lambda s: _sub(s / 'strategy.html', '<h2 id="layers">', '<h2 id="layers">{layers}'),
     'C-17': lambda s: _plant_repo(s),
+    'C-18': lambda s: _sub(s / 'llms.txt', 'downloads/profile.json)', 'downloads/no-such-file.json)'),
     'C-15': lambda s: _sub(s / 'profile.html', 'role="group" aria-labelledby="model-t"', 'role="img"'),
 }
 

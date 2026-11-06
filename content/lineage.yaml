@@ -181,6 +181,15 @@ open_prs:
 
 # Sources the profile is built on and aligned to, in order of precedence. prov: V verified on read date; K background knowledge.
 sources:
+  - id: panuk
+    title: Future pan-UK metadata architecture (DCAT-UK AP founding specification and architecture blueprint)
+    publisher: co-cddo on GitHub (private repository; access needed)
+    date: '2026-06-05'
+    url: https://github.com/co-cddo/future-panuk-metadata-architecture
+    role: >-
+      The architecture blueprint for harmonising metadata across the UK's data ecosystems, with DCAT-UK AP as its shared record.
+      This portal is offered as a working implementation of that profile. The repository is private, so its contents are not reproduced here.
+    prov: P
   - id: dcat3
     title: Data Catalog Vocabulary (DCAT) Version 3
     publisher: W3C

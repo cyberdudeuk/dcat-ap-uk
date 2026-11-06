@@ -199,3 +199,39 @@
     language: [eulang:ENG]
     dataset:
       - https://example.org/dcat-uk-ap/examples/eligibility-decisions
+
+- key: dataset-cross-border
+  label: Personal data shared across borders (synthetic)
+  teaches: >-
+    A synthetic record for data held in the UK, Jersey and Gibraltar. Because it contains pseudonymised personal data and leaves the UK,
+    it names the transfer safeguard (rule R-08), the law that applies, a machine-readable usage policy and a strong checksum.
+  synthetic: true
+  record:
+    class: Dataset
+    id: https://example.org/dataset/cross-border-registrations
+    title: Synthetic vehicle registrations shared with the Crown Dependencies
+    description: An invented dataset, used to show how DCAT-UK AP describes personal data that is held or sent outside the UK. It does not exist.
+    identifier: synthetic-cross-border-0001
+    publisher: https://www.gov.uk/government/organisations/driver-and-vehicle-licensing-agency
+    contactPoint: [{fn: Example data sharing team, hasURL: 'https://example.org/contact'}]
+    accessRights: ukcl:access-rights/internal
+    rights: Shared only with the vehicle registration authorities of Jersey and Gibraltar, under a data sharing agreement.
+    securityClassification: ukcl:security-classification/official-sensitive
+    personalData: ukcl:personal-data/pseudonymised
+    licence: ukcl:licences/data-sharing-agreement-required
+    accrualPeriodicity: eufreq:DAILY
+    jurisdiction: [ukcl:jurisdiction/gb-wls, ukcl:jurisdiction/je, ukcl:jurisdiction/gi]
+    transferMechanism: [ukcl:transfer-mechanism/uk-adequacy]
+    applicableLegislation: [https://www.legislation.gov.uk/ukpga/2018/12]
+    hasPolicy: [https://cyberdudeuk.github.io/dcat-uk-ap/downloads/policies/agreement-required.jsonld]
+    theme: [ukcl:theme/transport]
+    keyword: [vehicles, registration, cross-border]
+    modified: '2026-10-30'
+    distribution:
+      - class: Distribution
+        id: https://example.org/dataset/cross-border-registrations#feed
+        title: Daily extract, CSV
+        accessURL: [https://example.org/exchange]
+        mediaType: https://www.iana.org/assignments/media-types/text/csv
+        checksum: {algorithm: spdx:checksumAlgorithm_sha384, checksumValue: 0a1b2c3d4e5f60718293a4b5c6d7e8f90a1b2c3d4e5f60718293a4b5c6d7e8f90a1b2c3d4e5f60718293a4b5c6d7e8f9}
+        hasPolicy: [https://cyberdudeuk.github.io/dcat-uk-ap/downloads/policies/agreement-required.jsonld]
