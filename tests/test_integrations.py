@@ -348,3 +348,53 @@ class SiteAddressAfterRename(unittest.TestCase):
             found += [f'{path.relative_to(ROOT)}: {o}' for o in self.OLD if o in text]
         self.assertEqual(found, [], 'old repository address still linked')
 
+
+
+class ReuseAcrossGovernment(unittest.TestCase):
+    """The reuse page: every asset is a public repository with a kind, an owner, a use and a date; the test counts add up;
+    nothing linked to national security work is named (scan of the GitHub Repos Asset Catalogue, 6 November 2026)."""
+
+    RU = yaml.safe_load((ROOT / 'content' / 'reuse.yaml').read_text(encoding='utf-8'))
+
+    def test_assets_are_complete(self):
+        groups = {g['id'] for g in self.RU['groups']}
+        for a in self.RU['assets']:
+            with self.subTest(asset=a['id']):
+                self.assertIn(a['group'], groups)
+                self.assertTrue(a['url'].startswith('https://github.com/'))
+                for k in ('name', 'owner', 'what', 'use', 'licence'):
+                    self.assertTrue(a.get(k), k)
+                self.assertRegex(a['updated'], r'^\d{4}-\d{2}-\d{2}$')
+                self.assertIn(a['prov'], ('V', 'P', 'S'))
+
+    def test_counts_add_up(self):
+        t = self.RU['test']
+        self.assertEqual(sum(r['count'] for r in t['results']), t['total'])
+
+    def test_no_restricted_names(self):
+        text = (ROOT / 'content' / 'reuse.yaml').read_text(encoding='utf-8')
+        for bad in ('GC' + 'HQ', 'DE' + 'AG', 'DI' + 'WG', 'ND' + 'SDG', 'SIT' + 'CEN', 'FV' + 'EY'):
+            self.assertNotIn(bad, text)
+
+    def test_page_is_built_and_linked(self):
+        built()
+        html = (SITE / 'reuse.html').read_text(encoding='utf-8')
+        for anchor in ('assets', 'dsa', 'evidence', 'test', 'method'):
+            self.assertIn(f'id="{anchor}"', html)
+        self.assertIn('href="reuse.html"', (SITE / 'index.html').read_text(encoding='utf-8'))
+
+
+class OrganisationsFresh(unittest.TestCase):
+    """D-031: the organisation list missed the July 2026 machinery of government change (DSIT closed) because it was read from
+    a snapshot. It must be no more than 120 days older than the release, and is refreshed with import_orgs.py --govuk."""
+
+    def test_read_recently(self):
+        from datetime import date
+        o = json.loads((ROOT / 'profile' / 'organisations.json').read_text(encoding='utf-8'))
+        as_of = date.fromisoformat(str(P.meta['as_of']))
+        self.assertLessEqual((as_of - date.fromisoformat(o['read'])).days, 120, 'organisations.json is stale: run tools/import_orgs.py --govuk')
+
+    def test_closed_department_is_closed(self):
+        o = {x['slug']: x for x in json.loads((ROOT / 'profile' / 'organisations.json').read_text(encoding='utf-8'))['orgs']}
+        self.assertEqual(o['department-for-science-innovation-and-technology']['status'], 'closed')
+        self.assertEqual(o['department-for-digital-culture-media-and-sport']['status'], 'live')

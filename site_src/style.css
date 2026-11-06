@@ -407,3 +407,8 @@ details.faq{border-bottom:1px solid var(--rule);padding:.5rem 0}details.faq summ
 th{overflow-wrap:normal;word-break:normal}td{overflow-wrap:break-word}td code{overflow-wrap:anywhere}
 .tl{list-style:none;margin:0;padding:0}.tl li{margin:0 0 .5rem;line-height:1.4}.tl a{display:inline-block;padding:.15rem 0}
 .filters label{max-width:100%}.filters select{max-width:100%}
+/* Suggestion chips under a builder field (endorsed standards for conforms to) */
+.suggest{display:flex;flex-wrap:wrap;gap:.35rem;align-items:center;margin:.35rem 0 .6rem}
+.chip{font:inherit;font-size:.9rem;min-height:2.25rem;padding:.2rem .6rem;border:2px solid var(--link);background:transparent;color:var(--link);cursor:pointer;border-radius:999px}
+.chip:hover{color:var(--hover);border-color:var(--hover);text-decoration:underline}
+.chip:focus-visible{outline:3px solid var(--focus);outline-offset:0;background:var(--focus);color:var(--focus-text);border-color:var(--focus-text)}

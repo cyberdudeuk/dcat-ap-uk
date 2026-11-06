@@ -1,0 +1,132 @@
+# Reuse across government: public standards, models, registers, catalogues and toolkits that DCAT-AP-UK can use or link to.
+# Found by scanning the GitHub Repos Asset Catalogue (12,251 UK public-sector repositories) for metadata, catalogue,
+# vocabulary, standard and framework work, then reading each shortlisted repository directly on 6 November 2026.
+# Provenance: V = read at source on that date; P = taken from the catalogue's own scan.
+# Organisations are public bodies named as the owner of a public repository. No people are named.
+
+intro: >-
+  Most of what a catalogue team needs already exists somewhere in government: an endorsed standard, a vocabulary, a register,
+  a catalogue product or a toolkit. This page lists the public pieces that fit with DCAT-AP-UK, what each is for, and how to
+  use it alongside the profile. Nothing here is endorsed by this portal; check each one with its owner before relying on it.
+
+method: >-
+  The GitHub Repos Asset Catalogue lists 12,251 UK public-sector repositories (from the cross-government open source
+  scraper, read on 8 October 2026). Its descriptions and topics were searched for metadata, catalogue, vocabulary, schema,
+  register, standard, quality, sharing and discovery terms (517 matches). Its standards scan, which reads files in the
+  repositories, was used for the evidence below. The closest 24 repositories were then cloned and read on 6 November 2026,
+  to confirm what each holds, its licence and when it last changed. Archived repositories are left out. Repositories linked to
+  national security work are left out of this public page.
+
+as_of: '2026-11-06'
+
+# Standards the Data Standards Authority lists as endorsed, read from its repository on 6 November 2026 (V).
+# A record can say it conforms to any of them with conformsTo.
+dsa:
+  source: https://github.com/alphagov/data-standards-authority/tree/main/content/standards
+  intro: >-
+    The Data Standards Authority's catalogue of endorsed standards. A dataset that follows one of these says so with
+    conforms to, using the specification address below, so a buyer or a harvester can find every dataset that uses it.
+  standards:
+    - {id: atrs, name: Algorithmic Transparency Recording Standard, short: ATRS, url: 'https://www.gov.uk/government/publications/algorithmic-transparency-template', use: 'A data service or dataset used in an algorithmic tool links to its transparency record.'}
+    - {id: bods, name: Beneficial Ownership Data Standard 0.3, short: BODS, url: 'https://standard.openownership.org/en/0.3.0/about/index.html', use: 'Datasets of who owns or controls companies.'}
+    - {id: doi, name: Digital Object Identifier System, short: DOI, url: 'https://ieeexplore.ieee.org/document/771073', use: 'Give a DOI as the identifier or an other identifier, so the dataset can be cited.'}
+    - {id: iso20022, name: ISO 20022 financial messages, short: ISO 20022, url: 'https://www.iso20022.org/iso-20022-message-definitions', use: 'Payment and financial message datasets and services.'}
+    - {id: odf12, name: OpenDocument Format 1.2, short: ODF, url: 'https://docs.oasis-open.org/office/v1.2/OpenDocument-v1.2.html', use: 'Give the ODF media type for documents and spreadsheets in a distribution.'}
+    - {id: openreferral, name: Open Referral UK, short: ORUK, url: 'https://openreferraluk.org/about-standard', use: 'Datasets and APIs of local services, such as directories of support.'}
+    - {id: rfc4180, name: CSV files (RFC 4180), short: RFC 4180, url: 'https://tools.ietf.org/html/rfc4180', use: 'A CSV distribution conforms to RFC 4180; say so, and give text/csv as the media type.'}
+    - {id: securitytxt, name: security.txt, short: security.txt, url: 'https://securitytxt.org', use: 'Data services publish a security.txt so problems can be reported.'}
+    - {id: g360, name: 360Giving Data Standard, short: 360Giving, url: 'https://standard.threesixtygiving.org/en/latest/reference/#spreadsheet-format', use: 'Grants datasets.'}
+    - {id: gemini, name: UK GEMINI, short: GEMINI, url: 'https://www.agi.org.uk/gemini/40-gemini/1037-uk-gemini-standard-and-inspire-implementing-rules/', use: 'Geospatial records; the geospatial extension maps to it.'}
+    - {id: uprn, name: Unique Property Reference Number, short: UPRN, url: 'https://www.gov.uk/government/publications/open-standards-for-government/identifying-property-and-street-information', use: 'Datasets about property and addresses key on UPRN; say so in conforms to.'}
+
+# What UK public-sector repositories actually use, from the catalogue's standards scan (P): 671 repositories with a
+# metadata-related file, 573 of them with a recognised standard, 107 with a catalogue product.
+evidence:
+  source: https://github.com/cyberdudeuk/github-repos-asset-catalogue
+  note: >-
+    Counts are repositories with at least one file that uses the standard or names the product, from public GitHub only.
+    A low count does not mean a standard is little used: much metadata lives in catalogue products, not in public code.
+  standards:
+    - [OpenAPI, 384]
+    - [JSON Schema, 116]
+    - [CSVW, 22]
+    - [ISO 19115 / 19139, 19]
+    - [DDI, 13]
+    - [DCAT, 12]
+    - [SKOS, 11]
+    - [Dublin Core, 10]
+    - [schema.org, 9]
+    - [SDMX (RDF), 8]
+    - [Frictionless Data Package, 4]
+    - [PROV-O, 3]
+    - [LinkML, 3]
+    - [SHACL, 2]
+    - [Croissant, 1]
+    - [xGov MEM, 1]
+  platforms:
+    - [CKAN, 58]
+    - [DataHub, 14]
+    - [GeoNetwork or CSW, 11]
+    - [AWS Glue Data Catalog, 8]
+    - [Microsoft Purview, 7]
+    - [Databricks Unity Catalog, 6]
+    - [Amundsen, 4]
+    - [Informatica, 2]
+  reading: >-
+    OpenAPI and JSON Schema dominate, which is why DCAT-AP-UK publishes a JSON Schema and turns an OpenAPI description into a
+    data service record. Linked data standards (DCAT, SKOS, PROV-O, SHACL) are rarer in public code, so the portal's tools hide
+    RDF unless you ask for it. CKAN is by far the most common catalogue product, which is why the CKAN crosswalk and the
+    ckanext-dcat route come first in the adoption toolkit.
+
+# A real-world test: the Data Marketplace's published DCAT records, checked against the DCAT-AP-UK shapes (V, 6 November 2026).
+test:
+  title: The 2023 Data Marketplace records, checked against DCAT-AP-UK
+  repo: https://github.com/co-cddo/data-marketplace-api
+  what: >-
+    The Data Marketplace API repository publishes example DCAT records in Turtle for its triplestore: 4 datasets, 3 data
+    services and 7 distributions. They were checked against the DCAT-AP-UK SHACL shapes with pySHACL. Two of the nine files
+    did not parse, because they use a prefix they never declare.
+  results:
+    - {what: 'Access rights, publisher, creator and licence given as text, where the profile expects a link to a codelist value or an organisation', count: 27}
+    - {what: 'Access rights or a theme not from the profile codelists', count: 15}
+    - {what: 'Contact email in a form the shapes do not accept (the portal prefers a contact form)', count: 14}
+    - {what: 'No security classification on a dataset or data service', count: 7}
+    - {what: 'A distribution without an access URL', count: 7}
+    - {what: 'Rule R-03: no rights statement, while the access rights could not be read as open (they were text)', count: 7}
+    - {what: 'Update frequency not from the EU frequency list', count: 4}
+    - {what: 'Type, status, endpoint and access service values in the wrong form', count: 16}
+  total: 97
+  reading: >-
+    Every problem is one the weaver and the xGov MEM conversion already fix or flag: text turned into codelist values,
+    organisations turned into links, a missing classification asked for. None needs a change to the profile. This is
+    the migration the adoption toolkit describes, measured on real government records.
+
+groups:
+  - {id: standards, label: Standards bodies and catalogues of standards, icon: landmark}
+  - {id: models, label: Data models, vocabularies and schemas, icon: boxes}
+  - {id: registers, label: Registers and reference data, icon: list-checks}
+  - {id: catalogues, label: Catalogues and discovery, icon: library}
+  - {id: frameworks, label: Frameworks, toolkits and playbooks, icon: book-open}
+
+assets:
+  - {id: dsa, group: standards, name: Data Standards Authority, owner: Government Digital Service, url: 'https://github.com/alphagov/data-standards-authority', licence: OGL v3.0, updated: '2026-10-30', what: 'Endorsed standards, guidance (reference data, APIs, spreadsheets) and the person data standard project.', use: 'Declare conformance to its endorsed standards (listed above). Follow its reference data guidance for codelists.', prov: V}
+  - {id: linkeddata, group: standards, name: Linked Data community place, owner: Government Data community, url: 'https://github.com/co-cddo/linked-data', licence: OGL v3.0, updated: '2024-01-19', what: 'The cross-government linked data subgroup: meeting notes and resources.', use: 'A community to review the RDF side of the profile, its shapes and namespace.', prov: V}
+  - {id: fda, group: standards, name: Future data architecture, owner: Government Digital Service, url: 'https://github.com/co-cddo/future-data-architecture', licence: none stated, updated: '2026-11-02', what: 'Principles and patterns for government data architecture, including metadata-based discovery.', use: 'DCAT-AP-UK is the record its metadata-based discovery pattern needs; its principle 6 is why the profile exists.', prov: V}
+  - {id: govuk-vocab, group: models, name: Digital identity vocabulary, owner: GOV.UK One Login, url: 'https://github.com/govuk-one-login/data-vocab', licence: MIT, updated: '2026-10-28', what: 'A linked data vocabulary for identity credentials, published as documentation, JSON Schemas and code types.', use: 'A model for publishing a vocabulary the same way: one source, many generated artefacts.', prov: V}
+  - {id: tna-schema, group: models, name: Digital archiving metadata schema, owner: The National Archives, url: 'https://github.com/nationalarchives/da-metadata-schema', licence: MIT, updated: '2026-10-29', what: 'JSON Schemas for the metadata of born-digital records transferred to The National Archives.', use: 'Map where a dataset is also a public record; records retention and transfer metadata live here, not in DCAT-AP-UK.', prov: V}
+  - {id: planning-spec, group: models, name: Planning data specification, owner: Planning data (MHCLG), url: 'https://github.com/digital-land/specification', licence: MIT, updated: '2026-11-05', what: 'Datasets, fields, datatypes and codelists for planning data, as CSV and Markdown.', use: 'A sector specification a planning dataset conforms to; give it in conforms to.', prov: V}
+  - {id: pins-model, group: models, name: Planning Inspectorate data model, owner: Planning Inspectorate, url: 'https://github.com/Planning-Inspectorate/data-model', licence: MIT, updated: '2026-11-05', what: 'JSON Schemas for the Planning Inspectorate data model.', use: 'Give the schema as the conforms to of a distribution.', prov: V}
+  - {id: eprd, group: models, name: Education Provider Registry models, owner: Department for Education, url: 'https://github.com/DFE-Digital/education-provider-registry-docs', licence: MIT, updated: '2026-11-06', what: 'A governance ontology, SKOS taxonomy and SHACL shapes for the registry, kept with Gherkin behaviour.', use: 'One of the few public SKOS and SHACL models in government: a reference for codelists and shapes done the same way.', prov: V}
+  - {id: parliament, group: models, name: UK Parliament ontologies, owner: UK Parliament, url: 'https://github.com/ukparliament/ontologies', licence: none stated, updated: '2026-11-06', what: 'Ontologies for parliamentary data, in Turtle and Markdown.', use: 'Link from datasets about Parliament to its terms.', prov: V}
+  - {id: registry-core, group: registers, name: Linked Data Registry, owner: UK Government Linked Data (UKGovLD), url: 'https://github.com/UKGovLD/registry-core', licence: Apache 2.0, updated: '2026-10-06', what: 'Software for running registers of linked data terms, with versioning and status (used for environmental and other registers).', use: 'A way to host the DCAT-AP-UK codelists as a register with change history, if the owning team wants one.', prov: V}
+  - {id: dfe-ref, group: registers, name: DfE reference data, owner: Department for Education, url: 'https://github.com/DFE-Digital/dfe-reference-data', licence: MIT, updated: '2026-11-03', what: 'A uniform interface to reference data lists used across education services.', use: 'Codelists for education datasets; link their values rather than copy them.', prov: V}
+  - {id: mog, group: registers, name: MoG Navigator, owner: Government Data community, url: 'https://github.com/co-cddo/MoG-Navigator', licence: MIT, updated: '2026-07-30', what: 'Machinery of government changes as data, each with a status (confirmed or reported).', use: 'Keeps publisher and creator links right when departments change, as in July 2026.', prov: V}
+  - {id: api-catalogue, group: catalogues, name: Government API catalogue, owner: Government Digital Service, url: 'https://github.com/co-cddo/api-catalogue', licence: MIT, updated: '2026-11-02', what: 'The list of government APIs behind api.gov.uk, as CSV.', use: 'Every API there can become a DCAT-AP-UK data service; the OpenAPI converter does the first step.', prov: V}
+  - {id: federated-api, group: catalogues, name: Federated API discovery model, owner: Data Standards Authority, url: 'https://github.com/co-cddo/federated-api-model', licence: OGL v3.0, updated: '2023-04-24', what: 'A minimal, push-and-pull model for discovering APIs across catalogues.', use: 'Its fields map to the data service class; the crosswalk keeps both in step.', prov: V}
+  - {id: api-lint, group: catalogues, name: API standards linting, owner: Data Standards Authority, url: 'https://github.com/co-cddo/api-standards-linting', licence: OGL v3.0, updated: '2023-06-13', what: 'Spectral rules that check OpenAPI descriptions against the government API standards.', use: 'Run before converting an OpenAPI description to a data service record.', prov: V}
+  - {id: dm-api, group: catalogues, name: Data Marketplace API (2023), owner: Government Digital Service, url: 'https://github.com/co-cddo/data-marketplace-api', licence: none stated, updated: '2023-10-31', what: 'The first Data Marketplace API: a triplestore of DCAT records with a FastAPI front.', use: 'Its records are the real-world test above.', prov: V}
+  - {id: jncc, group: catalogues, name: JNCC catalogue, owner: Joint Nature Conservation Committee, url: 'https://github.com/jncc/catalog', licence: none stated, updated: '2026-11-03', what: 'A metadata and data product catalogue with a REST API.', use: 'A geospatial catalogue the geospatial extension and GEMINI crosswalk serve.', prov: V}
+  - {id: dsrf, group: frameworks, name: Data Sharing Risk Framework, owner: Department for Digital, Culture, Media and Sport, url: 'https://github.com/co-cddo/data-sharing-risk-framework', licence: MIT (code), Crown copyright (documents), updated: '2026-10-21', what: 'Tools to help organisations assess the risk of sharing data.', use: 'Use alongside access rights, security classification and transfer safeguard when deciding what a record says about sharing.', prov: V}
+  - {id: dq-commons, group: frameworks, name: Public Sector Data Quality Commons, owner: Open prototype (not official), url: 'https://github.com/cyberdudeuk/dq-commons', licence: MIT and OGL v3.0, updated: '2026-11-06', what: 'A data quality hub: checks, frameworks and standards that apply, learning.', use: 'Measure the quality the quality properties describe; the Data Quality Framework sits behind both.', prov: V}
+  - {id: dam-playbooks, group: frameworks, name: Data asset management capability playbooks, owner: Open prototype (not official), url: 'https://github.com/cyberdudeuk/dam-capability-playbooks', licence: MIT and OGL v3.0, updated: '2026-11-06', what: 'Step-by-step guidance on governance, cataloguing and quality for critical data assets, following the DAM policy.', use: 'The how-to for recording a critical data asset with this profile.', prov: V}
+  - {id: knowledge-web, group: frameworks, name: The Knowledge Web, owner: Open prototype (not official), url: 'https://github.com/cyberdudeuk/knowledge-web', licence: Apache 2.0, updated: '2026-08-03', what: 'An ontology-backed map of government data standards and governance artefacts, in one offline HTML file.', use: 'Another way to navigate the standards this profile relies on.', prov: V}

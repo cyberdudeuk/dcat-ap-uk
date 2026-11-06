@@ -107,7 +107,16 @@ def run(site, verbose=True):
             fails.append('builder: clearing the title did not raise an error')
         if 'conform' not in pg.inner_text('#b-level').lower():
             fails.append('builder: no conformance level shown')
+        # Endorsed-standard chips under conforms to add the specification address (reuse page, 6 November 2026).
         pg.select_option('#b-example', '')
+        chip = pg.query_selector('#f-conformsTo ~ .suggest .chip, .suggest .chip[data-iri*="rfc4180"]')
+        if not chip:
+            fails.append('builder: no endorsed-standard suggestions under conforms to')
+        else:
+            iri = chip.get_attribute('data-iri')
+            chip.click()
+            if iri not in (pg.input_value('#f-conformsTo') or ''):
+                fails.append('builder: pressing an endorsed-standard suggestion did not add its address to conforms to')
         pg.select_option('#b-ext', 'health')
         if not pg.query_selector('#f-numberOfRecords'):
             fails.append('builder: choosing the health extension did not add its fields')
@@ -243,6 +252,7 @@ BREAKS = {
     'submit': lambda s: _sub(s / 'app.js', "doc.addEventListener('submit', function (e) { e.preventDefault(); }, true);", ''),
     'meter': lambda s: _sub(s / 'app.js', '<span data-w="\' + Math.round(', '<span style="width:\' + Math.round('),
     'nested': lambda s: _sub(s / 'standards.html', 'id="std-svg" viewBox', 'id="std-svg" role="img" viewBox'),
+    'suggest': lambda s: _sub(s / 'app.js', "var cur = input.value.trim(); if (input.tagName", "return; var cur = input.value.trim(); if (input.tagName"),
     'extension': lambda s: _sub(s / 'validator.js', "Object.keys(e.props).forEach(function (k) { Q.props[k] = e.props[k]; });", ""),
 }
 

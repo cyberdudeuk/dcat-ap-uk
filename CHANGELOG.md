@@ -40,6 +40,12 @@ A minor release: a new name, tools for suppliers and buyers, and a richer portal
 - Checks C-19 (no style attributes), C-20 (tour stops exist) and C-21 (feedback link on every page),
   each with a deliberate break; a browser pass with the content security policy on.
 - Repository: a conformance claim issue form, labels as code, release note categories, CodeQL, support and governance files.
+- A reuse page: 21 public standards, models, registers, catalogues and toolkits across UK government that fit with
+  DCAT-AP-UK, found by scanning the GitHub Repos Asset Catalogue (12,251 repositories) and read at source; the Data Standards
+  Authority's 11 endorsed standards, with the address to give in conforms to; what government code actually uses; and the 2023
+  Data Marketplace records checked against the profile (97 problems, all fixed or flagged by the existing tools).
+- The record builder offers the endorsed standards as one-press suggestions for conforms to.
+- Check C-23: no old directorate name and no personal or team details anywhere.
 - The geospatial extension says how data is represented (`adms:representationTechnique`, from the INSPIRE spatial
   representation types) and requires geospatial data services to state the OGC standards they conform to (RQ-24).
 - Catalogue records can point to the record they were harvested from (`dct:source`) and list the properties they
@@ -50,7 +56,7 @@ A minor release: a new name, tools for suppliers and buyers, and a richer portal
   They follow w3id.org's rules: 303 with content negotiation for terms and codelists, 302 elsewhere, no `Options`.
 
 ### Fixed
-- D-017 to D-029; see the defect register.
+- D-017 to D-031; see the defect register.
 - The geodesy example names the ETRF2000 realisation (EPSG 9067), not the ETRS89 ensemble, as its own guidance asks.
 - The EU access-right and data-theme mappings were checked at source and relabelled S (open register O-04).
 - Closed O-05 (merged into O-17), O-09, O-12, O-16, O-18, O-24 and O-27; opened O-28 (required checks on main). O-12: the xGov MEM owners were asked, on its

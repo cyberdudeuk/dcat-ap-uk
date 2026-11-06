@@ -93,7 +93,7 @@ TYPES = {  # value kinds used by the profile (K: author's summary of DCAT, SHACL
 SECTION = {'index': 'home', 'profile': 'profile', 'properties': 'profile', 'codelists': 'profile', 'types': 'profile', 'extensions': 'profile',
            'builder': 'tools', 'validate': 'tools', 'bulk': 'tools', 'weaver': 'tools', 'openapi': 'tools', 'examples': 'tools',
            'adopt': 'adopt', 'integrations': 'adopt', 'lockin': 'adopt', 'international': 'adopt', 'ai-ready': 'adopt', 'quantum': 'adopt', 'landscape': 'adopt',
-           'knowledge': 'knowledge', 'lineage': 'knowledge', 'standards': 'knowledge', 'insights': 'knowledge', 'changes': 'changes', 'strategy': 'strategy', 'requirements': 'strategy',
+           'knowledge': 'knowledge', 'lineage': 'knowledge', 'standards': 'knowledge', 'insights': 'knowledge', 'reuse': 'knowledge', 'changes': 'changes', 'strategy': 'strategy', 'requirements': 'strategy',
            'guide': 'roles', 'tutorials': 'roles', 'roles': 'roles', 'downloads': 'downloads', 'estate': 'estate',
            'governance': 'about', 'accessibility': 'about', 'contact': 'about', 'sitemap': 'about', 'licence': 'about', 'whats-new': 'about', '404': 'about'}
 
@@ -104,7 +104,7 @@ NAV = [
     ('Profile', 'The profile', 'layers', ['profile', 'properties', 'codelists', 'types', 'extensions']),
     ('Tools', 'Tools', 'wrench', ['builder', 'validate', 'bulk', 'weaver', 'openapi', 'examples']),
     ('Adopt', 'Adopt', 'package', ['adopt', 'integrations', 'lockin', 'international', 'ai-ready', 'quantum', 'landscape']),
-    ('Knowledge', 'Knowledge', 'network', ['knowledge', 'lineage', 'standards', 'insights']),
+    ('Knowledge', 'Knowledge', 'network', ['knowledge', 'lineage', 'standards', 'reuse', 'insights']),
     ('Context', 'Context', 'route', ['changes', 'strategy', 'requirements']),
     ('Help', 'Help', 'circle-help', ['guide', 'tutorials', 'roles']),
     ('downloads', 'Downloads', 'download', None),
@@ -119,8 +119,9 @@ TITLES = {
     'whats-new': "What's new", '404': 'Page not found', 'extensions': 'Sector extensions', 'bulk': 'Check many records',
     'openapi': 'Describe an API from OpenAPI', 'adopt': 'Adoption toolkit', 'international': 'Cross-border data flows', 'ai-ready': 'AI-ready metadata',
     'quantum': 'Quantum-ready metadata', 'landscape': 'Profiles around the world', 'guide': 'User guide', 'tutorials': 'Tutorials', 'weaver': 'Metadata weaver',
-    'lineage': 'Lineage explorer', 'insights': 'Insights', 'integrations': 'Integrations and connectors', 'standards': 'Standards map', 'lockin': 'Avoiding lock-in and technical debt', 'types': 'Value types', 'licence': 'Licence'}
+    'lineage': 'Lineage explorer', 'insights': 'Insights', 'integrations': 'Integrations and connectors', 'standards': 'Standards map', 'lockin': 'Avoiding lock-in and technical debt', 'types': 'Value types', 'licence': 'Licence', 'reuse': 'Reuse across government'}
 DESC = {
+    'reuse': 'Public standards, models, registers, catalogues and toolkits across UK government that fit with DCAT-AP-UK, with evidence of what is used and a real-world test.',
     'types': 'The kinds of value DCAT-AP-UK properties take, how each is written in RDF and JSON, and which properties use it.',
     'licence': 'How you may reuse DCAT-AP-UK: the Open Government Licence v3.0 for content and the profile, MIT for code, and third-party parts.',
     'index': 'A proposed UK application profile of DCAT for describing public sector datasets and data services, evolved from the xGov MEM.',
@@ -238,6 +239,7 @@ class Site:
         self.g = yaml.safe_load((ROOT / 'content' / 'guide.yaml').read_text(encoding='utf-8'))
         self.sd = yaml.safe_load((ROOT / 'content' / 'standards.yaml').read_text(encoding='utf-8'))
         self.lk = yaml.safe_load((ROOT / 'content' / 'lockin.yaml').read_text(encoding='utf-8'))
+        self.ru = yaml.safe_load((ROOT / 'content' / 'reuse.yaml').read_text(encoding='utf-8'))
         self.ig = yaml.safe_load((ROOT / 'content' / 'integrations.yaml').read_text(encoding='utf-8'))
         self.rq = yaml.safe_load((ROOT / 'content' / 'requirements.yaml').read_text(encoding='utf-8'))
         self.src = {s['id']: s for s in p.lineage['sources'] + self.t['sources']}
@@ -416,7 +418,9 @@ class Site:
             (dl / name).write_text(text, encoding='utf-8')
         prof = json.loads(files['profile.json'])
         (self.out / 'profile-data.js').write_text('window.UKAP_PROFILE=' + files['profile.json'] + ';\nwindow.UKAP_EXAMPLES='
-                                                  + json.dumps({e['key']: e['record'] for e in p.examples}, ensure_ascii=False) + ';\n', encoding='utf-8')
+                                                  + json.dumps({e['key']: e['record'] for e in p.examples}, ensure_ascii=False)
+                                                  + ';\nwindow.UKAP_SUGGEST=' + json.dumps({'conformsTo': [{'label': x['short'], 'title': x['name'], 'iri': x['url']} for x in self.ru['dsa']['standards']]}, ensure_ascii=False)
+                                                  + ';\n', encoding='utf-8')
         self.files = files
         recs = {e['key']: {'record': e['record']} for e in p.examples}
         recs.update({'ext-' + eid: {'record': p.ext_example(eid), 'ext': eid} for eid in p.extensions})
@@ -449,6 +453,7 @@ class Site:
         self.weaver_page()
         self.integrations_page()
         self.lockin_page()
+        self.reuse_page()
         self.requirements_page()
         self.standards_page()
         self.insights_page()
@@ -1268,7 +1273,9 @@ class Site:
             'The weaver reads Apache Atlas entities, the model behind the Microsoft Purview data map, and invents nothing: every gap becomes a note. A candidate <a href="extensions.html#ext-geodesy">geodesy module</a> adds reference frame, epoch, technique and uncertainty.',
             'Catalogue records can carry their own security classification, and any record can say why a property is empty, with a reason from a list based on the GML and INSPIRE nil reasons (<a href="class-missingvalue.html">missing value</a>, rule Q-02).',
             'Harvested catalogue records can point to the record they came from and list what they enriched. The <a href="extensions.html#ext-geospatial">geospatial extension</a> adds representation type and OGC service conformance.',
-            'The generated LinkML file is now checked with LinkML\'s own tools, and agrees with the other three validators.'])
+            'The generated LinkML file is now checked with LinkML\'s own tools, and agrees with the other three validators.',
+            '<a href="reuse.html">Reuse across government</a>: standards, models, registers, catalogues and toolkits that fit with the profile, the Data Standards Authority\'s endorsed standards (now one-press suggestions in the builder) and a real-world test of the 2023 Data Marketplace records.',
+            'Checked at source: current versions of the standards, the organisation list after the July 2026 machinery of government change, and UK adequacy, now called data bridges.'])
         body += '<h2 id="v11">1.1.0-rc.1, 2026-11-06</h2>' + ul([
             f'Nine <a href="extensions.html">sector extensions</a> (health, geospatial, statistics, transport, high-value datasets, AI-ready, data spaces, private and voluntary sector, energy), each with its own shapes, schema, example and break.',
             'Cross-border flows: where data is held or sent, across the UK nations, Crown Dependencies, Overseas Territories, Commonwealth and partners, and the UK GDPR transfer safeguard (rule R-08).',
@@ -2321,6 +2328,45 @@ class Site:
                    {'id': 'clauses', 'label': 'Contract clauses', 'icon': 'scroll-text', 'count': sum(len(g['items']) for g in lk['clauses'])},
                    {'id': 'schedule', 'label': 'Schedule of standards', 'icon': 'library', 'count': len(rows)}, {'id': 'assure', 'label': 'Assurance', 'icon': 'clipboard-check', 'count': len(lk['assurance'])}]}]
         self.page('lockin', body, drawer, crumbs=[('Adopt', None), ('Avoiding lock-in and technical debt', None)])
+
+    def reuse_page(self):
+        ru = self.ru
+        G = {g['id']: g for g in ru['groups']}
+        dsa = ru['dsa']
+        drows = [[f'<a href="{E(x["url"])}">{E(x["name"])}</a>', E(x['short']), E(x['use']), f'<code>{E(x["url"])}</code>'] for x in dsa['standards']]
+        ev = ru['evidence']
+        c1 = self.bar_chart('c-reuse-std', 'Standards found in UK public-sector repositories', [(n, [v]) for n, v in ev['standards']], [('Repositories', 2)],
+                            note='Repositories with at least one file that uses the standard, from the GitHub Repos Asset Catalogue standards scan.')
+        c2 = self.bar_chart('c-reuse-plat', 'Catalogue products found in UK public-sector repositories', [(n, [v]) for n, v in ev['platforms']], [('Repositories', 1)],
+                            note='Repositories that configure or name the product. Most products are configured in the product itself, not in public code.')
+        t = ru['test']
+        trows = [[E(r['what']), str(r['count'])] for r in t['results']] + [['<strong>Total</strong>', f'<strong>{t["total"]}</strong>']]
+        assert sum(r['count'] for r in t['results']) == t['total'], 'reuse test counts do not add up'
+        arows, attrs = [], []
+        for a in ru['assets']:
+            arows.append([f'<a href="{E(a["url"])}">{E(a["name"])}</a>', E(G[a['group']]['label']), E(a['owner']), E(a['what']), E(a['use']), E(a['licence']), f'<time datetime="{E(a["updated"])}">{E(a["updated"])}</time> {prov(a["prov"], ru["as_of"])}'])
+            attrs.append(f' data-group="{a["group"]}"')
+        gsel = ''.join(f'<option value="{g["id"]}">{E(g["label"])}</option>' for g in ru['groups'])
+        filt = (f'<div class="filters" data-for="t-reuse"><label>Search<input type="search" placeholder="name, owner or use"></label>'
+                f'<label>Kind<select data-col="group"><option value="">All</option>{gsel}</select></label><output aria-live="polite"></output></div>')
+        cards = ''.join(f'<div class="card"><h3>{icon(g["icon"])} {E(g["label"])}</h3><p>{sum(1 for a in ru["assets"] if a["group"] == g["id"])} assets</p>'
+                        f'<p class="small">{E(", ".join(a["name"] for a in ru["assets"] if a["group"] == g["id"]))}</p></div>' for g in ru['groups'])
+        body = self.hero('git-fork', 'Knowledge', 'Reuse across government', self.gloss(' '.join(ru['intro'].split())),
+                         meta=[('library', f'{len(ru["assets"])} assets'), ('landmark', f'{len(dsa["standards"])} endorsed standards'), ('calendar-range', f'Read {E(ru["as_of"])}')])
+        body += f'<div class="grid">{cards}</div>'
+        body += (f'<h2 id="assets">What exists, and how to use it with DCAT-AP-UK</h2>{filt}'
+                 + table('t-reuse', 'Public assets that fit with DCAT-AP-UK', ['Asset', 'Kind', 'Owner', 'What it is', 'How to use it with DCAT-AP-UK', 'Licence', 'Last changed'], arows, row_attrs=attrs))
+        body += (f'<h2 id="dsa">Standards the Data Standards Authority endorses</h2><p>{E(" ".join(dsa["intro"].split()))} Read from <a href="{E(dsa["source"])}">its repository</a> {prov("V", ru["as_of"])}.</p>'
+                 + table('t-dsa', 'Endorsed standards, and the address to give in conforms to', ['Standard', 'Short name', 'Use it for', 'Give this in conforms to'], drows))
+        body += (f'<h2 id="evidence">What government code actually uses</h2><p>{E(" ".join(ev["note"].split()))} From the <a href="{E(ev["source"])}">GitHub Repos Asset Catalogue</a> {prov("P", ru["as_of"])}.</p>'
+                 f'{c1}{c2}<p>{E(" ".join(ev["reading"].split()))}</p>')
+        body += (f'<h2 id="test">{E(t["title"])}</h2><p>{E(" ".join(t["what"].split()))} Source: <a href="{E(t["repo"])}">the Data Marketplace API repository</a> {prov("V", ru["as_of"])}.</p>'
+                 + table('t-dmtest', 'Problems found, by kind', ['Problem', 'Count'], trows, sortable=False, num=(1,)) + f'<p>{E(" ".join(t["reading"].split()))}</p>')
+        body += f'<h2 id="method">How this list was made</h2><p>{E(" ".join(ru["method"].split()))}</p>'
+        drawer = [{'title': 'Reuse', 'icon': 'git-fork', 'items': [{'id': 'assets', 'label': 'What exists', 'icon': 'library', 'count': len(ru['assets'])},
+                   {'id': 'dsa', 'label': 'Endorsed standards', 'icon': 'landmark', 'count': len(dsa['standards'])}, {'id': 'evidence', 'label': 'What code uses', 'icon': 'search'},
+                   {'id': 'test', 'label': 'A real-world test', 'icon': 'list-checks', 'count': t['total']}, {'id': 'method', 'label': 'How this was made', 'icon': 'book-open'}]}]
+        self.page('reuse', body, drawer, crumbs=[('Knowledge', None), ('Reuse across government', None)])
 
     def write_machine(self, prof):
         """xref.json for the estate, and a DCAT-AP-UK description of the downloads (the profile describing itself)."""

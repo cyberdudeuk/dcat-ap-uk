@@ -568,6 +568,21 @@
         input = el('input', { type: /url|iri|object/.test(prop.kind) ? 'url' : 'text', id: id, 'aria-describedby': id + '-h', placeholder: prop.example || '', autocomplete: 'off' });
       }
       w.appendChild(input);
+      var sug = (window.UKAP_SUGGEST || {})[x.p];
+      if (sug && sug.length) {
+        // Standards the Data Standards Authority endorses (reuse page): one press adds the address, on its own line.
+        var box = el('div', { 'class': 'suggest', role: 'group', 'aria-label': 'Endorsed standards you can add' });
+        box.appendChild(el('span', { 'class': 'small' }, 'Endorsed standards: '));
+        sug.forEach(function (s) {
+          var b = el('button', { type: 'button', 'class': 'chip', title: s.title, 'data-iri': s.iri }, esc(s.label));
+          b.addEventListener('click', function () {
+            var cur = input.value.trim(); if (input.tagName !== 'TEXTAREA') input.value = s.iri; else if (cur.split(/\s+/).indexOf(s.iri) < 0) input.value = cur ? cur + '\n' + s.iri : s.iri;
+            input.dispatchEvent(new Event('input', { bubbles: true })); input.focus();
+          });
+          box.appendChild(b);
+        });
+        w.appendChild(box);
+      }
       if (prop.kind === 'object' && prop.range === 'Agent') {
         var dl = $('#orgs-list'); if (dl) input.setAttribute('list', 'orgs-list');
       }
