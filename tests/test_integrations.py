@@ -193,3 +193,17 @@ class MemPortalFeatures(unittest.TestCase):
     def test_licence_page_and_feedback_link(self):
         self.assertIn('Open Government Licence v3.0', (SITE / 'licence.html').read_text(encoding='utf-8'))
         self.assertIn('Suggest a change to this page', (SITE / 'index.html').read_text(encoding='utf-8'))
+
+
+class RepoAsCode(unittest.TestCase):
+    """D-023: a label colour of digits only was read by YAML as a number and broke the labels workflow."""
+
+    def check(self, labels):
+        bad = [l['name'] for l in labels if not (isinstance(l['color'], str) and re.fullmatch(r'[0-9a-f]{6}', l['color']))]
+        return bad
+
+    def test_every_label_colour_is_six_hex_digits_as_text(self):
+        self.assertEqual(self.check(yaml.safe_load((ROOT / '.github' / 'labels.yml').read_text(encoding='utf-8'))), [])
+
+    def test_check_catches_a_numeric_colour(self):
+        self.assertEqual(self.check(yaml.safe_load('- {name: x, color: 942514, description: y}')), ['x'])

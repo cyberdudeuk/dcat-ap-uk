@@ -19,5 +19,5 @@ jobs:
           python3 - <<'PY'
           import subprocess, yaml
           for l in yaml.safe_load(open('.github/labels.yml')):
-              subprocess.run(['gh', 'label', 'create', l['name'], '--color', l['color'], '--description', l['description'], '--force'], check=True)
+              subprocess.run(['gh', 'label', 'create', l['name'], '--color', str(l['color']), '--description', str(l['description']), '--force'], check=True)
           PY
