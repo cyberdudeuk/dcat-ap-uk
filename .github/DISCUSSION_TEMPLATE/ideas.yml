@@ -1,0 +1,10 @@
+title: "[Idea] "
+labels: ["idea"]
+body:
+  - type: textarea
+    id: idea
+    attributes:
+      label: Your idea
+      description: What would make DCAT-UK AP more useful? Public; no personal data.
+    validations:
+      required: true

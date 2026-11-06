@@ -1,0 +1,85 @@
+name: Build, check and publish
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    - cron: '23 6 * * 1'   # weekly health run, Monday morning
+  workflow_dispatch:
+# No third-party actions: every step is a plain command using the runner's git, Python, Node.js and gh.
+permissions:
+  contents: read
+concurrency:
+  group: pages-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write   # push the built site to gh-pages, on main only
+      issues: write     # open or update the weekly health issue
+    steps:
+      - name: Check out the commit
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git init -q .
+          git remote add origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          git fetch -q --depth 1 origin "${GITHUB_SHA}"
+          git checkout -q FETCH_HEAD
+          git remote set-url origin "https://github.com/${GITHUB_REPOSITORY}.git"
+      - name: Python environment
+        run: |
+          python3 -m venv "$RUNNER_TEMP/venv"
+          echo "$RUNNER_TEMP/venv/bin" >> "$GITHUB_PATH"
+      - name: Install pinned tools
+        run: |
+          pip install -r requirements.txt
+          npm ci
+          python -m playwright install --with-deps chromium
+      - name: Tests (three validators agree; every rule has a deliberate break)
+        run: python -I -m unittest discover -s tests -v
+      - name: Build
+        run: python -I tools/build.py
+      - name: Generated docs are up to date
+        run: git diff --exit-code -- docs/
+      - name: Structural checks
+        run: python -I tools/check_site.py
+      - name: Structural checks catch their deliberate breaks
+        run: python -I tools/check_site.py --vaccinate
+      - name: Browser checks (axe-core, widths, light and dark, keyboard, tools, no-script)
+        run: python -I tools/check_browser.py
+      - name: Browser checks catch their deliberate breaks
+        run: |
+          for b in contrast overflow label console skip validator; do
+            python -I tools/check_browser.py --break "$b"
+          done
+      - name: Health run (sources, review date, page weight)
+        id: health
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        continue-on-error: true
+        run: python -I tools/health.py --out build/health.json > build/health.txt
+      - name: Open or update the health issue
+        if: steps.health.outcome != 'skipped'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          body="$(printf 'Weekly health run, %s.\n\n%s\n\nAutomation reports; a person acts. See docs and the runbook in CONTRIBUTING.md.' "$(date -u +%F)" "$(cat build/health.txt)")"
+          n="$(gh issue list --label health --state open --json number -q '.[0].number' || true)"
+          if [ "${{ steps.health.outcome }}" = "success" ]; then
+            [ -n "$n" ] && gh issue close "$n" --comment "$body" || true
+          elif [ -n "$n" ]; then gh issue comment "$n" --body "$body"
+          else gh issue create --title "Weekly health" --label health --body "$body" || gh issue create --title "Weekly health" --body "$body"
+          fi
+      - name: Publish to GitHub Pages (main only, after every check)
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          cd site
+          git init -q -b gh-pages .
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]"  # no email address in the repository (COL-02)
+          git add -A
+          git commit -q -m "Publish ${GITHUB_SHA::7}"
+          git push -q -f "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" gh-pages

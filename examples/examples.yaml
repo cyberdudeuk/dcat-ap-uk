@@ -1,0 +1,201 @@
+# Worked examples, in the portal's compact form (keys are DCAT-UK AP property names; "class" and "id" give the RDF type and IRI).
+# Generated into JSON-LD and Turtle and checked against the SHACL shapes and JSON Schema on every build.
+# Illustrative only: built from public records for teaching, not confirmed by the publishers (U). Synthetic examples say so.
+# Contact points use web addresses only; this repository publishes no email address (build standard COL-02).
+
+- key: dataset-postcodes
+  label: An open dataset with two files
+  teaches: The everyday case. Open data, a licence, geographic coverage and two distributions described in the same record.
+  issues: [69, 72, 1, 76]
+  record:
+    class: Dataset
+    id: https://www.data.gov.uk/dataset/2dfb82b4-741a-4b93-807e-11abb4bb0875/os-postcodes-data
+    title: Postcode locations for Great Britain
+    alternative: Code-Point Open
+    abstract: Free point locations for every postcode unit in Great Britain.
+    description: >-
+      The location of every postcode unit in Great Britain as a single point, with the codes of the areas it falls in. Often used
+      for service planning, simple routing and statistical analysis.
+    identifier: 2dfb82b4-741a-4b93-807e-11abb4bb0875
+    publisher: https://www.gov.uk/government/organisations/ordnance-survey
+    creator: [https://www.gov.uk/government/organisations/ordnance-survey]
+    contactPoint:
+      - fn: Ordnance Survey customer service
+        hasURL: https://www.ordnancesurvey.co.uk/contact-us
+    accessRights: ukcl:access-rights/open
+    securityClassification: ukcl:security-classification/official
+    personalData: ukcl:personal-data/none
+    licence: http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/
+    accrualPeriodicity: eufreq:QUARTERLY
+    theme: [ukcl:theme/mapping]
+    keyword: [postcode, address, location]
+    spatial: [http://statistics.data.gov.uk/id/statistical-geography/K03000001]
+    issued: '2022-02-01'
+    modified: '2026-08-01'
+    version: '2026-08'
+    language: [eulang:ENG]
+    landingPage: [https://www.ordnancesurvey.co.uk/products/code-point-open]
+    distribution:
+      - class: Distribution
+        id: https://www.data.gov.uk/dataset/2dfb82b4-741a-4b93-807e-11abb4bb0875/os-postcodes-data#csv
+        title: Postcode locations, CSV
+        accessURL: [https://www.ordnancesurvey.co.uk/products/code-point-open]
+        mediaType: https://www.iana.org/assignments/media-types/text/csv
+        licence: http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/
+        byteSize: '14330000'
+      - class: Distribution
+        id: https://www.data.gov.uk/dataset/2dfb82b4-741a-4b93-807e-11abb4bb0875/os-postcodes-data#gpkg
+        title: Postcode locations, GeoPackage
+        accessURL: [https://www.ordnancesurvey.co.uk/products/code-point-open]
+        mediaType: https://www.iana.org/assignments/media-types/application/geopackage+sqlite3
+        licence: http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/
+        byteSize: '55410000'
+
+- key: service-food-alerts
+  label: An open event API
+  teaches: A data service that pushes alerts, with its interface style and status.
+  issues: [56]
+  record:
+    class: DataService
+    id: https://data.food.gov.uk/food-alerts/
+    title: Food alerts
+    description: >-
+      Current and recent food alerts: allergy alerts, product recall information notices and food alerts for action. Applications
+      can list alerts that match a filter and get the details of one alert.
+    identifier: food-alerts
+    endpointURL: [https://data.food.gov.uk/food-alerts/]
+    endpointDescription: [https://data.food.gov.uk/food-alerts/ui/reference]
+    publisher: https://www.gov.uk/government/organisations/food-standards-agency
+    contactPoint:
+      - fn: Food Standards Agency data team
+        hasURL: https://www.food.gov.uk/contact
+    accessRights: ukcl:access-rights/open
+    securityClassification: ukcl:security-classification/official
+    licence: http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/
+    serviceStatus: ukcl:service-status/public-beta
+    serviceType: ukcl:service-type/event
+    theme: [ukcl:theme/health]
+    keyword: [allergy, product recall, food safety]
+
+- key: service-hmrc-irr
+  label: An internal API that needs an agreement
+  teaches: A data service only some organisations can use, with a rights statement, an OpenAPI description and the interface standard.
+  issues: [44, 56, 15]
+  record:
+    class: DataService
+    id: https://developer.service.hmrc.gov.uk/api-documentation/docs/api/service/interest-restriction-return/1.0
+    title: Interest restriction return API
+    description: Lets software appoint or revoke a reporting company and submit full or abbreviated interest restriction returns.
+    identifier: interest-restriction-return
+    endpointURL: [https://api.service.hmrc.gov.uk/]
+    endpointDescription: [https://developer.service.hmrc.gov.uk/api-documentation/docs/api/service/interest-restriction-return/1.0/oas/page]
+    conformsTo: [https://spec.openapis.org/oas/v3.0.3]
+    publisher: https://www.gov.uk/government/organisations/hm-revenue-customs
+    contactPoint:
+      - fn: Software Development Support Team
+        hasURL: https://developer.service.hmrc.gov.uk/developer/support
+    accessRights: ukcl:access-rights/internal
+    rights: Available to registered software developers. Production access needs approval through the HMRC Developer Hub.
+    securityClassification: ukcl:security-classification/official
+    licence: ukcl:licences/data-sharing-agreement-required
+    serviceStatus: ukcl:service-status/public-beta
+    serviceType: ukcl:service-type/rest
+    theme: [ukcl:theme/business-and-economy]
+
+- key: series-census
+  label: A dataset series and one release in it
+  teaches: How repeated releases share a series, and how to give the period the data covers rather than the publication date.
+  issues: [2]
+  record:
+    class: DatasetSeries
+    id: https://example.org/dcat-uk-ap/examples/census-series
+    title: Census of population, England and Wales
+    description: Every ten years, a count of all people and households in England and Wales. Synthetic example of a series record.
+    publisher: https://www.gov.uk/government/organisations/office-for-national-statistics
+    accrualPeriodicity: eufreq:OTHER
+    theme: [ukcl:theme/society]
+    spatial: [http://statistics.data.gov.uk/id/statistical-geography/K04000001]
+
+- key: dataset-census-2021
+  label: One release in a series
+  teaches: inSeries, the time period covered, and reference data (the age bands used).
+  issues: [2, 3, 4]
+  record:
+    class: Dataset
+    id: https://example.org/dcat-uk-ap/examples/census-2021-population-by-age
+    title: Usual resident population by five-year age band, England and Wales, Census 2021
+    description: Synthetic example. Counts of usual residents on Census Day 2021 by five-year age band and local authority.
+    identifier: census-2021-age-5y
+    inSeries: [https://example.org/dcat-uk-ap/examples/census-series]
+    publisher: https://www.gov.uk/government/organisations/office-for-national-statistics
+    contactPoint:
+      - fn: Census customer services
+        hasURL: https://www.ons.gov.uk/aboutus/contactus
+    accessRights: ukcl:access-rights/open
+    securityClassification: ukcl:security-classification/official
+    personalData: ukcl:personal-data/anonymised
+    licence: http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/
+    accrualPeriodicity: eufreq:NEVER
+    temporal:
+      - startDate: '2021-03-21'
+        endDate: '2021-03-21'
+    spatial: [http://statistics.data.gov.uk/id/statistical-geography/K04000001]
+    conformsTo: [https://www.gov.uk/government/publications/recommended-open-standards-for-government/tabular-data-standard]
+    referenceData: [https://example.org/dcat-uk-ap/examples/age-bands-5y]
+    theme: [ukcl:theme/society]
+    language: [eulang:ENG, eulang:CYM]
+
+- key: dataset-critical-asset
+  label: A critical data asset (synthetic)
+  teaches: >-
+    What the Data Asset Management Policy adds. Every property marked mandatory for critical data assets is given, and
+    accountability is a role, not a person. Entirely synthetic: no real organisation or data.
+  issues: [25, 26, 5]
+  record:
+    class: Dataset
+    id: https://example.org/dcat-uk-ap/examples/eligibility-decisions
+    title: Eligibility decisions for an example support scheme
+    description: Synthetic example. One row per eligibility decision, with the date, the outcome and the reason code. Shared with partner organisations to deliver the scheme.
+    identifier: 7f3c9a1e-58b2-4c3d-9e60-2b8f4a1d0c77
+    criticalDataAsset: 'true'
+    publisher: https://example.org/organisations/example-department
+    creator: [https://example.org/organisations/example-department]
+    created: '2024-04-01'
+    modified: '2026-10-01'
+    contactPoint:
+      - fn: Example scheme data team
+        hasURL: https://example.org/contact/scheme-data
+    accessRights: ukcl:access-rights/internal
+    rights: Shared under a data sharing agreement using the public service delivery powers in the Digital Economy Act 2017. Ask through the contact form.
+    securityClassification: ukcl:security-classification/official-sensitive
+    personalData: ukcl:personal-data/pseudonymised
+    sensitiveData: [ukcl:sensitive-data/none]
+    metadataAudience: ukcl:metadata-audience/public-sector
+    licence: ukcl:licences/data-sharing-agreement-required
+    accrualPeriodicity: eufreq:DAILY
+    temporal:
+      - startDate: '2024-04-01'
+    conformsTo: [https://example.org/dcat-uk-ap/examples/eligibility-decisions/schema.json]
+    qualifiedAttribution:
+      - agent: https://example.org/organisations/example-department
+        hadRole: ukcl:agent-role/data-owner
+      - agent: https://example.org/organisations/example-department
+        hadRole: ukcl:agent-role/data-steward
+    theme: [ukcl:theme/society]
+
+- key: catalogue-example
+  label: A catalogue (synthetic)
+  teaches: The catalogue record that a harvester reads first, declaring that it conforms to this profile.
+  issues: []
+  record:
+    class: Catalogue
+    id: https://example.org/catalogue
+    title: Example department data catalogue
+    description: Synthetic example. The data catalogue of an example department, harvested by central discovery services.
+    publisher: https://example.org/organisations/example-department
+    homepage: https://example.org/catalogue
+    conformsTo: [https://w3id.org/dcat-uk-ap/1.0]
+    themeTaxonomy: [https://w3id.org/dcat-uk-ap/codelist/theme]
+    language: [eulang:ENG]
+    dataset:
+      - https://example.org/dcat-uk-ap/examples/eligibility-decisions

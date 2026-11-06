@@ -1,0 +1,58 @@
+# Records that must fail. Each names the rule the browser validator must report, and whether SHACL and JSON Schema must also reject it.
+# Every one is a deliberate break (vaccination, VER-05): if any of the three validators accepts one, the test suite fails.
+# Test fixtures only: never published. Email values use reserved example domains (RFC 2606).
+- key: missing-title
+  rule: M-01
+  record: {class: Dataset, id: 'https://example.org/x', description: d, identifier: x, publisher: 'https://example.org/o', contactPoint: [{fn: Team, hasURL: 'https://example.org/c'}], accessRights: 'ukcl:access-rights/open', securityClassification: 'ukcl:security-classification/official', licence: 'http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/', accrualPeriodicity: 'eufreq:MONTHLY'}
+- key: bad-access-rights
+  rule: V-01
+  record: {class: Dataset, id: 'https://example.org/x', title: t, description: d, identifier: x, publisher: 'https://example.org/o', contactPoint: [{fn: Team, hasURL: 'https://example.org/c'}], accessRights: 'ukcl:access-rights/public', securityClassification: 'ukcl:security-classification/official', licence: 'http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/', accrualPeriodicity: 'eufreq:MONTHLY'}
+- key: withdrawn-not-applicable
+  rule: V-01
+  issue: MEM NOT_APPLICABLE withdrawn
+  record: {class: Dataset, id: 'https://example.org/x', title: t, description: d, identifier: x, publisher: 'https://example.org/o', contactPoint: [{fn: Team, hasURL: 'https://example.org/c'}], accessRights: 'ukcl:access-rights/open', securityClassification: 'ukcl:security-classification/not-applicable', licence: 'http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/', accrualPeriodicity: 'eufreq:MONTHLY'}
+- key: contact-without-route
+  rule: R-01
+  issue: 71
+  record: {class: Dataset, id: 'https://example.org/x', title: t, description: d, identifier: x, publisher: 'https://example.org/o', contactPoint: [{fn: Team}], accessRights: 'ukcl:access-rights/open', securityClassification: 'ukcl:security-classification/official', licence: 'http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/', accrualPeriodicity: 'eufreq:MONTHLY'}
+- key: email-not-mailto
+  rule: R-06
+  issue: 71
+  record: {class: Dataset, id: 'https://example.org/x', title: t, description: d, identifier: x, publisher: 'https://example.org/o', contactPoint: [{fn: Team, hasEmail: 'not-an-address'}], accessRights: 'ukcl:access-rights/open', securityClassification: 'ukcl:security-classification/official', licence: 'http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/', accrualPeriodicity: 'eufreq:MONTHLY'}
+- key: internal-without-rights
+  rule: R-03
+  issue: 44
+  record: {class: Dataset, id: 'https://example.org/x', title: t, description: d, identifier: x, publisher: 'https://example.org/o', contactPoint: [{fn: Team, hasURL: 'https://example.org/c'}], accessRights: 'ukcl:access-rights/internal', securityClassification: 'ukcl:security-classification/official', licence: 'ukcl:licences/data-sharing-agreement-required', accrualPeriodicity: 'eufreq:MONTHLY'}
+- key: critical-asset-incomplete
+  rule: R-04
+  issue: 25
+  record: {class: Dataset, id: 'https://example.org/x', title: t, description: d, identifier: x, criticalDataAsset: 'true', publisher: 'https://example.org/o', contactPoint: [{fn: Team, hasURL: 'https://example.org/c'}], accessRights: 'ukcl:access-rights/open', securityClassification: 'ukcl:security-classification/official', licence: 'http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/', accrualPeriodicity: 'eufreq:MONTHLY'}
+- key: summary-too-long
+  rule: R-05
+  record: {class: Dataset, id: 'https://example.org/x', title: t, description: d, identifier: x, abstract: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', publisher: 'https://example.org/o', contactPoint: [{fn: Team, hasURL: 'https://example.org/c'}], accessRights: 'ukcl:access-rights/open', securityClassification: 'ukcl:security-classification/official', licence: 'http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/', accrualPeriodicity: 'eufreq:MONTHLY'}
+- key: period-end-before-start
+  rule: R-07
+  json_schema: cannot  # JSON Schema cannot compare two values; SHACL (sh:lessThanOrEquals) and the browser validator do
+  issue: 2
+  record: {class: Dataset, id: 'https://example.org/x', title: t, description: d, identifier: x, temporal: [{startDate: '2024-01-01', endDate: '2023-01-01'}], publisher: 'https://example.org/o', contactPoint: [{fn: Team, hasURL: 'https://example.org/c'}], accessRights: 'ukcl:access-rights/open', securityClassification: 'ukcl:security-classification/official', licence: 'http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/', accrualPeriodicity: 'eufreq:MONTHLY'}
+- key: period-empty
+  rule: R-02
+  issue: 2
+  record: {class: Dataset, id: 'https://example.org/x', title: t, description: d, identifier: x, temporal: [{}], publisher: 'https://example.org/o', contactPoint: [{fn: Team, hasURL: 'https://example.org/c'}], accessRights: 'ukcl:access-rights/open', securityClassification: 'ukcl:security-classification/official', licence: 'http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/', accrualPeriodicity: 'eufreq:MONTHLY'}
+- key: bad-date
+  rule: D-01
+  issue: 30
+  record: {class: Dataset, id: 'https://example.org/x', title: t, description: d, identifier: x, modified: '01/02/2023', publisher: 'https://example.org/o', contactPoint: [{fn: Team, hasURL: 'https://example.org/c'}], accessRights: 'ukcl:access-rights/open', securityClassification: 'ukcl:security-classification/official', licence: 'http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/', accrualPeriodicity: 'eufreq:MONTHLY'}
+- key: distribution-without-access-url
+  rule: M-01
+  issue: 72
+  record: {class: Distribution, id: 'https://example.org/x#csv', title: CSV, mediaType: 'https://www.iana.org/assignments/media-types/text/csv'}
+- key: service-without-endpoint
+  rule: M-01
+  record: {class: DataService, id: 'https://example.org/api', title: t, description: d, identifier: api, publisher: 'https://example.org/o', contactPoint: [{fn: Team, hasURL: 'https://example.org/c'}], accessRights: 'ukcl:access-rights/open', securityClassification: 'ukcl:security-classification/official', licence: 'http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/', serviceStatus: 'ukcl:service-status/live'}
+- key: two-licences
+  rule: C-01
+  record: {class: Dataset, id: 'https://example.org/x', title: t, description: d, identifier: x, publisher: 'https://example.org/o', contactPoint: [{fn: Team, hasURL: 'https://example.org/c'}], accessRights: 'ukcl:access-rights/open', securityClassification: 'ukcl:security-classification/official', licence: ['http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/', 'https://creativecommons.org/licenses/by/4.0/'], accrualPeriodicity: 'eufreq:MONTHLY'}
+- key: dc-frequency-not-converted
+  rule: V-01
+  record: {class: Dataset, id: 'https://example.org/x', title: t, description: d, identifier: x, publisher: 'https://example.org/o', contactPoint: [{fn: Team, hasURL: 'https://example.org/c'}], accessRights: 'ukcl:access-rights/open', securityClassification: 'ukcl:security-classification/official', licence: 'http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/', accrualPeriodicity: 'freq:monthly'}

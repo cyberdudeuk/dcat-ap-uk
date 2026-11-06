@@ -1,0 +1,21 @@
+# The xGov MEM's own full dataset example (src/data/Dataset/valid/Dataset-os-postcodes-datset.yaml, v0.1.0),
+# with its contact address replaced by a reserved example domain. Used to test conversion from the MEM.
+identifier: https://www.data.gov.uk/dataset/2dfb82b4-741a-4b93-807e-11abb4bb0875/os-postcodes-data
+type: dcat:Dataset
+title: OS Postcodes Data
+summary: Free and open postcode location data. Can be used for geographical analysis simple route planning asset management and much more.
+description: "The United Kingdom's postcodes represented as points and polygons."
+keyword: [Postcode, Address]
+theme: ['https://www.data.gov.uk/search?filters%5Btopic%5D=Mapping']
+licence: http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/
+version: "2023-02"
+accessRights: OPEN
+securityClassification: OFFICIAL
+issued: "2022-02-01"
+contactPoint:
+  contactName: Ordnance Survey Customer Service Centre
+  email: service@example.org
+modified: "2023-02-01"
+creator: [ordnance-survey]
+publisher: department-for-work-pensions
+updateFrequency: freq:quarterly

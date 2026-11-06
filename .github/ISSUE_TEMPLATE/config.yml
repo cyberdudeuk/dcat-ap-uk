@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Report a security problem privately
+    url: https://github.com/cyberdudeuk/dcat-uk-ap/security/advisories/new
+    about: Never in a public issue.
+  - name: Read the portal
+    url: https://cyberdudeuk.github.io/dcat-uk-ap/
+    about: The profile, the tools and the answers to common questions.

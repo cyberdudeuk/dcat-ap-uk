@@ -1,0 +1,93 @@
+# DCAT-UK Application Profile (DCAT-UK AP)
+
+> **Proposed, not endorsed.** DCAT-UK AP 1.0.0-rc.1 is a proposal for review by the Metadata Implementation Working Group. It has not
+> been endorsed by the Data Standards Authority, and it is not an official GOV.UK service or policy. The endorsed model remains the
+> [UK Cross-Government Metadata Exchange Model](https://co-cddo.github.io/ukgov-metadata-exchange-model/) (xGov MEM) until a decision is made.
+
+One way to describe UK public sector datasets and data services, so they can be found, judged and shared across every catalogue.
+Built on the W3C [DCAT 3](https://www.w3.org/TR/vocab-dcat-3/) Recommendation, aligned with [DCAT-AP 3.0.1](https://semiceu.github.io/DCAT-AP/releases/3.0.1/),
+and evolved from the xGov MEM, whose whole backlog it resolves.
+
+**Portal:** https://cyberdudeuk.github.io/dcat-uk-ap/
+
+## Who it is for, and where to start
+
+| You are | You want to | Start at |
+|---|---|---|
+| A catalogue manager | Export records central services can harvest | [What's changed](https://cyberdudeuk.github.io/dcat-uk-ap/changes.html#crosswalk), then [Check records](https://cyberdudeuk.github.io/dcat-uk-ap/validate.html) |
+| A data owner or steward | Record a critical data asset once | [Build a record](https://cyberdudeuk.github.io/dcat-uk-ap/builder.html), with "critical data asset" ticked |
+| A chief data officer or policy coordinator | Decide whether to adopt it | [Strategy](https://cyberdudeuk.github.io/dcat-uk-ap/strategy.html) and [governance](https://cyberdudeuk.github.io/dcat-uk-ap/governance.html#status) |
+| An engineer or supplier | Validate and build to it | [Downloads](https://cyberdudeuk.github.io/dcat-uk-ap/downloads.html): SHACL, JSON Schema, JSON-LD context, codelists |
+| New to metadata | Understand why it matters | [Your role](https://cyberdudeuk.github.io/dcat-uk-ap/roles.html#start), with an Easy Read summary |
+
+## What changed from the xGov MEM
+
+- Every property of the xGov MEM maps to the profile, so existing records convert automatically ([crosswalk](https://cyberdudeuk.github.io/dcat-uk-ap/changes.html#crosswalk)).
+- All 22 open issues in the xGov MEM repository are dealt with: 19 resolved, 2 resolved but marked provisional pending research, 1 needs the owner (registering the w3id.org namespace). See the [backlog register](docs/registers.md#backlog-from-the-xgov-mem).
+- New, from that backlog: geographic coverage, time period, schema, personal data, sensitive data, reference data, who can see a record.
+- Critical data assets get the extra mandatory properties the April 2026 GOV.UK guidance lists.
+- Codelists are linked data (SKOS), mapped to the EU vocabularies DCAT-AP uses. Themes are the data.gov.uk topics.
+- Contact points prefer a contact form and never name a person.
+
+## How this repository works
+
+One source, everything else generated:
+
+```
+profile/dcat-uk-ap.yaml     the profile: classes, properties, obligations, rules  (edit here)
+profile/codelists.yaml      the codelists                                          (edit here)
+profile/organisations.json  GOV.UK organisations, reused from the GitHub Repos Asset Catalogue (tools/import_orgs.py)
+content/lineage.yaml        sources, the xGov MEM backlog and how each item was dealt with
+content/portal.yaml         roles, glossary, strategy, estate comparison, governance registers
+examples/examples.yaml      worked examples, checked on every build
+tools/                      ukap.py (load and check), generate.py (SHACL, JSON Schema, context, LinkML, SKOS, CSV), build.py (portal)
+site_src/                   stylesheet, behaviour, and the browser validator shared with the tests
+tests/                      the three validators held to the same verdict; deliberate breaks for every rule
+docs/                       registers and decisions, generated from content/portal.yaml
+```
+
+### Build and check locally
+
+```sh
+pip install -r requirements.txt && npm ci && python3 -m playwright install chromium
+python3 -I -m unittest discover -s tests        # profile, schemas and validator agree; every break fails
+python3 -I tools/build.py                        # writes site/ and docs/
+python3 -I tools/check_site.py                   # 16 structural checks
+python3 -I tools/check_site.py --vaccinate       # proves each check catches its deliberate break
+python3 -I tools/check_browser.py                # axe-core, widths 320-1920, light and dark, keyboard, tools, no-script
+```
+
+Every check is trusted only because a deliberate break proves it fails (`--vaccinate`, `--break NAME`). Every defect found gets a
+check in the same commit as its fix, recorded in the [defect register](docs/registers.md#defect-register).
+
+## Changing the profile
+
+Raise a [change request](https://github.com/cyberdudeuk/dcat-uk-ap/issues/new?template=change-request.yml). Changes are assessed as major, minor or patch
+(semantic versioning), reviewed by the Metadata Implementation Working Group, decided by the owning team and, for major changes, endorsed by the Data
+Standards Authority. See [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## Part of a wider estate
+
+DCAT-UK AP is the fourth of four open portals for data in the public sector, each with its own owner, purpose and status. They link and share keys; they do not merge.
+
+| Bearing | Portal | Question |
+|---|---|---|
+| North | [DAM capability playbooks](https://cyberdudeuk.github.io/dam-capability-playbooks/) | What must we do, and who does it? |
+| East | [Public Sector Data Quality Commons](https://cyberdudeuk.github.io/dq-commons/) | How do I do it well? |
+| West | [GitHub Repos Asset Catalogue](https://cyberdudeuk.github.io/github-repos-asset-catalogue/) | What already exists? |
+| South | DCAT-UK AP (this) | How do we describe it so others can find it? |
+
+The [estate compass](https://cyberdudeuk.github.io/dam-capability-playbooks/compass/) suggests a route across all four. Shared keys are in [`xref.json`](https://cyberdudeuk.github.io/dcat-uk-ap/xref.json).
+
+## Contact
+
+By form only: the [contact form](https://github.com/cyberdudeuk/dcat-uk-ap/issues/new?template=contact.yml). It is public, so do not include personal data.
+Security problems: [report privately](SECURITY.md). No email address is published.
+
+## Licence
+
+Content and the profile: [Open Government Licence v3.0](LICENCE-CONTENT.md), derived from the xGov MEM (OGL v3.0). Code: [MIT](LICENSE).
+Third-party components: [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md).
+
+Built with help from Claude, an AI model by Anthropic. Every generated fact is checked by tests or labelled with its source:
+V verified at the source (dated), K background knowledge, P from a supplied pack, U unconfirmed.

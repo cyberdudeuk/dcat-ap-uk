@@ -1,0 +1,54 @@
+name: Change request
+description: Propose a change to DCAT-UK AP (a property, codelist value, obligation or rule)
+title: "[Change] "
+labels: ["change request"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Changes are assessed as major, minor or patch, discussed by the Metadata Implementation Working Group where needed,
+        and decided by the owning team. This form is public: no personal data, nothing above OFFICIAL.
+  - type: dropdown
+    id: kind
+    attributes:
+      label: What kind of change?
+      options:
+        - Add a property
+        - Change an obligation (mandatory, recommended, optional)
+        - Add or change a codelist value
+        - Change a rule or a definition
+        - Fix wording, guidance or an example
+        - Align with a new version of DCAT or DCAT-AP
+    validations:
+      required: true
+  - type: input
+    id: where
+    attributes:
+      label: Which class or property?
+      placeholder: Dataset, accessRights
+  - type: textarea
+    id: need
+    attributes:
+      label: What do users need?
+      description: Who needs this, and what can they not do today?
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence
+      description: Research, policy, standards or real records that show the need. Link to sources.
+    validations:
+      required: true
+  - type: textarea
+    id: impact
+    attributes:
+      label: Impact on existing records and tools
+      description: Would records that conform today stop conforming? Would catalogues need to change?
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Privacy
+      options:
+        - label: I have not included personal data or anything sensitive
+          required: true

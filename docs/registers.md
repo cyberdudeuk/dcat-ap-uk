@@ -1,0 +1,86 @@
+# Registers
+
+Generated from `content/portal.yaml` and `content/lineage.yaml` by `tools/build.py`. Edit there, never here. The same registers are on the portal's [governance page](https://cyberdudeuk.github.io/dcat-uk-ap/governance.html).
+
+## Status
+
+Proposed. Not endorsed. To become a standard it needs, in order: review by the Metadata Implementation Working Group, a decision by the owning team in the Office of the Government Chief Data Officer, and endorsement by the Data Standards Authority Steering Board, as the xGov MEM had. Until then the xGov MEM remains the endorsed model.
+
+## Defect register
+
+| Defect | Found | What | Root cause | Fix | Check |
+|---|---|---|---|---|---|
+| D-001 | 2026-11-06 | SHACL accepted badly formed values in recommended and optional properties. | Property shapes took their severity from the obligation, so value errors in non-mandatory properties were warnings, which conform. | Every value constraint is a violation; the obligation only decides whether absence is allowed. | tests/test_profile.py DeliberateBreaks (bad-date, summary-too-long, period-end-before-start) |
+| D-002 | 2026-11-06 | JSON Schema cannot check that an end date is not before a start date. | JSON Schema has no way to compare two values. | Documented. SHACL (sh:lessThanOrEquals) and the browser validator enforce rule R-07. | The fixture is flagged; the test fails if JSON Schema starts catching it, so the flag is removed. |
+| D-003 | 2026-11-06 | The build library could not be imported in isolated mode and shadowed a standard Python module. | It was named profile.py, the name of a standard library module. | Renamed ukap.py; scripts add their own folder to the path explicitly. | CI runs every script with python3 -I. |
+| D-004 | 2026-11-06 | The duplicate-title check missed a real duplicate. | It read every <title> on the page, including the titles inside SVG images, so two pages never matched. | Only the document title is read. | tools/check_site.py C-13 and its deliberate break |
+| D-005 | 2026-11-06 | The table check reported header cells without scope on every page. | Its pattern matched <thead> as if it were <th>. | The pattern matches the th tag name exactly. | tools/check_site.py C-06 |
+| D-006 | 2026-11-06 | The caption check accepted a broken caption tag. | It counted the text "<caption" as a prefix, so <caption-x> passed. | Exact tag names are counted. | tools/check_site.py C-06 deliberate break |
+| D-007 | 2026-11-06 | The strategy and organisations sections showed raw template placeholders (a variable name in braces) instead of content. | A doubled apostrophe (YAML style) inside a Python f-string split it into two strings, the second not formatted. | Typographic apostrophes in the build script. | tools/check_site.py C-16 (no unrendered placeholders) and its deliberate break |
+| D-008 | 2026-11-06 | Small download buttons failed contrast in dark mode. | The .small text style (muted grey) also applied to buttons with the small size. | Small buttons keep the button text colour. | tools/check_browser.py axe in dark mode, and its "contrast" break |
+| D-009 | 2026-11-06 | Loading the critical data asset example into the record builder lost its licence. | The example used the compact form of the licence value; the licence list holds full addresses, so no option matched. | Lists match compact and full forms of the same value. | tools/check_browser.py: the critical data asset example must conform in the builder |
+| D-010 | 2026-11-06 | Escape did not close search when text had been typed. | In a search box the browser uses the first Escape to clear the text. | Escape in the search box closes the dialog. | tools/check_browser.py palette checks |
+| D-011 | 2026-11-06 | The lineage said 20 xGov MEM issues were open; there were 22. | Miscounted by hand from the API listing. | Counted from the backlog register itself. | tests/test_profile.py ReadmeCounts: totals must equal the register, and the README counts must match it |
+
+## Open register
+
+| Item | What | Who must act |
+|---|---|---|
+| O-01 | Test the portal and the profile with at least five people from four of the personas, including disabled people. | User researcher |
+| O-02 | Review by the Metadata Implementation Working Group. | Owning team |
+| O-03 | Endorsement by the Data Standards Authority Steering Board. | Owning team |
+| O-04 | Check every mapping marked K (EU themes, access rights, frequency, schema.org) against its source. | Metadata specialist |
+| O-05 | Register the w3id.org namespace (issue 13). | Owning team |
+| O-06 | A manual accessibility audit with assistive technologies. | Accessibility specialist |
+| O-07 | A Welsh language version of the portal. | Owning team, with translation |
+| O-08 | Research the levels for "who can see this record" (issue 5) and the reference data property (issue 3) with catalogue owners and information assurance. | User researcher, information assurance |
+| O-09 | Check the generated LinkML file with LinkML tools. | Maintainers |
+| O-10 | An MCP server so AI assistants can read the profile, as the sister portals have. | Maintainers |
+| O-11 | A crosswalk to UK GEMINI for geospatial records, with the geospatial community. | Metadata specialist |
+| O-12 | Ask the co-cddo owners to point the xGov MEM repository and its open issues here. | Repository owner |
+
+## Backlog from the xGov MEM
+
+| Issue | Title | Status | Resolution |
+|---|---|---|---|
+| [#86](https://github.com/co-cddo/ukgov-metadata-exchange-model/issues/86) | Major overhaul tracking issue for the metadata exchange model and site | resolved | This repository is the overhaul. Its six workstreams map to this repository: dependencies and infrastructure (one build script, no generator chain to keep patched), schema fixes (every model bug below), documentation and site (the portal), new requirements (spatial, temporal, schema, personal and sensitive data), governance and release management (versioning, change requests, the release gate) and community (issue forms and Discussions). The tracking issue in co-cddo can be closed with a link here once the owners agree. |
+| [#78](https://github.com/co-cddo/ukgov-metadata-exchange-model/issues/78) | Rename the repository and references to DCAT-UK Application Profile | resolved | A new repository, as the discussion suggested for a completely new solution: the model is no longer generated with LinkML and the site is no longer MkDocs. The old repository can be archived with a pointer here (ADR 0001). Old identifiers are kept in the crosswalk so existing records still map. |
+| [#76](https://github.com/co-cddo/ukgov-metadata-exchange-model/issues/76) | Title examples in alternative title don't follow the rules for titles | resolved | Examples now follow the sentence case rule they illustrate, and a check fails the build if an example title is in title case. |
+| [#72](https://github.com/co-cddo/ukgov-metadata-exchange-model/issues/72) | Distribution is incorrectly configured as an IRI or CURIE | resolved | A distribution can now be described in the same record or referred to by its IRI. The SHACL shape and JSON Schema both accept either. |
+| [#71](https://github.com/co-cddo/ukgov-metadata-exchange-model/issues/71) | The contact point definition is the same as the email definition | resolved | Contact point is now defined as the contact as a whole. Team name, contact form and team mailbox each have their own definitions. A contact form is the preferred route; a team mailbox is allowed; a named person is not. |
+| [#70](https://github.com/co-cddo/ukgov-metadata-exchange-model/issues/70) | Launch release management, lock the specification and start formal change management | resolved | Semantic versioning, a change request form, a public change log, a release gate that must pass, and released files as assets (JSON Schema, SHACL, JSON-LD context, codelists) rather than a source zip, as the discussion asked. |
+| [#69](https://github.com/co-cddo/ukgov-metadata-exchange-model/issues/69) | The OS postcodes example names the wrong publisher | resolved | The example is rebuilt from the public record and credits Ordnance Survey as publisher and creator. |
+| [#63](https://github.com/co-cddo/ukgov-metadata-exchange-model/issues/63) | Codelist pages don't link out to external vocabularies | resolved | The portal is generated by this repository's own script, so every concept links to its scheme and to the matching EU concept. The LinkML limitation no longer applies. |
+| [#60](https://github.com/co-cddo/ukgov-metadata-exchange-model/issues/60) | Add usage notes to access rights | resolved | Usage notes for each value, the difference from licence and security classification, and a rights statement for anything not open. |
+| [#49](https://github.com/co-cddo/ukgov-metadata-exchange-model/issues/49) | Recommend a taxonomy for theme values | resolved | The 14 data.gov.uk topics are the theme list, as the issue proposed, each with a readable identifier rather than a search address, and mapped to the EU data themes. The cross-government taxonomy can replace it when published. |
+| [#44](https://github.com/co-cddo/ukgov-metadata-exchange-model/issues/44) | What to do if there is no applicable licence | resolved | The "data sharing agreement required" value is restored, with a rights statement to describe the agreement. |
+| [#30](https://github.com/co-cddo/ukgov-metadata-exchange-model/issues/30) | What to do with assets that don't have a modified date | resolved | Last updated is recommended, not mandatory, and must never be invented. The created and release dates cover the rest. |
+| [#26](https://github.com/co-cddo/ukgov-metadata-exchange-model/issues/26) | Indicate whether the data includes sensitive information | resolved | A sensitive data property with a codelist (special category, criminal offence, children, commercially sensitive, security sensitive). |
+| [#25](https://github.com/co-cddo/ukgov-metadata-exchange-model/issues/25) | Indicate whether the data includes personal identifiable information | resolved | A personal data property, mandatory for critical data assets, with values for none, personal, pseudonymised, anonymised and not yet known. |
+| [#15](https://github.com/co-cddo/ukgov-metadata-exchange-model/issues/15) | Add a home page for the point of contact | resolved | The contact point takes a web address (vcard:hasURL), which is also the preferred route as a contact form. |
+| [#13](https://github.com/co-cddo/ukgov-metadata-exchange-model/issues/13) | Decide on a persistent identifier for the metadata model | owner | w3id.org is proposed (https://w3id.org/dcat-uk-ap/), and every identifier in the profile already uses it. Registering the redirect is a pull request to the w3id.org repository, to be made by the owning team. Until then the identifiers do not resolve, and the portal says so. |
+| [#11](https://github.com/co-cddo/ukgov-metadata-exchange-model/issues/11) | Include schemas in the documentation site | resolved | JSON Schema, SHACL, JSON-LD context, LinkML, SKOS codelists, CSV and examples in Turtle and JSON-LD are all downloadable, with a DCAT description of them. |
+| [#5](https://github.com/co-cddo/ukgov-metadata-exchange-model/issues/5) | Enable declaration of the metadata's access control | provisional | A "who can see this record" property with four provisional levels, separate from the access rights of the data. Marked provisional: the issue asked for research with catalogue owners and information assurance, which has not been done. |
+| [#4](https://github.com/co-cddo/ukgov-metadata-exchange-model/issues/4) | Capture the schema of the underlying dataset | resolved | Conforms to (dct:conformsTo), as DCAT recommends and the issue proposed, with guidance by format and a link to the Tabular data standard. Mandatory for critical data assets. |
+| [#3](https://github.com/co-cddo/ukgov-metadata-exchange-model/issues/3) | Capture the reference data used and its resolution | provisional | A provisional "reference data used" property that links to the classification or code list (for example age bands) and its version. |
+| [#2](https://github.com/co-cddo/ukgov-metadata-exchange-model/issues/2) | Capture the temporal extent of the data resource | resolved | Time period covered (dct:temporal) with start and end dates, as the discussion recommended, plus time resolution and dataset series for repeated releases such as a census. |
+| [#1](https://github.com/co-cddo/ukgov-metadata-exchange-model/issues/1) | Capture the geospatial coverage of the data resource | resolved | Geographic coverage (dct:spatial) using, in order of preference, a GSS code or other controlled area identifier, a bounding box or a geometry, as the discussion concluded. The guidance names the "about the area" versus "located in the area" ambiguity raised in the thread, and points geospatial publishers to UK GEMINI. |
+
+## RAID
+
+- **Risk:** Departments see another standard and wait. Mitigation: everything in the xGov MEM still maps, and conversion is automatic.
+- **Risk:** The profile is mistaken for an endorsed standard. Mitigation: the status banner on every page and in every file.
+- **Assumption:** DCAT-AP alignment is wanted. The European profile is widely implemented by catalogue software, which lowers cost for suppliers.
+- **Issue:** Identifiers do not resolve until the namespace is registered.
+- **Dependency:** The cross-government taxonomy for themes, from the master and reference data working group.
+
+## Checkpoint
+
+**Intent:** Evolve the xGov MEM into DCAT-UK AP, resolve its backlog, align to DCAT 3, DCAT-AP 3.0.1, the 2026 guidance and the future-state strategy, and present it in a portal that joins the estate.
+
+- Read the xGov MEM source, its 99 issues and pull requests, the 2026 guidance, the Data Asset Management Policy, the Data Marketplace schemas and the future data architecture.
+- Wrote the profile as one YAML source, with codelists, lineage and worked examples.
+- Generated SHACL, JSON Schema, JSON-LD context, LinkML, SKOS and CSV; built the browser validator; held all three validators to the same verdict on every example and deliberate break.
+- Built the portal and its knowledge layer, compared the four portals like for like, and joined the estate compass as its fourth bearing.
+
+**Verdict:** Meets the brief as a proposal. Needs user research, specialist review of the K mappings and the governance steps before it can be a standard.

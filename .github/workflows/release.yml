@@ -1,0 +1,38 @@
+name: Release
+on:
+  push:
+    tags: ['v*']
+permissions:
+  contents: read
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Check out the tag
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git init -q .
+          git remote add origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          git fetch -q --depth 1 origin "${GITHUB_SHA}"
+          git checkout -q FETCH_HEAD
+      - name: Build and check
+        run: |
+          python3 -m venv "$RUNNER_TEMP/venv" && . "$RUNNER_TEMP/venv/bin/activate"
+          pip install -r requirements.txt && npm ci && python -m playwright install --with-deps chromium
+          python -I -m unittest discover -s tests
+          python -I tools/build.py
+          python -I tools/check_site.py
+          python -I tools/check_site.py --vaccinate
+          python -I tools/check_browser.py
+      - name: Release with the profile files and the site as assets
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          (cd site && zip -qr "../dcat-uk-ap-site-${GITHUB_REF_NAME}.zip" .)
+          cd site/downloads
+          gh release create "${GITHUB_REF_NAME}" --generate-notes --title "DCAT-UK AP ${GITHUB_REF_NAME}" \
+            dcat-uk-ap.shacl.ttl dcat-uk-ap.schema.json dcat-uk-ap.context.jsonld dcat-uk-ap.linkml.yaml dcat-uk-ap.ns.ttl \
+            codelists.ttl codelists.csv data-dictionary.csv crosswalk-mem.csv "../../dcat-uk-ap-site-${GITHUB_REF_NAME}.zip"

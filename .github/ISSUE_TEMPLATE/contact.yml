@@ -1,0 +1,40 @@
+name: Contact
+description: Ask a question, report a problem or tell us about an accessibility issue with DCAT-UK AP
+title: "[Contact] "
+labels: ["contact"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This form is public. Do not include personal data, names of colleagues, or anything above OFFICIAL.
+        If you cannot use this form, ask a colleague to raise it for you.
+  - type: dropdown
+    id: kind
+    attributes:
+      label: What is this about?
+      options:
+        - A question about the profile
+        - Something is wrong or out of date
+        - An accessibility problem
+        - An idea or improvement
+        - Something else
+    validations:
+      required: true
+  - type: input
+    id: page
+    attributes:
+      label: Page or property (optional)
+      placeholder: https://cyberdudeuk.github.io/dcat-uk-ap/...
+  - type: textarea
+    id: detail
+    attributes:
+      label: Tell us more
+    validations:
+      required: true
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Privacy
+      options:
+        - label: I have not included personal data or anything sensitive
+          required: true

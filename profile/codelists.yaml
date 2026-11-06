@@ -1,0 +1,193 @@
+# Controlled vocabularies (codelists) for DCAT-UK AP. Generated into SKOS (Turtle, JSON-LD) and CSV by tools/build.py.
+# Concepts minted here live under https://w3id.org/dcat-uk-ap/codelist/<scheme>/<code> (proposed; see meta.namespace_status).
+# "external: true" means the scheme belongs to someone else and is only referenced: this profile lists the subset it expects.
+# Mapping provenance: V verified on the date in meta.verified_on; K background knowledge, to be checked before endorsement.
+
+access-rights:
+  label: Access rights
+  definition: Who can get the data, and on what terms.
+  mem_enum: AccessRightsValues
+  issues: [60]
+  concepts:
+    - code: open
+      label: Open
+      mem: OPEN
+      definition: Anyone can get the data, without registering or asking.
+      note: Usually published under the Open Government Licence. Check the security classification is OFFICIAL and the data contains no personal data unless lawfully published.
+      maps: {exact: 'euaccess:PUBLIC', prov: K}
+    - code: commercial
+      label: Commercial
+      mem: COMMERCIAL
+      definition: The data is available to anyone, for a fee or under commercial terms.
+      note: Say in the rights statement how to buy or licence it.
+      maps: {close: 'euaccess:RESTRICTED', prov: K}
+    - code: internal
+      label: Internal to the public sector
+      mem: INTERNAL
+      definition: The data is available only to public sector organisations, or to named organisations, under an agreement.
+      note: Say in the rights statement which agreement or legal gateway is needed. Finer levels are being researched (issue 5).
+      maps: {close: 'euaccess:NON_PUBLIC', prov: K}
+
+security-classification:
+  label: Security classification
+  definition: Classifications and the main marking from the Government Security Classifications Policy (version 2.0, August 2024).
+  mem_enum: SecurityClassificationValues
+  concepts:
+    - {code: official, label: OFFICIAL, mem: OFFICIAL, definition: 'Most public sector information. The routine business of government.'}
+    - {code: official-sensitive, label: OFFICIAL-SENSITIVE, definition: 'OFFICIAL information that needs extra care because it is of interest to threat actors, and is not intended for public release.'}
+    - {code: secret, label: SECRET, mem: SECRET, definition: 'Very sensitive information. Records about it must not be held in an OFFICIAL catalogue.', out_of_scope: true}
+    - {code: top-secret, label: TOP SECRET, mem: TOP_SECRET, definition: 'The most sensitive information. Records about it must not be held in an OFFICIAL catalogue.', out_of_scope: true}
+  withdrawn:
+    - {mem: NOT_APPLICABLE, reason: 'Public sector information always has a classification. Use OFFICIAL for information that is not sensitive.'}
+
+personal-data:
+  label: Personal data
+  definition: Whether the data contains information about identifiable living people (UK GDPR).
+  issues: [25]
+  concepts:
+    - {code: none, label: No personal data, definition: 'The data contains no information about identifiable living people.'}
+    - {code: personal, label: Personal data, definition: 'The data identifies people, directly or indirectly.'}
+    - {code: pseudonymised, label: Pseudonymised, definition: 'People are not named, but could be re-identified with other information. Still personal data under UK GDPR.'}
+    - {code: anonymised, label: Anonymised, definition: 'People cannot reasonably be identified, by anyone, with any means likely to be used.'}
+    - {code: unknown, label: Not yet known, definition: 'Not yet assessed. Use only while the assessment is done.'}
+
+sensitive-data:
+  label: Sensitive data
+  definition: Kinds of information that need extra care beyond being personal.
+  issues: [26]
+  concepts:
+    - {code: none, label: None, definition: 'None of the kinds below.'}
+    - {code: special-category, label: Special category personal data, definition: 'Data about health, ethnicity, religion, sexual orientation and the other categories in UK GDPR Article 9.'}
+    - {code: criminal-offence, label: Criminal offence data, definition: 'Data about criminal convictions and offences (UK GDPR Article 10).'}
+    - {code: children, label: Data about children, definition: 'Data mainly about people under 18.'}
+    - {code: commercially-sensitive, label: Commercially sensitive, definition: 'Release could harm the commercial interests of the public body or a third party.'}
+    - {code: security-sensitive, label: Security sensitive, definition: 'Release could help someone attack people, places or systems.'}
+    - {code: unknown, label: Not yet known, definition: 'Not yet assessed.'}
+
+metadata-audience:
+  label: Who can see this record
+  definition: Who may see the metadata record. Provisional, pending research (issue 5).
+  issues: [5]
+  provisional: true
+  concepts:
+    - {code: public, label: Everyone, definition: 'The record can be published openly, even if the data is not open.'}
+    - {code: public-sector, label: UK public sector, definition: 'Any UK public sector organisation can see the record.'}
+    - {code: government, label: UK government departments and their bodies, definition: 'Central government departments and arm''s-length bodies can see the record.'}
+    - {code: publisher-only, label: The publisher only, definition: 'Only the publishing organisation can see the record.'}
+
+licences:
+  label: Licences
+  definition: Licences commonly used for UK public sector data, and a value for when no licence applies and an agreement is needed.
+  issues: [44]
+  concepts:
+    - {code: ogl-3, label: Open Government Licence v3.0, uri: 'http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/', definition: 'The default licence for open UK public sector information.'}
+    - {code: ncgl-2, label: Non-Commercial Government Licence v2.0, uri: 'http://www.nationalarchives.gov.uk/doc/non-commercial-government-licence/version/2/', definition: 'For information that may be reused for non-commercial purposes only.'}
+    - {code: opl-3, label: Open Parliament Licence v3.0, uri: 'https://www.parliament.uk/site-information/copyright-parliament/open-parliament-licence/', definition: 'For Parliamentary information.'}
+    - {code: cc-by-4, label: Creative Commons Attribution 4.0, uri: 'https://creativecommons.org/licenses/by/4.0/', definition: 'An international open licence, compatible with OGL v3.0.'}
+    - {code: cc0, label: Creative Commons Zero 1.0, uri: 'https://creativecommons.org/publicdomain/zero/1.0/', definition: 'A public domain dedication.'}
+    - {code: data-sharing-agreement-required, label: Data sharing agreement required, mem: DATA_SHARE_REQUEST, definition: 'There is no licence. A data sharing agreement, memorandum of understanding or other legal instrument is needed. Describe it in the rights statement.'}
+
+frequency:
+  label: Update frequency
+  definition: The EU frequency vocabulary, which DCAT-AP uses, with the Dublin Core frequency terms the xGov MEM used.
+  external: true
+  scheme_uri: http://publications.europa.eu/resource/authority/frequency
+  mem_enum: FrequencyValues
+  concepts:
+    - {code: CONT, label: Continuously updated, mem: 'freq:continuous'}
+    - {code: DAILY, label: Daily, mem: 'freq:daily'}
+    - {code: WEEKLY, label: Weekly, mem: 'freq:weekly'}
+    - {code: WEEKLY_2, label: Twice a week, mem: 'freq:semiweekly'}
+    - {code: WEEKLY_3, label: Three times a week, mem: 'freq:threeTimesAWeek'}
+    - {code: BIWEEKLY, label: Every two weeks, mem: 'freq:biweekly'}
+    - {code: MONTHLY, label: Monthly, mem: 'freq:monthly'}
+    - {code: MONTHLY_2, label: Twice a month, mem: 'freq:semimonthly'}
+    - {code: MONTHLY_3, label: Three times a month, mem: 'freq:threeTimesAMonth'}
+    - {code: BIMONTHLY, label: Every two months, mem: 'freq:bimonthly'}
+    - {code: QUARTERLY, label: Quarterly, mem: 'freq:quarterly'}
+    - {code: ANNUAL_3, label: Three times a year, mem: 'freq:threeTimesAYear'}
+    - {code: ANNUAL_2, label: Twice a year, mem: 'freq:semiannual'}
+    - {code: ANNUAL, label: Every year, mem: 'freq:annual'}
+    - {code: BIENNIAL, label: Every two years, mem: 'freq:biennial'}
+    - {code: TRIENNIAL, label: Every three years, mem: 'freq:triennial'}
+    - {code: IRREG, label: Irregularly, mem: 'freq:irregular'}
+    - {code: NEVER, label: Never, definition: 'Published once and not expected to change.'}
+    - {code: OTHER, label: Other, definition: 'A schedule not in this list, such as every ten years. Say what it is in the description.'}
+    - {code: UNKNOWN, label: Not known}
+  mapping_prov: K
+
+theme:
+  label: Theme
+  definition: The 14 data.gov.uk topics (read on 6 November 2026), each mapped to the EU data themes used by DCAT-AP.
+  issues: [49]
+  source: https://www.data.gov.uk/search
+  source_prov: V
+  mapping_prov: K
+  definitions_prov: K
+  concepts:
+    - {code: business-and-economy, label: Business and economy, maps: {exact: 'eutheme:ECON'}, definition: 'Small businesses, industry, imports, exports and trade.'}
+    - {code: crime-and-justice, label: Crime and justice, maps: {exact: 'eutheme:JUST'}, definition: 'Courts, police, prisons, offenders and borders.'}
+    - {code: defence, label: Defence, maps: {close: 'eutheme:GOVE'}, definition: 'Armed forces, health and safety, search and rescue.'}
+    - {code: digital-services-performance, label: Digital services performance, maps: {close: 'eutheme:TECH'}, definition: 'How government digital services perform.'}
+    - {code: education, label: Education, maps: {exact: 'eutheme:EDUC'}, definition: 'Students, training, qualifications and the national curriculum.'}
+    - {code: environment, label: Environment, maps: {exact: 'eutheme:ENVI'}, definition: 'Weather, flooding, rivers, air quality, geology and agriculture.', also: ['eutheme:AGRI', 'eutheme:ENER']}
+    - {code: government, label: Government, maps: {exact: 'eutheme:GOVE'}, definition: 'Staff numbers and pay, local councillors and department business plans.'}
+    - {code: government-reference-data, label: Government reference data, maps: {close: 'eutheme:GOVE'}, definition: 'Trusted data that is referenced and shared across government departments.'}
+    - {code: government-spending, label: Government spending, maps: {close: 'eutheme:ECON'}, definition: 'Payments by government departments over 25,000 pounds and other spending.'}
+    - {code: health, label: Health, maps: {exact: 'eutheme:HEAL'}, definition: 'Smoking, drugs, alcohol, medicine performance and hospitals.'}
+    - {code: mapping, label: Mapping, maps: {close: 'eutheme:REGI'}, definition: 'Addresses, boundaries, land ownership, aerial photographs, seabed and land terrain.'}
+    - {code: society, label: Society, maps: {exact: 'eutheme:SOCI'}, definition: 'Employment, benefits, household finances, poverty and population.'}
+    - {code: towns-and-cities, label: Towns and cities, maps: {close: 'eutheme:REGI'}, definition: 'Housing, urban planning, leisure, waste and energy consumption.'}
+    - {code: transport, label: Transport, maps: {exact: 'eutheme:TRAN'}, definition: 'Airports, roads, freight, electric vehicles, parking, buses and footpaths.'}
+
+service-status:
+  label: Service status
+  definition: Phases of a service, from the Service Manual.
+  mem_enum: ServiceStatusValues
+  concepts:
+    - {code: discovery, label: Discovery, mem: DISCOVERY, see: 'https://www.gov.uk/service-manual/agile-delivery/how-the-discovery-phase-works'}
+    - {code: alpha, label: Alpha, mem: ALPHA, see: 'https://www.gov.uk/service-manual/agile-delivery/how-the-alpha-phase-works'}
+    - {code: private-beta, label: Private beta, mem: PRIVATE_BETA, see: 'https://www.gov.uk/service-manual/agile-delivery/how-the-beta-phase-works'}
+    - {code: public-beta, label: Public beta, mem: PUBLIC_BETA, see: 'https://www.gov.uk/service-manual/agile-delivery/how-the-beta-phase-works'}
+    - {code: beta, label: Beta (unspecified), mem: BETA, see: 'https://www.gov.uk/service-manual/agile-delivery/how-the-beta-phase-works', note: 'Kept for records converted from the xGov MEM. Prefer private or public beta.'}
+    - {code: live, label: Live, mem: LIVE, see: 'https://www.gov.uk/service-manual/agile-delivery/how-the-live-phase-works'}
+    - {code: deprecated, label: Deprecated, mem: DEPRECATED, see: 'https://www.gov.uk/service-manual/agile-delivery/retiring-your-service'}
+    - {code: withdrawn, label: Withdrawn, mem: WITHDRAWN}
+
+service-type:
+  label: Interface style
+  definition: The style of interface a data service offers. Use conformsTo for the exact standard.
+  mem_enum: ServiceTypeValues
+  issues: [56]
+  concepts:
+    - {code: rest, label: REST, mem: REST, definition: 'Resources accessed over HTTP with standard methods.'}
+    - {code: soap, label: SOAP, mem: SOAP, definition: 'XML messages over a SOAP envelope.'}
+    - {code: event, label: Event or message, mem: EVENT, definition: 'Messages or events pushed to subscribers, such as webhooks or a message queue.'}
+    - {code: graphql, label: GraphQL, definition: 'A query language over a single endpoint.'}
+    - {code: sparql, label: SPARQL, definition: 'Queries over linked data.'}
+    - {code: ogc, label: OGC web service, definition: 'Geospatial services such as OGC API - Features, WMS or WFS.'}
+    - {code: file-transfer, label: File transfer, definition: 'Bulk files moved on a schedule, such as SFTP.'}
+
+language:
+  label: Language
+  definition: Languages of the UK and Ireland in the EU language vocabulary. Any other EU language code may also be used.
+  external: true
+  scheme_uri: http://publications.europa.eu/resource/authority/language
+  mapping_prov: K
+  concepts:
+    - {code: ENG, label: English}
+    - {code: CYM, label: Welsh (Cymraeg)}
+    - {code: GLA, label: Scottish Gaelic (Gàidhlig)}
+    - {code: GLE, label: Irish (Gaeilge)}
+    - {code: SCO, label: Scots, including Ulster Scots}
+    - {code: COR, label: Cornish (Kernewek)}
+
+agent-role:
+  label: Responsible role
+  definition: Roles an organisation can play for a resource. Roles, never people.
+  concepts:
+    - {code: data-owner, label: Data owner, definition: 'Accountable for the data asset, its use and its quality. Named as a post, not a person.'}
+    - {code: data-steward, label: Data steward, definition: 'Looks after the data day to day: its metadata, quality and access.'}
+    - {code: data-custodian, label: Data custodian, definition: 'Runs the systems that hold the data.'}
+    - {code: information-asset-owner, label: Information asset owner, definition: 'The senior role accountable for the information asset under information assurance.'}
+    - {code: distributor, label: Distributor, definition: 'Makes the data available on behalf of the publisher.'}

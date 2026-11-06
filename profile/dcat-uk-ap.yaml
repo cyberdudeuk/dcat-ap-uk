@@ -1,0 +1,1080 @@
+# DCAT-UK Application Profile (DCAT-UK AP): the single source of truth.
+# Every page, schema, shape, context, codelist file and export in this repository is generated from this file and codelists.yaml.
+# Edit here, never the generated output. Run `python3 -I tools/build.py` to regenerate and `python3 -I tools/check.py` to check.
+#
+# Provenance codes on claims (build standard VER-07): V verified against the primary source on the date given;
+# S search-sourced; K background knowledge; P from a supplied pack; O operating rule of this profile; U unconfirmed.
+
+meta:
+  id: DCAT-UK-AP
+  title: DCAT-UK Application Profile
+  short_title: DCAT-UK AP
+  version: 1.0.0-rc.1
+  status: Proposed
+  status_note: >-
+    A proposed evolution of the UK Cross-Government Metadata Exchange Model (xGov MEM), offered for review by the
+    Metadata Implementation Working Group. It has not been endorsed by the Data Standards Authority Steering Board, and it is
+    not an official GOV.UK service or policy. The endorsed model remains the xGov MEM until a decision is made.
+  as_of: '2026-11-06'
+  verified_on: '2026-11-06'
+  review: '2027-02-06'
+  first_published: '2026-11-06'
+  base_standard: W3C Data Catalog Vocabulary (DCAT) Version 3, W3C Recommendation, 22 August 2024
+  aligned_with: DCAT-AP 3.0.1, SEMIC Recommendation, 27 October 2025
+  supersedes: UK Cross-Government Metadata Exchange Model (xGov MEM) v0.1.0
+  site_url: https://cyberdudeuk.github.io/dcat-uk-ap/
+  repo_url: https://github.com/cyberdudeuk/dcat-uk-ap
+  source_repo: https://github.com/co-cddo/ukgov-metadata-exchange-model
+  contact: https://github.com/cyberdudeuk/dcat-uk-ap/issues/new?template=contact.yml
+  change_request: https://github.com/cyberdudeuk/dcat-uk-ap/issues/new?template=change-request.yml
+  namespace: https://w3id.org/dcat-uk-ap/ns#
+  namespace_status: >-
+    Proposed persistent identifier (issue 13). The w3id.org redirect is not registered yet, so these identifiers do not resolve.
+    Registering it is an owner action: a pull request to the w3id.org repository.
+  codelist_base: https://w3id.org/dcat-uk-ap/codelist/
+  licence_content: Open Government Licence v3.0
+  licence_code: MIT
+  attribution: Emanuel Silva, Data Management Team, Office of the Government Chief Data Officer
+  lineage_note: >-
+    Built from the xGov MEM (Open Government Licence v3.0), its 99 issues and pull requests, the April 2026 guidance on
+    recording metadata for critical data assets, the Data Marketplace JSON schemas, DCAT 3 and DCAT-AP 3.0.1.
+
+prefixes:
+  dcat: http://www.w3.org/ns/dcat#
+  dct: http://purl.org/dc/terms/
+  foaf: http://xmlns.com/foaf/0.1/
+  vcard: http://www.w3.org/2006/vcard/ns#
+  adms: http://www.w3.org/ns/adms#
+  spdx: http://spdx.org/rdf/terms#
+  locn: http://www.w3.org/ns/locn#
+  skos: http://www.w3.org/2004/02/skos/core#
+  dqv: http://www.w3.org/ns/dqv#
+  prov: http://www.w3.org/ns/prov#
+  schema: http://schema.org/
+  rdf: http://www.w3.org/1999/02/22-rdf-syntax-ns#
+  rdfs: http://www.w3.org/2000/01/rdf-schema#
+  xsd: http://www.w3.org/2001/XMLSchema#
+  owl: http://www.w3.org/2002/07/owl#
+  sh: http://www.w3.org/ns/shacl#
+  dcatuk: https://w3id.org/dcat-uk-ap/ns#
+  ukcl: https://w3id.org/dcat-uk-ap/codelist/
+  eufreq: http://publications.europa.eu/resource/authority/frequency/
+  eutheme: http://publications.europa.eu/resource/authority/data-theme/
+  euaccess: http://publications.europa.eu/resource/authority/access-right/
+  eulang: http://publications.europa.eu/resource/authority/language/
+  geosparql: http://www.opengis.net/ont/geosparql#
+
+# Obligation levels. C is conditional: the condition is stated on the property.
+# "cda" on a class property means the obligation when the record describes a critical data asset (dcatuk:criticalDataAsset true),
+# from the GOV.UK guidance "Recording metadata to describe critical data assets" (16 April 2026) and the Data Asset Management Policy (27 May 2026).
+obligations:
+  M: {label: Mandatory, text: Every record must have it.}
+  R: {label: Recommended, text: Give it whenever you can. Harvesters and search rely on it.}
+  O: {label: Optional, text: Give it when it helps the people who will use the data.}
+  C: {label: Conditional, text: Mandatory when the stated condition applies.}
+
+# Value kinds used by the generators: literal, text (language-tagged or plain), date, datetime-or-date, integer, decimal,
+# iri (any IRI), url (web address), concept (IRI from a codelist), object (a node of the named class, or its IRI)
+properties:
+  title:
+    uri: dct:title
+    label: Title
+    kind: text
+    definition: The name of the resource, in plain English.
+    purpose: Helps people find and recognise the resource in search results.
+    distinct_from: Alternative title (a shorter or informal name) and identifier (a code, not a name).
+    guidance: >-
+      Use sentence case. Include the topic and, where it helps, the place and period. Avoid acronyms and jargon, or spell them out.
+      Give a Welsh title too where the publisher has Welsh language duties, tagged with the language.
+    example: Postcode locations for Great Britain
+    mem: {slot: title, change: unchanged}
+    rma2026: title
+    dm: title
+    issues: [76]
+  description:
+    uri: dct:description
+    label: Description
+    kind: text
+    definition: A plain English account of what the resource contains and what it can be used for.
+    purpose: Lets people decide whether the resource answers their question before they ask for it.
+    distinct_from: Abstract (a one-sentence summary for search results) and keyword (single words or phrases).
+    guidance: >-
+      Say what the data is about, who or what it covers, how it was collected and what it is good for. Put warnings about use in
+      the access rights or the licence, not here.
+    example: The location of every postcode unit in Great Britain, as a single point, with the local authority and ward it falls in.
+    mem: {slot: description, change: unchanged}
+    rma2026: description
+    dm: description
+  abstract:
+    uri: dct:abstract
+    label: Summary
+    kind: text
+    definition: A one-sentence summary of the resource, of no more than 250 characters.
+    purpose: Shown in lists of search results, where the full description is too long.
+    distinct_from: Description, which gives the full account.
+    guidance: If you leave it out, catalogues may show the start of the description instead.
+    example: Free point locations for every postcode in Great Britain.
+    max_length: 250
+    mem: {slot: summary, change: uri-fixed, note: 'The xGov MEM used rdfs:comment, a generic comment property. dct:abstract is the Dublin Core term for a summary.'}
+  alternative:
+    uri: dct:alternative
+    label: Alternative title
+    kind: text
+    definition: Another name the resource is known by, such as an abbreviation or a former name.
+    purpose: Helps people who know the resource by an informal name to find it.
+    distinct_from: Title, the formal name.
+    guidance: Follow the same rules as the title, including sentence case. Do not repeat the title.
+    example: Code-Point Open
+    mem: {slot: alternativeTitle, change: example-fixed, note: 'The example for alternative title used title case, which conflicted with the rule for titles (issue 76).'}
+    rma2026: alternativeTitle
+    issues: [76]
+  identifier:
+    uri: dct:identifier
+    label: Identifier
+    kind: literal
+    definition: The main identifier of the resource in the publisher's own catalogue.
+    purpose: Lets systems tell records apart, avoid duplicates and link to the same resource across catalogues.
+    distinct_from: The record's web address (its IRI), which should also be stable, and other identifiers (use "other identifier").
+    guidance: >-
+      Use an identifier that will not change, even if the resource moves or the organisation is reorganised. Opaque, non-sequential
+      identifiers are best. Do not reuse an identifier for a different resource.
+    example: 2dfb82b4-741a-4b93-807e-11abb4bb0875
+    mem: {slot: identifier, change: range-relaxed, note: 'Was restricted to an IRI or CURIE. A plain literal now, as in DCAT, so local catalogue identifiers can be used; the record IRI carries the web identity.'}
+    rma2026: identifier
+  otherIdentifier:
+    uri: adms:identifier
+    label: Other identifier
+    kind: literal
+    definition: Any other identifier the resource is known by, such as one in a national or sector register.
+    purpose: Joins records about the same resource held in different catalogues.
+    guidance: Record every identifier you know about, for example a data.gov.uk dataset identifier or a register entry.
+    mem: {change: new}
+  publisher:
+    uri: dct:publisher
+    label: Publisher
+    kind: object
+    range: Agent
+    codelist: organisations
+    definition: The organisation responsible for making the resource available.
+    purpose: Says who is accountable for the resource being available, and to whom questions about access go.
+    distinct_from: Creator (who made the content) and contact point (where to send questions).
+    guidance: >-
+      Use the organisation's GOV.UK organisation address (for example https://www.gov.uk/government/organisations/ordnance-survey),
+      or the equivalent register entry for a body that is not on GOV.UK. Never name a person.
+    example: https://www.gov.uk/government/organisations/ordnance-survey
+    mem: {slot: publisher, change: range-changed, note: 'Was a GOV.UK organisation slug from a 2023 copy of the list (1,176 entries). Now an agent identified by its GOV.UK organisation address, from the list read on 31 October 2026 (1,271 entries, closed organisations kept and flagged).'}
+    dm: publisher
+    issues: [69]
+  creator:
+    uri: dct:creator
+    label: Creator
+    kind: object
+    range: Agent
+    codelist: organisations
+    definition: The organisation that created or compiled the content of the resource.
+    purpose: Lets people judge how reliable the resource is and who knows most about it.
+    distinct_from: Publisher (who makes it available) and contact point.
+    guidance: Use the same identifiers as for the publisher. A resource can have more than one creator.
+    example: https://www.gov.uk/government/organisations/ordnance-survey
+    mem: {slot: creator, change: obligation-changed, note: 'Mandatory in the xGov MEM. Recommended in general and mandatory for critical data assets, as the April 2026 guidance lists it.'}
+    rma2026: creator
+    dm: creator
+  contactPoint:
+    uri: dcat:contactPoint
+    label: Contact point
+    kind: object
+    range: ContactPoint
+    definition: Where to ask questions about the resource or give feedback on it.
+    purpose: Gives people a route to the team that can answer questions about the resource.
+    distinct_from: Publisher (an organisation) and the contact point's own properties (form, email, telephone).
+    guidance: >-
+      Give a team, never a named person. A contact form is the preferred route: it keeps addresses private and can be moved when
+      teams change. An address for a shared team mailbox is allowed; a personal address is not.
+    mem: {slot: contactPoint, change: definition-fixed, note: 'The definition was a copy of the email definition (issue 71). It now describes the contact point as a whole.'}
+    dm: contactPoint
+    issues: [71, 15]
+  accessRights:
+    uri: dct:accessRights
+    label: Access rights
+    kind: concept
+    codelist: access-rights
+    definition: Who can get the data, and on what terms.
+    purpose: Tells people at once whether they can have the data and how to ask for it.
+    distinct_from: Licence (what you may do with it once you have it) and security classification (how it must be protected).
+    guidance: >-
+      Choose open when anyone can have it without asking; commercial when it is available for a fee or under commercial terms;
+      internal when it is only available to the public sector, or to named organisations, under an agreement.
+      Say what the restriction is in the rights statement when it is not open.
+    example: ukcl:access-rights/open
+    mem: {slot: accessRights, change: codelist-mapped, note: 'Same three values (OPEN, COMMERCIAL, INTERNAL), now SKOS concepts mapped to the EU access-right vocabulary used by DCAT-AP. Usage notes added (issue 60).'}
+    rma2026: accessRights
+    dm: accessRights
+    issues: [60, 5]
+  rights:
+    uri: dct:rights
+    label: Rights statement
+    kind: text
+    definition: A statement of any restriction on access or use, such as the data sharing agreement or legal gateway needed.
+    purpose: Explains what a person must do to get data that is not open.
+    guidance: Name the kind of agreement and the legal basis, for example a data sharing agreement under the Digital Economy Act 2017. Link to the process for asking.
+    mem: {change: new}
+    rma2026: licence
+    issues: [44]
+  securityClassification:
+    uri: dcatuk:securityClassification
+    label: Security classification
+    kind: concept
+    codelist: security-classification
+    definition: The classification under the Government Security Classifications Policy that the data itself carries.
+    purpose: Stops data being shared with people or systems that cannot protect it, and keeps catalogues in scope.
+    distinct_from: Access rights (who may have it) and the classification of the metadata record, which is usually OFFICIAL even when the data is not.
+    guidance: >-
+      Most public sector data is OFFICIAL. Use the OFFICIAL-SENSITIVE marking where it applies. Records about SECRET or TOP SECRET
+      data must not be put in an OFFICIAL catalogue; the Data Asset Management Policy covers OFFICIAL assets only.
+    example: ukcl:security-classification/official
+    mem: {slot: securityClassification, change: uri-fixed, note: 'Had no property IRI at all, so it could not be exchanged as linked data. NOT_APPLICABLE is withdrawn: public sector data always has a classification.'}
+    rma2026: securityClassification
+    dm: securityClassification
+  personalData:
+    uri: dcatuk:personalData
+    label: Personal data
+    kind: concept
+    codelist: personal-data
+    definition: Whether the data contains information about identifiable living people, and in what form.
+    purpose: Lets people see early whether a data protection impact assessment and a lawful basis will be needed.
+    guidance: Answer for the data, not the metadata. Choose unknown only while you find out, and say who is finding out in the rights statement.
+    example: ukcl:personal-data/none
+    mem: {change: new}
+    issues: [25]
+  sensitiveData:
+    uri: dcatuk:sensitiveData
+    label: Sensitive data
+    kind: concept
+    codelist: sensitive-data
+    definition: Whether the data contains information that needs extra care beyond being personal, such as special category data.
+    purpose: Supports the data share request process, which handles sensitive data differently.
+    guidance: Choose every value that applies.
+    example: ukcl:sensitive-data/none
+    mem: {change: new}
+    issues: [26]
+  metadataAudience:
+    uri: dcatuk:metadataAudience
+    label: Who can see this record
+    kind: concept
+    codelist: metadata-audience
+    definition: Who is allowed to see the metadata record itself.
+    purpose: Lets internal records be harvested into shared catalogues while keeping them away from people who should not see them.
+    distinct_from: Access rights, which are about the data, not the record.
+    guidance: Provisional. The levels are a starting point for research with catalogue owners and information assurance (issue 5).
+    provisional: true
+    mem: {change: new}
+    issues: [5]
+  licence:
+    uri: dct:license
+    label: Licence
+    kind: iri
+    codelist: licences
+    definition: The licence under which the resource can be used.
+    purpose: Tells people what they may do with the data once they have it.
+    distinct_from: Access rights (whether they can have it) and rights statement (what restricts access).
+    guidance: >-
+      Link to the licence, for example the Open Government Licence v3.0. If there is no licence and a data sharing agreement is
+      needed, use the value "data sharing agreement required" and describe the agreement in the rights statement.
+    example: http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/
+    mem: {slot: licence, change: value-restored, note: 'The xGov MEM had no way to say "no licence, ask for an agreement" after it moved to LinkML (issue 44). The value is restored as a concept.'}
+    rma2026: licence
+    dm: license
+    issues: [44]
+  issued:
+    uri: dct:issued
+    label: Release date
+    kind: date
+    definition: The date the resource was first made available.
+    purpose: Helps people judge how current it is.
+    guidance: Use ISO 8601. Include a time with Z or an offset if you release more than one version a day.
+    example: '2022-02-01'
+    mem: {slot: issued, change: unchanged}
+  modified:
+    uri: dct:modified
+    label: Last updated
+    kind: date
+    definition: The date the content of the resource last changed.
+    purpose: Helps people judge whether the data is current enough for their use.
+    distinct_from: The date the metadata record changed, which belongs on the catalogue record.
+    guidance: >-
+      Give it whenever you know it. If you do not know it, leave it out rather than using the date the record was harvested:
+      a false date is worse than none (issue 30).
+    example: '2026-08-01'
+    mem: {slot: modified, change: obligation-changed, note: 'Mandatory in the xGov MEM, but many sources do not provide it (issue 30). Recommended now, and never to be invented.'}
+    issues: [30]
+  created:
+    uri: dct:created
+    label: Created
+    kind: date
+    definition: The date the content of the resource was created or compiled.
+    purpose: Helps people judge whether the data is valid for the period they care about.
+    example: '2003-04-01'
+    mem: {slot: created, change: unchanged}
+    rma2026: dateCreated
+  accrualPeriodicity:
+    uri: dct:accrualPeriodicity
+    label: Update frequency
+    kind: concept
+    codelist: frequency
+    definition: How often the resource is updated.
+    purpose: Lets people plan when to come back, and harvesters plan when to check for changes.
+    guidance: Choose from the EU frequency list that DCAT-AP uses. If it is not updated on a schedule, choose irregular; if it will never be updated, choose never.
+    example: eufreq:QUARTERLY
+    mem: {slot: updateFrequency, change: codelist-mapped, note: 'Dublin Core frequency terms are mapped one to one to the EU frequency vocabulary that DCAT-AP requires. Old values are still accepted and converted.'}
+    dm: updateFrequency
+  theme:
+    uri: dcat:theme
+    label: Theme
+    kind: concept
+    codelist: theme
+    definition: The broad subject of the resource, from a controlled list.
+    purpose: Lets people browse by subject, and catalogues group the same subjects across publishers.
+    distinct_from: Keyword, which is free text.
+    guidance: >-
+      Choose one or more themes from the DCAT-UK AP theme list, which uses the data.gov.uk topics. Each is mapped to the EU data
+      themes, so records also make sense to European tools. The cross-government taxonomy from the master and reference data
+      working group will replace or extend it when it is published (issue 49).
+    example: ukcl:theme/mapping
+    mem: {slot: theme, change: codelist-added, note: 'The xGov MEM had no list of values (issue 49). The 14 data.gov.uk topics, read on 6 November 2026, are now the list.'}
+    dm: theme
+    issues: [49]
+  keyword:
+    uri: dcat:keyword
+    label: Keyword
+    kind: text
+    definition: Words or short phrases that people might search for, not already in the title or description.
+    purpose: Adds ways for people to find the resource.
+    example: postcode
+    mem: {slot: keyword, change: unchanged}
+    dm: keyword
+  spatial:
+    uri: dct:spatial
+    label: Geographic coverage
+    kind: object
+    range: Location
+    definition: The geographic area the data is about.
+    purpose: Lets people find data for a place, and see at a glance whether it covers the area they need.
+    guidance: >-
+      Prefer the identifier of a standard area: a GSS code from the ONS (for example K02000001 for the United Kingdom) for statistical
+      and administrative areas, or another controlled list such as national parks. Use a bounding box or a geometry only where no
+      named area fits. Say whether the data covers the whole area or only some places in it (issue 1). For geospatial data, also
+      follow UK GEMINI.
+    example: http://statistics.data.gov.uk/id/statistical-geography/K03000001
+    mem: {change: new}
+    issues: [1]
+  spatialResolutionInMeters:
+    uri: dcat:spatialResolutionInMeters
+    label: Spatial resolution (metres)
+    kind: decimal
+    definition: The smallest distance the data can tell apart, in metres.
+    purpose: Lets people judge whether the data is detailed enough for their purpose.
+    example: '1'
+    mem: {change: new}
+    issues: [1]
+  temporal:
+    uri: dct:temporal
+    label: Time period covered
+    kind: object
+    range: PeriodOfTime
+    definition: The period of time the data is about.
+    purpose: Lets people find data for the years they need. It is not the date the data was published.
+    guidance: Give a start date, an end date, or both. An open-ended period has only a start date. Each census is its own dataset in a series.
+    mem: {change: new}
+    rma2026: temporalCoverage
+    issues: [2]
+  temporalResolution:
+    uri: dcat:temporalResolution
+    label: Time resolution
+    kind: duration
+    definition: The smallest period the data can tell apart, as an ISO 8601 duration.
+    example: P1M
+    mem: {change: new}
+    issues: [2]
+  conformsTo:
+    uri: dct:conformsTo
+    label: Conforms to
+    kind: iri
+    definition: A standard, specification or schema the resource follows.
+    purpose: Tells technical users how the data is structured before they get it, and lets tools check it.
+    guidance: >-
+      For a dataset, link to its schema (for example a CSV on the Web metadata file, a JSON Schema or an XML schema) or the data
+      standard it follows. Tabular data should follow the Tabular data standard. For a data service, link to the standard the
+      interface follows (for example OpenAPI 3.1 or OGC API - Features), not the data.
+    example: https://www.gov.uk/government/publications/recommended-open-standards-for-government/tabular-data-standard
+    mem: {change: new}
+    rma2026: conformsTo
+    issues: [4, 56]
+  referenceData:
+    uri: dcatuk:referenceData
+    label: Reference data used
+    kind: iri
+    definition: A code list, classification or set of groupings the data uses, such as age bands or a geography.
+    purpose: Lets people see whether two datasets can be compared or joined, because they use the same groupings.
+    guidance: Provisional. Link to the classification or code list, with its version, for example a published age band classification (issue 3).
+    provisional: true
+    mem: {change: new}
+    issues: [3]
+  version:
+    uri: dcat:version
+    label: Version
+    kind: literal
+    definition: The version of the resource.
+    purpose: Lets people tell versions apart and cite the one they used.
+    guidance: Follow the resource's own versioning scheme, such as a semantic version or a release date in the form yyyy-mm-dd.
+    example: '2026-08'
+    mem: {slot: version, change: obligation-changed, note: 'Mandatory in the xGov MEM; recommended now, because not every resource is versioned.'}
+  versionNotes:
+    uri: adms:versionNotes
+    label: Version notes
+    kind: text
+    definition: What changed in this version.
+    mem: {change: new}
+  previousVersion:
+    uri: dcat:previousVersion
+    label: Previous version
+    kind: iri
+    definition: The version this one replaces in a sequence.
+    mem: {change: new}
+  isReplacedBy:
+    uri: dct:isReplacedBy
+    label: Replaced by
+    kind: iri
+    definition: A newer resource that replaces this one.
+    purpose: Stops people using an out-of-date resource.
+    mem: {change: new}
+    rma2026: supersededBy
+  expires:
+    uri: schema:expires
+    label: Expires
+    kind: date
+    definition: The date after which the resource should no longer be used.
+    mem: {change: new}
+    rma2026: expires
+  inSeries:
+    uri: dcat:inSeries
+    label: Part of series
+    kind: iri
+    definition: The dataset series this dataset belongs to.
+    purpose: Groups releases of the same data, such as each year of a survey.
+    mem: {change: new}
+    issues: [2]
+  distribution:
+    uri: dcat:distribution
+    label: Distribution
+    kind: object
+    range: Distribution
+    definition: A form in which the data can be got, such as a file or an API.
+    purpose: Tells people how to get the data and in what format.
+    guidance: Describe each format separately. A distribution can be described in the same record or referred to by its identifier.
+    mem: {slot: distribution, change: range-fixed, note: 'Was only an IRI or CURIE, so a distribution could not be described in the same record (issue 72). Now a Distribution node or its IRI.'}
+    dm: distribution
+    issues: [72]
+  relation:
+    uri: dct:relation
+    label: Related resource
+    kind: iri
+    definition: Another resource closely related to this one, such as the report the data supports.
+    mem: {slot: relatedResource, change: unchanged}
+  qualifiedRelation:
+    uri: dcat:qualifiedRelation
+    label: Qualified relation
+    kind: object
+    range: Relationship
+    definition: A related resource together with the kind of relationship.
+    mem: {change: new}
+  landingPage:
+    uri: dcat:landingPage
+    label: Landing page
+    kind: url
+    definition: A web page where people can find out about the resource and how to get it.
+    purpose: Gives people somewhere to go that will still work if a download link changes.
+    mem: {change: new}
+  documentation:
+    uri: foaf:page
+    label: Documentation
+    kind: url
+    definition: A web page that documents the resource, such as a user guide or a methodology.
+    mem: {change: new}
+  language:
+    uri: dct:language
+    label: Language
+    kind: concept
+    codelist: language
+    definition: The language or languages of the resource.
+    purpose: Lets people find data in Welsh, Gaelic, Irish or other languages, and supports bodies with language duties.
+    guidance: Give every language the resource is available in.
+    example: eulang:ENG
+    mem: {change: new}
+  serviceType:
+    uri: dct:type
+    label: Interface style
+    kind: concept
+    codelist: service-type
+    definition: For a data service, the kind of interface.
+    guidance: >-
+      The class of the record (dataset, data service) is given by its RDF type and is not repeated here. For a data service, use this
+      property for the interface style, and conformsTo for the exact standard.
+    example: ukcl:service-type/rest
+    mem: {slot: serviceType, change: merged, note: 'The xGov MEM had both "type" (an rdf:type IRI, required) and "serviceType" (dct:type). rdf:type now comes from the class, and dct:type holds the interface style.'}
+    issues: [56]
+  serviceStatus:
+    uri: adms:status
+    label: Status
+    kind: concept
+    codelist: service-status
+    definition: Where a data service is in its life, from discovery to retirement.
+    example: ukcl:service-status/live
+    mem: {slot: serviceStatus, change: codelist-mapped, note: 'Same phases, now SKOS concepts linked to the Service Manual.'}
+    dm: status
+  qualityAnnotation:
+    uri: dqv:hasQualityAnnotation
+    label: Data quality
+    kind: iri
+    definition: A link to a published statement or measurement of the quality of the data.
+    purpose: Lets people see how fit the data is for their use, and lets the Data Quality Commons tools read it.
+    guidance: Link to a data quality report, a Data Quality Vocabulary measurement or a quality action plan.
+    mem: {change: new}
+  criticalDataAsset:
+    uri: dcatuk:criticalDataAsset
+    label: Critical data asset
+    kind: boolean
+    definition: Whether the resource is a critical data asset under the Data Asset Management Policy.
+    purpose: Switches on the extra properties the policy and its guidance require, and lets departments build their return from catalogue records.
+    guidance: >-
+      A critical data asset is shared with another public sector organisation to deliver an essential purpose or process. Answer
+      true or false. When true, the properties marked "mandatory for critical data assets" must be given.
+    example: 'true'
+    mem: {change: new}
+  qualifiedAttribution:
+    uri: prov:qualifiedAttribution
+    label: Responsible role
+    kind: object
+    range: Attribution
+    definition: An organisation and the role it plays for the resource, such as data owner or data steward.
+    purpose: Records accountability as the Data Asset Management Policy asks, without naming people.
+    guidance: Name a role and an organisation, never a person. People change jobs; roles survive reorganisation.
+    mem: {change: new}
+  # --- Distribution ---
+  accessURL:
+    uri: dcat:accessURL
+    label: Access address
+    kind: url
+    definition: A web address that gives access to the distribution, such as a landing page, a download page or an API.
+    purpose: The one address every distribution must have, so people can always get to it.
+    distinct_from: Download address, which is a direct link to a file.
+    mem: {change: new, note: 'Missing from the xGov MEM. Mandatory in DCAT-AP; added so UK records harvest into European catalogues.'}
+    dm: accessURL
+  downloadURL:
+    uri: dcat:downloadURL
+    label: Download address
+    kind: url
+    definition: A direct link to a file.
+    mem: {slot: downloadURL, change: unchanged}
+    dm: downloadURL
+  mediaType:
+    uri: dcat:mediaType
+    label: Media type
+    kind: iri
+    definition: The file format, as an IANA media type.
+    purpose: Tells people whether they have the software to open the file.
+    guidance: Use the IANA media type address, for example https://www.iana.org/assignments/media-types/text/csv. Plain values such as text/csv are accepted and converted.
+    example: https://www.iana.org/assignments/media-types/text/csv
+    mem: {slot: mediaType, change: obligation-changed, note: 'Mandatory in the xGov MEM. Recommended now, as in DCAT-AP, because some distributions are web pages or services.'}
+    rma2026: mediaType
+    dm: mediaType
+  format:
+    uri: dct:format
+    label: Format
+    kind: iri
+    definition: The file type, from the EU file type list, where there is no IANA media type.
+    mem: {change: new}
+    dm: format
+  byteSize:
+    uri: dcat:byteSize
+    label: Size (bytes)
+    kind: integer
+    definition: The size of the file in bytes.
+    example: '14330000'
+    mem: {slot: byteSize, change: unchanged}
+  checksum:
+    uri: spdx:checksum
+    label: Checksum
+    kind: object
+    range: Checksum
+    definition: A value that lets people check the file they downloaded is complete and unchanged.
+    mem: {change: new}
+  accessService:
+    uri: dcat:accessService
+    label: Access service
+    kind: iri
+    definition: A data service that gives access to this distribution.
+    mem: {slot: accessService, change: unchanged}
+    dm: accessService
+  compressFormat:
+    uri: dcat:compressFormat
+    label: Compression format
+    kind: iri
+    definition: The format the file is compressed in, as an IANA media type.
+    mem: {change: new}
+  # --- Data service ---
+  endpointURL:
+    uri: dcat:endpointURL
+    label: Endpoint address
+    kind: url
+    definition: The root address of the service.
+    purpose: Where systems send requests.
+    guidance: >-
+      For a service that is not public, give the address of its API gateway or developer portal rather than an internal host name:
+      publishing internal host names helps attackers.
+    mem: {slot: endpointURL, change: obligation-changed, note: 'Optional in the xGov MEM because of the security risk of publishing internal addresses. Mandatory in DCAT-AP; the guidance now says what to give instead.'}
+  endpointDescription:
+    uri: dcat:endpointDescription
+    label: Endpoint description
+    kind: url
+    definition: A description of what the service does and how to call it, such as an OpenAPI document.
+    mem: {slot: endpointDescription, change: obligation-changed, note: 'Mandatory in the xGov MEM; recommended, as in DCAT-AP.'}
+  servesDataset:
+    uri: dcat:servesDataset
+    label: Serves dataset
+    kind: iri
+    definition: A dataset this service gives access to.
+    mem: {slot: servesData, change: renamed, note: 'Renamed to match DCAT. The property IRI was already dcat:servesDataset.'}
+  # --- Catalogue ---
+  dataset:
+    uri: dcat:dataset
+    label: Dataset
+    kind: iri
+    definition: A dataset listed in the catalogue.
+    mem: {change: new}
+  service:
+    uri: dcat:service
+    label: Data service
+    kind: iri
+    definition: A data service listed in the catalogue.
+    mem: {change: new}
+  homepage:
+    uri: foaf:homepage
+    label: Home page
+    kind: url
+    definition: The home page of the catalogue or the organisation.
+    mem: {change: new}
+    issues: [15]
+  themeTaxonomy:
+    uri: dcat:themeTaxonomy
+    label: Theme list used
+    kind: iri
+    definition: The list of themes the catalogue uses to classify its records.
+    mem: {change: new}
+  record:
+    uri: dcat:record
+    label: Catalogue record
+    kind: iri
+    definition: A record describing an entry in the catalogue.
+    mem: {change: new}
+  # --- Catalogue record ---
+  primaryTopic:
+    uri: foaf:primaryTopic
+    label: Describes
+    kind: iri
+    definition: The dataset or data service this record describes.
+    mem: {change: new}
+  # --- Agent ---
+  name:
+    uri: foaf:name
+    label: Name
+    kind: text
+    definition: The name of the organisation.
+    mem: {change: new}
+  agentType:
+    uri: dct:type
+    label: Organisation type
+    kind: literal
+    definition: The kind of organisation, as GOV.UK lists it, for example ministerial department or executive agency.
+    mem: {change: new}
+  # --- Contact point ---
+  fn:
+    uri: vcard:fn
+    label: Team name
+    kind: literal
+    definition: The name of the team to contact. Never a person's name.
+    mem: {slot: contactName, change: definition-fixed, note: 'Defined as the team, not a person, so records survive staff changes and carry no personal data.'}
+    issues: [71]
+  hasURL:
+    uri: vcard:hasURL
+    label: Contact form
+    kind: url
+    definition: The address of a contact form or contact page for the team.
+    purpose: The preferred contact route. It keeps addresses private and can be pointed at a new team when things change.
+    mem: {change: new}
+    issues: [15]
+  hasEmail:
+    uri: vcard:hasEmail
+    label: Team email address
+    kind: email
+    definition: A shared team mailbox, as a mailto address. Never a personal address.
+    guidance: Prefer a contact form. If you give an address, it must be a shared mailbox that will outlive any one person.
+    mem: {slot: email, change: obligation-changed, note: 'Mandatory in the xGov MEM. Now one of two routes: a contact form or a team mailbox, with the form preferred.'}
+  hasTelephone:
+    uri: vcard:hasTelephone
+    label: Telephone
+    kind: literal
+    definition: A team telephone number.
+    mem: {slot: telephone, change: unchanged}
+  hasAddress:
+    uri: vcard:hasAddress
+    label: Postal address
+    kind: literal
+    definition: A postal address for the team.
+    mem: {slot: address, change: unchanged}
+  # --- Location ---
+  bbox:
+    uri: dcat:bbox
+    label: Bounding box
+    kind: wkt
+    definition: The rectangle that contains the area, as Well-Known Text in WGS 84.
+    mem: {change: new}
+    issues: [1]
+  geometry:
+    uri: locn:geometry
+    label: Geometry
+    kind: wkt
+    definition: The exact shape of the area, as Well-Known Text.
+    mem: {change: new}
+    issues: [1]
+  centroid:
+    uri: dcat:centroid
+    label: Centre point
+    kind: wkt
+    definition: The centre point of the area, as Well-Known Text.
+    mem: {change: new}
+    issues: [1]
+  locationName:
+    uri: skos:prefLabel
+    label: Place name
+    kind: text
+    definition: The name of the place, from a gazetteer where there is one.
+    mem: {change: new}
+    issues: [1]
+  # --- Period of time ---
+  startDate:
+    uri: dcat:startDate
+    label: Start date
+    kind: date
+    definition: The first day the data covers.
+    example: '2021-03-21'
+    mem: {change: new}
+    issues: [2]
+  endDate:
+    uri: dcat:endDate
+    label: End date
+    kind: date
+    definition: The last day the data covers.
+    mem: {change: new}
+    issues: [2]
+  # --- Checksum ---
+  algorithm:
+    uri: spdx:algorithm
+    label: Algorithm
+    kind: iri
+    definition: The algorithm used, for example SHA-256.
+    mem: {change: new}
+  checksumValue:
+    uri: spdx:checksumValue
+    label: Checksum value
+    kind: literal
+    definition: The checksum, in lower-case hexadecimal.
+    mem: {change: new}
+  # --- Relationship and attribution ---
+  hadRole:
+    uri: dcat:hadRole
+    label: Role
+    kind: concept
+    codelist: agent-role
+    definition: The role in the relationship or attribution.
+    mem: {change: new}
+  agent:
+    uri: prov:agent
+    label: Organisation
+    kind: iri
+    definition: The organisation that plays the role.
+    mem: {change: new}
+
+# Classes, in order of precedence. For each property: ob (obligation), card (cardinality), cda (obligation for critical data assets).
+classes:
+  Dataset:
+    uri: dcat:Dataset
+    label: Dataset
+    ob: M
+    icon: database
+    definition: A collection of data, published or curated by one organisation, available in one or more forms.
+    mem: Dataset
+    properties:
+      - {p: title, ob: M, card: 1..n}
+      - {p: description, ob: M, card: 1..n}
+      - {p: identifier, ob: M, card: '1'}
+      - {p: publisher, ob: M, card: '1'}
+      - {p: contactPoint, ob: M, card: 1..n}
+      - {p: accessRights, ob: M, card: '1'}
+      - {p: securityClassification, ob: M, card: '1'}
+      - {p: licence, ob: M, card: '1'}
+      - {p: accrualPeriodicity, ob: M, card: '1'}
+      - {p: criticalDataAsset, ob: R, card: '0..1'}
+      - {p: creator, ob: R, card: 0..n, cda: M}
+      - {p: created, ob: R, card: '0..1', cda: M}
+      - {p: conformsTo, ob: R, card: 0..n, cda: M}
+      - {p: temporal, ob: R, card: 0..n, cda: M}
+      - {p: personalData, ob: R, card: '0..1', cda: M}
+      - {p: rights, ob: C, card: 0..n, condition: 'Mandatory when access rights are commercial or internal.'}
+      - {p: modified, ob: R, card: '0..1'}
+      - {p: issued, ob: R, card: '0..1'}
+      - {p: abstract, ob: R, card: '0..1'}
+      - {p: theme, ob: R, card: 0..n}
+      - {p: keyword, ob: R, card: 0..n}
+      - {p: spatial, ob: R, card: 0..n}
+      - {p: distribution, ob: R, card: 0..n}
+      - {p: landingPage, ob: R, card: 0..n}
+      - {p: version, ob: R, card: '0..1'}
+      - {p: sensitiveData, ob: R, card: 0..n}
+      - {p: qualifiedAttribution, ob: O, card: 0..n, cda: R}
+      - {p: language, ob: O, card: 0..n}
+      - {p: alternative, ob: O, card: 0..n}
+      - {p: otherIdentifier, ob: O, card: 0..n}
+      - {p: inSeries, ob: O, card: 0..n}
+      - {p: isReplacedBy, ob: O, card: 0..n}
+      - {p: expires, ob: O, card: '0..1'}
+      - {p: previousVersion, ob: O, card: '0..1'}
+      - {p: versionNotes, ob: O, card: 0..n}
+      - {p: spatialResolutionInMeters, ob: O, card: 0..n}
+      - {p: temporalResolution, ob: O, card: 0..n}
+      - {p: referenceData, ob: O, card: 0..n}
+      - {p: qualityAnnotation, ob: O, card: 0..n}
+      - {p: relation, ob: O, card: 0..n}
+      - {p: qualifiedRelation, ob: O, card: 0..n}
+      - {p: documentation, ob: O, card: 0..n}
+      - {p: metadataAudience, ob: O, card: '0..1'}
+  DataService:
+    uri: dcat:DataService
+    label: Data service
+    ob: R
+    icon: plug
+    definition: A set of operations, such as an API, that gives access to one or more datasets or data processing functions.
+    mem: DataService
+    properties:
+      - {p: title, ob: M, card: 1..n}
+      - {p: description, ob: M, card: 1..n}
+      - {p: identifier, ob: M, card: '1'}
+      - {p: endpointURL, ob: M, card: 1..n}
+      - {p: publisher, ob: M, card: '1'}
+      - {p: contactPoint, ob: M, card: 1..n}
+      - {p: accessRights, ob: M, card: '1'}
+      - {p: securityClassification, ob: M, card: '1'}
+      - {p: licence, ob: M, card: '1'}
+      - {p: serviceStatus, ob: M, card: '1'}
+      - {p: serviceType, ob: R, card: '0..1'}
+      - {p: conformsTo, ob: R, card: 0..n}
+      - {p: endpointDescription, ob: R, card: 0..n}
+      - {p: servesDataset, ob: R, card: 0..n}
+      - {p: criticalDataAsset, ob: O, card: '0..1'}
+      - {p: rights, ob: C, card: 0..n, condition: 'Mandatory when access rights are commercial or internal.'}
+      - {p: creator, ob: O, card: 0..n}
+      - {p: issued, ob: R, card: '0..1'}
+      - {p: modified, ob: R, card: '0..1'}
+      - {p: abstract, ob: O, card: '0..1'}
+      - {p: theme, ob: R, card: 0..n}
+      - {p: keyword, ob: R, card: 0..n}
+      - {p: version, ob: O, card: '0..1'}
+      - {p: landingPage, ob: O, card: 0..n}
+      - {p: documentation, ob: O, card: 0..n}
+      - {p: language, ob: O, card: 0..n}
+      - {p: personalData, ob: O, card: '0..1'}
+      - {p: metadataAudience, ob: O, card: '0..1'}
+  Distribution:
+    uri: dcat:Distribution
+    label: Distribution
+    ob: R
+    icon: file-down
+    definition: A specific form of a dataset, such as a CSV file, a GeoPackage or an API response.
+    mem: Distribution
+    properties:
+      - {p: accessURL, ob: M, card: 1..n}
+      - {p: mediaType, ob: R, card: '0..1'}
+      - {p: downloadURL, ob: R, card: 0..n}
+      - {p: description, ob: R, card: 0..n}
+      - {p: licence, ob: R, card: '0..1'}
+      - {p: title, ob: O, card: 0..n}
+      - {p: format, ob: O, card: '0..1'}
+      - {p: byteSize, ob: O, card: '0..1'}
+      - {p: checksum, ob: O, card: '0..1'}
+      - {p: accessService, ob: O, card: 0..n}
+      - {p: accessRights, ob: O, card: '0..1'}
+      - {p: issued, ob: O, card: '0..1'}
+      - {p: modified, ob: O, card: '0..1'}
+      - {p: conformsTo, ob: O, card: 0..n}
+      - {p: language, ob: O, card: 0..n}
+      - {p: compressFormat, ob: O, card: '0..1'}
+      - {p: identifier, ob: O, card: '0..1'}
+  DatasetSeries:
+    uri: dcat:DatasetSeries
+    label: Dataset series
+    ob: O
+    icon: layers
+    definition: A group of datasets published separately but sharing a subject and a method, such as each release of a census.
+    mem: null
+    properties:
+      - {p: title, ob: M, card: 1..n}
+      - {p: description, ob: M, card: 1..n}
+      - {p: publisher, ob: R, card: '0..1'}
+      - {p: contactPoint, ob: R, card: 0..n}
+      - {p: accrualPeriodicity, ob: R, card: '0..1'}
+      - {p: spatial, ob: O, card: 0..n}
+      - {p: temporal, ob: O, card: 0..n}
+      - {p: theme, ob: O, card: 0..n}
+      - {p: modified, ob: O, card: '0..1'}
+  Catalogue:
+    uri: dcat:Catalog
+    label: Catalogue
+    ob: M
+    icon: library-big
+    definition: A curated collection of metadata about datasets and data services.
+    mem: null
+    properties:
+      - {p: title, ob: M, card: 1..n}
+      - {p: description, ob: M, card: 1..n}
+      - {p: publisher, ob: M, card: '1'}
+      - {p: dataset, ob: R, card: 0..n}
+      - {p: service, ob: R, card: 0..n}
+      - {p: homepage, ob: R, card: '0..1'}
+      - {p: contactPoint, ob: R, card: 0..n}
+      - {p: modified, ob: R, card: '0..1'}
+      - {p: licence, ob: R, card: '0..1'}
+      - {p: themeTaxonomy, ob: R, card: 0..n}
+      - {p: language, ob: R, card: 0..n}
+      - {p: conformsTo, ob: R, card: 0..n}
+      - {p: issued, ob: O, card: '0..1'}
+      - {p: spatial, ob: O, card: 0..n}
+      - {p: record, ob: O, card: 0..n}
+  CatalogueRecord:
+    uri: dcat:CatalogRecord
+    label: Catalogue record
+    ob: O
+    icon: file-text
+    definition: A record in a catalogue about one dataset or data service, with its own dates.
+    mem: null
+    properties:
+      - {p: primaryTopic, ob: M, card: '1'}
+      - {p: modified, ob: M, card: '1'}
+      - {p: conformsTo, ob: R, card: 0..n}
+      - {p: issued, ob: R, card: '0..1'}
+      - {p: metadataAudience, ob: O, card: '0..1'}
+  Agent:
+    uri: foaf:Agent
+    label: Organisation
+    ob: M
+    icon: building-2
+    definition: An organisation that publishes, creates or is responsible for a resource. In this profile, never a person.
+    mem: Organisation
+    properties:
+      - {p: name, ob: M, card: 1..n}
+      - {p: identifier, ob: R, card: '0..1'}
+      - {p: homepage, ob: O, card: '0..1'}
+      - {p: agentType, ob: O, card: '0..1'}
+  ContactPoint:
+    uri: vcard:Kind
+    label: Contact point
+    ob: M
+    icon: message-square
+    definition: A team that can answer questions about a resource, with the routes to reach it.
+    mem: ContactPoint
+    one_of: [hasURL, hasEmail]
+    properties:
+      - {p: fn, ob: M, card: '1'}
+      - {p: hasURL, ob: C, card: 0..n, condition: 'Give a contact form, a team mailbox, or both. A contact form is preferred.'}
+      - {p: hasEmail, ob: C, card: 0..n, condition: 'Give a contact form, a team mailbox, or both. A contact form is preferred.'}
+      - {p: hasTelephone, ob: O, card: 0..n}
+      - {p: hasAddress, ob: O, card: '0..1'}
+  Location:
+    uri: dct:Location
+    label: Location
+    ob: O
+    icon: map-pin
+    definition: A named area or a shape on the earth. Prefer the identifier of a standard area, such as a GSS code.
+    mem: null
+    properties:
+      - {p: locationName, ob: R, card: 0..n}
+      - {p: bbox, ob: O, card: '0..1'}
+      - {p: geometry, ob: O, card: '0..1'}
+      - {p: centroid, ob: O, card: '0..1'}
+  PeriodOfTime:
+    uri: dct:PeriodOfTime
+    label: Period of time
+    ob: O
+    icon: calendar-range
+    definition: A period with a start date, an end date or both.
+    mem: null
+    one_of: [startDate, endDate]
+    properties:
+      - {p: startDate, ob: C, card: '0..1', condition: 'Give a start date, an end date, or both.'}
+      - {p: endDate, ob: C, card: '0..1', condition: 'Give a start date, an end date, or both.'}
+  Checksum:
+    uri: spdx:Checksum
+    label: Checksum
+    ob: O
+    icon: fingerprint
+    definition: A value calculated from a file, used to check it has not changed.
+    mem: null
+    properties:
+      - {p: algorithm, ob: M, card: '1'}
+      - {p: checksumValue, ob: M, card: '1'}
+  Relationship:
+    uri: dcat:Relationship
+    label: Relationship
+    ob: O
+    icon: link
+    definition: How one resource relates to another.
+    mem: null
+    properties:
+      - {p: relation, ob: M, card: 1..n}
+      - {p: hadRole, ob: M, card: 1..n}
+  Attribution:
+    uri: prov:Attribution
+    label: Responsible role
+    ob: O
+    icon: badge-check
+    definition: An organisation and the role it plays for a resource, such as data owner.
+    mem: null
+    properties:
+      - {p: agent, ob: M, card: '1'}
+      - {p: hadRole, ob: M, card: '1'}
+
+# Rules that need more than a single property shape. Each is enforced by the generated SHACL, the JSON Schema where it can be,
+# and the browser validator. "issue" ties a rule to the backlog item that created it.
+rules:
+  - id: R-01
+    text: A contact point must give a contact form, a team mailbox, or both.
+    class: ContactPoint
+  - id: R-02
+    text: A period of time must have a start date, an end date, or both.
+    class: PeriodOfTime
+  - id: R-03
+    text: When access rights are commercial or internal, give a rights statement saying how to ask for the data.
+    class: Dataset
+    issue: 44
+  - id: R-04
+    text: When the record describes a critical data asset, the properties marked mandatory for critical data assets must be given.
+    class: Dataset
+  - id: R-05
+    text: The summary must be 250 characters or fewer.
+    class: Dataset
+  - id: R-06
+    text: A team email address must be a mailto address. A contact form must be a web address.
+    class: ContactPoint
+    issue: 71
+  - id: R-07
+    text: A period's end date must not be before its start date.
+    class: PeriodOfTime
+    issue: 2

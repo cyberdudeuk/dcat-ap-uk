@@ -1,0 +1,336 @@
+# Portal content: roles, glossary, strategy, estate, governance. Generated into pages by tools/build.py. Edit here, never the pages.
+# Roles, not names. Personas are proto-personas: written from the xGov MEM backlog and policy, not yet tested with users (open register O-01).
+
+intent: >-
+  Evolve the UK Cross-Government Metadata Exchange Model into a DCAT-UK Application Profile that resolves the model's whole
+  backlog, keeps up with DCAT 3, DCAT-AP 3.0.1 and the 2026 guidance for critical data assets, and serves as the shared record
+  that future-state discovery services and a pan-UK public data infrastructure need, presented so that anyone who records,
+  harvests or uses metadata can understand it, check against it and build to it.
+
+doors:
+  - {id: describe, icon: pencil-ruler, title: I describe data, text: 'You keep a catalogue or own a data asset. Build a record, check it and see what is mandatory for critical data assets.', href: builder.html, cta: Build a record}
+  - {id: build, icon: code-xml, title: I build or harvest, text: 'You write catalogue software, a harvester or a discovery service. Get the SHACL, JSON Schema, context and codelists.', href: downloads.html, cta: Get the files}
+  - {id: lead, icon: landmark, title: I lead or decide, text: 'You are a chief data officer, policy coordinator or architect. See what changed, why, and how it fits the strategy.', href: changes.html, cta: See what changed}
+  - {id: learn, icon: book-open, title: I'm new to this, text: 'Start with what metadata is and why it matters, in plain English, with an Easy Read summary.', href: roles.html#start, cta: Start here}
+
+personas:
+  - id: catalogue-manager
+    title: Catalogue manager
+    icon: library-big
+    context: Runs a department's data catalogue and its exports to central services.
+    need: I need to know exactly which fields to export and in what form, so that central services can harvest our records without rework.
+    worry: Changing our catalogue's fields costs money and time. I need to know what changed from the xGov MEM.
+    route: [['changes.html#crosswalk', 'The xGov MEM crosswalk'], ['profile.html', 'The profile, class by class'], ['validate.html', 'Check an export'], ['downloads.html', 'Declare conformance in the catalogue record']]
+  - id: data-owner
+    title: Data owner or steward of a critical data asset
+    icon: badge-check
+    context: Accountable for a data asset shared with other public bodies, and for its entry in the Data Asset Management return.
+    need: I need to record our critical data assets once, in a form the return can be built from, without retyping.
+    worry: I am not technical. I don't want to learn RDF.
+    route: [['builder.html', 'Build a record with critical data asset switched on'], ['class-dataset.html#cda', 'What critical data assets add'], ['codelists.html#cl-agent-role', 'Name roles, not people']]
+  - id: dam-lead
+    title: Chief data officer or Data Asset Management policy coordinator
+    icon: landmark
+    context: Leads the department's response to the Data Asset Management Policy.
+    need: I need to know whether adopting this profile meets the policy, and what it costs my teams.
+    worry: Another standard, another change. Is it endorsed?
+    route: [['strategy.html', 'How it fits the policy and the strategy'], ['changes.html#backlog', 'Every backlog item and how it was dealt with'], ['governance.html#status', 'Status and what endorsement needs']]
+  - id: engineer
+    title: Engineer building a harvester or discovery service
+    icon: code-xml
+    context: Builds the service that collects records from many catalogues, as in the metadata-based discovery pattern.
+    need: I need machine-readable shapes and stable identifiers, so I can validate what I harvest and map it to one canonical record.
+    worry: Identifiers that don't resolve, and shapes that disagree with the documentation.
+    route: [['downloads.html', 'SHACL, JSON Schema, JSON-LD context, LinkML'], ['governance.html#checks', 'How the three validators are kept in step'], ['governance.html#namespace', 'The namespace status']]
+  - id: devolved
+    title: Data lead in a devolved or local government body
+    icon: map
+    context: Works for a body in Scotland, Wales or Northern Ireland, or a council, where the policy may not apply.
+    need: I need to know what applies to us, how to record our languages and places, and whether our national catalogues fit.
+    worry: England-only rules presented as UK-wide.
+    route: [['strategy.html#nations', 'The four nations view'], ['properties.html#p-language', 'Languages, including Welsh and Gaelic'], ['properties.html#p-spatial', 'Places, with GSS codes']]
+  - id: supplier
+    title: Supplier of catalogue software
+    icon: boxes
+    context: Sells or maintains a data catalogue product used by public bodies.
+    need: I need a precise specification and test records so I can say my product conforms, and prove it.
+    worry: Vague obligations that every buyer interprets differently.
+    route: [['downloads.html#tests', 'Test records that must pass and must fail'], ['profile.html', 'Obligations and cardinalities'], ['estate.html', 'Buying tools without lock-in, in the Data Quality Commons']]
+  - id: user
+    title: Researcher, analyst or member of the public
+    icon: users-round
+    context: Looks for public sector data in the National Data Library or a department's catalogue.
+    need: I need records that tell me what the data is, whether I can have it, and who to ask, in words I understand.
+    worry: Records full of jargon, with broken links and no one to ask.
+    route: [['roles.html#start', 'What a good record tells you'], ['properties.html#p-accessRights', 'Can I have it?'], ['properties.html#p-contactPoint', 'Who do I ask?']]
+
+easy_read:
+  - Government holds a lot of data.
+  - People need to know what data there is, and how to get it.
+  - Metadata is the label on the data. It says what the data is, who looks after it and who can have it.
+  - This profile is a set of rules for writing those labels the same way everywhere.
+  - When everyone writes labels the same way, people can find data more easily.
+  - It is a proposal. People who look after government data will decide whether to use it.
+
+why_matters:
+  - {icon: search, title: Find it, text: 'A record written to one profile can be found by one search across every catalogue that uses it.'}
+  - {icon: scale, title: Judge it, text: 'Access rights, licence, coverage and quality are given the same way, so people can judge fitness before they ask.'}
+  - {icon: shield-check, title: Protect it, text: 'Security classification, personal data and sensitive data are explicit, so data is not shared where it should not be.'}
+  - {icon: refresh-cw, title: Reuse it, text: 'One record serves the department catalogue, the Data Asset Management return and the National Data Library.'}
+
+glossary:
+  - {id: application-profile, term: Application profile, alt: [AP, profile], def: 'A standard with the choices made for one community: which properties are mandatory, recommended or optional, and which controlled lists to use.'}
+  - {id: dcat, term: DCAT, alt: [Data Catalog Vocabulary], def: 'The W3C standard for describing datasets and data services in catalogues on the web. Version 3 became a W3C Recommendation on 22 August 2024.'}
+  - {id: dcat-ap, term: DCAT-AP, alt: [DCAT Application Profile for data portals in Europe], def: 'The European application profile of DCAT, maintained by SEMIC. Version 3.0.1 was published on 27 October 2025.'}
+  - {id: mem, term: xGov MEM, alt: [UK Cross-Government Metadata Exchange Model, Metadata Exchange Model], def: 'The UK metadata model this profile evolves. Endorsed for implementation by the Data Standards Authority Steering Board.'}
+  - {id: miwg, term: Metadata Implementation Working Group, alt: [MIWG], def: 'The cross-government group that turned the Metadata Requirements Specification into the xGov MEM.'}
+  - {id: metadata, term: Metadata, alt: [data about data], def: 'Information that describes data: what it is, who holds it, how to get it and what you may do with it.'}
+  - {id: dataset, term: Dataset, alt: [data set, data asset], def: 'A collection of data, published or curated by one organisation, available in one or more forms.'}
+  - {id: distribution, term: Distribution, alt: [file, download, format], def: 'One form in which a dataset can be got, such as a CSV file or an API response.'}
+  - {id: data-service, term: Data service, alt: [API, web service], def: 'A set of operations, usually an API, that gives access to data.'}
+  - {id: dataset-series, term: Dataset series, alt: [series], def: 'Datasets published separately that share a subject and method, such as each census.'}
+  - {id: catalogue, term: Catalogue, alt: [data catalog, data catalogue], def: 'A curated collection of metadata records about datasets and data services.'}
+  - {id: catalogue-record, term: Catalogue record, alt: [metadata record], def: 'The entry in a catalogue about one dataset or service, with its own dates.'}
+  - {id: codelist, term: Codelist, alt: [controlled vocabulary, controlled list, enumeration], def: 'A fixed list of values to choose from, so the same thing is always recorded the same way.'}
+  - {id: skos, term: SKOS, alt: [Simple Knowledge Organization System], def: 'The W3C standard for publishing codelists, thesauri and taxonomies on the web.'}
+  - {id: shacl, term: SHACL, alt: [Shapes Constraint Language, shapes], def: 'The W3C language for rules that RDF data must meet. The profile''s rules are published as SHACL shapes.'}
+  - {id: json-schema, term: JSON Schema, alt: [schema], def: 'A standard for describing what a JSON document must look like, so tools can check it.'}
+  - {id: json-ld, term: JSON-LD, alt: [linked data in JSON], def: 'A way of writing linked data as JSON. With the profile''s context, a compact JSON record becomes RDF.'}
+  - {id: rdf, term: RDF, alt: [Resource Description Framework, linked data], def: 'The W3C data model DCAT is built on: statements of subject, property and value, using web identifiers.'}
+  - {id: turtle, term: Turtle, alt: [TTL], def: 'A compact, readable way of writing RDF.'}
+  - {id: iri, term: IRI, alt: [URI, web identifier, web address], def: 'A web address used as a globally unique name for a thing.'}
+  - {id: curie, term: CURIE, alt: [compact IRI, prefixed name], def: 'A short form of an IRI, such as dct:title, using a declared prefix.'}
+  - {id: obligation, term: Obligation, alt: [requirement level], def: 'Whether a property is mandatory, recommended, optional or conditional in a record.'}
+  - {id: conditional, term: Conditional, alt: [mandatory if], def: 'Mandatory only when a stated condition applies, for example a rights statement when access is not open.'}
+  - {id: critical-data-asset, term: Critical data asset, alt: [CDA, essential shared data asset, ESDA], def: 'A data asset shared with another public sector organisation to deliver an essential purpose or process. In scope of the Data Asset Management Policy.'}
+  - {id: dam-policy, term: Data Asset Management Policy, alt: [DAM Policy], def: 'The 2026 policy that requires government departments and their arm''s-length bodies to manage metadata about critical data assets in their catalogues and report it to GDS.'}
+  - {id: harvesting, term: Harvesting, alt: [harvest, aggregation], def: 'One service collecting metadata records from many catalogues, so they can be searched together.'}
+  - {id: gss-code, term: GSS code, alt: [ONS geography code], def: 'A nine-character code for a statistical or administrative area in the UK, maintained by the Office for National Statistics.'}
+  - {id: persistent-identifier, term: Persistent identifier, alt: [PID, w3id], def: 'An identifier that keeps working when the thing it names moves. w3id.org provides redirects for this.'}
+  - {id: linkml, term: LinkML, alt: [Linked Data Modeling Language], def: 'A modelling language the xGov MEM was written in. This profile still publishes a LinkML version.'}
+  - {id: conformance, term: Conformance, alt: [conforms to, compliance], def: 'A record conforms when it meets every mandatory and conditional rule. Recommended properties are not needed to conform.'}
+  - {id: crosswalk, term: Crosswalk, alt: [mapping, concordance], def: 'A table showing how the terms of one model match the terms of another.'}
+  - {id: ndl, term: National Data Library, alt: [NDL], def: 'The UK programme to make public sector data easier to find and use. data.gov.uk is becoming part of it.'}
+  - {id: dsa, term: Data sharing agreement, alt: [DSA, data sharing arrangement], def: 'A written agreement between organisations setting out what data is shared, why, and under what law.'}
+  - {id: security-classification, term: Security classification, alt: [protective marking, OFFICIAL], def: 'The level of protection information needs under the Government Security Classifications Policy: OFFICIAL, SECRET or TOP SECRET.'}
+  - {id: personal-data, term: Personal data, alt: [PII, personally identifiable information], def: 'Information about an identifiable living person (UK GDPR).'}
+  - {id: special-category, term: Special category data, alt: [sensitive personal data], def: 'Personal data that needs extra protection, such as health, ethnicity or religion (UK GDPR Article 9).'}
+  - {id: provenance, term: Provenance code, alt: [source label], def: 'The label on a fact in this portal: V verified at the source, K background knowledge, P from a supplied pack, U unconfirmed.'}
+
+strategy:
+  # How the profile serves the future state. Each line names its source id from content/lineage.yaml.
+  - {src: roadmap, title: A roadmap for modern digital government 2025 to 2030, serves: 'Platforms to share and use data need records that mean the same thing in every catalogue. The profile is that shared meaning.'}
+  - {src: ndl, title: National Data Library, serves: 'A single trusted gateway to public sector data needs findable, consistent, honest records. The profile gives harvestable records with the access, licence and quality signals users need.'}
+  - {src: dam, title: Data Asset Management Policy, serves: 'Departments must manage and report metadata about critical data assets. The critical data asset switch makes the guidance''s attributes mandatory in the same record the catalogue already holds, so returns can be built, not retyped.'}
+  - {src: rma2026, title: Recording metadata to describe critical data assets, serves: 'Every attribute the guidance lists is crosswalked to a property. Where the guidance is inconsistent (created and dateCreated), the profile picks one term and records the alias.'}
+  - {src: discovery, title: Metadata Based Discovery pattern, serves: 'The pattern needs a canonical metadata record that harvesters map to. The profile, with its shapes and JSON Schema, is proposed as that record, so each adapter maps to one target.'}
+  - {src: principles, title: Data sharing principles, serves: 'Principle 6 asks for common standards for sharing. The profile is one, reusing DCAT and DCAT-AP rather than inventing.'}
+  - {src: aiready, title: Making government datasets ready for AI, serves: 'Metadata quality is a pillar. Conforms to, time and place covered, quality annotation and the schema.org crosswalk help machines as well as people judge a dataset.'}
+
+infrastructure_layers:
+  # A layered picture of a pan-UK public data infrastructure, bottom up, showing where the profile sits. Author's model (K).
+  - {id: L1, title: Data held by public bodies, text: 'Datasets and services stay with the bodies accountable for them (federate first).'}
+  - {id: L2, title: Catalogues, text: 'Each body describes its assets once, in its own catalogue.'}
+  - {id: L3, title: The shared record, text: 'DCAT-UK AP: one meaning for every record, with shapes to check it.', here: true}
+  - {id: L4, title: Harvest and discovery, text: 'Discovery services collect records, map them to the shared record and make them searchable.'}
+  - {id: L5, title: Gateways and returns, text: 'The National Data Library, the Data Marketplace and Data Asset Management returns read the same records.'}
+  - {id: L6, title: People and systems, text: 'Researchers, service teams, policy makers and the public find, judge and ask for data.'}
+
+nations:
+  - {nation: England, applies: 'The Data Asset Management Policy applies to UK government departments and their arm''s-length bodies. Councils are not in scope; the profile is good practice for them.', languages: 'English', notes: 'data.gov.uk is becoming the National Data Library.'}
+  - {nation: Scotland, applies: 'Devolved bodies are not in scope of the UK policy. The profile can be adopted voluntarily. Scottish catalogues such as statistics.gov.scot and the Scottish spatial data infrastructure publish linked data and geospatial metadata.', languages: 'English, Scottish Gaelic (GLA), Scots (SCO)', notes: 'Gaelic language plans apply to some bodies. Give titles and descriptions in both languages where the body has one.'}
+  - {nation: Wales, applies: 'Devolved bodies are not in scope of the UK policy. The profile can be adopted voluntarily. Data Map Wales publishes geospatial metadata.', languages: 'Welsh (CYM) and English', notes: 'The Welsh Language Standards mean Welsh must not be treated less favourably: give the title and description in Welsh, tagged cy, as well as English.'}
+  - {nation: Northern Ireland, applies: 'Northern Ireland departments are not in scope of the UK policy. The profile can be adopted voluntarily. OpenDataNI publishes open data.', languages: 'English, Irish (GLE), Ulster Scots (SCO)', notes: 'Section 75 equality duties apply to public authorities.'}
+  - {nation: UK-wide, applies: 'UK government departments that cover more than one nation follow the policy for the whole department.', languages: 'All of the above', notes: 'Use GSS codes for areas so records from every nation can be compared.'}
+nations_prov: K
+
+deia:
+  - {icon: accessibility, title: Accessible, text: 'Built to WCAG 2.2 AA: keyboard, screen reader and zoom friendly, checked with axe-core on every build, light and dark contrast tested. A manual audit is still to do.'}
+  - {icon: languages, title: Languages, text: 'The profile records every language a resource is in, including Welsh, Scottish Gaelic, Irish, Scots and Cornish. The portal itself is in English only for now (open register O-07).'}
+  - {icon: book-open, title: Plain English, text: 'Every definition is written for people who are not specialists, with Easy Read and a glossary. Technical forms are offered alongside, never instead.'}
+  - {icon: heart-handshake, title: Equality, text: 'Personal and special category data are flagged in records, so gaps and risks affecting particular groups are visible early. Records name roles, never people.'}
+  - {icon: sliders-horizontal, title: Your display, text: 'Change the theme, text size and spacing from Display options. Nothing is sent anywhere.'}
+  - {icon: message-square, title: Help, text: 'If you cannot use something here, use the contact form or ask a colleague to raise it for you.'}
+
+estate:
+  as_of: '2026-11-06'
+  note: >-
+    Four open portals for data in the public sector, each with its own owner, purpose, audience and status. They link to each other
+    and share keys; they do not merge or copy each other's content. The comparison was made by reading each portal's repository on
+    6 November 2026. "Not seen" means it was not found in that review and may exist.
+  portals:
+    - {id: dam, name: DAM capability playbooks, url: 'https://cyberdudeuk.github.io/dam-capability-playbooks/', repo: 'https://github.com/cyberdudeuk/dam-capability-playbooks', bearing: North, question: 'What must we do, and who does it?', status: 'Prototype guidance for the DAM Policy'}
+    - {id: dqc, name: Public Sector Data Quality Commons, url: 'https://cyberdudeuk.github.io/dq-commons/', repo: 'https://github.com/cyberdudeuk/dq-commons', bearing: East, question: 'How do I do it well?', status: 'Community project'}
+    - {id: cat, name: GitHub Repos Asset Catalogue, url: 'https://cyberdudeuk.github.io/github-repos-asset-catalogue/', repo: 'https://github.com/cyberdudeuk/github-repos-asset-catalogue', bearing: West, question: 'What already exists?', status: 'Specialist evidence tool'}
+    - {id: ap, name: DCAT-UK AP, url: 'https://cyberdudeuk.github.io/dcat-uk-ap/', repo: 'https://github.com/cyberdudeuk/dcat-uk-ap', bearing: South, question: 'How do we describe it so others can find it?', status: 'Proposed standard, not endorsed'}
+  compass: https://cyberdudeuk.github.io/dam-capability-playbooks/compass/
+  comparison:
+    - group: Content
+      rows:
+        - {item: 'DAM Policy requirements, step by step', dam: full, dqc: partial, cat: partial, ap: partial, ap_note: 'The metadata part only: what a critical data asset record must contain'}
+        - {item: 'Metadata standard, normative', dam: none, dqc: none, cat: none, ap: full, ap_note: 'The profile itself: classes, properties, obligations, codelists, rules'}
+        - {item: 'Cataloguing method', dam: full, dqc: full, cat: partial, ap: partial, ap_note: 'What to record; the DAM playbooks own how to run cataloguing'}
+        - {item: 'Crosswalks between metadata models', dam: partial, dqc: full, cat: partial, ap: full, ap_note: 'xGov MEM, the 2026 guidance, Data Marketplace, DCAT-AP, schema.org'}
+        - {item: 'Codelists as linked data (SKOS)', dam: notseen, dqc: partial, cat: notseen, ap: full, ap_note: '12 codelists and 1,271 organisations'}
+        - {item: 'Roles and personas', dam: full, dqc: full, cat: full, ap: full, ap_note: 'Seven proto-personas, untested'}
+        - {item: 'Strategy alignment', dam: full, dqc: partial, cat: partial, ap: full, ap_note: 'Roadmap, NDL, DAM Policy, discovery pattern, sharing principles, AI-ready data'}
+        - {item: 'Data quality method', dam: full, dqc: full, cat: partial, ap: none, ap_note: 'Links to the Commons; records carry a quality annotation'}
+        - {item: 'Evidence from public code', dam: none, dqc: none, cat: full, ap: none, ap_note: ''}
+    - group: Features
+      rows:
+        - {item: 'Build a record in the browser', dam: none, dqc: partial, cat: none, ap: full, ap_note: 'Record builder with live validation and three output formats'}
+        - {item: 'Check records in the browser, nothing uploaded', dam: none, dqc: full, cat: none, ap: full, ap_note: 'Validator, including conversion from xGov MEM records'}
+        - {item: 'Search and command palette', dam: full, dqc: full, cat: full, ap: full, ap_note: ''}
+        - {item: 'Glossary tooltips and display options', dam: full, dqc: partial, cat: full, ap: full, ap_note: ''}
+        - {item: 'Site map', dam: full, dqc: full, cat: partial, ap: full, ap_note: ''}
+        - {item: 'Guided tours and tutorials', dam: full, dqc: full, cat: full, ap: partial, ap_note: 'Role routes; no step-by-step tours yet'}
+        - {item: 'Open data downloads and static API', dam: full, dqc: full, cat: full, ap: full, ap_note: 'Every artefact, with a DCAT description of the downloads'}
+        - {item: 'Cross-reference manifest (xref.json)', dam: full, dqc: full, cat: partial, ap: full, ap_note: ''}
+        - {item: 'MCP server for AI assistants', dam: full, dqc: full, cat: notseen, ap: none, ap_note: 'Open register O-10'}
+        - {item: 'Offline copy', dam: notseen, dqc: full, cat: full, ap: partial, ap_note: 'Each release attaches the site as a zip; pages work from disk'}
+    - group: Trust and quality
+      rows:
+        - {item: 'Source label on each fact', dam: full, dqc: partial, cat: full, ap: full, ap_note: 'V, K, P and U codes'}
+        - {item: 'Automated accessibility checks', dam: full, dqc: full, cat: full, ap: full, ap_note: ''}
+        - {item: 'Scheduled health checks', dam: full, dqc: full, cat: full, ap: full, ap_note: 'Weekly: sources, review date, page weight'}
+        - {item: 'Independent engines checked against each other', dam: none, dqc: full, cat: partial, ap: full, ap_note: 'SHACL, JSON Schema and the browser validator must agree on every test record'}
+        - {item: 'Every check proven by a deliberate break', dam: full, dqc: full, cat: full, ap: full, ap_note: ''}
+  gains:
+    - {from: ap, to: dam, text: 'The cataloguing playbook can cite DCAT-UK AP as the agreed field set instead of its own proposed crosswalk, once the profile is endorsed.'}
+    - {from: ap, to: dqc, text: 'The Metadata Weaver can read profile.json and the JSON-LD context, so "describe once" outputs a record that conforms.'}
+    - {from: ap, to: cat, text: 'The catalogue''s DCAT JSON-LD feeds can declare conformance to the profile and use its organisation identifiers.'}
+    - {from: dqc, to: ap, text: 'Records link quality reports through dqv:hasQualityAnnotation; the Commons supplies the reports.'}
+    - {from: dam, to: ap, text: 'The critical data asset rules come from the policy the playbooks explain; their roles name who records what.'}
+    - {from: cat, to: ap, text: 'The organisations list (register R3, GOV.UK slugs) is reused from the catalogue rather than copied by hand.'}
+  shared_keys:
+    - {key: 'GOV.UK organisation slug', used_for: 'publisher and creator', where: 'organisations.json; the catalogue''s org crosswalk'}
+    - {key: 'DCAT-UK AP property name', used_for: 'what a field means', where: 'xref.json (properties)'}
+    - {key: 'Codelist concept', used_for: 'access rights, themes, classifications', where: 'xref.json (codelists)'}
+    - {key: 'Glossary term id', used_for: 'shared vocabulary', where: 'xref.json (terms)'}
+  journeys:
+    - {title: 'Record a critical data asset', steps: [[dam, 'What the policy requires'], [ap, 'Build the record with critical data asset switched on'], [dqc, 'Check the quality of the data'], [dam, 'Report and sustain']]}
+    - {title: 'Buy or replace a catalogue tool', steps: [[dqc, 'Compare products and lock-in'], [ap, 'Ask suppliers to pass the test records'], [cat, 'See who already runs the tool']]}
+    - {title: 'Build a discovery service', steps: [[cat, 'Find catalogue code that already exists'], [ap, 'Map every source to the shared record'], [dqc, 'Score metadata quality']]}
+
+governance:
+  status: >-
+    Proposed. Not endorsed. To become a standard it needs, in order: review by the Metadata Implementation Working Group, a decision
+    by the owning team in the Office of the Government Chief Data Officer, and endorsement by the Data Standards Authority Steering
+    Board, as the xGov MEM had. Until then the xGov MEM remains the endorsed model.
+  versioning:
+    - 'Semantic versioning. A major version changes an obligation from optional or recommended to mandatory, removes a property or closes a codelist value. A minor version adds a property, a codelist value or a recommendation. A patch fixes wording, examples or guidance.'
+    - 'Each release publishes the shapes, schema, context, codelists and examples as release assets, with notes, as issue 70 asked.'
+    - 'The previous release stays published, so records can say which version they conform to.'
+  change_process:
+    - {step: Ask, text: 'Anyone raises a change request with the form. It asks for the user need, the evidence and the impact on existing records.'}
+    - {step: Assess, text: 'The maintainers label it, check it against DCAT, DCAT-AP and the backlog, and say whether it is a major, minor or patch change.'}
+    - {step: Discuss, text: 'Major and minor changes go to the Metadata Implementation Working Group for review.'}
+    - {step: Decide, text: 'The owning team decides. Major changes go to the Data Standards Authority for endorsement.'}
+    - {step: Release, text: 'The change is made in profile/dcat-uk-ap.yaml with a test, passes the release gate and ships in the next release.'}
+  adrs:
+    - {id: '0001', title: 'A new repository, not a rename', status: Accepted, context: 'Issue 78 asked whether to rename the xGov MEM repository. Its discussion said a completely new solution suits a new repository.', decision: 'Start cyberdudeuk/dcat-uk-ap. Keep every xGov MEM slot in the crosswalk. Propose archiving the old repository with a pointer, once the owners agree.', consequences: 'Old issue links keep working. Records written to the xGov MEM convert with the validator.'}
+    - {id: '0002', title: 'Generate from one YAML file with our own script, not LinkML', status: Accepted, context: 'The xGov MEM used LinkML and MkDocs. Ten of its twelve open pull requests were dependency updates to that toolchain, and a LinkML limitation blocked issue 63.', decision: 'One profile file; a small Python generator for SHACL, JSON Schema, JSON-LD context, SKOS and the portal. A LinkML file is still generated for continuity.', consequences: 'Fewer dependencies to patch. The LinkML file is not checked by LinkML tools in CI (open register O-09).'}
+    - {id: '0003', title: 'Contact form preferred over email in contact points', status: Accepted, context: 'Issue 71 found the contact point was defined as an email address. Email addresses go stale when people move, and can be personal data.', decision: 'A contact point gives a contact form, a team mailbox or both, and never a named person. The form is preferred. The portal publishes no email address at all.', consequences: 'Existing records with team mailboxes still conform. Records with personal addresses should be changed.'}
+    - {id: '0004', title: 'Obligations for critical data assets as conditionals', status: Accepted, context: 'The April 2026 guidance asks for more for critical data assets than for other data.', decision: 'A critical data asset flag switches on extra mandatory properties, in the same record, rather than a second profile.', consequences: 'One record serves the catalogue and the return. SHACL and JSON Schema both express the rule.'}
+    - {id: '0005', title: 'EU frequency list and data.gov.uk themes', status: Accepted, context: 'DCAT-AP uses the EU frequency vocabulary; the xGov MEM used Dublin Core terms. Issue 49 proposed the data.gov.uk topics for themes.', decision: 'Use the EU frequency list, converting Dublin Core values. Use the 14 data.gov.uk topics for themes, mapped to EU data themes.', consequences: 'UK records harvest into European tools. The mappings are the author''s and need review (open register O-04).'}
+    - {id: '0006', title: 'A proposed w3id.org namespace', status: Proposed, context: 'Issue 13 asked for a persistent identifier.', decision: 'Use https://w3id.org/dcat-uk-ap/ for the profile, its terms and codelists.', consequences: 'Identifiers do not resolve until the owning team registers the redirect.'}
+  defects:
+    - {id: D-001, found: '2026-11-06', what: 'SHACL accepted badly formed values in recommended and optional properties.', cause: 'Property shapes took their severity from the obligation, so value errors in non-mandatory properties were warnings, which conform.', fix: 'Every value constraint is a violation; the obligation only decides whether absence is allowed.', check: 'tests/test_profile.py DeliberateBreaks (bad-date, summary-too-long, period-end-before-start)'}
+    - {id: D-002, found: '2026-11-06', what: 'JSON Schema cannot check that an end date is not before a start date.', cause: 'JSON Schema has no way to compare two values.', fix: 'Documented. SHACL (sh:lessThanOrEquals) and the browser validator enforce rule R-07.', check: 'The fixture is flagged; the test fails if JSON Schema starts catching it, so the flag is removed.'}
+    - {id: D-003, found: '2026-11-06', what: 'The build library could not be imported in isolated mode and shadowed a standard Python module.', cause: 'It was named profile.py, the name of a standard library module.', fix: 'Renamed ukap.py; scripts add their own folder to the path explicitly.', check: 'CI runs every script with python3 -I.'}
+    - {id: D-004, found: '2026-11-06', what: 'The duplicate-title check missed a real duplicate.', cause: 'It read every <title> on the page, including the titles inside SVG images, so two pages never matched.', fix: 'Only the document title is read.', check: 'tools/check_site.py C-13 and its deliberate break'}
+    - {id: D-005, found: '2026-11-06', what: 'The table check reported header cells without scope on every page.', cause: 'Its pattern matched <thead> as if it were <th>.', fix: 'The pattern matches the th tag name exactly.', check: 'tools/check_site.py C-06'}
+    - {id: D-006, found: '2026-11-06', what: 'The caption check accepted a broken caption tag.', cause: 'It counted the text "<caption" as a prefix, so <caption-x> passed.', fix: 'Exact tag names are counted.', check: 'tools/check_site.py C-06 deliberate break'}
+    - {id: D-007, found: '2026-11-06', what: 'The strategy and organisations sections showed raw template placeholders (a variable name in braces) instead of content.', cause: "A doubled apostrophe (YAML style) inside a Python f-string split it into two strings, the second not formatted.", fix: 'Typographic apostrophes in the build script.', check: 'tools/check_site.py C-16 (no unrendered placeholders) and its deliberate break'}
+    - {id: D-008, found: '2026-11-06', what: 'Small download buttons failed contrast in dark mode.', cause: 'The .small text style (muted grey) also applied to buttons with the small size.', fix: 'Small buttons keep the button text colour.', check: 'tools/check_browser.py axe in dark mode, and its "contrast" break'}
+    - {id: D-009, found: '2026-11-06', what: 'Loading the critical data asset example into the record builder lost its licence.', cause: 'The example used the compact form of the licence value; the licence list holds full addresses, so no option matched.', fix: 'Lists match compact and full forms of the same value.', check: 'tools/check_browser.py: the critical data asset example must conform in the builder'}
+    - {id: D-010, found: '2026-11-06', what: 'Escape did not close search when text had been typed.', cause: 'In a search box the browser uses the first Escape to clear the text.', fix: 'Escape in the search box closes the dialog.', check: 'tools/check_browser.py palette checks'}
+    - {id: D-011, found: '2026-11-06', what: 'The lineage said 20 xGov MEM issues were open; there were 22.', cause: 'Miscounted by hand from the API listing.', fix: 'Counted from the backlog register itself.', check: 'tests/test_profile.py ReadmeCounts: totals must equal the register, and the README counts must match it'}
+  open:
+    - {id: O-01, item: 'Test the portal and the profile with at least five people from four of the personas, including disabled people.', who: 'User researcher', status: open}
+    - {id: O-02, item: 'Review by the Metadata Implementation Working Group.', who: 'Owning team', status: open}
+    - {id: O-03, item: 'Endorsement by the Data Standards Authority Steering Board.', who: 'Owning team', status: open}
+    - {id: O-04, item: 'Check every mapping marked K (EU themes, access rights, frequency, schema.org) against its source.', who: 'Metadata specialist', status: open}
+    - {id: O-05, item: 'Register the w3id.org namespace (issue 13).', who: 'Owning team', status: open}
+    - {id: O-06, item: 'A manual accessibility audit with assistive technologies.', who: 'Accessibility specialist', status: open}
+    - {id: O-07, item: 'A Welsh language version of the portal.', who: 'Owning team, with translation', status: open}
+    - {id: O-08, item: 'Research the levels for "who can see this record" (issue 5) and the reference data property (issue 3) with catalogue owners and information assurance.', who: 'User researcher, information assurance', status: open}
+    - {id: O-09, item: 'Check the generated LinkML file with LinkML tools.', who: 'Maintainers', status: open}
+    - {id: O-10, item: 'An MCP server so AI assistants can read the profile, as the sister portals have.', who: 'Maintainers', status: open}
+    - {id: O-11, item: 'A crosswalk to UK GEMINI for geospatial records, with the geospatial community.', who: 'Metadata specialist', status: open}
+    - {id: O-12, item: 'Ask the co-cddo owners to point the xGov MEM repository and its open issues here.', who: 'Repository owner', status: open}
+  raid:
+    - {type: Risk, text: 'Departments see another standard and wait. Mitigation: everything in the xGov MEM still maps, and conversion is automatic.'}
+    - {type: Risk, text: 'The profile is mistaken for an endorsed standard. Mitigation: the status banner on every page and in every file.'}
+    - {type: Assumption, text: 'DCAT-AP alignment is wanted. The European profile is widely implemented by catalogue software, which lowers cost for suppliers.'}
+    - {type: Issue, text: 'Identifiers do not resolve until the namespace is registered.'}
+    - {type: Dependency, text: 'The cross-government taxonomy for themes, from the master and reference data working group.'}
+  checkpoint:
+    intent: Evolve the xGov MEM into DCAT-UK AP, resolve its backlog, align to DCAT 3, DCAT-AP 3.0.1, the 2026 guidance and the future-state strategy, and present it in a portal that joins the estate.
+    arc:
+      - 'Read the xGov MEM source, its 99 issues and pull requests, the 2026 guidance, the Data Asset Management Policy, the Data Marketplace schemas and the future data architecture.'
+      - 'Wrote the profile as one YAML source, with codelists, lineage and worked examples.'
+      - 'Generated SHACL, JSON Schema, JSON-LD context, LinkML, SKOS and CSV; built the browser validator; held all three validators to the same verdict on every example and deliberate break.'
+      - 'Built the portal and its knowledge layer, compared the four portals like for like, and joined the estate compass as its fourth bearing.'
+    verdict: 'Meets the brief as a proposal. Needs user research, specialist review of the K mappings and the governance steps before it can be a standard.'
+  adversarial:
+    - {claim: 'This is just the xGov MEM with more fields; departments will not adopt it.', answer: 'Most of the change is fixes the xGov MEM''s own users raised (20 open issues) and alignment that suppliers already implement for Europe. Records convert automatically. The base rate for voluntary metadata standards is low adoption without a mandate; the critical data asset switch ties it to a policy that already requires metadata.'}
+    - {claim: 'Making modified optional weakens the record.', answer: 'A false date is worse than none (issue 30). The profile asks for it whenever known and forbids inventing it. Critical data assets still need created and time covered.'}
+    - {claim: 'An unendorsed proposal in a personal repository should not be called DCAT-UK AP.', answer: 'The name follows issue 78 and the MIWG discussion. Every page says it is proposed and not endorsed. If the owners prefer another name, it changes in one file.'}
+    - {claim: 'Requiring DCAT-AP mandatory properties (access URL, endpoint URL) adds burden.', answer: 'Both are already held by any catalogue that publishes a file or an API. For internal APIs the guidance says to give a gateway address, not an internal host.'}
+  dpia: 'Screening only. The portal processes no personal data: no analytics, no cookies, no forms of its own. Display choices stay in the browser. The contact form is a GitHub issue form and is public, so it says not to include personal data. Records built in the browser never leave it. No DPIA is needed for the portal; adopters must assess their own catalogues.'
+  atrs: 'Not needed. The portal and profile make no algorithmic decisions about people. The validator applies published rules and shows its reasons.'
+  service_standard:
+    - {n: 1, point: 'Understand users and their needs', status: partial, note: 'Needs drawn from 99 backlog items and policy; no research with users yet (O-01).'}
+    - {n: 2, point: 'Solve a whole problem for users', status: met, note: 'One record serves catalogue, return and discovery.'}
+    - {n: 3, point: 'Provide a joined-up experience across all channels', status: partial, note: 'Joined to the estate compass; offline use is partial.'}
+    - {n: 4, point: 'Make the service simple to use', status: partial, note: 'Plain English and role routes; untested.'}
+    - {n: 5, point: 'Make sure everyone can use the service', status: partial, note: 'Automated WCAG 2.2 AA checks pass; manual audit open (O-06); English only (O-07).'}
+    - {n: 6, point: 'Have a multidisciplinary team', status: not-met, note: 'One maintainer. An owning team is needed.'}
+    - {n: 7, point: 'Use agile ways of working', status: met, note: 'Small releases, open backlog, change requests.'}
+    - {n: 8, point: 'Iterate and improve frequently', status: met, note: 'Release gate and weekly health run.'}
+    - {n: 9, point: 'Create a secure service which protects users'' privacy', status: met, note: 'No personal data, a Content Security Policy, no third-party code.'}
+    - {n: 10, point: 'Define what success looks like and publish performance data', status: partial, note: 'Measures named below; nothing is tracked, by design.'}
+    - {n: 11, point: 'Choose the right tools and technology', status: met, note: 'Open standards, static hosting, few dependencies (ADR 0002).'}
+    - {n: 12, point: 'Make new source code open', status: met, note: 'MIT and Open Government Licence.'}
+    - {n: 13, point: 'Use and contribute to open standards, common components and patterns', status: met, note: 'DCAT, DCAT-AP, SKOS, SHACL; GOV.UK Design System patterns.'}
+    - {n: 14, point: 'Operate a reliable service', status: partial, note: 'Static pages on GitHub Pages; one maintainer.'}
+  measures:
+    - 'Catalogues that declare conformance to the profile.'
+    - 'Share of harvested records that pass the shapes.'
+    - 'Critical data asset returns built from catalogue records rather than retyped.'
+    - 'Backlog items open longer than one release.'
+  theory_of_change:
+    problem: 'Metadata about UK public sector data is recorded differently in every catalogue, so data is hard to find, judge and share, and returns are retyped.'
+    activities: ['A profile with clear obligations and codelists', 'Shapes and schemas tools can check against', 'A portal that explains it to every role', 'A change process that keeps it current']
+    outputs: ['Records that conform', 'Catalogues and tools that declare and test conformance', 'Converted xGov MEM records']
+    outcomes: ['Data found across catalogues with one search', 'Fitness judged before asking', 'Returns built from catalogue records']
+    impact: 'Public sector data is found, trusted and reused, supporting a pan-UK public data infrastructure and the National Data Library.'
+    assumptions: ['Catalogue owners will change exports if the cost is low and the benefit is clear', 'A mandate or endorsement follows a credible proposal']
+    falsification: ['If fewer than half of the catalogue managers in research can map their fields using the crosswalk, the profile or the crosswalk is too hard', 'If no catalogue declares conformance within two releases of endorsement, adoption needs a different route']
+  architecture:
+    - {layer: Source, text: 'profile/dcat-uk-ap.yaml, profile/codelists.yaml, content/*.yaml, examples/examples.yaml. Hand edited, reviewed in pull requests.'}
+    - {layer: Generator, text: 'tools/ukap.py loads and checks the source; tools/generate.py writes the machine-readable files; tools/build.py writes the portal.'}
+    - {layer: Checks, text: 'tests/test_profile.py (three validators, deliberate breaks, integrity); tools/check_site.py (pages); tools/check_browser.py (Playwright and axe-core).'}
+    - {layer: Publication, text: 'Static files on GitHub Pages, from the gh-pages branch, written by the workflow after every check passes.'}
+    - {layer: Runtime, text: 'Static HTML, one stylesheet, one script and data scripts from the same host. No server, no cookies, no third-party requests.'}
+  artefacts:
+    - {name: Theory of change, where: 'governance.html#toc', status: Drafted}
+    - {name: User research bundle, where: 'governance.html#research', status: 'Plan only; research not done'}
+    - {name: Service blueprint and workflows, where: 'roles.html', status: 'Role routes drafted; no blueprint tested'}
+    - {name: Product requirements, where: 'changes.html#backlog', status: 'The backlog is the requirements; 22 items traced'}
+    - {name: Functional, technical and integration requirements, where: 'profile.html', status: 'The profile is the specification'}
+    - {name: 'Architecture (SAD, HLD, LLD)', where: 'governance.html#architecture', status: 'Summary; one page is proportionate to a static site'}
+    - {name: Glossary, where: 'knowledge.html#glossary', status: Done}
+    - {name: Thesaurus, where: 'knowledge.html#thesaurus', status: 'Done (alternative terms)'}
+    - {name: Data dictionary, where: 'downloads.html', status: Done}
+    - {name: Taxonomies and ontology, where: 'knowledge.html#taxonomy', status: 'Done (classes, codelists, added terms)'}
+    - {name: Knowledge graph, where: 'knowledge.html#graph', status: Done}
+    - {name: 'Governance records (RAID, ADRs, DPIA screening, ATRS decision)', where: 'governance.html', status: Done}
+    - {name: Accessibility statement, where: 'accessibility.html', status: 'Draft until a manual audit'}
+    - {name: Showcase deck and film, where: 'Kept outside the repository', status: 'Not made'}
+  research_plan:
+    - 'Five to eight sessions across catalogue managers, data owners, engineers and policy leads, including at least two people who use assistive technology.'
+    - 'Tasks: find what is mandatory for a critical data asset; convert an xGov MEM record; build a record for your own dataset; explain to a colleague what changed.'
+    - 'A tree test of the global bar and hubs with 20 participants before the next release.'
+    - 'Recruitment through the Metadata Implementation Working Group and the cross-government data catalogues working group; consent script and no recordings kept beyond analysis.'
