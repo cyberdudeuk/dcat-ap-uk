@@ -5,6 +5,6 @@ body:
     id: idea
     attributes:
       label: Your idea
-      description: What would make DCAT-UK AP more useful? Public; no personal data.
+      description: What would make DCAT-AP-UK more useful? Public; no personal data.
     validations:
       required: true

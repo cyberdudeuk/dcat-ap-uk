@@ -28,8 +28,8 @@ import ukap  # noqa: E402
 
 P = ukap.load()
 FILES = generate.generate(P)
-SHAPES = Graph().parse(data=FILES['dcat-uk-ap.shacl.ttl'], format='turtle')
-SCHEMA = json.loads(FILES['dcat-uk-ap.schema.json'])
+SHAPES = Graph().parse(data=FILES['dcat-ap-uk.shacl.ttl'], format='turtle')
+SCHEMA = json.loads(FILES['dcat-ap-uk.schema.json'])
 JS = jsonschema.Draft202012Validator(SCHEMA)
 INVALID = yaml.safe_load((ROOT / 'tests' / 'fixtures' / 'invalid.yaml').read_text(encoding='utf-8'))
 NODE = """
@@ -94,7 +94,7 @@ class ProfileIntegrity(unittest.TestCase):
     """The loader refuses a broken profile. Each case breaks it on purpose."""
 
     def broken(self, mutate):
-        prof = yaml.safe_load((ROOT / 'profile' / 'dcat-uk-ap.yaml').read_text(encoding='utf-8'))
+        prof = yaml.safe_load((ROOT / 'profile' / 'dcat-ap-uk.yaml').read_text(encoding='utf-8'))
         cls = yaml.safe_load((ROOT / 'profile' / 'codelists.yaml').read_text(encoding='utf-8'))
         lin = copy.deepcopy(P.lineage)
         ex = copy.deepcopy(P.examples)
@@ -152,7 +152,7 @@ class Coverage(unittest.TestCase):
                      'issued', 'keyword', 'licence', 'mediaType', 'modified', 'publisher', 'relatedResource', 'securityClassification',
                      'servesData', 'serviceStatus', 'serviceType', 'summary', 'telephone', 'theme', 'title', 'updateFrequency', 'version'}
         mapped = set(P.mem_slots())
-        self.assertEqual(set(), mem_slots - mapped, 'xGov MEM slots with no DCAT-UK AP property')
+        self.assertEqual(set(), mem_slots - mapped, 'xGov MEM slots with no DCAT-AP-UK property')
 
     def test_dcat_ap_mandatory_kept(self):
         # DCAT-AP 3.0.1 mandatory properties (verified 6 November 2026). A UK record must be harvestable by European tools.

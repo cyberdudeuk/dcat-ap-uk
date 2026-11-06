@@ -274,6 +274,53 @@ def c_llms(site, docs):
     return bad
 
 
+def c_no_style_attr(site, docs):
+    """C-19 no style attributes in any page: the CSP (style-src 'self') blocks them, so they silently do nothing (D-018)."""
+    bad = []
+    for p, d in docs:
+        n = sum(1 for t, a in d.tags if 'style' in a)
+        if n:
+            bad.append(f'{p.name}: {n} style attribute(s)')
+    return bad
+
+
+def c_tours(site, docs):
+    """C-20 every guided tour stop points at something on its page, so no tour silently skips a step."""
+    import yaml as _y
+    tours = _y.safe_load((ROOT / 'content' / 'guide.yaml').read_text(encoding='utf-8'))['tours']
+    bad = []
+    for key, steps in tours.items():
+        f = site / ('index.html' if key == 'index' else f'{key}.html')
+        if not f.exists():
+            bad.append(f'tour for missing page {key}')
+            continue
+        html = f.read_text(encoding='utf-8')
+        for st in steps:
+            sel = st['sel']
+            ok = (sel.startswith('#') and f'id="{sel[1:]}"' in html) or (sel.startswith('.') and re.search(r'class="[^"]*\b' + re.escape(sel[1:]) + r'\b', html))
+            if not ok:
+                bad.append(f'{key}: tour stop "{st["title"]}" points at {sel}, which is not on the page')
+    return bad
+
+
+def c_feedback(site, docs):
+    """C-21 every page offers "Suggest a change to this page", pointing at an issue form that exists and naming that page."""
+    bad = []
+    forms = {x.name for x in (ROOT / '.github' / 'ISSUE_TEMPLATE').glob('*.yml')}
+    for p, d in docs:
+        html = p.read_text(encoding='utf-8')
+        m = re.search(r'<a href="([^"]+)">Suggest a change to this page</a>', html)
+        if not m:
+            bad.append(f'{p.name}: no feedback link')
+            continue
+        t = re.search(r'template=([^&"]+)', m.group(1))
+        if not t or t.group(1) not in forms:
+            bad.append(f'{p.name}: feedback link uses a missing issue form')
+        elif p.name.replace('.', '%2E') not in m.group(1) and p.name not in m.group(1):
+            bad.append(f'{p.name}: feedback link does not name the page')
+    return bad
+
+
 def c_email_repo(site, docs):
     """C-17 no email address in the repository's own files either; test fixtures may use reserved example domains only."""
     bad = []
@@ -289,7 +336,7 @@ def c_email_repo(site, docs):
     return bad
 
 
-CHECKS = [c_csp, c_external, c_email, c_ids, c_links, c_tables, c_meta, c_colophon, c_skip, c_deck_film, c_inline, c_banner, c_lang_title, c_weight, c_svg_names, c_unrendered, c_email_repo, c_llms]
+CHECKS = [c_csp, c_external, c_email, c_ids, c_links, c_tables, c_meta, c_colophon, c_skip, c_deck_film, c_inline, c_banner, c_lang_title, c_weight, c_svg_names, c_unrendered, c_email_repo, c_llms, c_no_style_attr, c_tours, c_feedback]
 
 
 def run(site, quiet=False):
@@ -329,7 +376,7 @@ def _plant_repo(s):
 BREAKS = {
     'C-01': lambda s: _sub(s / 'index.html', "default-src 'self'", "default-src *; script-src 'unsafe-inline'"),
     'C-02': lambda s: _sub(s / 'index.html', '<link rel="stylesheet" href="style.css">', '<link rel="stylesheet" href="https://cdn.example.com/x.css">'),
-    'C-03': lambda s: _sub(s / 'downloads' / 'profile.json', '"title":"DCAT-UK Application Profile"', '"title":"DCAT-UK Application Profile","c":"someone' + '@' + 'dsit.gov.uk"'),
+    'C-03': lambda s: _sub(s / 'downloads' / 'profile.json', '"title":"DCAT Application Profile for the UK"', '"title":"DCAT Application Profile for the UK","c":"someone' + '@' + 'dsit.gov.uk"'),
     'C-04': lambda s: _sub(s / 'profile.html', 'id="model"', 'id="classes"'),
     'C-05': lambda s: _sub(s / 'index.html', 'href="builder.html"', 'href="builder.html#no-such-anchor"'),
     'C-06': lambda s: _sub(s / 'profile.html', '<caption id="explorer-cap">', '<caption-x id="explorer-cap">'),
@@ -339,10 +386,13 @@ BREAKS = {
     'C-10': lambda s: (s / 'Film 1 - showcase.dc.html').write_text('<p>film</p>'),
     'C-11': lambda s: _sub(s / 'index.html', '<script src="app.js"></script>', '<script>alert(1)</script>'),
     'C-12': lambda s: _sub(s / 'roles.html', 'is a proposal for review. It is not endorsed', 'is ready'),
-    'C-13': lambda s: _sub(s / 'roles.html', '<title>Your role - DCAT-UK AP</title>', '<title>Knowledge - DCAT-UK AP</title>'),
+    'C-13': lambda s: _sub(s / 'roles.html', '<title>Your role - DCAT-AP-UK</title>', '<title>Knowledge - DCAT-AP-UK</title>'),
     'C-14': lambda s: (s / 'style.css').write_text((s / 'style.css').read_text() + '/*' + 'x' * 1_600_000 + '*/'),
     'C-16': lambda s: _sub(s / 'strategy.html', '<h2 id="layers">', '<h2 id="layers">{layers}'),
     'C-17': lambda s: _plant_repo(s),
+    'C-19': lambda s: _sub(s / 'index.html', '<main id="main"', '<main style="color:red" id="main"'),
+    'C-20': lambda s: _sub(s / 'builder.html', 'id="b-level"', 'id="b-level-gone"'),
+    'C-21': lambda s: _sub(s / 'types.html', 'template=change-request.yml', 'template=no-such-form.yml'),
     'C-18': lambda s: _sub(s / 'llms.txt', 'downloads/profile.json)', 'downloads/no-such-file.json)'),
     'C-15': lambda s: _sub(s / 'profile.html', 'role="group" aria-labelledby="model-t"', 'role="img"'),
 }

@@ -1,4 +1,4 @@
-/* DCAT-UK AP portal behaviour. No network requests, no third-party code, nothing stored except per-viewer display choices
+/* DCAT-AP-UK portal behaviour. No network requests, no third-party code, nothing stored except per-viewer display choices
    (inside try/catch with an in-memory fallback). Every page works without this script; it adds convenience. Licence: MIT. */
 (function () {
   'use strict';
@@ -14,18 +14,29 @@
   function el(tag, attrs, html) { var e = doc.createElement(tag); Object.keys(attrs || {}).forEach(function (k) { e.setAttribute(k, attrs[k]); }); if (html != null) e.innerHTML = html; return e; }
   function announce(msg) { var l = $('#live'); if (l) { l.textContent = ''; setTimeout(function () { l.textContent = msg; }, 50); } }
 
-  /* ---- display options: theme, text size, spacing ------------------------------------------------------- */
-  ['theme', 'size', 'spacing'].forEach(function (k) { var v = store.get(k); if (v) root.setAttribute('data-' + k, v); });
-  var themeBtn = $('#theme');
-  if (themeBtn) themeBtn.addEventListener('click', function () {
-    var cur = root.getAttribute('data-theme') || (window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-    var next = cur === 'dark' ? 'light' : 'dark';
-    root.setAttribute('data-theme', next); store.set('theme', next); announce(next === 'dark' ? 'Dark mode on' : 'Light mode on');
-  });
-  $$('[data-display]').forEach(function (s) {
-    var k = s.getAttribute('data-display'); s.value = store.get(k) || s.value;
-    s.addEventListener('change', function () { root.setAttribute('data-' + k, s.value); store.set(k, s.value); });
-  });
+  /* ---- display options panel in the masthead (the estate pattern): text, spacing, colours, contrast, motion, links ---- */
+  var DP = ['text', 'space', 'theme', 'contrast', 'motion', 'links'];
+  if (store.get('theme') && !store.get('dp-theme')) store.set('dp-theme', store.get('theme'));
+  if (store.get('size') === 'large' && !store.get('dp-text')) store.set('dp-text', 'l');
+  if (store.get('spacing') === 'wide' && !store.get('dp-space')) store.set('dp-space', 'wide');
+  function applyDisplay() { DP.forEach(function (k) { var v = store.get('dp-' + k); if (v) root.setAttribute('data-' + k, v); else root.removeAttribute('data-' + k); }); }
+  applyDisplay();
+  var dpBtn = $('#display-toggle'), dpPanel = $('#display-panel');
+  if (dpBtn && dpPanel) {
+    dpBtn.hidden = false;
+    var syncDP = function () { DP.forEach(function (k) { $$('input[name="dp-' + k + '"]', dpPanel).forEach(function (r) { r.checked = r.value === (store.get('dp-' + k) || ''); }); }); };
+    syncDP();
+    dpPanel.addEventListener('change', function (e) {
+      var n = e.target.name; if (!n || n.indexOf('dp-') !== 0) return;
+      store.set(n, e.target.value); applyDisplay(); announce('Display changed');
+    });
+    $('#dp-reset').addEventListener('click', function () { DP.forEach(function (k) { store.set('dp-' + k, ''); }); applyDisplay(); syncDP(); announce('Display options reset'); });
+    dpBtn.addEventListener('click', function () {
+      var open = dpPanel.hidden; dpPanel.hidden = !open; dpBtn.setAttribute('aria-expanded', String(open));
+      if (open) { var f = dpPanel.querySelector('input:checked') || dpPanel.querySelector('input'); if (f) f.focus(); }
+    });
+    doc.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !dpPanel.hidden) { dpPanel.hidden = true; dpBtn.setAttribute('aria-expanded', 'false'); dpBtn.focus(); } });
+  }
 
   /* ---- drawer: in-page navigation, retractable, independent of the masthead ----------------------------- */
   var drawer = $('#drawer'), dt = $('#drawer-toggle');
@@ -232,9 +243,228 @@
   var ckf = $('#checklist-form');
   if (ckf) checklist(ckf);
 
+  /* ---- guided tours: one step at a time, next to the part of the page it explains -------------------------------- */
+  var tourData = $('#tour-data');
+  if (tourData) {
+    var steps = [];
+    try { steps = JSON.parse(tourData.textContent).filter(function (s) { return $(s.sel); }); } catch (e) { steps = []; }
+    var tb = $('#tour-start');
+    if (tb && steps.length) {
+      tb.hidden = false;
+      var pop = null, cur = 0, lastFocus = null;
+      var end = function () {
+        if (!pop) return;
+        $$('.tour-hl').forEach(function (x) { x.classList.remove('tour-hl'); });
+        pop.remove(); pop = null; doc.removeEventListener('keydown', key);
+        if (lastFocus) lastFocus.focus();
+        announce('Tour ended');
+      };
+      var key = function (e) {
+        if (e.key === 'Escape') { e.preventDefault(); end(); }
+        else if (e.key === 'ArrowRight' && pop && !e.target.closest('input,textarea,select')) { e.preventDefault(); show(cur + 1); }
+        else if (e.key === 'ArrowLeft' && pop && !e.target.closest('input,textarea,select')) { e.preventDefault(); show(cur - 1); }
+      };
+      var show = function (i) {
+        if (i < 0) i = 0;
+        if (i >= steps.length) return end();
+        cur = i;
+        $$('.tour-hl').forEach(function (x) { x.classList.remove('tour-hl'); });
+        var s = steps[i], t = $(s.sel);
+        // a target inside a hidden tab panel: show its panel first
+        var tp = t.closest('[role="tabpanel"][hidden]'); if (tp) { var tab = $('#' + tp.getAttribute('aria-labelledby')); if (tab) tab.click(); }
+        t.classList.add('tour-hl');
+        t.scrollIntoView({ block: 'center', behavior: root.getAttribute('data-motion') === 'reduce' ? 'auto' : 'smooth' });
+        if (!pop) {
+          pop = el('div', { 'class': 'tour-pop', role: 'dialog', 'aria-modal': 'false', 'aria-labelledby': 'tour-h', tabindex: '-1' });
+          doc.body.appendChild(pop); doc.addEventListener('keydown', key);
+        }
+        pop.innerHTML = '<p class="step">Step ' + (i + 1) + ' of ' + steps.length + '</p><h2 id="tour-h">' + esc(s.title) + '</h2><p>' + esc(s.text) + '</p>' +
+          '<p class="btns">' + (i ? '<button type="button" class="btn secondary small" data-t="prev">Back</button>' : '') +
+          '<button type="button" class="btn small" data-t="next">' + (i === steps.length - 1 ? 'Finish' : 'Next') + '</button>' +
+          '<button type="button" class="btn secondary small" data-t="end">End tour</button></p>';
+        var r = t.getBoundingClientRect(), top = window.scrollY + r.bottom + 12, left = Math.max(8, Math.min(window.scrollX + r.left, window.scrollX + doc.documentElement.clientWidth - 360));
+        pop.style.top = top + 'px'; pop.style.left = left + 'px';
+        pop.focus();
+      };
+      doc.addEventListener('click', function (e) {
+        var b = e.target.closest('.tour-pop [data-t]'); if (!b) return;
+        var a = b.getAttribute('data-t'); if (a === 'next') show(cur + 1); else if (a === 'prev') show(cur - 1); else end();
+      });
+      tb.addEventListener('click', function () { lastFocus = tb; show(0); });
+      if (/[?&]tour=1/.test(location.search)) setTimeout(function () { lastFocus = tb; show(0); }, 300);
+    }
+  }
+
+  /* ---- tutorials: tick steps, see progress (kept in this browser only) --------------------------------------------- */
+  var tutBoxes = $$('input[data-tut]');
+  if (tutBoxes.length) {
+    var tutCount = function () {
+      var by = {};
+      tutBoxes.forEach(function (b) { var t = b.getAttribute('data-tut'); by[t] = by[t] || [0, 0]; by[t][1]++; if (b.checked) by[t][0]++; });
+      Object.keys(by).forEach(function (t) {
+        var bar = $('[data-tut-bar="' + t + '"]'), c = $('[data-tut-count="' + t + '"]');
+        if (bar) bar.style.width = (100 * by[t][0] / by[t][1]) + '%';
+        if (c) c.textContent = by[t][0] + ' of ' + by[t][1] + ' steps done' + (by[t][0] === by[t][1] ? '. Well done.' : '');
+      });
+    };
+    tutBoxes.forEach(function (b) { b.checked = store.get('tut:' + b.id) === '1'; b.addEventListener('change', function () { store.set('tut:' + b.id, b.checked ? '1' : '0'); tutCount(); }); });
+    tutCount();
+  }
+
+  /* ---- lineage explorer ------------------------------------------------------------------------------------------------ */
+  var LG = window.UKAP_LINEAGE, trace = $('#trace');
+  if (LG && trace) {
+    var byId = {}, up = {}, down = {};
+    LG.nodes.forEach(function (n) { byId[n.id] = n; up[n.id] = []; down[n.id] = []; });
+    LG.edges.forEach(function (e) { if (byId[e[0]] && byId[e[1]]) { down[e[0]].push(e[1]); up[e[1]].push(e[0]); } });
+    var KIND = { source: 'Source', mem: 'MEM slot', property: 'Property', 'class': 'Class', codelist: 'Codelist', rule: 'Rule', issue: 'Issue', example: 'Example', test: 'Test', extension: 'Extension', crosswalk: 'Crosswalk', defect: 'Defect', standard: 'Standard' };
+    var tq = $('#tr-q'), tk = $('#tr-kind'), td = $('#tr-depth'), tres = $('#tr-results');
+    var reach = function (start, map, depth) {
+      var seen = {}, out = [], frontier = [start];
+      for (var d = 0; d < depth; d++) {
+        var next = [];
+        frontier.forEach(function (id) { map[id].forEach(function (x) { if (!seen[x] && x !== start) { seen[x] = 1; out.push(x); next.push(x); } }); });
+        frontier = next;
+      }
+      return out;
+    };
+    var btn = function (id, focus) {
+      var n = byId[id];
+      return '<button type="button" class="tnode k-' + esc(n.kind) + (focus ? ' focus' : '') + '" data-node="' + esc(id) + '" title="' + esc(n.desc) + '"><span>' + esc(n.label.length > 70 ? n.label.slice(0, 68) + '…' : n.label) + '</span><span class="kind">' + esc(KIND[n.kind] || n.kind) + '</span></button>';
+    };
+    var group = function (ids) {
+      var by = {}; ids.forEach(function (id) { var k = byId[id].kind; (by[k] = by[k] || []).push(id); });
+      return Object.keys(by).map(function (k) { return '<h3>' + esc(KIND[k] || k) + ' (' + by[k].length + ')</h3>' + by[k].slice(0, 40).map(function (id) { return btn(id); }).join('') + (by[k].length > 40 ? '<p class="small">and ' + (by[k].length - 40) + ' more</p>' : ''); }).join('');
+    };
+    var draw = function () {
+      var old = $('svg.links', trace); if (old) old.remove();
+      var f = $('.tnode.focus', trace); if (!f || window.innerWidth < 800) return;
+      var tr = trace.getBoundingClientRect(), fr = f.getBoundingClientRect();
+      var paths = $$('.col.up .tnode, .col.down .tnode', trace).map(function (b) {
+        var r = b.getBoundingClientRect(), isUp = b.closest('.up');
+        var x1 = isUp ? r.right - tr.left : fr.right - tr.left, y1 = (isUp ? r.top + r.height / 2 : fr.top + fr.height / 2) - tr.top;
+        var x2 = isUp ? fr.left - tr.left : r.left - tr.left, y2 = (isUp ? fr.top + fr.height / 2 : r.top + r.height / 2) - tr.top;
+        var mx = (x1 + x2) / 2;
+        return '<path data-for="' + esc(b.getAttribute('data-node')) + '" d="M' + x1 + ',' + y1 + ' C' + mx + ',' + y1 + ' ' + mx + ',' + y2 + ' ' + x2 + ',' + y2 + '"/>';
+      }).join('');
+      trace.insertAdjacentHTML('afterbegin', '<svg class="links" aria-hidden="true">' + paths + '</svg>');
+    };
+    var focusOn = function (id, push) {
+      if (!byId[id]) return;
+      var depth = Number(td.value || 1), u = reach(id, up, depth), d = reach(id, down, depth), n = byId[id];
+      trace.innerHTML = '<div class="col up">' + (u.length ? group(u) : '<p class="small">Nothing comes before this.</p>') + '</div>' +
+        '<div class="col mid"><h3>Selected</h3>' + btn(id, true) + '<p class="small">' + esc(n.desc) + '</p><p><a href="' + esc(n.href) + '">Open ' + esc((KIND[n.kind] || n.kind).toLowerCase()) + '</a></p></div>' +
+        '<div class="col down">' + (d.length ? group(d) : '<p class="small">Nothing depends on this.</p>') + '</div>';
+      $('#tr-sum').textContent = n.label + ': ' + u.length + ' before it, ' + d.length + ' after it, ' + depth + ' step' + (depth > 1 ? 's' : '') + ' away.';
+      if (push !== false) { try { history.replaceState(null, '', '#n=' + encodeURIComponent(id)); } catch (e) { /* file: */ } }
+      setTimeout(draw, 30);
+    };
+    trace.addEventListener('click', function (e) { var b = e.target.closest('[data-node]'); if (b) { focusOn(b.getAttribute('data-node')); var f = $('.tnode.focus', trace); if (f) f.focus(); } });
+    trace.addEventListener('mouseover', function (e) { var b = e.target.closest('[data-node]'); $$('svg.links path', trace).forEach(function (p) { p.classList.toggle('hot', !!b && p.getAttribute('data-for') === b.getAttribute('data-node')); }); });
+    var search = function () {
+      var q = tq.value.trim().toLowerCase(), k = tk.value;
+      if (q.length < 2 && !k) { tres.innerHTML = ''; return; }
+      var hits = LG.nodes.filter(function (n) { return (!k || n.kind === k) && (!q || (n.label + ' ' + n.id).toLowerCase().indexOf(q) > -1); }).slice(0, 12);
+      tres.innerHTML = hits.map(function (n) { return '<li><button type="button" class="tnode k-' + esc(n.kind) + '" data-pick="' + esc(n.id) + '"><span>' + esc(n.label.slice(0, 90)) + '</span><span class="kind">' + esc(KIND[n.kind] || n.kind) + '</span></button></li>'; }).join('') || '<li class="small">No matches.</li>';
+    };
+    tq.addEventListener('input', search); tk.addEventListener('change', search);
+    td.addEventListener('change', function () { var f = $('.tnode.focus', trace); if (f) focusOn(f.getAttribute('data-node')); });
+    tres.addEventListener('click', function (e) { var b = e.target.closest('[data-pick]'); if (b) { focusOn(b.getAttribute('data-pick')); tres.innerHTML = ''; tq.value = ''; } });
+    $('#trace-form').addEventListener('submit', function (e) { e.preventDefault(); var b = $('[data-pick]', tres); if (b) b.click(); });
+    window.addEventListener('resize', function () { setTimeout(draw, 50); });
+    var m = /[#?&]n=([^&]+)/.exec(location.hash + '&' + location.search), start = m ? decodeURIComponent(m[1]) : 'prop:accessRights';
+    focusOn(byId[start] ? start : LG.nodes[0].id, false);
+  }
+
+  /* ---- standards map: light up a standard's relationships; filter by relationship and group ---------------------------- */
+  var smv = $('#std-svg');
+  if (smv) {
+    var smRel = $('#sm-rel'), smGrp = $('#sm-grp'), smSum = $('#sm-sum');
+    var smApply = function (focus) {
+      var r = smRel.value, g = smGrp.value, nOn = {};
+      $$('.sm-l', smv).forEach(function (l) {
+        var a = l.getAttribute('data-a'), b = l.getAttribute('data-b');
+        var gA = $('.sm-n[data-id="' + a + '"]', smv).getAttribute('data-g'), gB = $('.sm-n[data-id="' + b + '"]', smv).getAttribute('data-g');
+        var on = (!r || l.getAttribute('data-r') === r) && (!g || gA === g || gB === g) && (!focus || a === focus || b === focus);
+        l.classList.toggle('off', !on); l.classList.toggle('hot', !!focus && on);
+        if (on) { nOn[a] = 1; nOn[b] = 1; }
+      });
+      $$('.sm-n', smv).forEach(function (n) { n.classList.toggle('dim', (r || g || focus) && !nOn[n.getAttribute('data-id')]); });
+      var c = $$('.sm-l:not(.off)', smv).length;
+      smSum.textContent = (focus ? $('.sm-n[data-id="' + focus + '"] a', smv).getAttribute('aria-label') + ': ' : '') + c + ' relationship' + (c === 1 ? '' : 's') + ' shown.';
+    };
+    smRel.addEventListener('change', function () { smApply(); }); smGrp.addEventListener('change', function () { smApply(); });
+    $$('.sm-n', smv).forEach(function (n) {
+      var id = n.getAttribute('data-id');
+      n.addEventListener('mouseenter', function () { smApply(id); }); n.addEventListener('focusin', function () { smApply(id); });
+      n.addEventListener('mouseleave', function () { smApply(); });
+    });
+  }
+
+  /* ---- metadata weaver --------------------------------------------------------------------------------------------------- */
+  var wf = $('#weave-form');
+  if (wf && P && V) {
+    var wFrom = $('#w-from'), wTo = $('#w-to'), wIn = $('#w-in'), wOut = $('#w-out');
+    var FAM = { title: 1, description: 1, abstract: 1, keyword: 2, theme: 2, spatial: 3, temporal: 3, publisher: 4, creator: 4, contactPoint: 4, licence: 5, rights: 5, accessRights: 5, distribution: 6, identifier: 7, issued: 8, modified: 8 };
+    var ddiXml = function (t) {
+      var x = new DOMParser().parseFromString(t, 'application/xml'), o = {};
+      ['titl', 'IDNo', 'abstract', 'producer', 'AuthEnty', 'nation', 'geogCover', 'universe', 'restrctn', 'conditions', 'accsPlac', 'version', 'prodDate', 'distDate'].forEach(function (k) {
+        var e = x.getElementsByTagName(k); if (e.length) o[k] = e[0].textContent.trim();
+      });
+      var kw = x.getElementsByTagName('keyword'); if (kw.length) o.keyword = Array.prototype.map.call(kw, function (e) { return e.textContent.trim(); });
+      var tp = x.getElementsByTagName('timePrd'); if (tp.length) o.timePrd = { start: tp[0].getAttribute('date') || '', end: tp.length > 1 ? tp[1].getAttribute('date') || '' : '' };
+      return o;
+    };
+    var threads = function (map, leftTitle, rightTitle) {
+      var L = map.map(function (m) { return m[0]; }), R = [];
+      map.forEach(function (m) { if (m[1] && R.indexOf(m[1]) < 0) R.push(m[1]); });
+      var li = function (s, miss) { return '<li' + (miss ? ' class="miss"' : '') + '>' + esc(s) + '</li>'; };
+      var html = '<div class="weave" data-w><div><h3 class="h4">' + esc(leftTitle) + '</h3><ul class="wl">' + map.map(function (m) { return li(m[0], !m[1]); }).join('') + '</ul></div>' +
+        '<svg aria-hidden="true"></svg><div><h3 class="h4">' + esc(rightTitle) + '</h3><ul class="wr">' + R.map(function (r) { return li(r); }).join('') + '</ul></div></div>';
+      return { html: html, map: map, R: R };
+    };
+    var drawThreads = function (box, map, R) {
+      var svg = $('svg', box), ls = $$('.wl li', box), rs = $$('.wr li', box);
+      if (!svg || !ls.length || window.innerWidth < 800) return;
+      var sb = svg.getBoundingClientRect();
+      svg.setAttribute('viewBox', '0 0 ' + sb.width + ' ' + sb.height);
+      svg.innerHTML = map.map(function (m, i) {
+        if (!m[1]) return '';
+        var a = ls[i].getBoundingClientRect(), b = rs[R.indexOf(m[1])].getBoundingClientRect();
+        var y1 = a.top + a.height / 2 - sb.top, y2 = b.top + b.height / 2 - sb.top, w = sb.width;
+        var key = String(m[1]).replace(/^[a-z]+:/, ''), c = 'var(--d' + (FAM[key] || FAM[m[0]] || ((i % 8) + 1)) + ')';
+        return '<path d="M0,' + y1 + ' C' + w / 2 + ',' + y1 + ' ' + w / 2 + ',' + y2 + ' ' + w + ',' + y2 + '" stroke="' + c + '"/>';
+      }).join('');
+    };
+    var run = function () {
+      var t = wIn.value.trim(), input;
+      if (!t) { wOut.innerHTML = '<p>Paste a record, or try the example.</p>'; return; }
+      try { input = wFrom.value === 'ddi' && t[0] === '<' ? ddiXml(t) : JSON.parse(t); } catch (e) { wOut.innerHTML = '<div class="panel warning"><h2>The record could not be read</h2><p>' + esc(e.message) + '</p></div>'; return; }
+      var w;
+      try { w = V.weave(P, wFrom.value, wTo.value, input); } catch (e) { wOut.innerHTML = '<div class="panel warning"><p>' + esc(e.message) + '</p></div>'; return; }
+      var carried = w.mapIn.filter(function (m) { return m[1]; }).length;
+      var a = threads(w.mapIn, wFrom.options[wFrom.selectedIndex].text, 'DCAT-AP-UK'), b = threads(w.mapOut, 'DCAT-AP-UK', wTo.options[wTo.selectedIndex].text);
+      var outText = typeof w.out === 'string' ? w.out : JSON.stringify(w.out, null, 2);
+      wOut.innerHTML = '<section class="panel ' + (w.validation.ok ? 'notice' : 'warning') + '"><h2>Woven</h2><p>' + carried + ' of ' + w.mapIn.length + ' source fields carried into DCAT-AP-UK; ' +
+        (w.validation.ok ? 'the record conforms.' : w.validation.errors + ' to fix before it conforms.') + '</p>' + levelHtml(V.conformance(P, w.record)) +
+        (w.notes.length ? '<h3 class="h4">Notes</h3><ul>' + w.notes.map(function (n) { return '<li>' + esc(n) + '</li>'; }).join('') + '</ul>' : '') + '</section>' +
+        '<h3>Into DCAT-AP-UK</h3>' + a.html + (wTo.value !== 'ukap' ? '<h3>Out to ' + esc(wTo.options[wTo.selectedIndex].text) + '</h3>' + b.html : '') +
+        '<details><summary>What to fix (' + w.validation.issues.length + ')</summary><ul class="results">' + w.validation.issues.map(function (i) { return '<li class="' + i.level + '"><strong>' + esc(plabel(i.prop)) + '</strong>: ' + esc(i.text) + ' <span class="small">(' + esc(i.rule) + ')</span></li>'; }).join('') + '</ul></details>' +
+        '<h3>Result</h3><pre id="w-res" tabindex="0">' + esc(outText) + '</pre><p class="btns"><button type="button" class="btn small" id="w-dl">Download</button><button type="button" class="btn secondary small" data-copy="w-res">Copy</button></p>';
+      var boxes = $$('[data-w]', wOut);
+      drawThreads(boxes[0], a.map, a.R); if (boxes[1]) drawThreads(boxes[1], b.map, b.R);
+      $('#w-dl').addEventListener('click', function () { download('record.' + (wTo.value === 'turtle' ? 'ttl' : 'json'), outText, wTo.value === 'turtle' ? 'text/turtle' : 'application/json'); });
+      announce('Woven: ' + carried + ' fields carried');
+    };
+    $('#w-run').addEventListener('click', run);
+    $('#w-sample').addEventListener('click', function () { var s = $('#w-sample-' + wFrom.value); if (s) { wIn.value = JSON.stringify(JSON.parse(s.textContent), null, 2); run(); } });
+  }
+
+
+  function meters(root) { $$('.meter span[data-w]', root).forEach(function (m) { m.style.width = m.getAttribute('data-w') + '%'; }); }
   function fairHtml(q) {
     return q.dimensions.map(function (d) {
-      return '<h3 class="h4">' + esc(d.label) + ' <span class="small">' + d.score + ' of ' + d.max + '</span></h3><div class="meter" aria-hidden="true"><span style="width:' + (100 * d.score / d.max) + '%"></span></div><ul class="results">' +
+      return '<h3 class="h4">' + esc(d.label) + ' <span class="small">' + d.score + ' of ' + d.max + '</span></h3><div class="meter" aria-hidden="true"><span data-w="' + Math.round(100 * d.score / d.max) + '"></span></div><ul class="results">' +
         d.items.map(function (it) { return '<li class="' + (it.met ? 'ok' : 'warning') + '">' + (it.met ? 'Has ' : 'Missing: ') + esc(it.label.toLowerCase()) + ' <span class="small">(' + it.points + ')</span></li>'; }).join('') + '</ul>';
     }).join('') + '<p class="small">Modelled on the five dimensions of the EU metadata quality assessment. Addresses are checked for form, not fetched.</p>';
   }
@@ -345,14 +575,14 @@
     function update() {
       var rec = record(), res = V.validate(P, rec), comp = V.completeness(P, rec);
       $('#b-json').textContent = JSON.stringify(rec, null, 2);
-      $('#b-jsonld').textContent = JSON.stringify(Object.assign({ '@context': 'https://cyberdudeuk.github.io/dcat-uk-ap/downloads/dcat-uk-ap.context.jsonld' }, rec), null, 2);
+      $('#b-jsonld').textContent = JSON.stringify(Object.assign({ '@context': 'https://cyberdudeuk.github.io/dcat-uk-ap/downloads/dcat-ap-uk.context.jsonld' }, rec), null, 2);
       $('#b-ttl').textContent = V.toTurtle(P, rec);
       $('#b-sdo').textContent = JSON.stringify(V.toSchemaOrg(P, rec), null, 2);
       $('#b-cr').textContent = JSON.stringify(V.toCroissant(P, rec), null, 2);
       var q = V.fair(P, rec);
       $('#b-level').innerHTML = levelHtml(V.conformance(P, rec));
       $('#b-fair-s').textContent = q.score + ' of ' + q.max + ' (' + q.rating.toLowerCase() + ')';
-      $('#b-fair').innerHTML = fairHtml(q);
+      $('#b-fair').innerHTML = fairHtml(q); meters($('#b-fair'));
       var m = comp.mandatory, r = comp.recommended;
       $('#b-m').style.width = (m[1] ? 100 * m[0] / m[1] : 0) + '%'; $('#b-m-t').textContent = m[0] + ' of ' + m[1] + ' mandatory';
       $('#b-r').style.width = (r[1] ? 100 * r[0] / r[1] : 0) + '%'; $('#b-r-t').textContent = r[0] + ' of ' + r[1] + ' recommended';
@@ -396,12 +626,13 @@
       var recs = Array.isArray(data) ? data : [data];
       out.innerHTML = recs.map(function (r, n) {
         var res = V.validate(P, r), q = V.fair(P, r);
-        return '<section class="panel ' + (res.ok ? 'notice' : 'warning') + '"><h3>' + (recs.length > 1 ? 'Record ' + (n + 1) + ': ' : '') + (res.ok ? 'Conforms to DCAT-UK AP' + (P.applied && P.applied.length ? ' with the ' + esc(P0.extensions[P.applied[0]].label.toLowerCase()) + ' extension' : '') : res.errors + ' to fix') + '</h3>' +
+        return '<section class="panel ' + (res.ok ? 'notice' : 'warning') + '"><h3>' + (recs.length > 1 ? 'Record ' + (n + 1) + ': ' : '') + (res.ok ? 'Conforms to DCAT-AP-UK' + (P.applied && P.applied.length ? ' with the ' + esc(P0.extensions[P.applied[0]].label.toLowerCase()) + ' extension' : '') : res.errors + ' to fix') + '</h3>' +
           levelHtml(V.conformance(P, r)) + '<details><summary>Quality score: ' + q.score + ' of ' + q.max + ' (' + esc(q.rating.toLowerCase()) + ')</summary>' + fairHtml(q) + '</details>' +
           (notes.length ? '<p><strong>Converted from the xGov MEM.</strong></p><ul>' + notes.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul>' : '') +
           '<ul class="results">' + res.issues.map(function (i) { return '<li class="' + i.level + '"><strong>' + esc(plabel(i.prop)) + '</strong>: ' + esc(i.text) + ' <span class="small">(' + esc(i.rule) + ')</span></li>'; }).join('') + '</ul>' +
           (mode.value === 'mem' ? '<h4>Converted record</h4><pre>' + esc(JSON.stringify(r, null, 2)) + '</pre>' : '') + '</section>';
       }).join('');
+      meters(out);
       announce(out.textContent.slice(0, 120));
     }
     $('#v-run').addEventListener('click', run);
@@ -430,7 +661,7 @@
         '<p class="btns"><button type="button" class="btn small" id="bk-dl-jsonld">Download all as JSON-LD</button><button type="button" class="btn secondary small" id="bk-dl-ttl">Download all as Turtle</button><button type="button" class="btn secondary small" id="bk-dl-json">Download all as JSON</button></p></section>' +
         '<div class="table-wrap" role="region" aria-labelledby="bk-cap" tabindex="0"><table id="bk-t"><caption id="bk-cap">Every record, by spreadsheet row</caption><thead><tr><th scope="col">Row</th><th scope="col">Title</th><th scope="col">Level</th><th scope="col" class="num">Errors</th><th scope="col" class="num">Quality</th><th scope="col">First errors</th></tr></thead><tbody>' +
         rows.map(function (r) { return r.html; }).join('') + '</tbody></table></div>';
-      $('#bk-dl-jsonld').addEventListener('click', function () { download('records.jsonld', JSON.stringify({ '@context': 'https://cyberdudeuk.github.io/dcat-uk-ap/downloads/dcat-uk-ap.context.jsonld', '@graph': last }, null, 1), 'application/ld+json'); });
+      $('#bk-dl-jsonld').addEventListener('click', function () { download('records.jsonld', JSON.stringify({ '@context': 'https://cyberdudeuk.github.io/dcat-uk-ap/downloads/dcat-ap-uk.context.jsonld', '@graph': last }, null, 1), 'application/ld+json'); });
       $('#bk-dl-ttl').addEventListener('click', function () { download('records.ttl', last.map(function (r) { return V.toTurtle(P, r); }).join('\n'), 'text/turtle'); });
       $('#bk-dl-json').addEventListener('click', function () { download('records.json', JSON.stringify(last, null, 1), 'application/json'); });
       announce(rows.length + ' records checked');

@@ -1,0 +1,14 @@
+# Labels as code. The labels workflow creates or updates these; it never deletes a label.
+- {name: change request, color: 4c2c92, description: A proposed change to the profile}
+- {name: defect, color: d4351c, description: Something is wrong in the profile, the portal or the tools}
+- {name: contact, color: 1d70b8, description: A question sent through the contact form}
+- {name: conformance claim, color: 00703c, description: A product claims conformance with kit evidence}
+- {name: major, color: 942514, description: Breaks existing records}
+- {name: minor, color: f47738, description: Adds without breaking}
+- {name: patch, color: ffdd00, description: Wording, guidance or a fix}
+- {name: extension, color: 28a197, description: A sector extension}
+- {name: crosswalk, color: 5694ca, description: A mapping to another standard}
+- {name: accessibility, color: 912b88, description: Accessibility of the portal or the profile}
+- {name: dependencies, color: 505a5f, description: Dependency updates}
+- {name: needs research, color: b58840, description: Waiting for user research or evidence}
+- {name: owner action, color: 0b0c0c, description: Only the repository owner can do this}

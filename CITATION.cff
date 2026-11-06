@@ -1,7 +1,7 @@
 cff-version: 1.2.0
-message: If you use DCAT-UK AP, please cite it as below.
-title: DCAT-UK Application Profile (DCAT-UK AP)
-version: 1.1.0-rc.1
+message: If you use DCAT-AP-UK, please cite it as below.
+title: DCAT Application Profile for the UK (DCAT-AP-UK)
+version: 1.2.0-rc.1
 date-released: 2026-11-06
 license: OGL-UK-3.0
 repository-code: https://github.com/cyberdudeuk/dcat-uk-ap

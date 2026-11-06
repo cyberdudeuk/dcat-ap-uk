@@ -23,7 +23,7 @@ STATE = ROOT / 'content' / 'source-state.json'
 
 
 def fetch(url):
-    req = urllib.request.Request(url, headers={'User-Agent': 'dcat-uk-ap-health/1.0 (+https://github.com/cyberdudeuk/dcat-uk-ap)'})
+    req = urllib.request.Request(url, headers={'User-Agent': 'dcat-ap-uk-health/1.0 (+https://github.com/cyberdudeuk/dcat-uk-ap)'})
     with urllib.request.urlopen(req, timeout=30) as r:
         body = r.read().decode('utf-8', errors='ignore')
     text = re.sub(r'<script.*?</script>|<style.*?</style>|<[^>]+>', ' ', body, flags=re.S)
@@ -36,7 +36,7 @@ def main(argv=None):
     ap.add_argument('--record', action='store_true')
     a = ap.parse_args(argv)
     lin = yaml.safe_load((ROOT / 'content' / 'lineage.yaml').read_text(encoding='utf-8'))
-    meta = yaml.safe_load((ROOT / 'profile' / 'dcat-uk-ap.yaml').read_text(encoding='utf-8'))['meta']
+    meta = yaml.safe_load((ROOT / 'profile' / 'dcat-ap-uk.yaml').read_text(encoding='utf-8'))['meta']
     state = json.loads(STATE.read_text()) if STATE.exists() else {}
     problems, report = [], {'run': date.today().isoformat(), 'sources': [], 'review': meta['review']}
     for s in lin['sources']:

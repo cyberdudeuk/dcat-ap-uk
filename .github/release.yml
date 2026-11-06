@@ -1,0 +1,16 @@
+changelog:
+  exclude:
+    labels: [owner action]
+  categories:
+    - title: Breaking changes to the profile
+      labels: [major]
+    - title: New properties, codelists and extensions
+      labels: [minor, extension, crosswalk]
+    - title: Fixes
+      labels: [defect, patch]
+    - title: Accessibility
+      labels: [accessibility]
+    - title: Dependencies
+      labels: [dependencies]
+    - title: Other changes
+      labels: ["*"]

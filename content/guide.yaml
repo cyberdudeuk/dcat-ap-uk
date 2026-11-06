@@ -1,0 +1,123 @@
+# User guide, tutorials and guided tours. Roles, not names. Every selector in a tour must exist on its page:
+# tools/check_site.py C-19 fails the build if one does not, and its deliberate break removes one.
+
+guide:
+  intro: >-
+    How to use this portal, whatever you came to do. Start with the task closest to yours. Every tool runs in your browser:
+    nothing you type or upload leaves your device.
+  tasks:
+    - {id: describe, icon: pencil-ruler, title: 'Describe a dataset or service', steps: ['Open the record builder and choose what you are describing.', 'Fill in the mandatory fields first; each shows what it is for and an example.', 'Watch the level and quality score change as you add more.', 'Download the record as JSON, JSON-LD, Turtle, schema.org or Croissant.'], go: builder.html}
+    - {id: check, icon: clipboard-check, title: 'Check records you already have', steps: ['Paste a record into the checker, or load an example.', 'Choose a sector extension if one applies.', 'Fix each error; each names the rule it breaks.'], go: validate.html}
+    - {id: many, icon: file-spreadsheet, title: 'Check a whole spreadsheet', steps: ['Download the template, or export your catalogue as CSV.', 'Load it in the bulk checker.', 'Sort the results by level, fix the errors, and download all the records.'], go: bulk.html}
+    - {id: weave, icon: waypoints, title: 'Convert between metadata models', steps: ['Open the metadata weaver.', 'Choose the model your record is in (CKAN, DCAT-US, schema.org, Dublin Core, DDI or xGov MEM) and the one you want.', 'See every field woven to its DCAT-AP-UK property, and what could not be carried.'], go: weaver.html}
+    - {id: trace, icon: git-fork, title: 'Trace where something comes from', steps: ['Open the lineage explorer.', 'Search for a property, class, codelist, rule, issue or test.', 'Follow its sources on the left and what depends on it on the right.'], go: lineage.html}
+    - {id: adopt, icon: package, title: 'Adopt the profile in your organisation', steps: ['Read the route for your sector in the adoption toolkit.', 'Work through the checklist; your ticks stay in your browser.', 'Use the crosswalks to map your fields, and the contract clauses when you buy a catalogue.'], go: adopt.html}
+    - {id: share, icon: earth, title: 'Describe data that crosses borders', steps: ['Say every place the data is held or sent.', 'If it contains personal data and leaves the UK, give the transfer safeguard.', 'Link a usage policy so partners'' systems can read what is allowed.'], go: international.html}
+    - {id: ai, icon: brain-circuit, title: 'Use the profile with AI', steps: ['Apply the AI-ready extension to say whether data may train models.', 'Export Croissant for machine learning tools.', 'Connect an AI assistant with the MCP server.'], go: ai-ready.html}
+  faqs:
+    - {q: 'Is this an official standard?', a: 'No. DCAT-AP-UK is a proposal for review. It is not endorsed and this is not an official GOV.UK service.'}
+    - {q: 'Does anything I type get sent anywhere?', a: 'No. The tools run in your browser. Your display choices, checklist ticks and tutorial progress are kept in this browser only.'}
+    - {q: 'Do I need to know RDF or linked data?', a: 'No. You can fill in a form or a spreadsheet. The portal writes the RDF for you.'}
+    - {q: 'What is the difference between the profile and an extension?', a: 'The profile applies to everyone. An extension adds what one sector needs, and never removes or weakens anything.'}
+    - {q: 'How do I change text size, spacing or colours?', a: 'Use Display options at the top of every page. Your choices apply to every page.'}
+    - {q: 'Where do I ask a question or suggest a change?', a: 'Use the contact form, or the change request form for the profile itself.'}
+
+tutorials:
+  - id: first-record
+    title: 'Your first record, in ten minutes'
+    icon: graduation-cap
+    level: Beginner
+    minutes: 10
+    outcome: 'A record that conforms at level 1, downloaded as Turtle.'
+    steps:
+      - {text: 'Open the record builder and keep "Dataset" chosen.', go: 'builder.html'}
+      - {text: 'Give a title and a description a stranger would understand.'}
+      - {text: 'Choose the publisher from the list of organisations.'}
+      - {text: 'Add a contact point: a team name and the address of a contact form.'}
+      - {text: 'Choose access rights, security classification, licence and how often it is updated.'}
+      - {text: 'When the level says "Level 1: Core", download the Turtle.'}
+  - id: reach-level-2
+    title: 'From level 1 to level 2'
+    icon: trending-up
+    level: Intermediate
+    minutes: 15
+    outcome: 'A record with every recommended property, and a higher quality score.'
+    steps:
+      - {text: 'Load the Ordnance Survey example in the record builder.', go: 'builder.html'}
+      - {text: 'Open "Quality score" to see which points are missing.'}
+      - {text: 'Add keywords and themes for findability.'}
+      - {text: 'Add a distribution with a download address and a media type for interoperability.'}
+      - {text: 'Check the level reaches "Level 2: Rich".'}
+  - id: migrate-mem
+    title: 'Move a record from the xGov MEM'
+    icon: merge
+    level: Intermediate
+    minutes: 10
+    outcome: 'An xGov MEM record converted, checked and fixed.'
+    steps:
+      - {text: 'Open the metadata weaver and choose "xGov MEM" as the source.', go: 'weaver.html'}
+      - {text: 'Paste your record, or try the example.'}
+      - {text: 'Read the threads: each MEM field is woven to its DCAT-AP-UK property.'}
+      - {text: 'Read the notes on anything that changed, such as security classification.'}
+      - {text: 'Download the DCAT-AP-UK record and check it in the checker.', go: 'validate.html'}
+  - id: spreadsheet
+    title: 'Check a hundred records from a spreadsheet'
+    icon: file-spreadsheet
+    level: Beginner
+    minutes: 15
+    outcome: 'Every row converted and checked, with the errors listed.'
+    steps:
+      - {text: 'Download the template from the bulk checker.', go: 'bulk.html'}
+      - {text: 'Copy your rows in, one dataset per row; separate repeated values with a vertical bar.'}
+      - {text: 'Save as CSV and load it in the bulk checker.'}
+      - {text: 'Fix the rows that do not conform, then download all the records.'}
+  - id: sector
+    title: 'Describe health data with the health extension'
+    icon: heart-pulse
+    level: Advanced
+    minutes: 20
+    outcome: 'A health record that passes the health extension.'
+    steps:
+      - {text: 'Read what the health extension adds.', go: 'extensions.html#ext-health'}
+      - {text: 'In the record builder, choose the health extension.', go: 'builder.html?ext=health'}
+      - {text: 'Fill in the population, record counts (after disclosure control) and coding systems.'}
+      - {text: 'Describe access through a trusted research environment in the rights statement.'}
+      - {text: 'Check it passes; then compare it with the worked example.'}
+  - id: trace-issue
+    title: 'Trace an issue from the old backlog to the profile'
+    icon: git-fork
+    level: Beginner
+    minutes: 5
+    outcome: 'You can show where an issue was resolved and which test proves it.'
+    steps:
+      - {text: 'Open the lineage explorer.', go: 'lineage.html'}
+      - {text: 'Search for "issue 69".'}
+      - {text: 'Follow the properties it changed on the right, and then the tests that check them.'}
+
+tours:
+  index:
+    - {sel: '.mast-tools', title: 'Tools on every page', text: 'Search, display options, help, this tour and the site map are at the top of every page.'}
+    - {sel: '.gbar', title: 'Sections', text: 'The menu bar moves you between sections. Groups open with a click or the keyboard, and fold into "More" on small screens.'}
+    - {sel: '#drawer-toggle', title: 'Page contents', text: 'This switch shows or hides the contents of the page you are on.'}
+    - {sel: '.door', title: 'Start where you are', text: 'Choose the door closest to what you came to do.'}
+  builder:
+    - {sel: '#b-class', title: 'What are you describing?', text: 'Choose a dataset, a data service, a series or a catalogue. The form changes to match.'}
+    - {sel: '#b-ext', title: 'Sector extensions', text: 'Add the properties and rules of your sector, such as health or geospatial.'}
+    - {sel: '#b-level', title: 'Your level', text: 'The conformance level updates as you type, with what to do to reach the next one.'}
+    - {sel: '#b-fair-d', title: 'Quality score', text: 'Points on five dimensions, modelled on the EU metadata quality assessment.'}
+    - {sel: '#b-tabs', title: 'Your record, in every format', text: 'Copy or download it as JSON, JSON-LD, Turtle, schema.org or Croissant.'}
+  validate:
+    - {sel: '#v-ext', title: 'Choose an extension', text: 'Check against a sector extension as well as the profile.'}
+    - {sel: '#v-input', title: 'Paste a record', text: 'JSON or simple YAML. Nothing leaves your browser.'}
+  weaver:
+    - {sel: '#w-from', title: 'From', text: 'The model your record is in.'}
+    - {sel: '#w-to', title: 'To', text: 'The model you want it in. DCAT-AP-UK sits in the middle of every conversion.'}
+    - {sel: '#w-run', title: 'Weave', text: 'Each source field is threaded to the property it becomes; dashed boxes could not be carried.'}
+  lineage:
+    - {sel: '#tr-q', title: 'Find anything', text: 'Search for a property, class, codelist, rule, issue, example, test, extension or defect.'}
+    - {sel: '#trace', title: 'Follow the threads', text: 'Sources are on the left, what depends on it on the right. Choose any box to move to it.'}
+  insights:
+    - {sel: '#c-obligations', title: 'Charts with tables', text: 'Every chart has its data in a table beside it, for screen readers and for copying.'}
+  bulk:
+    - {sel: '#bk-file', title: 'Load a spreadsheet', text: 'Choose a CSV file, or paste CSV below.'}
+    - {sel: '#bk-sample', title: 'Try it', text: 'Load the template’s example row to see what happens.'}

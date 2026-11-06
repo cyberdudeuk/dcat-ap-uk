@@ -1,6 +1,6 @@
-"""Load the DCAT-UK AP profile, check its integrity, and convert compact records to RDF.
+"""Load the DCAT-AP-UK profile, check its integrity, and convert compact records to RDF.
 
-The profile (profile/dcat-uk-ap.yaml) and codelists (profile/codelists.yaml) are the single source of truth.
+The profile (profile/dcat-ap-uk.yaml) and codelists (profile/codelists.yaml) are the single source of truth.
 Everything else is generated. This module refuses to load a profile with a broken reference, so a mistake in the source
 stops the build rather than reaching a published page (build standard: regenerate, never text-patch).
 """
@@ -29,7 +29,7 @@ class ProfileError(Exception):
 
 def load(root=ROOT):
     root = Path(root)
-    prof = yaml.safe_load((root / 'profile' / 'dcat-uk-ap.yaml').read_text(encoding='utf-8'))
+    prof = yaml.safe_load((root / 'profile' / 'dcat-ap-uk.yaml').read_text(encoding='utf-8'))
     cls = yaml.safe_load((root / 'profile' / 'codelists.yaml').read_text(encoding='utf-8'))
     orgs_path = root / 'profile' / 'organisations.json'
     orgs = json.loads(orgs_path.read_text(encoding='utf-8')) if orgs_path.exists() else None

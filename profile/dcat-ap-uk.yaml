@@ -1,4 +1,4 @@
-# DCAT-UK Application Profile (DCAT-UK AP): the single source of truth.
+# DCAT Application Profile for the UK (DCAT-AP-UK): the single source of truth.
 # Every page, schema, shape, context, codelist file and export in this repository is generated from this file and codelists.yaml.
 # Edit here, never the generated output. Run `python3 -I tools/build.py` to regenerate and `python3 -I tools/check.py` to check.
 #
@@ -6,10 +6,10 @@
 # S search-sourced; K background knowledge; P from a supplied pack; O operating rule of this profile; U unconfirmed.
 
 meta:
-  id: DCAT-UK-AP
-  title: DCAT-UK Application Profile
-  short_title: DCAT-UK AP
-  version: 1.1.0-rc.1
+  id: DCAT-AP-UK
+  title: DCAT Application Profile for the UK
+  short_title: DCAT-AP-UK
+  version: 1.2.0-rc.1
   status: Proposed
   status_note: >-
     A proposed evolution of the UK Cross-Government Metadata Exchange Model (xGov MEM), offered for review by the
@@ -27,11 +27,11 @@ meta:
   source_repo: https://github.com/co-cddo/ukgov-metadata-exchange-model
   contact: https://github.com/cyberdudeuk/dcat-uk-ap/issues/new?template=contact.yml
   change_request: https://github.com/cyberdudeuk/dcat-uk-ap/issues/new?template=change-request.yml
-  namespace: https://w3id.org/dcat-uk-ap/ns#
+  namespace: https://w3id.org/dcat-ap-uk/ns#
   namespace_status: >-
     Proposed persistent identifier (issue 13). The w3id.org redirect is not registered yet, so these identifiers do not resolve.
     Registering it is an owner action: a pull request to the w3id.org repository.
-  codelist_base: https://w3id.org/dcat-uk-ap/codelist/
+  codelist_base: https://w3id.org/dcat-ap-uk/codelist/
   licence_content: Open Government Licence v3.0
   licence_code: MIT
   attribution: Emanuel Silva, Data Management Team, Office of the Government Chief Data Officer
@@ -56,8 +56,8 @@ prefixes:
   xsd: http://www.w3.org/2001/XMLSchema#
   owl: http://www.w3.org/2002/07/owl#
   sh: http://www.w3.org/ns/shacl#
-  dcatuk: https://w3id.org/dcat-uk-ap/ns#
-  ukcl: https://w3id.org/dcat-uk-ap/codelist/
+  dcatuk: https://w3id.org/dcat-ap-uk/ns#
+  ukcl: https://w3id.org/dcat-ap-uk/codelist/
   eufreq: http://publications.europa.eu/resource/authority/frequency/
   eutheme: http://publications.europa.eu/resource/authority/data-theme/
   euaccess: http://publications.europa.eu/resource/authority/access-right/
@@ -338,7 +338,7 @@ properties:
     purpose: Lets people browse by subject, and catalogues group the same subjects across publishers.
     distinct_from: Keyword, which is free text.
     guidance: >-
-      Choose one or more themes from the DCAT-UK AP theme list, which uses the data.gov.uk topics. Each is mapped to the EU data
+      Choose one or more themes from the DCAT-AP-UK theme list, which uses the data.gov.uk topics. Each is mapped to the EU data
       themes, so records also make sense to European tools. The cross-government taxonomy from the master and reference data
       working group will replace or extend it when it is published (issue 49).
     example: ukcl:theme/mapping

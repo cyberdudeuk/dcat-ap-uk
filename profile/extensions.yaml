@@ -1,6 +1,6 @@
-# Sector and domain extensions of DCAT-UK AP.
+# Sector and domain extensions of DCAT-AP-UK.
 # An extension never weakens the base profile. It may raise an obligation (O or R to M), narrow a cardinality, add a pattern,
-# add properties and add classes. A record that conforms to an extension also conforms to DCAT-UK AP.
+# add properties and add classes. A record that conforms to an extension also conforms to DCAT-AP-UK.
 # Each extension is generated into its own SHACL shapes and JSON Schema (base plus extension), and the browser validator applies it
 # when it is chosen. Each carries a valid example and at least one deliberate break, checked by all three validators on every build.
 #
@@ -513,7 +513,7 @@ extensions:
     for: 'Network companies and other parties obliged to follow Ofgem Data Best Practice, energy suppliers, and the energy data community.'
     summary: >-
       Records the open data triage outcome for presumed-open energy system data, and asks for the Dublin Core elements the guidance
-      requires. Every Dublin Core element already has a DCAT-UK AP property.
+      requires. Every Dublin Core element already has a DCAT-AP-UK property.
     aligned_to:
       - {name: Ofgem Data Best Practice Guidance (1 April 2026), source: ofgem, prov: S}
     differences:

@@ -1,0 +1,58 @@
+# Integrating DCAT-AP-UK with supplier products. Provenance K: what each product is understood to support on 6 November 2026,
+# from its public documentation as the author knows it. It is not a test, an endorsement or a procurement recommendation.
+# Suppliers can correct an entry, or claim conformance, with the conformance claim form. Roles, not names.
+
+intro: >-
+  Any catalogue, metadata repository, data platform or data space connector can speak DCAT-AP-UK. Most already speak DCAT or a
+  model the weaver converts. This page shows how to connect, gives suppliers everything they need to prove conformance, and lists
+  products by how close they are today.
+
+patterns:
+  - {id: harvest, icon: refresh-cw, title: 'Publish and be harvested', for: 'Any catalogue', text: 'Publish one DCAT catalogue file (Turtle or JSON-LD) at a stable address. Harvesters such as data.gov.uk, the National Data Library or EU portals collect it on a schedule.', how: 'adopt.html#harvest'}
+  - {id: pipeline, icon: workflow, title: 'Check in your pipeline', for: 'Teams who keep metadata in a repository', text: 'Run the GitHub Action or the command-line checker on every change; it fails the build on any error and annotates the line.', how: '#cli'}
+  - {id: embed, icon: package, title: 'Embed the validator', for: 'Product teams', text: 'Ship validator.js inside your product: the same rules, quality score, converters and exports the portal uses, with no network calls.', how: '#embed'}
+  - {id: api, icon: plug, title: 'Run the reference API', for: 'Platform teams', text: 'A small HTTP server with check, score, weave and profile endpoints, described in OpenAPI. Run it next to your catalogue.', how: '#api'}
+  - {id: weave, icon: waypoints, title: 'Convert at the edge', for: 'Products on another model', text: 'Weave CKAN, DCAT-US, schema.org, Dublin Core, DDI or xGov MEM records to DCAT-AP-UK on export, and back on import.', how: 'weaver.html'}
+  - {id: ai, icon: bot, title: 'Connect an AI assistant', for: 'Any team using AI tools', text: 'The MCP server lets assistants look up the profile and check, score, convert and export records.', how: 'ai-ready.html#mcp'}
+  - {id: dataspace, icon: network, title: 'Offer data in a data space', for: 'Data space participants', text: 'Use the data space extension so connectors can read each offer and its ODRL policy from the catalogue.', how: 'extensions.html#ext-dataspace'}
+
+categories:
+  - {id: native, label: 'Speaks DCAT natively', text: 'Imports or exports DCAT or a DCAT profile. Map the UK terms and check with the conformance kit.'}
+  - {id: related, label: 'Speaks a related model', text: 'Uses a model the weaver converts (data.json, schema.org, ISO 19139, DDI). Convert at the edge.'}
+  - {id: api, label: 'Connect through its API', text: 'Has its own model. Build a connector with its API, the embedded validator or the reference API.'}
+
+products:
+  - {name: CKAN with ckanext-dcat, kind: Open data catalogue, licence: Open source, category: native, note: 'Reads and writes DCAT-AP and harvests DCAT catalogues. Map the UK extra fields with scheming; see the CKAN crosswalk.'}
+  - {name: piveau, kind: Open data catalogue, licence: Open source, category: native, note: 'Built around DCAT-AP; the stack behind the EU data portal.'}
+  - {name: EntryScape, kind: Open data catalogue, licence: Commercial, category: native, note: 'Used for the Swedish national profile.'}
+  - {name: Eclipse Dataspace Components, kind: Data space connector, licence: Open source, category: native, note: 'Exposes catalogues as DCAT with ODRL policies under the Dataspace Protocol.'}
+  - {name: GeoNetwork, kind: Geospatial catalogue, licence: Open source, category: related, note: 'ISO 19139 and UK GEMINI; can output GeoDCAT-AP. Use the geospatial extension.'}
+  - {name: Esri ArcGIS Hub, kind: Open data and geospatial portal, licence: Commercial, category: native, note: 'Publishes DCAT feeds (US and EU forms).'}
+  - {name: DKAN, kind: Open data catalogue, licence: Open source, category: related, note: 'Built on the DCAT-US data.json model; weave on export.'}
+  - {name: Tyler Data and Insights (Socrata), kind: Open data platform, licence: Commercial, category: related, note: 'Publishes data.json catalogues; weave on export.'}
+  - {name: Dataverse, kind: Research data repository, licence: Open source, category: related, note: 'Exports schema.org and DDI; weave on export.'}
+  - {name: data.world, kind: Data catalogue, licence: Commercial, category: native, note: 'Built on a knowledge graph; can hold DCAT terms directly.'}
+  - {name: Microsoft Purview, kind: Data governance and catalogue, licence: Commercial, category: api, note: 'Own model; connect through its API.'}
+  - {name: Collibra, kind: Data governance and catalogue, licence: Commercial, category: api, note: 'Own model; connect through its API.'}
+  - {name: Alation, kind: Data catalogue, licence: Commercial, category: api, note: 'Own model; connect through its API.'}
+  - {name: Atlan, kind: Data catalogue, licence: Commercial, category: api, note: 'Own model; connect through its API.'}
+  - {name: Informatica Cloud Data Governance and Catalog, kind: Data governance and catalogue, licence: Commercial, category: api, note: 'Own model; connect through its API.'}
+  - {name: OpenMetadata, kind: Metadata platform, licence: Open source, category: api, note: 'Own JSON Schema model; build a connector.'}
+  - {name: DataHub, kind: Metadata platform, licence: Open source, category: api, note: 'Own model; build a connector.'}
+  - {name: Apache Atlas, kind: Metadata platform, licence: Open source, category: api, note: 'Own type system; build a connector.'}
+  - {name: Databricks Unity Catalog, kind: Lakehouse catalogue, licence: Commercial, category: api, note: 'Own model; connect through its API.'}
+  - {name: Amazon DataZone, kind: Data platform catalogue, licence: Commercial, category: api, note: 'Own model; connect through its API.'}
+  - {name: Google Cloud Dataplex, kind: Data platform catalogue, licence: Commercial, category: api, note: 'Own model; connect through its API.'}
+  - {name: Snowflake Horizon, kind: Data platform catalogue, licence: Commercial, category: api, note: 'Own model; connect through its API.'}
+
+kit:
+  - 'Every worked example, which must be accepted, and every deliberate break, which must be rejected with the rule named.'
+  - 'The same for every sector extension the product supports.'
+  - 'A manifest (conformance-kit.json) listing each case, its file and the expected outcome, for automated test runs.'
+  - 'Round trip: import each example, export it, and check the export still conforms and keeps every property.'
+
+claim:
+  text: >-
+    A supplier can claim conformance for a product version, level and set of extensions with the conformance claim form. A claim is
+    self-assessed and public; it is listed once the evidence (a link to the kit's results) is checked. A claim is not an endorsement.
+  levels: ['Level 1: Core', 'Level 2: Rich', 'Level 3: Exemplary']

@@ -1,0 +1,33 @@
+# GitHub Action: check DCAT-AP-UK records in any repository. Builds the profile from this repository, then runs the
+# command-line checker over the files given. Fails the job if any record has an error, with annotations on the files.
+name: Check DCAT-AP-UK records
+description: Check metadata records against DCAT-AP-UK (and any sector extensions), with conformance levels and quality scores.
+author: cyberdudeuk
+branding: {icon: check-circle, color: purple}
+inputs:
+  files:
+    description: Files to check (JSON records or arrays, or CSV in the template's columns), separated by spaces. Globs are expanded by the shell.
+    required: true
+  extensions:
+    description: Sector extensions to apply, comma separated, for example health,geospatial.
+    required: false
+    default: ''
+  from:
+    description: The model the files are in (ukap, mem, ckan, dcatus, schemaorg, dc, ddi).
+    required: false
+    default: ukap
+runs:
+  using: composite
+  steps:
+    - shell: bash
+      run: |
+        python3 -m pip install --quiet -r "$GITHUB_ACTION_PATH/requirements.txt"
+        python3 -I "$GITHUB_ACTION_PATH/tools/build.py" >/dev/null
+    - shell: bash
+      env:
+        UKAP_FILES: ${{ inputs.files }}
+        UKAP_EXT: ${{ inputs.extensions }}
+        UKAP_FROM: ${{ inputs.from }}
+      run: |
+        # shellcheck disable=SC2086
+        node "$GITHUB_ACTION_PATH/integrations/cli/validate.js" --format github --ext "$UKAP_EXT" --from "$UKAP_FROM" $UKAP_FILES

@@ -1,0 +1,23 @@
+name: Labels
+on:
+  push:
+    branches: [main]
+    paths: ['.github/labels.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+  issues: write
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Create or update labels (never deletes)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python3 - <<'PY'
+          import subprocess, yaml
+          for l in yaml.safe_load(open('.github/labels.yml')):
+              subprocess.run(['gh', 'label', 'create', l['name'], '--color', l['color'], '--description', l['description'], '--force'], check=True)
+          PY

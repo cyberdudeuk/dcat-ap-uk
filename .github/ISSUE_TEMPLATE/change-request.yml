@@ -1,5 +1,5 @@
 name: Change request
-description: Propose a change to DCAT-UK AP (a property, codelist value, obligation or rule)
+description: Propose a change to DCAT-AP-UK (a property, codelist value, obligation or rule)
 title: "[Change] "
 labels: ["change request"]
 body:

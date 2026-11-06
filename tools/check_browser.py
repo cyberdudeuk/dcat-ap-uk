@@ -46,6 +46,19 @@ def run(site, verbose=True):
     pages = sorted(p.name for p in site.glob('*.html'))
     with sync_playwright() as pw:
         b = pw.chromium.launch()
+        # D-018: the axe pass bypasses the CSP, so a separate pass with the CSP on catches anything it blocks
+        cctx = b.new_context(viewport={'width': 1280, 'height': 900})
+        for name in pages:
+            pg = cctx.new_page()
+            cerrs = []
+            pg.on('console', lambda m, cerrs=cerrs: cerrs.append(m.text) if m.type == 'error' else None)
+            pg.on('pageerror', lambda e, cerrs=cerrs: cerrs.append(str(e)))
+            pg.goto(base + name, wait_until='load')
+            pg.wait_for_timeout(50)
+            if cerrs:
+                fails.append(f'csp {name}: {cerrs[:2]}')
+            pg.close()
+        cctx.close()
         for scheme in ('light', 'dark'):
             ctx = b.new_context(color_scheme=scheme, viewport={'width': 1280, 'height': 900}, bypass_csp=True)  # only so axe can be injected
             for name in pages:
@@ -123,7 +136,7 @@ def run(site, verbose=True):
         pg.goto(base + 'validate.html')
         pg.click('button[data-sample="s-mem"]')
         out = pg.inner_text('#v-out')
-        if 'Conforms to DCAT-UK AP' not in out or 'Converted from the xGov MEM' not in out:
+        if 'Conforms to DCAT-AP-UK' not in out or 'Converted from the xGov MEM' not in out:
             fails.append(f'validator: MEM sample did not convert and conform: {out[:300]}')
         pg.keyboard.press('/')
         if not pg.evaluate("document.getElementById('palette').open"):
@@ -166,7 +179,10 @@ BREAKS = {
     'console': lambda s: (s / 'app.js').write_text((s / 'app.js').read_text() + '\nthrow new Error("deliberate");\n'),
     'skip': lambda s: _sub(s / 'index.html', '<a class="skip" href="#main">Skip to main content</a>', ''),
     'validator': lambda s: _sub(s / 'validator.js', "if (ob === 'M') add('error'", "if (false) add('error'"),
+    'csp': lambda s: _sub(s / 'index.html', '<main id="main"', '<main style="color:red" id="main"'),
     'bulk': lambda s: _sub(s / 'validator.js', "var rows = parseCSV(text), notes = [];", "var rows = [], notes = [];"),
+    'meter': lambda s: _sub(s / 'app.js', '<span data-w="\' + Math.round(', '<span style="width:\' + Math.round('),
+    'nested': lambda s: _sub(s / 'standards.html', 'id="std-svg" viewBox', 'id="std-svg" role="img" viewBox'),
     'extension': lambda s: _sub(s / 'validator.js', "Object.keys(e.props).forEach(function (k) { Q.props[k] = e.props[k]; });", ""),
 }
 

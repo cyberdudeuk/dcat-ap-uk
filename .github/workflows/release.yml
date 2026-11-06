@@ -31,8 +31,8 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          (cd site && zip -qr "../dcat-uk-ap-site-${GITHUB_REF_NAME}.zip" .)
+          (cd site && zip -qr "../dcat-ap-uk-site-${GITHUB_REF_NAME}.zip" .)
           cd site/downloads
-          gh release create "${GITHUB_REF_NAME}" --generate-notes --title "DCAT-UK AP ${GITHUB_REF_NAME}" \
-            dcat-uk-ap.shacl.ttl dcat-uk-ap.schema.json dcat-uk-ap.context.jsonld dcat-uk-ap.linkml.yaml dcat-uk-ap.ns.ttl \
-            codelists.ttl codelists.csv data-dictionary.csv crosswalk-mem.csv "../../dcat-uk-ap-site-${GITHUB_REF_NAME}.zip"
+          gh release create "${GITHUB_REF_NAME}" --generate-notes --title "DCAT-AP-UK ${GITHUB_REF_NAME}" \
+            dcat-ap-uk.shacl.ttl dcat-ap-uk.schema.json dcat-ap-uk.context.jsonld dcat-ap-uk.linkml.yaml dcat-ap-uk.ns.ttl \
+            codelists.ttl codelists.csv data-dictionary.csv crosswalk-mem.csv "../../dcat-ap-uk-site-${GITHUB_REF_NAME}.zip"

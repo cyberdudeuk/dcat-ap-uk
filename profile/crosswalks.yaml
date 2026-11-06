@@ -1,4 +1,4 @@
-# Crosswalks from DCAT-UK AP to other metadata models. Each row: [DCAT-UK AP property, their element, note].
+# Crosswalks from DCAT-AP-UK to other metadata models. Each row: [DCAT-AP-UK property, their element, note].
 # A property may be a base property or an extension property; the loader refuses a row naming neither.
 # "(class)" stands for the record's class. Provenance K: the author's mapping, to be checked with each community (open register O-04).
 # Crosswalks to DCAT-AP and DCAT-US are computed from the RDF terms themselves, so they are not listed here.
@@ -43,7 +43,7 @@ dublin-core:
   their: Dublin Core Metadata Element Set 1.1
   source: dcmes
   prov: K
-  note: Required by Ofgem Data Best Practice for energy system data. Every element has a DCAT-UK AP property, so a DCAT-UK AP record is also a Dublin Core description.
+  note: Required by Ofgem Data Best Practice for energy system data. Every element has a DCAT-AP-UK property, so a DCAT-AP-UK record is also a Dublin Core description.
   rows:
     - [title, Title, '']
     - [creator, Creator, '']
@@ -100,7 +100,7 @@ hdruk:
   their: HDR UK dataset schema fields
   source: hdruk
   prov: K
-  note: Field paths as in the HDR UK schemata. Properties from the health extension are marked. The HDR UK schema allows an email contact; DCAT-UK AP prefers a contact form.
+  note: Field paths as in the HDR UK schemata. Properties from the health extension are marked. The HDR UK schema allows an email contact; DCAT-AP-UK prefers a contact form.
   rows:
     - [title, summary.title, '']
     - [abstract, summary.abstract, '']
@@ -131,7 +131,7 @@ croissant:
   their: Croissant and schema.org properties
   source: croissant
   prov: K
-  note: Croissant describes datasets for machine learning on top of schema.org. DCAT-UK AP fills its dataset-level part; record sets (the columns and their types) are added with Croissant tools. The record builder exports this part.
+  note: Croissant describes datasets for machine learning on top of schema.org. DCAT-AP-UK fills its dataset-level part; record sets (the columns and their types) are added with Croissant tools. The record builder exports this part.
   rows:
     - [title, name, '']
     - [description, description, '']
@@ -150,3 +150,26 @@ croissant:
     - [checksum, sha256, 'Only when the algorithm is SHA-256.']
     - [conformsTo, dct:conformsTo, 'The export adds the Croissant 1.1 specification address.']
     - [dataCard, rai:dataCollection and related RAI properties, 'AI-ready extension. The data card holds what the responsible AI properties ask.']
+
+ddi:
+  label: DDI Codebook (study level)
+  their: DDI Codebook 2.5 elements
+  source: ddi
+  prov: K
+  note: The study-level elements most used to describe social science and survey data. The weaver reads and writes them as JSON with the element names as keys.
+  rows:
+    - [title, titl, '']
+    - [identifier, IDNo, '']
+    - [description, abstract, '']
+    - [keyword, keyword, '']
+    - [publisher, producer, '']
+    - [creator, AuthEnty, 'Give organisation addresses, not people.']
+    - [temporal, timePrd, '']
+    - [spatial, geogCover, 'And nation.']
+    - [rights, restrctn, 'And conditions.']
+    - [landingPage, accsPlac, '']
+    - [version, version, '']
+    - [created, prodDate, '']
+    - [issued, distDate, '']
+    - [populationCoverage, universe, 'Health extension.']
+    - [distribution, fileDscr, '']

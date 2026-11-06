@@ -1,0 +1,169 @@
+# The standards DCAT-AP-UK connects to, and how. Provenance K unless noted: the relationships as the author understands them on
+# 6 November 2026, to be checked with each community (open register O-13). Used by the standards map and the lineage explorer.
+# Relation types, read as "<from> <relation> <to>".
+
+relations:
+  profiles: is a profile of
+  extends: extends
+  reuses: reuses terms from
+  maps: has a crosswalk with
+  validates: is validated with
+  serialises: is published as
+  supersedes: evolves and replaces
+  aligns: aligns with
+  governs: is governed or required by
+  implements: is implemented by
+
+groups:
+  - {id: core, label: 'DCAT family', colour: 1}
+  - {id: vocab, label: 'Vocabularies reused', colour: 2}
+  - {id: sector, label: 'Sector profiles', colour: 3}
+  - {id: national, label: 'Other national profiles', colour: 4}
+  - {id: model, label: 'Other metadata models', colour: 8}
+  - {id: tech, label: 'Formats and validation', colour: 5}
+  - {id: policy, label: 'UK policy, law and security', colour: 6}
+  - {id: tool, label: 'Products and connectors', colour: 7}
+
+standards:
+  - {id: ukap, label: DCAT-AP-UK, group: core, url: 'https://cyberdudeuk.github.io/dcat-uk-ap/', note: 'This profile.'}
+  - {id: dcat3, label: W3C DCAT 3, group: core, url: 'https://www.w3.org/TR/vocab-dcat-3/', prov: V}
+  - {id: dcatap, label: DCAT-AP 3.0.1, group: core, url: 'https://semiceu.github.io/DCAT-AP/releases/3.0.1/', prov: V}
+  - {id: hvd, label: DCAT-AP HVD, group: core, url: 'https://semiceu.github.io/DCAT-AP/releases/3.0.0-hvd/'}
+  - {id: mem, label: xGov MEM v0.1.0, group: core, url: 'https://github.com/co-cddo/ukgov-metadata-exchange-model', prov: V}
+  - {id: dm, label: Data Marketplace schemas, group: core, url: 'https://github.com/co-cddo/data-catalogue-metadata'}
+  - {id: panuk, label: Future pan-UK metadata architecture, short: 'Pan-UK architecture', group: core, url: 'https://github.com/co-cddo/future-panuk-metadata-architecture', note: 'Private repository.'}
+  - {id: dct, label: Dublin Core Terms, group: vocab, url: 'https://www.dublincore.org/specifications/dublin-core/dcmi-terms/'}
+  - {id: skos, label: SKOS, group: vocab, url: 'https://www.w3.org/TR/skos-reference/'}
+  - {id: foaf, label: FOAF, group: vocab, url: 'http://xmlns.com/foaf/spec/'}
+  - {id: vcard, label: vCard ontology, group: vocab, url: 'https://www.w3.org/TR/vcard-rdf/'}
+  - {id: adms, label: ADMS, group: vocab, url: 'https://semiceu.github.io/ADMS/releases/2.00/'}
+  - {id: prov, label: PROV-O, group: vocab, url: 'https://www.w3.org/TR/prov-o/'}
+  - {id: dqv, label: DQV, group: vocab, url: 'https://www.w3.org/TR/vocab-dqv/'}
+  - {id: spdx, label: SPDX, group: vocab, url: 'https://spdx.org/'}
+  - {id: locn, label: ISA Core Location, group: vocab, url: 'https://semiceu.github.io/Core-Location-Vocabulary/'}
+  - {id: geosparql, label: GeoSPARQL, group: vocab, url: 'https://www.ogc.org/standards/geosparql/'}
+  - {id: odrl, label: ODRL 2.2, group: vocab, url: 'https://www.w3.org/TR/odrl-model/'}
+  - {id: euvoc, label: EU Vocabularies, group: vocab, url: 'https://op.europa.eu/en/web/eu-vocabularies'}
+  - {id: iso3166, label: ISO 3166 country codes, group: vocab, url: 'https://www.iso.org/iso-3166-country-codes.html'}
+  - {id: iana, label: IANA media types, group: vocab, url: 'https://www.iana.org/assignments/media-types/'}
+  - {id: healthdcat, label: HealthDCAT-AP R7, group: sector, url: 'https://healthdataeu.pages.code.europa.eu/healthdcat-ap/', prov: S}
+  - {id: geodcat, label: GeoDCAT-AP 3.1, group: sector, url: 'https://semiceu.github.io/GeoDCAT-AP/', prov: S}
+  - {id: statdcat, label: StatDCAT-AP, group: sector, url: 'https://semiceu.github.io/StatDCAT-AP/'}
+  - {id: mobilitydcat, label: mobilityDCAT-AP, group: sector, url: 'https://mobilitydcat-ap.github.io/mobilityDCAT-AP/'}
+  - {id: mldcat, label: MLDCAT-AP 3.x, group: sector, url: 'https://semiceu.github.io/MLDCAT-AP/', prov: S}
+  - {id: bregdcat, label: BRegDCAT-AP, group: sector, url: 'https://interoperable-europe.ec.europa.eu/collection/access-base-registries/solution/bregdcat-ap', prov: S}
+  - {id: dsp, label: Dataspace Protocol, group: sector, url: 'https://projects.eclipse.org/projects/technology.dataspace-protocol-base', prov: S}
+  - {id: gemini, label: UK GEMINI 2.3, group: sector, url: 'https://www.agi.org.uk/gemini/', prov: S}
+  - {id: medin, label: MEDIN, group: sector, url: 'https://www.medin.org.uk/medin-discovery-metadata-standard', prov: S}
+  - {id: hdruk, label: HDR UK Gateway schema, group: sector, url: 'https://github.com/HDRUK/schemata', prov: S}
+  - {id: ofgem, label: Ofgem Data Best Practice, group: sector, url: 'https://www.ofgem.gov.uk/', prov: S}
+  - {id: iso19115, label: ISO 19115, group: sector, url: 'https://www.iso.org/standard/53798.html'}
+  - {id: inspire, label: INSPIRE metadata, group: sector, url: 'https://inspire.ec.europa.eu/'}
+  - {id: dcatus, label: DCAT-US 3.0, group: national, url: 'https://resources.data.gov/', prov: S}
+  - {id: dcatno, label: DCAT-AP-NO, group: national, url: 'https://data.norge.no/specification/dcat-ap-no', prov: S}
+  - {id: dcatde, label: DCAT-AP.de, group: national, url: 'https://www.dcat-ap.de/'}
+  - {id: dcatnl, label: DCAT-AP-NL 3.0, group: national, url: 'https://www.geonovum.nl/', prov: S}
+  - {id: dcatit, label: DCAT-AP_IT, group: national, url: 'https://www.dati.gov.it/', prov: S}
+  - {id: schemaorg, label: schema.org Dataset, group: model, url: 'https://schema.org/Dataset'}
+  - {id: croissant, label: Croissant 1.1, group: model, url: 'https://docs.mlcommons.org/croissant/', prov: S}
+  - {id: dcmes, label: Dublin Core 15 elements, group: model, url: 'https://www.dublincore.org/specifications/dublin-core/dces/'}
+  - {id: ddi, label: DDI Codebook, group: model, url: 'https://ddialliance.org/Specification/DDI-Codebook/2.5/'}
+  - {id: ckan, label: CKAN and ckanext-dcat, group: model, url: 'https://github.com/ckan/ckanext-dcat'}
+  - {id: openapi, label: OpenAPI, group: tech, url: 'https://spec.openapis.org/oas/latest.html'}
+  - {id: shacl, label: SHACL, group: tech, url: 'https://www.w3.org/TR/shacl/'}
+  - {id: jsonschema, label: JSON Schema 2020-12, group: tech, url: 'https://json-schema.org/'}
+  - {id: jsonld, label: JSON-LD 1.1, group: tech, url: 'https://www.w3.org/TR/json-ld11/'}
+  - {id: turtle, label: RDF 1.1 Turtle, group: tech, url: 'https://www.w3.org/TR/turtle/'}
+  - {id: linkml, label: LinkML, group: tech, url: 'https://linkml.io/'}
+  - {id: mcp, label: Model Context Protocol, group: tech, url: 'https://modelcontextprotocol.io/'}
+  - {id: llmstxt, label: llms.txt, group: tech, url: 'https://llmstxt.org/'}
+  - {id: dam, label: Data Asset Management Policy, short: 'DAM Policy', group: policy, url: 'https://cyberdudeuk.github.io/dam-capability-playbooks/'}
+  - {id: gsc, label: Government Security Classifications, short: 'Security Classifications', group: policy, url: 'https://www.gov.uk/government/publications/government-security-classifications'}
+  - {id: ukgdpr, label: UK GDPR and ICO transfer guidance, short: 'UK GDPR (ICO)', group: policy, url: 'https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/international-transfers/', prov: S}
+  - {id: ogl, label: Open Government Licence v3.0, short: 'OGL v3.0', group: policy, url: 'https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/'}
+  - {id: ncsc, label: NCSC post-quantum timeline, short: 'NCSC post-quantum', group: policy, url: 'https://www.ncsc.gov.uk/guidance/pqc-migration-timelines', prov: S}
+  - {id: fips, label: FIPS 203, 204 and 205, group: policy, url: 'https://csrc.nist.gov/projects/post-quantum-cryptography'}
+  - {id: copstats, label: Code of Practice for Statistics, short: 'Statistics Code', group: policy, url: 'https://code.statisticsauthority.gov.uk/'}
+  - {id: wcag, label: WCAG 2.2, group: policy, url: 'https://www.w3.org/TR/WCAG22/'}
+  - {id: orgid, label: org-id.guide, group: policy, url: 'https://org-id.guide/'}
+
+links:
+  - [ukap, profiles, dcatap]
+  - [ukap, profiles, dcat3]
+  - [dcatap, profiles, dcat3]
+  - [ukap, supersedes, mem]
+  - [ukap, maps, dm]
+  - [ukap, implements, panuk]
+  - [ukap, aligns, dcatus]
+  - [dcatus, profiles, dcat3]
+  - [hvd, extends, dcatap]
+  - [healthdcat, extends, dcatap]
+  - [geodcat, extends, dcatap]
+  - [statdcat, extends, dcatap]
+  - [mobilitydcat, extends, dcatap]
+  - [mldcat, extends, dcatap]
+  - [bregdcat, extends, dcatap]
+  - [dcatno, profiles, dcatap]
+  - [dcatde, profiles, dcatap]
+  - [dcatnl, profiles, dcatap]
+  - [dcatnl, aligns, hvd]
+  - [dcatit, profiles, dcatap]
+  - [geodcat, maps, iso19115]
+  - [geodcat, maps, inspire]
+  - [gemini, profiles, iso19115]
+  - [medin, profiles, gemini]
+  - [ukap, aligns, healthdcat]
+  - [ukap, aligns, geodcat]
+  - [ukap, aligns, statdcat]
+  - [ukap, aligns, mobilitydcat]
+  - [ukap, aligns, mldcat]
+  - [ukap, aligns, hvd]
+  - [ukap, aligns, dsp]
+  - [ukap, maps, gemini]
+  - [ukap, maps, hdruk]
+  - [ukap, maps, schemaorg]
+  - [ukap, maps, croissant]
+  - [ukap, maps, dcmes]
+  - [ukap, maps, ddi]
+  - [ukap, maps, ckan]
+  - [ukap, aligns, ofgem]
+  - [ofgem, reuses, dcmes]
+  - [croissant, extends, schemaorg]
+  - [mldcat, aligns, croissant]
+  - [dsp, reuses, dcat3]
+  - [dsp, reuses, odrl]
+  - [ckan, implements, dcatap]
+  - [ukap, reuses, dct]
+  - [ukap, reuses, skos]
+  - [ukap, reuses, foaf]
+  - [ukap, reuses, vcard]
+  - [ukap, reuses, adms]
+  - [ukap, reuses, prov]
+  - [ukap, reuses, dqv]
+  - [ukap, reuses, spdx]
+  - [ukap, reuses, locn]
+  - [ukap, reuses, geosparql]
+  - [ukap, reuses, odrl]
+  - [ukap, reuses, euvoc]
+  - [ukap, reuses, iso3166]
+  - [ukap, reuses, iana]
+  - [dcat3, reuses, dct]
+  - [dcat3, reuses, prov]
+  - [dcat3, reuses, odrl]
+  - [ukap, validates, shacl]
+  - [ukap, validates, jsonschema]
+  - [ukap, serialises, jsonld]
+  - [ukap, serialises, turtle]
+  - [mem, serialises, linkml]
+  - [ukap, maps, openapi]
+  - [ukap, serialises, mcp]
+  - [ukap, serialises, llmstxt]
+  - [ukap, governs, dam]
+  - [ukap, governs, gsc]
+  - [ukap, governs, ukgdpr]
+  - [ukap, governs, ogl]
+  - [ukap, aligns, ncsc]
+  - [ncsc, reuses, fips]
+  - [ukap, aligns, copstats]
+  - [ukap, aligns, wcag]
+  - [ukap, reuses, orgid]

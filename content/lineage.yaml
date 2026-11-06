@@ -1,4 +1,4 @@
-# Lineage: where DCAT-UK AP came from, and how every item in the xGov MEM backlog was dealt with.
+# Lineage: where DCAT-AP-UK came from, and how every item in the xGov MEM backlog was dealt with.
 # Read from the GitHub API for co-cddo/ukgov-metadata-exchange-model on 6 November 2026 (V): 99 issues and pull requests,
 # 22 issues and 12 pull requests open. Discussion is summarised; contributors are not named (roles, not names).
 
@@ -21,7 +21,7 @@ backlog:
       with a link here once the owners agree.
     where: [page:changes, page:governance]
   - n: 78
-    title: Rename the repository and references to DCAT-UK Application Profile
+    title: Rename the repository and references to DCAT Application Profile for the UK
     labels: [documentation, enhancement, Model, MIWG, discussion]
     status: resolved
     resolution: >-
@@ -118,7 +118,7 @@ backlog:
     labels: [MIWG]
     status: owner
     resolution: >-
-      w3id.org is proposed (https://w3id.org/dcat-uk-ap/), and every identifier in the profile already uses it. Registering the
+      w3id.org is proposed (https://w3id.org/dcat-ap-uk/), and every identifier in the profile already uses it. Registering the
       redirect is a pull request to the w3id.org repository, to be made by the owning team. Until then the identifiers do not resolve,
       and the portal says so.
     owner_action: Owning team raises the w3id.org registration.
@@ -182,12 +182,12 @@ open_prs:
 # Sources the profile is built on and aligned to, in order of precedence. prov: V verified on read date; K background knowledge.
 sources:
   - id: panuk
-    title: Future pan-UK metadata architecture (DCAT-UK AP founding specification and architecture blueprint)
+    title: Future pan-UK metadata architecture (DCAT-AP-UK founding specification and architecture blueprint)
     publisher: co-cddo on GitHub (private repository; access needed)
     date: '2026-06-05'
     url: https://github.com/co-cddo/future-panuk-metadata-architecture
     role: >-
-      The architecture blueprint for harmonising metadata across the UK's data ecosystems, with DCAT-UK AP as its shared record.
+      The architecture blueprint for harmonising metadata across the UK's data ecosystems, with DCAT-AP-UK as its shared record.
       This portal is offered as a working implementation of that profile. The repository is private, so its contents are not reproduced here.
     prov: P
   - id: dcat3
@@ -202,7 +202,7 @@ sources:
     publisher: SEMIC, Interoperable Europe
     date: '2025-10-27'
     url: https://semiceu.github.io/DCAT-AP/releases/3.0.1/
-    role: The European application profile. DCAT-UK AP keeps its mandatory properties so UK records can be harvested with European tools.
+    role: The European application profile. DCAT-AP-UK keeps its mandatory properties so UK records can be harvested with European tools.
     prov: V
   - id: mem
     title: UK Cross-Government Metadata Exchange Model
@@ -244,7 +244,7 @@ sources:
     publisher: GDS Data Architecture function
     date: '2026-09'
     url: https://github.com/co-cddo/future-data-architecture/blob/main/Patterns/Metadata-Based-Discovery-Pattern.md
-    role: Future-state architecture. It needs a shared canonical metadata record; DCAT-UK AP is proposed as that record.
+    role: Future-state architecture. It needs a shared canonical metadata record; DCAT-AP-UK is proposed as that record.
     prov: V
   - id: principles
     title: Cross-government data sharing principles (draft)

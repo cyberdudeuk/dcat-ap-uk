@@ -1,4 +1,4 @@
-# Worked examples, in the portal's compact form (keys are DCAT-UK AP property names; "class" and "id" give the RDF type and IRI).
+# Worked examples, in the portal's compact form (keys are DCAT-AP-UK property names; "class" and "id" give the RDF type and IRI).
 # Generated into JSON-LD and Turtle and checked against the SHACL shapes and JSON Schema on every build.
 # Illustrative only: built from public records for teaching, not confirmed by the publishers (U). Synthetic examples say so.
 # Contact points use web addresses only; this repository publishes no email address (build standard COL-02).
@@ -108,7 +108,7 @@
   issues: [2]
   record:
     class: DatasetSeries
-    id: https://example.org/dcat-uk-ap/examples/census-series
+    id: https://example.org/dcat-ap-uk/examples/census-series
     title: Census of population, England and Wales
     description: Every ten years, a count of all people and households in England and Wales. Synthetic example of a series record.
     publisher: https://www.gov.uk/government/organisations/office-for-national-statistics
@@ -122,11 +122,11 @@
   issues: [2, 3, 4]
   record:
     class: Dataset
-    id: https://example.org/dcat-uk-ap/examples/census-2021-population-by-age
+    id: https://example.org/dcat-ap-uk/examples/census-2021-population-by-age
     title: Usual resident population by five-year age band, England and Wales, Census 2021
     description: Synthetic example. Counts of usual residents on Census Day 2021 by five-year age band and local authority.
     identifier: census-2021-age-5y
-    inSeries: [https://example.org/dcat-uk-ap/examples/census-series]
+    inSeries: [https://example.org/dcat-ap-uk/examples/census-series]
     publisher: https://www.gov.uk/government/organisations/office-for-national-statistics
     contactPoint:
       - fn: Census customer services
@@ -141,7 +141,7 @@
         endDate: '2021-03-21'
     spatial: [http://statistics.data.gov.uk/id/statistical-geography/K04000001]
     conformsTo: [https://www.gov.uk/government/publications/recommended-open-standards-for-government/tabular-data-standard]
-    referenceData: [https://example.org/dcat-uk-ap/examples/age-bands-5y]
+    referenceData: [https://example.org/dcat-ap-uk/examples/age-bands-5y]
     theme: [ukcl:theme/society]
     language: [eulang:ENG, eulang:CYM]
 
@@ -153,7 +153,7 @@
   issues: [25, 26, 5]
   record:
     class: Dataset
-    id: https://example.org/dcat-uk-ap/examples/eligibility-decisions
+    id: https://example.org/dcat-ap-uk/examples/eligibility-decisions
     title: Eligibility decisions for an example support scheme
     description: Synthetic example. One row per eligibility decision, with the date, the outcome and the reason code. Shared with partner organisations to deliver the scheme.
     identifier: 7f3c9a1e-58b2-4c3d-9e60-2b8f4a1d0c77
@@ -175,7 +175,7 @@
     accrualPeriodicity: eufreq:DAILY
     temporal:
       - startDate: '2024-04-01'
-    conformsTo: [https://example.org/dcat-uk-ap/examples/eligibility-decisions/schema.json]
+    conformsTo: [https://example.org/dcat-ap-uk/examples/eligibility-decisions/schema.json]
     qualifiedAttribution:
       - agent: https://example.org/organisations/example-department
         hadRole: ukcl:agent-role/data-owner
@@ -194,11 +194,11 @@
     description: Synthetic example. The data catalogue of an example department, harvested by central discovery services.
     publisher: https://example.org/organisations/example-department
     homepage: https://example.org/catalogue
-    conformsTo: [https://w3id.org/dcat-uk-ap/1.0]
-    themeTaxonomy: [https://w3id.org/dcat-uk-ap/codelist/theme]
+    conformsTo: [https://w3id.org/dcat-ap-uk/1.0]
+    themeTaxonomy: [https://w3id.org/dcat-ap-uk/codelist/theme]
     language: [eulang:ENG]
     dataset:
-      - https://example.org/dcat-uk-ap/examples/eligibility-decisions
+      - https://example.org/dcat-ap-uk/examples/eligibility-decisions
 
 - key: dataset-cross-border
   label: Personal data shared across borders (synthetic)
@@ -210,7 +210,7 @@
     class: Dataset
     id: https://example.org/dataset/cross-border-registrations
     title: Synthetic vehicle registrations shared with the Crown Dependencies
-    description: An invented dataset, used to show how DCAT-UK AP describes personal data that is held or sent outside the UK. It does not exist.
+    description: An invented dataset, used to show how DCAT-AP-UK describes personal data that is held or sent outside the UK. It does not exist.
     identifier: synthetic-cross-border-0001
     publisher: https://www.gov.uk/government/organisations/driver-and-vehicle-licensing-agency
     contactPoint: [{fn: Example data sharing team, hasURL: 'https://example.org/contact'}]

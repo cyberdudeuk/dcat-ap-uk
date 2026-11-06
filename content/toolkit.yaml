@@ -29,6 +29,7 @@ sources:
   - {id: osr, title: 'Code of Practice for Statistics', publisher: 'Office for Statistics Regulation', date: '2025', url: 'https://code.statisticsauthority.gov.uk/', prov: K, role: 'The standard official statistics are produced to.'}
   - {id: orgid, title: 'org-id.guide', publisher: 'Open Data Services Co-operative', date: '2025', url: 'https://org-id.guide/', prov: K, role: 'Lists of organisation identifier schemes, such as Companies House and the charity registers.'}
   - {id: ckandcat, title: 'ckanext-dcat', publisher: 'CKAN community', date: '2025', url: 'https://github.com/ckan/ckanext-dcat', prov: K, role: 'The CKAN extension that reads and writes DCAT and DCAT-AP, and can expose Croissant.'}
+  - {id: ddi, title: 'DDI Codebook 2.5', publisher: 'DDI Alliance', date: '2014', url: 'https://ddialliance.org/Specification/DDI-Codebook/2.5/', prov: K, role: 'Metadata for social science and survey data, used by data archives.'}
   - {id: dcmes, title: 'Dublin Core Metadata Element Set 1.1', publisher: 'DCMI', date: '2012', url: 'https://www.dublincore.org/specifications/dublin-core/dces/', prov: K, role: 'The 15 core elements.'}
   - {id: ico, title: 'International transfers (guidance updated 15 January 2026)', publisher: "Information Commissioner's Office", date: '2026-01-15', url: 'https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/international-transfers/', prov: S, role: 'How to tell if a transfer is restricted, the adequacy regulations, the safeguards and the exceptions.'}
   - {id: ncsc-pqc, title: 'Timelines for migration to post-quantum cryptography', publisher: 'National Cyber Security Centre', date: '2025-03', url: 'https://www.ncsc.gov.uk/guidance/pqc-migration-timelines', prov: S, role: 'Discovery and a plan by 2028, high-priority migration by 2031, migration complete by 2035.'}
@@ -64,7 +65,7 @@ landscape:
     - {id: gemini, name: UK GEMINI 2.3, scope: UK sector, area: United Kingdom, source: gemini, levels: {spec: full, shapes: none, schema: none, validator: full, examples: partial, quality: notseen, convert: notseen, extensions: partial}, note: 'XML, with Schematron rules; MEDIN extends it for marine data.'}
     - {id: hdruk, name: HDR UK Gateway schema, scope: UK sector, area: United Kingdom, source: hdruk, levels: {spec: full, shapes: none, schema: full, validator: full, examples: partial, quality: full, convert: full, extensions: none}, note: 'JSON Schema with a weighted completeness and error score, and a translation service between versions.'}
     - {id: ofgem, name: Ofgem Data Best Practice, scope: UK sector, area: Great Britain, source: ofgem, levels: {spec: partial, shapes: none, schema: none, validator: none, examples: partial, quality: none, convert: none, extensions: none}, note: 'Principles rather than a schema: Dublin Core, presumed open and open data triage.'}
-    - {id: mem, name: xGov MEM v0.1.0, scope: UK, area: United Kingdom, source: mem, levels: {spec: full, shapes: none, schema: partial, validator: none, examples: partial, quality: none, convert: none, extensions: none}, note: 'What DCAT-UK AP evolves.'}
+    - {id: mem, name: xGov MEM v0.1.0, scope: UK, area: United Kingdom, source: mem, levels: {spec: full, shapes: none, schema: partial, validator: none, examples: partial, quality: none, convert: none, extensions: none}, note: 'What DCAT-AP-UK evolves.'}
   emulate:
     - {what: 'A validator anyone can use without installing anything', from: [dcatus, dcatno, dcatap], here: 'validate.html', how: 'Check records in the browser, nothing uploaded; the same verdict as the published SHACL and JSON Schema, proven on every build.'}
     - {what: 'A quality score people can act on', from: [mqa, hdruk, dcatit], here: 'builder.html', how: 'The five quality dimensions and their points, shown live in the record builder and the bulk checker, with what to add next.'}
@@ -88,14 +89,14 @@ adoption:
     - {sector: 'Devolved governments', icon: flag, steps: ['Use the nation in the jurisdiction property and the right languages.', 'Record Welsh, Gaelic and Irish titles and descriptions as language-tagged values.', 'Map your national catalogue (for example the spatial data infrastructure of your nation) with the crosswalks.', 'Harvest to the National Data Library when it is ready.']}
     - {sector: 'Local government', icon: building, steps: ['Start with the spreadsheet template; no new software is needed.', 'Use your GOV.UK organisation address or local authority code for the publisher.', 'Check records in bulk and fix the errors.', 'Publish the records as a DCAT catalogue file next to your open data.']}
     - {sector: 'NHS, health and care', icon: heart-pulse, steps: ['Apply the health extension.', 'Describe access through a trusted research environment in the rights statement.', 'Apply disclosure control to counts of people.', 'Map existing HDR UK Gateway records with the crosswalk.']}
-    - {sector: 'Private sector and suppliers', icon: briefcase-business, steps: ['Apply the private and voluntary sector extension for your registered identifier.', 'Make your product export and import DCAT-UK AP, and pass the test records.', 'Use the data space extension if you take part in one.', 'Say which version you conform to.']}
+    - {sector: 'Private sector and suppliers', icon: briefcase-business, steps: ['Apply the private and voluntary sector extension for your registered identifier.', 'Make your product export and import DCAT-AP-UK, and pass the test records.', 'Use the data space extension if you take part in one.', 'Say which version you conform to.']}
     - {sector: 'Voluntary sector and charities', icon: hand-heart, steps: ['Use your charity number in the org-id form (for example GB-CHC-1234567, GB-SC-SC012345 or GB-NIC-100000).', 'Use the spreadsheet template: no technical skills needed.', 'Say who may use the data, and for what, with a usage policy.', 'Ask for help with the contact form.']}
     - {sector: 'Research, universities and data services', icon: graduation-cap, steps: ['Give a DOI as another identifier.', 'Apply the AI-ready extension for data used in machine learning.', 'Export Croissant for machine learning tools.', 'Describe cross-border access with jurisdiction and transfer safeguard.']}
   checklist:
     - {id: c1, group: Prepare, text: 'Name the role that owns your catalogue''s metadata, not a person.'}
     - {id: c2, group: Prepare, text: 'List the catalogues and spreadsheets where records live today.'}
     - {id: c3, group: Prepare, text: 'Choose the extensions that apply to your sector, if any.'}
-    - {id: c4, group: Map, text: 'Map each of your fields to a DCAT-UK AP property with the crosswalks and the data dictionary.'}
+    - {id: c4, group: Map, text: 'Map each of your fields to a DCAT-AP-UK property with the crosswalks and the data dictionary.'}
     - {id: c5, group: Map, text: 'Map your values to the codelists: access rights, security classification, frequency, themes, licences.'}
     - {id: c6, group: Map, text: 'Replace any named person in contact points with a team and a contact form.'}
     - {id: c7, group: Check, text: 'Check a sample of records in the browser, then all of them with the bulk checker or the SHACL shapes.'}
@@ -115,7 +116,7 @@ adoption:
     - {step: 'Serve the right media type', text: 'text/turtle for Turtle and application/ld+json for JSON-LD, with cross-origin access allowed so browser tools can read it.'}
     - {step: 'Keep CKAN in step', text: 'CKAN sites can use ckanext-dcat to publish the catalogue; map the extra UK fields with scheming, as the CKAN crosswalk shows.'}
   procurement:
-    - 'The supplier''s catalogue product must import and export records that conform to DCAT-UK AP version 1.1 or later, as Turtle and JSON-LD.'
+    - 'The supplier''s catalogue product must import and export records that conform to DCAT-AP-UK version 1.1 or later, as Turtle and JSON-LD.'
     - 'The product must accept every example record and reject every failing test record published with the profile, reporting the rule broken.'
     - 'The product must publish a harvestable catalogue file and must not require a proprietary format to export metadata.'
     - 'The product must support the sector extensions the buyer names, and new minor versions of the profile within six months of release.'
@@ -134,7 +135,7 @@ adoption:
 international:
   intro: >-
     Data moves between the UK nations, to and from the Crown Dependencies and the British Overseas Territories, across the Commonwealth,
-    and with allies and partners. DCAT-UK AP records where data is held and sent, and on what basis personal data leaves the UK, so
+    and with allies and partners. DCAT-AP-UK records where data is held and sent, and on what basis personal data leaves the UK, so
     the question is answered before anyone asks for the data.
   groups:
     - {id: uk, label: 'The UK nations', text: 'England, Scotland, Wales and Northern Ireland. Data that stays here is not an international transfer, though devolved law may still differ.'}
@@ -144,8 +145,8 @@ international:
     - {id: eea, label: 'The European Economic Area', text: 'The EU states, Iceland, Liechtenstein and Norway. Covered by UK adequacy regulations.'}
     - {id: other, label: 'Other partners', text: 'Countries the UK often shares with. Some have full or partial UK adequacy regulations.'}
   alliances:
-    - {name: 'Five Eyes and defence partners', text: 'Security and defence sharing has its own rules and classifications. DCAT-UK AP describes OFFICIAL data only; records about classified data must not be in an OFFICIAL catalogue. NATO''s data-centric reference architecture uses DCAT terms, including usage policies.', source: nato-dcra}
-    - {name: 'European Union', text: 'DCAT-UK AP keeps every DCAT-AP mandatory property, so UK records can be harvested by EU portals. The high-value datasets extension adds what EU reporting needs.', source: dcatap}
+    - {name: 'Five Eyes and defence partners', text: 'Security and defence sharing has its own rules and classifications. DCAT-AP-UK describes OFFICIAL data only; records about classified data must not be in an OFFICIAL catalogue. NATO''s data-centric reference architecture uses DCAT terms, including usage policies.', source: nato-dcra}
+    - {name: 'European Union', text: 'DCAT-AP-UK keeps every DCAT-AP mandatory property, so UK records can be harvested by EU portals. The high-value datasets extension adds what EU reporting needs.', source: dcatap}
     - {name: 'United States', text: 'DCAT-US 3.0 is also built on DCAT 3, so shared terms carry over. The crosswalk shows which UK terms have no US equivalent.', source: dcatus}
     - {name: 'Data spaces', text: 'The data space extension follows the Dataspace Protocol, so UK catalogues can offer data to European and international data space participants under machine-readable policies.', source: dsp}
   steps:
@@ -190,5 +191,5 @@ quantum:
     - 'Prefer standards that let algorithms change without changing the format.'
     - 'Treat the catalogue as part of the cryptographic inventory: services with classical-only key exchange are findable with one filter.'
   honesty: >-
-    DCAT-UK AP does not make data or services quantum-safe. It records what protects them, so owners can find and fix what is not.
+    DCAT-AP-UK does not make data or services quantum-safe. It records what protects them, so owners can find and fix what is not.
     "Quantum-ready" here means ready for the migration, not finished with it.

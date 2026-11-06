@@ -21,6 +21,8 @@ map globe workflow boxes blocks puzzle radar refresh-cw clock milestone signpost
 user-round-x scroll-text pencil-ruler arrow-right arrow-left check minus plus tags tag waypoints split merge gauge leaf mountain
 heart-pulse chart-column bus gem brain-circuit hand-heart zap building briefcase-business bot atom telescope upload file-spreadsheet
 plane earth key-round shield-alert cpu library house-plus scan-search ruler package
+git-fork trending-up chart-pie footprints a-large-small workflow spline sigma map-pinned palette layout-grid list-tree shuffle chart-bar-big chart-no-axes-combined
+arrow-left-right door-open accessibility clock terminal badge-check life-buoy message-circle-question
 '''.split()))
 
 

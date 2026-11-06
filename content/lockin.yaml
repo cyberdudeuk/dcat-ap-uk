@@ -1,0 +1,92 @@
+# Avoiding vendor lock-in and technical debt. Not legal or commercial advice. Policy references are provenance K (background
+# knowledge of the published policy as of 6 November 2026) unless marked; check the current version before relying on them.
+
+intro: >-
+  Metadata locked in one product's model is the most expensive kind of technical debt: every new catalogue, every merger of
+  departments and every new partner means rekeying it. An open, mandated standard turns that debt into an asset that moves with
+  you. This page says how DCAT-AP-UK prevents lock-in, now and later, and what to write in contracts so suppliers adopt it and
+  every other open standard this portal names.
+
+not_advice: >-
+  The clauses are a starting point for commercial and legal teams, not legal or commercial advice. Adapt them to the procurement
+  route, the framework and the contract in use, and to the law of the nation it is made under.
+
+mechanisms:
+  - {icon: arrow-left-right, title: 'Your metadata leaves with you', text: 'Every record can be exported in one published, versioned format and re-imported anywhere that speaks it. Changing supplier becomes a migration, not a rebuild.', debt: 'Bespoke export scripts, rekeying and lost history at exit.'}
+  - {icon: shuffle, title: 'Suppliers compete on product, not on format', text: 'When every product reads and writes the same records, buyers can switch, run two side by side, or buy best of breed for each job.', debt: 'Paying to stay because leaving costs more.'}
+  - {icon: clipboard-check, title: 'Conformance you can test', text: 'Shapes, schemas, a conformance kit and three validators held to one verdict turn "supports open standards" into something a buyer can check before signing and at every release.', debt: 'Claims that fail in production, found too late.'}
+  - {icon: git-pull-request, title: 'Change by version, in the open', text: 'Minor versions only add; breaking changes wait for a major version with notice and a migration route. Products can plan instead of patching.', debt: 'Silent schema drift and emergency fixes.'}
+  - {icon: puzzle, title: 'One base, many sectors', text: 'Sector extensions only add to the base, so a health or geospatial product stays interoperable with everything else.', debt: 'Parallel sector models that never join up.'}
+  - {icon: waypoints, title: 'Bridges to what you have now', text: 'Crosswalks and the weaver carry records from CKAN, DCAT-US, schema.org, Dublin Core, DDI and the xGov MEM, so adoption does not need a big bang.', debt: 'Legacy formats nobody can retire.'}
+  - {icon: atom, title: 'Ready for what comes next', text: 'Algorithms recorded as identifiers, AI permissions and usage policies in ODRL, and exports for AI tools mean new requirements arrive as new values, not new systems.', debt: 'Rebuilding for post-quantum cryptography, AI and data spaces.'}
+  - {icon: building, title: 'Survives reorganisation', text: 'Records name roles and organisations by stable identifiers, so a machinery of government change updates a link, not every record.', debt: 'Orphaned records after departments merge or split.'}
+
+risks:
+  - {risk: 'Proprietary metadata model with no full export', when: 'Now: at every exit, merger or second product', answer: 'Contract for full export in DCAT-AP-UK at any time, without charge, tested with the conformance kit.'}
+  - {risk: 'Export exists but drops fields or relationships', when: 'Now: found at migration', answer: 'Round-trip tests: import, export and compare, property by property.'}
+  - {risk: 'Vendor-specific identifiers in every record', when: 'Later: at reorganisation or exit', answer: 'Stable, resolvable identifiers owned by the buyer; GOV.UK and registered organisation identifiers for agents.'}
+  - {risk: 'API that only the vendor’s tools can use', when: 'Now', answer: 'A documented open API (OpenAPI) and a harvestable catalogue file.'}
+  - {risk: 'Custom fields that no one else understands', when: 'Later: as needs grow', answer: 'New needs go through the change process or a sector extension, not private fields.'}
+  - {risk: 'Old standard versions kept alive by one product', when: 'Later: every release', answer: 'Support each new minor version within an agreed time, stated in the contract.'}
+  - {risk: 'Classical-only cryptography and weak checksums', when: 'Later: the post-quantum migration to 2035', answer: 'Algorithms as identifiers, strong checksums, and a recorded migration plan.'}
+  - {risk: 'AI use of data decided by the product, not the owner', when: 'Now and growing', answer: 'Use for AI and ODRL usage policies held in the record, owned by the buyer.'}
+  - {risk: 'Paid connectors for every new partner', when: 'Later: at every new exchange', answer: 'Open, documented exchange formats and harvesting with no per-connection charge.'}
+
+policy:
+  - {text: 'The UK Open Standards Principles ask government to choose open standards for software interoperability, data and document formats, and to avoid lock-in.', prov: K}
+  - {text: 'The Technology Code of Practice asks teams to make things open, use open standards and avoid being locked into one supplier.', prov: K}
+  - {text: 'The Service Standard asks services to use open standards and common components where they exist.', prov: K}
+  - {text: 'The Data Asset Management Policy asks for critical data assets to be described consistently so they can be found and managed.', source: dam}
+  - {text: 'The Roadmap for modern digital government 2025 to 2030 sets out shared standards and a joined-up data infrastructure.', source: roadmap}
+
+clauses:
+  - title: Open standards
+    icon: library
+    items:
+      - 'The Supplier shall comply with the open standards in the Schedule of Standards at the requirement level shown, and with any later minor version within six months of its publication.'
+      - 'Where the Supplier''s product holds, publishes or exchanges metadata about datasets, data services or catalogues, it shall import and export records that conform to DCAT-AP-UK version 1.2 or later, in Turtle and JSON-LD, including every sector extension named in the Order.'
+      - 'The Supplier shall not substitute a proprietary format, vocabulary or identifier scheme where the Schedule names an open one, and shall not add private fields where a standard property exists.'
+      - 'Where the Supplier believes a requirement cannot be met by an open standard, it shall say so in writing before contract award, with the reason and the proposed alternative, for the Buyer''s decision.'
+  - title: Conformance and evidence
+    icon: clipboard-check
+    items:
+      - 'Before acceptance, and with each major release, the Supplier shall run the published DCAT-AP-UK conformance kit and give the Buyer the results: every pass case accepted, every fail case rejected with the rule named, and a round trip that keeps every property.'
+      - 'The Supplier shall state the conformance level (1, 2 or 3) its product supports and shall not claim a level its evidence does not show.'
+      - 'The Buyer may run the conformance kit, the SHACL shapes or the JSON Schema against the product at any time.'
+  - title: Data and metadata ownership and portability
+    icon: arrow-left-right
+    items:
+      - 'All metadata, records, identifiers, codelists, usage policies and lineage created or held for the Buyer are the Buyer''s, whatever product holds them.'
+      - 'The Supplier shall provide a complete export of all of it in DCAT-AP-UK, and of the data in open formats, on request, at any time, within ten working days, without charge.'
+      - 'Identifiers shall be ones the Buyer controls, or open registered identifiers; the Supplier''s internal identifiers shall not be the only key.'
+      - 'The Supplier shall publish a harvestable catalogue file and a documented open API (OpenAPI) for reading and writing records, with no charge per connection or per partner.'
+  - title: Exit and transition
+    icon: door-open
+    items:
+      - 'At exit the Supplier shall give a full, tested export as above, an account of every field mapping and any loss, and reasonable help to the incoming supplier, at the rates in the contract.'
+      - 'The Supplier shall not delete the Buyer''s metadata until the Buyer confirms the export is complete and conforms.'
+      - 'An exit plan, including the export, shall be kept up to date and tested at least once a year.'
+  - title: Change, versions and technical debt
+    icon: git-pull-request
+    items:
+      - 'The Supplier shall support each new minor version of DCAT-AP-UK and of the standards in the Schedule within six months, and each major version within an agreed migration period.'
+      - 'The Supplier shall tell the Buyer of any change to its product that affects conformance, before it is released.'
+      - 'The Supplier shall keep a register of deviations from the Schedule, with a plan and date to remove each, and report it quarterly.'
+  - title: Security, privacy and the future
+    icon: shield-check
+    items:
+      - 'The Supplier shall record the cryptographic algorithms protecting the Buyer''s data and services as identifiers, support strong checksums (SHA-256 or stronger), and provide a plan to migrate to post-quantum cryptography in line with the NCSC timeline.'
+      - 'The Supplier shall keep each record''s security classification, personal data status, jurisdictions and transfer safeguard, and shall not move data outside the jurisdictions recorded without the Buyer''s written agreement.'
+      - 'The Supplier shall not use the Buyer''s data or metadata to train, fine-tune or evaluate AI models except as the record''s use for AI and usage policy allow.'
+  - title: Accessibility and openness
+    icon: accessibility
+    items:
+      - 'User interfaces shall meet WCAG 2.2 at level AA, with a published accessibility statement.'
+      - 'Contact points shall be stored as team names and contact form addresses; the product shall not require a named person or a personal email address.'
+
+assurance:
+  - 'Ask for the conformance kit results with every bid, and again at acceptance.'
+  - 'Run a test exit within the first year: export everything, load it into another product or the portal''s bulk checker, and compare.'
+  - 'Review the deviations register at every quarterly review, and agree dates to remove each.'
+  - 'Add DCAT-AP-UK conformance to the definition of done for every release the supplier ships.'
+  - 'Use the requirement levels in the schedule as evaluation criteria, weighted for the work.'

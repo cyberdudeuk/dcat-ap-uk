@@ -1,4 +1,4 @@
-/* DCAT-UK AP record validator. Runs in the browser (record builder, validator page) and in Node (tests).
+/* DCAT-AP-UK record validator. Runs in the browser (record builder, validator page) and in Node (tests).
    Reads the generated profile.json, so it applies the same obligations and rules as the SHACL shapes.
    Pure functions, no network, no storage. Licence: MIT. */
 (function (root, factory) {
@@ -127,7 +127,7 @@
     return { mandatory: m, recommended: r };
   }
 
-  // Convert a record from the xGov MEM YAML/JSON form to DCAT-UK AP, using the crosswalk. Returns {record, notes}.
+  // Convert a record from the xGov MEM YAML/JSON form to DCAT-AP-UK, using the crosswalk. Returns {record, notes}.
   function fromMem(P, mem) {
     var notes = [];
     var map = { 'dcat:Dataset': 'Dataset', 'dcat:DataService': 'DataService', 'dcat:Distribution': 'Distribution' };
@@ -232,13 +232,13 @@
       { id: 'interoperability', label: 'Interoperability', items: service ? [
         ['conformsTo', 'Standard the service follows', 40, present(rec.conformsTo)],
         ['endpointDescription', 'Machine-readable description', 40, present(rec.endpointDescription)],
-        ['conforms', 'Conforms to DCAT-UK AP', 30, res.ok]] : [
+        ['conforms', 'Conforms to DCAT-AP-UK', 30, res.ok]] : [
         ['format', 'Format', 20, anyVal('format') || anyVal('mediaType')],
         ['mediaType', 'Media type', 10, anyVal('mediaType')],
         ['mediaTypeIana', 'Media type from the IANA list', 10, anyVal('mediaType', function (v) { return expand(P, v).indexOf(IANA) === 0; })],
         ['open', 'Non-proprietary format', 20, anyVal('mediaType', function (v) { return OPEN_TYPES.test(expand(P, v)); })],
         ['machine', 'Machine-readable format', 20, anyVal('mediaType', function (v) { return MACHINE_TYPES.test(expand(P, v)); })],
-        ['conforms', 'Conforms to DCAT-UK AP', 30, res.ok]] },
+        ['conforms', 'Conforms to DCAT-AP-UK', 30, res.ok]] },
       { id: 'reusability', label: 'Reusability', items: [
         ['licence', 'Licence', 20, present(rec.licence) || anyVal('licence')],
         ['licenceList', 'Licence from the list', 10, asList(rec.licence).some(function (v) { return licences.indexOf(expand(P, v)) > -1 || /^ukcl:licences\//.test(v); })],
@@ -444,6 +444,286 @@
     return head + '\n\n' + main;
   }
 
-  return { validate: validate, completeness: completeness, fromMem: fromMem, expand: expand, withExtensions: withExtensions, fair: fair,
+
+  // ---- metadata weaver: other models in and out, with DCAT-AP-UK in the middle ---------------------------------
+  // Each reader returns {record, notes, map}; map is a list of [their field, DCAT-AP-UK property or null] threads.
+  // Each writer returns {out, map}. Mappings follow profile/crosswalks.yaml (provenance K). Email addresses are never carried.
+  var EMAIL_RX = /[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/;
+  var FREQ_ISO = { 'R/PT1S': 'CONT', 'R/PT1H': 'HOURLY', 'R/P1D': 'DAILY', 'R/P1W': 'WEEKLY', 'R/P2W': 'BIWEEKLY', 'R/P0.5M': 'MONTHLY_2', 'R/P1M': 'MONTHLY',
+    'R/P2M': 'BIMONTHLY', 'R/P3M': 'QUARTERLY', 'R/P4M': 'ANNUAL_3', 'R/P6M': 'ANNUAL_2', 'R/P1Y': 'ANNUAL', 'R/P2Y': 'BIENNIAL', 'R/P3Y': 'TRIENNIAL', 'irregular': 'IRREG' };
+  var LANG3 = { en: 'ENG', cy: 'CYM', gd: 'GLA', ga: 'GLE', sco: 'SCO', kw: 'COR', eng: 'ENG', cym: 'CYM', wel: 'CYM' };
+  var LIC = { 'uk-ogl': 'ogl-3', 'ogl-uk-3.0': 'ogl-3', 'ogl': 'ogl-3', 'cc-by': 'cc-by-4', 'cc-by-4.0': 'cc-by-4', 'cc-zero': 'cc0', 'cc0-1.0': 'cc0', 'cc0': 'cc0' };
+  function freqFrom(P, v) {
+    if (!v) return undefined;
+    var s = String(v).trim(), c = FREQ_ISO[s] || s.toUpperCase().replace(/[^A-Z_0-9]/g, '_');
+    var hit = P.codelists.frequency.concepts.filter(function (x) { return x.code === c; })[0];
+    return hit ? hit.compact : undefined;
+  }
+  function langFrom(P, v) {
+    return asList(v).map(function (l) { var c = LANG3[String(l).toLowerCase().slice(0, 3)] || LANG3[String(l).toLowerCase().slice(0, 2)] || String(l).toUpperCase(); return P.codelists.language.concepts.filter(function (x) { return x.code === c; }).map(function (x) { return x.compact; })[0]; }).filter(Boolean);
+  }
+  function licFrom(P, v) {
+    if (!v) return undefined;
+    var s = String(v).trim(), code = LIC[s.toLowerCase()];
+    var cs = P.codelists.licences.concepts;
+    var byIri = cs.filter(function (c) { return c.iri === s || c.iri.replace(/^https?:/, '') === s.replace(/^https?:/, ''); })[0];
+    if (byIri) return byIri.iri;
+    if (code) { var c = cs.filter(function (x) { return x.code === code; })[0]; if (c) return c.iri; }
+    return URL_RE.test(s) ? s : undefined;
+  }
+  function agentFrom(v) {
+    if (!v) return undefined;
+    if (typeof v === 'string') return URL_RE.test(v) ? v : { 'class': 'Agent', name: v };
+    var id = v['@id'] || v.url || v.uri;
+    if (id && URL_RE.test(id)) return id;
+    var n = v.name || v.title || v.fn;
+    return n ? { 'class': 'Agent', name: first(n) } : undefined;
+  }
+  function contactFrom(v, notes) {
+    var c = Array.isArray(v) ? v[0] : v;
+    if (!c) return undefined;
+    var o = { fn: c.fn || c.name || 'Data team' }, url = c.hasURL || c.url || c.contactUrl || c.contact_uri;
+    if (c.hasEmail || c.email || EMAIL_RX.test(JSON.stringify(c))) notes.push('A contact email address was not carried. Give a contact form address instead.');
+    if (url && URL_RE.test(url) && !/^mailto:/.test(url)) o.hasURL = url;
+    return o.hasURL ? [o] : (notes.push('No contact form address was found. Add one.'), undefined);
+  }
+  function periodFrom(start, end) {
+    var o = {}; if (start) o.startDate = String(start).slice(0, 10); if (end) o.endDate = String(end).slice(0, 10);
+    return (o.startDate || o.endDate) ? [o] : undefined;
+  }
+  function mediaFrom(v) {
+    if (!v) return undefined;
+    var s = String(v).trim();
+    if (/^https?:/.test(s)) return s;
+    return /\//.test(s) ? IANA + s.toLowerCase() : undefined;
+  }
+  function put(rec, map, src, k, v) { if (v === undefined || v === null || (Array.isArray(v) && !v.length) || v === '') { map.push([src, null]); return; } rec[k] = v; map.push([src, k]); }
+  function finishRec(rec, notes) {
+    var s = JSON.stringify(rec);
+    if (EMAIL_RX.test(s)) { notes.push('An email address in the source was removed.'); rec = JSON.parse(s.replace(new RegExp(EMAIL_RX.source, 'g'), '')); }
+    return rec;
+  }
+
+  var READERS = {
+    ukap: function (P, x) { return { record: x, notes: [], map: Object.keys(x).filter(function (k) { return k !== 'class'; }).map(function (k) { return [k, P.props[k] || k === 'id' ? k : null]; }) }; },
+    mem: function (P, x) {
+      var c = fromMem(P, x), map = [];
+      Object.keys(x).forEach(function (k) {
+        var hit = Object.keys(P.props).filter(function (p) { return P.props[p].mem_slot === k; })[0];
+        map.push([k, hit && c.record[hit] !== undefined ? hit : (c.record[k] !== undefined ? k : null)]);
+      });
+      return { record: c.record, notes: c.notes, map: map };
+    },
+    ckan: function (P, x) {
+      var rec = { 'class': 'Dataset' }, notes = [], map = [], ex = {};
+      (x.extras || []).forEach(function (e) { if (e && e.key) ex[e.key] = e.value; });
+      put(rec, map, 'title', 'title', x.title);
+      put(rec, map, 'notes', 'description', x.notes);
+      put(rec, map, 'tags', 'keyword', (x.tags || []).map(function (t) { return t && (t.display_name || t.name); }).filter(Boolean));
+      put(rec, map, 'license_id', 'licence', licFrom(P, x.license_url || x.license_id));
+      put(rec, map, 'url', 'landingPage', x.url && URL_RE.test(x.url) ? [x.url] : undefined);
+      put(rec, map, 'version', 'version', x.version);
+      put(rec, map, 'organization', 'publisher', agentFrom(ex.publisher_uri || x.organization));
+      put(rec, map, 'extras.identifier', 'identifier', ex.identifier || x.name);
+      put(rec, map, 'extras.issued', 'issued', ex.issued || (x.metadata_created || '').slice(0, 10) || undefined);
+      put(rec, map, 'extras.modified', 'modified', ex.modified || (x.metadata_modified || '').slice(0, 10) || undefined);
+      put(rec, map, 'extras.frequency', 'accrualPeriodicity', freqFrom(P, ex.frequency));
+      put(rec, map, 'extras.spatial_uri', 'spatial', ex.spatial_uri ? [ex.spatial_uri] : undefined);
+      put(rec, map, 'extras.temporal_start', 'temporal', periodFrom(ex.temporal_start, ex.temporal_end));
+      put(rec, map, 'extras.language', 'language', langFrom(P, ex.language));
+      put(rec, map, 'extras.conforms_to', 'conformsTo', ex.conforms_to ? [ex.conforms_to] : undefined);
+      put(rec, map, 'extras.contact_uri', 'contactPoint', contactFrom({ name: ex.contact_name, url: ex.contact_uri }, notes));
+      if (x.maintainer || x.author) notes.push('The maintainer and author names were not carried: records name teams and roles, not people.');
+      if (x.id) rec.id = x.url && URL_RE.test(x.url) ? x.url : undefined;
+      var res = (x.resources || []).map(function (r) {
+        var d = { 'class': 'Distribution' }, a = r.access_url || r.url, dl = r.download_url || (r.url && !r.access_url ? r.url : undefined);
+        if (r.name) d.title = r.name; if (a) d.accessURL = [a]; if (dl) d.downloadURL = [dl];
+        var mt = mediaFrom(r.mimetype); if (mt) d.mediaType = mt;
+        if (r.size) d.byteSize = String(r.size);
+        return d;
+      });
+      put(rec, map, 'resources', 'distribution', res);
+      notes.push('Add access rights and security classification: CKAN does not hold them by default.');
+      Object.keys(x).forEach(function (k) { if (['title', 'notes', 'tags', 'license_id', 'license_url', 'url', 'version', 'organization', 'extras', 'resources', 'name', 'id', 'metadata_created', 'metadata_modified', 'maintainer', 'author'].indexOf(k) < 0) map.push([k, null]); });
+      return { record: finishRec(rec, notes), notes: notes, map: map };
+    },
+    dcatus: function (P, x) {
+      var rec = { 'class': 'Dataset' }, notes = [], map = [];
+      put(rec, map, 'title', 'title', x.title);
+      put(rec, map, 'description', 'description', x.description);
+      put(rec, map, 'keyword', 'keyword', asList(x.keyword));
+      put(rec, map, 'modified', 'modified', x.modified && String(x.modified).slice(0, 10));
+      put(rec, map, 'issued', 'issued', x.issued && String(x.issued).slice(0, 10));
+      put(rec, map, 'publisher', 'publisher', agentFrom(x.publisher));
+      put(rec, map, 'contactPoint', 'contactPoint', contactFrom(x.contactPoint, notes));
+      put(rec, map, 'identifier', 'identifier', x.identifier);
+      var al = String(x.accessLevel || '').toLowerCase();
+      put(rec, map, 'accessLevel', 'accessRights', al === 'public' ? 'ukcl:access-rights/open' : al ? 'ukcl:access-rights/internal' : undefined);
+      if (al && al !== 'public') notes.push('Access level "' + al + '" was read as internal; check it, and give a rights statement.');
+      put(rec, map, 'license', 'licence', licFrom(P, x.license));
+      put(rec, map, 'rights', 'rights', x.rights);
+      put(rec, map, 'spatial', 'spatial', x.spatial && URL_RE.test(x.spatial) ? [x.spatial] : undefined);
+      var t = String(x.temporal || '').split('/');
+      put(rec, map, 'temporal', 'temporal', x.temporal ? periodFrom(t[0], t[1]) : undefined);
+      put(rec, map, 'accrualPeriodicity', 'accrualPeriodicity', freqFrom(P, x.accrualPeriodicity));
+      put(rec, map, 'landingPage', 'landingPage', x.landingPage ? [x.landingPage] : undefined);
+      put(rec, map, 'language', 'language', langFrom(P, x.language));
+      put(rec, map, 'conformsTo', 'conformsTo', x.conformsTo ? asList(x.conformsTo) : undefined);
+      put(rec, map, 'distribution', 'distribution', asList(x.distribution).map(function (r) {
+        var d = { 'class': 'Distribution' }; if (r.title) d.title = r.title; if (r.accessURL) d.accessURL = [r.accessURL]; if (r.downloadURL) d.downloadURL = [r.downloadURL];
+        if (!d.accessURL && d.downloadURL) d.accessURL = d.downloadURL; var mt = mediaFrom(r.mediaType); if (mt) d.mediaType = mt; return d;
+      }));
+      if (x.theme) map.push(['theme', null]), notes.push('Themes were not carried: map them to the data.gov.uk themes.');
+      notes.push('Add the security classification: DCAT-US does not hold it.');
+      return { record: finishRec(rec, notes), notes: notes, map: map };
+    },
+    schemaorg: function (P, x) {
+      var rec = { 'class': /WebAPI/.test(x['@type'] || '') ? 'DataService' : 'Dataset' }, notes = [], map = [];
+      if (x['@id'] && URL_RE.test(x['@id'])) rec.id = x['@id'];
+      put(rec, map, 'name', 'title', first(x.name));
+      put(rec, map, 'description', 'description', first(x.description));
+      put(rec, map, 'keywords', 'keyword', typeof x.keywords === 'string' ? x.keywords.split(/\s*,\s*/) : asList(x.keywords));
+      put(rec, map, 'license', 'licence', licFrom(P, typeof x.license === 'object' ? x.license.url || x.license['@id'] : x.license));
+      put(rec, map, 'url', 'landingPage', x.url ? [x.url] : undefined);
+      put(rec, map, 'identifier', 'identifier', typeof x.identifier === 'object' ? x.identifier.value : x.identifier);
+      put(rec, map, 'datePublished', 'issued', x.datePublished && String(x.datePublished).slice(0, 10));
+      put(rec, map, 'dateModified', 'modified', x.dateModified && String(x.dateModified).slice(0, 10));
+      var tc = String(x.temporalCoverage || '').split('/');
+      put(rec, map, 'temporalCoverage', 'temporal', x.temporalCoverage ? periodFrom(tc[0] !== '..' ? tc[0] : '', tc[1] !== '..' ? tc[1] : '') : undefined);
+      put(rec, map, 'spatialCoverage', 'spatial', asList(x.spatialCoverage).map(function (s) { return typeof s === 'string' ? s : s && (s['@id'] || s.url); }).filter(function (s) { return s && URL_RE.test(s); }));
+      put(rec, map, 'publisher', 'publisher', agentFrom(x.publisher));
+      put(rec, map, 'inLanguage', 'language', langFrom(P, x.inLanguage));
+      put(rec, map, 'version', 'version', x.version !== undefined ? String(x.version) : undefined);
+      put(rec, map, 'conditionsOfAccess', 'rights', x.conditionsOfAccess);
+      put(rec, map, 'isAccessibleForFree', 'accessRights', x.isAccessibleForFree === true ? 'ukcl:access-rights/open' : undefined);
+      put(rec, map, 'distribution', 'distribution', asList(x.distribution).map(function (r) {
+        var d = { 'class': 'Distribution' }, u = r.contentUrl || r.url; if (r.name) d.title = first(r.name); if (u) { d.accessURL = [u]; d.downloadURL = [u]; }
+        var mt = mediaFrom(r.encodingFormat); if (mt) d.mediaType = mt; if (r.contentSize) d.byteSize = String(r.contentSize).replace(/\D/g, '') || undefined; return d;
+      }));
+      if (x.creator) map.push(['creator', null]), notes.push('Creators were not carried: give organisation addresses as creators if needed.');
+      notes.push('Add the contact point, security classification and frequency: schema.org records rarely hold them.');
+      return { record: finishRec(rec, notes), notes: notes, map: map };
+    },
+    dc: function (P, x) {
+      var rec = { 'class': 'Dataset' }, notes = [], map = [];
+      function g(k) { return x[k] !== undefined ? x[k] : x['dc:' + k] !== undefined ? x['dc:' + k] : x['dc.' + k]; }
+      function srcName(k) { return x[k] !== undefined ? k : x['dc:' + k] !== undefined ? 'dc:' + k : 'dc.' + k; }
+      var seen = {};
+      function take(k, dst, v) { seen[srcName(k)] = 1; if (g(k) === undefined) return; put(rec, map, srcName(k), dst, v); }
+      take('title', 'title', first(g('title')));
+      take('description', 'description', first(g('description')));
+      take('subject', 'keyword', asList(g('subject')));
+      take('publisher', 'publisher', agentFrom(first(g('publisher'))));
+      take('creator', 'creator', asList(g('creator')).map(agentFrom).filter(function (a) { return typeof a === 'string'; }));
+      take('identifier', 'identifier', first(g('identifier')));
+      take('language', 'language', langFrom(P, g('language')));
+      take('rights', 'rights', first(g('rights')));
+      take('date', 'issued', g('date') && String(first(g('date'))).slice(0, 10));
+      take('format', 'mediaType', undefined);
+      take('coverage', 'spatial', asList(g('coverage')).filter(function (s) { return URL_RE.test(s); }));
+      take('relation', 'relation', undefined);
+      take('source', 'relation', undefined);
+      take('type', 'class', undefined);
+      take('contributor', 'qualifiedAttribution', undefined);
+      Object.keys(x).forEach(function (k) { if (!seen[k]) map.push([k, null]); });
+      notes.push('Dublin Core has no contact point, access rights, security classification, licence or frequency: add them.');
+      if (g('format')) notes.push('Format belongs on a distribution: add one with the media type.');
+      return { record: finishRec(rec, notes), notes: notes, map: map };
+    },
+    ddi: function (P, x) {
+      var rec = { 'class': 'Dataset' }, notes = [], map = [];
+      put(rec, map, 'titl', 'title', first(x.titl));
+      put(rec, map, 'IDNo', 'identifier', first(x.IDNo));
+      put(rec, map, 'abstract', 'description', first(x.abstract));
+      put(rec, map, 'keyword', 'keyword', asList(x.keyword));
+      put(rec, map, 'producer', 'publisher', agentFrom(first(x.producer)));
+      put(rec, map, 'AuthEnty', 'creator', undefined);
+      var tp = x.timePrd || {};
+      put(rec, map, 'timePrd', 'temporal', periodFrom(tp.start || (Array.isArray(tp) ? tp[0] : ''), tp.end || (Array.isArray(tp) ? tp[1] : '')));
+      put(rec, map, 'geogCover', 'spatial', asList(x.geogCover).filter(function (s) { return URL_RE.test(s); }));
+      put(rec, map, 'restrctn', 'rights', first(x.restrctn) || first(x.conditions));
+      put(rec, map, 'accsPlac', 'landingPage', x.accsPlac && URL_RE.test(first(x.accsPlac)) ? [first(x.accsPlac)] : undefined);
+      put(rec, map, 'version', 'version', first(x.version));
+      put(rec, map, 'prodDate', 'created', x.prodDate && String(first(x.prodDate)).slice(0, 10));
+      put(rec, map, 'distDate', 'issued', x.distDate && String(first(x.distDate)).slice(0, 10));
+      ['nation', 'universe', 'topcClas', 'distrbtr', 'contact', 'conditions'].forEach(function (k) { if (x[k] !== undefined) map.push([k, null]); });
+      if (x.universe) notes.push('The universe was not carried; with the health extension it becomes population covered.');
+      if (x.contact) notes.push('DDI contact details were not carried. Give a contact form address.');
+      notes.push('Add access rights, security classification, licence and frequency.');
+      return { record: finishRec(rec, notes), notes: notes, map: map };
+    }
+  };
+
+  var WRITERS = {
+    ukap: function (P, r) { return { out: r, map: Object.keys(r).filter(function (k) { return k !== 'class'; }).map(function (k) { return [k, k]; }) }; },
+    jsonld: function (P, r) { return { out: Object.assign({ '@context': 'https://cyberdudeuk.github.io/dcat-uk-ap/downloads/dcat-ap-uk.context.jsonld' }, r), map: Object.keys(r).filter(function (k) { return k !== 'class'; }).map(function (k) { return [k, k]; }) }; },
+    turtle: function (P, r) { return { out: toTurtle(P, r), map: Object.keys(r).filter(function (k) { return P.props[k]; }).map(function (k) { return [k, P.props[k].uri]; }) }; },
+    schemaorg: function (P, r) { return { out: toSchemaOrg(P, r), map: SDO_MAP(r) }; },
+    croissant: function (P, r) { return { out: toCroissant(P, r), map: SDO_MAP(r) }; },
+    ckan: function (P, r) {
+      var o = { title: first(r.title), notes: first(r.description), tags: asList(r.keyword).map(function (k) { return { name: String(k) }; }), url: first(r.landingPage), version: r.version,
+        license_url: r.licence ? expand(P, first(r.licence)) : undefined, extras: [], resources: [] }, map = [['title', 'title'], ['description', 'notes'], ['keyword', 'tags'], ['landingPage', 'url'], ['version', 'version'], ['licence', 'license_url']];
+      function ex(k, v, src) { if (v !== undefined && v !== null && v !== '') { o.extras.push({ key: k, value: String(v) }); map.push([src, 'extras.' + k]); } }
+      ex('identifier', r.identifier, 'identifier'); ex('issued', r.issued, 'issued'); ex('modified', r.modified, 'modified');
+      ex('frequency', r.accrualPeriodicity && expand(P, first(r.accrualPeriodicity)), 'accrualPeriodicity'); ex('access_rights', r.accessRights && expand(P, first(r.accessRights)), 'accessRights');
+      ex('publisher_uri', typeof r.publisher === 'string' ? r.publisher : undefined, 'publisher');
+      var cp = first(r.contactPoint); if (cp) { ex('contact_name', cp.fn, 'contactPoint'); ex('contact_uri', cp.hasURL, 'contactPoint'); }
+      var t = first(r.temporal); if (t) { ex('temporal_start', t.startDate, 'temporal'); ex('temporal_end', t.endDate, 'temporal'); }
+      ex('spatial_uri', first(r.spatial), 'spatial'); ex('security_classification', r.securityClassification && expand(P, first(r.securityClassification)), 'securityClassification');
+      o.resources = asList(r.distribution).filter(function (d) { return d && typeof d === 'object'; }).map(function (d) { return clean({ name: first(d.title), url: first(d.downloadURL) || first(d.accessURL), access_url: first(d.accessURL), download_url: first(d.downloadURL), mimetype: mediaShort(P, d.mediaType), size: d.byteSize }); });
+      if (o.resources.length) map.push(['distribution', 'resources']);
+      return { out: clean(o), map: map };
+    },
+    dcatus: function (P, r) {
+      var t = first(r.temporal), freq = r.accrualPeriodicity ? expand(P, first(r.accrualPeriodicity)).split('/').pop() : '';
+      var iso = Object.keys(FREQ_ISO).filter(function (k) { return FREQ_ISO[k] === freq; })[0];
+      var cp = first(r.contactPoint);
+      var o = { '@type': 'dcat:Dataset', title: first(r.title), description: first(r.description), keyword: asList(r.keyword), modified: r.modified, issued: r.issued,
+        publisher: typeof r.publisher === 'object' ? { name: first(r.publisher.name) } : r.publisher ? { '@id': r.publisher } : undefined,
+        contactPoint: cp ? { fn: cp.fn, hasURL: cp.hasURL } : undefined, identifier: r.identifier,
+        accessLevel: r.accessRights ? (/\/open$/.test(expand(P, first(r.accessRights))) ? 'public' : 'non-public') : undefined,
+        license: r.licence ? expand(P, first(r.licence)) : undefined, rights: first(r.rights), spatial: first(r.spatial),
+        temporal: t ? (t.startDate || '') + '/' + (t.endDate || '') : undefined, accrualPeriodicity: iso, landingPage: first(r.landingPage), conformsTo: first(r.conformsTo),
+        distribution: asList(r.distribution).filter(function (d) { return d && typeof d === 'object'; }).map(function (d) { return clean({ '@type': 'dcat:Distribution', title: first(d.title), accessURL: first(d.accessURL), downloadURL: first(d.downloadURL), mediaType: mediaShort(P, d.mediaType) }); }) };
+      var map = ['title', 'description', 'keyword', 'modified', 'issued', 'publisher', 'contactPoint', 'identifier', ['accessRights', 'accessLevel'], ['licence', 'license'], 'rights', 'spatial', 'temporal', 'accrualPeriodicity', 'landingPage', 'conformsTo', 'distribution']
+        .filter(function (k) { return r[Array.isArray(k) ? k[0] : k] !== undefined; }).map(function (k) { return Array.isArray(k) ? k : [k, k]; });
+      return { out: clean(o), map: map };
+    },
+    dc: function (P, r) {
+      var o = { 'dc:title': first(r.title), 'dc:description': first(r.description), 'dc:subject': asList(r.keyword), 'dc:publisher': typeof r.publisher === 'object' ? first(r.publisher.name) : r.publisher,
+        'dc:creator': asList(r.creator).map(function (a) { return typeof a === 'object' ? first(a.name) : a; }), 'dc:date': r.issued || r.modified, 'dc:type': r['class'] === 'DataService' ? 'Service' : 'Dataset',
+        'dc:format': asList(r.distribution).map(function (d) { return d && mediaShort(P, d.mediaType); }).filter(Boolean), 'dc:identifier': r.identifier || r.id,
+        'dc:language': asList(r.language).map(function (l) { return expand(P, l).split('/').pop(); }), 'dc:relation': asList(r.relation).map(function (x) { return typeof x === 'string' ? x : x && x.relation; }).filter(Boolean),
+        'dc:coverage': asList(r.spatial).filter(function (s) { return typeof s === 'string'; }), 'dc:rights': first(r.rights) || (r.licence ? expand(P, first(r.licence)) : undefined) };
+      var map = [['title', 'dc:title'], ['description', 'dc:description'], ['keyword', 'dc:subject'], ['publisher', 'dc:publisher'], ['creator', 'dc:creator'], ['issued', 'dc:date'], ['distribution', 'dc:format'], ['identifier', 'dc:identifier'], ['language', 'dc:language'], ['relation', 'dc:relation'], ['spatial', 'dc:coverage'], ['rights', 'dc:rights'], ['licence', 'dc:rights']]
+        .filter(function (m) { return r[m[0]] !== undefined; });
+      return { out: clean(o), map: map };
+    },
+    ddi: function (P, r) {
+      var t = first(r.temporal) || {};
+      var o = { titl: first(r.title), IDNo: r.identifier, abstract: first(r.description), keyword: asList(r.keyword), producer: typeof r.publisher === 'object' ? first(r.publisher.name) : r.publisher,
+        timePrd: (t.startDate || t.endDate) ? clean({ start: t.startDate, end: t.endDate }) : undefined, geogCover: asList(r.spatial).filter(function (s) { return typeof s === 'string'; }),
+        restrctn: first(r.rights), accsPlac: first(r.landingPage), version: r.version, prodDate: r.created, distDate: r.issued };
+      var map = [['title', 'titl'], ['identifier', 'IDNo'], ['description', 'abstract'], ['keyword', 'keyword'], ['publisher', 'producer'], ['temporal', 'timePrd'], ['spatial', 'geogCover'], ['rights', 'restrctn'], ['landingPage', 'accsPlac'], ['version', 'version'], ['created', 'prodDate'], ['issued', 'distDate']]
+        .filter(function (m) { return r[m[0]] !== undefined; });
+      return { out: clean(o), map: map };
+    }
+  };
+  function SDO_MAP(r) {
+    var m = { title: 'name', description: 'description', abstract: 'abstract', identifier: 'identifier', landingPage: 'url', licence: 'license', accessRights: 'isAccessibleForFree', keyword: 'keywords',
+      temporal: 'temporalCoverage', spatial: 'spatialCoverage', issued: 'datePublished', modified: 'dateModified', created: 'dateCreated', version: 'version', language: 'inLanguage', publisher: 'publisher',
+      creator: 'creator', rights: 'conditionsOfAccess', hasPolicy: 'usageInfo', distribution: 'distribution' };
+    return Object.keys(r).filter(function (k) { return m[k]; }).map(function (k) { return [k, m[k]]; });
+  }
+
+  // Read a record in one model and write it in another, checking it as DCAT-AP-UK on the way.
+  function weave(P, from, to, input) {
+    if (!READERS[from]) throw new Error('Unknown source model ' + from);
+    if (!WRITERS[to]) throw new Error('Unknown target model ' + to);
+    var a = READERS[from](P, input), b = WRITERS[to](P, a.record);
+    return { record: a.record, out: b.out, mapIn: a.map, mapOut: b.map, notes: a.notes, validation: validate(P, a.record) };
+  }
+
+  return { weave: weave, readers: Object.keys(READERS), writers: Object.keys(WRITERS), validate: validate, completeness: completeness, fromMem: fromMem, expand: expand, withExtensions: withExtensions, fair: fair,
     conformance: conformance, parseCSV: parseCSV, fromCSV: fromCSV, fromOpenAPI: fromOpenAPI, toSchemaOrg: toSchemaOrg, toCroissant: toCroissant, toTurtle: toTurtle };
 }));

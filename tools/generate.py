@@ -1,14 +1,14 @@
-"""Generate every machine-readable form of DCAT-UK AP from the profile source.
+"""Generate every machine-readable form of DCAT-AP-UK from the profile source.
 
 Outputs (all regenerated on every build, never edited by hand):
-  dcat-uk-ap.shacl.ttl      SHACL shapes (core SHACL only, so any SHACL engine can run them)
-  dcat-uk-ap.schema.json    JSON Schema 2020-12 for the compact JSON form used by the portal and the record builder
-  dcat-uk-ap.context.jsonld JSON-LD 1.1 context for the compact form
-  dcat-uk-ap.linkml.yaml    LinkML schema, for continuity with the xGov MEM toolchain
-  dcat-uk-ap.ns.ttl         RDFS/OWL definitions of the few terms this profile adds (dcatuk:)
+  dcat-ap-uk.shacl.ttl      SHACL shapes (core SHACL only, so any SHACL engine can run them)
+  dcat-ap-uk.schema.json    JSON Schema 2020-12 for the compact JSON form used by the portal and the record builder
+  dcat-ap-uk.context.jsonld JSON-LD 1.1 context for the compact form
+  dcat-ap-uk.linkml.yaml    LinkML schema, for continuity with the xGov MEM toolchain
+  dcat-ap-uk.ns.ttl         RDFS/OWL definitions of the few terms this profile adds (dcatuk:)
   codelists.ttl/.jsonld     SKOS concept schemes; codelists.csv
   data-dictionary.csv       every property on every class, with obligations and lineage
-  crosswalk-mem.csv         xGov MEM slot -> DCAT-UK AP property, with the change
+  crosswalk-mem.csv         xGov MEM slot -> DCAT-AP-UK property, with the change
   backlog.csv               every xGov MEM backlog item and how it was dealt with
   profile.json              the profile for the browser (record builder and validator)
   examples/*.ttl|.jsonld|.json
@@ -268,9 +268,9 @@ def json_schema(p, sid=None):
         defs[ck] = d
     return {
         '$schema': 'https://json-schema.org/draft/2020-12/schema',
-        '$id': sid or p.meta['site_url'] + 'downloads/dcat-uk-ap.schema.json',
+        '$id': sid or p.meta['site_url'] + 'downloads/dcat-ap-uk.schema.json',
         'title': p.meta['title'] + ' ' + p.meta['version'],
-        'description': 'JSON Schema for records in the compact JSON form of DCAT-UK AP. Pair it with the JSON-LD context to get RDF.',
+        'description': 'JSON Schema for records in the compact JSON form of DCAT-AP-UK. Pair it with the JSON-LD context to get RDF.',
         'oneOf': [{'$ref': f'#/$defs/{k}'} for k in p.classes],
         '$defs': defs,
     }
@@ -321,9 +321,9 @@ def linkml(p):
         enums[''.join(w.title() for w in sk.split('-')) + 'Values'] = {
             'description': s['definition'],
             'permissible_values': {c['code']: {'meaning': p.concept_iri(sk, c['code']), 'description': c['label']} for c in s['concepts']}}
-    doc = {'id': p.meta['namespace'].rstrip('#'), 'name': 'dcat-uk-ap', 'title': p.meta['title'], 'version': p.meta['version'],
+    doc = {'id': p.meta['namespace'].rstrip('#'), 'name': 'dcat-ap-uk', 'title': p.meta['title'], 'version': p.meta['version'],
            'license': 'https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/',
-           'description': 'LinkML rendering of DCAT-UK AP, generated for continuity with the xGov MEM toolchain. The source of truth is profile/dcat-uk-ap.yaml.',
+           'description': 'LinkML rendering of DCAT-AP-UK, generated for continuity with the xGov MEM toolchain. The source of truth is profile/dcat-ap-uk.yaml.',
            'prefixes': {k: v for k, v in p.prefixes.items()} | {'linkml': 'https://w3id.org/linkml/'},
            'default_prefix': 'dcatuk', 'default_range': 'string', 'imports': ['linkml:types'],
            'classes': classes, 'slots': slots, 'enums': enums}
@@ -481,7 +481,8 @@ def class_entry(x):
 
 
 def prop_entry(v):
-    return {kk: v.get(kk) for kk in ('uri', 'label', 'kind', 'range', 'codelist', 'definition', 'guidance', 'example', 'max_length', 'provisional', 'pattern') if v.get(kk) is not None}
+    out = {'mem_slot': (v.get('mem') or {}).get('slot')} if (v.get('mem') or {}).get('slot') else {}
+    return out | {kk: v.get(kk) for kk in ('uri', 'label', 'kind', 'range', 'codelist', 'definition', 'guidance', 'example', 'max_length', 'provisional', 'pattern') if v.get(kk) is not None}
 
 
 def ext_iri(p, eid):
@@ -498,11 +499,11 @@ def generate(p):
     """Return {relative path: str} for every generated file."""
     files = {}
     sh = shacl(p)
-    files['dcat-uk-ap.shacl.ttl'] = sh.serialize(format='turtle')
-    files['dcat-uk-ap.schema.json'] = json.dumps(json_schema(p), indent=2, ensure_ascii=False) + '\n'
-    files['dcat-uk-ap.context.jsonld'] = json.dumps(context(p), indent=2) + '\n'
-    files['dcat-uk-ap.linkml.yaml'] = linkml(p)
-    files['dcat-uk-ap.ns.ttl'] = namespace_terms(p).serialize(format='turtle')
+    files['dcat-ap-uk.shacl.ttl'] = sh.serialize(format='turtle')
+    files['dcat-ap-uk.schema.json'] = json.dumps(json_schema(p), indent=2, ensure_ascii=False) + '\n'
+    files['dcat-ap-uk.context.jsonld'] = json.dumps(context(p), indent=2) + '\n'
+    files['dcat-ap-uk.linkml.yaml'] = linkml(p)
+    files['dcat-ap-uk.ns.ttl'] = namespace_terms(p).serialize(format='turtle')
     cg = codelists_graph(p)
     files['codelists.ttl'] = cg.serialize(format='turtle')
     files['codelists.jsonld'] = cg.serialize(format='json-ld', indent=1)
@@ -517,7 +518,7 @@ def generate(p):
     for e in p.examples:
         g = ukap.to_graph(p, e['record'])
         files[f'examples/{e["key"]}.ttl'] = g.serialize(format='turtle')
-        files[f'examples/{e["key"]}.jsonld'] = json.dumps({'@context': p.meta['site_url'] + 'downloads/dcat-uk-ap.context.jsonld'} | {k: v for k, v in e['record'].items()}, indent=2, ensure_ascii=False) + '\n'
+        files[f'examples/{e["key"]}.jsonld'] = json.dumps({'@context': p.meta['site_url'] + 'downloads/dcat-ap-uk.context.jsonld'} | {k: v for k, v in e['record'].items()}, indent=2, ensure_ascii=False) + '\n'
         files[f'examples/{e["key"]}.json'] = json.dumps(e['record'], indent=2, ensure_ascii=False) + '\n'
     files.update(extension_files(p))
     files.update(crosswalk_files(p))
@@ -550,7 +551,7 @@ SHARED_NS = ('dcat', 'dct', 'foaf', 'vcard', 'adms', 'spdx', 'locn', 'prov', 'dq
 
 
 def computed_crosswalk(p):
-    """DCAT-UK AP to DCAT-AP 3.0.1 and DCAT-US 3.0, from the RDF terms: a shared term carries over as it is."""
+    """DCAT-AP-UK to DCAT-AP 3.0.1 and DCAT-US 3.0, from the RDF terms: a shared term carries over as it is."""
     rows = []
     for k, v in p.props.items():
         pre = v['uri'].split(':', 1)[0]

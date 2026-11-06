@@ -2,7 +2,7 @@
 # Roles, not names. Personas are proto-personas: written from the xGov MEM backlog and policy, not yet tested with users (open register O-01).
 
 intent: >-
-  Evolve the UK Cross-Government Metadata Exchange Model into a DCAT-UK Application Profile that resolves the model's whole
+  Evolve the UK Cross-Government Metadata Exchange Model into a DCAT Application Profile for the UK that resolves the model's whole
   backlog, keeps up with DCAT 3, DCAT-AP 3.0.1 and the 2026 guidance for critical data assets, and serves as the shared record
   that future-state discovery services and a pan-UK public data infrastructure need, presented so that anyone who records,
   harvests or uses metadata can understand it, check against it and build to it.
@@ -119,7 +119,7 @@ glossary:
 
 strategy:
   # How the profile serves the future state. Each line names its source id from content/lineage.yaml.
-  - {src: panuk, title: Future pan-UK metadata architecture, serves: 'The architecture names DCAT-UK AP as the shared record across UK data ecosystems, with domain profiles, validation and migration from the xGov MEM. This portal implements that record, its sector extensions, its validators and its migration tools, so the architecture has something working to test against.'}
+  - {src: panuk, title: Future pan-UK metadata architecture, serves: 'The architecture names DCAT-AP-UK as the shared record across UK data ecosystems, with domain profiles, validation and migration from the xGov MEM. This portal implements that record, its sector extensions, its validators and its migration tools, so the architecture has something working to test against.'}
   - {src: roadmap, title: A roadmap for modern digital government 2025 to 2030, serves: 'Platforms to share and use data need records that mean the same thing in every catalogue. The profile is that shared meaning.'}
   - {src: ndl, title: National Data Library, serves: 'A single trusted gateway to public sector data needs findable, consistent, honest records. The profile gives harvestable records with the access, licence and quality signals users need.'}
   - {src: dam, title: Data Asset Management Policy, serves: 'Departments must manage and report metadata about critical data assets. The critical data asset switch makes the guidance''s attributes mandatory in the same record the catalogue already holds, so returns can be built, not retyped.'}
@@ -132,7 +132,7 @@ infrastructure_layers:
   # A layered picture of a pan-UK public data infrastructure, bottom up, showing where the profile sits. Author's model (K).
   - {id: L1, title: Data held by public bodies, text: 'Datasets and services stay with the bodies accountable for them (federate first).'}
   - {id: L2, title: Catalogues, text: 'Each body describes its assets once, in its own catalogue.'}
-  - {id: L3, title: The shared record, text: 'DCAT-UK AP: one meaning for every record, with shapes to check it.', here: true}
+  - {id: L3, title: The shared record, text: 'DCAT-AP-UK: one meaning for every record, with shapes to check it.', here: true}
   - {id: L4, title: Harvest and discovery, text: 'Discovery services collect records, map them to the shared record and make them searchable.'}
   - {id: L5, title: Gateways and returns, text: 'The National Data Library, the Data Marketplace and Data Asset Management returns read the same records.'}
   - {id: L6, title: People and systems, text: 'Researchers, service teams, policy makers and the public find, judge and ask for data.'}
@@ -163,7 +163,7 @@ estate:
     - {id: dam, name: DAM capability playbooks, url: 'https://cyberdudeuk.github.io/dam-capability-playbooks/', repo: 'https://github.com/cyberdudeuk/dam-capability-playbooks', bearing: North, question: 'What must we do, and who does it?', status: 'Prototype guidance for the DAM Policy'}
     - {id: dqc, name: Public Sector Data Quality Commons, url: 'https://cyberdudeuk.github.io/dq-commons/', repo: 'https://github.com/cyberdudeuk/dq-commons', bearing: East, question: 'How do I do it well?', status: 'Community project'}
     - {id: cat, name: GitHub Repos Asset Catalogue, url: 'https://cyberdudeuk.github.io/github-repos-asset-catalogue/', repo: 'https://github.com/cyberdudeuk/github-repos-asset-catalogue', bearing: West, question: 'What already exists?', status: 'Specialist evidence tool'}
-    - {id: ap, name: DCAT-UK AP, url: 'https://cyberdudeuk.github.io/dcat-uk-ap/', repo: 'https://github.com/cyberdudeuk/dcat-uk-ap', bearing: South, question: 'How do we describe it so others can find it?', status: 'Proposed standard, not endorsed'}
+    - {id: ap, name: DCAT-AP-UK, url: 'https://cyberdudeuk.github.io/dcat-uk-ap/', repo: 'https://github.com/cyberdudeuk/dcat-uk-ap', bearing: South, question: 'How do we describe it so others can find it?', status: 'Proposed standard, not endorsed'}
   compass: https://cyberdudeuk.github.io/dam-capability-playbooks/compass/
   comparison:
     - group: Content
@@ -184,7 +184,15 @@ estate:
         - {item: 'Search and command palette', dam: full, dqc: full, cat: full, ap: full, ap_note: ''}
         - {item: 'Glossary tooltips and display options', dam: full, dqc: partial, cat: full, ap: full, ap_note: ''}
         - {item: 'Site map', dam: full, dqc: full, cat: partial, ap: full, ap_note: ''}
-        - {item: 'Guided tours and tutorials', dam: full, dqc: full, cat: full, ap: partial, ap_note: 'Role routes; no step-by-step tours yet'}
+        - {item: 'Guided tours and tutorials', dam: full, dqc: full, cat: full, ap: full, ap_note: 'Tours on seven pages, six tutorials with progress, and role routes'}
+        - {item: 'Display options in the masthead', dam: full, dqc: full, cat: partial, ap: full, ap_note: 'Theme, text size, spacing, contrast, motion and link style, kept in this browser'}
+        - {item: 'User guide', dam: full, dqc: full, cat: notseen, ap: full, ap_note: 'Tasks, questions people ask and where to get help'}
+        - {item: 'Interactive lineage and traceability', dam: notseen, dqc: full, cat: notseen, ap: full, ap_note: 'Trace any property, rule, test, standard or defect, up and down'}
+        - {item: 'Data visualisation of the portal’s own data', dam: notseen, dqc: notseen, cat: notseen, ap: full, ap_note: 'Eight charts built from the profile, each with a table'}
+        - {item: 'Metadata weaver and crosswalk matrix', dam: notseen, dqc: partial, cat: notseen, ap: full, ap_note: 'Seven readers and nine writers, every field threaded'}
+        - {item: 'Map of related standards', dam: notseen, dqc: partial, cat: notseen, ap: full, ap_note: 'About 60 standards and 80 typed links, filterable'}
+        - {item: 'Supplier conformance kit and reference API', dam: notseen, dqc: notseen, cat: notseen, ap: full, ap_note: 'Test records with expected verdicts, badges, a command line, an HTTP API and a GitHub Action'}
+        - {item: 'Class diagrams, value types and a feedback link on every page (from the xGov MEM)', dam: partial, dqc: partial, cat: notseen, ap: full, ap_note: 'A UML-style diagram on each class page'}
         - {item: 'Open data downloads and static API', dam: full, dqc: full, cat: full, ap: full, ap_note: 'Every artefact, with a DCAT description of the downloads'}
         - {item: 'Cross-reference manifest (xref.json)', dam: full, dqc: full, cat: partial, ap: full, ap_note: ''}
         - {item: 'MCP server for AI assistants', dam: full, dqc: full, cat: notseen, ap: full, ap_note: 'Nine tools, using the portal’s own validator; tested on every build'}
@@ -197,7 +205,7 @@ estate:
         - {item: 'Independent engines checked against each other', dam: none, dqc: full, cat: partial, ap: full, ap_note: 'SHACL, JSON Schema and the browser validator must agree on every test record'}
         - {item: 'Every check proven by a deliberate break', dam: full, dqc: full, cat: full, ap: full, ap_note: ''}
   gains:
-    - {from: ap, to: dam, text: 'The cataloguing playbook can cite DCAT-UK AP as the agreed field set instead of its own proposed crosswalk, once the profile is endorsed.'}
+    - {from: ap, to: dam, text: 'The cataloguing playbook can cite DCAT-AP-UK as the agreed field set instead of its own proposed crosswalk, once the profile is endorsed.'}
     - {from: ap, to: dqc, text: 'The Metadata Weaver can read profile.json and the JSON-LD context, so "describe once" outputs a record that conforms.'}
     - {from: ap, to: cat, text: 'The catalogue''s DCAT JSON-LD feeds can declare conformance to the profile and use its organisation identifiers.'}
     - {from: dqc, to: ap, text: 'Records link quality reports through dqv:hasQualityAnnotation; the Commons supplies the reports.'}
@@ -205,7 +213,7 @@ estate:
     - {from: cat, to: ap, text: 'The organisations list (register R3, GOV.UK slugs) is reused from the catalogue rather than copied by hand.'}
   shared_keys:
     - {key: 'GOV.UK organisation slug', used_for: 'publisher and creator', where: 'organisations.json; the catalogue''s org crosswalk'}
-    - {key: 'DCAT-UK AP property name', used_for: 'what a field means', where: 'xref.json (properties)'}
+    - {key: 'DCAT-AP-UK property name', used_for: 'what a field means', where: 'xref.json (properties)'}
     - {key: 'Codelist concept', used_for: 'access rights, themes, classifications', where: 'xref.json (codelists)'}
     - {key: 'Glossary term id', used_for: 'shared vocabulary', where: 'xref.json (terms)'}
   journeys:
@@ -227,9 +235,9 @@ governance:
     - {step: Assess, text: 'The maintainers label it, check it against DCAT, DCAT-AP and the backlog, and say whether it is a major, minor or patch change.'}
     - {step: Discuss, text: 'Major and minor changes go to the Metadata Implementation Working Group for review.'}
     - {step: Decide, text: 'The owning team decides. Major changes go to the Data Standards Authority for endorsement.'}
-    - {step: Release, text: 'The change is made in profile/dcat-uk-ap.yaml with a test, passes the release gate and ships in the next release.'}
+    - {step: Release, text: 'The change is made in profile/dcat-ap-uk.yaml with a test, passes the release gate and ships in the next release.'}
   adrs:
-    - {id: '0001', title: 'A new repository, not a rename', status: Accepted, context: 'Issue 78 asked whether to rename the xGov MEM repository. Its discussion said a completely new solution suits a new repository.', decision: 'Start cyberdudeuk/dcat-uk-ap. Keep every xGov MEM slot in the crosswalk. Propose archiving the old repository with a pointer, once the owners agree.', consequences: 'Old issue links keep working. Records written to the xGov MEM convert with the validator.'}
+    - {id: '0001', title: 'A new repository, not a rename', status: Accepted, context: 'Issue 78 asked whether to rename the xGov MEM repository. Its discussion said a completely new solution suits a new repository.', decision: 'Start a new repository (cyberdudeuk/dcat-uk-ap, to be renamed dcat-ap-uk: open register O-16). Keep every xGov MEM slot in the crosswalk. Propose archiving the old repository with a pointer, once the owners agree.', consequences: 'Old issue links keep working. Records written to the xGov MEM convert with the validator.'}
     - {id: '0002', title: 'Generate from one YAML file with our own script, not LinkML', status: Accepted, context: 'The xGov MEM used LinkML and MkDocs. Ten of its twelve open pull requests were dependency updates to that toolchain, and a LinkML limitation blocked issue 63.', decision: 'One profile file; a small Python generator for SHACL, JSON Schema, JSON-LD context, SKOS and the portal. A LinkML file is still generated for continuity.', consequences: 'Fewer dependencies to patch. The LinkML file is not checked by LinkML tools in CI (open register O-09).'}
     - {id: '0003', title: 'Contact form preferred over email in contact points', status: Accepted, context: 'Issue 71 found the contact point was defined as an email address. Email addresses go stale when people move, and can be personal data.', decision: 'A contact point gives a contact form, a team mailbox or both, and never a named person. The form is preferred. The portal publishes no email address at all.', consequences: 'Existing records with team mailboxes still conform. Records with personal addresses should be changed.'}
     - {id: '0004', title: 'Obligations for critical data assets as conditionals', status: Accepted, context: 'The April 2026 guidance asks for more for critical data assets than for other data.', decision: 'A critical data asset flag switches on extra mandatory properties, in the same record, rather than a second profile.', consequences: 'One record serves the catalogue and the return. SHACL and JSON Schema both express the rule.'}
@@ -238,7 +246,10 @@ governance:
     - {id: '0008', title: 'Cross-border flows as two properties and a rule', status: Accepted, context: 'Data moves to the Crown Dependencies, Overseas Territories, Commonwealth and partners. UK GDPR restricts personal data leaving the UK; the ICO updated its guidance on 15 January 2026.', decision: 'Record every place the data is held or sent, and the transfer safeguard. Rule R-08 requires the safeguard when personal data leaves the UK. The jurisdiction list is open, in ISO 3166 form.', consequences: 'The record states the basis; it is not legal advice and not a transfer risk assessment. The adequacy column must be kept current (O-15).'}
     - {id: '0009', title: 'One validator implementation, used everywhere', status: Accepted, context: 'The quality score, levels, converters and exports could be written twice, in Python for the build and JavaScript for the browser, and drift.', decision: 'They live once, in site_src/validator.js. The build, the MCP server and the browser all run it; Python checks only what SHACL and JSON Schema check.', consequences: 'Building needs Node. Tests compare the browser Turtle with the build RDF so the two paths cannot drift.'}
     - {id: '0010', title: 'Quantum-ready means ready to migrate', status: Accepted, context: 'Post-quantum migration is a long programme (NCSC: discovery by 2028, completion by 2035). Metadata cannot make data quantum-safe.', decision: 'Record algorithms as identifiers, warn on weak checksums, and record connection security on data services so the catalogue helps the inventory.', consequences: 'The pages say plainly what the profile does not do.'}
-    - {id: '0006', title: 'A proposed w3id.org namespace', status: Proposed, context: 'Issue 13 asked for a persistent identifier.', decision: 'Use https://w3id.org/dcat-uk-ap/ for the profile, its terms and codelists.', consequences: 'Identifiers do not resolve until the owning team registers the redirect.'}
+    - {id: '0011', title: 'Name the profile DCAT-AP-UK', status: Accepted, context: 'National profiles of DCAT-AP are named DCAT-AP- and a country code (DCAT-AP-NO, DCAT-AP-SE, DCAT-AP-NL, DCAT-AP-DE). The draft was called DCAT-UK AP.', decision: 'Call it DCAT-AP-UK, the DCAT Application Profile for the UK, in every page, file and namespace. Keep the dcatuk: prefix for terms.', consequences: 'The w3id namespace becomes https://w3id.org/dcat-ap-uk/. The repository keeps its old name until the owner renames it (O-16).'}
+    - {id: '0012', title: 'Integrations through a conformance kit and one reference implementation', status: Accepted, context: 'Suppliers need to show conformance without reading the whole profile, and customers need to check claims.', decision: 'Publish test records with expected verdicts, level badges, a command line, a local HTTP API and a GitHub Action, all running validator.js.', consequences: 'A product conforms when it gives the expected verdict on every kit record. Product entries are background knowledge until each supplier confirms them (O-19).'}
+    - {id: '0013', title: 'Model contract clauses for open standards and exit', status: Proposed, context: 'Lock-in comes from proprietary formats, closed interfaces and missing exit terms. The Open Standards Principles and the Technology Code of Practice ask buyers to prevent it.', decision: 'Offer clauses in seven groups (open standards, evidence, ownership, exit, change and debt, security, accessibility) as a downloadable file.', consequences: 'They are a starting point, not legal advice. Commercial and legal review comes first (O-20).'}
+    - {id: '0006', title: 'A proposed w3id.org namespace', status: Proposed, context: 'Issue 13 asked for a persistent identifier.', decision: 'Use https://w3id.org/dcat-ap-uk/ for the profile, its terms and codelists.', consequences: 'Identifiers do not resolve until the owning team registers the redirect.'}
   defects:
     - {id: D-001, found: '2026-11-06', what: 'SHACL accepted badly formed values in recommended and optional properties.', cause: 'Property shapes took their severity from the obligation, so value errors in non-mandatory properties were warnings, which conform.', fix: 'Every value constraint is a violation; the obligation only decides whether absence is allowed.', check: 'tests/test_profile.py DeliberateBreaks (bad-date, summary-too-long, period-end-before-start)'}
     - {id: D-002, found: '2026-11-06', what: 'JSON Schema cannot check that an end date is not before a start date.', cause: 'JSON Schema has no way to compare two values.', fix: 'Documented. SHACL (sh:lessThanOrEquals) and the browser validator enforce rule R-07.', check: 'The fixture is flagged; the test fails if JSON Schema starts catching it, so the flag is removed.'}
@@ -256,6 +267,12 @@ governance:
     - {id: D-014, found: '2026-11-06', what: 'An unknown property name with a space crashed the Turtle export instead of being reported.', cause: 'The name was used in an address without being encoded.', fix: 'Unknown names are percent-encoded, so the record is kept and validation reports it.', check: 'tests/test_toolkit.py test_unknown_key_with_space_serialises'}
     - {id: D-015, found: '2026-11-06', what: 'The record builder’s Turtle dropped every property of a distribution that had its own address.', cause: 'A nested node with an address was written as the address alone.', fix: 'Such nodes are written as their own statements.', check: 'tests/test_toolkit.py test_turtle_matches_python: browser Turtle and build RDF must be isomorphic for every example'}
     - {id: D-016, found: '2026-11-06', what: 'The adoption page had two elements with the id checklist.', cause: 'The section heading and the form were given the same id.', fix: 'The form is checklist-form.', check: 'tools/check_site.py C-04 caught it before release'}
+    - {id: D-017, found: '2026-11-06', what: 'Validating inside the metadata weaver crashed on nested records.', cause: 'A weaver helper was named finish(), the same name as the validator’s own finish(), and replaced it.', fix: 'The helper is finishRec().', check: 'tests/test_integrations.py Weaver: no two top-level functions in validator.js share a name'}
+    - {id: D-018, found: '2026-11-06', what: 'The barcode, the knowledge graph and several new pages used style attributes, which the content security policy blocks, so they lost their styling.', cause: 'The browser check turned the policy off (bypass_csp), so it could not see what the policy blocked.', fix: 'Presentation attributes and classes only.', check: 'tools/check_site.py C-19, and a browser pass with the policy on (break: csp)'}
+    - {id: D-019, found: '2026-11-06', what: 'Every page scrolled sideways by 4 pixels on phones and tablets.', cause: 'The new page heading band used a negative side margin wider than the page padding at narrow widths.', fix: 'No negative margin.', check: 'tools/check_browser.py overflow at 320, 390 and 768 pixels (break: overflow)'}
+    - {id: D-020, found: '2026-11-06', what: 'The standards map hid its links from assistive technology, and some link names did not match their visible text.', cause: 'The map was marked as one image (role img) although it holds links, and long names were cut short on screen but not in the label.', fix: 'The map is a group; each standard has a short visible label that begins its accessible name.', check: 'tools/check_browser.py axe nested-interactive and label-content-name-mismatch (break: nested)'}
+    - {id: D-021, found: '2026-11-06', what: 'The quality score bars in the builder and checker were empty.', cause: 'Their widths were written as style attributes in generated HTML, which the content security policy blocks.', fix: 'Widths are set through the style object after the HTML is added.', check: 'tools/check_browser.py CSP pass (break: meter)'}
+    - {id: D-022, found: '2026-11-06', what: 'The contrast check could no longer see the text in page heading bands, so poor contrast there would pass.', cause: 'The bands had a gradient background, which axe-core cannot measure, so it marks the text as unchecked rather than failing it.', fix: 'A solid tinted background with a coloured edge, lightened so links in the band meet 4.5 to 1: the blind spot had hidden low-contrast links on 13 pages.', check: 'tools/check_browser.py contrast (break: contrast, which targets heading band text and was not caught until the fix)'}
   open:
     - {id: O-01, item: 'Test the portal and the profile with at least five people from four of the personas, including disabled people.', who: 'User researcher', status: open}
     - {id: O-02, item: 'Review by the Metadata Implementation Working Group.', who: 'Owning team', status: open}
@@ -269,8 +286,13 @@ governance:
     - {id: O-11, item: 'Review the first UK GEMINI crosswalk (adoption toolkit) and the geospatial extension with the geospatial community.', who: 'Metadata specialist', status: open}
     - {id: O-12, item: 'Ask the co-cddo owners to point the xGov MEM repository and its open issues here.', who: 'Repository owner', status: open}
     - {id: O-13, item: 'Check every extension term and namespace marked K with its sector body (health, geospatial, statistics, transport, data spaces, energy, organisation identifiers).', who: 'Metadata specialist, with each sector', status: open}
-    - {id: O-14, item: 'Reconcile this profile with the future pan-UK metadata architecture (co-cddo, private): base DCAT-AP version, namespace, extension names and validator, so there is one DCAT-UK AP, not two.', who: 'Owning team', status: open}
+    - {id: O-14, item: 'Reconcile this profile with the future pan-UK metadata architecture (co-cddo, private): base DCAT-AP version, namespace, extension names and validator, so there is one DCAT-AP-UK, not two.', who: 'Owning team', status: open}
     - {id: O-15, item: 'Check the UK adequacy column and the transfer safeguards against the ICO list, and the Crown Dependency and Overseas Territory entries with their regulators.', who: 'Data protection specialist', status: open}
+    - {id: O-16, item: 'Rename the repository to dcat-ap-uk, after the DCAT-AP-NO, -SE and -NL naming, and update the site address. GitHub redirects the old name.', who: 'Repository owner', status: open}
+    - {id: O-17, item: 'Register https://w3id.org/dcat-ap-uk/ (the namespace changed with the rename, ADR 0011) and retire the dcat-uk-ap spelling.', who: 'Owning team', status: open}
+    - {id: O-18, item: 'Set the repository settings the build cannot set: description, topics, Pages from gh-pages, private vulnerability reporting, secret scanning, merge options and social preview (docs/repo-settings.md).', who: 'Repository owner', status: open}
+    - {id: O-19, item: 'Check the 22 product entries on the integrations page with each supplier before anyone relies on them.', who: 'Owning team, with suppliers', status: open}
+    - {id: O-20, item: 'Have commercial and legal specialists review the model contract clauses before use in any procurement.', who: 'Commercial and legal specialists', status: open}
   raid:
     - {type: Risk, text: 'Departments see another standard and wait. Mitigation: everything in the xGov MEM still maps, and conversion is automatic.'}
     - {type: Risk, text: 'The profile is mistaken for an endorsed standard. Mitigation: the status banner on every page and in every file.'}
@@ -278,7 +300,7 @@ governance:
     - {type: Issue, text: 'Identifiers do not resolve until the namespace is registered.'}
     - {type: Dependency, text: 'The cross-government taxonomy for themes, from the master and reference data working group.'}
   checkpoint:
-    intent: Evolve the xGov MEM into DCAT-UK AP, resolve its backlog, align to DCAT 3, DCAT-AP 3.0.1, the 2026 guidance and the future-state strategy, and present it in a portal that joins the estate.
+    intent: Evolve the xGov MEM into DCAT-AP-UK, resolve its backlog, align to DCAT 3, DCAT-AP 3.0.1, the 2026 guidance and the future-state strategy, and present it in a portal that joins the estate.
     arc:
       - 'Read the xGov MEM source, its 99 issues and pull requests, the 2026 guidance, the Data Asset Management Policy, the Data Marketplace schemas and the future data architecture.'
       - 'Wrote the profile as one YAML source, with codelists, lineage and worked examples.'
@@ -289,7 +311,7 @@ governance:
   adversarial:
     - {claim: 'This is just the xGov MEM with more fields; departments will not adopt it.', answer: 'Most of the change is fixes the xGov MEM''s own users raised (20 open issues) and alignment that suppliers already implement for Europe. Records convert automatically. The base rate for voluntary metadata standards is low adoption without a mandate; the critical data asset switch ties it to a policy that already requires metadata.'}
     - {claim: 'Making modified optional weakens the record.', answer: 'A false date is worse than none (issue 30). The profile asks for it whenever known and forbids inventing it. Critical data assets still need created and time covered.'}
-    - {claim: 'An unendorsed proposal in a personal repository should not be called DCAT-UK AP.', answer: 'The name follows issue 78 and the MIWG discussion. Every page says it is proposed and not endorsed. If the owners prefer another name, it changes in one file.'}
+    - {claim: 'An unendorsed proposal in a personal repository should not be called DCAT-AP-UK.', answer: 'The name follows issue 78 and the MIWG discussion. Every page says it is proposed and not endorsed. If the owners prefer another name, it changes in one file.'}
     - {claim: 'Requiring DCAT-AP mandatory properties (access URL, endpoint URL) adds burden.', answer: 'Both are already held by any catalogue that publishes a file or an API. For internal APIs the guidance says to give a gateway address, not an internal host.'}
   dpia: 'Screening only. The portal processes no personal data: no analytics, no cookies, no forms of its own. Display choices stay in the browser. The contact form is a GitHub issue form and is public, so it says not to include personal data. Records built in the browser never leave it. No DPIA is needed for the portal; adopters must assess their own catalogues.'
   atrs: 'Not needed. The portal and profile make no algorithmic decisions about people. The validator applies published rules and shows its reasons.'
@@ -322,7 +344,7 @@ governance:
     assumptions: ['Catalogue owners will change exports if the cost is low and the benefit is clear', 'A mandate or endorsement follows a credible proposal']
     falsification: ['If fewer than half of the catalogue managers in research can map their fields using the crosswalk, the profile or the crosswalk is too hard', 'If no catalogue declares conformance within two releases of endorsement, adoption needs a different route']
   architecture:
-    - {layer: Source, text: 'profile/dcat-uk-ap.yaml, profile/codelists.yaml, content/*.yaml, examples/examples.yaml. Hand edited, reviewed in pull requests.'}
+    - {layer: Source, text: 'profile/dcat-ap-uk.yaml, profile/codelists.yaml, content/*.yaml, examples/examples.yaml. Hand edited, reviewed in pull requests.'}
     - {layer: Generator, text: 'tools/ukap.py loads and checks the source; tools/generate.py writes the machine-readable files; tools/build.py writes the portal.'}
     - {layer: Checks, text: 'tests/test_profile.py (three validators, deliberate breaks, integrity); tools/check_site.py (pages); tools/check_browser.py (Playwright and axe-core).'}
     - {layer: Publication, text: 'Static files on GitHub Pages, from the gh-pages branch, written by the workflow after every check passes.'}

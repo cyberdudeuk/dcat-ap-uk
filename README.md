@@ -1,6 +1,6 @@
-# DCAT-UK Application Profile (DCAT-UK AP)
+# DCAT Application Profile for the UK (DCAT-AP-UK)
 
-> **Proposed, not endorsed.** DCAT-UK AP 1.1.0-rc.1 is a proposal for review by the Metadata Implementation Working Group. It has not
+> **Proposed, not endorsed.** DCAT-AP-UK 1.2.0-rc.1 is a proposal for review by the Metadata Implementation Working Group. It has not
 > been endorsed by the Data Standards Authority, and it is not an official GOV.UK service or policy. The endorsed model remains the
 > [UK Cross-Government Metadata Exchange Model](https://co-cddo.github.io/ukgov-metadata-exchange-model/) (xGov MEM) until a decision is made.
 
@@ -9,6 +9,8 @@ Built on the W3C [DCAT 3](https://www.w3.org/TR/vocab-dcat-3/) Recommendation, a
 and evolved from the xGov MEM, whose whole backlog it resolves.
 
 **Portal:** https://cyberdudeuk.github.io/dcat-uk-ap/
+
+The profile is named after other national DCAT-AP profiles (DCAT-AP-NO, DCAT-AP-SE, DCAT-AP-NL). The repository keeps its first name, `dcat-uk-ap`, until its owner renames it to `dcat-ap-uk`; GitHub will redirect the old address.
 
 ## Who it is for, and where to start
 
@@ -21,6 +23,8 @@ and evolved from the xGov MEM, whose whole backlog it resolves.
 | New to metadata | Understand why it matters | [Your role](https://cyberdudeuk.github.io/dcat-uk-ap/roles.html#start), with an Easy Read summary |
 | Any organisation, in any sector | Adopt it | [Adoption toolkit](https://cyberdudeuk.github.io/dcat-uk-ap/adopt.html), [sector extensions](https://cyberdudeuk.github.io/dcat-uk-ap/extensions.html) and [check many records](https://cyberdudeuk.github.io/dcat-uk-ap/bulk.html) |
 | Sharing data across borders | Record where data goes and on what basis | [Cross-border data flows](https://cyberdudeuk.github.io/dcat-uk-ap/international.html) |
+| A supplier or integrator | Prove a product conforms | [Integrations](https://cyberdudeuk.github.io/dcat-uk-ap/integrations.html): conformance kit, badges, command line, HTTP API and GitHub Action |
+| A buyer or commercial lead | Avoid lock-in in a contract | [Avoiding lock-in](https://cyberdudeuk.github.io/dcat-uk-ap/lockin.html) and the model clauses |
 | Building with AI | Know what data may be used for, and let assistants read the profile | [AI-ready metadata](https://cyberdudeuk.github.io/dcat-uk-ap/ai-ready.html) and the [MCP server](integrations/mcp/) |
 
 ## What changed from the xGov MEM
@@ -31,6 +35,30 @@ and evolved from the xGov MEM, whose whole backlog it resolves.
 - Critical data assets get the extra mandatory properties the April 2026 GOV.UK guidance lists.
 - Codelists are linked data (SKOS), mapped to the EU vocabularies DCAT-AP uses. Themes are the data.gov.uk topics.
 - Contact points prefer a contact form and never name a person.
+
+## New in 1.2
+
+- Renamed DCAT-AP-UK; namespace `https://w3id.org/dcat-ap-uk/` (ADR 0011).
+- A metadata weaver: seven readers and nine writers (DCAT-AP-UK, xGov MEM, CKAN, DCAT-US, schema.org, Dublin Core, DDI, JSON-LD, Turtle, Croissant).
+- A lineage explorer, a standards map of about 60 related standards, insights charts and a visual site map.
+- For suppliers: a conformance kit with expected verdicts, level badges, and the validator as a command line, a local HTTP API and a GitHub Action.
+- For buyers: how open standards prevent lock-in and technical debt, with model contract clauses.
+- A user guide, guided tours and tutorials; display options in the masthead.
+- From the xGov MEM portal: class diagrams, value types, the profile in tables, a licence page and a feedback link on every page.
+
+### Use it in a pipeline
+
+```yaml
+- uses: actions/checkout@v4
+- uses: cyberdudeuk/dcat-uk-ap@main   # pin to a release tag or commit
+  with:
+    files: metadata/*.json
+```
+
+```sh
+node integrations/cli/validate.js --format text records/*.json     # exits 1 on any error
+node integrations/http/server.js                                    # POST /validate, /score, /weave on 127.0.0.1:8787
+```
 
 ## New in 1.1
 
@@ -46,7 +74,7 @@ and evolved from the xGov MEM, whose whole backlog it resolves.
 One source, everything else generated:
 
 ```
-profile/dcat-uk-ap.yaml     the profile: classes, properties, obligations, rules  (edit here)
+profile/dcat-ap-uk.yaml     the profile: classes, properties, obligations, rules  (edit here)
 profile/codelists.yaml      the codelists                                          (edit here)
 profile/extensions.yaml     sector extensions: only add properties or raise obligations    (edit here)
 profile/crosswalks.yaml     crosswalks to CKAN, Dublin Core, UK GEMINI, HDR UK, Croissant  (edit here)
@@ -56,6 +84,10 @@ content/portal.yaml         roles, glossary, strategy, estate comparison, govern
 content/toolkit.yaml        landscape scan, adoption toolkit, cross-border, AI and quantum content
 examples/examples.yaml      worked examples, checked on every build
 integrations/mcp/           MCP server for AI assistants, using site_src/validator.js
+integrations/cli/, http/    command line and local HTTP API; action.yml is the GitHub Action
+content/guide.yaml          user guide, tutorials and tours
+content/standards.yaml      related standards and the typed links between them
+content/integrations.yaml   integration patterns and products; content/lockin.yaml: lock-in and contract clauses
 tools/                      ukap.py (load and check), generate.py (SHACL, JSON Schema, context, LinkML, SKOS, CSV), build.py (portal)
 site_src/                   stylesheet, behaviour, and the browser validator shared with the tests
 tests/                      the three validators held to the same verdict; deliberate breaks for every rule
@@ -68,7 +100,7 @@ docs/                       registers and decisions, generated from content/port
 pip install -r requirements.txt && npm ci && python3 -m playwright install chromium
 python3 -I -m unittest discover -s tests        # profile, schemas and validator agree; every break fails
 python3 -I tools/build.py                        # writes site/ and docs/
-python3 -I tools/check_site.py                   # 18 structural checks
+python3 -I tools/check_site.py                   # 21 structural checks
 python3 -I tools/check_site.py --vaccinate       # proves each check catches its deliberate break
 python3 -I tools/check_browser.py                # axe-core, widths 320-1920, light and dark, keyboard, tools, no-script
 ```
@@ -84,14 +116,14 @@ Standards Authority. See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Part of a wider estate
 
-DCAT-UK AP is the fourth of four open portals for data in the public sector, each with its own owner, purpose and status. They link and share keys; they do not merge.
+DCAT-AP-UK is the fourth of four open portals for data in the public sector, each with its own owner, purpose and status. They link and share keys; they do not merge.
 
 | Bearing | Portal | Question |
 |---|---|---|
 | North | [DAM capability playbooks](https://cyberdudeuk.github.io/dam-capability-playbooks/) | What must we do, and who does it? |
 | East | [Public Sector Data Quality Commons](https://cyberdudeuk.github.io/dq-commons/) | How do I do it well? |
 | West | [GitHub Repos Asset Catalogue](https://cyberdudeuk.github.io/github-repos-asset-catalogue/) | What already exists? |
-| South | DCAT-UK AP (this) | How do we describe it so others can find it? |
+| South | DCAT-AP-UK (this) | How do we describe it so others can find it? |
 
 The [estate compass](https://cyberdudeuk.github.io/dam-capability-playbooks/compass/) suggests a route across all four. Shared keys are in [`xref.json`](https://cyberdudeuk.github.io/dcat-uk-ap/xref.json).
 

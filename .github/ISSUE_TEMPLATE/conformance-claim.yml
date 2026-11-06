@@ -1,0 +1,69 @@
+name: Conformance claim
+description: Tell us a product or catalogue conforms to DCAT-AP-UK, with the evidence from the conformance kit
+title: "[Conformance] "
+labels: ["conformance claim"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        A claim is listed only after the kit results are reproduced. This form is public: no personal data, no names of people,
+        nothing above OFFICIAL, and no email addresses. We reply on this issue.
+  - type: input
+    id: product
+    attributes:
+      label: Product or catalogue, and version
+      placeholder: Example Catalogue 4.2
+    validations:
+      required: true
+  - type: input
+    id: organisation
+    attributes:
+      label: Organisation (supplier or public body)
+    validations:
+      required: true
+  - type: dropdown
+    id: level
+    attributes:
+      label: Level claimed
+      options:
+        - Level 1 (mandatory properties)
+        - Level 2 (mandatory and recommended)
+        - Level 3 (level 2 and a quality score of 80 or more)
+    validations:
+      required: true
+  - type: input
+    id: profile
+    attributes:
+      label: DCAT-AP-UK version tested, and any extensions
+      placeholder: 1.2.0-rc.1, geospatial
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Kit results
+      description: Paste the output of `node integrations/cli/validate.js --format json downloads/conformance/*.json`, or link to a public CI run.
+      render: json
+    validations:
+      required: true
+  - type: dropdown
+    id: directions
+    attributes:
+      label: What does the product do with DCAT-AP-UK?
+      multiple: true
+      options:
+        - Exports records
+        - Imports or harvests records
+        - Validates records
+        - Converts records
+    validations:
+      required: true
+  - type: checkboxes
+    id: confirm
+    attributes:
+      label: Confirmations
+      options:
+        - label: The results come from the unmodified kit for the version named.
+          required: true
+        - label: I understand a listing is not an endorsement by any government body.
+          required: true

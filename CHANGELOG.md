@@ -1,6 +1,34 @@
 # Change log
 
-All notable changes to DCAT-UK AP. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and versions follow semantic versioning.
+All notable changes to DCAT-AP-UK. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and versions follow semantic versioning.
+
+## [1.2.0-rc.1] - 2026-11-06
+
+A minor release: a new name, tools for suppliers and buyers, and a richer portal. No property changes meaning. Proposed, not endorsed.
+
+### Changed
+- Renamed DCAT-AP-UK (the DCAT Application Profile for the UK), after DCAT-AP-NO, -SE and -NL (ADR 0011).
+  The profile file is `profile/dcat-ap-uk.yaml` and the proposed namespace is `https://w3id.org/dcat-ap-uk/`.
+  The `dcatuk:` prefix stays. The repository is renamed by its owner (open register O-16).
+- Display options moved to the masthead, beside search and help.
+
+### Added
+- Pages: user guide, tutorials, metadata weaver, lineage explorer, standards map, insights, integrations,
+  avoiding lock-in, value types and licence; a visual site map.
+- Guided tours on seven pages.
+- The weaver in `validator.js`: readers for DCAT-AP-UK, xGov MEM, CKAN, DCAT-US, schema.org, Dublin Core and DDI;
+  writers for those plus JSON-LD, Turtle and Croissant. A DDI Codebook crosswalk.
+- A conformance kit (`downloads/conformance/`), level badges, an OpenAPI description of the reference API,
+  a command line (`integrations/cli/validate.js`), a local HTTP API (`integrations/http/server.js`) and a GitHub Action (`action.yml`).
+- Model contract clauses for open standards and exit (`downloads/contract-clauses.md`, ADR 0013).
+- From the xGov MEM portal: a class diagram on each class page, the profile in tables on the home page,
+  and "Suggest a change to this page" in every footer.
+- Checks C-19 (no style attributes), C-20 (tour stops exist) and C-21 (feedback link on every page),
+  each with a deliberate break; a browser pass with the content security policy on.
+- Repository: a conformance claim issue form, labels as code, release note categories, CodeQL, support and governance files.
+
+### Fixed
+- D-017 to D-022; see the defect register.
 
 ## [1.1.0-rc.1] - 2026-11-06
 

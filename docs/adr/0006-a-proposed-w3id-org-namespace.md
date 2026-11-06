@@ -8,7 +8,7 @@ Issue 13 asked for a persistent identifier.
 
 ## Decision
 
-Use https://w3id.org/dcat-uk-ap/ for the profile, its terms and codelists.
+Use https://w3id.org/dcat-ap-uk/ for the profile, its terms and codelists.
 
 ## Consequences
 

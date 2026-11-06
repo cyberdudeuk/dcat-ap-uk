@@ -1,5 +1,5 @@
 {
-  "name": "dcat-uk-ap-qa",
+  "name": "dcat-ap-uk-qa",
   "private": true,
   "description": "Test and build-time dependencies only. Nothing here is loaded by the site at runtime; icons are vendored into site_src/icons.json.",
   "license": "MIT",

@@ -8,7 +8,7 @@ Issue 78 asked whether to rename the xGov MEM repository. Its discussion said a 
 
 ## Decision
 
-Start cyberdudeuk/dcat-uk-ap. Keep every xGov MEM slot in the crosswalk. Propose archiving the old repository with a pointer, once the owners agree.
+Start a new repository (cyberdudeuk/dcat-uk-ap, to be renamed dcat-ap-uk: open register O-16). Keep every xGov MEM slot in the crosswalk. Propose archiving the old repository with a pointer, once the owners agree.
 
 ## Consequences
 
