@@ -336,6 +336,39 @@ def c_markings(site, docs):
     return bad
 
 
+# C-23: old organisation names and personal details. The directorate is now the Government Data directorate in GDS
+# (owner-stated, 6 November 2026). Personal and team details are matched by hash, so the check never publishes them.
+OLD_ORG = re.compile(r'Office of the (?:Government )?Chief Data Officer|\bOCDO\b')
+PERSONAL = {'fcd2b45b8eda145e', 'd24e913a4107af87', '602fa48e40f5b901', '8a0217b61d3a5f9e'}
+
+
+def _grams(text):
+    import hashlib
+    words = re.findall(r'[a-z]+', text.lower())
+    for n in (1, 3):
+        for i in range(len(words) - n + 1):
+            g = ' '.join(words[i:i + n])
+            yield g, hashlib.sha256(g.encode()).hexdigest()[:16]
+
+
+def c_people(site, docs):
+    """C-23 no old organisation name (OCDO) and no personal or team details anywhere: pages, downloads or repository files. Contact is by form only."""
+    bad = []
+    base = SCAN_ROOT[0]
+    files = list(site.rglob('*.html')) + [f for f in (site / 'downloads').rglob('*') if f.is_file() and f.suffix in TEXT_EXT | {'.json', '.ttl', '.jsonld', '.csv', '.yaml', '.md', '.txt'}]
+    files += [f for f in base.rglob('*') if f.is_file() and not any(x in f.relative_to(base).parts for x in ('.git', 'node_modules', 'site', 'build')) and f.suffix in TEXT_EXT | {'.py', '.cff', '.yaml', '.yml', '.md', '.json'}]
+    for f in files:
+        t = f.read_text(encoding='utf-8', errors='ignore')
+        rel = f.name if f.is_relative_to(site) else str(f.relative_to(base))
+        for m in OLD_ORG.finditer(t):
+            if 'check_site.py' not in rel:
+                bad.append(f'{rel}: old organisation name "{m.group(0)}"')
+        hit = {h for g, h in _grams(t) if h in PERSONAL}
+        if hit:
+            bad.append(f'{rel}: personal or team details ({len(hit)} match)')
+    return bad
+
+
 def c_email_repo(site, docs):
     """C-17 no email address in the repository's own files either; test fixtures may use reserved example domains only."""
     bad = []
@@ -351,7 +384,7 @@ def c_email_repo(site, docs):
     return bad
 
 
-CHECKS = [c_csp, c_external, c_email, c_ids, c_links, c_tables, c_meta, c_colophon, c_skip, c_deck_film, c_inline, c_banner, c_lang_title, c_weight, c_svg_names, c_unrendered, c_email_repo, c_llms, c_no_style_attr, c_tours, c_feedback, c_markings]
+CHECKS = [c_csp, c_external, c_email, c_ids, c_links, c_tables, c_meta, c_colophon, c_skip, c_deck_film, c_inline, c_banner, c_lang_title, c_weight, c_svg_names, c_unrendered, c_email_repo, c_llms, c_no_style_attr, c_tours, c_feedback, c_markings, c_people]
 
 
 def run(site, quiet=False):
@@ -407,6 +440,7 @@ BREAKS = {
     'C-17': lambda s: _plant_repo(s),
     'C-19': lambda s: _sub(s / 'index.html', '<main id="main"', '<main style="color:red" id="main"'),
     'C-20': lambda s: _sub(s / 'builder.html', 'id="b-level"', 'id="b-level-gone"'),
+    'C-23': lambda s: _sub(s / 'governance.html', '<h2 id="adrs"', '<p>Office of the Government Chief Data Officer</p><h2 id="adrs"'),
     'C-22': lambda s: _sub(s / 'requirements.html', '<h2 id="controlled">', '<p>REL FVEY</p><h2 id="controlled">'),
     'C-21': lambda s: _sub(s / 'types.html', 'template=change-request.yml', 'template=no-such-form.yml'),
     'C-18': lambda s: _sub(s / 'llms.txt', 'downloads/profile.json)', 'downloads/no-such-file.json)'),

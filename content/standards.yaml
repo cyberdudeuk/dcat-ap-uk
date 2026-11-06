@@ -26,9 +26,9 @@ groups:
 
 standards:
   - {id: ukap, label: DCAT-AP-UK, group: core, url: 'https://cyberdudeuk.github.io/dcat-ap-uk/', note: 'This profile.'}
-  - {id: dcat3, label: W3C DCAT 3, group: core, url: 'https://www.w3.org/TR/vocab-dcat-3/', prov: V}
-  - {id: dcatap, label: DCAT-AP 3.0.1, group: core, url: 'https://semiceu.github.io/DCAT-AP/releases/3.0.1/', prov: V}
-  - {id: hvd, label: DCAT-AP HVD, group: core, url: 'https://semiceu.github.io/DCAT-AP/releases/3.0.0-hvd/'}
+  - {id: dcat3, label: W3C DCAT 3, group: core, url: 'https://www.w3.org/TR/vocab-dcat-3/', prov: V, note: 'Checked 6 November 2026: W3C Recommendation, 22 August 2024.'}
+  - {id: dcatap, label: DCAT-AP 3.0.1, group: core, url: 'https://semiceu.github.io/DCAT-AP/releases/3.0.1/', prov: V, note: 'Checked 6 November 2026: 3.0.1 (27 October 2025) is the latest release; 3.0.2 is a draft.'}
+  - {id: hvd, label: DCAT-AP HVD, group: core, url: 'https://semiceu.github.io/DCAT-AP/releases/3.0.0-hvd/', note: 'Checked 6 November 2026: 3.0.0 is the latest release; a 3.0.1 draft was under public review until September 2026.', prov: V}
   - {id: mem, label: xGov MEM v0.1.0, group: core, url: 'https://github.com/co-cddo/ukgov-metadata-exchange-model', prov: V}
   - {id: dm, label: Data Marketplace schemas, group: core, url: 'https://github.com/co-cddo/data-catalogue-metadata'}
   - {id: panuk, label: Future pan-UK metadata architecture, short: 'Pan-UK architecture', group: core, url: 'https://github.com/co-cddo/future-panuk-metadata-architecture', note: 'Private repository.'}
@@ -46,14 +46,14 @@ standards:
   - {id: euvoc, label: EU Vocabularies, group: vocab, url: 'https://op.europa.eu/en/web/eu-vocabularies'}
   - {id: iso3166, label: ISO 3166 country codes, group: vocab, url: 'https://www.iso.org/iso-3166-country-codes.html'}
   - {id: iana, label: IANA media types, group: vocab, url: 'https://www.iana.org/assignments/media-types/'}
-  - {id: healthdcat, label: HealthDCAT-AP R7, group: sector, url: 'https://healthdataeu.pages.code.europa.eu/healthdcat-ap/', prov: S}
-  - {id: geodcat, label: GeoDCAT-AP 3.1, group: sector, url: 'https://semiceu.github.io/GeoDCAT-AP/', prov: S}
+  - {id: healthdcat, label: HealthDCAT-AP R7, group: sector, url: 'https://healthdataeu.pages.code.europa.eu/healthdcat-ap/', prov: V, note: 'Checked 6 November 2026: Release 7 is the latest, with a stable "latest" address.'}
+  - {id: geodcat, label: GeoDCAT-AP 3.1, group: sector, url: 'https://semiceu.github.io/GeoDCAT-AP/', prov: V, note: 'Checked 6 November 2026: 3.1.0 is the latest release.'}
   - {id: statdcat, label: StatDCAT-AP, group: sector, url: 'https://semiceu.github.io/StatDCAT-AP/'}
   - {id: mobilitydcat, label: mobilityDCAT-AP, group: sector, url: 'https://mobilitydcat-ap.github.io/mobilityDCAT-AP/'}
   - {id: mldcat, label: MLDCAT-AP 3.x, group: sector, url: 'https://semiceu.github.io/MLDCAT-AP/', prov: S}
   - {id: bregdcat, label: BRegDCAT-AP, group: sector, url: 'https://interoperable-europe.ec.europa.eu/collection/access-base-registries/solution/bregdcat-ap', prov: S}
   - {id: dsp, label: Dataspace Protocol, group: sector, url: 'https://projects.eclipse.org/projects/technology.dataspace-protocol-base', prov: S}
-  - {id: gemini, label: UK GEMINI 2.3, group: sector, url: 'https://www.agi.org.uk/gemini/', prov: S}
+  - {id: gemini, label: UK GEMINI 2.3, group: sector, url: 'https://www.agi.org.uk/gemini/', prov: V, note: 'Checked 6 November 2026: 2.3 (2018, editorial fixes to November 2023) is current.'}
   - {id: medin, label: MEDIN, group: sector, url: 'https://www.medin.org.uk/medin-discovery-metadata-standard', prov: S}
   - {id: hdruk, label: HDR UK Gateway schema, group: sector, url: 'https://github.com/HDRUK/schemata', prov: S}
   - {id: ofgem, label: Ofgem Data Best Practice, group: sector, url: 'https://www.ofgem.gov.uk/', prov: S}
@@ -67,7 +67,7 @@ standards:
   - {id: dcatnl, label: DCAT-AP-NL 3.0, group: national, url: 'https://www.geonovum.nl/', prov: S}
   - {id: dcatit, label: DCAT-AP_IT, group: national, url: 'https://www.dati.gov.it/', prov: S}
   - {id: schemaorg, label: schema.org Dataset, group: model, url: 'https://schema.org/Dataset'}
-  - {id: croissant, label: Croissant 1.1, group: model, url: 'https://docs.mlcommons.org/croissant/', prov: S}
+  - {id: croissant, label: Croissant 1.1, group: model, url: 'https://docs.mlcommons.org/croissant/', prov: V, note: 'Checked 6 November 2026: version 1.1, published 29 January 2026.'}
   - {id: dcmes, label: Dublin Core 15 elements, group: model, url: 'https://www.dublincore.org/specifications/dublin-core/dces/'}
   - {id: ddi, label: DDI Codebook, group: model, url: 'https://ddialliance.org/Specification/DDI-Codebook/2.5/'}
   - {id: ckan, label: CKAN and ckanext-dcat, group: model, url: 'https://github.com/ckan/ckanext-dcat'}
@@ -87,7 +87,7 @@ standards:
   - {id: ncsc, label: NCSC post-quantum timeline, short: 'NCSC post-quantum', group: policy, url: 'https://www.ncsc.gov.uk/guidance/pqc-migration-timelines', prov: S}
   - {id: fips, label: FIPS 203, 204 and 205, group: policy, url: 'https://csrc.nist.gov/projects/post-quantum-cryptography'}
   - {id: copstats, label: Code of Practice for Statistics, short: 'Statistics Code', group: policy, url: 'https://code.statisticsauthority.gov.uk/'}
-  - {id: wcag, label: WCAG 2.2, group: policy, url: 'https://www.w3.org/TR/WCAG22/'}
+  - {id: wcag, label: WCAG 2.2, group: policy, url: 'https://www.w3.org/TR/WCAG22/', note: 'Checked 6 November 2026: WCAG 2.2, W3C Recommendation, 12 December 2024.', prov: V}
   - {id: orgid, label: org-id.guide, group: policy, url: 'https://org-id.guide/'}
 
 links:

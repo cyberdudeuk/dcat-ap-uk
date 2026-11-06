@@ -198,7 +198,7 @@ jurisdiction:
   open: true
   pattern: '^(ukcl:jurisdiction/|https://w3id\.org/dcat-ap-uk/codelist/jurisdiction/)[a-z]{2,3}(-[a-z0-9]{1,3})?$'
   note: >-
-    Codes are ISO 3166-1 alpha-2 (ISO 3166-2 for the UK nations), lower case. Any other country may be added in the same form. Adequacy is UK adequacy regulations as listed by the ICO; check the ICO list before relying on it (provenance K, 6 November 2026).
+    Codes are ISO 3166-1 alpha-2 (ISO 3166-2 for the UK nations), lower case. Any other country may be added in the same form. Adequacy is UK adequacy regulations, called data bridges since the Data (Use and Access) Act 2025 came into force on 5 February 2026 (the test is now that protection is not materially lower than in the UK). The list was triangulated on 6 November 2026 against the ICO's international transfers guidance and secondary sources, because the ICO's adequacy page could not be fetched directly (provenance S). Check the ICO list before relying on it.
   concepts:
     - {code: gb, label: 'United Kingdom', groups: [uk], definition: 'The whole UK. Use a nation when you know it.'}
     - {code: gb-eng, label: 'England', groups: [uk]}
@@ -329,7 +329,7 @@ transfer-mechanism:
   definition: The bases in UK GDPR for sending personal data outside the UK, as the ICO guidance of 15 January 2026 sets them out (provenance S).
   concepts:
     - {code: not-restricted, label: Not a restricted transfer, definition: 'The ICO three-step test shows the flow is not a restricted transfer, for example because the receiver is not a separate legal entity, or the data is not personal data in the receiver''s hands.'}
-    - {code: uk-adequacy, label: UK adequacy regulations, definition: 'The receiver is in a country, territory or international organisation covered in full by UK adequacy regulations.'}
+    - {code: uk-adequacy, label: UK adequacy regulations (data bridge), definition: 'The receiver is in a country, territory or international organisation covered in full by UK adequacy regulations, known as data bridges. Since the Data (Use and Access) Act 2025 came into force on 5 February 2026, the test is that protection there is not materially lower than in the UK.'}
     - {code: uk-adequacy-partial, label: Partial UK adequacy regulations, definition: 'Covered by adequacy regulations for a sector or a class of receiver only, such as organisations certified to the UK-US data bridge.'}
     - {code: idta, label: International data transfer agreement (IDTA), definition: 'The ICO international data transfer agreement.'}
     - {code: addendum, label: UK Addendum to the EU standard contractual clauses, definition: 'The EU standard contractual clauses with the ICO UK Addendum.'}

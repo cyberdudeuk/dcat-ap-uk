@@ -31,7 +31,7 @@ sources:
   - {id: ckandcat, title: 'ckanext-dcat', publisher: 'CKAN community', date: '2025', url: 'https://github.com/ckan/ckanext-dcat', prov: K, role: 'The CKAN extension that reads and writes DCAT and DCAT-AP, and can expose Croissant.'}
   - {id: ddi, title: 'DDI Codebook 2.5', publisher: 'DDI Alliance', date: '2014', url: 'https://ddialliance.org/Specification/DDI-Codebook/2.5/', prov: K, role: 'Metadata for social science and survey data, used by data archives.'}
   - {id: dcmes, title: 'Dublin Core Metadata Element Set 1.1', publisher: 'DCMI', date: '2012', url: 'https://www.dublincore.org/specifications/dublin-core/dces/', prov: K, role: 'The 15 core elements.'}
-  - {id: ico, title: 'International transfers (guidance updated 15 January 2026)', publisher: "Information Commissioner's Office", date: '2026-01-15', url: 'https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/international-transfers/', prov: S, role: 'How to tell if a transfer is restricted, the adequacy regulations, the safeguards and the exceptions.'}
+  - {id: ico, title: 'International transfers (guidance updated 15 January 2026)', publisher: "Information Commission (the ICO; Information Commissioner's Office until 29 October 2026)", date: '2026-01-15', url: 'https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/international-transfers/', prov: S, role: 'How to tell if a transfer is restricted, the adequacy regulations, the safeguards and the exceptions.'}
   - {id: ncsc-pqc, title: 'Timelines for migration to post-quantum cryptography', publisher: 'National Cyber Security Centre', date: '2025-03', url: 'https://www.ncsc.gov.uk/guidance/pqc-migration-timelines', prov: S, role: 'Discovery and a plan by 2028, high-priority migration by 2031, migration complete by 2035.'}
   - {id: fips, title: 'FIPS 203, 204 and 205', publisher: 'NIST', date: '2024-08-13', url: 'https://csrc.nist.gov/projects/post-quantum-cryptography', prov: K, role: 'The first post-quantum standards: ML-KEM for key exchange, ML-DSA and SLH-DSA for signatures.'}
   - {id: odrl, title: 'ODRL Information Model 2.2', publisher: 'W3C', date: '2018-02-15', url: 'https://www.w3.org/TR/odrl-model/', prov: K, role: 'The policy language DCAT, DCAT-AP and the Dataspace Protocol use for usage policies.'}
@@ -157,7 +157,7 @@ international:
     - 'Keep the transfer risk assessment, if one is needed, with the data owner. The record says what the basis is; it is not the assessment.'
   not_advice: >-
     This is not legal advice. Whether a transfer is restricted, and what covers it, is for the controller to decide with the ICO's guidance.
-    The adequacy column is as the ICO listed it when this was written (provenance K); it changes, so check before relying on it.
+    The adequacy column shows UK adequacy regulations (data bridges, under the Data (Use and Access) Act 2025 since 5 February 2026). It was triangulated against secondary sources on 6 November 2026 (provenance S), because the ICO's list could not be fetched directly. It changes, so check before relying on it.
 
 ai:
   intro: >-

@@ -4,7 +4,7 @@ Generated from `content/portal.yaml` and `content/lineage.yaml` by `tools/build.
 
 ## Status
 
-Proposed. Not endorsed. To become a standard it needs, in order: review by the Metadata Implementation Working Group, a decision by the owning team in the Office of the Government Chief Data Officer, and endorsement by the Data Standards Authority Steering Board, as the xGov MEM had. Until then the xGov MEM remains the endorsed model.
+Proposed. Not endorsed. To become a standard it needs, in order: review by the Metadata Implementation Working Group, a decision by the owning team in the Government Data directorate of the Government Digital Service, and endorsement by the Data Standards Authority Steering Board, as the xGov MEM had. Until then the xGov MEM remains the endorsed model.
 
 ## Defect register
 
@@ -54,7 +54,7 @@ Proposed. Not endorsed. To become a standard it needs, in order: review by the M
 | O-11 | Review the first UK GEMINI crosswalk (adoption toolkit) and the geospatial extension with the geospatial community. | Metadata specialist |
 | O-13 | Check every extension term and namespace marked K with its sector body (health, geospatial, statistics, transport, data spaces, energy, organisation identifiers). | Metadata specialist, with each sector |
 | O-14 | Reconcile this profile with the future pan-UK metadata architecture (co-cddo, private): base DCAT-AP version, namespace, extension names and validator, so there is one DCAT-AP-UK, not two. | Owning team |
-| O-15 | Check the UK adequacy column and the transfer safeguards against the ICO list, and the Crown Dependency and Overseas Territory entries with their regulators. | Data protection specialist |
+| O-15 | Check the UK adequacy (data bridge) column and the transfer safeguards against the ICO list (triangulated against secondary sources on 6 November 2026; the ICO page itself could not be fetched), and the Crown Dependency and Overseas Territory entries with their regulators. | Data protection specialist |
 | O-17 | Register https://w3id.org/dcat-ap-uk/ (the namespace changed with the rename, ADR 0011; this also covers issue 13) and retire the dcat-uk-ap spelling. The pull request is open at w3id.org (perma-id/w3id.org pull request 7100), waiting for its maintainers; the rules it adds are kept in docs/w3id/dcat-ap-uk/. | Owning team |
 | O-19 | Check the 22 product entries on the integrations page with each supplier before anyone relies on them. | Owning team, with suppliers |
 | O-20 | Have commercial and legal specialists review the model contract clauses before use in any procurement. | Commercial and legal specialists |

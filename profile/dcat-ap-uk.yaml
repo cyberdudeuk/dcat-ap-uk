@@ -29,12 +29,12 @@ meta:
   change_request: https://github.com/cyberdudeuk/dcat-ap-uk/issues/new?template=change-request.yml
   namespace: https://w3id.org/dcat-ap-uk/ns#
   namespace_status: >-
-    Proposed persistent identifier (issue 13). The w3id.org redirect is not registered yet, so these identifiers do not resolve.
-    Registering it is an owner action: a pull request to the w3id.org repository.
+    Proposed persistent identifier (issue 13). The redirect was submitted to w3id.org as pull request 7100 on 6 November 2026;
+    until it is merged, these identifiers do not resolve.
   codelist_base: https://w3id.org/dcat-ap-uk/codelist/
   licence_content: Open Government Licence v3.0
   licence_code: MIT
-  attribution: Emanuel Silva, Data Management Team, Office of the Government Chief Data Officer
+  attribution: The DCAT-AP-UK maintainers. Contact is by the contact form only
   lineage_note: >-
     Built from the xGov MEM (Open Government Licence v3.0), its 99 issues and pull requests, the April 2026 guidance on
     recording metadata for critical data assets, the Data Marketplace JSON schemas, DCAT 3 and DCAT-AP 3.0.1.
@@ -865,7 +865,7 @@ properties:
     purpose: Lets a person asking for data see at once whether a restricted transfer is covered, and lets catalogues report on cross-border personal data.
     guidance: >-
       Needed when the data contains personal data and is held in or sent to anywhere outside the UK (rule R-08). Follow the
-      Information Commissioner's Office guidance on international transfers, updated on 15 January 2026. This records the basis; it is not
+      guidance from the Information Commission (the ICO, called the Information Commissioner's Office until 29 October 2026) on international transfers, updated on 15 January 2026. This records the basis; it is not
       legal advice and does not replace a transfer risk assessment.
     example: ukcl:transfer-mechanism/uk-adequacy
     provisional: true

@@ -8,9 +8,8 @@ repository-code: https://github.com/cyberdudeuk/dcat-ap-uk
 url: https://cyberdudeuk.github.io/dcat-ap-uk/
 type: software
 authors:
-  - family-names: Silva
-    given-names: Emanuel
-    affiliation: Data Management Team, Office of the Government Chief Data Officer
+  - name: DCAT-AP-UK maintainers
+    website: https://cyberdudeuk.github.io/dcat-ap-uk/contact.html
 abstract: >-
   A proposed UK application profile of DCAT 3, aligned with DCAT-AP 3.0.1, evolved from the UK Cross-Government Metadata
   Exchange Model. Not endorsed by the Data Standards Authority.

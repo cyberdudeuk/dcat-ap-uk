@@ -1,9 +1,9 @@
 {
 "source": "https://www.gov.uk/api/organisations",
-"read": "2026-10-31",
-"via": "GitHub Repos Asset Catalogue, build/dama/hier.json",
-"prov": "P",
-"count": 1271,
+"read": "2026-11-06",
+"via": "GOV.UK organisations API, read directly",
+"prov": "V",
+"count": 1273,
 "orgs": [
 {
 "slug": "academy-for-justice-commissioning",
@@ -1039,7 +1039,7 @@
 },
 {
 "slug": "central-advisory-committee-on-pensions-and-compensation",
-"title": "Central Advisory Committee on Pensions and Compensation",
+"title": "Central Advisory Committee on Pensions and Compensation ",
 "abbr": "CAC Pensions and Compensation",
 "type": "Advisory non-departmental public body",
 "status": "closed",
@@ -1087,7 +1087,7 @@
 },
 {
 "slug": "centre-for-connected-and-autonomous-vehicles",
-"title": "Centre for Connected and Autonomous Vehicles",
+"title": "Centre for Connected and Autonomous Vehicles ",
 "abbr": "CCAV",
 "type": "Sub organisation",
 "status": "live",
@@ -1175,7 +1175,7 @@
 },
 {
 "slug": "chevening-foundation",
-"title": "Chevening Scholarship Programme",
+"title": "Chevening Scholarship Programme ",
 "abbr": "Chevening",
 "type": "Other",
 "status": "exempt",
@@ -1375,7 +1375,7 @@
 },
 {
 "slug": "civil-service-government-occupational-psychology-profession",
-"title": "Government Occupational Psychology Profession",
+"title": "Government Occupational Psychology Profession ",
 "abbr": null,
 "type": "Sub organisation",
 "status": "live",
@@ -1439,7 +1439,7 @@
 },
 {
 "slug": "civil-service-government-veterinary-services",
-"title": "Government Veterinary Services",
+"title": "Government Veterinary Services ",
 "abbr": null,
 "type": "Sub organisation",
 "status": "live",
@@ -1471,7 +1471,7 @@
 },
 {
 "slug": "civil-service-intelligence-analysis-profession",
-"title": "Intelligence Analysis",
+"title": "Intelligence Analysis ",
 "abbr": null,
 "type": "Sub organisation",
 "status": "live",
@@ -2503,7 +2503,7 @@
 },
 {
 "slug": "department-for-levelling-up-housing-and-communities",
-"title": "Department for Levelling Up, Housing and Communities",
+"title": "Department for Levelling Up, Housing and Communities ",
 "abbr": "DLUHC",
 "type": "Other",
 "status": "closed",
@@ -2521,8 +2521,8 @@
 "slug": "department-for-science-innovation-and-technology",
 "title": "Department for Science, Innovation and Technology",
 "abbr": "DSIT",
-"type": "Other",
-"status": "live",
+"type": "Ministerial department",
+"status": "closed",
 "uri": "https://www.gov.uk/government/organisations/department-for-science-innovation-and-technology"
 },
 {
@@ -2839,7 +2839,7 @@
 },
 {
 "slug": "dormant-assets-commission",
-"title": "Independent Dormant Assets Commission",
+"title": "Independent Dormant Assets Commission ",
 "abbr": null,
 "type": "Advisory non-departmental public body",
 "status": "closed",
@@ -2847,7 +2847,7 @@
 },
 {
 "slug": "dounreay",
-"title": "Dounreay",
+"title": "Dounreay ",
 "abbr": null,
 "type": "Other",
 "status": "closed",
@@ -3279,7 +3279,7 @@
 },
 {
 "slug": "fcdo-services",
-"title": "FCDO Services",
+"title": "FCDO Services ",
 "abbr": null,
 "type": "Executive agency",
 "status": "joining",
@@ -3463,7 +3463,7 @@
 },
 {
 "slug": "fleet-air-arm-museum",
-"title": "Fleet Air Arm Museum",
+"title": "Fleet Air Arm Museum ",
 "abbr": null,
 "type": "Sub organisation",
 "status": "exempt",
@@ -4583,7 +4583,7 @@
 },
 {
 "slug": "independent-chief-inspector-of-borders-and-immigration",
-"title": "Independent Chief Inspector of Borders and Immigration",
+"title": "Independent Chief Inspector of Borders and Immigration ",
 "abbr": "ICIBI",
 "type": "Independent monitoring body",
 "status": "live",
@@ -4687,7 +4687,7 @@
 },
 {
 "slug": "independent-parliamentary-standards-authority",
-"title": "Independent Parliamentary Standards Authority",
+"title": "Independent Parliamentary Standards Authority ",
 "abbr": "IPSA",
 "type": "Executive non-departmental public body",
 "status": "exempt",
@@ -4798,11 +4798,19 @@
 "uri": "https://www.gov.uk/government/organisations/infected-blood-compensation-authority"
 },
 {
+"slug": "information-commission",
+"title": "Information Commission ",
+"abbr": "ICO",
+"type": "Executive non-departmental public body",
+"status": "exempt",
+"uri": "https://www.gov.uk/government/organisations/information-commission"
+},
+{
 "slug": "information-commissioner-s-office",
 "title": "Information Commissioner's Office",
 "abbr": "ICO",
 "type": "Executive non-departmental public body",
-"status": "exempt",
+"status": "closed",
 "uri": "https://www.gov.uk/government/organisations/information-commissioner-s-office"
 },
 {
@@ -4887,7 +4895,7 @@
 },
 {
 "slug": "institute-for-apprenticeships",
-"title": "Institute for Apprenticeships",
+"title": "Institute for Apprenticeships ",
 "abbr": "IFA",
 "type": "Executive non-departmental public body",
 "status": "closed",
@@ -4928,7 +4936,7 @@
 {
 "slug": "interception-of-communications-commissioner",
 "title": "Interception of Communications Commissioner",
-"abbr": "Interception Commissioner",
+"abbr": "Interception Commissioner\t",
 "type": "Other",
 "status": "closed",
 "uri": "https://www.gov.uk/government/organisations/interception-of-communications-commissioner"
@@ -5280,7 +5288,7 @@
 {
 "slug": "local-audit-office",
 "title": "Local Audit Office",
-"abbr": null,
+"abbr": "LAO",
 "type": "Executive non-departmental public body",
 "status": "joining",
 "uri": "https://www.gov.uk/government/organisations/local-audit-office"
@@ -5351,7 +5359,7 @@
 },
 {
 "slug": "low-level-waste-repository-ltd",
-"title": "Low Level Waste Repository Ltd",
+"title": "Low Level Waste Repository Ltd ",
 "abbr": "LLWR",
 "type": "Other",
 "status": "closed",
@@ -5646,6 +5654,14 @@
 "uri": "https://www.gov.uk/government/organisations/museums-libraries-and-archives-council"
 },
 {
+"slug": "national-armaments",
+"title": "National Armaments",
+"abbr": "NA",
+"type": "Sub organisation",
+"status": "joining",
+"uri": "https://www.gov.uk/government/organisations/national-armaments"
+},
+{
 "slug": "national-army-museum",
 "title": "National Army Museum",
 "abbr": "NAM",
@@ -5719,7 +5735,7 @@
 },
 {
 "slug": "national-crime-agency-remuneration-review-body",
-"title": "National Crime Agency Remuneration Review Body",
+"title": "National Crime Agency Remuneration Review Body ",
 "abbr": "NCARRB",
 "type": "Other",
 "status": "live",
@@ -7967,7 +7983,7 @@
 },
 {
 "slug": "regional-department-for-education-dfe-directors",
-"title": "Regional Department for Education (DfE) Directors",
+"title": "Regional Department for Education (DfE) Directors ",
 "abbr": null,
 "type": "Sub organisation",
 "status": "live",
@@ -8031,7 +8047,7 @@
 },
 {
 "slug": "remploy-pension-scheme-trustees-ltd",
-"title": "Remploy Pension Scheme Trustees Ltd",
+"title": "Remploy Pension Scheme Trustees Ltd ",
 "abbr": null,
 "type": "Other",
 "status": "exempt",
@@ -8119,7 +8135,7 @@
 },
 {
 "slug": "review-body-on-senior-salaries",
-"title": "Senior Salaries Review Body",
+"title": "Senior Salaries Review Body ",
 "abbr": "SSRB",
 "type": "Advisory non-departmental public body",
 "status": "live",
@@ -8527,7 +8543,7 @@
 },
 {
 "slug": "service-complaints-ombudsman",
-"title": "Service Complaints Ombudsman",
+"title": "Service Complaints Ombudsman ",
 "abbr": null,
 "type": "Other",
 "status": "closed",
@@ -9791,7 +9807,7 @@
 },
 {
 "slug": "valuation-tribunal-for-england",
-"title": "Valuation Tribunal for England",
+"title": "Valuation Tribunal for England ",
 "abbr": "VTE",
 "type": "Tribunal",
 "status": "exempt",

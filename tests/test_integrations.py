@@ -347,3 +347,4 @@ class SiteAddressAfterRename(unittest.TestCase):
             text = path.read_text(encoding='utf-8', errors='ignore')
             found += [f'{path.relative_to(ROOT)}: {o}' for o in self.OLD if o in text]
         self.assertEqual(found, [], 'old repository address still linked')
+

@@ -255,7 +255,7 @@ sources:
     prov: V
   - id: roadmap
     title: A roadmap for modern digital government 2025 to 2030
-    publisher: GOV.UK
+    publisher: UK Parliament (written statement, Department for Science, Innovation and Technology)
     date: '2026-01-19'
     url: https://questions-statements.parliament.uk/written-statements/1872558
     role: Commits to the National Data Library and to platforms to share and use data.
