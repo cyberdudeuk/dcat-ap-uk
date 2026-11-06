@@ -392,3 +392,4 @@ details.faq{border-bottom:1px solid var(--rule);padding:.5rem 0}details.faq summ
 /* D-024: on narrow screens a menu anchored to its own item ran off the edge of the screen. Menus there span the bar. */
 @media (max-width:48em){.gbar ul.top{position:relative}.gbar ul.top>li{position:static}.gbar ul.top>li>.sub{left:0;right:0;min-width:0}}
 .gbar ul.top>li>.sub.flip{left:auto;right:0}
+.mast a.mast-link[aria-current]{box-shadow:inset 0 -4px 0 var(--accent-on-dark,#ffdd00)}

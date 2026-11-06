@@ -179,6 +179,12 @@ def run(site, verbose=True):
             if not shown:
                 fails.append(f'current section {w}px governance.html: not shown in the bar')
             cp.close()
+        # Design rule (ADR 0014): the global bar fits without folding at 1280 pixels and wider, so About is one click away on a laptop
+        for w in (1280, 1440, 1920):
+            fp = ctx.new_page(); fp.set_viewport_size({'width': w, 'height': 800}); fp.goto(base + 'index.html')
+            if fp.evaluate("document.querySelector('.gbar').classList.contains('folding')"):
+                fails.append(f'bar {w}px: folds into More; it must fit at 1280 pixels and wider')
+            fp.close()
         # D-025: pressing Enter in a form does not try to submit it (form-action 'none' would block it and hang the page)
         sp = ctx.new_page(); serrs = []
         sp.on('console', lambda m: serrs.append(m.text[:120]) if m.type == 'error' else None)
@@ -228,6 +234,7 @@ BREAKS = {
     'menus': lambda s: _sub(s / 'app.js', 'if (except && li.contains(except)) return;', 'if (li === except) return;'),
     'menuedge': lambda s: _sub(s / 'style.css', '.gbar ul.top>li>.sub.flip{left:auto;right:0}', ''),
     'current': lambda s: _sub(s / 'app.js', "more.classList.toggle('current', ", "more.classList.toggle('x-current', "),
+    'fold': lambda s: _sub(s / 'style.css', 'padding:.7rem .6rem;', 'padding:.7rem 1.6rem;'),
     'submit': lambda s: _sub(s / 'app.js', "doc.addEventListener('submit', function (e) { e.preventDefault(); }, true);", ''),
     'meter': lambda s: _sub(s / 'app.js', '<span data-w="\' + Math.round(', '<span style="width:\' + Math.round('),
     'nested': lambda s: _sub(s / 'standards.html', 'id="std-svg" viewBox', 'id="std-svg" role="img" viewBox'),

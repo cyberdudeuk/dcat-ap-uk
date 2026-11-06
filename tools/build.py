@@ -97,14 +97,15 @@ SECTION = {'index': 'home', 'profile': 'profile', 'properties': 'profile', 'code
            'guide': 'roles', 'tutorials': 'roles', 'roles': 'roles', 'downloads': 'downloads', 'estate': 'estate',
            'governance': 'about', 'accessibility': 'about', 'contact': 'about', 'sitemap': 'about', 'licence': 'about', 'whats-new': 'about', '404': 'about'}
 
+# Sections reached from the masthead rather than the global bar. They stay in the site map, llms.txt and section colours.
+MAST_ONLY = {'Help'}
 NAV = [
     ('index', 'Home', 'house', None),
     ('Profile', 'The profile', 'layers', ['profile', 'properties', 'codelists', 'types', 'extensions']),
     ('Tools', 'Tools', 'wrench', ['builder', 'validate', 'bulk', 'weaver', 'openapi', 'examples']),
     ('Adopt', 'Adopt', 'package', ['adopt', 'integrations', 'lockin', 'international', 'ai-ready', 'quantum', 'landscape']),
     ('Knowledge', 'Knowledge', 'network', ['knowledge', 'lineage', 'standards', 'insights']),
-    ('changes', "What's changed", 'git-pull-request', None),
-    ('strategy', 'Strategy', 'route', None),
+    ('Context', 'Context', 'route', ['changes', 'strategy']),
     ('Help', 'Help', 'circle-help', ['guide', 'tutorials', 'roles']),
     ('downloads', 'Downloads', 'download', None),
     ('estate', 'Estate', 'compass', None),
@@ -275,6 +276,8 @@ class Site:
     def nav(self, key):
         items = ''
         for k, label, ic, kids in NAV:
+            if k in MAST_ONLY:
+                continue
             if kids:
                 cur = key in kids
                 sub = ''.join(f'<li><a href="{c}.html"{" aria-current=" + chr(34) + "page" + chr(34) if c == key else ""}>{E(TITLES[c])}</a></li>' for c in kids)
@@ -348,7 +351,7 @@ class Site:
 <div class="mast-tools no-print">
 <button type="button" data-open="palette">{icon("search")}<span class="lbl">Search</span> <kbd>/</kbd></button>
 <button type="button" id="display-toggle" aria-expanded="false" aria-controls="display-panel" hidden>{icon("a-large-small")}<span class="lbl">Display options</span></button>
-<a class="mast-link" href="guide.html">{icon("circle-help")}<span class="lbl">Help</span></a>
+<a class="mast-link" href="guide.html"{' aria-current="' + ('page' if key == 'guide' else 'true') + '"' if key in ('guide', 'tutorials', 'roles') else ''}>{icon("circle-help")}<span class="lbl">Help</span></a>
 {f'<button type="button" id="tour-start" hidden>{icon("footprints")}<span class="lbl">Tour</span></button>' if key in self.g['tours'] else ''}
 <a class="mast-link" href="sitemap.html">{icon("map")}<span class="lbl">Site map</span></a>
 <button type="button" id="share">{icon("share-2")}<span class="lbl">Share</span></button>
