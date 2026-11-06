@@ -46,13 +46,15 @@ A minor release: a new name, tools for suppliers and buyers, and a richer portal
   enriched (`dcatuk:enrichedProperty`), with a worked example (RQ-08).
 - CI checks the generated LinkML file with LinkML's own validator and linter (`tools/check_linkml.py`, with a
   deliberate break), so it agrees with the SHACL, JSON Schema and portal validators (closes O-09).
-- Redirect rules for `https://w3id.org/dcat-ap-uk/`, ready for a pull request to w3id.org (`docs/w3id/`, O-17).
+- Redirect rules for `https://w3id.org/dcat-ap-uk/` (`docs/w3id/`), submitted to w3id.org as pull request 7100 (O-17).
+  They follow w3id.org's rules: 303 with content negotiation for terms and codelists, 302 elsewhere, no `Options`.
 
 ### Fixed
 - D-017 to D-029; see the defect register.
 - The geodesy example names the ETRF2000 realisation (EPSG 9067), not the ETRS89 ensemble, as its own guidance asks.
 - The EU access-right and data-theme mappings were checked at source and relabelled S (open register O-04).
-- Closed O-05 (merged into O-17), O-09, O-24 and O-27.
+- Closed O-05 (merged into O-17), O-09, O-12, O-16, O-18, O-24 and O-27; opened O-28 (required checks on main). O-12: the xGov MEM owners were asked, on its
+  rename issue (78), to point that repository and its open issues here. O-17: the w3id.org pull request is open (7100).
 
 ## [1.1.0-rc.1] - 2026-11-06
 

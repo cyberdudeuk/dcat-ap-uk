@@ -52,12 +52,10 @@ Proposed. Not endorsed. To become a standard it needs, in order: review by the M
 | O-07 | A Welsh language version of the portal. | Owning team, with translation |
 | O-08 | Research the levels for "who can see this record" (issue 5) and the reference data property (issue 3) with catalogue owners and information assurance. | User researcher, information assurance |
 | O-11 | Review the first UK GEMINI crosswalk (adoption toolkit) and the geospatial extension with the geospatial community. | Metadata specialist |
-| O-12 | Ask the co-cddo owners to point the xGov MEM repository and its open issues here. | Repository owner |
 | O-13 | Check every extension term and namespace marked K with its sector body (health, geospatial, statistics, transport, data spaces, energy, organisation identifiers). | Metadata specialist, with each sector |
 | O-14 | Reconcile this profile with the future pan-UK metadata architecture (co-cddo, private): base DCAT-AP version, namespace, extension names and validator, so there is one DCAT-AP-UK, not two. | Owning team |
 | O-15 | Check the UK adequacy column and the transfer safeguards against the ICO list, and the Crown Dependency and Overseas Territory entries with their regulators. | Data protection specialist |
-| O-17 | Register https://w3id.org/dcat-ap-uk/ (the namespace changed with the rename, ADR 0011; this also covers issue 13) and retire the dcat-uk-ap spelling. The redirect rules are ready in docs/w3id/dcat-ap-uk/ for a pull request to w3id.org. | Owning team |
-| O-18 | Set the repository settings the build cannot set: description, topics, Pages from gh-pages, private vulnerability reporting, secret scanning, merge options and social preview (docs/repo-settings.md). | Repository owner |
+| O-17 | Register https://w3id.org/dcat-ap-uk/ (the namespace changed with the rename, ADR 0011; this also covers issue 13) and retire the dcat-uk-ap spelling. The pull request is open at w3id.org (perma-id/w3id.org pull request 7100), waiting for its maintainers; the rules it adds are kept in docs/w3id/dcat-ap-uk/. | Owning team |
 | O-19 | Check the 22 product entries on the integrations page with each supplier before anyone relies on them. | Owning team, with suppliers |
 | O-20 | Have commercial and legal specialists review the model contract clauses before use in any procurement. | Commercial and legal specialists |
 | O-21 | Agree a governance route and an accountable owner for the requirements stream, including who may validate controlled requirements (ADR 0015). | Owning team, with data and architecture leadership |
@@ -65,6 +63,7 @@ Proposed. Not endorsed. To become a standard it needs, in order: review by the M
 | O-23 | Decide whether data product becomes a class of its own or a stated mapping (RQ-10). | Owning team, with data asset management leads |
 | O-25 | Compare obligations with the statistics producers' application profile and decide every difference (RQ-27). Its public repository was not found on 6 November 2026, so the comparison needs the current version from its owners. | Owning team, with official statistics producers |
 | O-26 | Review the candidate geodesy module with geodetic specialists, including which frames, epochs and uncertainty rules to enforce (RQ-23). The EPSG codes it uses were checked at the EPSG registry on 6 November 2026. | Owning team, with geodesy specialists |
+| O-28 | Decide whether main should require the pages and CodeQL checks to pass. That would stop direct pushes to main, so every change, including automated ones, would need a pull request (GDS Way). The ruleset already blocks deletion and force pushes and requires linear history. | Repository owner |
 
 ## Backlog from the xGov MEM
 
