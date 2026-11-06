@@ -606,7 +606,7 @@
     function update() {
       var rec = record(), res = V.validate(P, rec), comp = V.completeness(P, rec);
       $('#b-json').textContent = JSON.stringify(rec, null, 2);
-      $('#b-jsonld').textContent = JSON.stringify(Object.assign({ '@context': 'https://cyberdudeuk.github.io/dcat-uk-ap/downloads/dcat-ap-uk.context.jsonld' }, rec), null, 2);
+      $('#b-jsonld').textContent = JSON.stringify(Object.assign({ '@context': 'https://cyberdudeuk.github.io/dcat-ap-uk/downloads/dcat-ap-uk.context.jsonld' }, rec), null, 2);
       $('#b-ttl').textContent = V.toTurtle(P, rec);
       $('#b-sdo').textContent = JSON.stringify(V.toSchemaOrg(P, rec), null, 2);
       $('#b-cr').textContent = JSON.stringify(V.toCroissant(P, rec), null, 2);
@@ -692,7 +692,7 @@
         '<p class="btns"><button type="button" class="btn small" id="bk-dl-jsonld">Download all as JSON-LD</button><button type="button" class="btn secondary small" id="bk-dl-ttl">Download all as Turtle</button><button type="button" class="btn secondary small" id="bk-dl-json">Download all as JSON</button></p></section>' +
         '<div class="table-wrap" role="region" aria-labelledby="bk-cap" tabindex="0"><table id="bk-t"><caption id="bk-cap">Every record, by spreadsheet row</caption><thead><tr><th scope="col">Row</th><th scope="col">Title</th><th scope="col">Level</th><th scope="col" class="num">Errors</th><th scope="col" class="num">Quality</th><th scope="col">First errors</th></tr></thead><tbody>' +
         rows.map(function (r) { return r.html; }).join('') + '</tbody></table></div>';
-      $('#bk-dl-jsonld').addEventListener('click', function () { download('records.jsonld', JSON.stringify({ '@context': 'https://cyberdudeuk.github.io/dcat-uk-ap/downloads/dcat-ap-uk.context.jsonld', '@graph': last }, null, 1), 'application/ld+json'); });
+      $('#bk-dl-jsonld').addEventListener('click', function () { download('records.jsonld', JSON.stringify({ '@context': 'https://cyberdudeuk.github.io/dcat-ap-uk/downloads/dcat-ap-uk.context.jsonld', '@graph': last }, null, 1), 'application/ld+json'); });
       $('#bk-dl-ttl').addEventListener('click', function () { download('records.ttl', last.map(function (r) { return V.toTurtle(P, r); }).join('\n'), 'text/turtle'); });
       $('#bk-dl-json').addEventListener('click', function () { download('records.json', JSON.stringify(last, null, 1), 'application/json'); });
       announce(rows.length + ' records checked');

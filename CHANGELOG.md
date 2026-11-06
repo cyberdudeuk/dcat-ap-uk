@@ -9,7 +9,7 @@ A minor release: a new name, tools for suppliers and buyers, and a richer portal
 ### Changed
 - Renamed DCAT-AP-UK (the DCAT Application Profile for the UK), after DCAT-AP-NO, -SE and -NL (ADR 0011).
   The profile file is `profile/dcat-ap-uk.yaml` and the proposed namespace is `https://w3id.org/dcat-ap-uk/`.
-  The `dcatuk:` prefix stays. The repository is renamed by its owner (open register O-16).
+  The `dcatuk:` prefix stays. The repository was renamed `dcat-ap-uk`, and the site moved to `https://cyberdudeuk.github.io/dcat-ap-uk/` (closes O-16).
 - Display options moved to the masthead, beside search and help.
 
 ### Added
@@ -95,7 +95,7 @@ First release candidate, for review by the Metadata Implementation Working Group
 - Tests that hold SHACL, JSON Schema and the browser validator to the same verdict; deliberate breaks for every rule and check.
 
 ### Changed (from the xGov MEM v0.1.0)
-- See the [crosswalk](https://cyberdudeuk.github.io/dcat-uk-ap/changes.html#crosswalk). Every xGov MEM property maps.
+- See the [crosswalk](https://cyberdudeuk.github.io/dcat-ap-uk/changes.html#crosswalk). Every xGov MEM property maps.
 
 ### Fixed (xGov MEM issues)
 - 69, 71, 72, 76 and the missing IRI for security classification. See the [backlog register](docs/registers.md#backlog-from-the-xgov-mem).

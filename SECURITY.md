@@ -2,7 +2,7 @@
 
 Please report security problems privately. Do not open a public issue.
 
-- **GitHub private vulnerability reporting:** [report a vulnerability](https://github.com/cyberdudeuk/dcat-uk-ap/security/advisories/new).
+- **GitHub private vulnerability reporting:** [report a vulnerability](https://github.com/cyberdudeuk/dcat-ap-uk/security/advisories/new).
   This works once the repository owner has switched on private vulnerability reporting.
 - **Cabinet Office vulnerability disclosure programme:** for anything affecting government systems, use the
   [Cabinet Office vulnerability disclosure policy](https://vdp.cabinetoffice.gov.uk/).

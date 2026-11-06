@@ -12,6 +12,6 @@ Call it DCAT-AP-UK, the DCAT Application Profile for the UK, in every page, file
 
 ## Consequences
 
-The w3id namespace becomes https://w3id.org/dcat-ap-uk/. The repository keeps its old name until the owner renames it (O-16).
+The w3id namespace becomes https://w3id.org/dcat-ap-uk/. The repository was renamed dcat-ap-uk on 6 November 2026, and the site moved with it.
 
 <!-- Generated from content/portal.yaml by tools/build.py. Edit there. -->

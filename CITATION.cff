@@ -4,8 +4,8 @@ title: DCAT Application Profile for the UK (DCAT-AP-UK)
 version: 1.2.0-rc.1
 date-released: 2026-11-06
 license: OGL-UK-3.0
-repository-code: https://github.com/cyberdudeuk/dcat-uk-ap
-url: https://cyberdudeuk.github.io/dcat-uk-ap/
+repository-code: https://github.com/cyberdudeuk/dcat-ap-uk
+url: https://cyberdudeuk.github.io/dcat-ap-uk/
 type: software
 authors:
   - family-names: Silva

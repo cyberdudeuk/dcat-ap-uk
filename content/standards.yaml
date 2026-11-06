@@ -25,7 +25,7 @@ groups:
   - {id: tool, label: 'Products and connectors', colour: 7}
 
 standards:
-  - {id: ukap, label: DCAT-AP-UK, group: core, url: 'https://cyberdudeuk.github.io/dcat-uk-ap/', note: 'This profile.'}
+  - {id: ukap, label: DCAT-AP-UK, group: core, url: 'https://cyberdudeuk.github.io/dcat-ap-uk/', note: 'This profile.'}
   - {id: dcat3, label: W3C DCAT 3, group: core, url: 'https://www.w3.org/TR/vocab-dcat-3/', prov: V}
   - {id: dcatap, label: DCAT-AP 3.0.1, group: core, url: 'https://semiceu.github.io/DCAT-AP/releases/3.0.1/', prov: V}
   - {id: hvd, label: DCAT-AP HVD, group: core, url: 'https://semiceu.github.io/DCAT-AP/releases/3.0.0-hvd/'}

@@ -4,9 +4,9 @@ Thank you for helping. Anyone can raise a question, report a problem or propose 
 
 ## Ways to take part
 
-- **Ask or report:** the [contact form](https://github.com/cyberdudeuk/dcat-uk-ap/issues/new?template=contact.yml).
-- **Propose a change to the profile:** the [change request form](https://github.com/cyberdudeuk/dcat-uk-ap/issues/new?template=change-request.yml). Say what users need, your evidence, and what it means for records that already exist.
-- **Report a defect in the portal or the files:** the [defect form](https://github.com/cyberdudeuk/dcat-uk-ap/issues/new?template=defect.yml).
+- **Ask or report:** the [contact form](https://github.com/cyberdudeuk/dcat-ap-uk/issues/new?template=contact.yml).
+- **Propose a change to the profile:** the [change request form](https://github.com/cyberdudeuk/dcat-ap-uk/issues/new?template=change-request.yml). Say what users need, your evidence, and what it means for records that already exist.
+- **Report a defect in the portal or the files:** the [defect form](https://github.com/cyberdudeuk/dcat-ap-uk/issues/new?template=defect.yml).
 
 All forms are public. Do not include personal data, colleagues' names, or anything above OFFICIAL.
 

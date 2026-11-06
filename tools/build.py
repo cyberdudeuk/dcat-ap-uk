@@ -2073,7 +2073,7 @@ class Site:
         badges = ''.join(f'<li><img src="downloads/badges/level-{n}.svg" alt="DCAT-AP-UK level {n} badge" height="20"> <code>downloads/badges/level-{n}.svg</code></li>' for n in (1, 2, 3))
         cli = ('# check records (JSON, JSON arrays or CSV in the template columns)\npython3 -I tools/build.py\nnode integrations/cli/validate.js --ext health records/*.json\n\n'
                '# convert CKAN records at the edge, and annotate errors in GitHub\nnode integrations/cli/validate.js --from ckan --format github export.json')
-        action = ('- uses: actions/checkout@v4\n- uses: cyberdudeuk/dcat-uk-ap@main   # pin to a release tag or commit; the repository is to be renamed dcat-ap-uk (O-16)\n  with:\n    files: metadata/*.json\n    extensions: geospatial')
+        action = ('- uses: actions/checkout@v4\n- uses: cyberdudeuk/dcat-ap-uk@main   # pin to a release tag or commit\n  with:\n    files: metadata/*.json\n    extensions: geospatial')
         embed = ("const V = require('./validator.js');          // site_src/validator.js, MIT\nconst P = require('./profile.json');           // downloads/profile.json\n"
                  "const result = V.validate(P, record);          // errors and warnings, by rule\nconst level  = V.conformance(P, record);       // level 1 to 3\n"
                  "const out    = V.weave(P, 'ckan', 'ukap', pkg); // convert, with the threads")
@@ -2368,7 +2368,7 @@ def write_docs(p, portal):
         (d / 'adr' / f'{a["id"]}-{slug(a["title"])}.md').write_text(
             f'# ADR {a["id"]}: {a["title"]}\n\nStatus: {a["status"]}\n\n## Context\n\n{a["context"]}\n\n## Decision\n\n{a["decision"]}\n\n## Consequences\n\n{a["consequences"]}\n\n'
             '<!-- Generated from content/portal.yaml by tools/build.py. Edit there. -->\n', encoding='utf-8')
-    md = ['# Registers', '', 'Generated from `content/portal.yaml` and `content/lineage.yaml` by `tools/build.py`. Edit there, never here. The same registers are on the portal\'s [governance page](https://cyberdudeuk.github.io/dcat-uk-ap/governance.html).', '',
+    md = ['# Registers', '', 'Generated from `content/portal.yaml` and `content/lineage.yaml` by `tools/build.py`. Edit there, never here. The same registers are on the portal\'s [governance page](https://cyberdudeuk.github.io/dcat-ap-uk/governance.html).', '',
           '## Status', '', gv['status'].strip(), '', '## Defect register', '', '| Defect | Found | What | Root cause | Fix | Check |', '|---|---|---|---|---|---|']
     md += [f'| {x["id"]} | {x["found"]} | {x["what"]} | {x["cause"]} | {x["fix"]} | {x["check"]} |' for x in gv['defects']]
     md += ['', '## Open register', '', '| Item | What | Who must act |', '|---|---|---|'] + [f'| {o["id"]} | {o["item"]} | {o["who"]} |' for o in gv['open']]

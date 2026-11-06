@@ -3,8 +3,8 @@
 Persistent identifiers for DCAT-AP-UK, the DCAT Application Profile for the UK: a proposal, not endorsed and not an
 official GOV.UK standard.
 
-- Maintainers: the DCAT-AP-UK maintainers, through https://github.com/cyberdudeuk/dcat-uk-ap/issues
-- Portal: https://cyberdudeuk.github.io/dcat-uk-ap/
+- Maintainers: the DCAT-AP-UK maintainers (GitHub account cyberdudeuk), through https://github.com/cyberdudeuk/dcat-ap-uk/issues
+- Portal: https://cyberdudeuk.github.io/dcat-ap-uk/
 
 | Identifier | Resolves to |
 |---|---|

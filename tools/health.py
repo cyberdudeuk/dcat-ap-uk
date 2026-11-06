@@ -23,7 +23,7 @@ STATE = ROOT / 'content' / 'source-state.json'
 
 
 def fetch(url):
-    req = urllib.request.Request(url, headers={'User-Agent': 'dcat-ap-uk-health/1.0 (+https://github.com/cyberdudeuk/dcat-uk-ap)'})
+    req = urllib.request.Request(url, headers={'User-Agent': 'dcat-ap-uk-health/1.0 (+https://github.com/cyberdudeuk/dcat-ap-uk)'})
     with urllib.request.urlopen(req, timeout=30) as r:
         body = r.read().decode('utf-8', errors='ignore')
     text = re.sub(r'<script.*?</script>|<style.*?</style>|<[^>]+>', ' ', body, flags=re.S)

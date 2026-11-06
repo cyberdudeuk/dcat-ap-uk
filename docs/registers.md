@@ -1,6 +1,6 @@
 # Registers
 
-Generated from `content/portal.yaml` and `content/lineage.yaml` by `tools/build.py`. Edit there, never here. The same registers are on the portal's [governance page](https://cyberdudeuk.github.io/dcat-uk-ap/governance.html).
+Generated from `content/portal.yaml` and `content/lineage.yaml` by `tools/build.py`. Edit there, never here. The same registers are on the portal's [governance page](https://cyberdudeuk.github.io/dcat-ap-uk/governance.html).
 
 ## Status
 
@@ -56,7 +56,6 @@ Proposed. Not endorsed. To become a standard it needs, in order: review by the M
 | O-13 | Check every extension term and namespace marked K with its sector body (health, geospatial, statistics, transport, data spaces, energy, organisation identifiers). | Metadata specialist, with each sector |
 | O-14 | Reconcile this profile with the future pan-UK metadata architecture (co-cddo, private): base DCAT-AP version, namespace, extension names and validator, so there is one DCAT-AP-UK, not two. | Owning team |
 | O-15 | Check the UK adequacy column and the transfer safeguards against the ICO list, and the Crown Dependency and Overseas Territory entries with their regulators. | Data protection specialist |
-| O-16 | Rename the repository to dcat-ap-uk, after the DCAT-AP-NO, -SE and -NL naming, and update the site address. GitHub redirects the old name. | Repository owner |
 | O-17 | Register https://w3id.org/dcat-ap-uk/ (the namespace changed with the rename, ADR 0011; this also covers issue 13) and retire the dcat-uk-ap spelling. The redirect rules are ready in docs/w3id/dcat-ap-uk/ for a pull request to w3id.org. | Owning team |
 | O-18 | Set the repository settings the build cannot set: description, topics, Pages from gh-pages, private vulnerability reporting, secret scanning, merge options and social preview (docs/repo-settings.md). | Repository owner |
 | O-19 | Check the 22 product entries on the integrations page with each supplier before anyone relies on them. | Owning team, with suppliers |

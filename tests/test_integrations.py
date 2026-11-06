@@ -320,7 +320,7 @@ class W3idRedirects(unittest.TestCase):
 
     def test_every_redirect_target_exists(self):
         ht = (ROOT / 'docs' / 'w3id' / 'dcat-ap-uk' / '.htaccess').read_text(encoding='utf-8')
-        targets = set(re.findall(r'https://cyberdudeuk\.github\.io/dcat-uk-ap/([^\s#$]*)', ht))
+        targets = set(re.findall(r'https://cyberdudeuk\.github\.io/dcat-ap-uk/([^\s#$]*)', ht))
         missing = sorted(t for t in targets if t and not (SITE / t).exists())
         self.assertEqual([], missing)
         html = (SITE / 'codelists.html').read_text(encoding='utf-8')
@@ -330,3 +330,20 @@ class W3idRedirects(unittest.TestCase):
         ext = (SITE / 'extensions.html').read_text(encoding='utf-8')
         for k in P.extensions:
             self.assertIn(f'id="ext-{k}"', ext, k)
+
+
+class SiteAddressAfterRename(unittest.TestCase):
+    """O-16: the repository was renamed dcat-ap-uk. The old Pages address no longer serves the site, so no source may link to it."""
+
+    OLD = ('github.io/dcat-' + 'uk-ap', 'github.com/cyberdudeuk/dcat-' + 'uk-ap')  # split so this file does not match itself
+
+    def test_no_old_address(self):
+        found = []
+        for path in ROOT.rglob('*'):
+            if not path.is_file() or any(part in ('.git', 'site', 'node_modules') for part in path.parts):
+                continue
+            if path.suffix not in ('.py', '.js', '.yaml', '.yml', '.md', '.cff', '.json', '.html', '.txt') and path.name != '.htaccess':
+                continue
+            text = path.read_text(encoding='utf-8', errors='ignore')
+            found += [f'{path.relative_to(ROOT)}: {o}' for o in self.OLD if o in text]
+        self.assertEqual(found, [], 'old repository address still linked')

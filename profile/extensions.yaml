@@ -456,7 +456,7 @@ extensions:
       add:
         title: Synthetic AI training dataset
         aiUse: ukcl:ai-use/permitted
-        hasPolicy: [https://cyberdudeuk.github.io/dcat-uk-ap/downloads/policies/ogl-open.jsonld]
+        hasPolicy: [https://cyberdudeuk.github.io/dcat-ap-uk/downloads/policies/ogl-open.jsonld]
         dataCard: [https://example.org/data-card]
         syntheticData: 'true'
         temporal: [{startDate: '2024-01-01', endDate: '2025-12-31'}]

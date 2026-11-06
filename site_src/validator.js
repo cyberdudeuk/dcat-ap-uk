@@ -741,7 +741,7 @@
 
   var WRITERS = {
     ukap: function (P, r) { return { out: r, map: Object.keys(r).filter(function (k) { return k !== 'class'; }).map(function (k) { return [k, k]; }) }; },
-    jsonld: function (P, r) { return { out: Object.assign({ '@context': 'https://cyberdudeuk.github.io/dcat-uk-ap/downloads/dcat-ap-uk.context.jsonld' }, r), map: Object.keys(r).filter(function (k) { return k !== 'class'; }).map(function (k) { return [k, k]; }) }; },
+    jsonld: function (P, r) { return { out: Object.assign({ '@context': 'https://cyberdudeuk.github.io/dcat-ap-uk/downloads/dcat-ap-uk.context.jsonld' }, r), map: Object.keys(r).filter(function (k) { return k !== 'class'; }).map(function (k) { return [k, k]; }) }; },
     turtle: function (P, r) { return { out: toTurtle(P, r), map: Object.keys(r).filter(function (k) { return P.props[k]; }).map(function (k) { return [k, P.props[k].uri]; }) }; },
     schemaorg: function (P, r) { return { out: toSchemaOrg(P, r), map: SDO_MAP(r) }; },
     croissant: function (P, r) { return { out: toCroissant(P, r), map: SDO_MAP(r) }; },

@@ -16,7 +16,7 @@ Roles, not names: no person is named as an owner, steward or contact.
 
 Proposal (issue form) → assessment (major, minor or patch) → discussion → decision → release, with a test and a deliberate break.
 The full process, the decisions (ADRs), the defect register and the open register are on the
-[governance page](https://cyberdudeuk.github.io/dcat-uk-ap/governance.html) and in [docs/registers.md](docs/registers.md).
+[governance page](https://cyberdudeuk.github.io/dcat-ap-uk/governance.html) and in [docs/registers.md](docs/registers.md).
 
 ## Versioning
 

@@ -22,11 +22,11 @@ meta:
   base_standard: W3C Data Catalog Vocabulary (DCAT) Version 3, W3C Recommendation, 22 August 2024
   aligned_with: DCAT-AP 3.0.1, SEMIC Recommendation, 27 October 2025
   supersedes: UK Cross-Government Metadata Exchange Model (xGov MEM) v0.1.0
-  site_url: https://cyberdudeuk.github.io/dcat-uk-ap/
-  repo_url: https://github.com/cyberdudeuk/dcat-uk-ap
+  site_url: https://cyberdudeuk.github.io/dcat-ap-uk/
+  repo_url: https://github.com/cyberdudeuk/dcat-ap-uk
   source_repo: https://github.com/co-cddo/ukgov-metadata-exchange-model
-  contact: https://github.com/cyberdudeuk/dcat-uk-ap/issues/new?template=contact.yml
-  change_request: https://github.com/cyberdudeuk/dcat-uk-ap/issues/new?template=change-request.yml
+  contact: https://github.com/cyberdudeuk/dcat-ap-uk/issues/new?template=contact.yml
+  change_request: https://github.com/cyberdudeuk/dcat-ap-uk/issues/new?template=change-request.yml
   namespace: https://w3id.org/dcat-ap-uk/ns#
   namespace_status: >-
     Proposed persistent identifier (issue 13). The w3id.org redirect is not registered yet, so these identifiers do not resolve.
@@ -838,7 +838,7 @@ properties:
     guidance: >-
       Give the web address of a published ODRL policy. Start from the policy templates on the AI-ready page. Where a licence and a policy
       disagree, the licence wins: say so in the rights statement.
-    example: https://cyberdudeuk.github.io/dcat-uk-ap/downloads/policies/ogl-open.jsonld
+    example: https://cyberdudeuk.github.io/dcat-ap-uk/downloads/policies/ogl-open.jsonld
     mem: {change: new}
   jurisdiction:
     uri: dcatuk:jurisdiction

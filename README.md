@@ -8,28 +8,28 @@ One way to describe UK public sector datasets and data services, so they can be 
 Built on the W3C [DCAT 3](https://www.w3.org/TR/vocab-dcat-3/) Recommendation, aligned with [DCAT-AP 3.0.1](https://semiceu.github.io/DCAT-AP/releases/3.0.1/),
 and evolved from the xGov MEM, whose whole backlog it resolves.
 
-**Portal:** https://cyberdudeuk.github.io/dcat-uk-ap/
+**Portal:** https://cyberdudeuk.github.io/dcat-ap-uk/
 
-The profile is named after other national DCAT-AP profiles (DCAT-AP-NO, DCAT-AP-SE, DCAT-AP-NL). The repository keeps its first name, `dcat-uk-ap`, until its owner renames it to `dcat-ap-uk`; GitHub will redirect the old address.
+The profile is named after other national DCAT-AP profiles (DCAT-AP-NO, DCAT-AP-SE, DCAT-AP-NL). The repository was first called `dcat-uk-ap` and was renamed `dcat-ap-uk` on 6 November 2026; GitHub redirects the old address, but the old GitHub Pages address no longer serves the site.
 
 ## Who it is for, and where to start
 
 | You are | You want to | Start at |
 |---|---|---|
-| A catalogue manager | Export records central services can harvest | [What's changed](https://cyberdudeuk.github.io/dcat-uk-ap/changes.html#crosswalk), then [Check records](https://cyberdudeuk.github.io/dcat-uk-ap/validate.html) |
-| A data owner or steward | Record a critical data asset once | [Build a record](https://cyberdudeuk.github.io/dcat-uk-ap/builder.html), with "critical data asset" ticked |
-| A chief data officer or policy coordinator | Decide whether to adopt it | [Strategy](https://cyberdudeuk.github.io/dcat-uk-ap/strategy.html) and [governance](https://cyberdudeuk.github.io/dcat-uk-ap/governance.html#status) |
-| An engineer or supplier | Validate and build to it | [Downloads](https://cyberdudeuk.github.io/dcat-uk-ap/downloads.html): SHACL, JSON Schema, JSON-LD context, codelists |
-| New to metadata | Understand why it matters | [Your role](https://cyberdudeuk.github.io/dcat-uk-ap/roles.html#start), with an Easy Read summary |
-| Any organisation, in any sector | Adopt it | [Adoption toolkit](https://cyberdudeuk.github.io/dcat-uk-ap/adopt.html), [sector extensions](https://cyberdudeuk.github.io/dcat-uk-ap/extensions.html) and [check many records](https://cyberdudeuk.github.io/dcat-uk-ap/bulk.html) |
-| Sharing data across borders | Record where data goes and on what basis | [Cross-border data flows](https://cyberdudeuk.github.io/dcat-uk-ap/international.html) |
-| A supplier or integrator | Prove a product conforms | [Integrations](https://cyberdudeuk.github.io/dcat-uk-ap/integrations.html): conformance kit, badges, command line, HTTP API and GitHub Action |
-| A buyer or commercial lead | Avoid lock-in in a contract | [Avoiding lock-in](https://cyberdudeuk.github.io/dcat-uk-ap/lockin.html) and the model clauses |
-| Building with AI | Know what data may be used for, and let assistants read the profile | [AI-ready metadata](https://cyberdudeuk.github.io/dcat-uk-ap/ai-ready.html) and the [MCP server](integrations/mcp/) |
+| A catalogue manager | Export records central services can harvest | [What's changed](https://cyberdudeuk.github.io/dcat-ap-uk/changes.html#crosswalk), then [Check records](https://cyberdudeuk.github.io/dcat-ap-uk/validate.html) |
+| A data owner or steward | Record a critical data asset once | [Build a record](https://cyberdudeuk.github.io/dcat-ap-uk/builder.html), with "critical data asset" ticked |
+| A chief data officer or policy coordinator | Decide whether to adopt it | [Strategy](https://cyberdudeuk.github.io/dcat-ap-uk/strategy.html) and [governance](https://cyberdudeuk.github.io/dcat-ap-uk/governance.html#status) |
+| An engineer or supplier | Validate and build to it | [Downloads](https://cyberdudeuk.github.io/dcat-ap-uk/downloads.html): SHACL, JSON Schema, JSON-LD context, codelists |
+| New to metadata | Understand why it matters | [Your role](https://cyberdudeuk.github.io/dcat-ap-uk/roles.html#start), with an Easy Read summary |
+| Any organisation, in any sector | Adopt it | [Adoption toolkit](https://cyberdudeuk.github.io/dcat-ap-uk/adopt.html), [sector extensions](https://cyberdudeuk.github.io/dcat-ap-uk/extensions.html) and [check many records](https://cyberdudeuk.github.io/dcat-ap-uk/bulk.html) |
+| Sharing data across borders | Record where data goes and on what basis | [Cross-border data flows](https://cyberdudeuk.github.io/dcat-ap-uk/international.html) |
+| A supplier or integrator | Prove a product conforms | [Integrations](https://cyberdudeuk.github.io/dcat-ap-uk/integrations.html): conformance kit, badges, command line, HTTP API and GitHub Action |
+| A buyer or commercial lead | Avoid lock-in in a contract | [Avoiding lock-in](https://cyberdudeuk.github.io/dcat-ap-uk/lockin.html) and the model clauses |
+| Building with AI | Know what data may be used for, and let assistants read the profile | [AI-ready metadata](https://cyberdudeuk.github.io/dcat-ap-uk/ai-ready.html) and the [MCP server](integrations/mcp/) |
 
 ## What changed from the xGov MEM
 
-- Every property of the xGov MEM maps to the profile, so existing records convert automatically ([crosswalk](https://cyberdudeuk.github.io/dcat-uk-ap/changes.html#crosswalk)).
+- Every property of the xGov MEM maps to the profile, so existing records convert automatically ([crosswalk](https://cyberdudeuk.github.io/dcat-ap-uk/changes.html#crosswalk)).
 - All 22 open issues in the xGov MEM repository are dealt with: 19 resolved, 2 resolved but marked provisional pending research, 1 needs the owner (registering the w3id.org namespace). See the [backlog register](docs/registers.md#backlog-from-the-xgov-mem).
 - New, from that backlog: geographic coverage, time period, schema, personal data, sensitive data, reference data, who can see a record.
 - Critical data assets get the extra mandatory properties the April 2026 GOV.UK guidance lists.
@@ -53,7 +53,7 @@ The profile is named after other national DCAT-AP profiles (DCAT-AP-NO, DCAT-AP-
 
 ```yaml
 - uses: actions/checkout@v4
-- uses: cyberdudeuk/dcat-uk-ap@main   # pin to a release tag or commit
+- uses: cyberdudeuk/dcat-ap-uk@main   # pin to a release tag or commit
   with:
     files: metadata/*.json
 ```
@@ -113,7 +113,7 @@ check in the same commit as its fix, recorded in the [defect register](docs/regi
 
 ## Changing the profile
 
-Raise a [change request](https://github.com/cyberdudeuk/dcat-uk-ap/issues/new?template=change-request.yml). Changes are assessed as major, minor or patch
+Raise a [change request](https://github.com/cyberdudeuk/dcat-ap-uk/issues/new?template=change-request.yml). Changes are assessed as major, minor or patch
 (semantic versioning), reviewed by the Metadata Implementation Working Group, decided by the owning team and, for major changes, endorsed by the Data
 Standards Authority. See [CONTRIBUTING.md](CONTRIBUTING.md).
 
@@ -128,11 +128,11 @@ DCAT-AP-UK is the fourth of four open portals for data in the public sector, eac
 | West | [GitHub Repos Asset Catalogue](https://cyberdudeuk.github.io/github-repos-asset-catalogue/) | What already exists? |
 | South | DCAT-AP-UK (this) | How do we describe it so others can find it? |
 
-The [estate compass](https://cyberdudeuk.github.io/dam-capability-playbooks/compass/) suggests a route across all four. Shared keys are in [`xref.json`](https://cyberdudeuk.github.io/dcat-uk-ap/xref.json).
+The [estate compass](https://cyberdudeuk.github.io/dam-capability-playbooks/compass/) suggests a route across all four. Shared keys are in [`xref.json`](https://cyberdudeuk.github.io/dcat-ap-uk/xref.json).
 
 ## Contact
 
-By form only: the [contact form](https://github.com/cyberdudeuk/dcat-uk-ap/issues/new?template=contact.yml). It is public, so do not include personal data.
+By form only: the [contact form](https://github.com/cyberdudeuk/dcat-ap-uk/issues/new?template=contact.yml). It is public, so do not include personal data.
 Security problems: [report privately](SECURITY.md). No email address is published.
 
 ## Licence
