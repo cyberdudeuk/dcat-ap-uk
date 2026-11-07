@@ -1,0 +1,43 @@
+# Samples built into the portal's tools (tools/build.py): what each is, where it comes from, and why any is synthetic.
+# tools/provenance.py fails the build if an example.org address in tools/build.py is not declared here (ADR 0020).
+# prov V: read at the source on the date given. A sample "written for this portal" restates a real record in another
+# metadata model; its facts come from the source, its shape from us.
+- id: openapi
+  label: OpenAPI importer sample, the Food Hygiene Rating Scheme API (version 2)
+  prov: V
+  checked: '2026-11-07'
+  url: https://www.food.gov.uk/food-hygiene-rating-scheme-api-version-2
+  source: Food Standards Agency endpoint index for version 2 of the API. The FSA publishes no OpenAPI file, so this is written as OpenAPI for the portal.
+- id: weaver-ckan
+  label: Weaver CKAN sample, UK food hygiene rating data (London), from data.gov.uk's CKAN
+  prov: V
+  checked: '2026-11-07'
+  url: https://ckan.publishing.service.gov.uk/dataset/uk-food-hygiene-rating-data
+  source: The package on data.gov.uk's CKAN publisher site, and the FSA open data page it points to. Fields the package does not show (licence, last modified) are left out rather than guessed.
+- id: weaver-schemaorg
+  label: Weaver schema.org sample, Real-time Flood Data River Levels (Environment Agency)
+  prov: V
+  checked: '2026-11-07'
+  url: https://www.data.gov.uk/dataset/real-time-flood-data-river-levels
+  source: The data.gov.uk record and the Environment Agency flood-monitoring API reference. Written as schema.org for the portal.
+- id: weaver-dc
+  label: Weaver Dublin Core sample, the Data.gov.uk Website series (CAB 360) at The National Archives
+  prov: V
+  checked: '2026-11-07'
+  url: https://beta.nationalarchives.gov.uk/catalogue/id/C15202287/
+  source: The National Archives catalogue entry. Written as Dublin Core for the portal.
+- id: weaver-ddi
+  label: Weaver DDI sample, Living Costs and Food Survey 2023-2024 (UK Data Archive study 9468)
+  prov: V
+  checked: '2026-11-07'
+  url: https://doc.ukdataservice.ac.uk/doc/9468/mrdoc/pdf/9468_volume_a_introduction_2023-24.pdf
+  source: The study's user guide and the ONS survey methodology page. Written as DDI Codebook elements for the portal.
+- id: weaver-dcatus
+  label: Weaver DCAT-US sample, an invented school census
+  synthetic: Still to replace with a real US federal record from catalog.data.gov; none was verified on 7 November 2026. Listed for the weekly provenance issue.
+  replace: true
+  addresses: ['https://example.org/contact', 'https://example.org/school-census', 'https://example.org/census.csv']
+- id: weaver-atlas
+  label: Weaver Apache Atlas (Microsoft Purview) sample, an invented data map entity
+  synthetic: Data map entities live inside an organisation's own Purview account and are not published, so no real one can be shown.
+  addresses: ['https://example.org/lake/spending/quarterly.csv']

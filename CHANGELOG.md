@@ -11,7 +11,16 @@ All notable changes to DCAT-AP-UK. The format follows [Keep a Changelog](https:/
 - Near misses: an occurrence issue form and label, reported without blame; the weekly digest lists occurrences and trials.
 - The Status page shows trials and how to report a near miss.
 
+- A provenance register (`tools/provenance.py`, ADR 0020): every labelled fact, worked example, extension example and
+  tool sample, where it comes from and what needs a person, on the Status page and in `downloads/provenance.json`.
+  The upkeep routine keeps one `provenance` issue up to date, and the digest lists it.
+
 ### Changed
+- Real records replace invented ones wherever a public record exists: the census series and the 2021 release (ONS
+  TS007a, with the ONS age variable as reference data), and the OpenAPI, CKAN, schema.org, Dublin Core and DDI samples
+  (Food Standards Agency, Environment Agency, The National Archives, ONS). Each names its source and the date checked.
+- Every synthetic example says why it cannot be real, and none names a real organisation (D-033). Placeholder company
+  and charity numbers are now zeros.
 - A plainer look for readers who are not technical, after the xGov MEM site: a white masthead with search up front,
   quieter navigation, plain headings, light cards and tables, and quieter change flags. Every page, tool and check stays (ADR 0019).
 - Model maps, after Morgan Maps: the profile page and every class page show how classes connect as cards with a type

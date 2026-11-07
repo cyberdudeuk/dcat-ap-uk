@@ -20,3 +20,4 @@
 - {name: health, color: '00703c', description: Raised by the weekly health run}
 - {name: occurrence, color: 'f47738', description: A near miss or surprise reported without blame, so the next defect is prevented (ADR 0018)}
 - {name: trial, color: '28a197', description: A time-limited experiment with its own envelope and kill switch (ops/automation.yaml trials)}
+- {name: provenance, color: 'b58840', description: Content to verify against a source or replace with a real record (upkeep routine, ADR 0020)}

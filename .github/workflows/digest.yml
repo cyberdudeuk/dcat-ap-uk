@@ -41,7 +41,7 @@ jobs:
             lines.push('', `## Workflow runs: ${runs.length}, failed ${failed.length}`);
             for (const r of failed) lines.push(`- ❌ [${r.name} #${r.run_number}](${r.html_url}) on ${r.head_branch}, ${r.created_at.slice(0, 10)}`);
             // 4. Waiting for a person
-            const want = ['owner action', 'review due', 'health', 'routine', 'overdue', 'needs-reply', 'defect', 'occurrence', 'trial'];
+            const want = ['owner action', 'review due', 'health', 'routine', 'overdue', 'needs-reply', 'defect', 'occurrence', 'trial', 'provenance'];
             lines.push('', '## Waiting for a person');
             let waiting = 0;
             for (const label of want) {

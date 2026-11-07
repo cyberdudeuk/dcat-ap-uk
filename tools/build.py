@@ -23,6 +23,7 @@ import yaml  # noqa: E402
 import generate  # noqa: E402
 import ukap  # noqa: E402
 import sections as SECTIONS  # noqa: E402  change flags, the Data Quality Commons pattern
+import provenance as PROVENANCE  # noqa: E402  where every fact, example and sample comes from (ADR 0020)
 
 NODE_EXPORTS = r"""
 const V = require(process.argv[1]);
@@ -1051,6 +1052,9 @@ class Site:
             iss = ' '.join(f'<a href="changes.html#issue-{n}">#{n}</a>' for n in e.get('issues', []))
             body += (f'<section id="ex-{k}" aria-labelledby="ex-{k}-h"><h2 id="ex-{k}-h">{E(e["label"])}</h2><p>{self.gloss(e["teaches"])}</p>'
                      f'<p class="small">Class: <a href="{self.class_page(e["record"]["class"])}">{E(p.classes[e["record"]["class"]]["label"])}</a>{" · Backlog: " + iss if iss else ""} {prov("U")}</p>'
+                     + (f'<div class="panel warning"><p><strong>Synthetic.</strong> {E(e["synthetic"])}</p></div>' if e.get('synthetic') else
+                        f'<p class="small">Built from <a href="{E(e["source"]["url"])}">the publisher\'s own page</a>, checked {E(e["source"]["checked"])}. {E(e["source"].get("note", ""))}</p>' if e.get('source') else '')
+                     + 
                      f'<div class="tabs" id="tabs-{k}"><div role="tablist" aria-label="Format of {E(e["label"].lower())}">'
                      f'<button role="tab" id="t-{k}-j" aria-controls="p-{k}-j">JSON</button><button role="tab" id="t-{k}-t" aria-controls="p-{k}-t">Turtle</button></div>'
                      f'<div role="tabpanel" id="p-{k}-j" aria-labelledby="t-{k}-j" tabindex="0"><pre id="c-{k}-j" tabindex="0">{E(js)}</pre><p class="btns"><button type="button" class="btn secondary small" data-copy="c-{k}-j">Copy</button><a class="btn secondary small" href="downloads/examples/{k}.json" download>{icon("download")} JSON</a><a class="btn secondary small" href="downloads/examples/{k}.jsonld" download>JSON-LD</a></p></div>'
@@ -1566,11 +1570,17 @@ class Site:
                   crumbs=[('Tools', None), ('Check many records', None)], scripts=('validator.js', 'profile-data.js'))
 
     def openapi_page(self):
-        sample = {'openapi': '3.1.0', 'info': {'title': 'Example bus stops API', 'version': '2.0.0', 'description': 'An invented API, used to show the converter. It does not exist.',
-                                               'license': {'name': 'Open Government Licence v3.0', 'url': 'http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/'},
-                                               'contact': {'name': 'Example transport data team', 'url': 'https://example.org/contact'}},
-                  'servers': [{'url': 'https://api.example.org/bus-stops/v2'}], 'tags': [{'name': 'bus stops'}, {'name': 'transport'}],
-                  'paths': {'/stops': {'get': {'summary': 'List stops', 'responses': {'200': {'description': 'OK'}}}}}}
+        # A real API, written as OpenAPI for this portal from the FSA's published endpoint index (content/samples.yaml, ADR 0020).
+        # The FSA does not publish an OpenAPI file of its own; the description says so.
+        sample = {'openapi': '3.1.0', 'info': {'title': 'Food Hygiene Rating Scheme API', 'version': '2',
+                                               'description': 'Free programmatic access to the Food Standards Agency food hygiene rating data for England, Scotland, Wales and Northern Ireland, '
+                                                              'with no registration. Written as OpenAPI for the DCAT-AP-UK portal from the FSA endpoint index; the FSA does not publish an OpenAPI file.',
+                                               'license': {'name': 'Food Standards Agency terms and conditions for the ratings data', 'url': 'https://www.food.gov.uk/ratings-terms-and-conditions'},
+                                               'contact': {'name': 'Food Standards Agency', 'url': 'https://www.food.gov.uk/food-hygiene-rating-scheme-api-version-2'}},
+                  'servers': [{'url': 'https://api.ratings.food.gov.uk'}], 'tags': [{'name': 'food hygiene'}, {'name': 'ratings'}],
+                  'paths': {'/BusinessTypes/{pageNumber}/{pageSize}': {'get': {'summary': 'Details of all business types, a page at a time', 'responses': {'200': {'description': 'OK'}}}},
+                            '/Authorities/basic': {'get': {'summary': 'A basic list of local authorities', 'responses': {'200': {'description': 'OK'}}}},
+                            '/Regions/basic': {'get': {'summary': 'A basic list of regions', 'responses': {'200': {'description': 'OK'}}}}}}
         body = self.hero('plug', 'Tools', 'Describe an API from OpenAPI', self.gloss(
             'Paste an OpenAPI description, as JSON, to draft a data service record. The converter copies what OpenAPI holds, lists what it could not find, and checks the result. It never copies an email address. Inspired by the Norwegian oastodcat tool.'))
         body += ('<noscript><div class="panel warning"><p>The converter needs JavaScript.</p></div></noscript>'
@@ -1855,28 +1865,32 @@ class Site:
         return {
             'ukap': ex,
             'mem': no_email(yaml.safe_load((ROOT / 'tests' / 'fixtures' / 'mem-dataset.yaml').read_text(encoding='utf-8'))),
-            'ckan': {'name': 'example-air-quality', 'title': 'Example air quality readings', 'notes': 'An invented dataset, used to show the weaver. It does not exist.',
-                     'tags': [{'name': 'air quality'}, {'name': 'environment'}], 'license_id': 'uk-ogl', 'url': 'https://example.org/air-quality', 'version': '2',
-                     'organization': {'title': 'Example Council', 'name': 'example-council'}, 'metadata_modified': '2026-10-01T09:00:00',
-                     'extras': [{'key': 'frequency', 'value': 'DAILY'}, {'key': 'contact_name', 'value': 'Environment data team'}, {'key': 'contact_uri', 'value': 'https://example.org/contact'},
-                                {'key': 'temporal_start', 'value': '2020-01-01'}, {'key': 'language', 'value': 'en'}],
-                     'resources': [{'name': 'Readings, CSV', 'url': 'https://example.org/air-quality.csv', 'mimetype': 'text/csv', 'size': 120000}]},
+            # Real records where a public one exists, each declared in content/samples.yaml with its source and the date checked (ADR 0020).
+            'ckan': {'name': 'uk-food-hygiene-rating-data', 'title': 'UK food hygiene rating data (London)',
+                     'notes': 'Food hygiene ratings and inspection results given to food businesses by local authorities running the Food Hygiene Rating Scheme. '
+                              'The data is available through an API in XML and JSON, and data is only available for areas running the scheme.',
+                     'tags': [{'name': 'food hygiene'}, {'name': 'ratings'}], 'url': 'http://ratings.food.gov.uk/open-data/en-GB',
+                     'organization': {'title': 'Food Standards Agency', 'name': 'food-standards-agency'},
+                     'extras': [{'key': 'frequency', 'value': 'DAILY'}, {'key': 'contact_uri', 'value': 'https://www.food.gov.uk/food-hygiene-rating-scheme-api-version-2'}, {'key': 'language', 'value': 'en'}],
+                     'resources': [{'name': 'Food hygiene rating data API', 'url': 'https://api.ratings.food.gov.uk', 'mimetype': 'application/json'}]},
             'dcatus': {'title': 'Example school census', 'description': 'An invented dataset, used to show the weaver. It does not exist.', 'keyword': ['schools', 'education'],
                        'modified': '2026-09-01', 'publisher': {'name': 'Example Education Agency'}, 'contactPoint': {'fn': 'Census team', 'hasURL': 'https://example.org/contact'},
                        'identifier': 'example-school-census', 'accessLevel': 'public', 'license': 'https://creativecommons.org/licenses/by/4.0/', 'temporal': '2015-01-01/2025-12-31',
                        'accrualPeriodicity': 'R/P1Y', 'landingPage': 'https://example.org/school-census', 'language': ['en'],
                        'distribution': [{'title': 'Census, CSV', 'downloadURL': 'https://example.org/census.csv', 'mediaType': 'text/csv'}]},
-            'schemaorg': {'@context': 'https://schema.org/', '@type': 'Dataset', 'name': 'Example river levels', 'description': 'An invented dataset, used to show the weaver. It does not exist.',
-                          'keywords': 'rivers, flooding, environment', 'license': 'http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/', 'url': 'https://example.org/river-levels',
-                          'datePublished': '2024-04-01', 'dateModified': '2026-10-30', 'temporalCoverage': '2024-04-01/..', 'inLanguage': 'en', 'isAccessibleForFree': True,
-                          'publisher': {'@type': 'Organization', 'name': 'Example Environment Agency'},
-                          'distribution': [{'@type': 'DataDownload', 'contentUrl': 'https://example.org/levels.json', 'encodingFormat': 'application/json'}]},
-            'dc': {'dc:title': 'Example parish records index', 'dc:description': 'An invented dataset, used to show the weaver. It does not exist.', 'dc:subject': ['history', 'genealogy'],
-                   'dc:publisher': 'Example Archive', 'dc:date': '2025-06-01', 'dc:identifier': 'example-parish-index', 'dc:language': 'en', 'dc:rights': 'Open Government Licence v3.0',
-                   'dc:format': 'text/csv', 'dc:type': 'Dataset'},
-            'ddi': {'titl': 'Example household survey', 'IDNo': 'example-hhs-2025', 'abstract': 'An invented survey, used to show the weaver. It does not exist.', 'keyword': ['households', 'income'],
-                    'producer': 'Example Statistics Office', 'timePrd': {'start': '2025-01-01', 'end': '2025-12-31'}, 'universe': 'Private households in the UK',
-                    'restrctn': 'Available to registered users under an end user licence.', 'version': '1.0', 'distDate': '2026-03-01'},
+            'schemaorg': {'@context': 'https://schema.org/', '@type': 'Dataset', 'name': 'Real-time Flood Data River Levels',
+                          'description': 'River levels measured by automatic field devices throughout England, relayed by telemetry and available through the Environment Agency real-time flood-monitoring API.',
+                          'keywords': 'river, telemetry, flooding', 'license': 'http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/',
+                          'url': 'https://www.data.gov.uk/dataset/real-time-flood-data-river-levels', 'dateModified': '2025-07-25', 'inLanguage': 'en', 'isAccessibleForFree': True,
+                          'publisher': {'@type': 'Organization', 'name': 'Environment Agency'},
+                          'distribution': [{'@type': 'DataDownload', 'contentUrl': 'https://environment.data.gov.uk/flood-monitoring/id/stations', 'encodingFormat': 'application/json'}]},
+            'dc': {'dc:title': 'Data.gov.uk Website', 'dc:description': 'Links to gathered versions (snapshots) of the data.gov.uk website, which can be reached through the UK Government Web Archive.',
+                   'dc:subject': ['open data', 'web archives'], 'dc:creator': 'Cabinet Office', 'dc:publisher': 'The National Archives', 'dc:identifier': 'CAB 360', 'dc:language': 'en',
+                   'dc:type': 'Collection', 'dc:relation': 'https://beta.nationalarchives.gov.uk/catalogue/id/C15202287/'},
+            'ddi': {'titl': 'Living Costs and Food Survey, 2023-2024', 'IDNo': 'SN 9468',
+                    'abstract': 'Information on spending patterns and the cost of living that reflect household budgets, collected by the Office for National Statistics.',
+                    'keyword': ['expenditure', 'households', 'food'], 'producer': 'Office for National Statistics', 'timePrd': {'start': '2023-04-01', 'end': '2024-03-31'},
+                    'universe': 'Private households in Great Britain and Northern Ireland', 'restrctn': 'Available under the UK Data Service End User Licence.', 'distrbtr': 'UK Data Service'},
             'atlas': {'entity': {'typeName': 'azure_datalake_gen2_path', 'guid': '00000000-0000-4000-8000-000000000001', 'status': 'ACTIVE', 'labels': ['expenditure', 'quarterly'],
                                  'classifications': [{'typeName': 'Microsoft.Government'}, {'typeName': 'Custom: Spend analysis'}], 'sensitivityLabel': 'OFFICIAL',
                                  'attributes': {'name': 'Example quarterly spending extract', 'description': 'An invented data map entity, used to show the weaver. It does not exist.',
@@ -2611,6 +2625,23 @@ class Site:
                  + '<h3 id="occurrences">Near misses</h3><p>' + E(auto['occurrences']['how']) + ' ' + E(auto['occurrences']['follow_up'])
                  + f' Report one with the <a href="{E(self.m["repo_url"])}/issues/new?template=occurrence.yml">occurrence form</a>.</p>'
                  + '<p>The same pattern runs across the connected portals; see <a href="governance.html#adrs">ADR 0017</a>.</p>')
+        reg = PROVENANCE.register()
+        (self.out / 'downloads' / 'provenance.json').write_text(json.dumps(reg, indent=1, ensure_ascii=False) + '\n', encoding='utf-8')
+        PL = {'V': 'Verified at source', 'S': 'From a named source', 'K': 'Background knowledge, to verify', 'P': 'From a supplied pack', 'O': 'From the owner',
+              'U': 'Built from a public record, not confirmed by the publisher', 'E': 'Estimate', 'synthetic': 'Synthetic, with the reason stated'}
+        crow = [[E(PL.get(k, k)), prov(k) if k in 'VSKPOUE' and len(k) == 1 else '', str(v)] for k, v in sorted(reg['counts'].items(), key=lambda x: -x[1])]
+        todo = [r for r in reg['items'] if r['action']]
+        trows = [[E(r['item']), E(r['kind']), E(r['prov']), f'<code>{E(r["file"])}</code>', E(r['action'])] for r in todo]
+        syn = [r for r in reg['items'] if r['prov'] == 'synthetic']
+        body += ('<h2 id="provenance">Where the content comes from</h2>'
+                 f'<p>Every fact, example and sample is listed with where it comes from. {len(reg["items"])} items: {sum(1 for r in reg["items"] if r["prov"] == "V")} verified at source, '
+                 f'{len(syn)} synthetic. Synthetic content is used only where nothing genuine can be shown in public, says why, and never names a real organisation as its publisher. '
+                 'Every Monday the upkeep routine opens or updates one issue (label provenance) listing what needs a person: facts to verify, checks that are out of date, and samples still to replace.</p>'
+                 + table('t-prov', 'Content by where it comes from', ['Source', 'Label', 'Items'], crow, sortable=False)
+                 + (f'<h3 id="provenance-todo">To verify or replace ({len(todo)})</h3>' + table('t-prov-todo', f'{len(todo)} items need a person', ['Item', 'Kind', 'Label', 'File', 'What to do'], trows)
+                    if todo else '<p>Nothing needs a person.</p>')
+                 + f'<details><summary>Synthetic content and why ({len(syn)})</summary>' + ul([f'{E(r["item"])}: {E(r["synthetic"] or "")}' for r in syn]) + '</details>'
+                 + '<p>Machine-readable: <a href="downloads/provenance.json">provenance.json</a>.</p>')
         body += '<p>Machine-readable: <a href="downloads/status.json">status.json</a>.</p>'
         (self.out / 'downloads' / 'status.json').write_text(json.dumps({
             'build': self.build_id, 'version': self.m['version'], 'as_of': str(self.m['as_of']), 'in_order': good,
@@ -2619,12 +2650,13 @@ class Site:
             'requirements': rq, 'gates': d['gates'], 'repository_files': dict(d['hygiene']),
             'staleness': [{'what': a, 'as_of': b, 'days': c, 'in_date': ok} for a, b, c, _, ok in d['stale']],
             'health': H, 'defects': len(d['defects']), 'open_items': len(d['open']),
+            'provenance': {'counts': reg['counts'], 'needs_action': reg['needs_action'], 'unexplained_synthetic': reg['unexplained_synthetic'], 'misattributed': len(reg['misattributed'])},
             'automation': yaml.safe_load((ROOT / 'ops' / 'automation.yaml').read_text(encoding='utf-8'))}, indent=1, ensure_ascii=False) + '\n', encoding='utf-8')
         drawer = [{'title': 'Status', 'icon': 'heart-pulse', 'items': [
             {'id': 'routines', 'label': 'The five routines', 'icon': 'gauge', 'count': 5}, {'id': 'verification', 'label': 'Self-verification', 'icon': 'shield-check', 'count': len(d['checks'])},
             {'id': 'assessment', 'label': 'Self-assessment', 'icon': 'clipboard-check', 'count': len(d['gates'])}, {'id': 'staleness', 'label': 'Staleness', 'icon': 'refresh-cw', 'count': len(d['stale'])},
             {'id': 'health', 'label': 'Health run', 'icon': 'heart-pulse'}, {'id': 'repair', 'label': 'Defects and checks', 'icon': 'wrench', 'count': len(d['defects'])},
-            {'id': 'automation', 'label': 'Routines and control', 'icon': 'workflow', 'count': len(yaml.safe_load((ROOT / 'ops' / 'automation.yaml').read_text(encoding='utf-8'))['routines'])}]}]
+            {'id': 'automation', 'label': 'Routines and control', 'icon': 'workflow', 'count': len(yaml.safe_load((ROOT / 'ops' / 'automation.yaml').read_text(encoding='utf-8'))['routines'])}, {'id': 'provenance', 'label': 'Where content comes from', 'icon': 'badge-check', 'count': PROVENANCE.register()['needs_action']}]}]
         self.page('status', body, drawer, crumbs=[('About', None), ('Status and self-checks', None)])
 
     def reuse_page(self):

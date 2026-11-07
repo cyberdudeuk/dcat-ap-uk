@@ -90,7 +90,7 @@ adoption:
     - {sector: 'Local government', icon: building, steps: ['Start with the spreadsheet template; no new software is needed.', 'Use your GOV.UK organisation address or local authority code for the publisher.', 'Check records in bulk and fix the errors.', 'Publish the records as a DCAT catalogue file next to your open data.']}
     - {sector: 'NHS, health and care', icon: heart-pulse, steps: ['Apply the health extension.', 'Describe access through a trusted research environment in the rights statement.', 'Apply disclosure control to counts of people.', 'Map existing HDR UK Gateway records with the crosswalk.']}
     - {sector: 'Private sector and suppliers', icon: briefcase-business, steps: ['Apply the private and voluntary sector extension for your registered identifier.', 'Make your product export and import DCAT-AP-UK, and pass the test records.', 'Use the data space extension if you take part in one.', 'Say which version you conform to.']}
-    - {sector: 'Voluntary sector and charities', icon: hand-heart, steps: ['Use your charity number in the org-id form (for example GB-CHC-1234567, GB-SC-SC012345 or GB-NIC-100000).', 'Use the spreadsheet template: no technical skills needed.', 'Say who may use the data, and for what, with a usage policy.', 'Ask for help with the contact form.']}
+    - {sector: 'Voluntary sector and charities', icon: hand-heart, steps: ['Use your charity number in the org-id form (for example GB-CHC-0000000, GB-SC-SC000000 or GB-NIC-000000).', 'Use the spreadsheet template: no technical skills needed.', 'Say who may use the data, and for what, with a usage policy.', 'Ask for help with the contact form.']}
     - {sector: 'Research, universities and data services', icon: graduation-cap, steps: ['Give a DOI as another identifier.', 'Apply the AI-ready extension for data used in machine learning.', 'Export Croissant for machine learning tools.', 'Describe cross-border access with jurisdiction and transfer safeguard.']}
   checklist:
     - {id: c1, group: Prepare, text: 'Name the role that owns your catalogue''s metadata, not a person.'}
@@ -124,10 +124,10 @@ adoption:
     - 'The buyer owns the metadata and may export all of it at any time without charge.'
   identifiers:
     - {scheme: 'GOV.UK organisation', example: 'https://www.gov.uk/government/organisations/ordnance-survey', for: 'Departments, agencies and public bodies on GOV.UK'}
-    - {scheme: 'Companies House (GB-COH)', example: 'GB-COH-01234567', for: 'Companies registered in the UK'}
-    - {scheme: 'Charity Commission for England and Wales (GB-CHC)', example: 'GB-CHC-1234567', for: 'Charities in England and Wales'}
-    - {scheme: 'Scottish Charity Regulator (GB-SC)', example: 'GB-SC-SC012345', for: 'Charities in Scotland'}
-    - {scheme: 'Charity Commission for Northern Ireland (GB-NIC)', example: 'GB-NIC-100000', for: 'Charities in Northern Ireland'}
+    - {scheme: 'Companies House (GB-COH)', example: 'GB-COH-00000000', for: 'Companies registered in the UK'}
+    - {scheme: 'Charity Commission for England and Wales (GB-CHC)', example: 'GB-CHC-0000000', for: 'Charities in England and Wales'}
+    - {scheme: 'Scottish Charity Regulator (GB-SC)', example: 'GB-SC-SC000000', for: 'Charities in Scotland'}
+    - {scheme: 'Charity Commission for Northern Ireland (GB-NIC)', example: 'GB-NIC-000000', for: 'Charities in Northern Ireland'}
     - {scheme: 'Mutuals Public Register (GB-MPR)', example: 'GB-MPR-12345R', for: 'Co-operatives and community benefit societies'}
     - {scheme: 'Education providers (GB-UKPRN)', example: 'GB-UKPRN-10007788', for: 'Colleges, universities and training providers'}
     - {scheme: 'Legal Entity Identifier (XI-LEI)', example: 'XI-LEI-213800ABCDEFGHIJKL01', for: 'Any legal entity, worldwide, including in financial services'}

@@ -16,13 +16,14 @@ prefixes:
   dspace: https://w3id.org/dspace/2025/1/
 
 # A synthetic base record the examples build on (example.org addresses, invented content).
+synthetic_reason: The extensions are candidates that no publisher uses yet. Attributing their values to a real dataset would misrepresent it, so the examples build on this invented record, under an invented organisation (ADR 0020).
 synthetic_base:
   class: Dataset
   id: https://example.org/dataset/synthetic
   title: Synthetic example dataset
   description: An invented dataset used to show an extension. It does not exist.
   identifier: synthetic-0001
-  publisher: https://www.gov.uk/government/organisations/government-digital-service
+  publisher: https://example.org/organisations/example-department
   contactPoint: [{fn: Example data team, hasURL: 'https://example.org/contact'}]
   accessRights: ukcl:access-rights/open
   securityClassification: ukcl:security-classification/official
@@ -510,7 +511,7 @@ extensions:
     aligned_to:
       - {name: org-id.guide identifier lists, source: orgid, prov: K}
     differences:
-      - 'Identifiers take the form PREFIX-identifier, for example GB-COH-01234567 for a company, GB-CHC-1234567 for a charity in England and Wales, GB-SC-SC012345 in Scotland, GB-NIC-100000 in Northern Ireland, or XI-LEI-... for a legal entity identifier.'
+      - 'Identifiers take the form PREFIX-identifier, for example GB-COH-00000000 for a company, GB-CHC-0000000 for a charity in England and Wales, GB-SC-SC000000 in Scotland, GB-NIC-000000 in Northern Ireland, or XI-LEI-... for a legal entity identifier.'
     classes:
       Agent:
         - {p: identifier, ob: M, card: '1', pattern: '^[A-Z]{2}-[A-Z0-9]{2,8}-[A-Za-z0-9._/-]+$'}
@@ -519,9 +520,9 @@ extensions:
     example:
       add:
         title: Synthetic charity dataset
-        publisher: {class: Agent, name: Example Community Trust, identifier: GB-CHC-1234567, agentType: Registered charity}
+        publisher: {class: Agent, name: Example Community Trust, identifier: GB-CHC-0000000, agentType: Registered charity}
     breaks:
-      - {key: org-bad-identifier, rule: P-01, set: {publisher: {class: Agent, name: Example Community Trust, identifier: '1234567'}}}
+      - {key: org-bad-identifier, rule: P-01, set: {publisher: {class: Agent, name: Example Community Trust, identifier: '0000000'}}}
 
   - id: energy
     label: Energy

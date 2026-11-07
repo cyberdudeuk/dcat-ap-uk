@@ -1,6 +1,8 @@
 # Worked examples, in the portal's compact form (keys are DCAT-AP-UK property names; "class" and "id" give the RDF type and IRI).
 # Generated into JSON-LD and Turtle and checked against the SHACL shapes and JSON Schema on every build.
-# Illustrative only: built from public records for teaching, not confirmed by the publishers (U). Synthetic examples say so.
+# Illustrative only: built from public records for teaching, not confirmed by the publishers (U). Each real example names
+# its source and the date it was checked. Synthetic examples say why in `synthetic:` (tools/provenance.py lists them on
+# the Status page): only where nothing genuine can be shown in public, and never in a real organisation's name (ADR 0020).
 # Contact points use web addresses only; this repository publishes no email address (build standard COL-02).
 
 - key: dataset-postcodes
@@ -106,11 +108,12 @@
   label: A dataset series and one release in it
   teaches: How repeated releases share a series, and how to give the period the data covers rather than the publication date.
   issues: [2]
+  source: {url: 'https://www.ons.gov.uk/census', checked: '2026-11-07', note: 'The ONS census pages; the 2021 release below is a real table in it.'}
   record:
     class: DatasetSeries
-    id: https://example.org/dcat-ap-uk/examples/census-series
+    id: https://www.ons.gov.uk/census
     title: Census of population, England and Wales
-    description: Every ten years, a count of all people and households in England and Wales. Synthetic example of a series record.
+    description: Every ten years, a count of all people and households in England and Wales, run by the Office for National Statistics.
     publisher: https://www.gov.uk/government/organisations/office-for-national-statistics
     accrualPeriodicity: eufreq:OTHER
     theme: [ukcl:theme/society]
@@ -120,13 +123,14 @@
   label: One release in a series
   teaches: inSeries, the time period covered, and reference data (the age bands used).
   issues: [2, 3, 4]
+  source: {url: 'https://ons.gov.uk/peoplepopulationandcommunity/populationandmigration/populationestimates/adhocs/15432ts007acensus2021agebyfiveyearagebands', checked: '2026-11-07', note: 'ONS page for table TS007a, with downloads from England and Wales down to output areas; the age variable is defined in the Census 2021 dictionary.'}
   record:
     class: Dataset
-    id: https://example.org/dcat-ap-uk/examples/census-2021-population-by-age
-    title: Usual resident population by five-year age band, England and Wales, Census 2021
-    description: Synthetic example. Counts of usual residents on Census Day 2021 by five-year age band and local authority.
-    identifier: census-2021-age-5y
-    inSeries: [https://example.org/dcat-ap-uk/examples/census-series]
+    id: https://ons.gov.uk/peoplepopulationandcommunity/populationandmigration/populationestimates/adhocs/15432ts007acensus2021agebyfiveyearagebands
+    title: TS007a Age by five-year age bands, Census 2021
+    description: Census 2021 estimates that classify usual residents in England and Wales by five-year age bands, as at Census Day, 21 March 2021. Downloads cover England and Wales, countries, regions, local authorities and smaller areas.
+    identifier: TS007a
+    inSeries: [https://www.ons.gov.uk/census]
     publisher: https://www.gov.uk/government/organisations/office-for-national-statistics
     contactPoint:
       - fn: Census customer services
@@ -141,12 +145,13 @@
         endDate: '2021-03-21'
     spatial: [http://statistics.data.gov.uk/id/statistical-geography/K04000001]
     conformsTo: [https://www.gov.uk/government/publications/recommended-open-standards-for-government/tabular-data-standard]
-    referenceData: [https://example.org/dcat-ap-uk/examples/age-bands-5y]
+    referenceData: [https://www.ons.gov.uk/census/census2021dictionary/variablesbytopic/demographyvariablescensus2021/age]
     theme: [ukcl:theme/society]
     language: [eulang:ENG, eulang:CYM]
 
 - key: dataset-critical-asset
   label: A critical data asset (synthetic)
+  synthetic: Departments report their critical data assets in returns that are not published, so no real record can be shown. Built to the April 2026 guidance, under an invented department.
   teaches: >-
     What the Data Asset Management Policy adds. Every property marked mandatory for critical data assets is given, and
     accountability is a role, not a person. Entirely synthetic: no real organisation or data.
@@ -185,6 +190,7 @@
 
 - key: catalogue-example
   label: A catalogue (synthetic)
+  synthetic: It declares conformance to DCAT-AP-UK. No real catalogue has adopted this proposed profile, and showing a real one would claim a conformance it has not made.
   teaches: The catalogue record that a harvester reads first, declaring that it conforms to this profile.
   issues: []
   record:
@@ -206,7 +212,7 @@
     A record kept by a central catalogue about a dataset it harvested. It points back to the source record, says which value the
     harvester added, declares the profile it was written to, and carries its own classification and audience, separate from the
     data's (RQ-03, RQ-08, RQ-25).
-  synthetic: true
+  synthetic: It states which values a harvester added and which profile the record follows. Attributing that to a real central catalogue would describe behaviour it has not declared.
   record:
     class: CatalogueRecord
     id: https://example.org/central-catalogue/record/eligibility-decisions
@@ -224,14 +230,14 @@
   teaches: >-
     A synthetic record for data held in the UK, Jersey and Gibraltar. Because it contains pseudonymised personal data and leaves the UK,
     it names the transfer safeguard (rule R-08), the law that applies, a machine-readable usage policy and a strong checksum.
-  synthetic: true
+  synthetic: Details of personal data shared across borders are not published for individual datasets, and showing them for a real one would be wrong and could be harmful. Under an invented department.
   record:
     class: Dataset
     id: https://example.org/dataset/cross-border-registrations
     title: Synthetic vehicle registrations shared with the Crown Dependencies
     description: An invented dataset, used to show how DCAT-AP-UK describes personal data that is held or sent outside the UK. It does not exist.
     identifier: synthetic-cross-border-0001
-    publisher: https://www.gov.uk/government/organisations/driver-and-vehicle-licensing-agency
+    publisher: https://example.org/organisations/example-department
     contactPoint: [{fn: Example data sharing team, hasURL: 'https://example.org/contact'}]
     accessRights: ukcl:access-rights/internal
     rights: Shared only with the vehicle registration authorities of Jersey and Gibraltar, under a data sharing agreement.
@@ -258,7 +264,7 @@
 - key: dataset-missing-values
   label: Values left empty on purpose (synthetic)
   teaches: Saying why a recommended property is empty, so a strict harvester can tell unknown or withheld from forgotten. The record keeps every mandatory property; a missing-value statement never replaces one (rule Q-02).
-  synthetic: true
+  synthetic: It shows properties left empty on purpose. A real record with these gaps would misstate what that publisher knows or withholds.
   record:
     class: Dataset
     id: https://example.org/id/dataset/estate-condition

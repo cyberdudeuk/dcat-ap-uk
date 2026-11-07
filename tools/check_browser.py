@@ -153,7 +153,7 @@ def run(site, verbose=True, fail_fast=False):
             pg.goto(base + 'openapi.html')
             pg.click('#oas-sample')
             ot = pg.inner_text('#oas-out')
-            if 'Draft data service record' not in ot or 'https://api.example.org/bus-stops/v2' not in ot:
+            if 'Draft data service record' not in ot or 'https://api.ratings.food.gov.uk' not in ot:
                 fails.append(f'openapi: the example did not convert: {ot[:300]}')
             pg.goto(base + 'adopt.html')
             pg.check('#ck-c1')

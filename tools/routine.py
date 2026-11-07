@@ -155,6 +155,42 @@ def review_reminder(dry):
     summary(f'**review**: {days} days left; issue opened or updated.')
 
 
+def provenance_issue(dry):
+    """Tier 0: keep one issue (label provenance) listing what needs a person or a reviewed pull request: facts to verify
+    (K, U), checks out of date, samples to replace. Never changes content: relabelling a fact needs its source checked."""
+    sys.path.insert(0, str(ROOT / 'tools'))
+    import provenance
+    reg = provenance.register()
+    todo = [x for x in reg['items'] if x['action']]
+    if reg['unexplained_synthetic'] or reg['misattributed']:
+        summary(f'**provenance**: {reg["unexplained_synthetic"]} unexplained synthetic, {len(reg["misattributed"])} misattributed (the tests fail on these).')
+    if not todo:
+        summary('**provenance**: nothing needs a person.')
+        return
+    lines = [f'{len(todo)} items need verifying or replacing. Counts: ' + ', '.join(f'{k} {v}' for k, v in sorted(reg['counts'].items())) + '.', '',
+             'Verify each against an authoritative source, then relabel it V with the date and address checked, or correct it. '
+             'Synthetic content stays only where nothing genuine can be shown in public, and must say why. The Status page lists the same items.', '']
+    by = {}
+    for x in todo:
+        by.setdefault(x['file'], []).append(x)
+    for f, xs in sorted(by.items()):
+        lines.append(f'### {f} ({len(xs)})')
+        lines += [f'- [ ] {x["item"]} ({x["prov"]}): {x["action"]}' for x in xs[:40]]
+        lines.append('')
+    lines.append('Opened and kept up to date by the upkeep routine (tier 0, ADR 0020).')
+    body = '\n'.join(lines)
+    title = 'Content to verify or replace'
+    if dry or not os.environ.get('GH_TOKEN'):
+        summary(f'**provenance**: would open or update "{title}" with {len(todo)} items.')
+        return
+    open_ = sh('gh', 'issue', 'list', '--label', 'provenance', '--state', 'open', '--json', 'number', '--jq', '.[0].number', capture=True)
+    if open_:
+        sh('gh', 'issue', 'edit', open_, '--body', body, check=False)
+    else:
+        sh('gh', 'issue', 'create', '--title', title, '--label', 'provenance', '--body', body, check=False)
+    summary(f'**provenance**: {len(todo)} items listed in the provenance issue.')
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument('routine', choices=['flags-reset', 'upkeep'])
@@ -171,6 +207,7 @@ def main(argv=None):
         if tag:  # self-repair: the baseline lags the latest release if the flags-reset step after it failed
             flags_reset(tag, a.dry_run)
         review_reminder(a.dry_run)
+        provenance_issue(a.dry_run)
     return 0
 
 
