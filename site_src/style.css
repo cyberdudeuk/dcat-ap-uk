@@ -93,6 +93,19 @@ svg.i{width:1.15em;height:1.15em;vertical-align:-.2em;fill:none;stroke:currentCo
 .drawer li a:hover{text-decoration:underline}
 .count{margin-left:auto;font-size:.8rem;background:var(--panel-2);color:var(--text);padding:0 .4rem;border-radius:1rem}
 .flag{font-size:.72rem;font-weight:700;text-transform:uppercase;background:var(--ok-bg);color:var(--ok);padding:0 .35rem;margin-left:.3rem}
+/* Change flags (the Data Quality Commons pattern): New in yellow, Updated in blue; fixed colours that hold their contrast in light and dark */
+.flag.new,.secflag.new,.navflag.new{background:#ffdd00;color:#0b0c0c}
+.flag.updated,.secflag.updated,.navflag.updated{background:#1d70b8;color:#fff}
+.secflag,.navflag{display:inline-block;font-size:.7rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:.1rem .4rem;margin-left:.5rem;vertical-align:.2em;line-height:1.3;border-radius:3px}
+.navflag{margin-left:.35rem;vertical-align:.1em}
+.navflag.dot{width:.6rem;height:.6rem;padding:0;border-radius:50%;margin:0 .2rem 0 .3rem;vertical-align:middle}
+.pageflag{margin:.4rem 0 .2rem;font-size:.95rem}
+.pageflag .flag{margin:0 .3rem 0 0}
+.flagkey{margin:.2rem 0 .5rem}
+.flagkey .flag{margin:0 .2rem 0 0}
+.drawer summary .flag{margin-left:auto}
+@media (prefers-reduced-motion:no-preference){.secflag{animation:flagpop .5s ease 1}@keyframes flagpop{0%{transform:scale(.7)}100%{transform:none}}}
+@media print{.navflag,.flagkey{display:none}}
 .toggle{display:inline-flex;align-items:center;gap:.6rem;margin:.75rem 1rem 0;font:inherit;background:none;border:0;color:var(--text);cursor:pointer;min-height:2.5rem;font-weight:700}
 .toggle .track{width:2.6rem;height:1.4rem;border-radius:1rem;background:var(--border);position:relative;flex:none;transition:background .15s}
 .toggle .track::after{content:"";position:absolute;top:.15rem;left:.15rem;width:1.1rem;height:1.1rem;border-radius:50%;background:var(--bg);transition:transform .15s}
@@ -412,3 +425,7 @@ th{overflow-wrap:normal;word-break:normal}td{overflow-wrap:break-word}td code{ov
 .chip{font:inherit;font-size:.9rem;min-height:2.25rem;padding:.2rem .6rem;border:2px solid var(--link);background:transparent;color:var(--link);cursor:pointer;border-radius:999px}
 .chip:hover{color:var(--hover);border-color:var(--hover);text-decoration:underline}
 .chip:focus-visible{outline:3px solid var(--focus);outline-offset:0;background:var(--focus);color:var(--focus-text);border-color:var(--focus-text)}
+/* Change dots in the top bar sit on the corner of the item's icon, so they add no width (the bar fits at 1280px, ADR 0014) */
+.gbar ul.top>li>a,.gbar ul.top>li>button{position:relative}
+.gbar ul.top>li>a>.navflag.dot,.gbar ul.top>li>button>.navflag.dot{position:absolute;top:.45rem;left:1.35rem;margin:0;box-shadow:0 0 0 2px var(--bg)}
+.gbar .sub .navflag{margin-left:.4rem}

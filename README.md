@@ -111,6 +111,18 @@ python3 -I tools/check_browser.py                # axe-core, widths 320-1920, li
 Every check is trusted only because a deliberate break proves it fails (`--vaccinate`, `--break NAME`). Every defect found gets a
 check in the same commit as its fix, recorded in the [defect register](docs/registers.md#defect-register).
 
+### Self-* routines
+
+The same five routines run here as in the other portals of the estate ([ADR 0016](docs/adr/0016-share-the-build-change-flag-and-self-check-patterns-of-the-connected-solutions.md)). Their latest results are on the portal's [Status page](https://cyberdudeuk.github.io/dcat-ap-uk/status.html) and in `downloads/status.json`.
+
+- **Self-verification:** `tools/check_site.py`, `tools/check_browser.py`, the unit tests and `tools/check_linkml.py`, each check with a deliberate break, before every publish.
+- **Self-assessment:** requirements, release gates and the repository files a well-kept repository needs.
+- **Staleness and self-updating:** the review date, the organisation list (`tools/import_orgs.py --govuk`), the change-flag baseline and watched sources, each against its own limit.
+- **Self-reporting:** `tools/health.py` on every build feeds the Status page; the weekly run opens or closes an issue labelled health.
+- **Self-repair:** derived files are rebuilt; content, settings and the open register change only by a person. Every defect has a check.
+
+**Change flags.** At each release, after tagging, run `python3 -I tools/section_baseline.py --ref <tag> --since <version> --date <yyyy-mm-dd>` and commit `content/section-baseline.json`. Until then, sections that are new or updated since the last baseline are flagged across the portal and listed on What's new.
+
 ## Changing the profile
 
 Raise a [change request](https://github.com/cyberdudeuk/dcat-ap-uk/issues/new?template=change-request.yml). Changes are assessed as major, minor or patch

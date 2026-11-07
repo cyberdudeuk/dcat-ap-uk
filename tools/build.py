@@ -22,6 +22,7 @@ import yaml  # noqa: E402
 
 import generate  # noqa: E402
 import ukap  # noqa: E402
+import sections as SECTIONS  # noqa: E402  change flags, the Data Quality Commons pattern
 
 NODE_EXPORTS = r"""
 const V = require(process.argv[1]);
@@ -95,7 +96,7 @@ SECTION = {'index': 'home', 'profile': 'profile', 'properties': 'profile', 'code
            'adopt': 'adopt', 'integrations': 'adopt', 'lockin': 'adopt', 'international': 'adopt', 'ai-ready': 'adopt', 'quantum': 'adopt', 'landscape': 'adopt',
            'knowledge': 'knowledge', 'lineage': 'knowledge', 'standards': 'knowledge', 'insights': 'knowledge', 'reuse': 'knowledge', 'changes': 'changes', 'strategy': 'strategy', 'requirements': 'strategy',
            'guide': 'roles', 'tutorials': 'roles', 'roles': 'roles', 'downloads': 'downloads', 'estate': 'estate',
-           'governance': 'about', 'accessibility': 'about', 'contact': 'about', 'sitemap': 'about', 'licence': 'about', 'whats-new': 'about', '404': 'about'}
+           'governance': 'about', 'accessibility': 'about', 'contact': 'about', 'sitemap': 'about', 'licence': 'about', 'whats-new': 'about', 'status': 'about', '404': 'about'}
 
 # Sections reached from the masthead rather than the global bar. They stay in the site map, llms.txt and section colours.
 MAST_ONLY = {'Help'}
@@ -109,7 +110,7 @@ NAV = [
     ('Help', 'Help', 'circle-help', ['guide', 'tutorials', 'roles']),
     ('downloads', 'Downloads', 'download', None),
     ('estate', 'Estate', 'compass', None),
-    ('About', 'About', 'info', ['governance', 'accessibility', 'contact', 'licence', 'sitemap', 'whats-new']),
+    ('About', 'About', 'info', ['governance', 'status', 'accessibility', 'contact', 'licence', 'sitemap', 'whats-new']),
 ]
 TITLES = {
     'index': 'Home', 'profile': 'The profile at a glance', 'properties': 'Every property', 'codelists': 'Codelists', 'builder': 'Build a record',
@@ -119,8 +120,9 @@ TITLES = {
     'whats-new': "What's new", '404': 'Page not found', 'extensions': 'Sector extensions', 'bulk': 'Check many records',
     'openapi': 'Describe an API from OpenAPI', 'adopt': 'Adoption toolkit', 'international': 'Cross-border data flows', 'ai-ready': 'AI-ready metadata',
     'quantum': 'Quantum-ready metadata', 'landscape': 'Profiles around the world', 'guide': 'User guide', 'tutorials': 'Tutorials', 'weaver': 'Metadata weaver',
-    'lineage': 'Lineage explorer', 'insights': 'Insights', 'integrations': 'Integrations and connectors', 'standards': 'Standards map', 'lockin': 'Avoiding lock-in and technical debt', 'types': 'Value types', 'licence': 'Licence', 'reuse': 'Reuse across government'}
+    'lineage': 'Lineage explorer', 'insights': 'Insights', 'integrations': 'Integrations and connectors', 'standards': 'Standards map', 'lockin': 'Avoiding lock-in and technical debt', 'types': 'Value types', 'licence': 'Licence', 'reuse': 'Reuse across government', 'status': 'Status and self-checks'}
 DESC = {
+    'status': 'The self-checks that run on every build of DCAT-AP-UK: verification, self-assessment, staleness, health of sources and the defects each check came from.',
     'reuse': 'Public standards, models, registers, catalogues and toolkits across UK government that fit with DCAT-AP-UK, with evidence of what is used and a real-world test.',
     'types': 'The kinds of value DCAT-AP-UK properties take, how each is written in RDF and JSON, and which properties use it.',
     'licence': 'How you may reuse DCAT-AP-UK: the Open Government Licence v3.0 for content and the profile, MIT for code, and third-party parts.',
@@ -193,6 +195,14 @@ def table(tid, caption, head, rows, sortable=True, row_attrs=None, num=()):
             f'<caption id="{tid}-cap">{caption}</caption><thead><tr>{th}</tr></thead><tbody>{body}</tbody></table></div>')
 
 
+FLAG_TEXT = {'new': 'New', 'updated': 'Updated'}
+
+
+def flag_span(kind, cls='flag'):
+    """A change flag: New or Updated since the section baseline (content/section-baseline.json)."""
+    return f'<span class="{cls} {kind}">{FLAG_TEXT[kind]}</span>' if kind else ''
+
+
 def ul(items, cls=''):
     return f'<ul{" class=" + chr(34) + cls + chr(34) if cls else ""}>' + ''.join(f'<li>{i}</li>' for i in items) + '</ul>'
 
@@ -240,6 +250,8 @@ class Site:
         self.sd = yaml.safe_load((ROOT / 'content' / 'standards.yaml').read_text(encoding='utf-8'))
         self.lk = yaml.safe_load((ROOT / 'content' / 'lockin.yaml').read_text(encoding='utf-8'))
         self.ru = yaml.safe_load((ROOT / 'content' / 'reuse.yaml').read_text(encoding='utf-8'))
+        self.base = SECTIONS.load_baseline()
+        self.flags = {}  # page key -> {'page': new|updated|None, 'sections': {id: new|updated}, 'titles': {id: heading}}
         self.ig = yaml.safe_load((ROOT / 'content' / 'integrations.yaml').read_text(encoding='utf-8'))
         self.rq = yaml.safe_load((ROOT / 'content' / 'requirements.yaml').read_text(encoding='utf-8'))
         self.src = {s['id']: s for s in p.lineage['sources'] + self.t['sources']}
@@ -284,27 +296,123 @@ class Site:
                 continue
             if kids:
                 cur = key in kids
-                sub = ''.join(f'<li><a href="{c}.html"{" aria-current=" + chr(34) + "page" + chr(34) if c == key else ""}>{E(TITLES[c])}</a></li>' for c in kids)
-                items += (f'<li class="grp{" current" if cur else ""}"><button type="button" aria-expanded="false">{icon(ic)}<span>{E(label)}</span>{icon("chevron-down")}</button>'
+                sub = ''.join(f'<li><a href="{c}.html"{" aria-current=" + chr(34) + "page" + chr(34) if c == key else ""}>{E(TITLES[c])}<!--pf:{c}--></a></li>' for c in kids)
+                items += (f'<li class="grp{" current" if cur else ""}"><button type="button" aria-expanded="false">{icon(ic)}<span>{E(label)}</span><!--gf:{",".join(kids)}-->{icon("chevron-down")}</button>'
                           f'<ul class="sub">{sub}</ul></li>')
             else:
                 href = 'index.html' if k == 'index' else f'{k}.html'
-                items += f'<li><a href="{href}"{" aria-current=" + chr(34) + "page" + chr(34) if k == key else ""}>{icon(ic)}<span>{E(label)}</span></a></li>'
+                items += f'<li><a href="{href}"{" aria-current=" + chr(34) + "page" + chr(34) if k == key else ""}>{icon(ic)}<span>{E(label)}</span><!--pft:{k}--></a></li>'
         items += f'<li class="more"><button type="button" aria-expanded="false">{icon("menu")}<span>More</span>{icon("chevron-down")}</button><ul class="sub"></ul></li>'
         return f'<nav class="gbar" aria-label="Portal sections"><ul class="top">{items}</ul></nav>'
 
-    def drawer(self, groups):
+    def drawer(self, groups, secflags=None, since=None):
         if not groups:
             return '', ''
+        secflags = secflags or {}
         h = '<h2>On this page</h2>'
+        if since and any(secflags.get(i['id']) for g in groups for i in g['items']):
+            h += f'<p class="flagkey small">{flag_span("new")} {flag_span("updated")} since {E(since)}</p>'
         for g in groups:
+            fl = {i['id']: secflags.get(i['id']) or ('new' if i.get('new') else None) for i in g['items']}
             lis = ''.join(f'<li><a href="#{E(i["id"])}">{icon(i.get("icon", "chevron-right"))}<span>{E(i["label"])}</span>'
                           + (f'<span class="count" aria-label="{i["count"]} items">{i["count"]}</span>' if i.get('count') else '')
-                          + ('<span class="flag">New</span>' if i.get('new') else '') + '</a></li>' for i in g['items'])
-            h += f'<details open><summary>{icon(g.get("icon", "list-checks"))}<span>{E(g["title"])}</span></summary><ul>{lis}</ul></details>'
+                          + flag_span(fl[i['id']]) + '</a></li>' for i in g['items'])
+            nf = sum(1 for v in fl.values() if v)
+            gflag = (f'<span class="flag {"new" if all(v == "new" for v in fl.values()) else "updated"}" title="{nf} of {len(fl)} sections new or updated">'
+                     f'{"New" if all(v == "new" for v in fl.values()) else f"{nf} updated"}</span>' if nf else '')
+            h += f'<details open><summary>{icon(g.get("icon", "list-checks"))}<span>{E(g["title"])}</span>{gflag}</summary><ul>{lis}</ul></details>'
         toggle = ('<button type="button" class="toggle no-print" id="drawer-toggle" aria-controls="drawer" aria-expanded="true">'
                   '<span class="track" aria-hidden="true"></span><span class="tlabel">Hide page contents</span></button>')
         return toggle, f'<nav class="drawer" id="drawer" aria-label="On this page">{h}</nav>'
+
+    # -- change flags (the Data Quality Commons pattern: a section baseline recorded at each release) ------------------
+    def since_text(self):
+        b = self.base
+        return f'{b["since"]} ({b["date"]})' if b.get('since') else None
+
+    def mark_changes(self, key, body):
+        """Flag each section that is new or updated since the baseline, on its heading, and the page as a whole."""
+        if not self.base.get('since') or key == '404':
+            self.flags[key] = {'page': None, 'sections': {}, 'titles': {}}
+            return body, {}
+        now = SECTIONS.sections(body)
+        old = self.base['pages'].get(key)
+        sec = SECTIONS.compare(old, now)
+        page_flag = 'new' if old is None else ('updated' if sec else None)
+        titles = {}
+        for m in list(SECTIONS.HEAD.finditer(body)):
+            titles[m.group(2)] = SECTIONS.plain(m.group(3))
+        if old is not None:  # on a new page every section is new: flag the page, not each heading
+            def tag(m):
+                kind = sec.get(m.group(2))
+                return m.group(0) if not kind else m.group(0)[:-len(f'</h{m.group(1)}>')] + flag_span(kind, 'secflag') + f'</h{m.group(1)}>'
+            body = SECTIONS.HEAD.sub(tag, body)
+        self.flags[key] = {'page': page_flag, 'sections': sec, 'titles': titles}
+        if page_flag:
+            n = len(sec)
+            note = ('This page is new' if page_flag == 'new' else f'{n} section{"s" if n != 1 else ""} on this page {"is" if n == 1 else "are"} new or updated')
+            banner = (f'<p class="pageflag">{flag_span(page_flag)} {note} since {E(self.since_text())}. '
+                      f'<a href="whats-new.html#changed">Everything that changed</a></p>')
+            body = body.replace('</h1>', '</h1>' + banner, 1) if '</h1>' in body else banner + body
+        return body, ({} if old is None else sec)
+
+    @staticmethod
+    def roll_up(body, groups, secflags):
+        """Give each drawer item the flags of the sections it covers: every flagged heading belongs to the nearest drawer
+        anchor at or before it on the page. An item is New only if everything it covers is new."""
+        if not groups or not secflags:
+            return {}
+        pos = {}
+        for g in groups:
+            for i in g['items']:
+                m = re.search(r'\bid="' + re.escape(i['id']) + r'"', body)
+                if m:
+                    pos[i['id']] = m.start()
+        anchors = sorted(pos.items(), key=lambda x: x[1])
+        got = {}
+        for sid, kind in secflags.items():
+            m = re.search(r'\bid="' + re.escape(sid) + r'"', body)
+            if not m:
+                continue
+            owner = sid if sid in pos else None
+            for aid, p in anchors:
+                if p <= m.start():
+                    owner = aid if owner is None or pos.get(owner, -1) < p and owner != sid else owner
+            if owner:
+                got.setdefault(owner, []).append(kind)
+        return {k: ('new' if all(v == 'new' for v in vs) else 'updated') for k, vs in got.items()}
+
+    def apply_nav_flags(self):
+        """After every page is built: flag pages in the global bar, and a group when any of its pages changed."""
+        pf = {k: v['page'] for k, v in self.flags.items()}
+        def page_flag(m):
+            return flag_span(pf.get(m.group(1)), 'navflag')
+        def top_flag(m):  # the top bar must fit at 1280 pixels (ADR 0014): a dot, with its words for screen readers
+            kind = pf.get(m.group(1))
+            return (f'<span class="navflag dot {kind}" title="{FLAG_TEXT[kind]} since {E(self.since_text())}"><span class="visually-hidden">{FLAG_TEXT[kind]}</span></span>') if kind else ''
+        def group_flag(m):
+            kinds = [pf.get(k) for k in m.group(1).split(',') if pf.get(k)]
+            return (f'<span class="navflag dot {"new" if "new" in kinds else "updated"}" title="{len(kinds)} page{"s" if len(kinds) != 1 else ""} new or updated">'
+                    f'<span class="visually-hidden">{len(kinds)} new or updated</span></span>') if kinds else ''
+        for f in self.out.glob('*.html'):
+            t = f.read_text(encoding='utf-8')
+            t2 = re.sub(r'<!--gf:([a-z0-9,-]+)-->', group_flag, re.sub(r'<!--pft:([a-z0-9-]+)-->', top_flag, re.sub(r'<!--pf:([a-z0-9-]+)-->', page_flag, t)))
+            if t2 != t:
+                f.write_text(t2, encoding='utf-8')
+        rows = {k: {'page': v['page'], 'sections': v['sections']} for k, v in sorted(self.flags.items()) if v['page'] or v['sections']}
+        (self.out / 'downloads' / 'changes-since.json').write_text(json.dumps(
+            {'since': self.base.get('since'), 'date': self.base.get('date'), 'version': self.m['version'], 'pages': rows}, indent=1, ensure_ascii=False) + '\n', encoding='utf-8')
+
+    def changed_table(self):
+        """The 'changed since' table on What's new, built from every other page's flags (so What's new is built last)."""
+        rows = []
+        for k, v in sorted(self.flags.items(), key=lambda x: (x[1]['page'] != 'new', TITLES.get(x[0], x[0]))):
+            if not v['page']:
+                continue
+            href = 'index.html' if k == 'index' else f'{k}.html'
+            secs = ', '.join(f'<a href="{href}#{E(i)}">{E(v["titles"].get(i, i))}</a> {flag_span(kind)}' for i, kind in v['sections'].items()) if v['page'] == 'updated' else 'All of it'
+            rows.append([f'<a href="{href}">{E(self.pages.get(k, TITLES.get(k, k)))}</a>', flag_span(v['page']), secs])
+        return rows
 
     def page(self, key, body, drawer=None, crumbs=None, scripts=(), jsonld_extra=None):
         m = self.m
@@ -312,7 +420,8 @@ class Site:
         full = (m['title'] if key == 'index' else f'{title} - {m["short_title"]}')
         desc = DESC[key]
         canonical = m['site_url'] + ('' if key == 'index' else f'{key}.html')
-        toggle, drawer_html = self.drawer(drawer)
+        body, secflags = self.mark_changes(key, body)
+        toggle, drawer_html = self.drawer(drawer, self.roll_up(body, drawer, secflags), self.since_text())
         cr = ''
         if crumbs:
             cr = '<nav aria-label="Breadcrumb"><ol class="crumbs"><li><a href="index.html">Home</a></li>' + ''.join(
@@ -468,11 +577,13 @@ class Site:
         self.accessibility_page()
         self.contact_page()
         self.licence_page()
-        self.whatsnew_page()
+        self.status_page()
         self.notfound_page()
         self.sitemap_page()
+        self.whatsnew_page()  # last: it lists what changed on every other page
         self.write_machine(prof)
         self.write_llms()
+        self.apply_nav_flags()
         (self.out / 'search-index.js').write_text('window.UKAP_SEARCH=' + json.dumps(self.search, ensure_ascii=False, separators=(',', ':')) + ';\n', encoding='utf-8')
         (self.out / '.nojekyll').write_text('')
         (self.out / 'robots.txt').write_text(f'User-agent: *\nAllow: /\nSitemap: {self.m["site_url"]}sitemap.xml\n')
@@ -1257,8 +1368,15 @@ class Site:
         self.page('contact', body, None, crumbs=[('About', None), ('Contact', None)])
 
     def whatsnew_page(self):
-        body = self.hero('history', 'About', "What's new", 'Changes in each release, newest first.')
+        body = self.hero('history', 'About', "What's new", 'Changes in each release, newest first, and every page and section that is new or updated since the last baseline.')
         k = self.counts()
+        crow = self.changed_table()
+        if self.base.get('since'):
+            body += (f'<h2 id="changed">Changed since {E(self.since_text())}</h2><p>Each section of each page is fingerprinted when a release is made. '
+                     f'Sections whose words have changed since then are flagged {flag_span("updated")}, and sections or pages that did not exist are flagged {flag_span("new")}, '
+                     f'here, in the page drawer, on the section heading and in the global bar. Markup and styling changes do not count. '
+                     f'Machine-readable: <a href="downloads/changes-since.json">changes-since.json</a>.</p>'
+                     + table('t-changed', f'{len(crow)} pages new or updated since {E(self.base["since"])}', ['Page', 'Change', 'Sections'], crow))
         body += f'<h2 id="v12">{E(self.m["version"])}, {E(self.m["as_of"])}</h2>' + ul([
             'Renamed DCAT-AP-UK, the DCAT Application Profile for the UK, after the naming of other national profiles (<a href="governance.html#adrs">ADR 0011</a>). The namespace is now https://w3id.org/dcat-ap-uk/.',
             'Display options in the masthead, beside search and help: theme, text size, spacing, contrast, motion and link style.',
@@ -1275,7 +1393,8 @@ class Site:
             'Harvested catalogue records can point to the record they came from and list what they enriched. The <a href="extensions.html#ext-geospatial">geospatial extension</a> adds representation type and OGC service conformance.',
             'The generated LinkML file is now checked with LinkML\'s own tools, and agrees with the other three validators.',
             '<a href="reuse.html">Reuse across government</a>: standards, models, registers, catalogues and toolkits that fit with the profile, the Data Standards Authority\'s endorsed standards (now one-press suggestions in the builder) and a real-world test of the 2023 Data Marketplace records.',
-            'Checked at source: current versions of the standards, the organisation list after the July 2026 machinery of government change, and UK adequacy, now called data bridges.'])
+            'Checked at source: current versions of the standards, the organisation list after the July 2026 machinery of government change, and UK adequacy, now called data bridges.',
+            'New and Updated flags on every changed section, drawer item and group, under each page title and in the global bar, with the full list <a href="#changed">above</a>, and a <a href="status.html">Status page</a> with the self-checks that run on every build (<a href="governance.html#adrs">ADR 0016</a>).'])
         body += '<h2 id="v11">1.1.0-rc.1, 2026-11-06</h2>' + ul([
             f'Nine <a href="extensions.html">sector extensions</a> (health, geospatial, statistics, transport, high-value datasets, AI-ready, data spaces, private and voluntary sector, energy), each with its own shapes, schema, example and break.',
             'Cross-border flows: where data is held or sent, across the UK nations, Crown Dependencies, Overseas Territories, Commonwealth and partners, and the UK GDPR transfer safeguard (rule R-08).',
@@ -1289,7 +1408,9 @@ class Site:
             'Profile, codelists, shapes, schema, context and examples generated from one source.',
             'Portal with record builder, validator and xGov MEM conversion, crosswalks, backlog register, strategy, roles, knowledge layer, estate comparison and governance.',
             'Joined the estate compass as its South bearing.'])
-        self.page('whats-new', body, None, crumbs=[('About', None), ("What's new", None)])
+        drawer = [{'title': "What's new", 'icon': 'history', 'items': ([{'id': 'changed', 'label': 'Changed since the baseline', 'icon': 'git-pull-request', 'count': len(crow)}] if self.base.get('since') else [])
+                   + [{'id': 'v12', 'label': self.m['version'], 'icon': 'git-branch'}, {'id': 'v11', 'label': '1.1.0-rc.1', 'icon': 'git-branch'}, {'id': 'v1', 'label': '1.0.0-rc.1', 'icon': 'git-branch'}]}]
+        self.page('whats-new', body, drawer, crumbs=[('About', None), ("What's new", None)])
 
     def notfound_page(self):
         body = self.hero('circle-help', 'Error', 'Page not found', 'If you typed the address, check it is correct. If you followed a link from the xGov MEM site, the property may have a new name: try the <a href="changes.html#crosswalk">crosswalk</a> or search.')
@@ -2281,7 +2402,7 @@ class Site:
             {'id': 'glance', 'label': 'At a glance', 'icon': 'gauge'}, {'id': 'layers', 'label': 'Family of profiles', 'icon': 'layers', 'count': len(rq['layers'])},
             {'id': 'chain', 'label': 'Evidence to release', 'icon': 'git-branch'}, {'id': 'gates', 'label': 'Release gates', 'icon': 'badge-check', 'count': len(rq['gates'])},
             {'id': 'principles', 'label': 'Design principles', 'icon': 'compass', 'count': len(rq['principles'])},
-            {'id': 'catalogue', 'label': 'Requirements', 'icon': 'list-checks', 'count': len(reqs), 'new': True},
+            {'id': 'catalogue', 'label': 'Requirements', 'icon': 'list-checks', 'count': len(reqs)},
             {'id': 'sources', 'label': 'Public sources', 'icon': 'book-open', 'count': len(rq['public_sources'])},
             {'id': 'controlled', 'label': 'Controlled layers', 'icon': 'shield-check'}, {'id': 'programme', 'label': 'Work programme', 'icon': 'route', 'count': len(rq['programme'])},
             {'id': 'against', 'label': 'The case against', 'icon': 'scale', 'count': len(rq['case_against'])}]}],
@@ -2328,6 +2449,97 @@ class Site:
                    {'id': 'clauses', 'label': 'Contract clauses', 'icon': 'scroll-text', 'count': sum(len(g['items']) for g in lk['clauses'])},
                    {'id': 'schedule', 'label': 'Schedule of standards', 'icon': 'library', 'count': len(rows)}, {'id': 'assure', 'label': 'Assurance', 'icon': 'clipboard-check', 'count': len(lk['assurance'])}]}]
         self.page('lockin', body, drawer, crumbs=[('Adopt', None), ('Avoiding lock-in and technical debt', None)])
+
+    # -- status and self-checks (the DAM playbooks' Status page and the catalogue's self-* routines) -----------------------
+    def status_data(self):
+        today = date.fromisoformat(str(self.m['as_of']))
+        cs = (ROOT / 'tools' / 'check_site.py').read_text(encoding='utf-8')
+        site_checks = re.findall(r'"""(C-\d\d) ([^\n]*?)(?:"""|$)', cs, flags=re.M)
+        cb = (ROOT / 'tools' / 'check_browser.py').read_text(encoding='utf-8')
+        breaks = re.findall(r"^    '([a-z]+)': lambda s:", cb, flags=re.M)
+        tests = sum(len(re.findall(r'^\s+def test_', f.read_text(encoding='utf-8'), flags=re.M)) for f in (ROOT / 'tests').glob('test_*.py'))
+        gv = self.c['governance']
+        rq = self.rq
+        needed = ['README.md', 'LICENSE', 'SECURITY.md', 'CONTRIBUTING.md', 'CODE_OF_CONDUCT.md', 'SUPPORT.md', 'CITATION.cff', 'CHANGELOG.md',
+                  'THIRD-PARTY-NOTICES.md', '.github/CODEOWNERS', '.github/PULL_REQUEST_TEMPLATE.md', '.github/dependabot.yml',
+                  '.github/ISSUE_TEMPLATE/contact.yml', '.github/ISSUE_TEMPLATE/defect.yml', '.github/ISSUE_TEMPLATE/change-request.yml',
+                  '.github/workflows/pages.yml', '.github/workflows/codeql.yml', 'docs/registers.md', 'content/section-baseline.json']
+        hygiene = [(n, (ROOT / n).exists()) for n in needed]
+        orgs = json.loads((ROOT / 'profile' / 'organisations.json').read_text(encoding='utf-8'))
+        lin = yaml.safe_load((ROOT / 'content' / 'lineage.yaml').read_text(encoding='utf-8'))
+        state = json.loads((ROOT / 'content' / 'source-state.json').read_text(encoding='utf-8'))
+        vsrc = [x for x in lin['sources'] if x['prov'] == 'V']
+        review = date.fromisoformat(str(self.m['review']))
+        stale = [
+            ('Review date', str(review), (review - today).days, 'days until the content must be reviewed', (review - today).days >= 14),
+            ('Organisation list (GOV.UK)', orgs['read'], (today - date.fromisoformat(orgs['read'])).days, 'days since it was read (limit 120)', (today - date.fromisoformat(orgs['read'])).days <= 120),
+            ('Change-flag baseline', self.base.get('date') or 'none', (today - date.fromisoformat(self.base['date'])).days if self.base.get('date') else 0,
+             f'days since {self.base.get("since") or "no"} baseline (reset at each release)', bool(self.base.get('date'))),
+            ('Verified sources watched', f'{sum(1 for x in vsrc if x["id"] in state)} of {len(vsrc)}', len(vsrc) - sum(1 for x in vsrc if x['id'] in state),
+             'not yet fingerprinted for the weekly run', all(x['id'] in state for x in vsrc)),
+        ]
+        hp = ROOT / 'build' / 'health.json'
+        health = json.loads(hp.read_text(encoding='utf-8')) if hp.exists() else None
+        return {'checks': site_checks, 'breaks': breaks, 'tests': tests, 'defects': gv['defects'], 'open': gv['open'],
+                'req': {k: sum(1 for x in rq['requirements'] if x['status'] == k) for k in ('met', 'partly', 'planned', 'controlled')},
+                'gates': rq['gates'], 'hygiene': hygiene, 'stale': stale, 'health': health}
+
+    def status_page(self):
+        d = self.status_data()
+        H = d['health']
+        hy_ok = all(ok for _, ok in d['hygiene'])
+        st_ok = all(x[4] for x in d['stale'])
+        routines = [
+            ('shield-check', 'Self-verification', f'{len(d["checks"])} site checks, {len(d["breaks"])} browser checks with deliberate breaks, {d["tests"]} unit tests and the LinkML check run before every publish. A check is trusted only once its deliberate break is caught.', True, '#verification'),
+            ('clipboard-check', 'Self-assessment', f'{d["req"]["met"]} requirements met, {d["req"]["partly"]} partly; {sum(1 for g in d["gates"] if g["status"] == "met")} of {len(d["gates"])} release gates met; {sum(1 for _, ok in d["hygiene"] if ok)} of {len(d["hygiene"])} repository files in place.', hy_ok, '#assessment'),
+            ('refresh-cw', 'Staleness and self-updating', 'Review date, organisation list, change-flag baseline and watched sources, each against its own limit.', st_ok, '#staleness'),
+            ('heart-pulse', 'Self-reporting', ('Latest health run: ' + ('healthy' if H['healthy'] else f'{len(H["problems"])} problem(s) for a person') + f', {H.get("generated", H["run"])}.') if H else 'No health run is recorded in this build; the weekly run and every published build record one.', bool(H and H.get('healthy')), '#health'),
+            ('wrench', 'Self-repair', f'{len(d["defects"])} defects found and fixed, each with a check that stops it coming back. Automation reports and rebuilds; only a person changes content, settings or the open register ({len(d["open"])} items).', True, '#repair'),
+        ]
+        cards = ''.join(f'<div class="card"><h3>{icon(ic)} {E(t)}</h3><p><strong class="tag {"ok" if ok else "warn"}">{"In order" if ok else "Needs attention"}</strong></p><p>{E(x)}</p><p><a href="{href}">Details</a></p></div>'
+                        for ic, t, x, ok, href in routines)
+        good = all(r[3] for r in routines if r[1] != 'Self-reporting') and (not H or H.get('healthy'))
+        body = self.hero('heart-pulse', 'About', 'Status and self-checks',
+                         'What this portal checks about itself on every build, and what it found. Automation reports; a person decides and acts.',
+                         meta=[('circle-check' if good else 'triangle-alert', 'In order' if good else 'Needs attention'), ('git-branch', f'Build {E(self.build_id)}'),
+                               ('calendar-range', f'Review by {E(str(self.m["review"]))}')])
+        body += f'<h2 id="routines">The five routines</h2><div class="grid">{cards}</div>'
+        body += ('<h2 id="verification">Self-verification</h2><p>Every published build passes all of these first. Each was written in the same change as the defect it prevents, and each has a deliberate break that proves it can fail.</p>'
+                 + table('t-checks', f'{len(d["checks"])} site checks', ['Check', 'What it makes sure of'], [[E(i), E(re.sub(r'\{([^}]*)\}', r'[\1]', t))] for i, t in d['checks']])
+                 + f'<p>Browser checks run every page in light and dark at six widths, plus the tools and the no-script fallback. Their deliberate breaks: {E(", ".join(d["breaks"]))}.</p>')
+        rq = d['req']
+        body += ('<h2 id="assessment">Self-assessment</h2>'
+                 + table('t-req-sum', 'Requirements by status', ['Status', 'Requirements'], [[E(k.capitalize()), str(v)] for k, v in rq.items()], num=(1,))
+                 + table('t-gates', 'Release gates', ['Gate', 'Status', 'Evidence'], [[E(g['gate']), f'<strong class="tag {"ok" if g["status"] == "met" else "warn"}">{E(g["status"])}</strong>', E(g['evidence'])] for g in d['gates']])
+                 + table('t-hygiene', 'Repository files a well-kept repository needs (from the GitHub Repos Asset Catalogue self-assessment)', ['File', 'In place'],
+                         [[f'<code>{E(n)}</code>', 'Yes' if ok else '<strong class="tag err">Missing</strong>'] for n, ok in d['hygiene']]))
+        body += ('<h2 id="staleness">Staleness and self-updating</h2><p>Each source of change has its own limit. Reaching it is reported, not fixed: refreshing needs a person (for example <code>tools/import_orgs.py --govuk</code>, <code>tools/health.py --record</code> or <code>tools/section_baseline.py</code>).</p>'
+                 + table('t-stale', 'What goes out of date, and when', ['What', 'As of', 'Days', 'Meaning', 'State'],
+                         [[E(a), E(b), str(c), E(m), '<strong class="tag ok">In date</strong>' if ok else '<strong class="tag warn">Due</strong>'] for a, b, c, m, ok in d['stale']], num=(2,)))
+        if H:
+            srows = [[f'<a href="{E(x["url"])}">{E(x.get("title", x["id"]))}</a>', ('Refuses automated checking' if x.get('blocked') else 'Changed' if x.get('changed') else 'Unchanged' if x.get('baselined') else 'Reachable') if x['ok'] else 'Unreachable', E(x.get('error', ''))] for x in H['sources']]
+            probs = ul([E(p) for p in H['problems']]) if H['problems'] else '<p>No problems found.</p>'
+            body += (f'<h2 id="health">Health run</h2><p>Run {E(H.get("generated", H["run"]))}. It checks that verified sources are reachable and unchanged, that the review date is not close and that pages stay inside their weight envelope.</p>'
+                     f'<h3 id="health-problems">Problems</h3>{probs}' + table('t-health-src', 'Verified sources', ['Source', 'State', 'Detail'], srows))
+        else:
+            body += ('<h2 id="health">Health run</h2><p>No health run is recorded in this build. The published site runs one on every build and every Monday; '
+                     'problems open an issue labelled health in the repository for a person to act on.</p>')
+        body += ('<h2 id="repair">Self-repair: defects and their checks</h2><p>Automation never pushes, deletes or changes settings. It rebuilds what is derived and reports the rest. '
+                 'Every defect found has a root cause and a check, listed in the <a href="governance.html#defects">defect register</a>.</p>'
+                 + table('t-def-sum', f'{len(d["defects"])} defects, newest first', ['Defect', 'Found', 'What', 'Check'], [[E(x['id']), E(x['found']), E(x['what']), E(x['check'])] for x in reversed(d['defects'])]))
+        body += '<p>Machine-readable: <a href="downloads/status.json">status.json</a>.</p>'
+        (self.out / 'downloads' / 'status.json').write_text(json.dumps({
+            'build': self.build_id, 'version': self.m['version'], 'as_of': str(self.m['as_of']), 'in_order': good,
+            'routines': [{'routine': t, 'in_order': ok, 'summary': x} for _, t, x, ok, _ in routines],
+            'checks': [{'id': i, 'what': re.sub(r'\{([^}]*)\}', r'[\1]', t)} for i, t in d['checks']], 'browser_breaks': d['breaks'], 'unit_tests': d['tests'],
+            'requirements': rq, 'gates': d['gates'], 'repository_files': dict(d['hygiene']),
+            'staleness': [{'what': a, 'as_of': b, 'days': c, 'in_date': ok} for a, b, c, _, ok in d['stale']],
+            'health': H, 'defects': len(d['defects']), 'open_items': len(d['open'])}, indent=1, ensure_ascii=False) + '\n', encoding='utf-8')
+        drawer = [{'title': 'Status', 'icon': 'heart-pulse', 'items': [
+            {'id': 'routines', 'label': 'The five routines', 'icon': 'gauge', 'count': 5}, {'id': 'verification', 'label': 'Self-verification', 'icon': 'shield-check', 'count': len(d['checks'])},
+            {'id': 'assessment', 'label': 'Self-assessment', 'icon': 'clipboard-check', 'count': len(d['gates'])}, {'id': 'staleness', 'label': 'Staleness', 'icon': 'refresh-cw', 'count': len(d['stale'])},
+            {'id': 'health', 'label': 'Health run', 'icon': 'heart-pulse'}, {'id': 'repair', 'label': 'Defects and checks', 'icon': 'wrench', 'count': len(d['defects'])}]}]
+        self.page('status', body, drawer, crumbs=[('About', None), ('Status and self-checks', None)])
 
     def reuse_page(self):
         ru = self.ru

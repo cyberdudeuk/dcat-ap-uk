@@ -7,6 +7,7 @@
 One check per function; a failing check prints what failed and where. Exit code 1 if any check fails.
 """
 import argparse
+import json
 import re
 import shutil
 import sys
@@ -352,7 +353,7 @@ def _grams(text):
 
 
 def c_people(site, docs):
-    """C-23 no old organisation name (OCDO) and no personal or team details anywhere: pages, downloads or repository files. Contact is by form only."""
+    """C-23 no old directorate name and no personal or team details anywhere: pages, downloads or repository files. Contact is by form only."""
     bad = []
     base = SCAN_ROOT[0]
     files = list(site.rglob('*.html')) + [f for f in (site / 'downloads').rglob('*') if f.is_file() and f.suffix in TEXT_EXT | {'.json', '.ttl', '.jsonld', '.csv', '.yaml', '.md', '.txt'}]
@@ -366,6 +367,34 @@ def c_people(site, docs):
         hit = {h for g, h in _grams(t) if h in PERSONAL}
         if hit:
             bad.append(f'{rel}: personal or team details ({len(hit)} match)')
+    return bad
+
+
+def c_flags(site, docs):
+    """C-24 change flags agree with downloads/changes-since.json: each new or updated page says so under its title and in the global bar, and each changed section's heading is flagged (the Data Quality Commons pattern)."""
+    bad = []
+    cj = site / 'downloads' / 'changes-since.json'
+    if not cj.exists():
+        return ['downloads/changes-since.json is missing']
+    ch = json.loads(cj.read_text(encoding='utf-8'))
+    full = (site / 'index.html').read_text(encoding='utf-8')
+    m = re.search(r'<nav class="gbar".*?</nav>', full, flags=re.S)
+    home = m.group(0) if m else ''
+    for key, v in ch['pages'].items():
+        f = site / f'{key}.html'
+        if not f.exists():
+            bad.append(f'{key}: flagged but no page'); continue
+        t = f.read_text(encoding='utf-8')
+        if v['page'] and f'<p class="pageflag"><span class="flag {v["page"]}">' not in t:
+            bad.append(f'{key}.html: no page flag ({v["page"]}) under the title')
+        if v['page'] == 'updated':
+            for sid, kind in v['sections'].items():
+                if not re.search(r'<h[23][^>]*\bid="' + re.escape(sid) + r'"[^>]*>(?:(?!</h[23]>).)*<span class="secflag ' + kind + r'">', t, flags=re.S):
+                    bad.append(f'{key}.html#{sid}: heading not flagged {kind}')
+        if v['page'] and f'href="{key}.html"' in home and not re.search(r'href="' + re.escape(key) + r'\.html"[^>]*>(?:(?!</a>).)*class="navflag', home, flags=re.S):
+            bad.append(f'index.html: {key} not flagged in the global bar')
+    if re.search(r'<!--(?:pft|pf|gf):', full):
+        bad.append('index.html: unreplaced change-flag placeholder')
     return bad
 
 
@@ -384,7 +413,7 @@ def c_email_repo(site, docs):
     return bad
 
 
-CHECKS = [c_csp, c_external, c_email, c_ids, c_links, c_tables, c_meta, c_colophon, c_skip, c_deck_film, c_inline, c_banner, c_lang_title, c_weight, c_svg_names, c_unrendered, c_email_repo, c_llms, c_no_style_attr, c_tours, c_feedback, c_markings, c_people]
+CHECKS = [c_csp, c_external, c_email, c_ids, c_links, c_tables, c_meta, c_colophon, c_skip, c_deck_film, c_inline, c_banner, c_lang_title, c_weight, c_svg_names, c_unrendered, c_email_repo, c_llms, c_no_style_attr, c_tours, c_feedback, c_markings, c_people, c_flags]
 
 
 def run(site, quiet=False):
@@ -440,6 +469,7 @@ BREAKS = {
     'C-17': lambda s: _plant_repo(s),
     'C-19': lambda s: _sub(s / 'index.html', '<main id="main"', '<main style="color:red" id="main"'),
     'C-20': lambda s: _sub(s / 'builder.html', 'id="b-level"', 'id="b-level-gone"'),
+    'C-24': lambda s: _sub(s / 'reuse.html', '<p class="pageflag"><span class="flag new">', '<p class="pageflag"><span class="flag">'),
     'C-23': lambda s: _sub(s / 'governance.html', '<h2 id="adrs"', '<p>Office of the Government Chief Data Officer</p><h2 id="adrs"'),
     'C-22': lambda s: _sub(s / 'requirements.html', '<h2 id="controlled">', '<p>REL FVEY</p><h2 id="controlled">'),
     'C-21': lambda s: _sub(s / 'types.html', 'template=change-request.yml', 'template=no-such-form.yml'),

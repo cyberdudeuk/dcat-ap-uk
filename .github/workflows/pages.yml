@@ -39,7 +39,15 @@ jobs:
           python -m playwright install --with-deps chromium
       - name: Tests (three validators agree; every rule has a deliberate break)
         run: python -I -m unittest discover -s tests -v
-      - name: Build
+      - name: Build (first pass, for page weights)
+        run: python -I tools/build.py
+      - name: Health run for the Status page (sources, review date, page weight; reports, never fails the build)
+        id: health
+        continue-on-error: true
+        run: |
+          mkdir -p build
+          python -I tools/health.py --out build/health.json > build/health.txt
+      - name: Build (with the health report on the Status page)
         run: python -I tools/build.py
       - name: Generated docs are up to date
         run: git diff --exit-code -- docs/
@@ -60,13 +68,8 @@ jobs:
           for b in contrast overflow label console skip validator bulk extension csp meter nested menus menuedge current fold moreview submit suggest; do
             python -I tools/check_browser.py --break "$b"
           done
-      - name: Health run (sources, review date, page weight)
-        id: health
+      - name: Open or update the health issue (weekly run only)
         if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
-        continue-on-error: true
-        run: python -I tools/health.py --out build/health.json > build/health.txt
-      - name: Open or update the health issue
-        if: steps.health.outcome != 'skipped'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |

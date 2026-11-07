@@ -45,6 +45,12 @@ A minor release: a new name, tools for suppliers and buyers, and a richer portal
   Authority's 11 endorsed standards, with the address to give in conforms to; what government code actually uses; and the 2023
   Data Marketplace records checked against the profile (97 problems, all fixed or flagged by the existing tools).
 - The record builder offers the endorsed standards as one-press suggestions for conforms to.
+- Change flags, as the Data Quality Commons has them: every section is fingerprinted at a release, and sections that are
+  new or updated since are flagged on their heading, in the page drawer (items and groups), under the page title and in the
+  global bar; What's new lists them all, and `downloads/changes-since.json` publishes them (ADR 0016, check C-24).
+- A Status page, as the DAM playbooks have one, with the five self-* routines the GitHub Repos Asset Catalogue runs:
+  verification, assessment (including the repository files a well-kept repository needs), staleness, reporting (a health run
+  on every build) and repair (`downloads/status.json`).
 - Check C-23: no old directorate name and no personal or team details anywhere.
 - The geospatial extension says how data is represented (`adms:representationTechnique`, from the INSPIRE spatial
   representation types) and requires geospatial data services to state the OGC standards they conform to (RQ-24).
@@ -56,7 +62,8 @@ A minor release: a new name, tools for suppliers and buyers, and a richer portal
   They follow w3id.org's rules: 303 with content negotiation for terms and codelists, 302 elsewhere, no `Options`.
 
 ### Fixed
-- D-017 to D-031; see the defect register.
+- D-017 to D-031; see the defect register. The health run now treats a site that refuses automated checking as
+  blocked, not broken, as the DAM health run does.
 - The geodesy example names the ETRF2000 realisation (EPSG 9067), not the ETRS89 ensemble, as its own guidance asks.
 - The EU access-right and data-theme mappings were checked at source and relabelled S (open register O-04).
 - Closed O-05 (merged into O-17), O-09, O-12, O-16, O-18, O-24 and O-27; opened O-28 (required checks on main). O-12: the xGov MEM owners were asked, on its

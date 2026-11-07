@@ -398,3 +398,52 @@ class OrganisationsFresh(unittest.TestCase):
         o = {x['slug']: x for x in json.loads((ROOT / 'profile' / 'organisations.json').read_text(encoding='utf-8'))['orgs']}
         self.assertEqual(o['department-for-science-innovation-and-technology']['status'], 'closed')
         self.assertEqual(o['department-for-digital-culture-media-and-sport']['status'], 'live')
+
+
+class ChangeFlags(unittest.TestCase):
+    """New and Updated flags (the Data Quality Commons pattern): fingerprints count words only, the baseline names a
+    release in the change log, and the built site flags what changed (7 November 2026)."""
+
+    def setUp(self):
+        sys.path.insert(0, str(ROOT / 'tools'))
+        import sections
+        self.S = sections
+
+    def test_words_count_markup_does_not(self):
+        a = self.S.sections('<h2 id="x">Title</h2><p>Some <strong>words</strong>.</p>')
+        b = self.S.sections('<h2 id="x" class="new">Title<span class="secflag new">New</span></h2><p class="lede">Some words.</p><svg><text>9</text></svg>')
+        c = self.S.sections('<h2 id="x">Title</h2><p>Some other words.</p>')
+        self.assertEqual(a, b)
+        self.assertNotEqual(a, c)
+
+    def test_compare(self):
+        self.assertEqual(self.S.compare(None, {'a': '1'}), {'a': 'new'})
+        self.assertEqual(self.S.compare({'a': '1', 'b': '2'}, {'a': '1', 'b': '3', 'c': '4'}), {'b': 'updated', 'c': 'new'})
+
+    def test_baseline_names_a_release(self):
+        b = self.S.load_baseline()
+        self.assertTrue(b['since'])
+        self.assertIn(f'## [{b["since"]}]', (ROOT / 'CHANGELOG.md').read_text(encoding='utf-8'))
+        self.assertGreater(len(b['pages']), 40)
+
+    def test_site_is_flagged(self):
+        built()
+        ch = json.loads((SITE / 'downloads' / 'changes-since.json').read_text(encoding='utf-8'))
+        self.assertEqual(ch['pages']['reuse']['page'], 'new')
+        wn = (SITE / 'whats-new.html').read_text(encoding='utf-8')
+        self.assertIn('id="changed"', wn)
+        self.assertIn('href="reuse.html"', wn)
+
+
+class StatusPage(unittest.TestCase):
+    """The Status page (the DAM playbooks pattern) with the five self-* routines (the catalogue's pattern)."""
+
+    def test_status_page_and_json(self):
+        built()
+        html = (SITE / 'status.html').read_text(encoding='utf-8')
+        for a in ('routines', 'verification', 'assessment', 'staleness', 'health', 'repair'):
+            self.assertIn(f'id="{a}"', html)
+        st = json.loads((SITE / 'downloads' / 'status.json').read_text(encoding='utf-8'))
+        self.assertEqual(len(st['routines']), 5)
+        self.assertEqual(len(st['checks']), len(re.findall(r'"""C-\d\d ', (ROOT / 'tools' / 'check_site.py').read_text(encoding='utf-8'))))
+        self.assertTrue(all(st['repository_files'].values()), st['repository_files'])
