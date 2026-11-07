@@ -84,9 +84,9 @@ vendors:
     kind: ranked
     reports: [gartner-mms-2025, gartner-dagp-2025, forrester-dg-2025, forrester-edc-2024]
     repos:
-      - {repo: atlanhq/atlan-python, role: Python SDK; its typedef module defines custom metadata, commit: 3c9c37ada6c5, checked: '2026-11-07'}
-      - {repo: atlanhq/atlan-java, role: Java SDK, commit: b44068aa921d, checked: '2026-11-07'}
-      - {repo: atlanhq/agent-toolkit, role: MCP server, Claude Code plugin and agent skills, commit: 17b7ae3b4852, checked: '2026-11-07'}
+      - {repo: atlanhq/atlan-python, role: Python SDK; its typedef module defines custom metadata, commit: 3c9c37ada6c5c246a231d9a70dfe938e18da73c1, checked: '2026-11-07'}
+      - {repo: atlanhq/atlan-java, role: Java SDK, commit: b44068aa921d1bfb2f92e3d823056ba75c191706, checked: '2026-11-07'}
+      - {repo: atlanhq/agent-toolkit, role: MCP server, Claude Code plugin and agent skills, commit: 17b7ae3b4852a24a9271a55eb339dea0b38f1f60, checked: '2026-11-07'}
     model: {file: pyatlan/model/assets/core/asset.py, repo: atlanhq/atlan-python, prov: V}
     extend: Custom metadata, sent to the typedef API as businessMetadataDefs (pyatlan/model/typedef.py). Atlan addresses custom metadata by internal names in its API, so map the kit's names to them when loading.
     weave: atlas
@@ -104,15 +104,23 @@ vendors:
       - [identifier, qualifiedName, 'Atlan builds qualifiedName from the connection; keep the DCAT-AP-UK identifier in custom metadata as well.']
       - [landingPage, sourceURL, '']
       - [contactPoint, (none), 'ownerUsers and ownerGroups name people and groups. Give a team contact form in custom metadata instead.']
-
+    claude:
+      - type: plugin
+        name: Atlan
+        listing: Anthropic Directory, partner publisher atlanhq
+        repo: {repo: atlanhq/agent-toolkit, commit: 17b7ae3b4852a24a9271a55eb339dea0b38f1f60}
+        mcp: {name: atlan, transport: http, url: 'https://mcp.atlan.com/mcp', auth: OAuth}
+        skills:
+          - {name: atlan-search, does: Chooses between semantic search, asset search, lineage traversal and metadata lookups, with the filter rules that make each return the right assets.}
+        use: Find, explain and govern Atlan assets from Claude Code; lineage, glossary terms, certification and data quality rules.
   - id: collibra
     name: Collibra Platform
     kind: ranked
     reports: [gartner-dagp-2025, forrester-dg-2025, forrester-edc-2024]
     repos:
-      - {repo: collibra/import-api-examples, role: Import API examples and input files, commit: 48e1e29c2a50, checked: '2026-11-07'}
-      - {repo: collibra/custom-technical-lineage-examples, role: Custom technical lineage files, commit: be0662134504, checked: '2026-11-07'}
-      - {repo: collibra/chip, role: Local MCP server (Go) with embedded agent skills, commit: 05d201f35d20, checked: '2026-11-07'}
+      - {repo: collibra/import-api-examples, role: Import API examples and input files, commit: 48e1e29c2a50cfcbdf8014bcb963720db5370b9f, checked: '2026-11-07'}
+      - {repo: collibra/custom-technical-lineage-examples, role: Custom technical lineage files, commit: be066213450455d23d696c01d23444c73be6b919, checked: '2026-11-07'}
+      - {repo: collibra/chip, role: Local MCP server (Go) with embedded agent skills, commit: 05d201f35d204daa3cf23a25683edf5ad5615c81, checked: '2026-11-07'}
     model: {file: input-file-examples/src/test/resources (asset JSON with attributes keyed by attribute type name), repo: collibra/import-api-examples, prov: V}
     extend: Attribute types and asset types defined in the operating model by an administrator; the Import API loads data, not the model itself.
     weave: collibra
@@ -130,13 +138,20 @@ vendors:
       - [identifier, identifier.externalEntityId, 'With identifier.externalSystemId naming the source catalogue.']
       - [keyword, tags, 'The repository has an example that adds assets with tags.']
       - [contactPoint, (none), 'Responsibilities name people. Give a team contact form as an attribute.']
-
+    claude:
+      - type: connector
+        name: Collibra
+        listing: Claude connector directory
+        mcp: {name: Collibra, transport: http, url: 'https://<your instance>/rest/mcp', auth: OAuth per user}
+        tools: [discover_data_assets, discover_business_glossary, create_asset, edit_asset, create_assessment, edit_assessment, get_assessment, add_data_classification_match]
+        tools_note: The directory lists eight tools by name and 21 more.
+        use: Search governed assets and the business glossary, follow lineage, and create or edit assets within Collibra's own permissions.
   - id: alation
     name: Alation Data Intelligence Platform
     kind: ranked
     reports: [gartner-mms-2025, gartner-dagp-2025, forrester-dg-2025]
     repos:
-      - {repo: Alation/alation-ai-agent-sdk, role: AI agent SDK, MCP server and LangChain distribution, commit: ceac7b6ad6ed, checked: '2026-11-07'}
+      - {repo: Alation/alation-ai-agent-sdk, role: AI agent SDK, MCP server and LangChain distribution, commit: ceac7b6ad6edda168894a1b47e5029503b705305, checked: '2026-11-07'}
     extend: Custom fields; the agent SDK has a tool that reads their definitions.
     gap: No public repository publishes Alation's catalogue object model, so no field mapping is given rather than a guessed one.
     ai:
@@ -159,13 +174,31 @@ vendors:
       tools: [search_metadata, get_asset_details]
       skills: Connection guides for Claude Desktop, Cursor, VS Code and Python, and an MCP tool in Informatica's own AI Agent Engineering service.
       source: https://onlinehelp.informatica.com/IICS/dev/agentic-ui/en/uu-aiae-mcp-servers/Introduction_to_Informatica_MCP_servers.html
-
+    claude:
+      - type: plugin
+        name: Informatica (informatica-for-claude-platform)
+        listing: Knowledge Work plugins; enabled on this account
+        repo: {repo: forcedotcom/informatica-claude-plugins, commit: 554d02e0f7f2adafeaeeedbde04435b7bd310a47}
+        mcp: {name: 'informatica-catalog-discovery, informatica-data-exploration', transport: http, url: Set per IDMC tenant, auth: Tenant credentials}
+        skills:
+          - {name: catalog-and-data-discovery, does: Finds tables, columns, files, glossary terms and policies in CDGC, and judges ownership, certification, sensitivity, policy and safe use from catalog metadata before any data is read.}
+        use: Ground an agent in CDGC before it queries data, so it picks the trusted, compliant asset.
+      - type: connector
+        name: Informatica Catalog Discovery
+        listing: Claude connector directory
+        tools: [search_assets, get_asset_details]
+        use: Discover and explore assets in Cloud Data Governance and Catalog.
+      - type: connector
+        name: Informatica Data Exploration
+        listing: Claude connector directory
+        tools: [data_explore, master_data_explore, get_skill_execution_updates, request_upload_url]
+        use: Explore dataset content and mastered (MDM) entities in IDMC through Informatica's discovery agent.
   - id: ibm
     name: IBM watsonx.data intelligence
     kind: ranked
     reports: [gartner-mms-2025, gartner-dagp-2025, gartner-dagp-2026]
     repos:
-      - {repo: IBM/data-intelligence-mcp-server, role: MCP server with agent skills (Apache 2.0), commit: ba81d268216c, checked: '2026-11-07'}
+      - {repo: IBM/data-intelligence-mcp-server, role: MCP server with agent skills (Apache 2.0), commit: ba81d268216c9188326c044b18cd9204e0f76432, checked: '2026-11-07'}
     extend: Custom asset types, custom properties and relationships, through the Watson Data API.
     gap: The custom asset type payload is documented but not published as a schema file, so no field mapping is given.
     ai:
@@ -180,7 +213,7 @@ vendors:
     kind: ranked
     reports: [gartner-dagp-2025]
     repos:
-      - {repo: datadotworld/data.world-py, role: Python client with the dataset API models, commit: b1c03aa590ff, checked: '2026-11-07'}
+      - {repo: datadotworld/data.world-py, role: Python client with the dataset API models, commit: b1c03aa590ff29e5740e8e4112602750fc0e31a2, checked: '2026-11-07'}
     model: {file: datadotworld/client/_swagger/models/dataset_create_request.py, repo: datadotworld/data.world-py, prov: V}
     extend: Free-form dataset properties.
     weave: dataworld
@@ -199,9 +232,9 @@ vendors:
     kind: platform
     reports: []
     repos:
-      - {repo: apache/atlas, role: The type system Purview's Data Map uses, commit: 8b3f674e0f25, checked: '2026-11-07'}
-      - {repo: microsoft/purview-custom-connector-solution-accelerator, role: Custom connector accelerator using Atlas JSON, commit: 7a8eb4af1e9b, checked: '2026-11-07'}
-      - {repo: microsoft/Purview-Custom-Types-Tool-Solution-Accelerator, role: Tool for building custom types, commit: 544358eab84c, checked: '2026-11-07'}
+      - {repo: apache/atlas, role: The type system Purview's Data Map uses, commit: 8b3f674e0f2502ba6c95201d9ff4c90435e4bbe0, checked: '2026-11-07'}
+      - {repo: microsoft/purview-custom-connector-solution-accelerator, role: Custom connector accelerator using Atlas JSON, commit: 7a8eb4af1e9b74464a8f07f55b8f2f2da51c6cf5, checked: '2026-11-07'}
+      - {repo: microsoft/Purview-Custom-Types-Tool-Solution-Accelerator, role: Tool for building custom types, commit: 544358eab84cb2b19d91601fa9bc12080248cc91, checked: '2026-11-07'}
     model: {file: addons/models/0000-Area0/0010-base_model.json, repo: apache/atlas, prov: V}
     extend: Custom types (typedefs) and business metadata through the Atlas API.
     weave: atlas
@@ -213,13 +246,26 @@ vendors:
       - [description, userDescription, 'Asset also has description, filled by scans.']
       - [identifier, qualifiedName, 'Referenceable.qualifiedName is the unique key; keep the DCAT-AP-UK identifier in business metadata as well.']
       - [contactPoint, (none), 'Asset.owner names a person. Give a team contact form in business metadata.']
-
+    claude:
+      - type: connector
+        name: Microsoft Learn
+        listing: Claude connector directory; connected on this account
+        tools: [microsoft_docs_search, microsoft_docs_fetch, microsoft_code_sample_search]
+        use: Look up Purview's own documentation, such as the Atlas typedef and business metadata APIs. It does not reach a Purview account.
+      - type: plugin
+        name: microsoft-docs
+        listing: Anthropic Directory, partner publisher microsoftdocs
+        repo: {repo: microsoftdocs/mcp, commit: f0a9478a954c9b3a7c6525a5183466902ca60731}
+        skills:
+          - {name: microsoft-docs, does: Answers from official Microsoft documentation.}
+          - {name: microsoft-code-reference, does: Finds API references and code samples.}
+        use: The same documentation, packaged with skills.
   - id: apache-atlas
     name: Apache Atlas
     kind: platform
     reports: []
     repos:
-      - {repo: apache/atlas, role: Source and base type model, commit: 8b3f674e0f25, checked: '2026-11-07'}
+      - {repo: apache/atlas, role: Source and base type model, commit: 8b3f674e0f2502ba6c95201d9ff4c90435e4bbe0, checked: '2026-11-07'}
     model: {file: addons/models/0000-Area0/0010-base_model.json, repo: apache/atlas, prov: V}
     extend: Typedefs and business metadata.
     weave: atlas
@@ -236,8 +282,8 @@ vendors:
     kind: platform
     reports: []
     repos:
-      - {repo: open-metadata/OpenMetadata, role: Source and JSON Schema entity model, commit: 9abf4c712ca2, checked: '2026-11-07'}
-      - {repo: open-metadata/ai-sdk, role: AI SDK over the built-in MCP server, commit: 01d572f5c427, checked: '2026-11-07'}
+      - {repo: open-metadata/OpenMetadata, role: Source and JSON Schema entity model, commit: 9abf4c712ca2615f4de25cbaae589826202e994f, checked: '2026-11-07'}
+      - {repo: open-metadata/ai-sdk, role: AI SDK over the built-in MCP server, commit: 01d572f5c42705c714aab97f344b49c216b5b4cb, checked: '2026-11-07'}
     model: {file: openmetadata-spec/src/main/resources/json/schema/entity/data/table.json, repo: open-metadata/OpenMetadata, prov: V}
     extend: Custom properties on an entity type (type/customProperty.json), stored in the entity's extension object.
     weave: openmetadata
@@ -261,8 +307,8 @@ vendors:
     kind: platform
     reports: []
     repos:
-      - {repo: datahub-project/datahub, role: Source and PDL metadata model, commit: f65d0be5605c, checked: '2026-11-07'}
-      - {repo: acryldata/mcp-server-datahub, role: Official MCP server, commit: e4de4c021eba, checked: '2026-11-07'}
+      - {repo: datahub-project/datahub, role: Source and PDL metadata model, commit: f65d0be5605c57101a4506ab8368a2d27c8b2c4f, checked: '2026-11-07'}
+      - {repo: acryldata/mcp-server-datahub, role: Official MCP server, commit: e4de4c021eba93c4a48669644c6bc7481fd7db2e, checked: '2026-11-07'}
     model: {file: metadata-models/src/main/pegasus/com/linkedin/dataset/DatasetProperties.pdl, repo: datahub-project/datahub, prov: V}
     extend: Structured properties (metadata-ingestion/examples/structured_properties), and free customProperties.
     weave: datahub
@@ -280,13 +326,40 @@ vendors:
       - [landingPage, externalUrl, 'From the ExternalReference record DatasetProperties includes.']
       - [issued, created.time, 'Milliseconds since 1970; written as a date.']
       - [modified, lastModified.time, '']
-
+    claude:
+      - type: connector
+        name: DataHub
+        listing: Claude connector directory
+        tools: [add_owners, add_related_terms, add_structured_properties, add_tags, add_terms, create_glossary_term, compare_glossary_term_versions, accept_or_reject_proposals]
+        tools_note: The directory lists eight tools by name and 26 more.
+        use: Search and enrich the catalog, manage glossary terms and structured properties, and review proposals.
+      - type: plugin
+        name: DataHub Cloud
+        listing: Anthropic Directory, partner publisher datahub-project
+        repo: {repo: datahub-project/datahub-cloud-ai-plugins, commit: 6d997e960d3e8650b9096df746f20aaeae1d16e3}
+        mcp: {name: datahub, transport: http, url: 'https://mcp.datahub.com/mcp', auth: OAuth}
+        skills:
+          - {name: datahub-search, does: Finds datasets, dashboards, pipelines, columns, owners, tags and domains.}
+          - {name: datahub-lineage, does: Traces what feeds and depends on an asset, for impact and root-cause analysis.}
+          - {name: datahub-quality, does: Creates and runs assertions, raises and resolves incidents, and diagnoses health.}
+          - {name: datahub-sql-workflow, does: Grounds text-to-SQL in catalog evidence before writing a query.}
+          - {name: datahub-setup, does: Checks the MCP connection and authentication.}
+        use: Catalog search, lineage, quality and grounded SQL on DataHub Cloud.
+      - type: plugin
+        name: datahub-skills
+        listing: Anthropic Directory, partner publisher datahub-project
+        repo: {repo: datahub-project/datahub-skills, commit: a27f8e7bb514591a3ccecd7598e4056989c0db9b}
+        skills:
+          - {name: datahub-connector-planning, does: Plans a new DataHub ingestion connector.}
+          - {name: datahub-connector-pr-review, does: Reviews a connector against DataHub's golden standards.}
+          - {name: datahub-enrich, does: Adds descriptions, tags, terms and owners to catalog entries.}
+        use: Building and reviewing DataHub connectors, which is how a DCAT-AP-UK source would be ingested.
   - id: unity-catalog
     name: Unity Catalog (open source and Databricks)
     kind: platform
     reports: []
     repos:
-      - {repo: unitycatalog/unitycatalog, role: Open-source server and OpenAPI model, commit: 2a2c4106ec6b, checked: '2026-11-07'}
+      - {repo: unitycatalog/unitycatalog, role: Open-source server and OpenAPI model, commit: 2a2c4106ec6bece027000d8e88f4cbb5f1947af9, checked: '2026-11-07'}
     model: {file: api/all.yaml (TableInfo), repo: unitycatalog/unitycatalog, prov: V}
     extend: The table's properties map of strings.
     weave: unity
@@ -298,14 +371,27 @@ vendors:
       - [issued, created_at, 'Milliseconds since 1970.']
       - [modified, updated_at, '']
       - [title, (none), 'name is a three-part SQL name, not a title. Keep the title in properties.']
-
+    claude:
+      - type: plugin
+        name: databricks
+        listing: Anthropic Directory, partner publisher databricks
+        repo: {repo: databricks/databricks-agent-skills, commit: e6c32c58fbfe78e25fde84e12bf8440ff0dcc503}
+        skills:
+          - {name: databricks-unity-catalog, does: Grants and revokes access, reasons about ownership, sets row filters and column masks, defines catalogs, schemas and tables, and queries the audit and lineage system tables.}
+          - {name: databricks-data-discovery, does: Finds where data lives and answers questions about it through Genie.}
+        use: Govern Unity Catalog objects and read their lineage from Claude Code.
+      - type: connector
+        name: Databricks Genie
+        listing: Claude connector directory
+        tools: [genie_ask, genie_poll_response, genie_get_query_result, genie_cancel_response, view_ask]
+        use: Ask questions of data that Unity Catalog governs, through a Genie space.
   - id: dataplex
     name: Google Cloud Dataplex Universal Catalog
     kind: platform
     reports: []
     repos:
-      - {repo: googleapis/googleapis, role: The Dataplex v1 catalog API definitions, commit: bf54c1031efd, checked: '2026-11-07'}
-      - {repo: googleapis/genai-toolbox, role: MCP Toolbox, with prebuilt Dataplex tools, commit: 8d54da0d2c40, checked: '2026-11-07'}
+      - {repo: googleapis/googleapis, role: The Dataplex v1 catalog API definitions, commit: bf54c1031efddde9cdfee0f89254315d0116a5f9, checked: '2026-11-07'}
+      - {repo: googleapis/genai-toolbox, role: MCP Toolbox, with prebuilt Dataplex tools, commit: 8d54da0d2c4069937f62654f3262f3f46fae850d, checked: '2026-11-07'}
     model: {file: google/cloud/dataplex/v1/catalog.proto (Entry, EntrySource, Aspect, AspectType), repo: googleapis/googleapis, prov: V}
     extend: Aspect types with a metadata template; an entry carries aspects keyed by aspect type.
     weave: dataplex
@@ -323,7 +409,12 @@ vendors:
       - [issued, entrySource.createTime, '']
       - [modified, entrySource.updateTime, '']
       - [keyword, entrySource.labels, 'Labels are key and value pairs; each keyword becomes a key with an empty value.']
-
+    claude:
+      - type: connector
+        name: Google Cloud BigQuery
+        listing: Claude connector directory
+        tools: [list_dataset_ids, get_dataset_info, list_table_ids, get_table_info, execute_sql]
+        use: Read BigQuery dataset and table metadata. It does not expose Dataplex catalog entries or aspects; for those use MCP Toolbox's Dataplex tools above.
 # Named in a report above, with no public metadata model or MCP server found yet. Labelled K so the provenance register
 # lists each one, and the weekly run looks for a published model or MCP server.
 not_yet:

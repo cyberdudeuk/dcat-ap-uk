@@ -429,7 +429,7 @@ def c_vendors(site, docs):
         if f'id="v-{x["id"]}"' not in t:
             bad.append(f'connectors.html: no section for {x["id"]}')
         for r in x.get('repos', []):
-            if not re.fullmatch(r'[0-9a-f]{12}', str(r.get('commit', ''))):
+            if not re.fullmatch(r'[0-9a-f]{40}', str(r.get('commit', ''))):
                 bad.append(f'{x["id"]}: {r.get("repo")} cited without a commit')
         if x.get('crosswalk') and not (d / f'{x["id"]}-crosswalk.csv').exists():
             bad.append(f'{x["id"]}: crosswalk CSV missing')

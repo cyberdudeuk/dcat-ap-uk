@@ -2538,8 +2538,18 @@ class Site:
             if x['kind'] == 'ranked' and not x.get('reports'):
                 errs.append(f'vendor {x["id"]}: ranked but in no report')
             for rp in x.get('repos', []):
-                if not re.fullmatch(r'[0-9a-f]{12}', str(rp.get('commit', ''))) or not rp.get('checked'):
-                    errs.append(f'vendor {x["id"]}: repo {rp.get("repo")} has no commit or check date')
+                if not re.fullmatch(r'[0-9a-f]{40}', str(rp.get('commit', ''))) or not rp.get('checked'):
+                    errs.append(f'vendor {x["id"]}: repo {rp.get("repo")} needs a full 40-character commit and a check date (D-034)')
+            for c in x.get('claude', []):
+                for f in ('type', 'name', 'listing', 'use'):
+                    if not c.get(f):
+                        errs.append(f'vendor {x["id"]}: Claude entry {c.get("name")} has no {f}')
+                if c.get('type') not in ('plugin', 'connector', 'skill'):
+                    errs.append(f'vendor {x["id"]}: Claude entry {c.get("name")} has unknown type {c.get("type")}')
+                if c.get('repo') and not re.fullmatch(r'[0-9a-f]{40}', str(c['repo'].get('commit', ''))):
+                    errs.append(f'vendor {x["id"]}: Claude entry {c.get("name")} needs a full 40-character commit (D-034)')
+                if not (c.get('tools') or c.get('skills')):
+                    errs.append(f'vendor {x["id"]}: Claude entry {c.get("name")} names no tools or skills')
             if x.get('crosswalk'):
                 if not x.get('model') or x['model'].get('prov') != 'V':
                     errs.append(f'vendor {x["id"]}: a crosswalk needs a verified model file')
@@ -2645,6 +2655,21 @@ class Site:
                 body_cw = f'<p>{E(x.get("extend", ""))} {E(x["gap"])}</p>'
             cards.append(f'<section class="panel" id="v-{x["id"]}"><h3>{E(x["name"])}</h3><p class="small">In: {inr}</p>'
                          + (f'<ul>{rp}</ul>' if rp else '<p class="small">No public repository found.</p>') + body_cw + aih + '</section>')
+        crow = []
+        for x in v['vendors']:
+            for c in x.get('claude', []):
+                spec = []
+                if c.get('mcp'):
+                    m = c['mcp']
+                    spec.append(f'MCP server <code>{E(m["name"])}</code>, {E(m["transport"])}, {E(m.get("url", ""))}, {E(m.get("auth", ""))}')
+                if c.get('tools'):
+                    spec.append('Tools: ' + ', '.join(f'<code>{E(t)}</code>' for t in c['tools']) + (f' ({E(c["tools_note"])})' if c.get('tools_note') else ''))
+                if c.get('skills'):
+                    spec.append('Skills: ' + '; '.join(f'<code>{E(k["name"])}</code>: {E(k["does"])}' for k in c['skills']))
+                src = f'{gh(c["repo"]["repo"])} <span class="small">(commit <code>{E(c["repo"]["commit"][:12])}</code>)</span>' if c.get('repo') else ''
+                crow.append([E(x['name']), f'<strong>{E(c["name"])}</strong><br><span class="small">{E(c["type"]).capitalize()}. {E(c["listing"])}</span>', '<br>'.join(spec), E(c['use']), src])
+        ct = table('t-claude', f'In Claude: connectors, plugins and skills {prov("V", v["as_of"])}', ['Product', 'In Claude', 'Specification', 'What it is for', 'Source'], crow)
+        none_in = ', '.join(E(x['name']) for x in v['vendors'] if not x.get('claude'))
         at = table('t-ai', f'What each offers AI agents {prov("V", v["as_of"])}', ['Product', 'MCP server', 'Tools', 'Skills and plugins', 'Source'], ai_rows)
         ny = ''.join(f'<li>{E(x["name"])} <span class="small">({", ".join(E(rep[r]["publisher"] + " " + rep[r]["date"][:4]) for r in x["reports"])})</span></li>' for x in v['not_yet'])
         nkit = ''.join(f'<li><a href="downloads/connectors/{f}" download>{E(l)}</a></li>' for l, f in self.KITS.values())
@@ -2657,11 +2682,14 @@ class Site:
                  f'A product whose model is not published has no mapping, rather than a guessed one.</p>{"".join(cards)}')
         body += (f'<h2 id="ai">AI agents, MCP servers and skills</h2><p>What each vendor offers for AI agents that find, explain and govern catalogue metadata. '
                  f'An agent can use these servers alongside this portal\'s own <a href="integrations.html">MCP server</a>, which checks and converts DCAT-AP-UK records.</p>{at}')
+        body += (f'<h2 id="claude">In Claude</h2><p>What each vendor publishes for Claude itself: connectors in the Claude connector directory, and plugins and skills in the plugin directories, found by searching both on {E(v["as_of"])}. '
+                 f'A connector needs the organisation’s own tenant and sign-in; a plugin bundles skills that tell Claude how to use the vendor’s tools well. Nothing was installed or connected. '
+                 f'The directory search covers only part of the directory, so a missing entry may still exist. None found for {none_in}.</p>{ct}')
         body += f'<h2 id="kits">Add-on kits</h2><p>Definitions of every DCAT-AP-UK dataset property, in each product\'s own extension format, named as the weaver writes them.</p><ul>{nkit}</ul>'
         body += f'<p><a class="btn" href="downloads/connectors/vendors.json" download>{icon("download")} Download the register as JSON</a></p>'
         body += f'<h2 id="not-yet">Not covered yet</h2><p>Named in a report above, with no public metadata model or MCP server found on {E(v["as_of"])}. The weekly run looks again.</p><ul>{ny}</ul>'
         drawer = [{'title': 'Vendor connectors', 'icon': 'plug', 'items': [{'id': 'reports', 'label': 'Reports', 'icon': 'file-text' if 'file-text' in ICONS else 'list-checks', 'count': len(v['reports'])},
-                   {'id': 'vendors', 'label': 'Products', 'icon': 'boxes', 'count': len(v['vendors'])}, {'id': 'ai', 'label': 'AI agents and MCP', 'icon': 'workflow'},
+                   {'id': 'vendors', 'label': 'Products', 'icon': 'boxes', 'count': len(v['vendors'])}, {'id': 'ai', 'label': 'AI agents and MCP', 'icon': 'workflow'}, {'id': 'claude', 'label': 'In Claude', 'icon': 'plug', 'count': sum(len(x.get('claude', [])) for x in v['vendors'])},
                    {'id': 'kits', 'label': 'Add-on kits', 'icon': 'package', 'count': len(self.KITS)}, {'id': 'not-yet', 'label': 'Not covered yet', 'icon': 'clipboard-check', 'count': len(v['not_yet'])}]}]
         self.page('connectors', body, drawer, crumbs=[('Adopt', None), (TITLES['connectors'], None)])
 

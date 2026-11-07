@@ -50,6 +50,10 @@ class Register(unittest.TestCase):
             'no crosswalk and no reason': lambda v: [x.pop('gap') for x in v['vendors'] if x['id'] == 'alation'],
             'an email address': lambda v: v['vendors'][0].update(extend='write to someone@example.org'),
             'AI offer without a source': lambda v: v['vendors'][0]['ai'].pop('source'),
+            'a shortened commit (D-034)': lambda v: v['vendors'][0]['repos'][0].update(commit=v['vendors'][0]['repos'][0]['commit'][:12]),
+            'a Claude entry with a shortened commit (D-034)': lambda v: v['vendors'][0]['claude'][0]['repo'].update(commit='17b7ae3b4852'),
+            'a Claude entry with no tools or skills': lambda v: v['vendors'][0]['claude'][0].pop('skills'),
+            'a Claude entry of unknown type': lambda v: v['vendors'][0]['claude'][0].update(type='app'),
         }
         for name, f in cases.items():
             with self.subTest(break_=name):
@@ -71,6 +75,23 @@ class Register(unittest.TestCase):
         for x in VD['vendors']:
             if x['kind'] == 'ranked':
                 self.assertTrue(x['reports'], x['id'])
+
+
+class CitedCommits(unittest.TestCase):
+    # D-034: a commit ID padded with invented characters looked valid. The checker fetches each ID from GitHub.
+    def setUp(self):
+        import subprocess
+        try:
+            subprocess.run(['git', 'ls-remote', 'https://github.com/atlanhq/agent-toolkit', 'HEAD'], check=True, capture_output=True, timeout=30)
+        except Exception:
+            self.skipTest('github.com is not reachable here; CI runs tools/check_vendor_repos.py')
+
+    def test_a_padded_commit_fails(self):
+        import check_vendor_repos as cvr
+        real = VD['vendors'][0]['claude'][0]['repo']
+        self.assertTrue(cvr.exists(real['repo'], real['commit']))
+        self.assertFalse(cvr.exists(real['repo'], real['commit'][:12] + 'a' * 28))
+        self.assertFalse(cvr.exists(real['repo'], real['commit'][:12]))
 
 
 class Weaving(unittest.TestCase):

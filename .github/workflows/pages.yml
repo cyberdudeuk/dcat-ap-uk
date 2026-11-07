@@ -61,6 +61,8 @@ jobs:
         run: python -I tools/check_site.py
       - name: Structural checks catch their deliberate breaks
         run: python -I tools/check_site.py --vaccinate
+      - name: Every cited vendor commit exists on GitHub (D-034)
+        run: python -I tools/check_vendor_repos.py
       - name: Browser checks (axe-core, widths, light and dark, keyboard, tools, no-script)
         run: python -I tools/check_browser.py
       - name: Browser checks catch their deliberate breaks

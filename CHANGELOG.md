@@ -5,6 +5,14 @@ All notable changes to DCAT-AP-UK. The format follows [Keep a Changelog](https:/
 ## [Unreleased]
 
 ### Added
+- "In Claude" on the vendor connectors page: each vendor's connectors in the Claude connector directory and plugins
+  and skills in the plugin directories (Atlan, Collibra, Informatica, DataHub, Databricks for Unity Catalog, Google
+  BigQuery, Microsoft Learn), with MCP server, tools, skills, use and source commit. None were found for Alation, IBM,
+  data.world, Apache Atlas or OpenMetadata.
+
+### Fixed
+- D-034: cited vendor commits were padded with invented characters. Citations are now full commit IDs, and
+  `tools/check_vendor_repos.py` fetches every one from GitHub in CI.
 - Vendor connectors and AI agents (ADR 0021): a page and `downloads/connectors/` for the products in the Gartner Magic
   Quadrants for metadata management and for data and analytics governance, and the Forrester Waves for data governance
   and enterprise data catalogues, plus the platform catalogues beside them (Purview, Apache Atlas, OpenMetadata,
