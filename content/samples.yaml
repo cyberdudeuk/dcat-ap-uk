@@ -42,7 +42,7 @@
   synthetic: Data map entities live inside an organisation's own Purview account and are not published, so no real one can be shown.
   addresses: ['https://example.org/lake/spending/quarterly.csv']
 - id: weaver-vendors
-  label: Weaver samples for Collibra, OpenMetadata, DataHub, Unity Catalog, Dataplex and data.world
+  label: Weaver samples for Collibra, OpenMetadata, DataHub, Unity Catalog, Dataplex, data.world, Apache Iceberg REST, AWS Glue, SageMaker Catalog, OCI Data Catalog and OpenLineage
   prov: V
   checked: '2026-11-07'
   url: https://ckan.publishing.service.gov.uk/dataset/uk-food-hygiene-rating-data

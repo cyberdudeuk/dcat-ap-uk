@@ -16,7 +16,7 @@ import build  # noqa: E402
 from test_toolkit import P, js  # noqa: E402
 
 VD = yaml.safe_load((ROOT / 'content' / 'vendors.yaml').read_text(encoding='utf-8'))
-MODELS = ('collibra', 'openmetadata', 'datahub', 'unity', 'dataplex', 'dataworld', 'atlas')
+MODELS = ('collibra', 'openmetadata', 'datahub', 'unity', 'dataplex', 'dataworld', 'atlas', 'iceberg', 'glue', 'datazone', 'oci', 'openlineage')
 EMAIL = re.compile(r'[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}')
 
 
@@ -24,6 +24,8 @@ class Fake:
     """Enough of the site builder to run its vendor checks without building."""
     WEAVE_MODELS = build.Site.WEAVE_MODELS
     KITS = build.Site.KITS
+    KINDS = build.Site.KINDS
+    DEPLOY = build.Site.DEPLOY
     vendor_problems = build.Site.vendor_problems
     vendor_kits = build.Site.vendor_kits
 
@@ -54,6 +56,10 @@ class Register(unittest.TestCase):
             'a Claude entry with a shortened commit (D-034)': lambda v: v['vendors'][0]['claude'][0]['repo'].update(commit='17b7ae3b4852'),
             'a Claude entry with no tools or skills': lambda v: v['vendors'][0]['claude'][0].pop('skills'),
             'a Claude entry of unknown type': lambda v: v['vendors'][0]['claude'][0].update(type='app'),
+            'an unknown kind': lambda v: v['vendors'][0].update(kind='other'),
+            'no deployment': lambda v: v['vendors'][0].pop('deploy'),
+            'an unknown deployment': lambda v: v['vendors'][0].update(deploy=['mainframe']),
+            'a kit with no bag to fill': lambda v: v['vendors'][0].pop('bag'),
         }
         for name, f in cases.items():
             with self.subTest(break_=name):
@@ -63,7 +69,7 @@ class Register(unittest.TestCase):
         # The YAML says what the JS does: every native field the weaver maps is in that vendor's crosswalk, with the same path.
         spec = js('var o={};Object.keys(V.vendors).forEach(function(k){o[k]=V.vendors[k].fields.map(function(f){return [f[0],f[1].join(".")];});});return o;', None)
         for x in VD['vendors']:
-            if not x.get('crosswalk'):
+            if not x.get('crosswalk') or not x.get('weave'):
                 continue
             rows = {(r[0], r[1].replace('[].', '.').replace('attributes["Description"]', 'attributes.Description')) for r in x['crosswalk']}
             for prop, path in spec[x['weave']]:

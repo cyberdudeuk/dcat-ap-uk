@@ -1863,10 +1863,12 @@ class Site:
     WEAVE_MODELS = [('ukap', 'DCAT-AP-UK (JSON)', True, True), ('mem', 'xGov MEM', True, False), ('ckan', 'CKAN', True, True), ('dcatus', 'DCAT-US (data.json)', True, True),
                     ('schemaorg', 'schema.org', True, True), ('dc', 'Dublin Core', True, True), ('ddi', 'DDI Codebook', True, True), ('atlas', 'Apache Atlas (Microsoft Purview, Atlan)', True, True),
                     ('collibra', 'Collibra (Import API)', True, True), ('openmetadata', 'OpenMetadata', True, True), ('datahub', 'DataHub', True, True), ('unity', 'Unity Catalog', True, True),
-                    ('dataplex', 'Dataplex Universal Catalog', True, True), ('dataworld', 'data.world', True, True), ('jsonld', 'DCAT-AP-UK (JSON-LD)', False, True),
+                    ('dataplex', 'Dataplex Universal Catalog', True, True), ('dataworld', 'data.world', True, True),
+                    ('iceberg', 'Apache Iceberg REST (Snowflake Open Catalog, Polaris)', True, True), ('glue', 'AWS Glue Data Catalog', True, True), ('datazone', 'Amazon SageMaker Catalog (DataZone)', True, True),
+                    ('oci', 'OCI Data Catalog', True, True), ('openlineage', 'OpenLineage dataset', True, True), ('jsonld', 'DCAT-AP-UK (JSON-LD)', False, True),
                     ('turtle', 'DCAT-AP-UK (Turtle)', False, True), ('croissant', 'Croissant 1.1', False, True)]
 
-    VENDOR_MODELS = ('collibra', 'openmetadata', 'datahub', 'unity', 'dataplex', 'dataworld')
+    VENDOR_MODELS = ('collibra', 'openmetadata', 'datahub', 'unity', 'dataplex', 'dataworld', 'iceberg', 'glue', 'datazone', 'oci', 'openlineage')
 
     def weave_samples(self):
         s = self.base_weave_samples()
@@ -2063,7 +2065,7 @@ class Site:
         for x in self.vd['vendors']:  # vendor crosswalks (ADR 0021), each from its product's published model
             if x.get('crosswalk'):
                 vxid = n('crosswalk:vendor-' + x['id'], x['name'] + ' crosswalk', 'crosswalk', f'connectors.html#v-{x["id"]}',
-                         f'Mapped from {x["model"]["file"]} in {x["model"]["repo"]}; every other property goes in {x["bag"]["path"]}.')
+                         f'Mapped from {x["model"]["file"]} in {x["model"]["repo"]}; ' + (f'every other property goes in {x["bag"]["path"]}.' if x.get('bag') else 'other properties are not carried.'))
                 for r in x['crosswalk']:
                     e('prop:' + r[0], vxid) if ('prop:' + r[0]) in nodes else None
         for d in self.c['governance']['defects']:
@@ -2519,7 +2521,16 @@ class Site:
         'datahub-structured-properties': ('Structured properties (DataHub)', 'datahub-structured-properties.yaml'),
         'unity-properties': ('Table properties (Unity Catalog)', 'unity-properties.json'),
         'dataplex-aspect-type': ('Aspect type (Dataplex Universal Catalog)', 'dataplex-aspect-type.json'),
+        'iceberg-properties': ('Table properties (Apache Iceberg REST catalogs: Snowflake Open Catalog, Apache Polaris)', 'iceberg-properties.json'),
+        'glue-parameters': ('Table parameters (AWS Glue Data Catalog)', 'glue-parameters.json'),
+        'datazone-form-type': ('Metadata form type in Smithy (Amazon SageMaker Catalog, DataZone)', 'datazone-form-type.smithy'),
+        'openlineage-facet': ('Custom dataset facet schema (OpenLineage)', 'openlineage-dcat-ap-uk-facet.json'),
+        'oci-custom-properties': ('Custom properties (OCI Data Catalog)', 'oci-custom-properties.json'),
     }
+    KINDS = {'ranked': 'Named in the analyst reports', 'platform': 'Cloud and data platforms', 'catalogue': 'Other catalogue products, SaaS and on-premises', 'open-source': 'Open source and open standards'}
+    DEPLOY = {'saas': 'SaaS', 'cloud': 'In a cloud platform', 'on-prem': 'On premises', 'open-source': 'Open source, self-hosted'}
+    KIND_SHORT = {'ranked': 'Ranked', 'platform': 'Platform', 'catalogue': 'Catalogue', 'open-source': 'Open source'}
+    DEPLOY_SHORT = {'saas': 'SaaS', 'cloud': 'Cloud', 'on-prem': 'On-prem', 'open-source': 'Self-hosted'}
 
     def vendor_problems(self):
         """Integrity of content/vendors.yaml: every reference resolves, every V fact names its file and date, every weave exists."""
@@ -2556,16 +2567,22 @@ class Site:
                     errs.append(f'vendor {x["id"]}: Claude entry {c.get("name")} needs a full 40-character commit (D-034)')
                 if not (c.get('tools') or c.get('skills')):
                     errs.append(f'vendor {x["id"]}: Claude entry {c.get("name")} names no tools or skills')
+            if x.get('kind') not in self.KINDS:
+                errs.append(f'vendor {x["id"]}: unknown kind {x.get("kind")}')
+            if not x.get('deploy') or any(d not in self.DEPLOY for d in x['deploy']):
+                errs.append(f'vendor {x["id"]}: deploy must list one or more of {", ".join(self.DEPLOY)}')
             if x.get('crosswalk'):
                 if not x.get('model') or x['model'].get('prov') != 'V':
                     errs.append(f'vendor {x["id"]}: a crosswalk needs a verified model file')
                 for row in x['crosswalk']:
                     if row[0] not in p.props:
                         errs.append(f'vendor {x["id"]}: crosswalk names unknown property {row[0]}')
-                if x.get('weave') not in models:
+                if x.get('weave') and x['weave'] not in models:
                     errs.append(f'vendor {x["id"]}: weave {x.get("weave")} is not a weaver model')
-                if x.get('kit') not in self.KITS:
+                if x.get('kit') and x['kit'] not in self.KITS:
                     errs.append(f'vendor {x["id"]}: unknown kit {x.get("kit")}')
+                if (x.get('kit') or x.get('weave')) and not x.get('bag'):
+                    errs.append(f'vendor {x["id"]}: a kit or weave needs the bag it fills')
             elif not x.get('gap') and x.get('model'):
                 errs.append(f'vendor {x["id"]}: a model with no crosswalk')
             elif not x.get('crosswalk') and not x.get('gap'):
@@ -2604,6 +2621,22 @@ class Site:
                 for i, (k, pr, ob, m) in enumerate(rows)]}}
         dh = [{'id': f'dcat_ap_uk.{k}', 'qualified_name': f'dcat_ap_uk.{k}', 'type': 'string', 'cardinality': 'MULTIPLE' if m else 'SINGLE', 'display_name': pr['label'],
                'entity_types': ['dataset'], 'description': desc(pr)} for k, pr, ob, m in rows]
+        flat = {f'dcat_ap_uk.{k}': desc(pr) for k, pr, ob, m in rows}
+        kits['iceberg-properties'] = {'_note': note + ' Set with the REST catalog\'s table properties; values are strings, with lists and objects written as JSON. A table description goes in the comment property.', 'properties': flat}
+        kits['glue-parameters'] = {'_note': note + ' Set in TableInput.Parameters; values are strings, with lists and objects written as JSON.', 'Parameters': flat}
+        smithy = ['// ' + note, '// Create with CreateFormType (model.smithy), then attach to assets as the form DcatApUkForm.', '// The Smithy syntax here is background knowledge; check it against the SageMaker Catalog guide before loading.',
+                  '@amazon.datazone#displayName("DCAT-AP-UK")', 'structure DcatApUkFormType {']
+        for k, pr, ob, m in rows:
+            smithy.append(f'    @documentation("{desc(pr).replace(chr(34), chr(39))}")')
+            smithy.append(f'    {"@required " if ob == "M" else ""}{k}: String')
+        smithy.append('}')
+        kits['datazone-form-type'] = '\n'.join(smithy) + '\n'
+        kits['openlineage-facet'] = {'$schema': 'https://json-schema.org/draft/2020-12/schema', '$id': 'https://cyberdudeuk.github.io/dcat-ap-uk/downloads/connectors/openlineage-dcat-ap-uk-facet.json',
+            'description': note + ' A custom OpenLineage dataset facet carrying DCAT-AP-UK properties.', 'type': 'object',
+            'allOf': [{'$ref': 'https://openlineage.io/spec/2-0-2/OpenLineage.json#/$defs/DatasetFacet'},
+                      {'type': 'object', 'properties': {k: {'description': desc(pr)} for k, pr, ob, m in rows}}]}
+        kits['oci-custom-properties'] = {'_note': note + ' Create each with CreateCustomProperty in a namespace, then set values as custom property members on entities.',
+            'customProperties': [{'displayName': k, 'description': desc(pr), 'dataType': 'TEXT', 'isMultiValued': bool(m), 'isFilterable': True} for k, pr, ob, m in rows]}
         kits['datahub-structured-properties'] = '# ' + note + '\n# Load with: datahub properties upsert -f datahub-structured-properties.yaml\n' + yaml.safe_dump(dh, sort_keys=False, allow_unicode=True, width=200)
         return kits
 
@@ -2618,7 +2651,10 @@ class Site:
                 w = csv.writer(buf)
                 w.writerow(['DCAT-AP-UK property', f'{x["name"]} field', 'Note'])
                 w.writerows(x['crosswalk'])
-                w.writerow(['(every other property)', x['bag']['path'], 'The DCAT-AP-UK extension place defined by the add-on kit.'])
+                if x.get('bag'):
+                    w.writerow(['(every other property)', x['bag']['path'], 'The DCAT-AP-UK extension place defined by the add-on kit.'])
+                else:
+                    w.writerow(['(every other property)', '(none)', 'The product has no extension place, so other properties are not carried.'])
                 (dl / f'{x["id"]}-crosswalk.csv').write_text(buf.getvalue(), encoding='utf-8')
         reg = {'as_of': v['as_of'], 'licence': 'OGL-UK-3.0', 'note': 'Not a test, an endorsement or a ranking. Report positions come from vendor announcements.', 'reports': v['reports'],
                'vendors': v['vendors'], 'not_yet': v['not_yet']}
@@ -2639,6 +2675,8 @@ class Site:
         if c['weave']:
             steps.append(f'Convert records both ways in the <a href="weaver.html">metadata weaver</a> (choose {E(dict((k, l) for k, l, *_ in self.WEAVE_MODELS)[x["weave"]])}), or in a pipeline: '
                          f'<code>node integrations/cli/validate.js --from {E(x["weave"])} export.json</code> checks an export as DCAT-AP-UK.')
+        elif c['mapped']:
+            steps.append(f'Map the fields by hand with the field mapping below. {E(x.get("extend", ""))}')
         elif x.get('gap'):
             steps.append(f'No field mapping yet: {E(x["gap"])} Meanwhile, export DCAT-AP-UK records as JSON-LD or Turtle from the <a href="builder.html">record builder</a> and use the product\'s own DCAT or JSON import.')
         if c['mcp']:
@@ -2652,17 +2690,23 @@ class Site:
         """Reports on the left, products in the middle, the ways to connect on the right."""
         v = self.vd
         reps = [r for r in v['reports']]
-        prods = sorted(v['vendors'], key=lambda x: x['kind'] != 'ranked')
+        order = list(self.KINDS)
+        prods = sorted(v['vendors'], key=lambda x: order.index(x['kind']))
+        colA = [x for x in prods if x['kind'] in ('ranked', 'catalogue')]
+        colB = [x for x in prods if x['kind'] not in ('ranked', 'catalogue')]
+        pos = {x['id']: (330, 30 + i * 60) for i, x in enumerate(colA)}
+        pos.update({x['id']: (600, 30 + i * 60) for i, x in enumerate(colB)})
+        rows_n = max(len(colA), len(colB))
         routes = [('r-kit', 'Add-on kit', 'kit', 'kits'), ('r-weave', 'Weaver conversion', 'weave', 'vendors'), ('r-mcp', 'MCP server for AI agents', 'mcp', 'ai'), ('r-claude', 'In Claude', 'claude', 'claude')]
         nodes, edges = [], []
         gap = 60
-        top_r = (len(prods) - len(reps)) * gap / 2
+        top_r = (len(colA) - len(reps)) * gap / 2
         for i, r in enumerate(reps):
             nodes.append({'id': r['id'], 'small': True, 'x': 30, 'y': 30 + top_r + i * gap, 'kind': 'codelist', 'chip': f'{r["publisher"].upper()} · {r["date"][:4]}', 'title': r['title'].replace('The Forrester Wave: ', '').replace('Magic Quadrant for ', ''),
                           'sub': f'{len(r.get("leaders", []))} leaders named', 'href': '#reports', 'facts': [('Published', r['date']), ('By', r['publisher'])], 'desc': r.get('note', ''), 'uri': r['url'], 'open': 'Go to the reports'})
         for i, x in enumerate(prods):
             c = self.vendor_caps(x)
-            nodes.append({'id': x['id'], 'small': True, 'x': 330, 'y': 30 + i * gap, 'kind': 'M' if c['mapped'] else 'class', 'chip': ('MAPPED · ' if c['mapped'] else '') + x['kind'].upper(), 'title': x['name'],
+            nodes.append({'id': x['id'], 'small': True, 'x': pos[x['id']][0], 'y': pos[x['id']][1], 'kind': 'M' if c['mapped'] else 'class', 'chip': ('MAPPED · ' if c['mapped'] else '') + x['kind'].upper().replace('-', ' '), 'title': x['name'],
                           'sub': ', '.join(k for k, ok in (('kit', c['kit']), ('weave', bool(c['weave'])), ('MCP', c['mcp']), ('Claude', c['claude'])) if ok) or 'listed',
                           'href': f'#v-{x["id"]}', 'facts': [('In reports', str(c['reports'])), ('Public repository', 'Yes' if c['repo'] else 'No'), ('Field mapping', 'Yes' if c['mapped'] else 'No'),
                                                             ('MCP server', 'Yes' if c['mcp'] else 'No'), ('In Claude', 'Yes' if c['claude'] else 'No')],
@@ -2672,10 +2716,10 @@ class Site:
             for rid, _, key, _ in routes:
                 if c[key]:
                     edges.append((x['id'], rid, '', 'uses' if key in ('mcp', 'claude') else ''))
-        top_t = (len(prods) - 1 - (len(routes) - 1) * 2.5) * gap / 2
+        top_t = (rows_n - 1 - (len(routes) - 1) * 2.5) * gap / 2
         for i, (rid, title, key, anchor) in enumerate(routes):
             n = sum(1 for x in prods if self.vendor_caps(x)[key])
-            nodes.append({'id': rid, 'x': 630, 'y': 30 + top_t + i * gap * 2.5, 'kind': 'class', 'chip': 'ROUTE', 'title': title, 'sub': f'{n} products', 'href': f'#{anchor}',
+            nodes.append({'id': rid, 'x': 900, 'y': 30 + top_t + i * gap * 2.5, 'kind': 'class', 'chip': 'ROUTE', 'title': title, 'sub': f'{n} products', 'href': f'#{anchor}',
                           'facts': [('Products', str(n))], 'desc': '', 'uri': '', 'open': f'Go to {title.lower()}'})
         legend = ('<ul class="mm-legend"><li><span class="mm-tag k-codelist">REPORT</span> an analyst report</li><li><span class="mm-tag k-M">MAPPED</span> a product with a field mapping</li>'
                   '<li><span class="mm-tag k-class">PRODUCT · ROUTE</span> another product, or a way to connect</li><li><span class="ln"></span> named in, or connects by</li><li><span class="ln uses"></span> connects AI agents by</li></ul>')
@@ -2694,20 +2738,23 @@ class Site:
         gh = lambda r: f'<a href="https://github.com/{E(r)}">{E(r)}</a>'  # noqa: E731
         # 1. the choice: what each product can do today, filterable
         mrows, mattrs = [], []
-        ordered = sorted(v['vendors'], key=lambda x: x['kind'] != 'ranked')
+        order = list(self.KINDS)
+        ordered = sorted(v['vendors'], key=lambda x: order.index(x['kind']))
+        dlab = lambda x: ', '.join(self.DEPLOY[d] for d in x['deploy'])  # noqa: E731
         for x in ordered:
             c = self.vendor_caps(x)
-            mrows.append([f'<a href="#v-{x["id"]}">{E(x["name"])}</a>', 'Ranked' if x['kind'] == 'ranked' else 'Platform', str(c['reports']), yes(c['repo']), yes(c['mapped']), yes(c['kit']),
+            mrows.append([f'<a href="#v-{x["id"]}">{E(x["name"])}</a>', E(self.KIND_SHORT[x['kind']]), E(', '.join(self.DEPLOY_SHORT[d] for d in x['deploy'])), str(c['reports']), yes(c['repo']), yes(c['mapped']), yes(c['kit']),
                           yes(bool(c['weave'])), yes(c['mcp']), yes(c['claude'])])
-            mattrs.append(f' data-kind="{x["kind"]}" data-has="' + ' '.join(k for k in ('repo', 'mapped', 'kit', 'weave', 'mcp', 'claude') if c[k]) + '"'
+            mattrs.append(f' data-kind="{x["kind"]}" data-deploy="{" ".join(x["deploy"])}" data-has="' + ' '.join(k for k in ('repo', 'mapped', 'kit', 'weave', 'mcp', 'claude') if c[k]) + '"'
                           + ' data-report="' + ' '.join(x.get('reports', [])) + '"')
         ropts = ''.join(f'<option value="{E(r["id"])}">{E(r["short"])}</option>' for r in v['reports'])
         flt = (f'<div class="filters" data-for="t-matrix"><label>Search<input type="search" placeholder="product name"></label>'
-               f'<label>Kind<select data-col="kind"><option value="">All</option><option value="ranked">Ranked by analysts</option><option value="platform">Platform catalogue</option></select></label>'
+               f'<label>Kind<select data-col="kind"><option value="">All</option>' + ''.join(f'<option value="{k}">{E(l)}</option>' for k, l in self.KINDS.items()) + '</select></label>'
+               f'<label>Runs as<select data-col="deploy"><option value="">Any</option>' + ''.join(f'<option value="{k}">{E(l)}</option>' for k, l in self.DEPLOY.items()) + '</select></label>'
                f'<label>Report<select data-col="report"><option value="">All</option>{ropts}</select></label>'
                f'<label>Offers<select data-col="has"><option value="">Anything</option><option value="mapped">A field mapping</option><option value="kit">An add-on kit</option>'
                f'<option value="weave">Weaver conversion</option><option value="mcp">An MCP server</option><option value="claude">Something in Claude</option><option value="repo">A public repository</option></select></label><output aria-live="polite"></output></div>')
-        mt = flt + table('t-matrix', f'What each product offers today {prov("V", v["as_of"])}', ['Product', 'Kind', 'Reports', 'Public repository', 'Field mapping', 'Add-on kit', 'Weaver', 'MCP server', 'In Claude'], mrows, row_attrs=mattrs)
+        mt = flt + table('t-matrix', f'What each product offers today {prov("V", v["as_of"])}', ['Product', 'Kind', f'Runs as {prov("K")}', 'Reports', 'Public repository', 'Field mapping', 'Add-on kit', 'Weaver', 'MCP server', 'In Claude'], mrows, row_attrs=mattrs)
         tot = lambda k: sum(1 for x in v['vendors'] if self.vendor_caps(x)[k])  # noqa: E731
         meta = [('boxes', f'{len(v["vendors"])} products'), ('merge', f'{tot("mapped")} field mappings'), ('package', f'{len(self.KITS)} add-on kits'),
                 ('workflow', f'{tot("mcp")} MCP servers'), ('plug', f'{sum(len(x.get("claude", [])) for x in v["vendors"])} entries in Claude'), ('calendar', f'Checked {v["as_of"]}')]
@@ -2719,7 +2766,7 @@ class Site:
             rows.append([f'<a href="{E(r["url"])}">{E(r["title"])}</a>', E(r['publisher']), E(r['date']), ld or 'Not yet checked', E(r.get('note', ''))])
         rt = table('t-reports', f'Analyst reports {prov("S")}', ['Report', 'By', 'Published', 'Leaders, with the announcement that says so', 'Note'], rows)
         # 3. products, grouped by kind
-        cards = {'ranked': [], 'platform': []}
+        cards = {k: [] for k in self.KINDS}
         ai_rows, crow = [], []
         for x in ordered:
             c = self.vendor_caps(x)
@@ -2743,16 +2790,17 @@ class Site:
             if c['mapped']:
                 cw = table(f't-cw-{x["id"]}', f'{x["name"]} to DCAT-AP-UK {prov("V", v["as_of"])}', ['DCAT-AP-UK', f'{x["name"]} field', 'Note'],
                            [[f'<a href="properties.html#p-{E(r[0])}">{E(r[0])}</a>', f'<code>{E(r[1])}</code>', E(r[2])] for r in x['crosswalk']]
-                           + [['Every other property', f'<code>{E(x["bag"]["path"])}</code>', 'The extension place the add-on kit defines.']], sortable=False)
-                kit = self.KITS[x['kit']]
+                           + ([['Every other property', f'<code>{E(x["bag"]["path"])}</code>', 'The extension place the add-on kit defines.']] if x.get('bag') else
+                              [['Every other property', '(none)', 'No extension place, so other properties are not carried.']]), sortable=False)
+                kit = self.KITS.get(x.get('kit'))
                 mapped = (f'<details><summary>Field mapping, from <code>{E(x["model"]["file"])}</code></summary><p>Mapped from {gh(x["model"]["repo"])}. {E(x.get("extend", ""))}</p>{cw}'
                           f'<p class="btns"><a class="btn secondary small" href="downloads/connectors/{x["id"]}-crosswalk.csv" download>{icon("download")} Crosswalk as CSV</a> '
-                          f'<a class="btn secondary small" href="downloads/connectors/{kit[1]}" download>{icon("download")} {E(kit[0])}</a></p></details>')
+                          + (f'<a class="btn secondary small" href="downloads/connectors/{kit[1]}" download>{icon("download")} {E(kit[0])}</a>' if kit else '') + '</p></details>')
             else:
                 mapped = ''
             steps = ''.join(f'<li>{st}</li>' for st in self.vendor_steps(x))
             badges = ' '.join(f'<strong class="tag {"ok" if ok else ""}">{E(lbl)}</strong>' for lbl, ok in (('Mapped', c['mapped']), ('Kit', c['kit']), ('Weaver', bool(c['weave'])), ('MCP', c['mcp']), ('In Claude', c['claude'])) if ok)
-            cards[x['kind']].append(f'<section class="panel" id="v-{x["id"]}"><h4>{E(x["name"])}</h4><p class="small">{badges} In: {inr}</p>'
+            cards[x['kind']].append(f'<section class="panel" id="v-{x["id"]}"><h4>{E(x["name"])}</h4><p class="small">{badges} Runs as: {E(dlab(x))} {prov("K")}. In: {inr}</p>'
                                     f'<h5>How to connect</h5><ol>{steps}</ol>{mapped}'
                                     + (f'<details><summary>Public repositories ({len(x["repos"])})</summary><ul>{rp}</ul></details>' if rp else '<p class="small">No public repository found.</p>')
                                     + (f'<p class="small">MCP tools include {tools_}.</p>' if tools_ else '') + '</section>')
@@ -2769,7 +2817,7 @@ class Site:
         body += f'<h2 id="map">How it fits together</h2>{self.vendor_map()}'
         body += (f'<h2 id="vendors">Products and how to connect them</h2><p>Each product has steps in order. A field mapping cites the public file it was mapped from and the commit read; '
                  f'a product whose model is not published has no mapping, rather than a guessed one.</p>'
-                 f'<h3 id="ranked">Named in the analyst reports</h3>{"".join(cards["ranked"])}<h3 id="platforms">Catalogues inside data platforms, and open source</h3>{"".join(cards["platform"])}')
+                 + ''.join(f'<h3 id="kind-{k}">{E(l)} ({len(cards[k])})</h3>{"".join(cards[k])}' for k, l in self.KINDS.items() if cards[k]))
         body += (f'<h2 id="ai">AI agents, MCP servers and skills</h2><p>What each vendor offers AI agents that find, explain and govern catalogue metadata. '
                  f'An agent can use these alongside this portal\'s own <a href="integrations.html">MCP server</a>, which checks and converts DCAT-AP-UK records.</p>{at}')
         body += (f'<h2 id="claude">In Claude</h2><p>Connectors in the Claude connector directory, and plugins and skills in the plugin directories and the vendors\' own repositories, searched on {E(v["as_of"])}. '

@@ -595,6 +595,38 @@
       bag: ['attributes'], collibra: true, people: ['responsibilities'],
       shape: function (o) { o.resourceType = 'Asset'; o.identifier = o.identifier || {}; o.identifier.externalSystemId = 'dcat-ap-uk'; o.type = { name: 'Data Set' }; return [o]; },
       root: function (x) { return Array.isArray(x) ? (x.filter(function (a) { return a && a.resourceType === 'Asset'; })[0] || {}) : (x || {}); } },
+    // Apache Iceberg REST catalog (Apache Polaris, Snowflake Open Catalog): table properties are strings. 'comment' is the
+    // property engines use for a table description (background knowledge; checked against the spec's properties map only).
+    iceberg: { label: 'Apache Iceberg REST CreateTableRequest', fields: [['description', ['properties', 'comment'], 'text']], bag: ['properties'], flat: true, people: [],
+      shape: function (o, r) { o.name = slugName(r).replace(/-/g, '_'); return o; } },
+    glue: { label: 'AWS Glue TableInput', fields: [['description', ['Description'], 'text']], bag: ['Parameters'], flat: true, people: ['Owner'],
+      shape: function (o, r) { o.Name = slugName(r).replace(/-/g, '_'); return o; } },
+    // Amazon SageMaker Catalog (DataZone) CreateAssetInput: the DCAT-AP-UK bag is one metadata form whose content is a JSON string.
+    datazone: { label: 'Amazon DataZone CreateAssetInput', fields: [['title', ['name'], 'text'], ['description', ['description'], 'text'], ['identifier', ['externalIdentifier'], 'text']],
+      bag: ['__form'], people: ['owningProjectIdentifier'],
+      shape: function (o) { var f = o.__form; delete o.__form; if (f) o.formsInput = [{ formName: 'DcatApUkForm', typeIdentifier: 'DcatApUkFormType', content: JSON.stringify(f) }]; return o; },
+      root: function (x) {
+        var e = JSON.parse(JSON.stringify(x || {})), f = asList(e.formsInput).filter(function (z) { return z && z.formName === 'DcatApUkForm'; })[0];
+        if (f) { try { e.__form = JSON.parse(f.content); } catch (err) { e.__form = {}; } }
+        return e;
+      } },
+    // OpenLineage dataset: the description goes in the documentation facet, everything else in a custom dcat_ap_uk facet.
+    openlineage: { label: 'OpenLineage dataset', fields: [['description', ['facets', 'documentation', 'description'], 'text']], bag: ['facets', 'dcat_ap_uk'], people: [],
+      shape: function (o, r) {
+        o.namespace = 'dcat-ap-uk'; o.name = slugName(r); o.facets = o.facets || {};
+        var by = { _producer: 'https://cyberdudeuk.github.io/dcat-ap-uk/', _schemaURL: 'https://cyberdudeuk.github.io/dcat-ap-uk/downloads/connectors/openlineage-dcat-ap-uk-facet.json' };
+        if (o.facets.documentation) Object.assign(o.facets.documentation, { _producer: by._producer, _schemaURL: 'https://openlineage.io/spec/facets/1-0-1/DocumentationDatasetFacet.json' });
+        if (o.facets.dcat_ap_uk) Object.assign(o.facets.dcat_ap_uk, by);
+        return o;
+      } },
+    // Oracle OCI Data Catalog entity: custom properties are a list of members with a display name and a value.
+    oci: { label: 'OCI Data Catalog entity', fields: [['title', ['displayName'], 'text'], ['description', ['description'], 'text']], bag: ['__members'], people: ['createdById', 'updatedById'],
+      shape: function (o) { var m = o.__members; delete o.__members; if (m) o.customPropertyMembers = Object.keys(m).map(function (k) { return { displayName: k, value: asStr(m[k]) }; }); return o; },
+      root: function (x) {
+        var e = JSON.parse(JSON.stringify(x || {}));
+        if (e.customPropertyMembers) { e.__members = {}; asList(e.customPropertyMembers).forEach(function (m) { if (m && m.displayName) e.__members[m.displayName] = unStr(m.value); }); }
+        return e;
+      } },
     atlas: { label: 'Apache Atlas entity', fields: [['title', ['attributes', 'name'], 'text'], ['description', ['attributes', 'userDescription'], 'text'], ],
       bag: ['businessAttributes', 'dcat_ap_uk'], people: [],
       // qualifiedName is Atlas's unique key, not a web address; the DCAT-AP-UK identifier stays in the bag.
@@ -618,7 +650,11 @@
         if (S.flat) bag[BAG_PREFIX + k] = asStr(r[k]); else bag[k] = r[k];
         map.push([k, S.bag.join('.') + '.' + (S.flat ? BAG_PREFIX : '') + k]);
       });
-      if (!S.collibra && Object.keys(bag).length) pathSet(o, S.bag, bag);
+      if (!S.collibra && Object.keys(bag).length) {
+        // Merge, so a native field stored inside the bag's own object (Iceberg's properties.comment) is kept.
+        var cur = pathGet(o, S.bag);
+        pathSet(o, S.bag, Object.assign(cur && typeof cur === 'object' ? cur : {}, bag));
+      }
       return { out: S.shape ? S.shape(o, r) : o, map: map.filter(function (m) { return m[0] !== 'class'; }) };
     };
   }

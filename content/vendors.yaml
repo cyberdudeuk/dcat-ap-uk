@@ -19,6 +19,10 @@ intro: >-
   Context Protocol. Live connectors need a tenant and its credentials, so the portal ships kits and conversions
   rather than calling any vendor's service.
 
+# Where each product runs (each vendor's deploy list) is background knowledge, except Ataccama's self-managed option,
+# which its MCP documentation mentions. This one entry puts it in the provenance register for the weekly run to verify.
+deploy_check: {prov: K, title: "Where each product runs (each vendor's deploy list)", note: 'Check each against the vendor deployment documentation and record the source.'}
+
 reports:
   - id: gartner-mms-2025
     short: Gartner metadata management 2025
@@ -85,6 +89,7 @@ reports:
 # kind: ranked (named in a report above) or platform (a catalogue inside a data or cloud platform, or open source).
 vendors:
   - id: atlan
+    deploy: [saas]
     name: Atlan
     kind: ranked
     reports: [gartner-mms-2025, gartner-dagp-2025, forrester-dg-2025, forrester-edc-2024]
@@ -119,6 +124,7 @@ vendors:
           - {name: atlan-search, does: Chooses between semantic search, asset search, lineage traversal and metadata lookups, with the filter rules that make each return the right assets.}
         use: Find, explain and govern Atlan assets from Claude Code; lineage, glossary terms, certification and data quality rules.
   - id: collibra
+    deploy: [saas, on-prem]
     name: Collibra Platform
     kind: ranked
     reports: [gartner-dagp-2025, forrester-dg-2025, forrester-edc-2024]
@@ -152,6 +158,7 @@ vendors:
         tools_note: The directory lists eight tools by name and 21 more.
         use: Search governed assets and the business glossary, follow lineage, and create or edit assets within Collibra's own permissions.
   - id: alation
+    deploy: [saas, on-prem]
     name: Alation Data Intelligence Platform
     kind: ranked
     reports: [gartner-mms-2025, gartner-dagp-2025, forrester-dg-2025]
@@ -167,6 +174,7 @@ vendors:
       source: https://github.com/Alation/alation-ai-agent-sdk
 
   - id: informatica
+    deploy: [saas]
     name: Informatica Cloud Data Governance and Catalog (CDGC)
     kind: ranked
     reports: [gartner-mms-2025, gartner-dagp-2025, forrester-dg-2025, forrester-edc-2024]
@@ -199,6 +207,7 @@ vendors:
         tools: [data_explore, master_data_explore, get_skill_execution_updates, request_upload_url]
         use: Explore dataset content and mastered (MDM) entities in IDMC through Informatica's discovery agent.
   - id: ibm
+    deploy: [saas, on-prem]
     name: IBM watsonx.data intelligence
     kind: ranked
     reports: [gartner-mms-2025, gartner-dagp-2025, gartner-dagp-2026]
@@ -214,6 +223,7 @@ vendors:
       source: https://github.com/IBM/data-intelligence-mcp-server
 
   - id: data-world
+    deploy: [saas]
     name: data.world
     kind: ranked
     reports: [gartner-dagp-2025]
@@ -233,6 +243,7 @@ vendors:
       - [licence, license, 'The API accepts a fixed list (CC-BY, ODC-BY, Public Domain, Other and others). OGL v3.0 is not on it: send Other and keep the licence address in properties.']
 
   - id: microsoft-purview
+    deploy: [cloud]
     name: Microsoft Purview (Data Map and Unified Catalog)
     kind: platform
     reports: []
@@ -266,6 +277,7 @@ vendors:
           - {name: microsoft-code-reference, does: Finds API references and code samples.}
         use: The same documentation, packaged with skills.
   - id: apache-atlas
+    deploy: [open-source, on-prem]
     name: Apache Atlas
     kind: platform
     reports: []
@@ -283,6 +295,7 @@ vendors:
       - [identifier, qualifiedName, '']
 
   - id: openmetadata
+    deploy: [open-source, saas]
     name: OpenMetadata (and Collate)
     kind: platform
     reports: []
@@ -308,6 +321,7 @@ vendors:
       - [contactPoint, (none), 'owners names users and teams. Give a team contact form as a custom property.']
 
   - id: datahub
+    deploy: [open-source, saas]
     name: DataHub (and DataHub Cloud)
     kind: platform
     reports: []
@@ -360,6 +374,7 @@ vendors:
           - {name: datahub-enrich, does: Adds descriptions, tags, terms and owners to catalog entries.}
         use: Building and reviewing DataHub connectors, which is how a DCAT-AP-UK source would be ingested.
   - id: unity-catalog
+    deploy: [open-source, cloud]
     name: Unity Catalog (open source and Databricks)
     kind: platform
     reports: []
@@ -391,6 +406,7 @@ vendors:
         tools: [genie_ask, genie_poll_response, genie_get_query_result, genie_cancel_response, view_ask]
         use: Ask questions of data that Unity Catalog governs, through a Genie space.
   - id: dataplex
+    deploy: [cloud]
     name: Google Cloud Dataplex Universal Catalog
     kind: platform
     reports: []
@@ -421,6 +437,7 @@ vendors:
         tools: [list_dataset_ids, get_dataset_info, list_table_ids, get_table_info, execute_sql]
         use: Read BigQuery dataset and table metadata. It does not expose Dataplex catalog entries or aspects; for those use MCP Toolbox's Dataplex tools above.
   - id: ovaledge
+    deploy: [saas, on-prem]
     name: OvalEdge
     kind: ranked
     reports: [gartner-dagp-2025]
@@ -445,6 +462,7 @@ vendors:
         use: Install from the repository's own plugin marketplace to search, explain and govern OvalEdge assets from Claude Code.
 
   - id: ataccama
+    deploy: [saas, on-prem]
     name: Ataccama ONE
     kind: ranked
     reports: [gartner-mms-2025, gartner-dagp-2025]
@@ -457,6 +475,7 @@ vendors:
       source: https://docs.ataccama.com/one/latest/generative-ai/mcp-dqc.html
 
   - id: datagalaxy
+    deploy: [saas]
     name: DataGalaxy
     kind: ranked
     reports: [gartner-dagp-2025]
@@ -467,6 +486,290 @@ vendors:
       prov: S
       mcp: A read-only MCP server that searches objects, links, users and tags, returns ownership, definitions and lineage, and keeps DataGalaxy's roles and access controls. Its address is shown in each DataGalaxy instance, with a personal token.
       source: https://datagalaxy.freshdesk.com/en/support/solutions/articles/35000314586-how-to-connect-datagalaxy-mcp-server-to-onyx
+
+  - id: snowflake
+    name: Snowflake (Horizon Catalog and Snowflake Open Catalog)
+    kind: platform
+    deploy: [saas]
+    reports: []
+    repos:
+      - {repo: apache/iceberg, role: The Iceberg REST catalog specification (open-api/rest-catalog-open-api.yaml), commit: 0cb5041b9c7afc046e84406d2785ed79cd54fa46, checked: '2026-11-07'}
+      - {repo: apache/polaris, role: Apache Polaris, the open-source Iceberg REST catalog behind Snowflake Open Catalog, commit: 5f87d86e5f64cb2ec66bac3d7344875b9781898b, checked: '2026-11-07'}
+      - {repo: Snowflake-Labs/mcp, role: Former community MCP server, now deprecated in favour of the official one, commit: 662cb486395d79ab1ad0b3538f933fe6a686ce7c, checked: '2026-11-07'}
+    model: {file: open-api/rest-catalog-open-api.yaml (CreateTableRequest), repo: apache/iceberg, prov: V}
+    extend: Iceberg table properties (strings), which Snowflake Open Catalog and any Iceberg REST catalog keep with the table. Snowflake's own objects carry comments and tags; their model is not published as a schema.
+    weave: iceberg
+    bag: {path: properties, style: flat}
+    kit: iceberg-properties
+    ai:
+      prov: V
+      mcp: The official Snowflake MCP Server, managed by Snowflake and built on Cortex Agents; the open-source Snowflake-Labs/mcp server is deprecated and points to it.
+      skills: Cortex Analyst answers questions against semantic views; Cortex Search retrieves from unstructured data.
+      source: https://docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-agents-mcp
+    claude:
+      - type: connector
+        name: Snowflake
+        listing: Claude connector directory
+        tools: [Cortex Agents, Cortex Search]
+        use: Ask questions of governed Snowflake data through Cortex Agents, and retrieve unstructured content with Cortex Search.
+      - type: plugin
+        name: snowflake-cortex-code
+        listing: Anthropic Directory, partner publisher snowflake-labs
+        repo: {repo: snowflake-labs/snowflake-ai-kit, commit: 6a9165f38da7cf368ba8f91c87dfe0326ecb6336}
+        skills:
+          - {name: cortex-router, does: Sends Snowflake requests from Claude Code to Cortex Code to run.}
+          - {name: cortex-run, does: Runs a Snowflake task through Cortex Code.}
+          - {name: cortex-setup, does: Sets up the connection to Cortex Code.}
+        use: Run Snowflake work from Claude Code, including object and catalogue management.
+    crosswalk:
+      - [description, properties.comment, 'The property engines use for a table comment; background knowledge, not in the specification itself.']
+      - [title, (none), 'name is the table identifier, not a title. Keep the title in properties.']
+
+  - id: aws-glue
+    name: AWS Glue Data Catalog
+    kind: platform
+    deploy: [cloud]
+    reports: []
+    repos:
+      - {repo: boto/botocore, role: AWS service models, including Glue (botocore/data/glue/2017-03-31/service-2.json), commit: 45d5dde95e31f22f0ffeea5a790ea2ea79d1035c, checked: '2026-11-07'}
+      - {repo: awslabs/mcp, role: AWS MCP servers, including the Data Processing MCP server for Glue, commit: d33705e0890e8cf39aa42eeee7b45d6a6e088112, checked: '2026-11-07'}
+    model: {file: botocore/data/glue/2017-03-31/service-2.json (TableInput), repo: boto/botocore, prov: V}
+    extend: The table's Parameters map of strings.
+    weave: glue
+    bag: {path: Parameters, style: flat}
+    kit: glue-parameters
+    ai:
+      prov: V
+      mcp: The AWS Data Processing MCP server (awslabs.aws-dataprocessing-mcp-server), local over stdio with an AWS profile; changes need the --allow-write flag.
+      tools: [manage_aws_glue_databases, manage_aws_glue_tables, manage_aws_glue_partitions, manage_aws_glue_catalog, manage_aws_glue_connections, manage_aws_glue_crawlers]
+      source: https://github.com/awslabs/mcp/tree/main/src/aws-dataprocessing-mcp-server
+    claude:
+      - type: plugin
+        name: aws-data-analytics
+        listing: Anthropic Directory, partner publisher aws
+        repo: {repo: aws/agent-toolkit-for-aws, commit: 0a218f8cc13220013f72147e2e0fdbe350b34ae2}
+        mcp: {name: aws-mcp, transport: stdio, url: Runs with your AWS credentials, auth: AWS profile}
+        skills:
+          - {name: exploring-data-catalog, does: Inventories and audits Glue Data Catalog assets, including S3 Tables and federated catalogues.}
+          - {name: finding-data-lake-assets, does: Resolves references to data lake and lakehouse assets across the Glue Data Catalog and S3.}
+        use: Explore and audit the Glue Data Catalog from Claude Code.
+    crosswalk:
+      - [description, Description, '']
+      - [title, (none), 'Name is the table identifier, not a title. Keep the title in Parameters.']
+      - [contactPoint, (none), 'Owner names a person. Give a team contact form in Parameters.']
+
+  - id: aws-sagemaker-catalog
+    name: Amazon SageMaker Catalog (Amazon DataZone)
+    kind: platform
+    deploy: [cloud]
+    reports: []
+    repos:
+      - {repo: boto/botocore, role: AWS service models, including DataZone (botocore/data/datazone/2018-05-10/service-2.json), commit: 45d5dde95e31f22f0ffeea5a790ea2ea79d1035c, checked: '2026-11-07'}
+    model: {file: botocore/data/datazone/2018-05-10/service-2.json (CreateAssetInput, FormInput, CreateFormTypeInput), repo: boto/botocore, prov: V}
+    extend: Metadata form types, defined in Smithy and attached to an asset as forms.
+    weave: datazone
+    bag: {path: 'formsInput[DcatApUkForm].content', style: object}
+    kit: datazone-form-type
+    ai: {prov: K, mcp: No AWS-published MCP server for SageMaker Catalog was found.}
+    crosswalk:
+      - [title, name, '']
+      - [description, description, '']
+      - [identifier, externalIdentifier, '']
+      - [keyword, (none), 'glossaryTerms holds glossary term identifiers, not free keywords. Keywords stay in the form.']
+
+  - id: oracle-oci-data-catalog
+    name: Oracle Cloud Infrastructure Data Catalog
+    kind: platform
+    deploy: [cloud]
+    reports: []
+    repos:
+      - {repo: oracle/oci-python-sdk, role: OCI Python SDK, with the Data Catalog models, commit: ec1d21a37357b8ab1e86fec7132bc08f3df17782, checked: '2026-11-07'}
+    model: {file: src/oci/data_catalog/models/entity.py, repo: oracle/oci-python-sdk, prov: V}
+    extend: Custom properties (create_custom_property_details.py), held on an entity as custom property members.
+    weave: oci
+    bag: {path: customPropertyMembers, style: list}
+    kit: oci-custom-properties
+    ai: {prov: K, mcp: No Oracle-published MCP server for OCI Data Catalog was found. Oracle Analytics Cloud has an MCP server in preview; it covers analytics datasets, not the data catalogue.}
+    crosswalk:
+      - [title, displayName, '']
+      - [description, description, '']
+
+  - id: sap-datasphere
+    name: SAP Datasphere
+    kind: platform
+    deploy: [saas]
+    reports: []
+    repos:
+      - {repo: MarioDeFelipe/sap-datasphere-mcp, role: A community MCP server for Datasphere, not published by SAP, commit: 587811443b0344839a8bdb579887c611ea42b8d9, checked: '2026-11-07'}
+    extend: Datasphere catalogue assets, reached through its Catalog and Consumption APIs.
+    gap: SAP does not publish the catalogue's model as a schema in a public repository, so no field mapping is given.
+    ai:
+      prov: V
+      mcp: Community MCP servers only, not published or supported by SAP. They read spaces and catalogue assets through Datasphere's Catalog and Consumption APIs.
+      source: https://github.com/MarioDeFelipe/sap-datasphere-mcp
+
+  - id: cloudera
+    name: Cloudera (SDX)
+    kind: platform
+    deploy: [on-prem, cloud]
+    reports: []
+    repos:
+      - {repo: apache/atlas, role: Apache Atlas, which Cloudera's SDX catalogue is built on (background knowledge), commit: 8b3f674e0f2502ba6c95201d9ff4c90435e4bbe0, checked: '2026-11-07'}
+    model: {file: addons/models/0000-Area0/0010-base_model.json, repo: apache/atlas, prov: V}
+    extend: Atlas typedefs and business metadata. That Cloudera's catalogue uses Atlas is background knowledge, still to be checked at Cloudera's documentation.
+    weave: atlas
+    bag: {path: businessAttributes.dcat_ap_uk, style: object}
+    kit: atlas-business-metadata
+    ai: {prov: K, mcp: No Cloudera-published MCP server for its catalogue was found.}
+    crosswalk:
+      - [title, name, '']
+      - [description, userDescription, '']
+
+  - id: teradata
+    name: Teradata Vantage
+    kind: platform
+    deploy: [on-prem, cloud]
+    reports: []
+    repos:
+      - {repo: teradata/teradata-mcp-server, role: Teradata's MCP server (tools for querying, schema and column metadata, data quality and the feature store), commit: 2df7fcbcc47b6433102e4311f413344a5378ff3b, checked: '2026-11-07'}
+    extend: Database objects carry comments; Teradata has no separate catalogue model published as a schema.
+    gap: No public catalogue model, so no field mapping is given.
+    ai:
+      prov: V
+      mcp: An MCP server installed with uv or pip, connecting with a database URI; it reads schemas and column metadata and runs SQL.
+      source: https://github.com/teradata/teradata-mcp-server
+
+  - id: qlik-talend
+    name: Qlik Talend Cloud (Talend Data Catalog)
+    kind: catalogue
+    deploy: [saas, on-prem]
+    reports: []
+    repos: []
+    extend: Data products and catalogue attributes in Qlik Talend Cloud.
+    gap: No public metadata model was found, so no field mapping is given.
+    ai:
+      prov: S
+      mcp: An MCP server in Qlik Talend Cloud, switched on per tenant by an administrator, giving AI assistants governed data sets and data products.
+      source: https://community.qlik.com/t5/Product-Innovation/MCP-for-Data-Engineering-in-Qlik-Talend-Cloud/ba-p/2542572
+    claude:
+      - type: connector
+        name: Qlik
+        listing: Claude connector directory
+        tools: [qlik_create_app, qlik_create_data_object, qlik_add_chart, qlik_add_filter, qlik_create_bookmark, qlik_create_automation, qlik_clear_selections, qlik_cancel_app_reload]
+        tools_note: The directory lists eight tools by name and 85 more.
+        use: Work with Qlik Cloud apps, data objects and automations from Claude, grounded in governed Qlik data.
+
+  - id: precisely
+    name: Precisely Data Integrity Suite
+    kind: catalogue
+    deploy: [saas]
+    reports: []
+    repos: []
+    extend: Catalogue attributes in the Data Integrity Suite.
+    gap: No public metadata model was found, so no field mapping is given.
+    ai: {prov: K, mcp: Reported to host an MCP server over its integration, quality and catalogue APIs; only a secondary source was found, so this is unconfirmed.}
+
+  - id: select-star
+    name: Select Star
+    kind: catalogue
+    deploy: [saas]
+    reports: []
+    repos: []
+    extend: Custom attributes and documentation on catalogue objects.
+    gap: No public metadata model was found, so no field mapping is given.
+    ai:
+      prov: S
+      mcp: A hosted MCP server at mcp.production.selectstar.com/mcp, used with a Select Star API token.
+      source: https://docs.selectstar.com/features/mcp-server
+
+  - id: secoda
+    name: Secoda
+    kind: catalogue
+    deploy: [saas]
+    reports: []
+    repos:
+      - {repo: secoda/secoda-mcp, role: Secoda's MCP server (MIT), commit: 6cd32bf4e716ee3065f3982c275bf550032f1d21, checked: '2026-11-07'}
+    extend: Custom properties on catalogue resources.
+    gap: No public metadata model was found, so no field mapping is given.
+    ai:
+      prov: V
+      mcp: A hosted MCP server in each Secoda workspace, and an open-source server that uses a Secoda API token.
+      tools: [search_data_assets, retrieve_entity, entity_lineage, search_documentation, run_sql]
+      source: https://github.com/secoda/secoda-mcp
+
+  - id: actian
+    name: Actian Data Intelligence Platform (formerly Zeenea)
+    kind: catalogue
+    deploy: [saas]
+    reports: []
+    repos: []
+    extend: Custom properties on catalogue items.
+    gap: No public metadata model was found, so no field mapping is given.
+    ai:
+      prov: S
+      mcp: A managed MCP server connecting AI assistants such as Claude and Microsoft Copilot to the platform's metadata.
+      source: https://www.actian.com/data-intelligence/mcp-server/
+
+  - id: apache-polaris
+    name: Apache Polaris (Iceberg REST catalog)
+    kind: open-source
+    deploy: [open-source]
+    reports: []
+    repos:
+      - {repo: apache/polaris, role: Source, commit: 5f87d86e5f64cb2ec66bac3d7344875b9781898b, checked: '2026-11-07'}
+      - {repo: apache/iceberg, role: The Iceberg REST catalog specification Polaris implements, commit: 0cb5041b9c7afc046e84406d2785ed79cd54fa46, checked: '2026-11-07'}
+    model: {file: open-api/rest-catalog-open-api.yaml (CreateTableRequest), repo: apache/iceberg, prov: V}
+    extend: Iceberg table properties.
+    weave: iceberg
+    bag: {path: properties, style: flat}
+    kit: iceberg-properties
+    ai: {prov: K, mcp: No Apache-published MCP server was found.}
+    crosswalk:
+      - [description, properties.comment, 'The property engines use for a table comment; background knowledge.']
+
+  - id: openlineage
+    name: OpenLineage (and Marquez)
+    kind: open-source
+    deploy: [open-source]
+    reports: []
+    repos:
+      - {repo: OpenLineage/OpenLineage, role: The OpenLineage specification and its dataset facets, commit: 6e9fd64478313b77884dd578cae94a1d9d32bc9a, checked: '2026-11-07'}
+    model: {file: spec/OpenLineage.json (Dataset) and spec/facets/DocumentationDatasetFacet.json, repo: OpenLineage/OpenLineage, prov: V}
+    extend: Custom dataset facets; the kit defines a dcat_ap_uk facet.
+    weave: openlineage
+    bag: {path: facets.dcat_ap_uk, style: object}
+    kit: openlineage-facet
+    ai: {prov: K, mcp: OpenLineage is a specification for lineage events; it has no MCP server of its own.}
+    crosswalk:
+      - [description, facets.documentation.description, '']
+      - [identifier, namespace and name, 'A dataset is identified by its namespace and name; keep the DCAT-AP-UK identifier in the facet as well.']
+      - [contactPoint, (none), 'The ownership facet names people and teams. Give a team contact form in the facet.']
+
+  - id: amundsen
+    name: Amundsen
+    kind: open-source
+    deploy: [open-source]
+    reports: []
+    repos:
+      - {repo: amundsen-io/amundsen, role: Source, including the databuilder table model, commit: 469c1b778340655d1967d1589355acb4f35c65a7, checked: '2026-11-07'}
+    model: {file: databuilder/databuilder/models/table_metadata.py (TableMetadata), repo: amundsen-io/amundsen, prov: V}
+    extend: Amundsen has no general extension place for extra properties; programmatic descriptions can carry text.
+    ai: {prov: K, mcp: No Amundsen-published MCP server was found.}
+    crosswalk:
+      - [description, description, '']
+      - [keyword, tags, '']
+      - [title, (none), 'name is the table name, not a title.']
+
+  - id: egeria
+    name: Egeria (open metadata)
+    kind: open-source
+    deploy: [open-source]
+    reports: []
+    repos:
+      - {repo: odpi/egeria, role: Source of the open metadata types and repository services, commit: 9c2bb9761329375a24308f480901e7e3719a7e00, checked: '2026-11-07'}
+    extend: Open metadata types, extensible by new type definitions.
+    gap: The open metadata types are large and spread across many definitions; a mapping is not yet given.
+    ai: {prov: K, mcp: No Egeria-published MCP server was found.}
 
 # Named in a report above, with no public metadata model or MCP server found yet. Labelled K so the provenance register
 # lists each one, and the weekly run looks for a published model or MCP server.

@@ -5,6 +5,15 @@ All notable changes to DCAT-AP-UK. The format follows [Keep a Changelog](https:/
 ## [Unreleased]
 
 ### Added
+- Cloud, SaaS, on-premises and open-source vendors on the connectors page, now 31 products in four groups, with a
+  "Runs as" filter (SaaS, cloud platform, on premises, self-hosted).
+  - Snowflake (Horizon Catalog and Open Catalog), AWS Glue Data Catalog, Amazon SageMaker Catalog (DataZone),
+    Oracle OCI Data Catalog, SAP Datasphere, Cloudera, Teradata, Qlik Talend, Precisely, Select Star, Secoda,
+    Actian, Apache Polaris, OpenLineage, Amundsen and Egeria.
+  - The weaver reads and writes Apache Iceberg REST (Snowflake Open Catalog, Polaris), AWS Glue, SageMaker Catalog,
+    OCI Data Catalog and OpenLineage, losing nothing on a round trip.
+  - Five new add-on kits: Iceberg table properties, Glue parameters, a SageMaker Catalog metadata form type, an
+    OpenLineage facet schema and OCI custom properties.
 - The vendor connectors page leads with "Find your product": a matrix of what each product offers (field mapping,
   kit, weaver, MCP server, Claude), filterable by kind, report and need. It also has a map linking reports, products
   and ways to connect, and numbered "How to connect" steps for each product. OvalEdge (open-source MCP server and

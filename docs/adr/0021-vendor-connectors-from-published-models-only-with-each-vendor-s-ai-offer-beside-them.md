@@ -12,6 +12,6 @@ content/vendors.yaml registers each report (positions taken only from vendor ann
 
 ## Consequences
 
-The connectors page and downloads/connectors/ carry twelve products, seven kits and the register. The weaver gains Collibra, OpenMetadata, DataHub, Unity Catalog, Dataplex and data.world, and writes Apache Atlas (Purview, Atlan). tests/test_vendors.py checks the register (with deliberate breaks), lossless round trips of every worked example, that people fields are never carried, and that kits and weaver agree; check_site C-25 checks the page and kits. Nine ranked vendors with no public model are listed for the weekly run. Kits are not tested against live tenants.
+The connectors page and downloads/connectors/ carry twelve products, seven kits and the register. The weaver gains Collibra, OpenMetadata, DataHub, Unity Catalog, Dataplex and data.world, and writes Apache Atlas (Purview, Atlan). tests/test_vendors.py checks the register (with deliberate breaks), lossless round trips of every worked example, that people fields are never carried, and that kits and weaver agree; check_site C-25 checks the page and kits. Nine ranked vendors with no public model are listed for the weekly run. Kits are not tested against live tenants. Extended on 7 November 2026 to cloud, SaaS, on-premises and open-source products (31 in all), each with where it runs, labelled K until checked.
 
 <!-- Generated from content/portal.yaml by tools/build.py. Edit there. -->
