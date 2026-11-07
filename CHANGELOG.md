@@ -62,7 +62,7 @@ A minor release: a new name, tools for suppliers and buyers, and a richer portal
   They follow w3id.org's rules: 303 with content negotiation for terms and codelists, 302 elsewhere, no `Options`.
 
 ### Fixed
-- D-017 to D-031; see the defect register. The health run now treats a site that refuses automated checking as
+- D-017 to D-032; see the defect register. The health run now treats a site that refuses automated checking as
   blocked, not broken, as the DAM health run does.
 - The geodesy example names the ETRF2000 realisation (EPSG 9067), not the ETRS89 ensemble, as its own guidance asks.
 - The EU access-right and data-theme mappings were checked at source and relabelled S (open register O-04).

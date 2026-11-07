@@ -447,3 +447,18 @@ class StatusPage(unittest.TestCase):
         self.assertEqual(len(st['routines']), 5)
         self.assertEqual(len(st['checks']), len(re.findall(r'"""C-\d\d ', (ROOT / 'tools' / 'check_site.py').read_text(encoding='utf-8'))))
         self.assertTrue(all(st['repository_files'].values()), st['repository_files'])
+
+
+class VerifiedSourcesWatched(unittest.TestCase):
+    """D-032: four verified sources were never fingerprinted, so the weekly run could not see them change. Every verified
+    source is either fingerprinted in content/source-state.json or marked watch: manual (a person re-reads it)."""
+
+    def test_every_verified_source_is_watched(self):
+        lin = yaml.safe_load((ROOT / 'content' / 'lineage.yaml').read_text(encoding='utf-8'))
+        state = json.loads((ROOT / 'content' / 'source-state.json').read_text(encoding='utf-8'))
+        for s in lin['sources']:
+            if s['prov'] == 'V':
+                with self.subTest(source=s['id']):
+                    self.assertTrue(s.get('watch') == 'manual' or s['id'] in state, 'run tools/health.py --record after verifying it')
+                    if 'github.com' in s['url'] and s.get('watch') != 'manual':
+                        self.assertTrue(s.get('watch'), 'GitHub pages change on every load: watch the raw files instead')

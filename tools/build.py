@@ -2468,7 +2468,7 @@ class Site:
         orgs = json.loads((ROOT / 'profile' / 'organisations.json').read_text(encoding='utf-8'))
         lin = yaml.safe_load((ROOT / 'content' / 'lineage.yaml').read_text(encoding='utf-8'))
         state = json.loads((ROOT / 'content' / 'source-state.json').read_text(encoding='utf-8'))
-        vsrc = [x for x in lin['sources'] if x['prov'] == 'V']
+        vsrc = [x for x in lin['sources'] if x['prov'] == 'V' and x.get('watch') != 'manual']  # manual: re-read by a person at each review
         review = date.fromisoformat(str(self.m['review']))
         stale = [
             ('Review date', str(review), (review - today).days, 'days until the content must be reviewed', (review - today).days >= 14),
@@ -2517,7 +2517,7 @@ class Site:
                  + table('t-stale', 'What goes out of date, and when', ['What', 'As of', 'Days', 'Meaning', 'State'],
                          [[E(a), E(b), str(c), E(m), '<strong class="tag ok">In date</strong>' if ok else '<strong class="tag warn">Due</strong>'] for a, b, c, m, ok in d['stale']], num=(2,)))
         if H:
-            srows = [[f'<a href="{E(x["url"])}">{E(x.get("title", x["id"]))}</a>', ('Refuses automated checking' if x.get('blocked') else 'Changed' if x.get('changed') else 'Unchanged' if x.get('baselined') else 'Reachable') if x['ok'] else 'Unreachable', E(x.get('error', ''))] for x in H['sources']]
+            srows = [[f'<a href="{E(x["url"])}">{E(x.get("title", x["id"]))}</a>', ('Watched by a person' if x.get('manual') else 'Refuses automated checking' if x.get('blocked') else 'Changed' if x.get('changed') else 'Unchanged' if x.get('baselined') else 'Reachable') if x['ok'] else 'Unreachable', E(x.get('error', ''))] for x in H['sources']]
             probs = ul([E(p) for p in H['problems']]) if H['problems'] else '<p>No problems found.</p>'
             body += (f'<h2 id="health">Health run</h2><p>Run {E(H.get("generated", H["run"]))}. It checks that verified sources are reachable and unchanged, that the review date is not close and that pages stay inside their weight envelope.</p>'
                      f'<h3 id="health-problems">Problems</h3>{probs}' + table('t-health-src', 'Verified sources', ['Source', 'State', 'Detail'], srows))

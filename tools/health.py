@@ -45,8 +45,13 @@ def main(argv=None):
     for s in lin['sources']:
         if s['prov'] != 'V':
             continue
+        watch = s.get('watch') or [s['url']]
+        if watch == 'manual':  # a site that refuses automated checking: a person re-reads it at each review
+            report['sources'].append({'id': s['id'], 'title': s['title'], 'url': s['url'], 'ok': True, 'manual': True})
+            continue
         try:
-            h = fetch(s['url'])
+            # GitHub pages change on every load, so GitHub sources are watched through their raw files (watch: in lineage.yaml)
+            h = hashlib.sha256(''.join(fetch(u) for u in watch).encode()).hexdigest() if s.get('watch') else fetch(s['url'])
             changed = s['id'] in state and state[s['id']] != h
             report['sources'].append({'id': s['id'], 'title': s['title'], 'url': s['url'], 'ok': True, 'changed': changed, 'baselined': s['id'] in state})
             if changed:

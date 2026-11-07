@@ -237,6 +237,7 @@ sources:
     publisher: co-cddo on GitHub
     date: '2026-04-08'
     url: https://github.com/co-cddo/data-catalogue-metadata
+    watch: [https://raw.githubusercontent.com/co-cddo/data-catalogue-metadata/main/schema.md, https://raw.githubusercontent.com/co-cddo/data-catalogue-metadata/main/readme.md]
     role: How the Data Marketplace exchanges records. Its properties are crosswalked.
     prov: V
   - id: discovery
@@ -244,6 +245,7 @@ sources:
     publisher: GDS Data Architecture function
     date: '2026-09'
     url: https://github.com/co-cddo/future-data-architecture/blob/main/Patterns/Metadata-Based-Discovery-Pattern.md
+    watch: [https://raw.githubusercontent.com/co-cddo/future-data-architecture/main/Patterns/Metadata-Based-Discovery-Pattern.md]
     role: Future-state architecture. It needs a shared canonical metadata record; DCAT-AP-UK is proposed as that record.
     prov: V
   - id: principles
@@ -251,6 +253,7 @@ sources:
     publisher: GDS Data Architecture function
     date: '2026'
     url: https://github.com/co-cddo/future-data-architecture/tree/main/principles
+    watch: [https://raw.githubusercontent.com/co-cddo/future-data-architecture/main/principles/0-overview.md, https://raw.githubusercontent.com/co-cddo/future-data-architecture/main/principles/6-standards.md]
     role: Principle 6, use common standards for sharing.
     prov: V
   - id: roadmap
@@ -258,6 +261,7 @@ sources:
     publisher: UK Parliament (written statement, Department for Science, Innovation and Technology)
     date: '2026-01-19'
     url: https://questions-statements.parliament.uk/written-statements/1872558
+    watch: manual   # the site refuses automated checking; a person re-reads it at each review
     role: Commits to the National Data Library and to platforms to share and use data.
     prov: V
   - id: ndl
