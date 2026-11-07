@@ -1,0 +1,337 @@
+# Vendor connectors: the data catalogue and metadata management products in the analyst reports, the platforms
+# beside them, how each one's own metadata model maps to DCAT-AP-UK, the add-on kits that carry the rest, and each
+# vendor's AI agent and Model Context Protocol (MCP) offer.
+#
+# Provenance (ADR 0020):
+#   S  a vendor's own announcement or documentation. Analyst reports are paywalled, so report positions come from
+#      vendor press releases and report abstracts, never from the reports themselves.
+#   V  checked this session against the public repository file named, at the commit given.
+#   K  background knowledge or a secondary source; to be checked.
+# Nothing here is a test, an endorsement or a ranking by this project. Suppliers can correct an entry with the claim form.
+# The crosswalk "rest" rule: a DCAT-AP-UK property with no native field goes in the vendor's own extension place
+# (custom metadata, custom properties, an aspect), named in `bag`. The kit for each vendor defines that place.
+as_of: '2026-11-07'
+
+intro: >-
+  The products that analysts rank for data catalogues, metadata management and data governance, and the platforms
+  that carry catalogues inside them. For each one: where its code and metadata model are published, how its fields
+  map to DCAT-AP-UK, an add-on kit for the properties it lacks, and what it offers AI agents through the Model
+  Context Protocol. Live connectors need a tenant and its credentials, so the portal ships kits and conversions
+  rather than calling any vendor's service.
+
+reports:
+  - id: gartner-mms-2025
+    title: Magic Quadrant for Metadata Management Solutions
+    publisher: Gartner
+    date: '2025-11-19'
+    url: https://www.gartner.com/en/documents/7195830
+    prov: S
+    note: The first Gartner evaluation of this market since 2020, according to Informatica's announcement. Vendors named in the published abstract include Ab Initio Software, Alation, Alex Solutions and Ataccama.
+    leaders:
+      - {vendor: informatica, source: https://businesswire.com/news/home/20251121159172/en/Informatica-Named-a-Leader-in-the-2025-Gartner-Magic-Quadrant-for-Metadata-Management-Solutions-Report, prov: S}
+      - {vendor: ibm, source: https://www.ibm.com/forms/mkt-54143, prov: S}
+      - {vendor: alation, source: https://stocks.observer-reporter.com/observerreporter/article/gnwcq-2025-11-21-alation-named-as-a-leader-5x-in-the-gartner-magic-quadrant-for-metadata-management-solutions, prov: S}
+      - {vendor: ab-initio, source: https://research.oz.spotlightar.com/reports/magic-quadrant-metadata-management-solutions-2025/leaders, prov: K}
+      - {vendor: atlan, source: https://research.oz.spotlightar.com/reports/magic-quadrant-metadata-management-solutions-2025/leaders, prov: K}
+  - id: gartner-dagp-2025
+    title: Magic Quadrant for Data and Analytics Governance Platforms (first edition)
+    publisher: Gartner
+    date: '2025-01-07'
+    url: https://www.gartner.com/en/documents/6059363
+    prov: S
+    note: The first Magic Quadrant for this market. The abstract names Ab Initio Software, Alation, Alex Solutions, Anjana Data, Ataccama, Atlan, Collibra, DataGalaxy, data.world, erwin by Quest, Global Data Excellence, IBM, Informatica and OvalEdge; press coverage also names Solidatus. A second edition followed on 7 January 2026.
+    leaders:
+      - {vendor: informatica, source: https://www.hpcwire.com/bigdatawire/2025/01/16/slicing-and-dicing-the-data-governance-market/, prov: S}
+      - {vendor: ibm, source: https://www.hpcwire.com/bigdatawire/2025/01/16/slicing-and-dicing-the-data-governance-market/, prov: S}
+      - {vendor: collibra, source: https://www3.collibra.com/company/newsroom/press-releases/collibra-named-a-leader-in-the-first-ever-gartner-magic-quadrant-for-data-and-analytics, prov: S}
+  - id: gartner-dagp-2026
+    title: Magic Quadrant for Data and Analytics Governance Platforms (second edition)
+    publisher: Gartner
+    date: '2026-01-07'
+    url: https://www.ibm.com/forms/mkt-54249
+    prov: S
+    note: Known here only from IBM's announcement. Other vendors' positions in this edition are not yet checked.
+    leaders:
+      - {vendor: ibm, source: https://www.ibm.com/forms/mkt-54249, prov: S}
+  - id: forrester-dg-2025
+    title: 'The Forrester Wave: Data Governance Solutions, Q3 2025'
+    publisher: Forrester
+    date: '2025-07-09'
+    url: https://www.forrester.com/go?objectid=res184107
+    prov: S
+    note: Thirteen providers evaluated.
+    leaders:
+      - {vendor: alation, source: https://www.alation.com/news-and-press/alation-named-leader-2025-forrester-data-governance-solutions-report/, prov: S}
+      - {vendor: atlan, source: https://atlan.com/forrester-wave/, prov: S}
+      - {vendor: collibra, source: https://www.collibra.com/resources/collibra-strong-performer-forrester-wave-ai-governance-platforms-q3-2025, prov: S}
+      - {vendor: informatica, source: https://research.oz.spotlightar.com/reports/forrester-wave-data-governance-solutions-q3-2025/leaders, prov: K}
+  - id: forrester-edc-2024
+    title: 'The Forrester Wave: Enterprise Data Catalogs, Q3 2024'
+    publisher: Forrester
+    date: '2024-08-08'
+    url: https://www.forrester.com/report/the-forrester-wave-tm-enterprise-data-catalogs-q3-2024/RES181073
+    prov: S
+    note: Twelve providers evaluated against 24 criteria.
+    leaders:
+      - {vendor: atlan, source: https://bigdatawire.com/this-just-in/atlan-named-a-leader-in-enterprise-data-catalogs-by-leading-global-market-research-firm, prov: S}
+      - {vendor: collibra, source: https://www.collibra.com/company/newsroom/press-releases/collibra-named-a-leader-in-enterprise-data-catalogs-and-data-governance-solutions-by-independent, prov: S}
+      - {vendor: informatica, source: https://www.businesswire.com/news/home/20240904383117/en, prov: S}
+
+# kind: ranked (named in a report above) or platform (a catalogue inside a data or cloud platform, or open source).
+vendors:
+  - id: atlan
+    name: Atlan
+    kind: ranked
+    reports: [gartner-mms-2025, gartner-dagp-2025, forrester-dg-2025, forrester-edc-2024]
+    repos:
+      - {repo: atlanhq/atlan-python, role: Python SDK; its typedef module defines custom metadata, commit: 3c9c37ada6c5, checked: '2026-11-07'}
+      - {repo: atlanhq/atlan-java, role: Java SDK, commit: b44068aa921d, checked: '2026-11-07'}
+      - {repo: atlanhq/agent-toolkit, role: MCP server, Claude Code plugin and agent skills, commit: 17b7ae3b4852, checked: '2026-11-07'}
+    model: {file: pyatlan/model/assets/core/asset.py, repo: atlanhq/atlan-python, prov: V}
+    extend: Custom metadata, sent to the typedef API as businessMetadataDefs (pyatlan/model/typedef.py). Atlan addresses custom metadata by internal names in its API, so map the kit's names to them when loading.
+    weave: atlas
+    bag: {path: businessAttributes.dcat_ap_uk, style: object}
+    kit: atlas-business-metadata
+    ai:
+      prov: V
+      mcp: Hosted MCP server at mcp.atlan.com/mcp with OAuth; the local server in the repository is deprecated and in maintenance only.
+      tools: [search_assets, get_assets_by_dsl, traverse_lineage, update_assets, query_asset, create_dq_rules, schedule_dq_rules, update_dq_rules, delete_dq_rules]
+      skills: An official Claude Code plugin, Codex and Cursor plugins, and agent skills in the skills folder (atlan-search).
+      source: https://github.com/atlanhq/agent-toolkit
+    crosswalk:
+      - [title, name, '']
+      - [description, userDescription, 'Atlan keeps a crawled description and a user description; write the curated text to userDescription.']
+      - [identifier, qualifiedName, 'Atlan builds qualifiedName from the connection; keep the DCAT-AP-UK identifier in custom metadata as well.']
+      - [landingPage, sourceURL, '']
+      - [contactPoint, (none), 'ownerUsers and ownerGroups name people and groups. Give a team contact form in custom metadata instead.']
+
+  - id: collibra
+    name: Collibra Platform
+    kind: ranked
+    reports: [gartner-dagp-2025, forrester-dg-2025, forrester-edc-2024]
+    repos:
+      - {repo: collibra/import-api-examples, role: Import API examples and input files, commit: 48e1e29c2a50, checked: '2026-11-07'}
+      - {repo: collibra/custom-technical-lineage-examples, role: Custom technical lineage files, commit: be0662134504, checked: '2026-11-07'}
+      - {repo: collibra/chip, role: Local MCP server (Go) with embedded agent skills, commit: 05d201f35d20, checked: '2026-11-07'}
+    model: {file: input-file-examples/src/test/resources (asset JSON with attributes keyed by attribute type name), repo: collibra/import-api-examples, prov: V}
+    extend: Attribute types and asset types defined in the operating model by an administrator; the Import API loads data, not the model itself.
+    weave: collibra
+    bag: {path: 'attributes["DCAT-AP-UK <property>"]', style: collibra}
+    kit: collibra-import
+    ai:
+      prov: V
+      mcp: A hosted MCP server on every instance at /rest/mcp with per-user OAuth, and an open-source local server (collibra/chip) using basic credentials.
+      tools: [discover_data_assets, discover_business_glossary, search_asset_keyword, get_asset_details, get_lineage_upstream, get_lineage_downstream, create_asset, edit_asset, list_data_contracts, pull_data_contract_manifest, push_data_contract_manifest, create_dq_rule]
+      skills: Skills embedded in the server and served through list_collibra_skills and load_collibra_skill (collibra/discovery, collibra/lineage, collibra/asset-create, collibra/asset-edit).
+      source: https://productresources.collibra.com/docs/collibra/latest/Content/ModelContextProtocol/co_integrating-with-collibra-mcp.htm
+    crosswalk:
+      - [title, name, 'Collibra asset name; the identifier block also names the domain and community.']
+      - [description, 'attributes["Description"]', 'Single values are written as [{"value": ...}], as in the repository examples.']
+      - [identifier, identifier.externalEntityId, 'With identifier.externalSystemId naming the source catalogue.']
+      - [keyword, tags, 'The repository has an example that adds assets with tags.']
+      - [contactPoint, (none), 'Responsibilities name people. Give a team contact form as an attribute.']
+
+  - id: alation
+    name: Alation Data Intelligence Platform
+    kind: ranked
+    reports: [gartner-mms-2025, gartner-dagp-2025, forrester-dg-2025]
+    repos:
+      - {repo: Alation/alation-ai-agent-sdk, role: AI agent SDK, MCP server and LangChain distribution, commit: ceac7b6ad6ed, checked: '2026-11-07'}
+    extend: Custom fields; the agent SDK has a tool that reads their definitions.
+    gap: No public repository publishes Alation's catalogue object model, so no field mapping is given rather than a guessed one.
+    ai:
+      prov: V
+      mcp: An MCP server (alation-ai-agent-mcp) in the agent SDK, over stdio or HTTP.
+      tools: [alation_context, bulk_retrieval, get_data_products, get_custom_fields_definitions, get_data_dictionary_instructions, data_quality_tool, get_data_sources_tool]
+      skills: A LangChain distribution of the same tools.
+      source: https://github.com/Alation/alation-ai-agent-sdk
+
+  - id: informatica
+    name: Informatica Cloud Data Governance and Catalog (CDGC)
+    kind: ranked
+    reports: [gartner-mms-2025, gartner-dagp-2025, forrester-dg-2025, forrester-edc-2024]
+    repos: []
+    extend: Custom attributes and custom catalog source models.
+    gap: No public repository of CDGC's model was found. No field mapping is given.
+    ai:
+      prov: S
+      mcp: Informatica MCP servers over streamable HTTP (MCP protocol 2025-06-18), with session ID or JSON web token authentication.
+      tools: [search_metadata, get_asset_details]
+      skills: Connection guides for Claude Desktop, Cursor, VS Code and Python, and an MCP tool in Informatica's own AI Agent Engineering service.
+      source: https://onlinehelp.informatica.com/IICS/dev/agentic-ui/en/uu-aiae-mcp-servers/Introduction_to_Informatica_MCP_servers.html
+
+  - id: ibm
+    name: IBM watsonx.data intelligence
+    kind: ranked
+    reports: [gartner-mms-2025, gartner-dagp-2025, gartner-dagp-2026]
+    repos:
+      - {repo: IBM/data-intelligence-mcp-server, role: MCP server with agent skills (Apache 2.0), commit: ba81d268216c, checked: '2026-11-07'}
+    extend: Custom asset types, custom properties and relationships, through the Watson Data API.
+    gap: The custom asset type payload is documented but not published as a schema file, so no field mapping is given.
+    ai:
+      prov: V
+      mcp: A local MCP server (ibm-watsonx-data-intelligence-mcp-server, stdio or HTTP) and, from 2026, a managed MCP server.
+      tools: [get_asset_details, list_business_terms, get_lineage_graph, get_data_quality, create_data_quality_rule, create_or_update_metadata_import, create_glossary_from_files, get_data_product_details, bulk_publish_assets]
+      skills: Agent skills shipped with the server, installed with wxdi-setup-skills (curate-glossary, lineage, data-quality, onboard-and-enrich, data-product-creation and others).
+      source: https://github.com/IBM/data-intelligence-mcp-server
+
+  - id: data-world
+    name: data.world
+    kind: ranked
+    reports: [gartner-dagp-2025]
+    repos:
+      - {repo: datadotworld/data.world-py, role: Python client with the dataset API models, commit: b1c03aa590ff, checked: '2026-11-07'}
+    model: {file: datadotworld/client/_swagger/models/dataset_create_request.py, repo: datadotworld/data.world-py, prov: V}
+    extend: Free-form dataset properties.
+    weave: dataworld
+    bag: {path: properties, style: object}
+    kit: dataworld-properties
+    ai: {prov: K, mcp: No MCP server was found in a public repository.}
+    crosswalk:
+      - [title, title, '']
+      - [description, description, '']
+      - [abstract, summary, '']
+      - [keyword, tags, '']
+      - [licence, license, 'The API accepts a fixed list (CC-BY, ODC-BY, Public Domain, Other and others). OGL v3.0 is not on it: send Other and keep the licence address in properties.']
+
+  - id: microsoft-purview
+    name: Microsoft Purview (Data Map and Unified Catalog)
+    kind: platform
+    reports: []
+    repos:
+      - {repo: apache/atlas, role: The type system Purview's Data Map uses, commit: 8b3f674e0f25, checked: '2026-11-07'}
+      - {repo: microsoft/purview-custom-connector-solution-accelerator, role: Custom connector accelerator using Atlas JSON, commit: 7a8eb4af1e9b, checked: '2026-11-07'}
+      - {repo: microsoft/Purview-Custom-Types-Tool-Solution-Accelerator, role: Tool for building custom types, commit: 544358eab84c, checked: '2026-11-07'}
+    model: {file: addons/models/0000-Area0/0010-base_model.json, repo: apache/atlas, prov: V}
+    extend: Custom types (typedefs) and business metadata through the Atlas API.
+    weave: atlas
+    bag: {path: businessAttributes.dcat_ap_uk, style: object}
+    kit: atlas-business-metadata
+    ai: {prov: K, mcp: No Microsoft-published Purview MCP server was found; community servers exist. Not listed here until one is checked.}
+    crosswalk:
+      - [title, name, 'Asset.name in the Atlas base model.']
+      - [description, userDescription, 'Asset also has description, filled by scans.']
+      - [identifier, qualifiedName, 'Referenceable.qualifiedName is the unique key; keep the DCAT-AP-UK identifier in business metadata as well.']
+      - [contactPoint, (none), 'Asset.owner names a person. Give a team contact form in business metadata.']
+
+  - id: apache-atlas
+    name: Apache Atlas
+    kind: platform
+    reports: []
+    repos:
+      - {repo: apache/atlas, role: Source and base type model, commit: 8b3f674e0f25, checked: '2026-11-07'}
+    model: {file: addons/models/0000-Area0/0010-base_model.json, repo: apache/atlas, prov: V}
+    extend: Typedefs and business metadata.
+    weave: atlas
+    bag: {path: businessAttributes.dcat_ap_uk, style: object}
+    kit: atlas-business-metadata
+    ai: {prov: K, mcp: No Apache-published MCP server was found.}
+    crosswalk:
+      - [title, name, '']
+      - [description, description, '']
+      - [identifier, qualifiedName, '']
+
+  - id: openmetadata
+    name: OpenMetadata (and Collate)
+    kind: platform
+    reports: []
+    repos:
+      - {repo: open-metadata/OpenMetadata, role: Source and JSON Schema entity model, commit: 9abf4c712ca2, checked: '2026-11-07'}
+      - {repo: open-metadata/ai-sdk, role: AI SDK over the built-in MCP server, commit: 01d572f5c427, checked: '2026-11-07'}
+    model: {file: openmetadata-spec/src/main/resources/json/schema/entity/data/table.json, repo: open-metadata/OpenMetadata, prov: V}
+    extend: Custom properties on an entity type (type/customProperty.json), stored in the entity's extension object.
+    weave: openmetadata
+    bag: {path: extension, style: object}
+    kit: openmetadata-custom-properties
+    ai:
+      prov: V
+      mcp: A built-in MCP server at /mcp on every OpenMetadata server since 1.8.0.
+      tools: [search_metadata]
+      skills: The AI SDK turns the MCP tools into LangChain and OpenAI function tools, and calls Collate's ready-made agents.
+      source: https://github.com/open-metadata/ai-sdk
+    crosswalk:
+      - [title, displayName, 'name is a machine name; use displayName for the title.']
+      - [description, description, '']
+      - [keyword, 'tags[].tagFQN', 'Tags are classification terms; free keywords need a classification of their own.']
+      - [landingPage, sourceUrl, '']
+      - [contactPoint, (none), 'owners names users and teams. Give a team contact form as a custom property.']
+
+  - id: datahub
+    name: DataHub (and DataHub Cloud)
+    kind: platform
+    reports: []
+    repos:
+      - {repo: datahub-project/datahub, role: Source and PDL metadata model, commit: f65d0be5605c, checked: '2026-11-07'}
+      - {repo: acryldata/mcp-server-datahub, role: Official MCP server, commit: e4de4c021eba, checked: '2026-11-07'}
+    model: {file: metadata-models/src/main/pegasus/com/linkedin/dataset/DatasetProperties.pdl, repo: datahub-project/datahub, prov: V}
+    extend: Structured properties (metadata-ingestion/examples/structured_properties), and free customProperties.
+    weave: datahub
+    bag: {path: customProperties, style: flat}
+    kit: datahub-structured-properties
+    ai:
+      prov: V
+      mcp: An MCP server over stdio or HTTP, with search, lineage and editing tools.
+      tools: [search, get_entities, get_lineage, get_lineage_paths_between, list_schema_fields, get_dataset_queries, update_description, add_tags, add_terms, add_owners, set_domains, add_structured_properties]
+      source: https://github.com/acryldata/mcp-server-datahub
+    crosswalk:
+      - [title, name, '']
+      - [description, description, '']
+      - [keyword, tags, '']
+      - [landingPage, externalUrl, 'From the ExternalReference record DatasetProperties includes.']
+      - [issued, created.time, 'Milliseconds since 1970; written as a date.']
+      - [modified, lastModified.time, '']
+
+  - id: unity-catalog
+    name: Unity Catalog (open source and Databricks)
+    kind: platform
+    reports: []
+    repos:
+      - {repo: unitycatalog/unitycatalog, role: Open-source server and OpenAPI model, commit: 2a2c4106ec6b, checked: '2026-11-07'}
+    model: {file: api/all.yaml (TableInfo), repo: unitycatalog/unitycatalog, prov: V}
+    extend: The table's properties map of strings.
+    weave: unity
+    bag: {path: properties, style: flat}
+    kit: unity-properties
+    ai: {prov: K, mcp: Databricks registers MCP servers in Unity Catalog as governed objects; a Unity Catalog metadata MCP server published by the project was not found.}
+    crosswalk:
+      - [description, comment, '']
+      - [issued, created_at, 'Milliseconds since 1970.']
+      - [modified, updated_at, '']
+      - [title, (none), 'name is a three-part SQL name, not a title. Keep the title in properties.']
+
+  - id: dataplex
+    name: Google Cloud Dataplex Universal Catalog
+    kind: platform
+    reports: []
+    repos:
+      - {repo: googleapis/googleapis, role: The Dataplex v1 catalog API definitions, commit: bf54c1031efd, checked: '2026-11-07'}
+      - {repo: googleapis/genai-toolbox, role: MCP Toolbox, with prebuilt Dataplex tools, commit: 8d54da0d2c40, checked: '2026-11-07'}
+    model: {file: google/cloud/dataplex/v1/catalog.proto (Entry, EntrySource, Aspect, AspectType), repo: googleapis/googleapis, prov: V}
+    extend: Aspect types with a metadata template; an entry carries aspects keyed by aspect type.
+    weave: dataplex
+    bag: {path: 'aspects["dcat-ap-uk"].data', style: object}
+    kit: dataplex-aspect-type
+    ai:
+      prov: V
+      mcp: MCP Toolbox for Databases has a prebuilt Dataplex tool set.
+      tools: [search_entries, lookup_entry, lookup_context, search_dq_scans, list_data_products]
+      skills: The toolbox can generate agent skills from its tool sets.
+      source: https://github.com/googleapis/genai-toolbox
+    crosswalk:
+      - [title, entrySource.displayName, '']
+      - [description, entrySource.description, '']
+      - [issued, entrySource.createTime, '']
+      - [modified, entrySource.updateTime, '']
+      - [keyword, entrySource.labels, 'Labels are key and value pairs; each keyword becomes a key with an empty value.']
+
+# Named in a report above, with no public metadata model or MCP server found yet. Each is re-checked by the weekly run.
+not_yet:
+  - {id: ab-initio, name: Ab Initio Software, reports: [gartner-mms-2025, gartner-dagp-2025]}
+  - {id: alex-solutions, name: Alex Solutions, reports: [gartner-mms-2025, gartner-dagp-2025]}
+  - {id: ataccama, name: Ataccama ONE, reports: [gartner-mms-2025, gartner-dagp-2025]}
+  - {id: anjana-data, name: Anjana Data, reports: [gartner-dagp-2025]}
+  - {id: datagalaxy, name: DataGalaxy, reports: [gartner-dagp-2025]}
+  - {id: erwin, name: erwin by Quest, reports: [gartner-dagp-2025]}
+  - {id: gde, name: Global Data Excellence, reports: [gartner-dagp-2025]}
+  - {id: ovaledge, name: OvalEdge, reports: [gartner-dagp-2025]}
+  - {id: solidatus, name: Solidatus, reports: [gartner-dagp-2025]}

@@ -5,6 +5,13 @@ All notable changes to DCAT-AP-UK. The format follows [Keep a Changelog](https:/
 ## [Unreleased]
 
 ### Added
+- Vendor connectors and AI agents (ADR 0021): a page and `downloads/connectors/` for the products in the Gartner Magic
+  Quadrants for metadata management and for data and analytics governance, and the Forrester Waves for data governance
+  and enterprise data catalogues, plus the platform catalogues beside them (Purview, Apache Atlas, OpenMetadata,
+  DataHub, Unity Catalog, Dataplex). Each entry links the vendor's public repositories at a named commit, its MCP
+  server, tools and agent skills, a crosswalk mapped from its published model, and an add-on kit in its own extension
+  format. The weaver reads and writes Collibra, OpenMetadata, DataHub, Unity Catalog, Dataplex, data.world and Atlas,
+  losing nothing on a round trip.
 - Trials: new ideas run as time-limited trials declared in `ops/automation.yaml`, each with a hypothesis, an envelope,
   a measure, an abort rule, an end date at most 90 days away and its own kill switch (`TRIAL_<ID>`). `tools/trials.py`
   checks and gates them; the build fails on an expired or malformed trial (ADR 0018).

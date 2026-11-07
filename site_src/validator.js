@@ -549,6 +549,107 @@
     return undefined;
   }
 
+  // Vendor catalogue models (content/vendors.yaml, ADR 0021). Each maps the native fields its public model file has;
+  // every other DCAT-AP-UK property goes in the vendor's own extension place (the "bag"), so nothing is lost on a
+  // round trip. Fields that name people are never carried: records name teams and give a contact form.
+  var BAG_PREFIX = 'dcat_ap_uk.';
+  function pathGet(o, path) { for (var i = 0; i < path.length; i++) { if (o === undefined || o === null) return undefined; o = o[path[i]]; } return o; }
+  function pathSet(o, path, v) { for (var i = 0; i < path.length - 1; i++) { if (!o[path[i]] || typeof o[path[i]] !== 'object') o[path[i]] = {}; o = o[path[i]]; } o[path[path.length - 1]] = v; }
+  function msOf(d) { var t = Date.parse(String(d).slice(0, 10) + 'T00:00:00Z'); return isFinite(t) ? t : undefined; }
+  function fieldOut(kind, v) {
+    if (kind === 'text') return first(v) === undefined ? undefined : String(first(v));
+    if (kind === 'list') return asList(v).map(String);
+    if (kind === 'url') return first(v) === undefined ? undefined : String(first(v));
+    if (kind === 'ms') return msOf(v);
+    if (kind === 'stamp') return DATE.test(String(v).slice(0, 10)) ? String(v).slice(0, 10) + 'T00:00:00Z' : undefined;
+    if (kind === 'tags') return asList(v).map(function (k) { return { tagFQN: String(k), source: 'Classification', labelType: 'Manual', state: 'Confirmed' }; });
+    if (kind === 'labels') { var o = {}; asList(v).forEach(function (k) { o[String(k).toLowerCase().replace(/[^a-z0-9_-]+/g, '_').slice(0, 63)] = ''; }); return o; }
+    if (kind === 'cvalue') return first(v) === undefined ? undefined : [{ value: String(first(v)) }];
+    return v;
+  }
+  function fieldIn(kind, v, prop) {
+    if (v === undefined || v === null || v === '') return undefined;
+    if (kind === 'text') return String(v);
+    if (kind === 'list') return asList(v).map(String).filter(Boolean);
+    if (kind === 'url') return URL_RE.test(String(v)) ? [String(v)] : undefined;
+    if (kind === 'ms' || kind === 'stamp') return epochDate(kind === 'ms' ? v : String(v).slice(0, 10));
+    if (kind === 'tags') return asList(v).map(function (t) { return t && (t.tagFQN || t.name || t); }).filter(Boolean).map(String);
+    if (kind === 'labels') return typeof v === 'object' ? Object.keys(v) : undefined;
+    if (kind === 'cvalue') { var x = first(v); return x && x.value !== undefined ? String(x.value) : undefined; }
+    return v;
+  }
+  function asStr(v) { return typeof v === 'string' ? v : JSON.stringify(v); }
+  function unStr(v) { if (typeof v !== 'string') return v; var s = v.trim(); if (s[0] === '[' || s[0] === '{') { try { return JSON.parse(s); } catch (e) { return v; } } return v; }
+  var VENDOR = {
+    openmetadata: { label: 'OpenMetadata table entity', fields: [['title', ['displayName'], 'text'], ['description', ['description'], 'text'], ['keyword', ['tags'], 'tags'], ['landingPage', ['sourceUrl'], 'url']],
+      bag: ['extension'], people: ['owners', 'reviewers', 'experts', 'followers'], shape: function (o, r) { o.name = slugName(r); return o; } },
+    datahub: { label: 'DataHub datasetProperties aspect', fields: [['title', ['name'], 'text'], ['description', ['description'], 'text'], ['keyword', ['tags'], 'list'], ['landingPage', ['externalUrl'], 'url'],
+      ['issued', ['created', 'time'], 'ms'], ['modified', ['lastModified', 'time'], 'ms']], bag: ['customProperties'], flat: true, people: ['owners'] },
+    unity: { label: 'Unity Catalog TableInfo', fields: [['description', ['comment'], 'text'], ['issued', ['created_at'], 'ms'], ['modified', ['updated_at'], 'ms']],
+      bag: ['properties'], flat: true, people: ['owner', 'created_by', 'updated_by'], shape: function (o, r) { o.name = slugName(r).replace(/-/g, '_'); o.table_type = 'EXTERNAL'; return o; } },
+    dataplex: { label: 'Dataplex catalog entry', fields: [['title', ['entrySource', 'displayName'], 'text'], ['description', ['entrySource', 'description'], 'text'], ['issued', ['entrySource', 'createTime'], 'stamp'],
+      ['modified', ['entrySource', 'updateTime'], 'stamp'], ['keyword', ['entrySource', 'labels'], 'labels']], bag: ['aspects', 'dcat-ap-uk', 'data'], people: [] },
+    dataworld: { label: 'data.world dataset', fields: [['title', ['title'], 'text'], ['description', ['description'], 'text'], ['abstract', ['summary'], 'text'], ['keyword', ['tags'], 'list']],
+      bag: ['properties'], people: ['owner'], shape: function (o) { o.license = 'Other'; o.visibility = 'OPEN'; return o; } },
+    collibra: { label: 'Collibra Import API asset', fields: [['title', ['name'], 'text'], ['description', ['attributes', 'Description'], 'cvalue'], ['identifier', ['identifier', 'externalEntityId'], 'text'], ['keyword', ['tags'], 'list']],
+      bag: ['attributes'], collibra: true, people: ['responsibilities'],
+      shape: function (o) { o.resourceType = 'Asset'; o.identifier = o.identifier || {}; o.identifier.externalSystemId = 'dcat-ap-uk'; o.type = { name: 'Data Set' }; return [o]; },
+      root: function (x) { return Array.isArray(x) ? (x.filter(function (a) { return a && a.resourceType === 'Asset'; })[0] || {}) : (x || {}); } },
+    atlas: { label: 'Apache Atlas entity', fields: [['title', ['attributes', 'name'], 'text'], ['description', ['attributes', 'userDescription'], 'text'], ],
+      bag: ['businessAttributes', 'dcat_ap_uk'], people: [],
+      // qualifiedName is Atlas's unique key, not a web address; the DCAT-AP-UK identifier stays in the bag.
+      shape: function (o, r) { o.typeName = 'DataSet'; o.attributes = o.attributes || {}; o.attributes.qualifiedName = 'dcat-ap-uk:' + slugName(r); return { entity: o }; } }
+  };
+  function slugName(r) { return String(first(r.identifier) || first(r.title) || 'dataset').toLowerCase().replace(/^https?:\/\//, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 120); }
+  function vendorWriter(name) {
+    var S = VENDOR[name];
+    return function (P, r) {
+      var o = {}, map = [], used = {};
+      S.fields.forEach(function (f) {
+        var v = r[f[0]] === undefined ? undefined : fieldOut(f[2], r[f[0]]); if (v === undefined || (Array.isArray(v) && !v.length)) return;
+        pathSet(o, f[1], v); map.push([f[0], f[1].join('.')]);
+        // A native field that cannot hold the value exactly (a list cut to one, a keyword folded into a label) keeps the original in the bag too.
+        if (JSON.stringify(fieldIn(f[2], v, f[0])) === JSON.stringify(r[f[0]])) used[f[0]] = 1;
+      });
+      var bag = {};
+      Object.keys(r).forEach(function (k) {
+        if (used[k] || r[k] === undefined) return;
+        if (S.collibra) { o.attributes = o.attributes || {}; o.attributes['DCAT-AP-UK ' + k] = [{ value: asStr(r[k]) }]; map.push([k, 'attributes.DCAT-AP-UK ' + k]); return; }
+        if (S.flat) bag[BAG_PREFIX + k] = asStr(r[k]); else bag[k] = r[k];
+        map.push([k, S.bag.join('.') + '.' + (S.flat ? BAG_PREFIX : '') + k]);
+      });
+      if (!S.collibra && Object.keys(bag).length) pathSet(o, S.bag, bag);
+      return { out: S.shape ? S.shape(o, r) : o, map: map.filter(function (m) { return m[0] !== 'class'; }) };
+    };
+  }
+  function vendorReader(name) {
+    var S = VENDOR[name];
+    return function (P, x) {
+      var e = S.root ? S.root(x) : (name === 'atlas' ? ((x && x.entity) || x || {}) : (x || {})), rec = {}, notes = [], map = [];
+      var bag = S.collibra ? null : pathGet(e, S.bag) || {};
+      S.fields.forEach(function (f) { put(rec, map, f[1].join('.'), f[0], fieldIn(f[2], pathGet(e, f[1]), f[0])); });
+      if (S.collibra) {
+        Object.keys(e.attributes || {}).forEach(function (a) {
+          var m = /^DCAT-AP-UK (\w+)$/.exec(a);
+          if (m && P.props[m[1]] || m && m[1] === 'class' || m && m[1] === 'id') { var v = fieldIn('cvalue', e.attributes[a]); if (v !== undefined) { rec[m[1]] = unStr(v); map.push(['attributes.' + a, m[1]]); } }
+          else if (a !== 'Description') map.push(['attributes.' + a, null]);
+        });
+      } else {
+        Object.keys(bag).forEach(function (k) {
+          var key = S.flat ? (k.indexOf(BAG_PREFIX) === 0 ? k.slice(BAG_PREFIX.length) : null) : k;
+          if (key && (P.props[key] || key === 'class' || key === 'id')) { rec[key] = S.flat ? unStr(bag[k]) : bag[k]; map.push([S.bag.join('.') + '.' + k, key]); }
+          else map.push([S.bag.join('.') + '.' + k, null]);
+        });
+      }
+      if (!rec['class']) rec['class'] = 'Dataset';
+      var ppl = S.people.filter(function (k) { return e[k] !== undefined && e[k] !== null && !(Array.isArray(e[k]) && !e[k].length); });
+      if (ppl.length) { ppl.forEach(function (k) { map.push([k, null]); }); notes.push('The ' + ppl.join(', ') + ' field' + (ppl.length > 1 ? 's name' : ' names') + ' people, so ' + (ppl.length > 1 ? 'they were' : 'it was') + ' not carried. Give a publisher organisation and a team contact form.'); }
+      if (!rec.description) notes.push('No description in the source. Write one: a placeholder description is not given.');
+      ['publisher', 'licence', 'accessRights', 'securityClassification'].forEach(function (k) { if (!rec[k]) notes.push('No ' + (P.props[k] ? P.props[k].label.toLowerCase() : k) + ' in the source. Add it, or say why it is missing.'); });
+      return { record: finishRec(rec, notes), notes: notes, map: map };
+    };
+  }
+
   var READERS = {
     ukap: function (P, x) { return { record: x, notes: [], map: Object.keys(x).filter(function (k) { return k !== 'class'; }).map(function (k) { return [k, P.props[k] || k === 'id' ? k : null]; }) }; },
     mem: function (P, x) {
@@ -794,6 +895,17 @@
       return { out: clean(o), map: map };
     }
   };
+  Object.keys(VENDOR).forEach(function (k) {
+    WRITERS[k] = vendorWriter(k);
+    if (!READERS[k]) { READERS[k] = vendorReader(k); return; }
+    // A reader written before the vendor table (Atlas) keeps its own rules, and also reads back the DCAT-AP-UK bag.
+    var own = READERS[k], fromBag = vendorReader(k), bagPath = VENDOR[k].bag.join('.');
+    READERS[k] = function (P, x) {
+      var a = own(P, x), b = fromBag(P, x);
+      b.map.forEach(function (m) { if (m[1] && m[0].indexOf(bagPath) === 0) { a.record[m[1]] = b.record[m[1]]; a.map.push(m); } });
+      return a;
+    };
+  });
   function SDO_MAP(r) {
     var m = { title: 'name', description: 'description', abstract: 'abstract', identifier: 'identifier', landingPage: 'url', licence: 'license', accessRights: 'isAccessibleForFree', keyword: 'keywords',
       temporal: 'temporalCoverage', spatial: 'spatialCoverage', issued: 'datePublished', modified: 'dateModified', created: 'dateCreated', version: 'version', language: 'inLanguage', publisher: 'publisher',
@@ -809,6 +921,6 @@
     return { record: a.record, out: b.out, mapIn: a.map, mapOut: b.map, notes: a.notes, validation: validate(P, a.record) };
   }
 
-  return { weave: weave, readers: Object.keys(READERS), writers: Object.keys(WRITERS), validate: validate, completeness: completeness, fromMem: fromMem, expand: expand, withExtensions: withExtensions, fair: fair,
+  return { weave: weave, readers: Object.keys(READERS), writers: Object.keys(WRITERS), vendors: VENDOR, validate: validate, completeness: completeness, fromMem: fromMem, expand: expand, withExtensions: withExtensions, fair: fair,
     conformance: conformance, parseCSV: parseCSV, fromCSV: fromCSV, fromOpenAPI: fromOpenAPI, toSchemaOrg: toSchemaOrg, toCroissant: toCroissant, toTurtle: toTurtle };
 }));

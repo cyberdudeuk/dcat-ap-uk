@@ -413,7 +413,39 @@ def c_email_repo(site, docs):
     return bad
 
 
-CHECKS = [c_csp, c_external, c_email, c_ids, c_links, c_tables, c_meta, c_colophon, c_skip, c_deck_film, c_inline, c_banner, c_lang_title, c_weight, c_svg_names, c_unrendered, c_email_repo, c_llms, c_no_style_attr, c_tours, c_feedback, c_markings, c_people, c_flags]
+def c_vendors(site, docs):
+    """C-25 vendor connectors agree with downloads/connectors/vendors.json: each mapped product has its section, crosswalk CSV and add-on kit, every kit names each property the profile file lists for a dataset, and no repository is cited without a commit (ADR 0021)."""
+    bad = []
+    d = site / 'downloads' / 'connectors'
+    reg = d / 'vendors.json'
+    page = site / 'connectors.html'
+    if not reg.exists() or not page.exists():
+        return ['connectors.html or downloads/connectors/vendors.json is missing']
+    v = json.loads(reg.read_text(encoding='utf-8'))
+    t = page.read_text(encoding='utf-8')
+    prof = json.loads((site / 'downloads' / 'profile.json').read_text(encoding='utf-8'))
+    ds = [x['p'] for x in prof['classes']['Dataset']['props']]
+    for x in v['vendors']:
+        if f'id="v-{x["id"]}"' not in t:
+            bad.append(f'connectors.html: no section for {x["id"]}')
+        for r in x.get('repos', []):
+            if not re.fullmatch(r'[0-9a-f]{12}', str(r.get('commit', ''))):
+                bad.append(f'{x["id"]}: {r.get("repo")} cited without a commit')
+        if x.get('crosswalk') and not (d / f'{x["id"]}-crosswalk.csv').exists():
+            bad.append(f'{x["id"]}: crosswalk CSV missing')
+    kits = re.findall(r'href="downloads/connectors/([a-z-]+\.(?:json|yaml))"', t)
+    for k in sorted(set(kits)):
+        f = d / k
+        if not f.exists():
+            bad.append(f'kit {k} is linked but missing'); continue
+        body = f.read_text(encoding='utf-8')
+        miss = [p_ for p_ in ds if not re.search(r'["\s.]' + re.escape(p_) + r'\b', body)] if k != 'vendors.json' else []
+        if miss:
+            bad.append(f'kit {k} does not define {", ".join(miss[:5])}')
+    return bad
+
+
+CHECKS = [c_csp, c_external, c_email, c_ids, c_links, c_tables, c_meta, c_colophon, c_skip, c_deck_film, c_inline, c_banner, c_lang_title, c_weight, c_svg_names, c_unrendered, c_email_repo, c_llms, c_no_style_attr, c_tours, c_feedback, c_markings, c_people, c_flags, c_vendors]
 
 
 def run(site, quiet=False):
@@ -474,6 +506,7 @@ BREAKS = {
     'C-22': lambda s: _sub(s / 'requirements.html', '<h2 id="controlled">', '<p>REL FVEY</p><h2 id="controlled">'),
     'C-21': lambda s: _sub(s / 'types.html', 'template=change-request.yml', 'template=no-such-form.yml'),
     'C-18': lambda s: _sub(s / 'llms.txt', 'downloads/profile.json)', 'downloads/no-such-file.json)'),
+    'C-25': lambda s: (s / 'downloads' / 'connectors' / 'dataplex-aspect-type.json').unlink(),
     'C-15': lambda s: _sub(s / 'profile.html', 'role="group" aria-labelledby="map-model-t"', 'role="img"'),
 }
 

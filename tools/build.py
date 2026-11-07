@@ -6,6 +6,7 @@
 Everything in the output folder is generated. Edit profile/, content/, examples/, site_src/ or this script, never the output.
 """
 import argparse
+import csv
 import hashlib
 import html
 import io
@@ -94,7 +95,7 @@ TYPES = {  # value kinds used by the profile (K: author's summary of DCAT, SHACL
 
 SECTION = {'index': 'home', 'profile': 'profile', 'properties': 'profile', 'codelists': 'profile', 'types': 'profile', 'extensions': 'profile',
            'builder': 'tools', 'validate': 'tools', 'bulk': 'tools', 'weaver': 'tools', 'openapi': 'tools', 'examples': 'tools',
-           'adopt': 'adopt', 'integrations': 'adopt', 'lockin': 'adopt', 'international': 'adopt', 'ai-ready': 'adopt', 'quantum': 'adopt', 'landscape': 'adopt',
+           'adopt': 'adopt', 'integrations': 'adopt', 'connectors': 'adopt', 'lockin': 'adopt', 'international': 'adopt', 'ai-ready': 'adopt', 'quantum': 'adopt', 'landscape': 'adopt',
            'knowledge': 'knowledge', 'lineage': 'knowledge', 'standards': 'knowledge', 'insights': 'knowledge', 'reuse': 'knowledge', 'changes': 'changes', 'strategy': 'strategy', 'requirements': 'strategy',
            'guide': 'roles', 'tutorials': 'roles', 'roles': 'roles', 'downloads': 'downloads', 'estate': 'estate',
            'governance': 'about', 'accessibility': 'about', 'contact': 'about', 'sitemap': 'about', 'licence': 'about', 'whats-new': 'about', 'status': 'about', '404': 'about'}
@@ -105,7 +106,7 @@ NAV = [
     ('index', 'Home', 'house', None),
     ('Profile', 'The profile', 'layers', ['profile', 'properties', 'codelists', 'types', 'extensions']),
     ('Tools', 'Tools', 'wrench', ['builder', 'validate', 'bulk', 'weaver', 'openapi', 'examples']),
-    ('Adopt', 'Adopt', 'package', ['adopt', 'integrations', 'lockin', 'international', 'ai-ready', 'quantum', 'landscape']),
+    ('Adopt', 'Adopt', 'package', ['adopt', 'integrations', 'connectors', 'lockin', 'international', 'ai-ready', 'quantum', 'landscape']),
     ('Knowledge', 'Knowledge', 'network', ['knowledge', 'lineage', 'standards', 'reuse', 'insights']),
     ('Context', 'Context', 'route', ['changes', 'strategy', 'requirements']),
     ('Help', 'Help', 'circle-help', ['guide', 'tutorials', 'roles']),
@@ -121,8 +122,9 @@ TITLES = {
     'whats-new': "What's new", '404': 'Page not found', 'extensions': 'Sector extensions', 'bulk': 'Check many records',
     'openapi': 'Describe an API from OpenAPI', 'adopt': 'Adoption toolkit', 'international': 'Cross-border data flows', 'ai-ready': 'AI-ready metadata',
     'quantum': 'Quantum-ready metadata', 'landscape': 'Profiles around the world', 'guide': 'User guide', 'tutorials': 'Tutorials', 'weaver': 'Metadata weaver',
-    'lineage': 'Lineage explorer', 'insights': 'Insights', 'integrations': 'Integrations and connectors', 'standards': 'Standards map', 'lockin': 'Avoiding lock-in and technical debt', 'types': 'Value types', 'licence': 'Licence', 'reuse': 'Reuse across government', 'status': 'Status and self-checks'}
+    'lineage': 'Lineage explorer', 'insights': 'Insights', 'integrations': 'Integrations and connectors', 'connectors': 'Vendor connectors and AI agents', 'standards': 'Standards map', 'lockin': 'Avoiding lock-in and technical debt', 'types': 'Value types', 'licence': 'Licence', 'reuse': 'Reuse across government', 'status': 'Status and self-checks'}
 DESC = {
+    'connectors': 'Data catalogue and metadata products from the Gartner and Forrester reports, and the platforms beside them: crosswalks from their published models, add-on kits, weaver conversions and their MCP servers for AI agents.',
     'status': 'The self-checks that run on every build of DCAT-AP-UK: verification, self-assessment, staleness, health of sources and the defects each check came from.',
     'reuse': 'Public standards, models, registers, catalogues and toolkits across UK government that fit with DCAT-AP-UK, with evidence of what is used and a real-world test.',
     'types': 'The kinds of value DCAT-AP-UK properties take, how each is written in RDF and JSON, and which properties use it.',
@@ -254,6 +256,7 @@ class Site:
         self.base = SECTIONS.load_baseline()
         self.flags = {}  # page key -> {'page': new|updated|None, 'sections': {id: new|updated}, 'titles': {id: heading}}
         self.ig = yaml.safe_load((ROOT / 'content' / 'integrations.yaml').read_text(encoding='utf-8'))
+        self.vd = yaml.safe_load((ROOT / 'content' / 'vendors.yaml').read_text(encoding='utf-8'))
         self.rq = yaml.safe_load((ROOT / 'content' / 'requirements.yaml').read_text(encoding='utf-8'))
         self.src = {s['id']: s for s in p.lineage['sources'] + self.t['sources']}
 
@@ -562,6 +565,7 @@ class Site:
         self.tutorials_page()
         self.weaver_page()
         self.integrations_page()
+        self.connectors_page()
         self.lockin_page()
         self.reuse_page()
         self.requirements_page()
@@ -1857,10 +1861,25 @@ class Site:
         self.page('tutorials', body, drawer, crumbs=[('Help', None), ('Tutorials', None)])
 
     WEAVE_MODELS = [('ukap', 'DCAT-AP-UK (JSON)', True, True), ('mem', 'xGov MEM', True, False), ('ckan', 'CKAN', True, True), ('dcatus', 'DCAT-US (data.json)', True, True),
-                    ('schemaorg', 'schema.org', True, True), ('dc', 'Dublin Core', True, True), ('ddi', 'DDI Codebook', True, True), ('atlas', 'Apache Atlas (Microsoft Purview)', True, False), ('jsonld', 'DCAT-AP-UK (JSON-LD)', False, True),
+                    ('schemaorg', 'schema.org', True, True), ('dc', 'Dublin Core', True, True), ('ddi', 'DDI Codebook', True, True), ('atlas', 'Apache Atlas (Microsoft Purview, Atlan)', True, True),
+                    ('collibra', 'Collibra (Import API)', True, True), ('openmetadata', 'OpenMetadata', True, True), ('datahub', 'DataHub', True, True), ('unity', 'Unity Catalog', True, True),
+                    ('dataplex', 'Dataplex Universal Catalog', True, True), ('dataworld', 'data.world', True, True), ('jsonld', 'DCAT-AP-UK (JSON-LD)', False, True),
                     ('turtle', 'DCAT-AP-UK (Turtle)', False, True), ('croissant', 'Croissant 1.1', False, True)]
 
+    VENDOR_MODELS = ('collibra', 'openmetadata', 'datahub', 'unity', 'dataplex', 'dataworld')
+
     def weave_samples(self):
+        s = self.base_weave_samples()
+        # ADR 0021: each vendor sample is the real data.gov.uk CKAN record (weaver-ckan), restated in that vendor's model by the portal's own writer.
+        import subprocess
+        script = ("const V=require(process.argv[1]);const d=JSON.parse(require('fs').readFileSync(0,'utf8'));const o={};"
+                  "for(const m of d.m){o[m]=V.weave(d.P,'ckan',m,d.s).out;}process.stdout.write(JSON.stringify(o));")
+        res = subprocess.run(['node', '-e', script, str(ROOT / 'site_src' / 'validator.js')], input=json.dumps({'P': json.loads(self.files['profile.json']), 's': s['ckan'], 'm': list(self.VENDOR_MODELS)}),
+                             capture_output=True, text=True, check=True)
+        s.update(json.loads(res.stdout))
+        return s
+
+    def base_weave_samples(self):
         ex = next(e['record'] for e in self.p.examples if e['key'] == 'dataset-postcodes')
         return {
             'ukap': ex,
@@ -2484,6 +2503,167 @@ class Site:
             {'id': 'controlled', 'label': 'Controlled layers', 'icon': 'shield-check'}, {'id': 'programme', 'label': 'Work programme', 'icon': 'route', 'count': len(rq['programme'])},
             {'id': 'against', 'label': 'The case against', 'icon': 'scale', 'count': len(rq['case_against'])}]}],
                   crumbs=[('Context', 'strategy.html'), ('Requirements stream', None)])
+
+    # -- vendor connectors (ADR 0021) ----------------------------------------------
+    KITS = {
+        'atlas-business-metadata': ('Business metadata typedef (Apache Atlas, Microsoft Purview, Atlan)', 'atlas-business-metadata.json'),
+        'collibra-import': ('Import API template and attribute types (Collibra)', 'collibra-import.json'),
+        'dataworld-properties': ('Dataset properties template (data.world)', 'dataworld-properties.json'),
+        'openmetadata-custom-properties': ('Custom properties for the table entity (OpenMetadata)', 'openmetadata-custom-properties.json'),
+        'datahub-structured-properties': ('Structured properties (DataHub)', 'datahub-structured-properties.yaml'),
+        'unity-properties': ('Table properties (Unity Catalog)', 'unity-properties.json'),
+        'dataplex-aspect-type': ('Aspect type (Dataplex Universal Catalog)', 'dataplex-aspect-type.json'),
+    }
+
+    def vendor_problems(self):
+        """Integrity of content/vendors.yaml: every reference resolves, every V fact names its file and date, every weave exists."""
+        v, p, errs = self.vd, self.p, []
+        rids = {r['id'] for r in v['reports']}
+        vids = {x['id'] for x in v['vendors']} | {x['id'] for x in v['not_yet']}
+        models = {k for k, *_ in self.WEAVE_MODELS}
+        for r in v['reports']:
+            for f in ('title', 'publisher', 'date', 'url', 'prov'):
+                if not r.get(f):
+                    errs.append(f'report {r["id"]}: no {f}')
+            for ld in r.get('leaders', []):
+                if ld['vendor'] not in vids:
+                    errs.append(f'report {r["id"]}: unknown vendor {ld["vendor"]}')
+                if not str(ld.get('source', '')).startswith('https://'):
+                    errs.append(f'report {r["id"]}: leader {ld["vendor"]} has no https source')
+        for x in v['vendors'] + v['not_yet']:
+            for rid in x.get('reports', []):
+                if rid not in rids:
+                    errs.append(f'vendor {x["id"]}: unknown report {rid}')
+        for x in v['vendors']:
+            if x['kind'] == 'ranked' and not x.get('reports'):
+                errs.append(f'vendor {x["id"]}: ranked but in no report')
+            for rp in x.get('repos', []):
+                if not re.fullmatch(r'[0-9a-f]{12}', str(rp.get('commit', ''))) or not rp.get('checked'):
+                    errs.append(f'vendor {x["id"]}: repo {rp.get("repo")} has no commit or check date')
+            if x.get('crosswalk'):
+                if not x.get('model') or x['model'].get('prov') != 'V':
+                    errs.append(f'vendor {x["id"]}: a crosswalk needs a verified model file')
+                for row in x['crosswalk']:
+                    if row[0] not in p.props:
+                        errs.append(f'vendor {x["id"]}: crosswalk names unknown property {row[0]}')
+                if x.get('weave') not in models:
+                    errs.append(f'vendor {x["id"]}: weave {x.get("weave")} is not a weaver model')
+                if x.get('kit') not in self.KITS:
+                    errs.append(f'vendor {x["id"]}: unknown kit {x.get("kit")}')
+            elif not x.get('gap') and x.get('model'):
+                errs.append(f'vendor {x["id"]}: a model with no crosswalk')
+            elif not x.get('crosswalk') and not x.get('gap'):
+                errs.append(f'vendor {x["id"]}: no crosswalk and no reason')
+            ai = x.get('ai') or {}
+            if ai.get('prov') in ('V', 'S') and not str(ai.get('source', '')).startswith('https://'):
+                errs.append(f'vendor {x["id"]}: AI offer marked {ai.get("prov")} has no source')
+        s = json.dumps(v)
+        if ukap.EMAIL_RE.search(s):
+            errs.append('vendors.yaml contains an email address (COL-02)')
+        return errs
+
+    def vendor_kits(self):
+        """One add-on per extension mechanism: definitions for every Dataset property, named as the weaver names them."""
+        p = self.p
+        rows = [(x['p'], pr, x['ob'], p.multi(x)) for x, pr in p.class_props('Dataset')]
+        desc = lambda pr: ' '.join(str(pr['definition']).split())  # noqa: E731
+        note = 'Generated from DCAT-AP-UK. Names match the metadata weaver, so records written by the weaver load into these definitions. Not tested against a live tenant.'
+        kits = {}
+        kits['atlas-business-metadata'] = {'_note': note + ' Atlan addresses custom metadata by internal names in its API; map these names when loading.',
+            'businessMetadataDefs': [{'category': 'BUSINESS_METADATA', 'name': 'dcat_ap_uk', 'description': 'DCAT-AP-UK properties that the Atlas base model does not have.', 'typeVersion': '1.0',
+                'attributeDefs': [{'name': k, 'displayName': pr['label'], 'description': desc(pr), 'typeName': 'string', 'isOptional': True, 'cardinality': 'SINGLE',
+                                   'options': {'applicableEntityTypes': '["DataSet"]', 'maxStrLength': '20000'}} for k, pr, ob, m in rows]}]}
+        kits['collibra-import'] = {'_note': note + ' An administrator creates the attribute types and the Data Set asset type in the operating model first; the Import API loads data, not the model.',
+            'attributeTypes': [{'name': f'DCAT-AP-UK {k}', 'kind': 'Text', 'description': desc(pr)} for k, pr, ob, m in rows],
+            'template': [{'resourceType': 'Asset', 'identifier': {'externalSystemId': 'dcat-ap-uk', 'externalEntityId': '${identifier}'}, 'name': '${title}', 'type': {'name': 'Data Set'},
+                          'attributes': {'Description': [{'value': '${description}'}]}}]}
+        kits['dataworld-properties'] = {'_note': note, 'properties': {k: f'<{pr["label"]}>' for k, pr, ob, m in rows}}
+        kits['openmetadata-custom-properties'] = {'_note': note + ' Add each to the table type with PUT /api/v1/metadata/types/{id}; propertyType names a field type such as string or markdown.',
+            'entityType': 'table', 'customProperties': [{'name': k, 'displayName': pr['label'], 'description': desc(pr), 'propertyType': {'name': 'string'}} for k, pr, ob, m in rows]}
+        kits['unity-properties'] = {'_note': note + ' Values are strings; lists and objects are written as JSON.',
+            'properties': {f'dcat_ap_uk.{k}': desc(pr) for k, pr, ob, m in rows}}
+        kits['dataplex-aspect-type'] = {'_note': note, 'displayName': 'DCAT-AP-UK', 'description': 'DCAT-AP-UK properties for a dataset entry.',
+            'metadataTemplate': {'name': 'dcat-ap-uk', 'type': 'record', 'recordFields': [
+                {'index': i + 1, 'name': k, 'type': 'string', 'annotations': {'displayName': pr['label'], 'description': desc(pr)}, 'constraints': {'required': ob == 'M'}}
+                for i, (k, pr, ob, m) in enumerate(rows)]}}
+        dh = [{'id': f'dcat_ap_uk.{k}', 'qualified_name': f'dcat_ap_uk.{k}', 'type': 'string', 'cardinality': 'MULTIPLE' if m else 'SINGLE', 'display_name': pr['label'],
+               'entity_types': ['dataset'], 'description': desc(pr)} for k, pr, ob, m in rows]
+        kits['datahub-structured-properties'] = '# ' + note + '\n# Load with: datahub properties upsert -f datahub-structured-properties.yaml\n' + yaml.safe_dump(dh, sort_keys=False, allow_unicode=True, width=200)
+        return kits
+
+    def vendor_files(self):
+        v, dl = self.vd, self.out / 'downloads' / 'connectors'
+        dl.mkdir(parents=True, exist_ok=True)
+        for k, body in self.vendor_kits().items():
+            (dl / self.KITS[k][1]).write_text(body if isinstance(body, str) else json.dumps(body, indent=2, ensure_ascii=False) + '\n', encoding='utf-8')
+        for x in v['vendors']:
+            if x.get('crosswalk'):
+                buf = io.StringIO()
+                w = csv.writer(buf)
+                w.writerow(['DCAT-AP-UK property', f'{x["name"]} field', 'Note'])
+                w.writerows(x['crosswalk'])
+                w.writerow(['(every other property)', x['bag']['path'], 'The DCAT-AP-UK extension place defined by the add-on kit.'])
+                (dl / f'{x["id"]}-crosswalk.csv').write_text(buf.getvalue(), encoding='utf-8')
+        reg = {'as_of': v['as_of'], 'licence': 'OGL-UK-3.0', 'note': 'Not a test, an endorsement or a ranking. Report positions come from vendor announcements.', 'reports': v['reports'],
+               'vendors': v['vendors'], 'not_yet': v['not_yet']}
+        (dl / 'vendors.json').write_text(json.dumps(reg, indent=2, ensure_ascii=False) + '\n', encoding='utf-8')
+
+    def connectors_page(self):
+        v, p = self.vd, self.p
+        errs = self.vendor_problems()
+        if errs:
+            raise SystemExit('content/vendors.yaml: ' + '; '.join(errs))
+        self.vendor_files()
+        names = {x['id']: x['name'] for x in v['vendors'] + v['not_yet']}
+        rep = {r['id']: r for r in v['reports']}
+        gh = lambda r: f'<a href="https://github.com/{E(r)}">{E(r)}</a>'  # noqa: E731
+        rows = []
+        for r in v['reports']:
+            ld = ', '.join(f'<a href="{E(x["source"])}">{E(names[x["vendor"]])}</a> {prov(x["prov"])}' for x in r.get('leaders', []))
+            rows.append([f'<a href="{E(r["url"])}">{E(r["title"])}</a>', E(r['publisher']), E(r['date']), ld or 'Not yet checked', E(r.get('note', ''))])
+        rt = table('t-reports', f'Analyst reports {prov("S")}', ['Report', 'By', 'Published', 'Leaders, with the announcement that says so', 'Note'], rows)
+        cards, ai_rows = [], []
+        for x in v['vendors']:
+            rp = ''.join(f'<li>{gh(r["repo"])}: {E(r["role"])} <span class="small">(commit <code>{E(r["commit"])}</code>, checked {E(r["checked"])})</span></li>' for r in x.get('repos', []))
+            inr = ', '.join(E(rep[r]['publisher'] + ' ' + rep[r]['date'][:4]) for r in x.get('reports', [])) or 'Not ranked in these reports: a platform catalogue.'
+            ai = x.get('ai') or {}
+            tools_ = ', '.join(f'<code>{E(t)}</code>' for t in ai.get('tools', []))
+            aih = (f'<p><strong>AI agents and MCP</strong> {prov(ai.get("prov", "K"))}: {E(ai.get("mcp", ""))}'
+                   + (f' {E(ai["skills"])}' if ai.get('skills') else '') + (f' <a href="{E(ai["source"])}">Source</a>.' if ai.get('source') else '') + '</p>'
+                   + (f'<p class="small">Tools include {tools_}.</p>' if tools_ else ''))
+            ai_rows.append([E(x['name']), E(ai.get('mcp', '')), tools_ or 'None found', E(ai.get('skills', '')), prov(ai.get('prov', 'K'))])
+            if x.get('crosswalk'):
+                cw = table(f't-cw-{x["id"]}', f'{x["name"]} to DCAT-AP-UK {prov("V", v["as_of"])}', ['DCAT-AP-UK', f'{x["name"]} field', 'Note'],
+                           [[f'<a href="properties.html#p-{E(r[0])}">{E(r[0])}</a>', f'<code>{E(r[1])}</code>', E(r[2])] for r in x['crosswalk']]
+                           + [['Every other property', f'<code>{E(x["bag"]["path"])}</code>', 'The extension place the add-on kit defines.']], sortable=False)
+                kit = self.KITS[x['kit']]
+                body_cw = (f'<p>Mapped from <code>{E(x["model"]["file"])}</code> in {gh(x["model"]["repo"])}. {E(x.get("extend", ""))}</p>{cw}'
+                           f'<p class="btns"><a class="btn secondary small" href="downloads/connectors/{x["id"]}-crosswalk.csv" download>{icon("download")} Crosswalk as CSV</a> '
+                           f'<a class="btn secondary small" href="downloads/connectors/{kit[1]}" download>{icon("download")} Add-on kit: {E(kit[0])}</a> '
+                           f'<a class="btn secondary small" href="weaver.html">{icon("waypoints")} Convert in the weaver</a></p>')
+            else:
+                body_cw = f'<p>{E(x.get("extend", ""))} {E(x["gap"])}</p>'
+            cards.append(f'<section class="panel" id="v-{x["id"]}"><h3>{E(x["name"])}</h3><p class="small">In: {inr}</p>'
+                         + (f'<ul>{rp}</ul>' if rp else '<p class="small">No public repository found.</p>') + body_cw + aih + '</section>')
+        at = table('t-ai', f'What each offers AI agents {prov("V", v["as_of"])}', ['Product', 'MCP server', 'Tools', 'Skills and plugins', 'Source'], ai_rows)
+        ny = ''.join(f'<li>{E(x["name"])} <span class="small">({", ".join(E(rep[r]["publisher"] + " " + rep[r]["date"][:4]) for r in x["reports"])})</span></li>' for x in v['not_yet'])
+        nkit = ''.join(f'<li><a href="downloads/connectors/{f}" download>{E(l)}</a></li>' for l, f in self.KITS.values())
+        body = self.hero('plug', 'Adopt', TITLES['connectors'], self.gloss(' '.join(v['intro'].split())))
+        body += ('<div class="panel warning"><p>Positions in paywalled analyst reports come from the vendors\' own announcements, labelled S, or from secondary sources, labelled K. '
+                 'Nothing here is a test, an endorsement or a ranking by this project. Suppliers can correct an entry with the claim form on the '
+                 '<a href="integrations.html#claims">integrations page</a>.</p></div>')
+        body += f'<h2 id="reports">The reports</h2>{rt}'
+        body += (f'<h2 id="vendors">Products and their models</h2><p>Each crosswalk below cites the public file it was mapped from and the commit read. '
+                 f'A product whose model is not published has no mapping, rather than a guessed one.</p>{"".join(cards)}')
+        body += (f'<h2 id="ai">AI agents, MCP servers and skills</h2><p>What each vendor offers for AI agents that find, explain and govern catalogue metadata. '
+                 f'An agent can use these servers alongside this portal\'s own <a href="integrations.html">MCP server</a>, which checks and converts DCAT-AP-UK records.</p>{at}')
+        body += f'<h2 id="kits">Add-on kits</h2><p>Definitions of every DCAT-AP-UK dataset property, in each product\'s own extension format, named as the weaver writes them.</p><ul>{nkit}</ul>'
+        body += f'<p><a class="btn" href="downloads/connectors/vendors.json" download>{icon("download")} Download the register as JSON</a></p>'
+        body += f'<h2 id="not-yet">Not covered yet</h2><p>Named in a report above, with no public metadata model or MCP server found on {E(v["as_of"])}. The weekly run looks again.</p><ul>{ny}</ul>'
+        drawer = [{'title': 'Vendor connectors', 'icon': 'plug', 'items': [{'id': 'reports', 'label': 'Reports', 'icon': 'file-text' if 'file-text' in ICONS else 'list-checks', 'count': len(v['reports'])},
+                   {'id': 'vendors', 'label': 'Products', 'icon': 'boxes', 'count': len(v['vendors'])}, {'id': 'ai', 'label': 'AI agents and MCP', 'icon': 'workflow'},
+                   {'id': 'kits', 'label': 'Add-on kits', 'icon': 'package', 'count': len(self.KITS)}, {'id': 'not-yet', 'label': 'Not covered yet', 'icon': 'clipboard-check', 'count': len(v['not_yet'])}]}]
+        self.page('connectors', body, drawer, crumbs=[('Adopt', None), (TITLES['connectors'], None)])
 
     def lockin_page(self):
         lk, sd = self.lk, self.sd

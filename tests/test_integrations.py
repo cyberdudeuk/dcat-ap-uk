@@ -35,7 +35,7 @@ class Weaver(unittest.TestCase):
         built()
         html = (SITE / 'weaver.html').read_text(encoding='utf-8')
         samples = {m.group(1): json.loads(m.group(2).replace('<\\/', '</')) for m in re.finditer(r'<script type="application/json" id="w-sample-([a-z]+)">(.*?)</script>', html, re.S)}
-        self.assertEqual({'ukap', 'mem', 'ckan', 'dcatus', 'schemaorg', 'dc', 'ddi', 'atlas'}, set(samples))
+        self.assertEqual({'ukap', 'mem', 'ckan', 'dcatus', 'schemaorg', 'dc', 'ddi', 'atlas', 'collibra', 'openmetadata', 'datahub', 'unity', 'dataplex', 'dataworld'}, set(samples))
         writers = js('return V.writers;', None)
         for fr, rec in samples.items():
             for to in writers:

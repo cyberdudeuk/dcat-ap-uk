@@ -41,3 +41,9 @@
   label: Weaver Apache Atlas (Microsoft Purview) sample, an invented data map entity
   synthetic: Data map entities live inside an organisation's own Purview account and are not published, so no real one can be shown.
   addresses: ['https://example.org/lake/spending/quarterly.csv']
+- id: weaver-vendors
+  label: Weaver samples for Collibra, OpenMetadata, DataHub, Unity Catalog, Dataplex and data.world
+  prov: V
+  checked: '2026-11-07'
+  url: https://ckan.publishing.service.gov.uk/dataset/uk-food-hygiene-rating-data
+  source: The weaver-ckan record above, restated in each vendor's model by the portal's own writers at build time (ADR 0021). Vendor catalogue entries live inside each organisation's own tenant and are not published.
