@@ -2683,6 +2683,8 @@ class Site:
             steps.append(f'Give AI agents the catalogue through its MCP server: {E(x["ai"]["mcp"])}')
         if c['claude']:
             steps.append('In Claude: ' + '; '.join(f'{E(k["name"])} ({E(k["type"])})' for k in x['claude']) + '. See <a href="#claude">In Claude</a>.')
+        if x.get('schema_checked'):
+            steps.append(f'What the portal produces for {E(x["name"])} is checked on every build against {E(x["schema_checked"])}.')
         steps.append('Check every record against DCAT-AP-UK with the <a href="validate.html">validator</a> before it is published or harvested.')
         return steps
 
@@ -2799,7 +2801,7 @@ class Site:
             else:
                 mapped = ''
             steps = ''.join(f'<li>{st}</li>' for st in self.vendor_steps(x))
-            badges = ' '.join(f'<strong class="tag {"ok" if ok else ""}">{E(lbl)}</strong>' for lbl, ok in (('Mapped', c['mapped']), ('Kit', c['kit']), ('Weaver', bool(c['weave'])), ('MCP', c['mcp']), ('In Claude', c['claude'])) if ok)
+            badges = ' '.join(f'<strong class="tag {"ok" if ok else ""}">{E(lbl)}</strong>' for lbl, ok in (('Mapped', c['mapped']), ('Schema-checked', bool(x.get('schema_checked'))), ('Kit', c['kit']), ('Weaver', bool(c['weave'])), ('MCP', c['mcp']), ('In Claude', c['claude'])) if ok)
             cards[x['kind']].append(f'<section class="panel" id="v-{x["id"]}"><h4>{E(x["name"])}</h4><p class="small">{badges} Runs as: {E(dlab(x))} {prov("K")}. In: {inr}</p>'
                                     f'<h5>How to connect</h5><ol>{steps}</ol>{mapped}'
                                     + (f'<details><summary>Public repositories ({len(x["repos"])})</summary><ul>{rp}</ul></details>' if rp else '<p class="small">No public repository found.</p>')

@@ -100,6 +100,65 @@ class CitedCommits(unittest.TestCase):
         self.assertFalse(cvr.exists(real['repo'], real['commit'][:12]))
 
 
+class VendorSchemas(unittest.TestCase):
+    # D-035: the OpenLineage documentation facet named a schema version the spec no longer uses. Each format is now
+    # validated against the vendor's own schema at the cited commit; these breaks prove each validation can fail.
+    @classmethod
+    def setUpClass(cls):
+        import subprocess
+        import tempfile
+        try:
+            subprocess.run(['git', 'ls-remote', 'https://github.com/boto/botocore', 'HEAD'], check=True, capture_output=True, timeout=30)
+        except Exception:
+            raise unittest.SkipTest('github.com is not reachable here; CI runs tools/check_vendor_shapes.py')
+        import check_vendor_shapes as cvs
+        cls.cvs = cvs
+        cls.tmp = tempfile.TemporaryDirectory()
+        rec = next(e['record'] for e in P.examples if e['key'] == 'dataset-postcodes')
+        cls.good = {m: [js('return V.weave(P,"ukap",d.m,d.r).out;', {'m': m, 'r': rec})] for m in ('glue', 'datazone', 'iceberg', 'openlineage', 'openmetadata')}
+        cls.kits = Fake(VD).vendor_kits()
+        cls.problems, _ = cvs.check(VD, cls.good, cls.kits, cls.tmp.name)
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.tmp.cleanup()
+
+    def test_the_good_output_conforms(self):
+        self.assertEqual([], self.problems)
+
+    def test_each_break_is_caught(self):
+        import tempfile
+        cases = {
+            'glue: a description that is not a string': ('glue', lambda o: o.update(Description=42)),
+            'glue: a member Glue does not have': ('glue', lambda o: o.update(Title='x')),
+            'datazone: a member DataZone does not have': ('datazone', lambda o: o.update(title='x')),
+            'iceberg: a property that is not a string': ('iceberg', lambda o: o['properties'].update(comment=1)),
+            'openlineage: a dataset with no namespace': ('openlineage', lambda o: o.pop('namespace')),
+            'openlineage: a facet with no producer': ('openlineage', lambda o: o['facets']['documentation'].pop('_producer')),
+            'openmetadata: tags that are not tag labels': ('openmetadata', lambda o: o.update(tags=['postcode'])),
+        }
+        for name, (m, f) in cases.items():
+            with self.subTest(break_=name), tempfile.TemporaryDirectory() as tmp:
+                out = copy.deepcopy(self.good)
+                f(out[m][0])
+                problems, _ = self.cvs.check(VD, out, self.kits, tmp)
+                self.assertTrue(problems, name + ' was not caught')
+
+    def test_kit_breaks_are_caught(self):
+        import tempfile
+        cases = {
+            'oci: a data type OCI does not have': lambda k: k['oci-custom-properties']['customProperties'][0].update(dataType='STRING'),
+            'oci: a field OCI does not have': lambda k: k['oci-custom-properties']['customProperties'][0].update(label='x'),
+            'datahub: a key DataHub does not use': lambda k: k.update({'datahub-structured-properties': k['datahub-structured-properties'].replace('display_name:', 'title:', 1)}),
+        }
+        for name, f in cases.items():
+            with self.subTest(break_=name), tempfile.TemporaryDirectory() as tmp:
+                kits = copy.deepcopy(self.kits)
+                f(kits)
+                problems, _ = self.cvs.check(VD, self.good, kits, tmp)
+                self.assertTrue(problems, name + ' was not caught')
+
+
 class Weaving(unittest.TestCase):
     def test_round_trip_loses_nothing(self):
         for e in P.examples:

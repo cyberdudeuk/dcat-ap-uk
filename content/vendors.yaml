@@ -295,6 +295,7 @@ vendors:
       - [identifier, qualifiedName, '']
 
   - id: openmetadata
+    schema_checked: "OpenMetadata's table schema, every worked example; the id and columns are added at load time"
     deploy: [open-source, saas]
     name: OpenMetadata (and Collate)
     kind: platform
@@ -321,6 +322,7 @@ vendors:
       - [contactPoint, (none), 'owners names users and teams. Give a team contact form as a custom property.']
 
   - id: datahub
+    schema_checked: "the DataHub project's own structured property examples (the kit's keys and types)"
     deploy: [open-source, saas]
     name: DataHub (and DataHub Cloud)
     kind: platform
@@ -488,6 +490,7 @@ vendors:
       source: https://datagalaxy.freshdesk.com/en/support/solutions/articles/35000314586-how-to-connect-datagalaxy-mcp-server-to-onyx
 
   - id: snowflake
+    schema_checked: "the Iceberg REST specification (CreateTableRequest), every worked example; the table schema is added at load time"
     name: Snowflake (Horizon Catalog and Snowflake Open Catalog)
     kind: platform
     deploy: [saas]
@@ -526,6 +529,7 @@ vendors:
       - [title, (none), 'name is the table identifier, not a title. Keep the title in properties.']
 
   - id: aws-glue
+    schema_checked: "AWS's own Glue model (TableInput in botocore), every worked example"
     name: AWS Glue Data Catalog
     kind: platform
     deploy: [cloud]
@@ -559,6 +563,7 @@ vendors:
       - [contactPoint, (none), 'Owner names a person. Give a team contact form in Parameters.']
 
   - id: aws-sagemaker-catalog
+    schema_checked: "AWS's own DataZone model (CreateAssetInput in botocore), every worked example; domain, asset type and project are added at load time"
     name: Amazon SageMaker Catalog (Amazon DataZone)
     kind: platform
     deploy: [cloud]
@@ -578,6 +583,7 @@ vendors:
       - [keyword, (none), 'glossaryTerms holds glossary term identifiers, not free keywords. Keywords stay in the form.']
 
   - id: oracle-oci-data-catalog
+    schema_checked: "the OCI SDK's CreateCustomPropertyDetails (the custom property kit)"
     name: Oracle Cloud Infrastructure Data Catalog
     kind: platform
     deploy: [cloud]
@@ -711,6 +717,7 @@ vendors:
       source: https://www.actian.com/data-intelligence/mcp-server/
 
   - id: apache-polaris
+    schema_checked: "the Iceberg REST specification (CreateTableRequest), every worked example; the table schema is added at load time"
     name: Apache Polaris (Iceberg REST catalog)
     kind: open-source
     deploy: [open-source]
@@ -728,6 +735,7 @@ vendors:
       - [description, properties.comment, 'The property engines use for a table comment; background knowledge.']
 
   - id: openlineage
+    schema_checked: "the OpenLineage specification (Dataset and the documentation facet), every worked example; the facet kit is a valid JSON Schema"
     name: OpenLineage (and Marquez)
     kind: open-source
     deploy: [open-source]

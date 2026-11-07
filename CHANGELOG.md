@@ -25,6 +25,10 @@ All notable changes to DCAT-AP-UK. The format follows [Keep a Changelog](https:/
   data.world, Apache Atlas or OpenMetadata.
 
 ### Fixed
+- D-035: the OpenLineage facet the weaver writes named an old schema version. `tools/check_vendor_shapes.py` now
+  validates weaver output for Glue, SageMaker Catalog, Iceberg REST, OpenLineage and OpenMetadata, plus the OCI and
+  DataHub kits, against each vendor's own schema at the cited commit. It runs in CI with ten deliberate breaks.
+  Products that pass are marked "Schema-checked".
 - D-034: cited vendor commits were padded with invented characters. Citations are now full commit IDs, and
   `tools/check_vendor_repos.py` fetches every one from GitHub in CI.
 - Vendor connectors and AI agents (ADR 0021): a page and `downloads/connectors/` for the products in the Gartner Magic

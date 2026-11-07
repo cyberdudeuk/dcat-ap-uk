@@ -615,7 +615,7 @@
       shape: function (o, r) {
         o.namespace = 'dcat-ap-uk'; o.name = slugName(r); o.facets = o.facets || {};
         var by = { _producer: 'https://cyberdudeuk.github.io/dcat-ap-uk/', _schemaURL: 'https://cyberdudeuk.github.io/dcat-ap-uk/downloads/connectors/openlineage-dcat-ap-uk-facet.json' };
-        if (o.facets.documentation) Object.assign(o.facets.documentation, { _producer: by._producer, _schemaURL: 'https://openlineage.io/spec/facets/1-0-1/DocumentationDatasetFacet.json' });
+        if (o.facets.documentation) Object.assign(o.facets.documentation, { _producer: by._producer, _schemaURL: 'https://openlineage.io/spec/facets/1-1-0/DocumentationDatasetFacet.json' });
         if (o.facets.dcat_ap_uk) Object.assign(o.facets.dcat_ap_uk, by);
         return o;
       } },
