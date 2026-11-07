@@ -1,0 +1,41 @@
+# Automation policy for DCAT-AP-UK (ADR 0017). Every workflow in .github/workflows is listed here with its tier, so a
+# person can see at a glance what runs, when, and what it is allowed to change. tests/test_automation.py fails the build
+# if a workflow is missing from this file, or if a tier 1 routine does not honour the kill switch.
+#
+# Tiers of autonomy, from the estate automation pattern:
+#   0 observe   reads and reports only: issues, labels, the Status page. Never changes content.
+#   1 maintain  changes derived or reference data on its own, only after every check passes, in a commit that says why,
+#               and only while the kill switch is on. Easy to undo: one revert.
+#   2 propose   prepares a change for a person: a pull request, an issue with the evidence, or a draft. A person decides.
+#   3 person    never automated: releases (a person presses the button), settings, deletions, anything sent outside
+#               the repository, endorsement and conformance claims, the open register.
+#
+# Kill switch: set the repository variable AUTOMATION to "off" (Settings, Secrets and variables, Actions, Variables).
+# Tier 1 routines then report what they would have done and change nothing. Tier 0 keeps reporting.
+
+kill_switch: {variable: AUTOMATION, off_value: 'off'}
+oversight:
+  digest: Every Monday the digest routine opens one issue (label digest) listing what every routine did, what failed and what needs a person. It closes last week's.
+  undo: Every tier 1 change is one commit by github-actions, with the routine named in its message; revert it to undo.
+  audit: Workflow run logs are kept by GitHub for 90 days; the digest links to the runs.
+
+routines:
+  - {id: pages, workflow: pages.yml, tier: 1, when: 'every push, every pull request, Mondays 06:23 UTC, on request', does: 'Builds the site, runs every check and deliberate break, runs the health run for the Status page, and publishes main.', changes: 'The published site only (gh-pages), after every check passes.'}
+  - {id: health-issue, workflow: pages.yml, tier: 0, when: 'Mondays, on request', does: 'Opens or updates an issue labelled health when a source changed or is unreachable, the review date is near or a page is too heavy; closes it when healthy.', changes: 'Issues only.'}
+  - {id: release, workflow: release.yml, tier: 3, when: 'a person pushes a version tag, or presses Run on the Release workflow', does: 'Builds and checks the tagged version and publishes a GitHub release with the profile files and the site.', changes: 'A GitHub release. Only a person starts it.'}
+  - {id: flags-reset, workflow: release.yml, tier: 1, when: 'straight after each release', does: 'Records the section baseline from the released tag, so change flags show what changed since that release; checks the site, commits content/section-baseline.json and republishes.', changes: 'content/section-baseline.json.'}
+  - {id: upkeep, workflow: upkeep.yml, tier: 1, when: 'Mondays 05:47 UTC, on request', does: 'Refreshes the organisation list from GOV.UK, repairs a change-flag baseline that lags the latest release, and reminds about the review date.', changes: 'profile/organisations.json and content/section-baseline.json, after every check passes. A large organisation change (more than 25 rows) becomes a pull request instead. Review reminders are issues.'}
+  - {id: triage, workflow: triage.yml, tier: 0, when: 'weekdays 07:23 UTC, on request', does: 'Labels contact, defect, change request and conformance claim issues that have waited too long for a reply (needs-reply) or a decision (overdue).', changes: 'Labels only.'}
+  - {id: digest, workflow: digest.yml, tier: 0, when: 'Mondays 08:13 UTC, on request', does: 'Writes the weekly operations digest for the owner: the Status page, what each routine did, failed runs, issues waiting, pull requests open and decisions needed.', changes: 'One issue a week (label digest); closes the previous one.'}
+  - {id: labels, workflow: labels.yml, tier: 1, when: 'when .github/labels.yml changes, on request', does: 'Keeps the repository labels in line with .github/labels.yml.', changes: 'Labels.'}
+  - {id: codeql, workflow: codeql.yml, tier: 0, when: 'every push, every pull request, Mondays', does: 'Scans the code for security problems.', changes: 'Security alerts only.'}
+  - {id: scorecard, workflow: scorecard.yml, tier: 0, when: 'Mondays, on request, when branch rules change', does: 'OpenSSF Scorecard: an independent check of how the repository is run.', changes: 'Security alerts only.'}
+  - {id: dependency-review, workflow: dependency-review.yml, tier: 0, when: 'every pull request', does: 'Stops a pull request that adds a dependency with a known moderate or worse vulnerability.', changes: 'Nothing; fails the pull request.'}
+
+never:
+  - Change repository settings, rulesets, secrets or the kill switch.
+  - Delete a branch, tag, release, issue or file a person made.
+  - Send anything outside the repository (pull requests or issues elsewhere, email, posts).
+  - Change the profile, its codelists, the requirements, the registers or any page content written by a person.
+  - Claim conformance, endorsement or approval.
+  - Merge a pull request.

@@ -2527,6 +2527,19 @@ class Site:
         body += ('<h2 id="repair">Self-repair: defects and their checks</h2><p>Automation never pushes, deletes or changes settings. It rebuilds what is derived and reports the rest. '
                  'Every defect found has a root cause and a check, listed in the <a href="governance.html#defects">defect register</a>.</p>'
                  + table('t-def-sum', f'{len(d["defects"])} defects, newest first', ['Defect', 'Found', 'What', 'Check'], [[E(x['id']), E(x['found']), E(x['what']), E(x['check'])] for x in reversed(d['defects'])]))
+        auto = yaml.safe_load((ROOT / 'ops' / 'automation.yaml').read_text(encoding='utf-8'))
+        TIER = {0: 'Observe', 1: 'Maintain', 2: 'Propose', 3: 'Person only'}
+        arows = [[E(r['id']), f'<strong class="tag {"ok" if r["tier"] == 0 else "warn" if r["tier"] in (1, 2) else "err"}">{r["tier"]} {TIER[r["tier"]]}</strong>', E(r['when']), E(r['does']), E(r['changes']),
+                  f'<a href="{E(self.m["repo_url"])}/blob/main/.github/workflows/{E(r["workflow"])}"><code>{E(r["workflow"])}</code></a>'] for r in auto['routines']]
+        body += ('<h2 id="automation">Routines and who is in control</h2>'
+                 '<p>Day-to-day upkeep is done by routines; a person keeps control. Each routine has a tier: <strong>0 Observe</strong> reads and reports; '
+                 '<strong>1 Maintain</strong> changes derived or reference data only after every check passes, in one commit that names the routine, so it is one revert to undo; '
+                 '<strong>2 Propose</strong> prepares a pull request or an issue for a person; <strong>3 Person only</strong> is never automated. '
+                 f'Every Monday the digest routine opens one issue listing what each routine did and what needs a person. '
+                 f'To stop every tier 1 routine changing anything, set the repository variable <code>{E(auto["kill_switch"]["variable"])}</code> to <code>{E(auto["kill_switch"]["off_value"])}</code>.</p>'
+                 + table('t-routines', f'{len(auto["routines"])} routines', ['Routine', 'Tier', 'When', 'What it does', 'What it may change', 'Workflow'], arows)
+                 + '<h3 id="never">Never automated</h3>' + ul([E(x) for x in auto['never']])
+                 + '<p>The same pattern runs across the connected portals; see <a href="governance.html#adrs">ADR 0017</a>.</p>')
         body += '<p>Machine-readable: <a href="downloads/status.json">status.json</a>.</p>'
         (self.out / 'downloads' / 'status.json').write_text(json.dumps({
             'build': self.build_id, 'version': self.m['version'], 'as_of': str(self.m['as_of']), 'in_order': good,
@@ -2534,11 +2547,13 @@ class Site:
             'checks': [{'id': i, 'what': re.sub(r'\{([^}]*)\}', r'[\1]', t)} for i, t in d['checks']], 'browser_breaks': d['breaks'], 'unit_tests': d['tests'],
             'requirements': rq, 'gates': d['gates'], 'repository_files': dict(d['hygiene']),
             'staleness': [{'what': a, 'as_of': b, 'days': c, 'in_date': ok} for a, b, c, _, ok in d['stale']],
-            'health': H, 'defects': len(d['defects']), 'open_items': len(d['open'])}, indent=1, ensure_ascii=False) + '\n', encoding='utf-8')
+            'health': H, 'defects': len(d['defects']), 'open_items': len(d['open']),
+            'automation': yaml.safe_load((ROOT / 'ops' / 'automation.yaml').read_text(encoding='utf-8'))}, indent=1, ensure_ascii=False) + '\n', encoding='utf-8')
         drawer = [{'title': 'Status', 'icon': 'heart-pulse', 'items': [
             {'id': 'routines', 'label': 'The five routines', 'icon': 'gauge', 'count': 5}, {'id': 'verification', 'label': 'Self-verification', 'icon': 'shield-check', 'count': len(d['checks'])},
             {'id': 'assessment', 'label': 'Self-assessment', 'icon': 'clipboard-check', 'count': len(d['gates'])}, {'id': 'staleness', 'label': 'Staleness', 'icon': 'refresh-cw', 'count': len(d['stale'])},
-            {'id': 'health', 'label': 'Health run', 'icon': 'heart-pulse'}, {'id': 'repair', 'label': 'Defects and checks', 'icon': 'wrench', 'count': len(d['defects'])}]}]
+            {'id': 'health', 'label': 'Health run', 'icon': 'heart-pulse'}, {'id': 'repair', 'label': 'Defects and checks', 'icon': 'wrench', 'count': len(d['defects'])},
+            {'id': 'automation', 'label': 'Routines and control', 'icon': 'workflow', 'count': len(yaml.safe_load((ROOT / 'ops' / 'automation.yaml').read_text(encoding='utf-8'))['routines'])}]}]
         self.page('status', body, drawer, crumbs=[('About', None), ('Status and self-checks', None)])
 
     def reuse_page(self):

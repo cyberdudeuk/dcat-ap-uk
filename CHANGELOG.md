@@ -48,6 +48,11 @@ A minor release: a new name, tools for suppliers and buyers, and a richer portal
 - Change flags, as the Data Quality Commons has them: every section is fingerprinted at a release, and sections that are
   new or updated since are flagged on their heading, in the page drawer (items and groups), under the page title and in the
   global bar; What's new lists them all, and `downloads/changes-since.json` publishes them (ADR 0016, check C-24).
+- Routines do the upkeep and a person keeps control (ADR 0017): every workflow has a tier in `ops/automation.yaml`;
+  the change flags reset themselves after each release; a weekly upkeep routine refreshes the organisation list, repairs a
+  lagging baseline and reminds about the review date; triage labels waiting issues; a weekly digest issue is the owner's
+  one place to look; releases are one button press; `AUTOMATION=off` stops every tier 1 change. Dependency review and
+  OpenSSF Scorecard as in the DAM playbooks, and every action pinned to a commit.
 - A Status page, as the DAM playbooks have one, with the five self-* routines the GitHub Repos Asset Catalogue runs:
   verification, assessment (including the repository files a well-kept repository needs), staleness, reporting (a health run
   on every build) and repair (`downloads/status.json`).

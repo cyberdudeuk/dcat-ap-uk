@@ -1,0 +1,38 @@
+name: Upkeep
+# Tier 1 routine (ops/automation.yaml, ADR 0017). Weekly: refreshes the organisation list from GOV.UK, repairs a
+# change-flag baseline that lags the latest release, and opens a reminder when the review date is near. Every change is
+# built and checked first, committed by github-actions with the routine named, and republished. A large organisation
+# change becomes a pull request for a person. Set the repository variable AUTOMATION to off to make it report only.
+on:
+  schedule: [{cron: '47 5 * * 1'}]   # Mondays 05:47 UTC, before the Pages run
+  workflow_dispatch:
+    inputs:
+      dry_run: {description: 'Report what would change, change nothing', type: boolean, default: false}
+permissions:
+  contents: read
+concurrency: {group: upkeep, cancel-in-progress: false}
+jobs:
+  upkeep:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+      actions: write
+    steps:
+      - name: Check out main with tags
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git clone -q "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" .
+          git fetch -q --tags
+      - name: Run the upkeep routine
+        env:
+          GH_TOKEN: ${{ github.token }}
+          AUTOMATION: ${{ vars.AUTOMATION }}
+          DRY: ${{ inputs.dry_run }}
+        run: |
+          python3 -m venv "$RUNNER_TEMP/venv" && . "$RUNNER_TEMP/venv/bin/activate"
+          pip install -r requirements.txt
+          python -I tools/routine.py upkeep $( [ "$DRY" = "true" ] && echo --dry-run )

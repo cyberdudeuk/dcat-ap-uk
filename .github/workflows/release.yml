@@ -1,16 +1,28 @@
 name: Release
+# Tier 3, then tier 1 (ops/automation.yaml, ADR 0017). Only a person starts a release: by pushing a version tag, or by
+# pressing Run here, which tags main with the version in profile/dcat-ap-uk.yaml. Straight after, the flags-reset routine
+# records the section baseline from the released tag, so the change flags show what changed since this release, checks
+# the site, commits the baseline and republishes. No one has to remember to do it.
 on:
   push:
     tags: ['v*']
+  workflow_dispatch:
+    inputs:
+      confirm:
+        description: 'Type the version to release, exactly as in profile/dcat-ap-uk.yaml (for example 1.2.0-rc.1)'
+        required: true
 permissions:
   contents: read
+concurrency: {group: release, cancel-in-progress: false}
 jobs:
   release:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+    outputs:
+      tag: ${{ steps.tag.outputs.tag }}
     steps:
-      - name: Check out the tag
+      - name: Check out
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -18,6 +30,20 @@ jobs:
           git remote add origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
           git fetch -q --depth 1 origin "${GITHUB_SHA}"
           git checkout -q FETCH_HEAD
+      - name: Work out the tag (a pressed button must name the version in the profile)
+        id: tag
+        env:
+          CONFIRM: ${{ inputs.confirm }}
+        run: |
+          v=$(python3 -c "import yaml;print(yaml.safe_load(open('profile/dcat-ap-uk.yaml'))['meta']['version'])")
+          if [ "${GITHUB_EVENT_NAME}" = "workflow_dispatch" ]; then
+            [ "$CONFIRM" = "$v" ] || { echo "::error::You typed '$CONFIRM' but the profile says '$v'. Nothing was released."; exit 1; }
+            grep -q "^## \[$v\]" CHANGELOG.md || { echo "::error::CHANGELOG.md has no section for $v. Nothing was released."; exit 1; }
+            git ls-remote --exit-code --tags origin "refs/tags/v$v" >/dev/null && { echo "::error::v$v already exists."; exit 1; }
+            echo "tag=v$v" >> "$GITHUB_OUTPUT"
+          else
+            echo "tag=${GITHUB_REF_NAME}" >> "$GITHUB_OUTPUT"
+          fi
       - name: Build and check
         run: |
           python3 -m venv "$RUNNER_TEMP/venv" && . "$RUNNER_TEMP/venv/bin/activate"
@@ -27,12 +53,41 @@ jobs:
           python -I tools/check_site.py
           python -I tools/check_site.py --vaccinate
           python -I tools/check_browser.py
+      - name: Tag (when the button was pressed)
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          git tag "${{ steps.tag.outputs.tag }}" && git push -q origin "refs/tags/${{ steps.tag.outputs.tag }}"
       - name: Release with the profile files and the site as assets
         env:
           GH_TOKEN: ${{ github.token }}
+          TAG: ${{ steps.tag.outputs.tag }}
         run: |
-          (cd site && zip -qr "../dcat-ap-uk-site-${GITHUB_REF_NAME}.zip" .)
+          (cd site && zip -qr "../dcat-ap-uk-site-${TAG}.zip" .)
           cd site/downloads
-          gh release create "${GITHUB_REF_NAME}" --generate-notes --title "DCAT-AP-UK ${GITHUB_REF_NAME}" \
+          gh release create "${TAG}" --generate-notes --title "DCAT-AP-UK ${TAG}" $( [[ "$TAG" == *-* ]] && echo --prerelease ) \
             dcat-ap-uk.shacl.ttl dcat-ap-uk.schema.json dcat-ap-uk.context.jsonld dcat-ap-uk.linkml.yaml dcat-ap-uk.ns.ttl \
-            codelists.ttl codelists.csv data-dictionary.csv crosswalk-mem.csv "../../dcat-ap-uk-site-${GITHUB_REF_NAME}.zip"
+            codelists.ttl codelists.csv data-dictionary.csv crosswalk-mem.csv "../../dcat-ap-uk-site-${TAG}.zip"
+
+  flags-reset:
+    # Tier 1 routine: reset the change flags to the release just made.
+    needs: release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      actions: write
+    steps:
+      - name: Check out main with full history (the baseline is built from the tag in a worktree)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git clone -q "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" .
+          git fetch -q --tags
+      - name: Reset the change flags
+        env:
+          GH_TOKEN: ${{ github.token }}
+          AUTOMATION: ${{ vars.AUTOMATION }}
+          TAG: ${{ needs.release.outputs.tag }}
+        run: |
+          python3 -m venv "$RUNNER_TEMP/venv" && . "$RUNNER_TEMP/venv/bin/activate"
+          pip install -r requirements.txt
+          python -I tools/routine.py flags-reset --tag "$TAG"

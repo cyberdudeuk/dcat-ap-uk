@@ -1,0 +1,66 @@
+name: Digest
+# Tier 0 routine (ops/automation.yaml, ADR 0017): the owner's one place to look each week. Lists what every routine did,
+# which runs failed, the Status page's verdict and what is waiting for a person, then closes last week's digest. Reads
+# and reports only. The estate conductor reads these digests across repositories.
+on:
+  schedule: [{cron: '13 8 * * 1'}]   # Mondays 08:13 UTC, after upkeep, Pages and health
+  workflow_dispatch:
+permissions:
+  contents: read
+  issues: write
+  actions: read
+  pull-requests: read
+jobs:
+  digest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8
+        with:
+          script: |
+            const since = new Date(Date.now() - 7 * 864e5), day = since.toISOString().slice(0, 10);
+            const repo = context.repo, site = `https://${repo.owner}.github.io/${repo.repo}/`;
+            const lines = [`Week from ${day}. Written by the digest routine (tier 0, ops/automation.yaml): it reports, a person decides.`, ''];
+            // 1. The Status page's verdict
+            try {
+              const st = await (await fetch(site + 'downloads/status.json')).json();
+              lines.push(`## Status: ${st.in_order ? 'in order' : 'needs attention'}`, `Build ${st.build}. [Status page](${site}status.html)`, '');
+              for (const r of st.routines) lines.push(`- ${r.in_order ? '✅' : '⚠️'} **${r.routine}**: ${r.summary}`);
+              if (st.health && st.health.problems && st.health.problems.length) { lines.push('', '**Health problems**'); for (const p of st.health.problems) lines.push(`- ${p}`); }
+            } catch (e) { lines.push('## Status: could not read status.json', String(e)); }
+            // 2. What the routines changed
+            const commits = await github.paginate(github.rest.repos.listCommits, {...repo, since: since.toISOString()});
+            const routine = commits.filter(c => /\nRoutine: /.test(c.commit.message));
+            lines.push('', `## Changes made by routines (${routine.length})`);
+            for (const c of routine) lines.push(`- ${c.commit.message.split('\n')[0]} (${c.sha.slice(0, 7)}; undo: revert it)`);
+            if (!routine.length) lines.push('- None.');
+            lines.push('', `People committed ${commits.length - routine.length} other change(s).`);
+            // 3. Runs that failed
+            const runs = (await github.rest.actions.listWorkflowRunsForRepo({...repo, created: `>=${day}`, per_page: 100})).data.workflow_runs;
+            const failed = runs.filter(r => r.conclusion === 'failure');
+            lines.push('', `## Workflow runs: ${runs.length}, failed ${failed.length}`);
+            for (const r of failed) lines.push(`- ❌ [${r.name} #${r.run_number}](${r.html_url}) on ${r.head_branch}, ${r.created_at.slice(0, 10)}`);
+            // 4. Waiting for a person
+            const want = ['owner action', 'review due', 'health', 'routine', 'overdue', 'needs-reply', 'defect'];
+            lines.push('', '## Waiting for a person');
+            let waiting = 0;
+            for (const label of want) {
+              const items = (await github.paginate(github.rest.issues.listForRepo, {...repo, state: 'open', labels: label})).filter(i => !i.title.startsWith('Operations digest'));
+              if (!items.length) continue;
+              waiting += items.length;
+              lines.push(`**${label}** (${items.length})`);
+              for (const i of items.slice(0, 10)) lines.push(`- [#${i.number} ${i.title}](${i.html_url})${i.pull_request ? ' (pull request)' : ''}`);
+            }
+            const prs = await github.paginate(github.rest.pulls.list, {...repo, state: 'open'});
+            lines.push(`**Open pull requests** (${prs.length})`);
+            for (const p of prs.slice(0, 10)) lines.push(`- [#${p.number} ${p.title}](${p.html_url}) by ${p.user.type === 'Bot' ? 'a routine or bot' : 'a person'}`);
+            if (!waiting && !prs.length) lines.push('Nothing is waiting.');
+            lines.push('', 'To stop tier 1 routines changing anything, set the repository variable AUTOMATION to off. See ops/automation.yaml.');
+            // 5. Replace last week's digest
+            const old = await github.paginate(github.rest.issues.listForRepo, {...repo, state: 'open', labels: 'digest'});
+            const issue = await github.rest.issues.create({...repo, title: `Operations digest, week from ${day}`, labels: ['digest'], body: lines.join('\n')});
+            for (const o of old) {
+              await github.rest.issues.createComment({...repo, issue_number: o.number, body: `Replaced by #${issue.data.number}.`});
+              await github.rest.issues.update({...repo, issue_number: o.number, state: 'closed', state_reason: 'completed'});
+            }
+            core.summary.addRaw(lines.join('\n')).write();

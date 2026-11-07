@@ -121,7 +121,22 @@ The same five routines run here as in the other portals of the estate ([ADR 0016
 - **Self-reporting:** `tools/health.py` on every build feeds the Status page; the weekly run opens or closes an issue labelled health.
 - **Self-repair:** derived files are rebuilt; content, settings and the open register change only by a person. Every defect has a check.
 
-**Change flags.** At each release, after tagging, run `python3 -I tools/section_baseline.py --ref <tag> --since <version> --date <yyyy-mm-dd>` and commit `content/section-baseline.json`. Until then, sections that are new or updated since the last baseline are flagged across the portal and listed on What's new.
+**Change flags** reset themselves: straight after each release, the flags-reset routine records the section baseline from the released tag, checks the site, commits it and republishes, so flags always show what changed since the last release. The weekly upkeep routine repairs the baseline if that step ever failed.
+
+### Routines, and how a person stays in control
+
+Day-to-day upkeep is automated; decisions are not ([ADR 0017](docs/adr/0017-routines-do-the-upkeep-a-person-keeps-control.md)). Every workflow is declared in [`ops/automation.yaml`](ops/automation.yaml) with its tier, schedule and what it may change, and the portal's Status page lists them.
+
+| Tier | Meaning | Examples |
+|---|---|---|
+| 0 Observe | Reads and reports | health run, triage labels, the weekly digest, CodeQL, Scorecard |
+| 1 Maintain | Changes derived or reference data alone, only after every check passes, one commit to revert | publishing, change-flag reset, organisation refresh |
+| 2 Propose | A pull request or issue for a person | a large organisation change |
+| 3 Person only | Never automated | releases, settings, deletions, anything sent outside, claims |
+
+- **Release:** press Run on the Release workflow and type the version from the profile. Everything else follows.
+- **Read the digest:** each Monday one issue labelled `digest` lists what the routines did, failed runs and what is waiting for you.
+- **Stop:** set the repository variable `AUTOMATION` to `off`, and tier 1 routines report without changing anything.
 
 ## Changing the profile
 
