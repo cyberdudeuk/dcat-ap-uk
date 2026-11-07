@@ -37,7 +37,7 @@ reports:
       - {vendor: ibm, source: https://www.ibm.com/forms/mkt-54143, prov: S}
       - {vendor: alation, source: https://stocks.observer-reporter.com/observerreporter/article/gnwcq-2025-11-21-alation-named-as-a-leader-5x-in-the-gartner-magic-quadrant-for-metadata-management-solutions, prov: S}
       - {vendor: ab-initio, source: https://research.oz.spotlightar.com/reports/magic-quadrant-metadata-management-solutions-2025/leaders, prov: K}
-      - {vendor: atlan, source: https://research.oz.spotlightar.com/reports/magic-quadrant-metadata-management-solutions-2025/leaders, prov: K}
+      - {vendor: atlan, source: https://www.businesswire.com/news/home/20251124723002/en, prov: S}
   - id: gartner-dagp-2025
     short: Gartner D&A governance 2025
     title: Magic Quadrant for Data and Analytics Governance Platforms (first edition)
@@ -57,9 +57,10 @@ reports:
     date: '2026-01-07'
     url: https://www.ibm.com/forms/mkt-54249
     prov: S
-    note: Known here only from IBM's announcement. Other vendors' positions in this edition are not yet checked.
+    note: Known from vendor announcements; other vendors' positions in this edition are not yet checked.
     leaders:
       - {vendor: ibm, source: https://www.ibm.com/forms/mkt-54249, prov: S}
+      - {vendor: atlan, source: https://atlan.com/p/metadata-management/, prov: S}
   - id: forrester-dg-2025
     short: Forrester data governance 2025
     title: 'The Forrester Wave: Data Governance Solutions, Q3 2025'
@@ -72,7 +73,7 @@ reports:
       - {vendor: alation, source: https://www.alation.com/news-and-press/alation-named-leader-2025-forrester-data-governance-solutions-report/, prov: S}
       - {vendor: atlan, source: https://atlan.com/forrester-wave/, prov: S}
       - {vendor: collibra, source: https://www.collibra.com/resources/collibra-strong-performer-forrester-wave-ai-governance-platforms-q3-2025, prov: S}
-      - {vendor: informatica, source: https://research.oz.spotlightar.com/reports/forrester-wave-data-governance-solutions-q3-2025/leaders, prov: K}
+      - {vendor: informatica, source: https://www.businesswire.com/news/home/20251105174177/en, prov: S}
   - id: forrester-edc-2024
     short: Forrester data catalogues 2024
     title: 'The Forrester Wave: Enterprise Data Catalogs, Q3 2024'
@@ -500,7 +501,7 @@ vendors:
       - {repo: apache/polaris, role: Apache Polaris, the open-source Iceberg REST catalog behind Snowflake Open Catalog, commit: 5f87d86e5f64cb2ec66bac3d7344875b9781898b, checked: '2026-11-07'}
       - {repo: Snowflake-Labs/mcp, role: Former community MCP server, now deprecated in favour of the official one, commit: 662cb486395d79ab1ad0b3538f933fe6a686ce7c, checked: '2026-11-07'}
     model: {file: open-api/rest-catalog-open-api.yaml (CreateTableRequest), repo: apache/iceberg, prov: V}
-    extend: Iceberg table properties (strings), which Snowflake Open Catalog and any Iceberg REST catalog keep with the table. Snowflake's own objects carry comments and tags; their model is not published as a schema.
+    extend: Iceberg table properties (strings), kept with the table by Snowflake Open Catalog, which Snowflake documents as a managed service for Apache Polaris built on the Iceberg REST protocol (https://other-docs.snowflake.com/polaris/overview.html, checked 7 November 2026), and by any Iceberg REST catalog. Snowflake now points new customers to Horizon Catalog for Iceberg tables. Snowflake's own objects carry comments and tags; their model is not published as a schema.
     weave: iceberg
     bag: {path: properties, style: flat}
     kit: iceberg-properties
@@ -525,7 +526,7 @@ vendors:
           - {name: cortex-setup, does: Sets up the connection to Cortex Code.}
         use: Run Snowflake work from Claude Code, including object and catalogue management.
     crosswalk:
-      - [description, properties.comment, 'The property engines use for a table comment; background knowledge, not in the specification itself.']
+      - [description, properties.comment, 'TableProperties.COMMENT in Apache Iceberg (core/src/main/java/org/apache/iceberg/TableProperties.java at the cited commit); Spark and Trino store CREATE TABLE ... COMMENT there.']
       - [title, (none), 'name is the table identifier, not a title. Keep the title in properties.']
 
   - id: aws-glue
@@ -620,9 +621,9 @@ vendors:
     deploy: [on-prem, cloud]
     reports: []
     repos:
-      - {repo: apache/atlas, role: Apache Atlas, which Cloudera's SDX catalogue is built on (background knowledge), commit: 8b3f674e0f2502ba6c95201d9ff4c90435e4bbe0, checked: '2026-11-07'}
+      - {repo: apache/atlas, role: Apache Atlas, which Cloudera's SDX catalogue is built on, commit: 8b3f674e0f2502ba6c95201d9ff4c90435e4bbe0, checked: '2026-11-07'}
     model: {file: addons/models/0000-Area0/0010-base_model.json, repo: apache/atlas, prov: V}
-    extend: Atlas typedefs and business metadata. That Cloudera's catalogue uses Atlas is background knowledge, still to be checked at Cloudera's documentation.
+    extend: Atlas typedefs and business metadata. Cloudera's documentation names Apache Atlas as the metadata store behind its governance and Data Catalog (https://docs.cloudera.com/runtime/7.3.2/concepts-governance.html, checked 7 November 2026).
     weave: atlas
     bag: {path: businessAttributes.dcat_ap_uk, style: object}
     kit: atlas-business-metadata
@@ -732,7 +733,7 @@ vendors:
     kit: iceberg-properties
     ai: {prov: K, mcp: No Apache-published MCP server was found.}
     crosswalk:
-      - [description, properties.comment, 'The property engines use for a table comment; background knowledge.']
+      - [description, properties.comment, 'TableProperties.COMMENT in Apache Iceberg (core/src/main/java/org/apache/iceberg/TableProperties.java at the cited commit).']
 
   - id: openlineage
     schema_checked: "the OpenLineage specification (Dataset and the documentation facet), every worked example; the facet kit is a valid JSON Schema"

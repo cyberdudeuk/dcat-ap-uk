@@ -49,6 +49,12 @@ All notable changes to DCAT-AP-UK. The format follows [Keep a Changelog](https:/
   The upkeep routine keeps one `provenance` issue up to date, and the digest lists it.
 
 ### Changed
+- Vendor facts verified at the source and relabelled:
+  - Atlan's and Informatica's leader positions now cite their own announcements.
+  - Atlan's 2026 governance leader position is added.
+  - Snowflake Open Catalog's basis in Apache Polaris and Cloudera's use of Apache Atlas now cite the vendors' own
+    documentation.
+  - The Iceberg `comment` property cites `TableProperties.COMMENT` in Iceberg's source at the pinned commit.
 - Real records replace invented ones wherever a public record exists: the census series and the 2021 release (ONS
   TS007a, with the ONS age variable as reference data), and the OpenAPI, CKAN, schema.org, Dublin Core and DDI samples
   (Food Standards Agency, Environment Agency, The National Archives, ONS). Each names its source and the date checked.

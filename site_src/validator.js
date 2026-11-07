@@ -595,8 +595,8 @@
       bag: ['attributes'], collibra: true, people: ['responsibilities'],
       shape: function (o) { o.resourceType = 'Asset'; o.identifier = o.identifier || {}; o.identifier.externalSystemId = 'dcat-ap-uk'; o.type = { name: 'Data Set' }; return [o]; },
       root: function (x) { return Array.isArray(x) ? (x.filter(function (a) { return a && a.resourceType === 'Asset'; })[0] || {}) : (x || {}); } },
-    // Apache Iceberg REST catalog (Apache Polaris, Snowflake Open Catalog): table properties are strings. 'comment' is the
-    // property engines use for a table description (background knowledge; checked against the spec's properties map only).
+    // Apache Iceberg REST catalog (Apache Polaris, Snowflake Open Catalog): table properties are strings. 'comment' is
+    // Iceberg's TableProperties.COMMENT, where engines keep a table description.
     iceberg: { label: 'Apache Iceberg REST CreateTableRequest', fields: [['description', ['properties', 'comment'], 'text']], bag: ['properties'], flat: true, people: [],
       shape: function (o, r) { o.name = slugName(r).replace(/-/g, '_'); return o; } },
     glue: { label: 'AWS Glue TableInput', fields: [['description', ['Description'], 'text']], bag: ['Parameters'], flat: true, people: ['Owner'],
