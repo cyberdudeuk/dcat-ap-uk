@@ -64,10 +64,11 @@ jobs:
       - name: Browser checks (axe-core, widths, light and dark, keyboard, tools, no-script)
         run: python -I tools/check_browser.py
       - name: Browser checks catch their deliberate breaks
+        # Each break stops at its first problem and four run at once; a break that is not caught still runs every check
+        # and fails the step (xargs exits non-zero if any run fails). tests/test_browser_breaks.py keeps this list complete.
         run: |
-          for b in contrast overflow label console skip validator bulk extension csp meter nested menus menuedge current fold moreview submit suggest; do
-            python -I tools/check_browser.py --break "$b"
-          done
+          printf '%s\n' contrast overflow label console skip validator bulk extension csp meter nested menus menuedge current fold moreview submit suggest \
+            | xargs -P 4 -I{} python -I tools/check_browser.py --break {}
       - name: Open or update the health issue (weekly run only)
         if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
         env:

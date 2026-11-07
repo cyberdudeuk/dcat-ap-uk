@@ -11,6 +11,11 @@ All notable changes to DCAT-AP-UK. The format follows [Keep a Changelog](https:/
 - Near misses: an occurrence issue form and label, reported without blame; the weekly digest lists occurrences and trials.
 - The Status page shows trials and how to report a near miss.
 
+### Changed
+- Publishing is faster: each browser deliberate break stops at its first problem, and four run at once. A break that is
+  not caught still runs every check and fails the step. `tests/test_browser_breaks.py` fails if the workflow stops
+  running any break listed in `tools/check_browser.py`. Locally, all 18 breaks are still caught.
+
 ## [1.2.0-rc.1] - 2026-11-06
 
 A minor release: a new name, tools for suppliers and buyers, and a richer portal. No property changes meaning. Proposed, not endorsed.
