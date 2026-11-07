@@ -765,4 +765,67 @@
     }
     return out;
   }
+
+  /* ---- model maps (ADR 0019, after Morgan Maps): details panel, highlighted links, zoom and pan. Without this script
+     every card is a plain link to its page. Nothing here sets a style attribute (the CSP forbids them). ---- */
+  $$('figure.mmap').forEach(function (fig) {
+    var blob = $('.mm-data', fig), svg = $('svg', fig), panel = $('.mm-panel', fig), tools = $('.mm-tools', fig);
+    if (!blob || !svg) return;
+    var data; try { data = JSON.parse(blob.textContent); } catch (e) { return; }
+    if (fig.hasAttribute('data-busy')) fig.classList.add('js-busy');
+    var W = +fig.getAttribute('data-w'), H = +fig.getAttribute('data-h'), vb = [0, 0, W, H], opener = null;
+    function setVB() { svg.setAttribute('viewBox', vb.map(function (v) { return Math.round(v); }).join(' ')); }
+    function zoom(f, cx, cy) {
+      var nw = Math.max(W / 4, Math.min(W * 2, vb[2] * f)), nh = nw * H / W;
+      cx = cx == null ? vb[0] + vb[2] / 2 : cx; cy = cy == null ? vb[1] + vb[3] / 2 : cy;
+      vb = [cx - (cx - vb[0]) * nw / vb[2], cy - (cy - vb[1]) * nh / vb[3], nw, nh]; setVB();
+    }
+    if (tools) {
+      tools.hidden = false;
+      tools.addEventListener('click', function (e) {
+        var b = e.target.closest('[data-zoom]'); if (!b) return;
+        var z = b.getAttribute('data-zoom');
+        if (z === 'in') zoom(0.8); else if (z === 'out') zoom(1.25); else { vb = [0, 0, W, H]; setVB(); }
+      });
+    }
+    var drag = null;
+    svg.addEventListener('pointerdown', function (e) { if (e.target.closest('a') || e.button !== 0) return; drag = { x: e.clientX, y: e.clientY, vb: vb.slice() }; svg.setPointerCapture(e.pointerId); });
+    svg.addEventListener('pointermove', function (e) {
+      if (!drag) return; var r = svg.getBoundingClientRect(), k = vb[2] / r.width;
+      vb = [drag.vb[0] - (e.clientX - drag.x) * k, drag.vb[1] - (e.clientY - drag.y) * k, vb[2], vb[3]]; setVB();
+    });
+    svg.addEventListener('pointerup', function () { drag = null; });
+    function hot(id) {
+      $$('.mm-e, .mm-l', fig).forEach(function (p) { var on = !!id && (p.getAttribute('data-a') === id || p.getAttribute('data-b') === id); p.classList.toggle('hot', on); });
+      $$('.mm-n', fig).forEach(function (g) { g.classList.toggle('focus', g.getAttribute('data-id') === id); });
+    }
+    function close() { panel.hidden = true; hot(fig.getAttribute('data-home')); if (opener) opener.focus(); }
+    var home = $('.mm-n.focus', fig); if (home) fig.setAttribute('data-home', home.getAttribute('data-id'));
+    function open(id, from) {
+      var n = data.nodes[id]; if (!n) return; opener = from;
+      var conn = data.edges.filter(function (e) { return e[0] === id || e[1] === id; }).map(function (e) {
+        var other = e[0] === id ? e[1] : e[0], o = data.nodes[other] || { title: other, href: '#' };
+        var rel = e[3] === 'uses' ? 'takes values from' : (e[0] === id ? 'links to' : 'linked from');
+        return '<li><a href="' + esc(o.href) + '">' + esc(o.title) + '</a><span class="rel">' + esc(rel + (e[2] ? ': ' + e[2] : '')) + '</span></li>';
+      }).join('');
+      panel.innerHTML = '<button type="button" class="mm-close" aria-label="Close details">✕</button>'
+        + '<p><span class="mm-tag k-' + esc(n.kind) + '">' + esc(n.chip) + '</span></p><h3 tabindex="-1">' + esc(n.title) + '</h3>'
+        + (n.uri ? '<p class="small"><code>' + esc(n.uri) + '</code></p>' : '')
+        + (n.facts && n.facts.length ? '<dl>' + n.facts.map(function (f) { return '<div><dt>' + esc(f[0]) + '</dt><dd>' + esc(f[1]) + '</dd></div>'; }).join('') + '</dl>' : '')
+        + (n.desc ? '<h4>What it is</h4><p>' + esc(n.desc) + '</p>' : '')
+        + (conn ? '<h4>Connections (' + (conn.match(/<li>/g) || []).length + ')</h4><ul class="conn">' + conn + '</ul>' : '')
+        + '<p><a class="btn small" href="' + esc(n.href) + '">' + esc(n.open || 'Open') + '</a></p>';
+      panel.hidden = false; hot(id);
+      $('.mm-close', panel).addEventListener('click', close);
+      $('h3', panel).focus();
+      announce(n.title + ' details shown');
+    }
+    fig.addEventListener('click', function (e) {
+      var a = e.target.closest('a[data-node]'); if (!a || e.ctrlKey || e.metaKey || e.shiftKey || e.button) return;
+      e.preventDefault(); open(a.getAttribute('data-node'), a);
+    });
+    fig.addEventListener('mouseover', function (e) { var a = e.target.closest('a[data-node]'); if (a && panel.hidden) hot(a.getAttribute('data-node')); });
+    fig.addEventListener('mouseleave', function () { if (panel.hidden) hot(fig.getAttribute('data-home')); });
+    fig.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !panel.hidden) { e.stopPropagation(); close(); } });
+  });
 })();

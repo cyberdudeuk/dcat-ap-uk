@@ -12,6 +12,14 @@ All notable changes to DCAT-AP-UK. The format follows [Keep a Changelog](https:/
 - The Status page shows trials and how to report a near miss.
 
 ### Changed
+- A plainer look for readers who are not technical, after the xGov MEM site: a white masthead with search up front,
+  quieter navigation, plain headings, light cards and tables, and quieter change flags. Every page, tool and check stays (ADR 0019).
+- Model maps, after Morgan Maps: the profile page and every class page show how classes connect as cards with a type
+  chip and curved links named by the property that makes them. Selecting a card opens its facts and connections.
+  The maps work without JavaScript and are checked (a new browser check and deliberate break, `map`).
+- Class pages follow the xGov MEM order: the map first, then properties as plain tables by obligation (name, what it
+  is, value, how many), then the detail. The codelists a class uses are listed under its map.
+- The lineage explorer's trace uses the same card style.
 - Publishing is faster: each browser deliberate break stops at its first problem, and four run at once. A break that is
   not caught still runs every check and fails the step. `tests/test_browser_breaks.py` fails if the workflow stops
   running any break listed in `tools/check_browser.py`. Locally, all 18 breaks are still caught.

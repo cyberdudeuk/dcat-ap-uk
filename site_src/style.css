@@ -429,3 +429,158 @@ th{overflow-wrap:normal;word-break:normal}td{overflow-wrap:break-word}td code{ov
 .gbar ul.top>li>a,.gbar ul.top>li>button{position:relative}
 .gbar ul.top>li>a>.navflag.dot,.gbar ul.top>li>button>.navflag.dot{position:absolute;top:.45rem;left:1.35rem;margin:0;box-shadow:0 0 0 2px var(--bg)}
 .gbar .sub .navflag{margin-left:.4rem}
+/* ===== 1.3: plain design (ADR 0019) =====
+   A calmer layer for readers who are not technical, after the xGov MEM site's simplicity: a white masthead with search
+   up front, quiet navigation, plain headings rather than boxed heroes, light cards and tables, and quieter flags.
+   Every feature and pattern stays; only the look changes. Contrast is still checked in light and dark. */
+:root{font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;--radius:10px;--shadow:0 1px 2px rgba(11,12,12,.06),0 4px 12px rgba(11,12,12,.05);--soft:#f7f7f8;--line:#e3e4e6}
+[data-theme="dark"]{--soft:#1b1d1f;--line:#34383b}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--soft:#1b1d1f;--line:#34383b}}
+body{line-height:1.6}
+h1{font-size:2.25rem;font-weight:700;letter-spacing:-.02em}h2{font-size:1.5rem;letter-spacing:-.01em}h3{font-size:1.2rem}
+.graph text,figure.chart text{font-family:inherit}
+/* status strip and masthead */
+.banner{background:var(--soft);border-bottom:1px solid var(--line);font-size:.88rem;padding:.35rem 1rem;color:var(--muted)}
+.banner .tag{border-radius:999px;font-size:.75rem}
+.mast{background:var(--bg);color:var(--text);border-bottom:1px solid var(--line)}
+.mast-in{padding:.7rem 1.25rem}
+.mast a.name,.mast a.name:visited{color:var(--text);font-size:1.15rem}
+.mast button,.mast a.mast-link,.mast a.mast-link:visited{color:var(--text);border:0;border-radius:8px;background:transparent;padding:.3rem .6rem;font-size:.95rem}
+.mast button:hover,.mast a.mast-link:hover,.mast button[aria-expanded="true"]{background:var(--soft);color:var(--text)}
+.mast button[data-open="palette"]{border:1px solid var(--line);background:var(--soft);min-width:15rem;justify-content:flex-start;color:var(--muted);border-radius:999px;padding:.3rem .9rem}
+.mast button[data-open="palette"] .lbl::after{content:" the portal"}
+.mast button[data-open="palette"] kbd{margin-left:auto;border-radius:4px;color:var(--muted)}
+.mast-tools{align-items:center;gap:.25rem}
+@media (max-width:40rem){.mast button[data-open="palette"]{min-width:0}}
+/* global bar */
+.gbar{background:var(--bg);border-bottom:1px solid var(--line)}
+.gbar a,.gbar button,.gbar a:visited{color:var(--text);font-weight:600;border-bottom-width:3px}
+.gbar a:hover,.gbar button:hover{color:var(--link)}
+.gbar .grp>button>svg.i:first-child,.gbar>ul>li>a>svg.i:first-child{color:var(--muted)}
+.gbar .sub{border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:.35rem}
+.gbar .sub a{border-radius:6px;font-weight:400}
+.gbar .sub a:hover{background:var(--soft)}
+/* drawer */
+.drawer{border-right:1px solid var(--line);font-size:.95rem;padding-top:1rem}
+.drawer details{border-top:0}
+.drawer summary{font-weight:600}
+.drawer summary svg.i,.drawer li a svg.i{color:var(--muted)}
+.drawer li a{border-radius:6px;padding:.25rem .45rem}
+.drawer li a:hover{background:var(--soft);text-decoration:none}
+.toggle{font-weight:600;font-size:.95rem}
+/* headings and heroes: plain, like a document */
+.hero{background:none;border:0;border-radius:0;padding:.5rem 0 1rem;border-bottom:1px solid var(--line)}
+.hero::after{display:none}
+.hero .tile{width:3rem;height:3rem;border-radius:12px;background:var(--accent-tint);color:var(--accent);box-shadow:none}
+[data-theme="dark"] .hero .tile{color:var(--accent)}
+.hero .tile svg.i{width:1.6rem;height:1.6rem}
+.lede{font-size:1.2rem;color:var(--text)}
+main h2{padding-left:0;margin-top:2.2rem}
+main h2::before{display:none}
+/* cards, panels and tables */
+.card,.grid>.card:nth-child(n){border:1px solid var(--line);border-radius:var(--radius);box-shadow:none;padding:1.1rem 1.2rem}
+.card:hover{transform:none;box-shadow:var(--shadow);border-color:var(--border)}
+.panel,.easy{border-radius:var(--radius);border-left-width:4px}
+.panel{background:var(--soft)}
+.inset{border-left-width:4px}
+.table-wrap{border:1px solid var(--line);border-radius:var(--radius)}
+thead th{background:var(--soft);font-weight:600}
+th,td{border-bottom-color:var(--line)}
+tbody tr:last-child td{border-bottom:0}
+caption{font-weight:600;font-size:1rem}
+.filters{background:var(--soft);border-radius:var(--radius);border:1px solid var(--line)}
+input[type="search"],input[type="text"],input[type="url"],input[type="date"],select,textarea{border:1px solid var(--border);border-radius:8px}
+.btn{border-radius:8px;box-shadow:none}
+.btn.secondary{box-shadow:none;border:1px solid var(--border)}
+.tag{border-radius:999px;font-weight:600;font-size:.8rem;padding:.05rem .55rem}
+.tabs [role="tab"]{border-radius:8px 8px 0 0;background:transparent;text-decoration:none;font-weight:600}
+.tabs [role="tab"][aria-selected="true"]{border-color:var(--line)}
+.tabs [role="tabpanel"]{border-color:var(--line);border-radius:0 0 var(--radius) var(--radius)}
+dialog{border:1px solid var(--line);border-radius:14px;box-shadow:0 20px 50px rgba(0,0,0,.25)}
+.prop{border-top:1px solid var(--line)}
+/* change flags: quieter, still New and Updated in words, with contrast held in light and dark */
+.flag.new,.secflag.new,.navflag.new{background:#fff3b0;color:#3d3300}
+.flag.updated,.secflag.updated,.navflag.updated{background:#dceafa;color:#0b3a6b}
+.flag,.secflag,.navflag{border-radius:999px;text-transform:none;letter-spacing:0;font-weight:600}
+.navflag.dot.new{background:#c9a800}.navflag.dot.updated{background:#1d70b8}
+footer.colophon{border-top:1px solid var(--line);background:var(--soft)}
+/* model maps (after Morgan Maps): cards with a type chip, curved labelled links, details in a side panel */
+.mmap{position:relative;border:1px solid var(--line);border-radius:14px;background:var(--soft);margin:1rem 0;overflow:hidden}
+.mmap svg{display:block;width:100%;height:auto;max-height:44rem;touch-action:none}
+.mmap .mm-bg{fill:var(--soft)}
+.mmap .mm-dot{fill:var(--line)}
+.mmap .mm-card{fill:var(--bg);stroke:var(--line);stroke-width:1.2}
+.mmap .mm-n.focus .mm-card{stroke:var(--accent);stroke-width:2.5}
+.mmap .mm-n a:hover .mm-card,.mmap .mm-n a:focus .mm-card{stroke:var(--link);stroke-width:2.5}
+.mmap .mm-n a:focus{outline:none}
+.mmap .mm-n a:focus .mm-title{text-decoration:underline}
+.mmap .mm-title{font-weight:700;font-size:14px;fill:var(--text)}
+.mmap .mm-sub{font-size:11.5px;fill:var(--muted)}
+.mmap .mm-chip{rx:6px}
+.mmap .mm-chiptext{font-size:10px;font-weight:700;letter-spacing:.06em}
+.mmap .k-class .mm-chip{fill:#ede7f6}.mmap .k-class .mm-chiptext{fill:#4c2c92}
+.mmap .k-M .mm-chip{fill:#fde2dd}.mmap .k-M .mm-chiptext{fill:#8a1f10}
+.mmap .k-codelist .mm-chip{fill:#d9f2e6}.mmap .k-codelist .mm-chiptext{fill:#005a30}
+.mmap .k-source .mm-chip{fill:#fbecd0}.mmap .k-source .mm-chiptext{fill:#6b4400}
+.mmap .k-standard .mm-chip{fill:#dceafa}.mmap .k-standard .mm-chiptext{fill:#0b3a6b}
+.mmap .mm-e{fill:none;stroke:#8a9399;stroke-width:1.6}
+.mmap .mm-e.uses{stroke-dasharray:5 4;stroke:#4f9a74}
+.mmap .mm-e.hot{stroke:var(--accent);stroke-width:2.6}
+.mmap .mm-pill{fill:var(--bg);stroke:var(--line)}
+.mmap .mm-pilltext{font-size:10.5px;fill:var(--muted)}
+.mmap .mm-arrow{fill:#8a9399}
+.mm-tools{position:absolute;right:.6rem;bottom:.6rem;display:flex;flex-direction:column;gap:.3rem}
+.mm-tools button{font:inherit;width:2.4rem;height:2.4rem;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--text);cursor:pointer;font-weight:700}
+.mm-tools button:hover{background:var(--soft)}
+.mm-legend{display:flex;flex-wrap:wrap;gap:.4rem 1rem;list-style:none;margin:.5rem 0;padding:0;font-size:.85rem;color:var(--muted)}
+.mm-legend li{display:flex;align-items:center;gap:.4rem}
+.mm-legend .mm-tag{font-size:.7rem;font-weight:700;letter-spacing:.06em;padding:.05rem .45rem;border-radius:6px}
+.mm-tag.k-class{background:#ede7f6;color:#4c2c92}.mm-tag.k-M{background:#fde2dd;color:#8a1f10}.mm-tag.k-codelist{background:#d9f2e6;color:#005a30}
+.mm-legend .ln{display:inline-block;width:1.8rem;border-top:2px solid #8a9399}.mm-legend .ln.uses{border-top-style:dashed;border-top-color:#4f9a74}
+.mm-panel{position:absolute;top:0;right:0;bottom:0;width:min(24rem,92%);background:var(--bg);border-left:1px solid var(--line);box-shadow:-8px 0 24px rgba(0,0,0,.08);padding:1rem 1.2rem;overflow:auto;z-index:5}
+.mm-panel[hidden]{display:none}
+.mm-panel .mm-tag{font-size:.72rem;font-weight:700;letter-spacing:.06em;padding:.1rem .5rem;border-radius:6px}
+.mm-panel h3{margin:.3rem 0 .2rem;font-size:1.25rem}
+.mm-panel .mm-close{position:absolute;top:.6rem;right:.6rem;font:inherit;border:0;background:var(--soft);border-radius:8px;width:2.2rem;height:2.2rem;cursor:pointer;color:var(--text)}
+.mm-panel dl{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin:.8rem 0}
+.mm-panel dl div{background:var(--soft);border-radius:8px;padding:.5rem .6rem}
+.mm-panel dt{font-size:.72rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+.mm-panel dd{margin:.1rem 0 0;font-weight:600}
+.mm-panel ul.conn{list-style:none;padding:0;margin:.4rem 0}
+.mm-panel ul.conn li{display:flex;justify-content:space-between;gap:.5rem;align-items:center;border:1px solid var(--line);border-radius:8px;padding:.35rem .6rem;margin:.3rem 0}
+.mm-panel ul.conn .rel{font-size:.78rem;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:0 .45rem;white-space:nowrap}
+.mm-panel h4{font-size:.75rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:1rem 0 .2rem}
+[data-theme="dark"] .mmap .k-class .mm-chip,[data-theme="dark"] .mm-tag.k-class{fill:#2e2546;background:#2e2546}
+[data-theme="dark"] .mmap .k-class .mm-chiptext,[data-theme="dark"] .mm-tag.k-class{fill:#d6c6f5;color:#d6c6f5}
+[data-theme="dark"] .mmap .k-M .mm-chip,[data-theme="dark"] .mm-tag.k-M{fill:#4a1a12;background:#4a1a12}
+[data-theme="dark"] .mmap .k-M .mm-chiptext,[data-theme="dark"] .mm-tag.k-M{fill:#ffc2b8;color:#ffc2b8}
+[data-theme="dark"] .mmap .k-codelist .mm-chip,[data-theme="dark"] .mm-tag.k-codelist{fill:#12382a;background:#12382a}
+[data-theme="dark"] .mmap .k-codelist .mm-chiptext,[data-theme="dark"] .mm-tag.k-codelist{fill:#9fe0bf;color:#9fe0bf}
+[data-theme="dark"] .flag.new,[data-theme="dark"] .secflag.new,[data-theme="dark"] .navflag.new{background:#4a3f00;color:#fff3b0}
+[data-theme="dark"] .flag.updated,[data-theme="dark"] .secflag.updated,[data-theme="dark"] .navflag.updated{background:#12324f;color:#dceafa}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .flag.new,:root:not([data-theme="light"]) .secflag.new,:root:not([data-theme="light"]) .navflag.new{background:#4a3f00;color:#fff3b0}
+ :root:not([data-theme="light"]) .flag.updated,:root:not([data-theme="light"]) .secflag.updated,:root:not([data-theme="light"]) .navflag.updated{background:#12324f;color:#dceafa}
+ :root:not([data-theme="light"]) .mmap .k-class .mm-chip{fill:#2e2546}:root:not([data-theme="light"]) .mmap .k-class .mm-chiptext{fill:#d6c6f5}
+ :root:not([data-theme="light"]) .mmap .k-M .mm-chip{fill:#4a1a12}:root:not([data-theme="light"]) .mmap .k-M .mm-chiptext{fill:#ffc2b8}
+ :root:not([data-theme="light"]) .mmap .k-codelist .mm-chip{fill:#12382a}:root:not([data-theme="light"]) .mmap .k-codelist .mm-chiptext{fill:#9fe0bf}
+ :root:not([data-theme="light"]) .mm-tag.k-class{background:#2e2546;color:#d6c6f5}:root:not([data-theme="light"]) .mm-tag.k-M{background:#4a1a12;color:#ffc2b8}:root:not([data-theme="light"]) .mm-tag.k-codelist{background:#12382a;color:#9fe0bf}}
+/* lineage trace: cards in the map style */
+.tnode{border:1px solid var(--line);border-radius:10px;background:var(--bg);box-shadow:none}
+.tnode:hover{box-shadow:var(--shadow)}
+.tnode .kind{font-size:.68rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:var(--soft);border-radius:6px;padding:.05rem .4rem}
+.trace{background:var(--soft);border:1px solid var(--line);border-radius:14px;padding:.5rem}
+.trace svg.links path{stroke:#8a9399;stroke-width:1.6}
+/* class pages: properties as plain tables, after the xGov MEM class pages */
+.ptable td:first-child{white-space:nowrap}
+.ptable td.def{color:var(--text);min-width:16rem}
+@media print{.mm-tools,.mm-panel{display:none!important}}
+/* busy maps: line labels show for the card being looked at, not all at once (only when the script runs; the list below the map has every label) */
+.mmap.js-busy .mm-l{display:none}.mmap.js-busy .mm-l.hot{display:inline}
+.mm-values{display:flex;flex-wrap:wrap;gap:.4rem;list-style:none;margin:.4rem 0 1rem;padding:0}
+.mm-values a{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:.15rem .7rem;font-size:.92rem;text-decoration:none;background:var(--bg)}
+.mm-values a:hover{border-color:var(--link);text-decoration:underline}
+/* drawer items never squash: the label takes the room, counts and flags stay on one line */
+.drawer li a>span:not(.count):not(.flag){flex:1;min-width:0}
+.drawer .count,.drawer .flag{white-space:nowrap;flex:none}
+.drawer .flag{font-size:.68rem}
+th button.sort{color:var(--text)}

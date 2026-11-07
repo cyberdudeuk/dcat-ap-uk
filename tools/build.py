@@ -184,14 +184,14 @@ def prov(code, date_=None):
     return f'<abbr class="prov {code}" title="{E(t)}" data-tip="{E(t)}">{code}</abbr>'
 
 
-def table(tid, caption, head, rows, sortable=True, row_attrs=None, num=()):
+def table(tid, caption, head, rows, sortable=True, row_attrs=None, num=(), cls=''):
     th = ''.join(f'<th scope="col"{" class=num" if i in num else ""}>{h}</th>' for i, h in enumerate(head))
     body = ''
     for ri, r in enumerate(rows):
         attrs = (row_attrs[ri] if row_attrs else '')
         cells = ''.join((f'<th scope="row">{c}</th>' if ci == 0 else f'<td{" class=num" if ci in num else ""}>{c}</td>') for ci, c in enumerate(r))
         body += f'<tr{attrs}>{cells}</tr>'
-    return (f'<div class="table-wrap" role="region" aria-labelledby="{tid}-cap" tabindex="0"><table id="{tid}"{" data-sortable" if sortable else ""}>'
+    return (f'<div class="table-wrap" role="region" aria-labelledby="{tid}-cap" tabindex="0"><table id="{tid}"{" class=" + chr(34) + cls + chr(34) if cls else ""}{" data-sortable" if sortable else ""}>'
             f'<caption id="{tid}-cap">{caption}</caption><thead><tr>{th}</tr></thead><tbody>{body}</tbody></table></div>')
 
 
@@ -635,51 +635,140 @@ class Site:
                    {'id': 'where', 'label': 'Where it sits', 'icon': 'layers'}, {'id': 'status', 'label': 'Status', 'icon': 'flag'}]}]
         self.page('index', body, drawer)
 
-    def model_svg(self):
-        """Class diagram: boxes for classes, arrows for object properties, clipped to box edges. Every box links to its class page."""
-        p = self.p
-        W, H = 270, 56
-        col = {0: 20, 1: 380, 2: 740, 3: 1100}
-        row = {0: 20, 1: 170, 2: 320, 3: 470}
-        grid = {'CatalogueRecord': (0, 0), 'Catalogue': (1, 0), 'DatasetSeries': (0, 1), 'Dataset': (1, 1), 'DataService': (2, 1), 'Relationship': (2, 0),
-                'ContactPoint': (0, 2), 'Distribution': (1, 2), 'Location': (2, 2), 'Attribution': (3, 2), 'Agent': (0, 3), 'Checksum': (1, 3), 'PeriodOfTime': (2, 3)}
-        pos = {k: (col[c], row[r]) for k, (c, r) in grid.items()}
-        edges = [('Catalogue', 'Dataset', 'dataset'), ('CatalogueRecord', 'Dataset', 'primary topic'), ('Catalogue', 'DataService', 'service'),
-                 ('Dataset', 'DatasetSeries', 'in series'), ('Dataset', 'DataService', ''), ('DataService', 'Dataset', 'serves'),
-                 ('Dataset', 'Relationship', 'qualified relation'), ('Dataset', 'Agent', 'publisher, creator'), ('Dataset', 'Distribution', 'distribution'),
-                 ('Dataset', 'Location', 'spatial'), ('Dataset', 'Attribution', 'responsible role'), ('Dataset', 'ContactPoint', 'contact point'),
-                 ('Distribution', 'Checksum', 'checksum'), ('Dataset', 'PeriodOfTime', 'temporal'), ('Distribution', 'DataService', 'access service')]
+    # -- model maps (ADR 0019, after Morgan Maps): cards with a type chip, curved labelled links, a details panel ----------
+    STRUCTURAL = [('Catalogue', 'Dataset', 'dataset'), ('Catalogue', 'DataService', 'service'), ('CatalogueRecord', 'Dataset', 'primary topic'),
+                  ('Dataset', 'DatasetSeries', 'in series'), ('DataService', 'Dataset', 'serves'), ('Distribution', 'DataService', 'access service')]
 
-        def clip(x1, y1, x2, y2):
-            # point where the segment from the centre (x1, y1) towards (x2, y2) leaves the box centred on (x1, y1)
-            dx, dy = x2 - x1, y2 - y1
-            if dx == 0 and dy == 0:
-                return x1, y1
-            tx = (W / 2) / abs(dx) if dx else float('inf')
-            ty = (H / 2) / abs(dy) if dy else float('inf')
-            k = min(tx, ty)
-            return x1 + dx * k, y1 + dy * k
-        s = ''
-        for a, b, lbl in edges:
-            if not lbl:
-                continue
-            (xa, ya), (xb, yb) = pos[a], pos[b]
-            ca, cb = (xa + W / 2, ya + H / 2), (xb + W / 2, yb + H / 2)
-            x1, y1 = clip(*ca, *cb)
-            x2, y2 = clip(*cb, *ca)
-            s += f'<line class="edge" x1="{x1:.0f}" y1="{y1:.0f}" x2="{x2:.0f}" y2="{y2:.0f}" marker-end="url(#arr)"/>'
-            f = .5 if abs(y2 - y1) < 1 or abs(x2 - x1) < 1 else .38  # diagonal labels sit nearer the source, clear of other boxes
-            mx, my = x1 + (x2 - x1) * f, y1 + (y2 - y1) * f
-            s += f'<text class="edge-label halo" x="{mx:.0f}" y="{my - 4:.0f}" text-anchor="middle">{E(lbl)}</text>'
-        for ck, (x, y) in pos.items():
-            c = p.classes[ck]
-            m = sum(1 for z in c['properties'] if z['ob'] == 'M')
-            s += (f'<g class="node {c["ob"]}"><a href="{self.class_page(ck)}">'
-                  f'<rect x="{x}" y="{y}" width="{W}" height="{H}" rx="4"/><text x="{x + 12}" y="{y + 23}" font-weight="700">{E(c["label"])}</text>'
-                  f'<text x="{x + 12}" y="{y + 43}" class="sm">{E(c["uri"])} · {len(c["properties"])} properties · {m} M</text></a></g>')
-        return (f'<svg class="graph" viewBox="0 0 1390 546" role="group" aria-labelledby="model-t"><title id="model-t">Class diagram of DCAT-AP-UK</title>'
-                f'<defs><marker id="arr" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="arrowhead"/></marker></defs>{s}</svg>'
-                '<details><summary>The diagram as a list</summary><ul>' + ''.join(f'<li>{E(p.classes[a]["label"])} has <em>{E(lbl)}</em>: {E(p.classes[b]["label"])}</li>' for a, b, lbl in edges if lbl) + '</ul></details>')
+    def class_links(self):
+        """Every link between classes: object properties whose range is a class, plus the structural links that DCAT
+        expresses as IRIs (dataset, service, primary topic, in series, serves, access service). One entry per pair."""
+        p = self.p
+        got = {}
+        for ck in p.classes:
+            for x, prop in p.class_props(ck):
+                r = prop.get('range')
+                if r in p.classes and r != ck:
+                    got.setdefault((ck, r), []).append(prop['label'].lower())
+        for a, b, lbl in self.STRUCTURAL:
+            if a in p.classes and b in p.classes and lbl not in got.get((a, b), []):
+                got.setdefault((a, b), []).append(lbl)
+        return got
+
+    def class_node(self, ck, x, y, focus=False):
+        p = self.p
+        c = p.classes[ck]
+        m = sum(1 for z in c['properties'] if z['ob'] == 'M')
+        return {'id': ck, 'x': x, 'y': y, 'kind': 'M' if c['ob'] == 'M' else 'class', 'chip': f'CLASS · {OB_LABEL[c["ob"]].upper()}', 'title': c['label'],
+                'sub': f'{len(c["properties"])} properties · {m} mandatory', 'href': self.class_page(ck), 'focus': focus,
+                'facts': [('Obligation', OB_LABEL[c['ob']]), ('Properties', str(len(c['properties']))), ('Mandatory', str(m)), ('In the xGov MEM', c['mem'] or 'New class')],
+                'desc': c['definition'], 'uri': c['uri'], 'open': f'Open the {c["label"].lower()} page'}
+
+    def mmap(self, mid, title, nodes, edges, note=''):
+        """Render a model map. nodes: dicts from class_node with x, y. edges: (from, to, label, style).
+        The SVG works without JavaScript (every card is a link); app.js adds the details panel, highlighting, zoom and pan."""
+        NW, NH, SH = 210, 64, 50
+        byid = {n['id']: n for n in nodes}
+        def box(n):
+            return n['x'], n['y'], NW, (SH if n.get('small') else NH)
+        W = max(n['x'] for n in nodes) + NW + 40
+        H = max(n['y'] + box(n)[3] for n in nodes) + 40
+        es, labels = '', ''
+        for a, b, lbl, style in edges:
+            ax, ay, aw, ah = box(byid[a])
+            bx, by, bw, bh = box(byid[b])
+            if bx >= ax + aw:  # left to right
+                x1, y1, x2, y2 = ax + aw, ay + ah / 2, bx, by + bh / 2
+                k = max(40, (x2 - x1) * .45)
+                c1, c2 = (x1 + k, y1), (x2 - k, y2)
+            elif bx + bw <= ax:  # right to left
+                x1, y1, x2, y2 = ax, ay + ah / 2, bx + bw, by + bh / 2
+                k = max(40, (x1 - x2) * .45)
+                c1, c2 = (x1 - k, y1), (x2 + k, y2)
+            else:  # same column: loop out on the left
+                x1, y1, x2, y2 = ax, ay + ah / 2, bx, by + bh / 2
+                k = 60 + abs(y2 - y1) * .15
+                c1, c2 = (x1 - k, y1), (x2 - k, y2)
+            mx = (x1 + 3 * c1[0] + 3 * c2[0] + x2) / 8
+            my = (y1 + 3 * c1[1] + 3 * c2[1] + y2) / 8
+            es += (f'<path class="mm-e {style}" data-a="{E(a)}" data-b="{E(b)}" d="M{x1:.0f},{y1:.0f} C{c1[0]:.0f},{c1[1]:.0f} {c2[0]:.0f},{c2[1]:.0f} {x2:.0f},{y2:.0f}" marker-end="url(#{mid}-arr)"/>')
+            if lbl:
+                t = lbl if len(lbl) <= 26 else lbl[:24] + '…'
+                pw = 7 + len(t) * 5.9
+                labels += (f'<g class="mm-l" data-a="{E(a)}" data-b="{E(b)}"><rect class="mm-pill" x="{mx - pw / 2:.0f}" y="{my - 9:.0f}" width="{pw:.0f}" height="18" rx="9"/>'
+                           f'<text class="mm-pilltext" x="{mx:.0f}" y="{my + 3.5:.0f}" text-anchor="middle">{E(t)}</text></g>')
+        ns = ''
+        for n in nodes:
+            x, y, w, h = box(n)
+            chipw = 12 + len(n['chip']) * 6.4
+            ns += (f'<g class="mm-n k-{n["kind"]}{" focus" if n.get("focus") else ""}" data-id="{E(n["id"])}"><a href="{E(n["href"])}" data-node="{E(n["id"])}">'
+                   f'<rect class="mm-card" x="{x}" y="{y}" width="{w}" height="{h}" rx="10"/>'
+                   f'<rect class="mm-chip" x="{x + 10}" y="{y + 8}" width="{chipw:.0f}" height="15" rx="5"/><text class="mm-chiptext" x="{x + 16}" y="{y + 19}">{E(n["chip"])}</text>'
+                   f'<text class="mm-title" x="{x + 12}" y="{y + 39}">{E(n["title"] if len(n["title"]) <= 26 else n["title"][:24] + "…")}</text>'
+                   + (f'<text class="mm-sub" x="{x + 12}" y="{y + 55}">{E(n["sub"])}</text>' if not n.get('small') and n.get('sub') else '')
+                   + '</a></g>')
+        data = {'nodes': {n['id']: {k: n[k] for k in ('chip', 'title', 'sub', 'href', 'facts', 'desc', 'uri', 'kind', 'open')} for n in nodes},
+                'edges': [[a, b, l, s] for a, b, l, s in edges]}
+        blob = json.dumps(data, ensure_ascii=False).replace('</', '<' + chr(92) + '/')
+        lst = ''.join(f'<li>{E(byid[a]["title"])} {"uses" if s == "uses" else "links to"} <a href="{E(byid[b]["href"])}">{E(byid[b]["title"])}</a>{" by " + E(l) if l else ""}</li>' for a, b, l, s in edges)
+        legend = ('<ul class="mm-legend"><li><span class="mm-tag k-M">CLASS · MANDATORY</span> a mandatory class</li><li><span class="mm-tag k-class">CLASS</span> another class</li>'
+                  + ('<li><span class="mm-tag k-codelist">CODELIST</span> a list of allowed values</li>' if any(n['kind'] == 'codelist' for n in nodes) else '')
+                  + '<li><span class="ln"></span> links to, named on the line</li>' + ('<li><span class="ln uses"></span> takes its values from</li>' if any(e[3] == 'uses' for e in edges) else '') + '</ul>')
+        return (f'<figure class="mmap" id="{mid}" data-w="{W}" data-h="{H}"{" data-busy" if len(edges) > 10 else ""}><svg viewBox="0 0 {W} {H}" role="group" aria-labelledby="{mid}-t"><title id="{mid}-t">{E(title)}</title>'
+                f'<defs><marker id="{mid}-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path class="mm-arrow" d="M0 0L10 5L0 10z"/></marker>'
+                f'<pattern id="{mid}-dots" width="22" height="22" patternUnits="userSpaceOnUse"><circle class="mm-dot" cx="2" cy="2" r="1.2"/></pattern></defs>'
+                f'<rect class="mm-bg" x="-2000" y="-2000" width="{W + 4000}" height="{H + 4000}" fill="url(#{mid}-dots)"/>{es}{labels}{ns}</svg>'
+                f'<div class="mm-tools no-print" hidden><button type="button" data-zoom="in" aria-label="Zoom in">+</button><button type="button" data-zoom="out" aria-label="Zoom out">−</button><button type="button" data-zoom="fit" aria-label="Fit to view">⤢</button></div>'
+                f'<aside class="mm-panel" hidden aria-label="Details"></aside>'
+                f'<script type="application/json" class="mm-data">{blob}</script></figure>'
+                f'{legend}{"<p class=small>" + note + "</p>" if note else ""}'
+                f'<details><summary>The map as a list</summary><ul>{lst}</ul></details>')
+
+    def model_map(self):
+        """The whole profile: catalogues on the left, what they describe next, and the supporting classes to the right."""
+        p = self.p
+        cols = [['Catalogue', 'CatalogueRecord'], ['Dataset', 'DataService', 'DatasetSeries'], ['Distribution', 'Relationship', 'Attribution', 'MissingValue'],
+                ['Agent', 'ContactPoint', 'Location', 'PeriodOfTime', 'Checksum']]
+        placed = {k for c in cols for k in c}
+        cols[-1] += [k for k in p.classes if k not in placed]
+        tallest = max(len(c) for c in cols)
+        nodes = []
+        for i, col in enumerate(cols):
+            top = (tallest - len(col)) * 45
+            for j, ck in enumerate(c for c in col if c in p.classes):
+                nodes.append(self.class_node(ck, 30 + i * 300, 30 + top + j * 90))
+        edges = [(a, b, ', '.join(l), '') for (a, b), l in sorted(self.class_links().items())]
+        return self.mmap('map-model', 'Map of how the classes in DCAT-AP-UK connect', nodes, edges,
+                         'Select a class to see its details and connections; open its page from there. Without JavaScript, each card goes straight to its page.')
+
+    def class_map(self, ck):
+        """One class in the middle, what links to it on the left, what it links to on the right (after the xGov MEM
+        class diagrams). The codelists its values come from are listed under the map, so the map stays readable."""
+        p = self.p
+        links = self.class_links()
+        ins = sorted({a for (a, b) in links if b == ck})
+        outs = sorted({b for (a, b) in links if a == ck})
+        rows = max(len(ins), len(outs), 1)
+        nodes, edges = [], []
+        cx = 30 + (300 if ins else 0)
+        nodes.append(self.class_node(ck, cx, 30 + (rows - 1) * 38, focus=True))
+        for j, a in enumerate(ins):
+            nodes.append(self.class_node(a, 30, 30 + (rows - len(ins)) * 38 + j * 76))
+            edges.append((a, ck, ', '.join(links[(a, ck)]), ''))
+        for j, b in enumerate(outs):
+            nodes.append(self.class_node(b, cx + 300, 30 + (rows - len(outs)) * 38 + j * 76))
+            edges.append((ck, b, ', '.join(links[(ck, b)]), ''))
+        uses = {}
+        for x, prop in p.class_props(ck):
+            cl = prop.get('codelist')
+            if cl and (cl in p.codelists or cl == 'organisations'):
+                uses.setdefault(cl, []).append(prop['label'].lower())
+        vals = ''
+        if uses:
+            items = ''.join(f'<li><a href="{"codelists.html#orgs" if cl == "organisations" else "codelists.html#cl-" + cl}" title="Used by {E(", ".join(u))}">'
+                            f'{E("GOV.UK organisations" if cl == "organisations" else p.codelists[cl]["label"])}</a></li>' for cl, u in uses.items())
+            vals = f'<p class="small">Values for {len(uses)} of its properties come from these lists:</p><ul class="mm-values">{items}</ul>'
+        return self.mmap(f'map-{slug(ck)}', f'Map of the {p.classes[ck]["label"].lower()} class: what links to it and what it links to', nodes, edges,
+                         'Select a card for its details. Line labels name the properties that make each link.') + vals
 
     def explorer(self):
         p = self.p
@@ -708,12 +797,12 @@ class Site:
                       [[E(r['id']), E(p.classes[r['class']]['label']), E(r['text'])] for r in p.rules], sortable=False)
         body = self.hero('layers', 'The profile', 'The profile at a glance', self.gloss(
             f'DCAT-AP-UK has {k["classes"]} classes and {k["props"]} properties. Each class lists the properties a record of that kind can have, and whether each is mandatory, recommended, optional or conditional.'))
-        body += f'<h2 id="model">How the classes connect</h2><p>Select a class to see its properties. A red outline marks a mandatory class.</p>{self.model_svg()}'
+        body += f'<h2 id="model">How the classes connect</h2><p>Each card is a class: a kind of thing a record can describe. Lines show how they link, named by the property that links them.</p>{self.model_map()}'
         body += f'<h2 id="classes">Classes</h2><div class="grid">{cards}</div>'
         body += f'<h2 id="obligations">What the obligations mean</h2><dl class="facts">{obs}</dl><p>A record <a class="term" href="knowledge.html#g-conformance">conforms</a> when it meets every mandatory and conditional rule. When the record describes a critical data asset, more properties become mandatory: they are marked "M for critical data assets".</p>'
         body += f'<h2 id="rules">Rules</h2>{rules}'
         body += f'<h2 id="explorer-h">Explore every property</h2><p>Filter by class, obligation or what changed since the xGov MEM. Sort by any column.</p>{self.explorer()}'
-        drawer = [{'title': 'The profile', 'icon': 'layers', 'items': [{'id': 'model', 'label': 'Class diagram', 'icon': 'network'}, {'id': 'classes', 'label': 'Classes', 'icon': 'boxes', 'count': k['classes']},
+        drawer = [{'title': 'The profile', 'icon': 'layers', 'items': [{'id': 'model', 'label': 'How the classes connect', 'icon': 'network'}, {'id': 'classes', 'label': 'Classes', 'icon': 'boxes', 'count': k['classes']},
                    {'id': 'obligations', 'label': 'Obligations', 'icon': 'scale'}, {'id': 'rules', 'label': 'Rules', 'icon': 'list-checks', 'count': k['rules']},
                    {'id': 'explorer-h', 'label': 'Explore properties', 'icon': 'filter', 'count': k['uses']}]},
                   {'title': 'Classes', 'icon': 'boxes', 'items': [{'id': 'classes', 'label': c['label'], 'icon': c['icon']} for c in p.classes.values()]}]
@@ -773,10 +862,20 @@ class Site:
         body = self.hero(c['icon'], f'Class · {OB_LABEL[c["ob"]]}', c['label'], self.gloss(c['definition']),
                          meta=[('code-xml', f'<code>{E(c["uri"])}</code>'), ('list-checks', f'{len(c["properties"])} properties'),
                                ('history', f'xGov MEM: {E(c["mem"]) if c["mem"] else "new class"}')])
-        summary = table('cls-sum', f'Properties of {E(c["label"].lower())}', ['Property', 'Obligation', 'Cardinality', 'Value'],
-                        [[f'<a href="#p-{x["p"]}">{E(prop["label"])}</a>', tag(x['ob']) + (f' {tag("M", "M for critical data assets")}' if x.get('cda') == 'M' and x['ob'] != 'M' else ''), E(x['card']), E(prop['kind'])] for x, prop in p.class_props(ck)])
-        body += f'<h2 id="summary">Summary</h2>{summary}'
-        body += f'<h2 id="diagram">Class diagram</h2><p>The class, its properties and the classes it links to. Select a linked class to go to it.</p>{self.class_svg(ck)}'
+        def first(txt):
+            m = re.match(r'(.+?[.!?])(\s|$)', txt or '')
+            return m.group(1) if m else (txt or '')
+        body += (f'<h2 id="diagram">How it connects</h2><p>The {E(c["label"].lower())} in the middle; on the left, what links to it; on the right, what it links to. '
+                 f'Under the map, the lists its values come from.</p>{self.class_map(ck)}')
+        body += (f'<h2 id="summary">Properties</h2><p>What a record of this kind can say, grouped by whether it must, should or may be filled in. '
+                 f'Select a name for how to fill it in.</p>')
+        for o in 'MCRO':
+            if not groups[o]:
+                continue
+            rows = [[f'<a href="#p-{x["p"]}">{E(prop["label"])}</a>' + (f' {tag("M", "M for critical data assets")}' if x.get('cda') == 'M' and x['ob'] != 'M' else ''),
+                     self.gloss(first(prop['definition']), used), E(prop['kind']) + (f': <a href="{self.class_page(prop["range"])}">{E(p.classes[prop["range"]]["label"])}</a>' if prop.get('range') in p.classes else ''),
+                     E(x['card'])] for x, prop in groups[o]]
+            body += f'<h3 id="sum-{o}">{OB_LABEL[o]} ({len(rows)})</h3>' + table(f'cls-sum-{o}', f'{OB_LABEL[o]} properties of {E(c["label"].lower())}', ['Name', 'What it is', 'Value', 'How many'], rows, cls='ptable')
         if any(x.get('cda') for x in c['properties']):
             cda = [(x, prop) for x, prop in p.class_props(ck) if x.get('cda') == 'M' and x['ob'] != 'M']
             body += (f'<h2 id="cda">Critical data assets</h2><div class="panel notice"><p>When <a href="#p-criticalDataAsset">critical data asset</a> is true, these become mandatory, '
@@ -786,56 +885,20 @@ class Site:
         for o in 'MCRO':
             if not groups[o]:
                 continue
-            body += f'<h2 id="ob-{o}">{OB_LABEL[o]} properties</h2>'
+            body += f'<h2 id="ob-{o}">{OB_LABEL[o]} properties in detail</h2>'
             for x, prop in groups[o]:
                 body += self.prop_block(x['p'], prop, ck, x, used)
             items.append({'id': f'ob-{o}', 'label': OB_LABEL[o], 'icon': 'list-checks', 'count': len(groups[o])})
         ex = [e for e in p.examples if e['record']['class'] == ck]
         if ex:
             body += '<h2 id="examples">Examples</h2>' + ul([f'<a href="examples.html#ex-{e["key"]}">{E(e["label"])}</a>' for e in ex])
-        drawer = [{'title': c['label'], 'icon': c['icon'], 'items': [{'id': 'summary', 'label': 'Summary', 'icon': 'table-2'}, {'id': 'diagram', 'label': 'Class diagram', 'icon': 'network'}] + ([{'id': 'cda', 'label': 'Critical data assets', 'icon': 'badge-check'}] if any(x.get('cda') for x in c['properties']) else []) + items + ([{'id': 'examples', 'label': 'Examples', 'icon': 'file-code-2', 'count': len(ex)}] if ex else [])},
+        drawer = [{'title': c['label'], 'icon': c['icon'], 'items': [{'id': 'diagram', 'label': 'How it connects', 'icon': 'network'}, {'id': 'summary', 'label': 'Properties', 'icon': 'table-2', 'count': len(c['properties'])}] + ([{'id': 'cda', 'label': 'Critical data assets', 'icon': 'badge-check'}] if any(x.get('cda') for x in c['properties']) else []) + items + ([{'id': 'examples', 'label': 'Examples', 'icon': 'file-code-2', 'count': len(ex)}] if ex else [])},
                   {'title': 'Other classes', 'icon': 'boxes', 'items': []}]
         key = f'class-{slug(ck)}'
         TITLES[key] = c['label']
         DESC[key] = f'The {c["label"].lower()} class in DCAT-AP-UK: {c["definition"]}'
         drawer.pop()
         self.page(key, body, drawer, crumbs=[('The profile', 'profile.html'), (c['label'], None)])
-
-    def class_svg(self, ck):
-        """UML-style diagram of one class: its attributes, and an association to each class it links to (after the xGov MEM class pages)."""
-        p = self.p
-        c = p.classes[ck]
-        rows = list(p.class_props(ck))
-        attrs = [(x, prop) for x, prop in rows if not (prop.get('range') in p.classes and prop['range'] != ck)]
-        links = {}
-        for x, prop in rows:
-            r = prop.get('range')
-            if r in p.classes and r != ck:
-                links.setdefault(r, []).append(prop['label'].lower())
-        LH, W, X = 20, 430, 20
-        H = 46 + LH * len(attrs) + 12
-        rw, rh, rx = 300, 44, 600
-        total = max(H + 40, 30 + len(links) * (rh + 16))
-        s = (f'<g class="node {c["ob"]}"><rect x="{X}" y="20" width="{W}" height="{H}" rx="4"/>'
-             f'<text x="{X + 12}" y="44" font-weight="700">{E(c["label"])} <tspan class="sm">({E(c["uri"])})</tspan></text>'
-             f'<line class="edge" x1="{X}" y1="54" x2="{X + W}" y2="54"/>')
-        for i, (x, prop) in enumerate(attrs):
-            y = 54 + LH * (i + 1)
-            s += f'<text x="{X + 12}" y="{y}" class="sm"{" font-weight=" + chr(34) + "700" + chr(34) if x["ob"] == "M" else ""}>{"+" if x["ob"] == "M" else "◦"} {E(prop["label"])} : {E(prop["kind"])} [{E(x["card"])}]</text>'
-        s += '</g>'
-        cy = 20 + H / 2
-        for i, (r, lbls) in enumerate(sorted(links.items())):
-            y = 30 + i * (rh + 16)
-            rc = p.classes[r]
-            s += f'<line class="edge" x1="{X + W}" y1="{cy:.0f}" x2="{rx}" y2="{y + rh / 2:.0f}" marker-end="url(#arr-{slug(ck)})"/>'
-            s += (f'<g class="node {rc["ob"]}"><a href="{self.class_page(r)}"><rect x="{rx}" y="{y}" width="{rw}" height="{rh}" rx="4"/>'
-                  f'<text x="{rx + 10}" y="{y + 18}" font-weight="700">{E(rc["label"])}</text>'
-                  f'<text x="{rx + 10}" y="{y + 35}" class="sm">{E(", ".join(lbls)[:44])}</text></a></g>')
-        lst = ''.join(f'<li>{E(c["label"])} links to <a href="{self.class_page(r)}">{E(p.classes[r]["label"])}</a> by {E(", ".join(l))}</li>' for r, l in sorted(links.items()))
-        return (f'<svg class="graph cls" viewBox="0 0 920 {total:.0f}" role="group" aria-labelledby="cd-{slug(ck)}"><title id="cd-{slug(ck)}">Class diagram of {E(c["label"].lower())}</title>'
-                f'<defs><marker id="arr-{slug(ck)}" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="arrowhead"/></marker></defs>{s}</svg>'
-                f'<p class="small">+ and bold: mandatory; ◦ other. Cardinality in brackets. The summary table above has the same facts as text.</p>'
-                + (f'<details><summary>Links as a list</summary><ul>{lst}</ul></details>' if lst else ''))
 
     def types_page(self):
         p = self.p

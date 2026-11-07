@@ -474,7 +474,7 @@ BREAKS = {
     'C-22': lambda s: _sub(s / 'requirements.html', '<h2 id="controlled">', '<p>REL FVEY</p><h2 id="controlled">'),
     'C-21': lambda s: _sub(s / 'types.html', 'template=change-request.yml', 'template=no-such-form.yml'),
     'C-18': lambda s: _sub(s / 'llms.txt', 'downloads/profile.json)', 'downloads/no-such-file.json)'),
-    'C-15': lambda s: _sub(s / 'profile.html', 'role="group" aria-labelledby="model-t"', 'role="img"'),
+    'C-15': lambda s: _sub(s / 'profile.html', 'role="group" aria-labelledby="map-model-t"', 'role="img"'),
 }
 
 

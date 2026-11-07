@@ -191,7 +191,29 @@ class MemPortalFeatures(unittest.TestCase):
             for x, prop in P.class_props(ck):
                 r = prop.get('range')
                 if r in P.classes and r != ck:
-                    self.assertRegex(html, r'<svg class="graph cls"[\s\S]*class-' + re.escape(r.lower()), f'{ck} diagram misses {r}')
+                    # ADR 0019: the diagram is a model map; each range class is a card linking to its page
+                    m = re.search(r'<figure class="mmap" id="map-[^"]+"[\s\S]*?</figure>', html)
+                    self.assertIsNotNone(m, f'{ck} has no model map')
+                    self.assertIn(f'href="class-{r.lower()}.html" data-node="{r}"', m.group(0), f'{ck} map misses {r}')
+
+    def test_model_maps_carry_their_details_and_a_text_list(self):
+        """ADR 0019: every map works without the script (cards are links, a list repeats every link) and carries the
+        details the side panel shows; no link in the data points at a card that is not there."""
+        import json
+        pages = [SITE / 'profile.html'] + sorted(SITE.glob('class-*.html'))
+        for f in pages:
+            html = f.read_text(encoding='utf-8')
+            with self.subTest(page=f.name):
+                fig = re.search(r'<figure class="mmap"[\s\S]*?</figure>([\s\S]*?)</details>', html)
+                self.assertIsNotNone(fig, 'no model map')
+                self.assertIn('The map as a list', fig.group(1))
+                data = json.loads(re.search(r'<script type="application/json" class="mm-data">([\s\S]*?)</script>', fig.group(0)).group(1))
+                self.assertTrue(data['nodes'])
+                for a, b, _, _ in data['edges']:
+                    self.assertIn(a, data['nodes']); self.assertIn(b, data['nodes'])
+                for k, n in data['nodes'].items():
+                    self.assertTrue(n['title'] and n['href'] and n['desc'], k)
+                    self.assertNotIn('style=', fig.group(0), 'no inline styles (CSP)')
 
     def test_types_page_lists_every_kind_used(self):
         html = (SITE / 'types.html').read_text(encoding='utf-8')

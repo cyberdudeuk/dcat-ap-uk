@@ -177,6 +177,16 @@ def run(site, verbose=True, fail_fast=False):
             pg.keyboard.press('Escape')
             if pg.evaluate("document.getElementById('palette').open"):
                 fails.append('palette: Escape did not close it')
+            # ADR 0019: selecting a card on a model map opens its details, with its connections, without leaving the page
+            pg.goto(base + 'profile.html')
+            pg.click('#map-model a[data-node="Dataset"]')
+            pg.wait_for_timeout(150)
+            if not pg.url.endswith('profile.html') or not pg.is_visible('#map-model .mm-panel') or 'connections' not in pg.inner_text('#map-model .mm-panel').lower():
+                fails.append('map: selecting a card did not open its details panel')
+            else:
+                pg.keyboard.press('Escape')
+                if pg.is_visible('#map-model .mm-panel'):
+                    fails.append('map: Escape did not close the details panel')
             pg.close()
             # D-024: every global menu opens at every width, including groups folded into More (and its items can be clicked)
             # also with the largest text from Display options, where menus are wider and reach the screen edge
@@ -277,6 +287,7 @@ BREAKS = {
     'meter': lambda s: _sub(s / 'app.js', '<span data-w="\' + Math.round(', '<span style="width:\' + Math.round('),
     'nested': lambda s: _sub(s / 'standards.html', 'id="std-svg" viewBox', 'id="std-svg" role="img" viewBox'),
     'suggest': lambda s: _sub(s / 'app.js', "var cur = input.value.trim(); if (input.tagName", "return; var cur = input.value.trim(); if (input.tagName"),
+    'map': lambda s: _sub(s / 'app.js', "e.preventDefault(); open(a.getAttribute('data-node'), a);", "open(a.getAttribute('data-node'), a);"),
     'extension': lambda s: _sub(s / 'validator.js', "Object.keys(e.props).forEach(function (k) { Q.props[k] = e.props[k]; });", ""),
 }
 
