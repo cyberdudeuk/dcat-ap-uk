@@ -425,7 +425,13 @@ def c_vendors(site, docs):
     t = page.read_text(encoding='utf-8')
     prof = json.loads((site / 'downloads' / 'profile.json').read_text(encoding='utf-8'))
     ds = [x['p'] for x in prof['classes']['Dataset']['props']]
+    m = re.search(r'<table[^>]*id="t-matrix".*?</table>', t, re.S)
+    rows = len(re.findall(r'<tr[^>]*data-kind=', m.group(0))) if m else 0
+    if rows != len(v['vendors']):
+        bad.append(f'connectors.html: the product matrix has {rows} rows for {len(v["vendors"])} products')
     for x in v['vendors']:
+        if f'data-node="{x["id"]}"' not in t:
+            bad.append(f'connectors.html: {x["id"]} is missing from the map')
         if f'id="v-{x["id"]}"' not in t:
             bad.append(f'connectors.html: no section for {x["id"]}')
         for r in x.get('repos', []):

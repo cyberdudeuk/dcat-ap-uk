@@ -103,6 +103,19 @@ class Weaving(unittest.TestCase):
                     back = js('var o=V.weave(P,"ukap",d.m,d.r).out; return V.weave(P,d.m,"ukap",o).record;', {'m': m, 'r': rec})
                     self.assertEqual(json.loads(json.dumps(rec)), back)
 
+    def test_the_documented_command_line_step_works(self):
+        # The connectors page tells people to run the CLI with --from <model>; prove each vendor format checks as DCAT-AP-UK.
+        import subprocess
+        import tempfile
+        rec = next(e['record'] for e in P.examples if e['key'] == 'dataset-postcodes')
+        for m in MODELS:
+            with self.subTest(model=m), tempfile.NamedTemporaryFile('w', suffix='.json', delete=False) as f:
+                json.dump(js('return V.weave(P,"ukap",d.m,d.r).out;', {'m': m, 'r': rec}), f)
+                f.flush()
+                out = subprocess.run(['node', str(ROOT / 'integrations' / 'cli' / 'validate.js'), '--from', m, f.name], capture_output=True, text=True)
+                self.assertEqual(0, out.returncode, out.stdout + out.stderr)
+                self.assertIn('pass', out.stdout)
+
     def test_people_are_not_carried(self):
         src = {'openmetadata': {'displayName': 'A table', 'owners': [{'name': 'a.person'}]},
                'datahub': {'name': 'A dataset', 'owners': ['urn:li:corpuser:someone']},

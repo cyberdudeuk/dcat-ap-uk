@@ -21,6 +21,7 @@ intro: >-
 
 reports:
   - id: gartner-mms-2025
+    short: Gartner metadata management 2025
     title: Magic Quadrant for Metadata Management Solutions
     publisher: Gartner
     date: '2025-11-19'
@@ -34,6 +35,7 @@ reports:
       - {vendor: ab-initio, source: https://research.oz.spotlightar.com/reports/magic-quadrant-metadata-management-solutions-2025/leaders, prov: K}
       - {vendor: atlan, source: https://research.oz.spotlightar.com/reports/magic-quadrant-metadata-management-solutions-2025/leaders, prov: K}
   - id: gartner-dagp-2025
+    short: Gartner D&A governance 2025
     title: Magic Quadrant for Data and Analytics Governance Platforms (first edition)
     publisher: Gartner
     date: '2025-01-07'
@@ -45,6 +47,7 @@ reports:
       - {vendor: ibm, source: https://www.hpcwire.com/bigdatawire/2025/01/16/slicing-and-dicing-the-data-governance-market/, prov: S}
       - {vendor: collibra, source: https://www3.collibra.com/company/newsroom/press-releases/collibra-named-a-leader-in-the-first-ever-gartner-magic-quadrant-for-data-and-analytics, prov: S}
   - id: gartner-dagp-2026
+    short: Gartner D&A governance 2026
     title: Magic Quadrant for Data and Analytics Governance Platforms (second edition)
     publisher: Gartner
     date: '2026-01-07'
@@ -54,6 +57,7 @@ reports:
     leaders:
       - {vendor: ibm, source: https://www.ibm.com/forms/mkt-54249, prov: S}
   - id: forrester-dg-2025
+    short: Forrester data governance 2025
     title: 'The Forrester Wave: Data Governance Solutions, Q3 2025'
     publisher: Forrester
     date: '2025-07-09'
@@ -66,6 +70,7 @@ reports:
       - {vendor: collibra, source: https://www.collibra.com/resources/collibra-strong-performer-forrester-wave-ai-governance-platforms-q3-2025, prov: S}
       - {vendor: informatica, source: https://research.oz.spotlightar.com/reports/forrester-wave-data-governance-solutions-q3-2025/leaders, prov: K}
   - id: forrester-edc-2024
+    short: Forrester data catalogues 2024
     title: 'The Forrester Wave: Enterprise Data Catalogs, Q3 2024'
     publisher: Forrester
     date: '2024-08-08'
@@ -415,15 +420,60 @@ vendors:
         listing: Claude connector directory
         tools: [list_dataset_ids, get_dataset_info, list_table_ids, get_table_info, execute_sql]
         use: Read BigQuery dataset and table metadata. It does not expose Dataplex catalog entries or aspects; for those use MCP Toolbox's Dataplex tools above.
+  - id: ovaledge
+    name: OvalEdge
+    kind: ranked
+    reports: [gartner-dagp-2025]
+    repos:
+      - {repo: ovaledge/oe_mcp, role: Open-source MCP server (MIT) with a Claude Code plugin and a Codex plugin, commit: 9587d7c1807593de3618965d64ffc76ae96d24b5, checked: '2026-11-07'}
+    extend: Custom fields on catalogue objects, set through the update_custom_field_value tool.
+    gap: The repository wraps OvalEdge's REST API but does not publish its object model as a schema, so no field mapping is given.
+    ai:
+      prov: V
+      mcp: An MCP server that runs locally over stdio or remotely over HTTPS at /mcp, acting with the signed-in user's permissions; writes ask the user to confirm first.
+      tools: [asset_explorer, asset_details, asset_lineage, metadata_changes_between_crawls, update_asset_descriptions, update_cde_associations, access_explorer, create_glossary_term, create_tag, create_service_request, update_governance_roles, update_custom_field_value, dq_rule_advisor, dq_rule_manager, knowledge_search]
+      skills: A Claude Code plugin in the repository (plugins/claude-ovaledge) with the ovaledge-mcp-workflows skill, which routes catalogue, governance, access and data quality questions through the server's playbooks.
+      source: https://github.com/ovaledge/oe_mcp
+    claude:
+      - type: plugin
+        name: claude-ovaledge
+        listing: In the vendor's own repository (not in the Claude directories searched)
+        repo: {repo: ovaledge/oe_mcp, commit: 9587d7c1807593de3618965d64ffc76ae96d24b5}
+        mcp: {name: OvalEdge, transport: 'stdio or http', url: 'https://<your OvalEdge server>/mcp', auth: API key or single sign-on}
+        skills:
+          - {name: ovaledge-mcp-workflows, does: Routes catalogue, governance, access, data quality and service request work through the server's playbooks.}
+        use: Install from the repository's own plugin marketplace to search, explain and govern OvalEdge assets from Claude Code.
+
+  - id: ataccama
+    name: Ataccama ONE
+    kind: ranked
+    reports: [gartner-mms-2025, gartner-dagp-2025]
+    repos: []
+    extend: Custom attributes in the Ataccama ONE metadata model.
+    gap: No public repository of the metadata model was found, so no field mapping is given.
+    ai:
+      prov: S
+      mcp: The Data Quality and Catalog MCP server, at your Ataccama ONE host followed by /mcp (from version 17.2.0), signed in with Ataccama ONE credentials. Ataccama Cloud only, enabled on request; self-managed deployments are not supported.
+      source: https://docs.ataccama.com/one/latest/generative-ai/mcp-dqc.html
+
+  - id: datagalaxy
+    name: DataGalaxy
+    kind: ranked
+    reports: [gartner-dagp-2025]
+    repos: []
+    extend: Custom attributes on catalogue objects.
+    gap: No public repository of the metadata model was found, so no field mapping is given.
+    ai:
+      prov: S
+      mcp: A read-only MCP server that searches objects, links, users and tags, returns ownership, definitions and lineage, and keeps DataGalaxy's roles and access controls. Its address is shown in each DataGalaxy instance, with a personal token.
+      source: https://datagalaxy.freshdesk.com/en/support/solutions/articles/35000314586-how-to-connect-datagalaxy-mcp-server-to-onyx
+
 # Named in a report above, with no public metadata model or MCP server found yet. Labelled K so the provenance register
 # lists each one, and the weekly run looks for a published model or MCP server.
 not_yet:
   - {id: ab-initio, name: Ab Initio Software, reports: [gartner-mms-2025, gartner-dagp-2025], prov: K}
   - {id: alex-solutions, name: Alex Solutions, reports: [gartner-mms-2025, gartner-dagp-2025], prov: K}
-  - {id: ataccama, name: Ataccama ONE, reports: [gartner-mms-2025, gartner-dagp-2025], prov: K}
   - {id: anjana-data, name: Anjana Data, reports: [gartner-dagp-2025], prov: K}
-  - {id: datagalaxy, name: DataGalaxy, reports: [gartner-dagp-2025], prov: K}
   - {id: erwin, name: erwin by Quest, reports: [gartner-dagp-2025], prov: K}
   - {id: gde, name: Global Data Excellence, reports: [gartner-dagp-2025], prov: K}
-  - {id: ovaledge, name: OvalEdge, reports: [gartner-dagp-2025], prov: K}
-  - {id: solidatus, name: Solidatus, reports: [gartner-dagp-2025], prov: K}
+  - {id: solidatus, name: Solidatus, reports: [gartner-dagp-2025], prov: K, note: 'Has an AI lineage assistant; no MCP server or public model found.', source: 'https://a-teaminsight.com/?p=76705'}

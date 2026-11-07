@@ -5,6 +5,11 @@ All notable changes to DCAT-AP-UK. The format follows [Keep a Changelog](https:/
 ## [Unreleased]
 
 ### Added
+- The vendor connectors page leads with "Find your product": a matrix of what each product offers (field mapping,
+  kit, weaver, MCP server, Claude), filterable by kind, report and need. It also has a map linking reports, products
+  and ways to connect, and numbered "How to connect" steps for each product. OvalEdge (open-source MCP server and
+  Claude Code plugin), Ataccama and DataGalaxy (MCP servers) join the register. Vendor crosswalks appear in the
+  lineage explorer, and a test proves the command-line step works for every vendor format.
 - "In Claude" on the vendor connectors page: each vendor's connectors in the Claude connector directory and plugins
   and skills in the plugin directories (Atlan, Collibra, Informatica, DataHub, Databricks for Unity Catalog, Google
   BigQuery, Microsoft Learn), with MCP server, tools, skills, use and source commit. None were found for Alation, IBM,

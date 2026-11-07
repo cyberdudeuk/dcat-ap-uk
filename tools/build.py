@@ -668,7 +668,7 @@ class Site:
                 'facts': [('Obligation', OB_LABEL[c['ob']]), ('Properties', str(len(c['properties']))), ('Mandatory', str(m)), ('In the xGov MEM', c['mem'] or 'New class')],
                 'desc': c['definition'], 'uri': c['uri'], 'open': f'Open the {c["label"].lower()} page'}
 
-    def mmap(self, mid, title, nodes, edges, note=''):
+    def mmap(self, mid, title, nodes, edges, note='', legend=None):
         """Render a model map. nodes: dicts from class_node with x, y. edges: (from, to, label, style).
         The SVG works without JavaScript (every card is a link); app.js adds the details panel, highlighting, zoom and pan."""
         NW, NH, SH = 210, 64, 50
@@ -715,7 +715,7 @@ class Site:
                 'edges': [[a, b, l, s] for a, b, l, s in edges]}
         blob = json.dumps(data, ensure_ascii=False).replace('</', '<' + chr(92) + '/')
         lst = ''.join(f'<li>{E(byid[a]["title"])} {"uses" if s == "uses" else "links to"} <a href="{E(byid[b]["href"])}">{E(byid[b]["title"])}</a>{" by " + E(l) if l else ""}</li>' for a, b, l, s in edges)
-        legend = ('<ul class="mm-legend"><li><span class="mm-tag k-M">CLASS · MANDATORY</span> a mandatory class</li><li><span class="mm-tag k-class">CLASS</span> another class</li>'
+        legend = legend or ('<ul class="mm-legend"><li><span class="mm-tag k-M">CLASS · MANDATORY</span> a mandatory class</li><li><span class="mm-tag k-class">CLASS</span> another class</li>'
                   + ('<li><span class="mm-tag k-codelist">CODELIST</span> a list of allowed values</li>' if any(n['kind'] == 'codelist' for n in nodes) else '')
                   + '<li><span class="ln"></span> links to, named on the line</li>' + ('<li><span class="ln uses"></span> takes its values from</li>' if any(e[3] == 'uses' for e in edges) else '') + '</ul>')
         return (f'<figure class="mmap" id="{mid}" data-w="{W}" data-h="{H}"{" data-busy" if len(edges) > 10 else ""}><svg viewBox="0 0 {W} {H}" role="group" aria-labelledby="{mid}-t"><title id="{mid}-t">{E(title)}</title>'
@@ -2060,6 +2060,12 @@ class Site:
             e('source:' + cw['source'], cxid)
             for r in cw['rows']:
                 e('prop:' + r[0], cxid) if ('prop:' + r[0]) in nodes else None
+        for x in self.vd['vendors']:  # vendor crosswalks (ADR 0021), each from its product's published model
+            if x.get('crosswalk'):
+                vxid = n('crosswalk:vendor-' + x['id'], x['name'] + ' crosswalk', 'crosswalk', f'connectors.html#v-{x["id"]}',
+                         f'Mapped from {x["model"]["file"]} in {x["model"]["repo"]}; every other property goes in {x["bag"]["path"]}.')
+                for r in x['crosswalk']:
+                    e('prop:' + r[0], vxid) if ('prop:' + r[0]) in nodes else None
         for d in self.c['governance']['defects']:
             did = n('defect:' + d['id'], f'{d["id"]}: {d["what"]}', 'defect', f'governance.html#{d["id"].lower()}', f'Cause: {d.get("cause", "")} Check: {d.get("check", "")}')
             for k in p.props:
@@ -2522,7 +2528,7 @@ class Site:
         vids = {x['id'] for x in v['vendors']} | {x['id'] for x in v['not_yet']}
         models = {k for k, *_ in self.WEAVE_MODELS}
         for r in v['reports']:
-            for f in ('title', 'publisher', 'date', 'url', 'prov'):
+            for f in ('title', 'short', 'publisher', 'date', 'url', 'prov'):
                 if not r.get(f):
                     errs.append(f'report {r["id"]}: no {f}')
             for ld in r.get('leaders', []):
@@ -2618,6 +2624,64 @@ class Site:
                'vendors': v['vendors'], 'not_yet': v['not_yet']}
         (dl / 'vendors.json').write_text(json.dumps(reg, indent=2, ensure_ascii=False) + '\n', encoding='utf-8')
 
+    def vendor_caps(self, x):
+        """What a reader can do with a product today, as yes or no facts drawn from the register."""
+        ai = x.get('ai') or {}
+        return {'reports': len(x.get('reports', [])), 'repo': bool(x.get('repos')), 'mapped': bool(x.get('crosswalk')), 'kit': bool(x.get('kit')),
+                'weave': x.get('weave') or '', 'mcp': bool(ai.get('mcp')) and ai.get('prov') in ('V', 'S') and bool(ai.get('source')), 'claude': bool(x.get('claude'))}
+
+    def vendor_steps(self, x):
+        """How to connect a product to DCAT-AP-UK, in order, from what the register says it offers."""
+        c, steps = self.vendor_caps(x), []
+        if c['kit']:
+            kit = self.KITS[x['kit']]
+            steps.append(f'Add the DCAT-AP-UK properties to {E(x["name"])}: load <a href="downloads/connectors/{kit[1]}" download>{E(kit[0])}</a>. {E(x.get("extend", ""))}')
+        if c['weave']:
+            steps.append(f'Convert records both ways in the <a href="weaver.html">metadata weaver</a> (choose {E(dict((k, l) for k, l, *_ in self.WEAVE_MODELS)[x["weave"]])}), or in a pipeline: '
+                         f'<code>node integrations/cli/validate.js --from {E(x["weave"])} export.json</code> checks an export as DCAT-AP-UK.')
+        elif x.get('gap'):
+            steps.append(f'No field mapping yet: {E(x["gap"])} Meanwhile, export DCAT-AP-UK records as JSON-LD or Turtle from the <a href="builder.html">record builder</a> and use the product\'s own DCAT or JSON import.')
+        if c['mcp']:
+            steps.append(f'Give AI agents the catalogue through its MCP server: {E(x["ai"]["mcp"])}')
+        if c['claude']:
+            steps.append('In Claude: ' + '; '.join(f'{E(k["name"])} ({E(k["type"])})' for k in x['claude']) + '. See <a href="#claude">In Claude</a>.')
+        steps.append('Check every record against DCAT-AP-UK with the <a href="validate.html">validator</a> before it is published or harvested.')
+        return steps
+
+    def vendor_map(self):
+        """Reports on the left, products in the middle, the ways to connect on the right."""
+        v = self.vd
+        reps = [r for r in v['reports']]
+        prods = sorted(v['vendors'], key=lambda x: x['kind'] != 'ranked')
+        routes = [('r-kit', 'Add-on kit', 'kit', 'kits'), ('r-weave', 'Weaver conversion', 'weave', 'vendors'), ('r-mcp', 'MCP server for AI agents', 'mcp', 'ai'), ('r-claude', 'In Claude', 'claude', 'claude')]
+        nodes, edges = [], []
+        gap = 60
+        top_r = (len(prods) - len(reps)) * gap / 2
+        for i, r in enumerate(reps):
+            nodes.append({'id': r['id'], 'small': True, 'x': 30, 'y': 30 + top_r + i * gap, 'kind': 'codelist', 'chip': f'{r["publisher"].upper()} · {r["date"][:4]}', 'title': r['title'].replace('The Forrester Wave: ', '').replace('Magic Quadrant for ', ''),
+                          'sub': f'{len(r.get("leaders", []))} leaders named', 'href': '#reports', 'facts': [('Published', r['date']), ('By', r['publisher'])], 'desc': r.get('note', ''), 'uri': r['url'], 'open': 'Go to the reports'})
+        for i, x in enumerate(prods):
+            c = self.vendor_caps(x)
+            nodes.append({'id': x['id'], 'small': True, 'x': 330, 'y': 30 + i * gap, 'kind': 'M' if c['mapped'] else 'class', 'chip': ('MAPPED · ' if c['mapped'] else '') + x['kind'].upper(), 'title': x['name'],
+                          'sub': ', '.join(k for k, ok in (('kit', c['kit']), ('weave', bool(c['weave'])), ('MCP', c['mcp']), ('Claude', c['claude'])) if ok) or 'listed',
+                          'href': f'#v-{x["id"]}', 'facts': [('In reports', str(c['reports'])), ('Public repository', 'Yes' if c['repo'] else 'No'), ('Field mapping', 'Yes' if c['mapped'] else 'No'),
+                                                            ('MCP server', 'Yes' if c['mcp'] else 'No'), ('In Claude', 'Yes' if c['claude'] else 'No')],
+                          'desc': x.get('extend', ''), 'uri': '', 'open': f'Go to {x["name"]}'})
+            for rid in x.get('reports', []):
+                edges.append((rid, x['id'], '', ''))
+            for rid, _, key, _ in routes:
+                if c[key]:
+                    edges.append((x['id'], rid, '', 'uses' if key in ('mcp', 'claude') else ''))
+        top_t = (len(prods) - 1 - (len(routes) - 1) * 2.5) * gap / 2
+        for i, (rid, title, key, anchor) in enumerate(routes):
+            n = sum(1 for x in prods if self.vendor_caps(x)[key])
+            nodes.append({'id': rid, 'x': 630, 'y': 30 + top_t + i * gap * 2.5, 'kind': 'class', 'chip': 'ROUTE', 'title': title, 'sub': f'{n} products', 'href': f'#{anchor}',
+                          'facts': [('Products', str(n))], 'desc': '', 'uri': '', 'open': f'Go to {title.lower()}'})
+        legend = ('<ul class="mm-legend"><li><span class="mm-tag k-codelist">REPORT</span> an analyst report</li><li><span class="mm-tag k-M">MAPPED</span> a product with a field mapping</li>'
+                  '<li><span class="mm-tag k-class">PRODUCT · ROUTE</span> another product, or a way to connect</li><li><span class="ln"></span> named in, or connects by</li><li><span class="ln uses"></span> connects AI agents by</li></ul>')
+        return self.mmap('map-vendors', 'Map of the analyst reports, the products they name and the ways each product connects to DCAT-AP-UK', nodes, edges,
+                         'Select a report, product or route to see its details. Without JavaScript, each card goes to its section.', legend=legend)
+
     def connectors_page(self):
         v, p = self.vd, self.p
         errs = self.vendor_problems()
@@ -2626,71 +2690,104 @@ class Site:
         self.vendor_files()
         names = {x['id']: x['name'] for x in v['vendors'] + v['not_yet']}
         rep = {r['id']: r for r in v['reports']}
+        yes = lambda b: '<strong class="tag ok">Yes</strong>' if b else '<span class="tag">No</span>'  # noqa: E731
         gh = lambda r: f'<a href="https://github.com/{E(r)}">{E(r)}</a>'  # noqa: E731
+        # 1. the choice: what each product can do today, filterable
+        mrows, mattrs = [], []
+        ordered = sorted(v['vendors'], key=lambda x: x['kind'] != 'ranked')
+        for x in ordered:
+            c = self.vendor_caps(x)
+            mrows.append([f'<a href="#v-{x["id"]}">{E(x["name"])}</a>', 'Ranked' if x['kind'] == 'ranked' else 'Platform', str(c['reports']), yes(c['repo']), yes(c['mapped']), yes(c['kit']),
+                          yes(bool(c['weave'])), yes(c['mcp']), yes(c['claude'])])
+            mattrs.append(f' data-kind="{x["kind"]}" data-has="' + ' '.join(k for k in ('repo', 'mapped', 'kit', 'weave', 'mcp', 'claude') if c[k]) + '"'
+                          + ' data-report="' + ' '.join(x.get('reports', [])) + '"')
+        ropts = ''.join(f'<option value="{E(r["id"])}">{E(r["short"])}</option>' for r in v['reports'])
+        flt = (f'<div class="filters" data-for="t-matrix"><label>Search<input type="search" placeholder="product name"></label>'
+               f'<label>Kind<select data-col="kind"><option value="">All</option><option value="ranked">Ranked by analysts</option><option value="platform">Platform catalogue</option></select></label>'
+               f'<label>Report<select data-col="report"><option value="">All</option>{ropts}</select></label>'
+               f'<label>Offers<select data-col="has"><option value="">Anything</option><option value="mapped">A field mapping</option><option value="kit">An add-on kit</option>'
+               f'<option value="weave">Weaver conversion</option><option value="mcp">An MCP server</option><option value="claude">Something in Claude</option><option value="repo">A public repository</option></select></label><output aria-live="polite"></output></div>')
+        mt = flt + table('t-matrix', f'What each product offers today {prov("V", v["as_of"])}', ['Product', 'Kind', 'Reports', 'Public repository', 'Field mapping', 'Add-on kit', 'Weaver', 'MCP server', 'In Claude'], mrows, row_attrs=mattrs)
+        tot = lambda k: sum(1 for x in v['vendors'] if self.vendor_caps(x)[k])  # noqa: E731
+        meta = [('boxes', f'{len(v["vendors"])} products'), ('merge', f'{tot("mapped")} field mappings'), ('package', f'{len(self.KITS)} add-on kits'),
+                ('workflow', f'{tot("mcp")} MCP servers'), ('plug', f'{sum(len(x.get("claude", [])) for x in v["vendors"])} entries in Claude'), ('calendar', f'Checked {v["as_of"]}')]
+        meta = [(i if i in ICONS else 'circle-help', t) for i, t in meta]
+        # 2. reports
         rows = []
         for r in v['reports']:
             ld = ', '.join(f'<a href="{E(x["source"])}">{E(names[x["vendor"]])}</a> {prov(x["prov"])}' for x in r.get('leaders', []))
             rows.append([f'<a href="{E(r["url"])}">{E(r["title"])}</a>', E(r['publisher']), E(r['date']), ld or 'Not yet checked', E(r.get('note', ''))])
         rt = table('t-reports', f'Analyst reports {prov("S")}', ['Report', 'By', 'Published', 'Leaders, with the announcement that says so', 'Note'], rows)
-        cards, ai_rows = [], []
-        for x in v['vendors']:
-            rp = ''.join(f'<li>{gh(r["repo"])}: {E(r["role"])} <span class="small">(commit <code>{E(r["commit"])}</code>, checked {E(r["checked"])})</span></li>' for r in x.get('repos', []))
-            inr = ', '.join(E(rep[r]['publisher'] + ' ' + rep[r]['date'][:4]) for r in x.get('reports', [])) or 'Not ranked in these reports: a platform catalogue.'
+        # 3. products, grouped by kind
+        cards = {'ranked': [], 'platform': []}
+        ai_rows, crow = [], []
+        for x in ordered:
+            c = self.vendor_caps(x)
+            rp = ''.join(f'<li>{gh(r["repo"])}: {E(r["role"])} <span class="small">(commit <code>{E(r["commit"][:12])}</code>, checked {E(r["checked"])})</span></li>' for r in x.get('repos', []))
+            inr = ', '.join(f'<a href="#reports">{E(rep[r]["short"])}</a>' for r in x.get('reports', [])) or 'Not ranked in these reports: a platform catalogue.'
             ai = x.get('ai') or {}
             tools_ = ', '.join(f'<code>{E(t)}</code>' for t in ai.get('tools', []))
-            aih = (f'<p><strong>AI agents and MCP</strong> {prov(ai.get("prov", "K"))}: {E(ai.get("mcp", ""))}'
-                   + (f' {E(ai["skills"])}' if ai.get('skills') else '') + (f' <a href="{E(ai["source"])}">Source</a>.' if ai.get('source') else '') + '</p>'
-                   + (f'<p class="small">Tools include {tools_}.</p>' if tools_ else ''))
-            ai_rows.append([E(x['name']), E(ai.get('mcp', '')), tools_ or 'None found', E(ai.get('skills', '')), prov(ai.get('prov', 'K'))])
-            if x.get('crosswalk'):
+            ai_rows.append([f'<a href="#v-{x["id"]}">{E(x["name"])}</a>', E(ai.get('mcp', '')), tools_ or 'Not listed', E(ai.get('skills', '')),
+                            (f'<a href="{E(ai["source"])}">Source</a> ' if ai.get('source') else '') + prov(ai.get('prov', 'K'))])
+            for k in x.get('claude', []):
+                spec = []
+                if k.get('mcp'):
+                    m = k['mcp']
+                    spec.append(f'MCP server <code>{E(m["name"])}</code>, {E(m["transport"])}, {E(m.get("url", ""))}, {E(m.get("auth", ""))}')
+                if k.get('tools'):
+                    spec.append('Tools: ' + ', '.join(f'<code>{E(t)}</code>' for t in k['tools']) + (f' ({E(k["tools_note"])})' if k.get('tools_note') else ''))
+                if k.get('skills'):
+                    spec.append('Skills: ' + '; '.join(f'<code>{E(s_["name"])}</code>: {E(s_["does"])}' for s_ in k['skills']))
+                src = f'{gh(k["repo"]["repo"])} <span class="small">(commit <code>{E(k["repo"]["commit"][:12])}</code>)</span>' if k.get('repo') else ''
+                crow.append([f'<a href="#v-{x["id"]}">{E(x["name"])}</a>', f'<strong>{E(k["name"])}</strong><br><span class="small">{E(k["type"]).capitalize()}. {E(k["listing"])}</span>', '<br>'.join(spec), E(k['use']), src])
+            if c['mapped']:
                 cw = table(f't-cw-{x["id"]}', f'{x["name"]} to DCAT-AP-UK {prov("V", v["as_of"])}', ['DCAT-AP-UK', f'{x["name"]} field', 'Note'],
                            [[f'<a href="properties.html#p-{E(r[0])}">{E(r[0])}</a>', f'<code>{E(r[1])}</code>', E(r[2])] for r in x['crosswalk']]
                            + [['Every other property', f'<code>{E(x["bag"]["path"])}</code>', 'The extension place the add-on kit defines.']], sortable=False)
                 kit = self.KITS[x['kit']]
-                body_cw = (f'<p>Mapped from <code>{E(x["model"]["file"])}</code> in {gh(x["model"]["repo"])}. {E(x.get("extend", ""))}</p>{cw}'
-                           f'<p class="btns"><a class="btn secondary small" href="downloads/connectors/{x["id"]}-crosswalk.csv" download>{icon("download")} Crosswalk as CSV</a> '
-                           f'<a class="btn secondary small" href="downloads/connectors/{kit[1]}" download>{icon("download")} Add-on kit: {E(kit[0])}</a> '
-                           f'<a class="btn secondary small" href="weaver.html">{icon("waypoints")} Convert in the weaver</a></p>')
+                mapped = (f'<details><summary>Field mapping, from <code>{E(x["model"]["file"])}</code></summary><p>Mapped from {gh(x["model"]["repo"])}. {E(x.get("extend", ""))}</p>{cw}'
+                          f'<p class="btns"><a class="btn secondary small" href="downloads/connectors/{x["id"]}-crosswalk.csv" download>{icon("download")} Crosswalk as CSV</a> '
+                          f'<a class="btn secondary small" href="downloads/connectors/{kit[1]}" download>{icon("download")} {E(kit[0])}</a></p></details>')
             else:
-                body_cw = f'<p>{E(x.get("extend", ""))} {E(x["gap"])}</p>'
-            cards.append(f'<section class="panel" id="v-{x["id"]}"><h3>{E(x["name"])}</h3><p class="small">In: {inr}</p>'
-                         + (f'<ul>{rp}</ul>' if rp else '<p class="small">No public repository found.</p>') + body_cw + aih + '</section>')
-        crow = []
-        for x in v['vendors']:
-            for c in x.get('claude', []):
-                spec = []
-                if c.get('mcp'):
-                    m = c['mcp']
-                    spec.append(f'MCP server <code>{E(m["name"])}</code>, {E(m["transport"])}, {E(m.get("url", ""))}, {E(m.get("auth", ""))}')
-                if c.get('tools'):
-                    spec.append('Tools: ' + ', '.join(f'<code>{E(t)}</code>' for t in c['tools']) + (f' ({E(c["tools_note"])})' if c.get('tools_note') else ''))
-                if c.get('skills'):
-                    spec.append('Skills: ' + '; '.join(f'<code>{E(k["name"])}</code>: {E(k["does"])}' for k in c['skills']))
-                src = f'{gh(c["repo"]["repo"])} <span class="small">(commit <code>{E(c["repo"]["commit"][:12])}</code>)</span>' if c.get('repo') else ''
-                crow.append([E(x['name']), f'<strong>{E(c["name"])}</strong><br><span class="small">{E(c["type"]).capitalize()}. {E(c["listing"])}</span>', '<br>'.join(spec), E(c['use']), src])
+                mapped = ''
+            steps = ''.join(f'<li>{st}</li>' for st in self.vendor_steps(x))
+            badges = ' '.join(f'<strong class="tag {"ok" if ok else ""}">{E(lbl)}</strong>' for lbl, ok in (('Mapped', c['mapped']), ('Kit', c['kit']), ('Weaver', bool(c['weave'])), ('MCP', c['mcp']), ('In Claude', c['claude'])) if ok)
+            cards[x['kind']].append(f'<section class="panel" id="v-{x["id"]}"><h4>{E(x["name"])}</h4><p class="small">{badges} In: {inr}</p>'
+                                    f'<h5>How to connect</h5><ol>{steps}</ol>{mapped}'
+                                    + (f'<details><summary>Public repositories ({len(x["repos"])})</summary><ul>{rp}</ul></details>' if rp else '<p class="small">No public repository found.</p>')
+                                    + (f'<p class="small">MCP tools include {tools_}.</p>' if tools_ else '') + '</section>')
+        at = table('t-ai', f'What each offers AI agents {prov("V", v["as_of"])}', ['Product', 'MCP server', 'Tools', 'Skills and plugins', 'Source'], ai_rows)
         ct = table('t-claude', f'In Claude: connectors, plugins and skills {prov("V", v["as_of"])}', ['Product', 'In Claude', 'Specification', 'What it is for', 'Source'], crow)
         none_in = ', '.join(E(x['name']) for x in v['vendors'] if not x.get('claude'))
-        at = table('t-ai', f'What each offers AI agents {prov("V", v["as_of"])}', ['Product', 'MCP server', 'Tools', 'Skills and plugins', 'Source'], ai_rows)
-        ny = ''.join(f'<li>{E(x["name"])} <span class="small">({", ".join(E(rep[r]["publisher"] + " " + rep[r]["date"][:4]) for r in x["reports"])})</span></li>' for x in v['not_yet'])
+        ny = ''.join(f'<li>{E(x["name"])} <span class="small">({", ".join(E(rep[r]["short"]) for r in x["reports"])})'
+                     + (f' {E(x["note"])} <a href="{E(x["source"])}">Source</a>.' if x.get('note') else '') + '</span></li>' for x in v['not_yet'])
         nkit = ''.join(f'<li><a href="downloads/connectors/{f}" download>{E(l)}</a></li>' for l, f in self.KITS.values())
-        body = self.hero('plug', 'Adopt', TITLES['connectors'], self.gloss(' '.join(v['intro'].split())))
-        body += ('<div class="panel warning"><p>Positions in paywalled analyst reports come from the vendors\' own announcements, labelled S, or from secondary sources, labelled K. '
-                 'Nothing here is a test, an endorsement or a ranking by this project. Suppliers can correct an entry with the claim form on the '
-                 '<a href="integrations.html#claims">integrations page</a>.</p></div>')
-        body += f'<h2 id="reports">The reports</h2>{rt}'
-        body += (f'<h2 id="vendors">Products and their models</h2><p>Each crosswalk below cites the public file it was mapped from and the commit read. '
-                 f'A product whose model is not published has no mapping, rather than a guessed one.</p>{"".join(cards)}')
-        body += (f'<h2 id="ai">AI agents, MCP servers and skills</h2><p>What each vendor offers for AI agents that find, explain and govern catalogue metadata. '
-                 f'An agent can use these servers alongside this portal\'s own <a href="integrations.html">MCP server</a>, which checks and converts DCAT-AP-UK records.</p>{at}')
-        body += (f'<h2 id="claude">In Claude</h2><p>What each vendor publishes for Claude itself: connectors in the Claude connector directory, and plugins and skills in the plugin directories, found by searching both on {E(v["as_of"])}. '
+        body = self.hero('plug', 'Adopt', TITLES['connectors'], self.gloss(' '.join(v['intro'].split())), meta=meta)
+        body += ('<div class="panel warning"><p>Nothing here is a test, an endorsement or a ranking by this project, and no kit has been tried against a live tenant. Positions in paywalled analyst reports come from the vendors\' own announcements, labelled S, '
+                 'or from secondary sources, labelled K. Suppliers can correct an entry with the claim form on the <a href="integrations.html#claims">integrations page</a>.</p></div>')
+        body += f'<h2 id="choose">Find your product</h2><p>Filter by kind, report or what you need; select a product to see how to connect it.</p>{mt}'
+        body += f'<h2 id="map">How it fits together</h2>{self.vendor_map()}'
+        body += (f'<h2 id="vendors">Products and how to connect them</h2><p>Each product has steps in order. A field mapping cites the public file it was mapped from and the commit read; '
+                 f'a product whose model is not published has no mapping, rather than a guessed one.</p>'
+                 f'<h3 id="ranked">Named in the analyst reports</h3>{"".join(cards["ranked"])}<h3 id="platforms">Catalogues inside data platforms, and open source</h3>{"".join(cards["platform"])}')
+        body += (f'<h2 id="ai">AI agents, MCP servers and skills</h2><p>What each vendor offers AI agents that find, explain and govern catalogue metadata. '
+                 f'An agent can use these alongside this portal\'s own <a href="integrations.html">MCP server</a>, which checks and converts DCAT-AP-UK records.</p>{at}')
+        body += (f'<h2 id="claude">In Claude</h2><p>Connectors in the Claude connector directory, and plugins and skills in the plugin directories and the vendors\' own repositories, searched on {E(v["as_of"])}. '
                  f'A connector needs the organisation’s own tenant and sign-in; a plugin bundles skills that tell Claude how to use the vendor’s tools well. Nothing was installed or connected. '
                  f'The directory search covers only part of the directory, so a missing entry may still exist. None found for {none_in}.</p>{ct}')
         body += f'<h2 id="kits">Add-on kits</h2><p>Definitions of every DCAT-AP-UK dataset property, in each product\'s own extension format, named as the weaver writes them.</p><ul>{nkit}</ul>'
         body += f'<p><a class="btn" href="downloads/connectors/vendors.json" download>{icon("download")} Download the register as JSON</a></p>'
+        body += f'<h2 id="reports">The reports</h2>{rt}'
         body += f'<h2 id="not-yet">Not covered yet</h2><p>Named in a report above, with no public metadata model or MCP server found on {E(v["as_of"])}. The weekly run looks again.</p><ul>{ny}</ul>'
-        drawer = [{'title': 'Vendor connectors', 'icon': 'plug', 'items': [{'id': 'reports', 'label': 'Reports', 'icon': 'file-text' if 'file-text' in ICONS else 'list-checks', 'count': len(v['reports'])},
-                   {'id': 'vendors', 'label': 'Products', 'icon': 'boxes', 'count': len(v['vendors'])}, {'id': 'ai', 'label': 'AI agents and MCP', 'icon': 'workflow'}, {'id': 'claude', 'label': 'In Claude', 'icon': 'plug', 'count': sum(len(x.get('claude', [])) for x in v['vendors'])},
-                   {'id': 'kits', 'label': 'Add-on kits', 'icon': 'package', 'count': len(self.KITS)}, {'id': 'not-yet', 'label': 'Not covered yet', 'icon': 'clipboard-check', 'count': len(v['not_yet'])}]}]
+        drawer = [{'title': 'Vendor connectors', 'icon': 'plug', 'items': [
+            {'id': 'choose', 'label': 'Find your product', 'icon': 'search' if 'search' in ICONS else 'list-checks', 'count': len(v['vendors'])},
+            {'id': 'map', 'label': 'How it fits together', 'icon': 'network'},
+            {'id': 'vendors', 'label': 'How to connect', 'icon': 'boxes', 'count': len(v['vendors'])},
+            {'id': 'ai', 'label': 'AI agents and MCP', 'icon': 'workflow', 'count': tot('mcp')},
+            {'id': 'claude', 'label': 'In Claude', 'icon': 'plug', 'count': sum(len(x.get('claude', [])) for x in v['vendors'])},
+            {'id': 'kits', 'label': 'Add-on kits', 'icon': 'package', 'count': len(self.KITS)},
+            {'id': 'reports', 'label': 'Reports', 'icon': 'list-checks', 'count': len(v['reports'])},
+            {'id': 'not-yet', 'label': 'Not covered yet', 'icon': 'clipboard-check', 'count': len(v['not_yet'])}]}]
         self.page('connectors', body, drawer, crumbs=[('Adopt', None), (TITLES['connectors'], None)])
 
     def lockin_page(self):
