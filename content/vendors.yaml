@@ -324,14 +324,15 @@ vendors:
       - [modified, entrySource.updateTime, '']
       - [keyword, entrySource.labels, 'Labels are key and value pairs; each keyword becomes a key with an empty value.']
 
-# Named in a report above, with no public metadata model or MCP server found yet. Each is re-checked by the weekly run.
+# Named in a report above, with no public metadata model or MCP server found yet. Labelled K so the provenance register
+# lists each one, and the weekly run looks for a published model or MCP server.
 not_yet:
-  - {id: ab-initio, name: Ab Initio Software, reports: [gartner-mms-2025, gartner-dagp-2025]}
-  - {id: alex-solutions, name: Alex Solutions, reports: [gartner-mms-2025, gartner-dagp-2025]}
-  - {id: ataccama, name: Ataccama ONE, reports: [gartner-mms-2025, gartner-dagp-2025]}
-  - {id: anjana-data, name: Anjana Data, reports: [gartner-dagp-2025]}
-  - {id: datagalaxy, name: DataGalaxy, reports: [gartner-dagp-2025]}
-  - {id: erwin, name: erwin by Quest, reports: [gartner-dagp-2025]}
-  - {id: gde, name: Global Data Excellence, reports: [gartner-dagp-2025]}
-  - {id: ovaledge, name: OvalEdge, reports: [gartner-dagp-2025]}
-  - {id: solidatus, name: Solidatus, reports: [gartner-dagp-2025]}
+  - {id: ab-initio, name: Ab Initio Software, reports: [gartner-mms-2025, gartner-dagp-2025], prov: K}
+  - {id: alex-solutions, name: Alex Solutions, reports: [gartner-mms-2025, gartner-dagp-2025], prov: K}
+  - {id: ataccama, name: Ataccama ONE, reports: [gartner-mms-2025, gartner-dagp-2025], prov: K}
+  - {id: anjana-data, name: Anjana Data, reports: [gartner-dagp-2025], prov: K}
+  - {id: datagalaxy, name: DataGalaxy, reports: [gartner-dagp-2025], prov: K}
+  - {id: erwin, name: erwin by Quest, reports: [gartner-dagp-2025], prov: K}
+  - {id: gde, name: Global Data Excellence, reports: [gartner-dagp-2025], prov: K}
+  - {id: ovaledge, name: OvalEdge, reports: [gartner-dagp-2025], prov: K}
+  - {id: solidatus, name: Solidatus, reports: [gartner-dagp-2025], prov: K}
