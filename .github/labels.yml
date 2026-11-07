@@ -18,3 +18,5 @@
 - {name: digest, color: '0b0c0c', description: The weekly operations digest (digest routine)}
 - {name: review due, color: 'b58840', description: The content review date is near (upkeep routine)}
 - {name: health, color: '00703c', description: Raised by the weekly health run}
+- {name: occurrence, color: 'f47738', description: A near miss or surprise reported without blame, so the next defect is prevented (ADR 0018)}
+- {name: trial, color: '28a197', description: A time-limited experiment with its own envelope and kill switch (ops/automation.yaml trials)}

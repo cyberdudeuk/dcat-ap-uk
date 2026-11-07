@@ -2539,6 +2539,14 @@ class Site:
                  f'To stop every tier 1 routine changing anything, set the repository variable <code>{E(auto["kill_switch"]["variable"])}</code> to <code>{E(auto["kill_switch"]["off_value"])}</code>.</p>'
                  + table('t-routines', f'{len(auto["routines"])} routines', ['Routine', 'Tier', 'When', 'What it does', 'What it may change', 'Workflow'], arows)
                  + '<h3 id="never">Never automated</h3>' + ul([E(x) for x in auto['never']])
+                 + '<h3 id="trials">Trials</h3><p>New ideas are tried as trials: each states what it is trying to learn, what it may touch, how success is measured, when to stop, '
+                 f'and an end date at most 90 days away. Each has its own kill switch, a repository variable <code>TRIAL_</code> followed by its name, and <code>{E(auto["kill_switch"]["variable"])}</code> stops them all. '
+                 'The build fails if a trial runs past its end date, so every trial is either made a routine by a person or stopped.</p>'
+                 + (table('t-trials', f'{len(auto.get("trials") or [])} trials', ['Trial', 'Trying to learn', 'May touch', 'Stops if', 'Ends'],
+                          [[E(x['id']), E(x['hypothesis']), E(', '.join(x['envelope']) if isinstance(x['envelope'], list) else x['envelope']), E(x['abort']), E(str(x['ends']))] for x in auto['trials']])
+                    if auto.get('trials') else '<p>No trials are running.</p>')
+                 + '<h3 id="occurrences">Near misses</h3><p>' + E(auto['occurrences']['how']) + ' ' + E(auto['occurrences']['follow_up'])
+                 + f' Report one with the <a href="{E(self.m["repo_url"])}/issues/new?template=occurrence.yml">occurrence form</a>.</p>'
                  + '<p>The same pattern runs across the connected portals; see <a href="governance.html#adrs">ADR 0017</a>.</p>')
         body += '<p>Machine-readable: <a href="downloads/status.json">status.json</a>.</p>'
         (self.out / 'downloads' / 'status.json').write_text(json.dumps({

@@ -2,6 +2,15 @@
 
 All notable changes to DCAT-AP-UK. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and versions follow semantic versioning.
 
+## [Unreleased]
+
+### Added
+- Trials: new ideas run as time-limited trials declared in `ops/automation.yaml`, each with a hypothesis, an envelope,
+  a measure, an abort rule, an end date at most 90 days away and its own kill switch (`TRIAL_<ID>`). `tools/trials.py`
+  checks and gates them; the build fails on an expired or malformed trial (ADR 0018).
+- Near misses: an occurrence issue form and label, reported without blame; the weekly digest lists occurrences and trials.
+- The Status page shows trials and how to report a near miss.
+
 ## [1.2.0-rc.1] - 2026-11-06
 
 A minor release: a new name, tools for suppliers and buyers, and a richer portal. No property changes meaning. Proposed, not endorsed.

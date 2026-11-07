@@ -11,6 +11,8 @@ import sys
 import unittest
 from pathlib import Path
 
+import datetime as dt
+
 import yaml
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -62,6 +64,61 @@ class KillSwitch(unittest.TestCase):
         after = subprocess.run(['git', 'status', '--porcelain'], cwd=ROOT, capture_output=True, text=True).stdout
         self.assertEqual(before, after, r.stdout + r.stderr)
         self.assertIn('Kill switch is off', r.stdout)
+
+
+sys.path.insert(0, str(ROOT / 'tools'))
+import trials  # noqa: E402
+
+GOOD = {'id': 'demo', 'hypothesis': 'A weekly link check finds broken links sooner', 'envelope': ['issues labelled trial'],
+        'measure': 'broken links found per week', 'abort': 'more than 2 false alarms a week', 'started': '2026-11-07',
+        'ends': '2026-12-07', 'owner': 'repository owner', 'tier': 0}
+
+
+class Trials(unittest.TestCase):
+    """ADR 0018: trials are test flights with an envelope, an end date and a kill switch."""
+
+    def test_declared_trials_are_in_order(self):
+        self.assertEqual(trials.problems(POLICY.get('trials') or []), [])
+
+    def test_a_good_trial_passes_and_can_run(self):
+        today = dt.date(2026, 11, 10)
+        self.assertEqual(trials.problems([GOOD], today), [])
+        ok, why = trials.gate('demo', [GOOD], {}, today)
+        self.assertTrue(ok, why)
+
+    def test_negative_each_guardrail_fails_when_it_should(self):
+        today = dt.date(2026, 11, 10)
+        cases = {
+            'missing abort': (dict(GOOD, abort=''), 'missing abort'),
+            'too long': (dict(GOOD, ends='2027-03-01'), 'the limit is 90'),
+            'expired': (dict(GOOD, ends='2026-11-08'), 'ended'),
+            'touches merge': (dict(GOOD, envelope=['merge its own pull requests']), 'merge'),
+            'tier 1': (dict(GOOD, tier=1), 'only observe'),
+            'bad id': (dict(GOOD, id='Demo Trial'), 'lower case'),
+        }
+        for name, (trial, needle) in cases.items():
+            with self.subTest(case=name):
+                p = trials.problems([trial], today)
+                self.assertTrue(any(needle in x for x in p), p)
+                self.assertFalse(trials.gate(trial['id'], [trial], {}, today)[0])
+
+    def test_negative_kill_switches_stop_a_trial(self):
+        today = dt.date(2026, 11, 10)
+        self.assertEqual(trials.kill_variable('demo'), 'TRIAL_DEMO')
+        self.assertFalse(trials.gate('demo', [GOOD], {'TRIAL_DEMO': 'off'}, today)[0])
+        self.assertFalse(trials.gate('demo', [GOOD], {'AUTOMATION': 'off'}, today)[0])
+        self.assertFalse(trials.gate('nope', [GOOD], {}, today)[0])
+
+    def test_occurrences_are_reportable_without_blame(self):
+        self.assertEqual(POLICY['occurrences']['label'], 'occurrence')
+        labels = yaml.safe_load((ROOT / '.github' / 'labels.yml').read_text(encoding='utf-8'))
+        self.assertIn('occurrence', {x['name'] for x in labels})
+        form = yaml.safe_load((ROOT / '.github' / 'ISSUE_TEMPLATE' / 'occurrence.yml').read_text(encoding='utf-8'))
+        self.assertEqual(form['labels'], ['occurrence'])
+        text = str(form).lower()
+        self.assertNotIn('your name', text)
+        self.assertNotIn('email', text)
+        self.assertIn("'occurrence'", (WF / 'digest.yml').read_text(encoding='utf-8'))
 
 
 if __name__ == '__main__':

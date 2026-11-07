@@ -1,0 +1,32 @@
+name: Occurrence (near miss)
+description: Something nearly went wrong, or surprised you. No blame; we use it to stop the next defect.
+title: "[Occurrence] "
+labels: ["occurrence"]
+body:
+  - type: markdown
+    attributes:
+      value: "Tell us what happened, not who did it. Every occurrence ends with a check that would have caught it, or a recorded reason why none is needed."
+  - type: input
+    id: where
+    attributes:
+      label: Where?
+      description: Page, file, routine or workflow
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened, or nearly happened?
+    validations:
+      required: true
+  - type: textarea
+    id: caught
+    attributes:
+      label: What caught it, or what would have?
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Privacy
+      options:
+        - label: I have not included personal data or anything sensitive
+          required: true
