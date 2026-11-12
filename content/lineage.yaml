@@ -280,18 +280,20 @@ sources:
     prov: V
   - id: gscp
     title: Government Security Classifications Policy, version 2.0
-    publisher: GOV.UK
+    publisher: Cabinet Office
     date: '2024-08'
     url: https://www.gov.uk/government/publications/government-security-classifications
     role: The classification values.
-    prov: K
+    prov: V
+    checked: 2026-11-09
   - id: gemini
     title: UK GEMINI
     publisher: Association for Geographic Information
     date: ''
     url: https://www.agi.org.uk/uk-gemini/
     role: The UK standard for geospatial metadata. Geospatial publishers follow it as well as this profile.
-    prov: K
+    prov: V
+    checked: 2026-11-09
   - id: dguk
     title: data.gov.uk topics
     publisher: data.gov.uk
