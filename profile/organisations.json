@@ -1,6 +1,6 @@
 {
 "source": "https://www.gov.uk/api/organisations",
-"read": "2026-11-06",
+"read": "2026-11-09",
 "via": "GOV.UK organisations API, read directly",
 "prov": "V",
 "count": 1273,
@@ -2329,8 +2329,8 @@
 "slug": "department-for-business-and-trade",
 "title": "Department for Business and Trade",
 "abbr": "DBT",
-"type": "Other",
-"status": "live",
+"type": "Ministerial department",
+"status": "closed",
 "uri": "https://www.gov.uk/government/organisations/department-for-business-and-trade"
 },
 {
