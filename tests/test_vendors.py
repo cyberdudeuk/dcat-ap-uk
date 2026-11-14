@@ -60,10 +60,21 @@ class Register(unittest.TestCase):
             'no deployment': lambda v: v['vendors'][0].pop('deploy'),
             'an unknown deployment': lambda v: v['vendors'][0].update(deploy=['mainframe']),
             'a kit with no bag to fill': lambda v: v['vendors'][0].pop('bag'),
+            'a deploy list with no provenance (D-036)': lambda v: v['vendors'][0].pop('deploy_src'),
+            'a sourced deploy list with no source (D-036)': lambda v: v['vendors'][0]['deploy_src'].pop('source'),
+            'a sourced deploy list with no check date (D-036)': lambda v: v['vendors'][0]['deploy_src'].pop('checked'),
+            'a verified deploy list citing an unpinned repo (D-036)': lambda v: v['vendors'][0]['deploy_src'].update(prov='V', source='https://github.com/someone/else'),
+            'open source with no repository (D-036)': lambda v: [x.update(repos=[]) for x in v['vendors'] if x['id'] == 'amundsen'],
         }
         for name, f in cases.items():
             with self.subTest(break_=name):
                 self.assertTrue(broken(f), name + ' was not caught')
+
+    def test_secoda_lists_its_self_hosted_option(self):
+        # D-036 regression: Secoda documents a self-hosted install (docs.secoda.co/enterprise/self-hosted-secoda).
+        x = next(v for v in VD['vendors'] if v['id'] == 'secoda')
+        self.assertIn('on-prem', x['deploy'])
+        self.assertIn('self-hosted', x['deploy_src']['source'])
 
     def test_crosswalk_agrees_with_the_weaver(self):
         # The YAML says what the JS does: every native field the weaver maps is in that vendor's crosswalk, with the same path.

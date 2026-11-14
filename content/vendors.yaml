@@ -21,7 +21,6 @@ intro: >-
 
 # Where each product runs (each vendor's deploy list) is background knowledge, except Ataccama's self-managed option,
 # which its MCP documentation mentions. This one entry puts it in the provenance register for the weekly run to verify.
-deploy_check: {prov: K, title: "Where each product runs (each vendor's deploy list)", note: 'Check each against the vendor deployment documentation and record the source.'}
 
 reports:
   - id: gartner-mms-2025
@@ -36,7 +35,7 @@ reports:
       - {vendor: informatica, source: https://businesswire.com/news/home/20251121159172/en/Informatica-Named-a-Leader-in-the-2025-Gartner-Magic-Quadrant-for-Metadata-Management-Solutions-Report, prov: S}
       - {vendor: ibm, source: https://www.ibm.com/forms/mkt-54143, prov: S}
       - {vendor: alation, source: https://stocks.observer-reporter.com/observerreporter/article/gnwcq-2025-11-21-alation-named-as-a-leader-5x-in-the-gartner-magic-quadrant-for-metadata-management-solutions, prov: S}
-      - {vendor: ab-initio, source: https://research.oz.spotlightar.com/reports/magic-quadrant-metadata-management-solutions-2025/leaders, prov: K}
+      - {vendor: ab-initio, source: https://research.oz.spotlightar.com/reports/magic-quadrant-metadata-management-solutions-2025/leaders, prov: K, note: 'Rechecked 14 November 2026: Gartner''s public abstract (https://www.gartner.com/en/documents/7195830) lists Ab Initio Software among the vendors evaluated, but the placement is only in the gated report, and Ab Initio has published no announcement of it. A secondary summary is all there is, so it stays unconfirmed.'}
       - {vendor: atlan, source: https://www.businesswire.com/news/home/20251124723002/en, prov: S}
   - id: gartner-dagp-2025
     short: Gartner D&A governance 2025
@@ -91,6 +90,7 @@ reports:
 vendors:
   - id: atlan
     deploy: [saas]
+    deploy_src: {prov: S, title: 'Where it runs', source: 'https://docs.atlan.com/platform/references/atlan-architecture', checked: '2026-11-14', note: 'Single-tenant SaaS on AWS, Azure or Google Cloud; a self-deployed runtime runs connectors inside the customer''s network.'}
     name: Atlan
     kind: ranked
     reports: [gartner-mms-2025, gartner-dagp-2025, forrester-dg-2025, forrester-edc-2024]
@@ -126,6 +126,7 @@ vendors:
         use: Find, explain and govern Atlan assets from Claude Code; lineage, glossary terms, certification and data quality rules.
   - id: collibra
     deploy: [saas, on-prem]
+    deploy_src: {prov: S, title: 'Where it runs', source: 'https://productresources.collibra.com/docs/cpsh/latest/Content/Installation/CPSH/to_cpsh-install-upgrade.htm', checked: '2026-11-14', note: 'Collibra Platform in the cloud, or Collibra Platform Self-Hosted on infrastructure the customer chooses.'}
     name: Collibra Platform
     kind: ranked
     reports: [gartner-dagp-2025, forrester-dg-2025, forrester-edc-2024]
@@ -160,6 +161,7 @@ vendors:
         use: Search governed assets and the business glossary, follow lineage, and create or edit assets within Collibra's own permissions.
   - id: alation
     deploy: [saas, on-prem]
+    deploy_src: {prov: S, title: 'Where it runs', source: 'https://docs.alation.com/en/latest/cloud/CloudOverview/index.html', checked: '2026-11-14', note: 'Alation Cloud Service, or customer-managed Alation.'}
     name: Alation Data Intelligence Platform
     kind: ranked
     reports: [gartner-mms-2025, gartner-dagp-2025, forrester-dg-2025]
@@ -176,6 +178,7 @@ vendors:
 
   - id: informatica
     deploy: [saas]
+    deploy_src: {prov: S, title: 'Where it runs', source: 'https://www.informatica.com/gb/resources/data-sheets/cloud-data-governance-and-catalog-with-informatica.html', checked: '2026-11-14', note: 'Cloud Data Governance and Catalog is a service of the Intelligent Data Management Cloud; its scanners can run in the customer network. The older on-premises Enterprise Data Catalog and Axon are a separate product line, not counted here.'}
     name: Informatica Cloud Data Governance and Catalog (CDGC)
     kind: ranked
     reports: [gartner-mms-2025, gartner-dagp-2025, forrester-dg-2025, forrester-edc-2024]
@@ -209,6 +212,7 @@ vendors:
         use: Explore dataset content and mastered (MDM) entities in IDMC through Informatica's discovery agent.
   - id: ibm
     deploy: [saas, on-prem]
+    deploy_src: {prov: S, title: 'Where it runs', source: 'https://www.ibm.com/docs/SSQNUZ_5.0.x/cpd/overview/overview.html', checked: '2026-11-14', note: 'Managed on IBM Cloud, or Cloud Pak for Data on a private, on-premises cluster.'}
     name: IBM watsonx.data intelligence
     kind: ranked
     reports: [gartner-mms-2025, gartner-dagp-2025, gartner-dagp-2026]
@@ -225,6 +229,7 @@ vendors:
 
   - id: data-world
     deploy: [saas]
+    deploy_src: {prov: S, title: 'Where it runs', source: 'https://docs.data.world/en/257934-exploring-data-world-enterprise-offerings.html', checked: '2026-11-14', note: 'Private instance on a multi-tenant platform, or a single-tenant installation; both run by data.world.'}
     name: data.world
     kind: ranked
     reports: [gartner-dagp-2025]
@@ -245,6 +250,7 @@ vendors:
 
   - id: microsoft-purview
     deploy: [cloud]
+    deploy_src: {prov: S, title: 'Where it runs', source: 'https://learn.microsoft.com/en-us/Purview/unified-catalog', checked: '2026-11-14', note: 'A Microsoft cloud service; Microsoft calls the catalog a single, integrated SaaS framework.'}
     name: Microsoft Purview (Data Map and Unified Catalog)
     kind: platform
     reports: []
@@ -279,6 +285,7 @@ vendors:
         use: The same documentation, packaged with skills.
   - id: apache-atlas
     deploy: [open-source, on-prem]
+    deploy_src: {prov: V, title: 'Where it runs', source: 'https://github.com/apache/atlas', checked: '2026-11-14', note: 'Apache-licensed source in the pinned repository; the customer runs it.'}
     name: Apache Atlas
     kind: platform
     reports: []
@@ -298,6 +305,7 @@ vendors:
   - id: openmetadata
     schema_checked: "OpenMetadata's table schema, every worked example; the id and columns are added at load time"
     deploy: [open-source, saas]
+    deploy_src: {prov: S, title: 'Where it runs', source: 'https://open-metadata.org/llms.txt', checked: '2026-11-14', note: 'Self-hosted with Docker Compose or Kubernetes, or Collate, the managed SaaS.'}
     name: OpenMetadata (and Collate)
     kind: platform
     reports: []
@@ -325,6 +333,7 @@ vendors:
   - id: datahub
     schema_checked: "the DataHub project's own structured property examples (the kit's keys and types)"
     deploy: [open-source, saas]
+    deploy_src: {prov: S, title: 'Where it runs', source: 'https://datahub.com/?p=2640', checked: '2026-11-14', note: 'Self-hosted DataHub Core, or the managed service now called DataHub Cloud (previously Acryl Cloud).'}
     name: DataHub (and DataHub Cloud)
     kind: platform
     reports: []
@@ -378,6 +387,7 @@ vendors:
         use: Building and reviewing DataHub connectors, which is how a DCAT-AP-UK source would be ingested.
   - id: unity-catalog
     deploy: [open-source, cloud]
+    deploy_src: {prov: S, title: 'Where it runs', source: 'https://docs.databricks.com/aws/data-governance/unity-catalog', checked: '2026-11-14', note: 'Built into Databricks on AWS, Azure and Google Cloud; the open-source implementation is in the pinned repository.'}
     name: Unity Catalog (open source and Databricks)
     kind: platform
     reports: []
@@ -410,6 +420,7 @@ vendors:
         use: Ask questions of data that Unity Catalog governs, through a Genie space.
   - id: dataplex
     deploy: [cloud]
+    deploy_src: {prov: V, title: 'Where it runs', source: 'https://github.com/googleapis/googleapis', checked: '2026-11-14', note: 'A Google Cloud service: its API is defined in the pinned repository.'}
     name: Google Cloud Dataplex Universal Catalog
     kind: platform
     reports: []
@@ -441,6 +452,7 @@ vendors:
         use: Read BigQuery dataset and table metadata. It does not expose Dataplex catalog entries or aspects; for those use MCP Toolbox's Dataplex tools above.
   - id: ovaledge
     deploy: [saas, on-prem]
+    deploy_src: {prov: S, title: 'Where it runs', source: 'https://docs.ovaledge.com/installation-and-settings/deployment-types', checked: '2026-11-14', note: 'On premises, in the customer''s own cloud account, or as SaaS.'}
     name: OvalEdge
     kind: ranked
     reports: [gartner-dagp-2025]
@@ -466,6 +478,7 @@ vendors:
 
   - id: ataccama
     deploy: [saas, on-prem]
+    deploy_src: {prov: S, title: 'Where it runs', source: 'https://docs.ataccama.com/one/17.0.0/ataccama-cloud/ataccama-cloud.html', checked: '2026-11-14', note: 'Ataccama Cloud (SaaS, optionally hybrid), or self-managed on premises.'}
     name: Ataccama ONE
     kind: ranked
     reports: [gartner-mms-2025, gartner-dagp-2025]
@@ -479,6 +492,7 @@ vendors:
 
   - id: datagalaxy
     deploy: [saas]
+    deploy_src: {prov: S, title: 'Where it runs', source: 'https://aws.amazon.com/marketplace/pp/prodview-5s6qyh3piwf44', checked: '2026-11-14', note: 'The vendor''s own marketplace listing gives delivery as Software as a Service.'}
     name: DataGalaxy
     kind: ranked
     reports: [gartner-dagp-2025]
@@ -495,6 +509,7 @@ vendors:
     name: Snowflake (Horizon Catalog and Snowflake Open Catalog)
     kind: platform
     deploy: [saas]
+    deploy_src: {prov: S, title: 'Where it runs', source: 'https://other-docs.snowflake.com/polaris/overview.html', checked: '2026-11-14', note: 'Snowflake runs both catalogues as managed services.'}
     reports: []
     repos:
       - {repo: apache/iceberg, role: The Iceberg REST catalog specification (open-api/rest-catalog-open-api.yaml), commit: 0cb5041b9c7afc046e84406d2785ed79cd54fa46, checked: '2026-11-07'}
@@ -534,6 +549,7 @@ vendors:
     name: AWS Glue Data Catalog
     kind: platform
     deploy: [cloud]
+    deploy_src: {prov: V, title: 'Where it runs', source: 'https://github.com/boto/botocore', checked: '2026-11-14', note: 'An AWS service: its API is defined in the pinned repository.'}
     reports: []
     repos:
       - {repo: boto/botocore, role: AWS service models, including Glue (botocore/data/glue/2017-03-31/service-2.json), commit: 45d5dde95e31f22f0ffeea5a790ea2ea79d1035c, checked: '2026-11-07'}
@@ -568,6 +584,7 @@ vendors:
     name: Amazon SageMaker Catalog (Amazon DataZone)
     kind: platform
     deploy: [cloud]
+    deploy_src: {prov: V, title: 'Where it runs', source: 'https://github.com/boto/botocore', checked: '2026-11-14', note: 'An AWS service (Amazon DataZone API): defined in the pinned repository.'}
     reports: []
     repos:
       - {repo: boto/botocore, role: AWS service models, including DataZone (botocore/data/datazone/2018-05-10/service-2.json), commit: 45d5dde95e31f22f0ffeea5a790ea2ea79d1035c, checked: '2026-11-07'}
@@ -588,6 +605,7 @@ vendors:
     name: Oracle Cloud Infrastructure Data Catalog
     kind: platform
     deploy: [cloud]
+    deploy_src: {prov: V, title: 'Where it runs', source: 'https://github.com/oracle/oci-python-sdk', checked: '2026-11-14', note: 'An Oracle Cloud Infrastructure service: its client is in the pinned repository.'}
     reports: []
     repos:
       - {repo: oracle/oci-python-sdk, role: OCI Python SDK, with the Data Catalog models, commit: ec1d21a37357b8ab1e86fec7132bc08f3df17782, checked: '2026-11-07'}
@@ -605,6 +623,7 @@ vendors:
     name: SAP Datasphere
     kind: platform
     deploy: [saas]
+    deploy_src: {prov: S, title: 'Where it runs', source: 'https://news.sap.com/?p=203037', checked: '2026-11-14', note: 'A data service built on SAP Business Technology Platform.'}
     reports: []
     repos:
       - {repo: MarioDeFelipe/sap-datasphere-mcp, role: A community MCP server for Datasphere, not published by SAP, commit: 587811443b0344839a8bdb579887c611ea42b8d9, checked: '2026-11-07'}
@@ -619,6 +638,7 @@ vendors:
     name: Cloudera (SDX)
     kind: platform
     deploy: [on-prem, cloud]
+    deploy_src: {prov: S, title: 'Where it runs', source: 'https://docs.cloudera.com/data-catalog/1.5.4/core-concepts/topics/dc-prereq-to-access-page.html', checked: '2026-11-14', note: 'Cloudera Data Catalog on premises (OpenShift or ECS clusters), and in Cloudera public cloud on AWS, Azure and Google Cloud.'}
     reports: []
     repos:
       - {repo: apache/atlas, role: Apache Atlas, which Cloudera's SDX catalogue is built on, commit: 8b3f674e0f2502ba6c95201d9ff4c90435e4bbe0, checked: '2026-11-07'}
@@ -636,6 +656,7 @@ vendors:
     name: Teradata Vantage
     kind: platform
     deploy: [on-prem, cloud]
+    deploy_src: {prov: S, title: 'Where it runs', source: 'https://prod1.teradata.com/Cloud/Deployment-Options', checked: '2026-11-14', note: 'On premises, public cloud, hybrid and multi-cloud.'}
     reports: []
     repos:
       - {repo: teradata/teradata-mcp-server, role: Teradata's MCP server (tools for querying, schema and column metadata, data quality and the feature store), commit: 2df7fcbcc47b6433102e4311f413344a5378ff3b, checked: '2026-11-07'}
@@ -650,6 +671,7 @@ vendors:
     name: Qlik Talend Cloud (Talend Data Catalog)
     kind: catalogue
     deploy: [saas, on-prem]
+    deploy_src: {prov: S, title: 'Where it runs', source: 'https://help.qlik.com/talend/en-US/talend-data-catalog/Cloud/Content/user-guide/introduction/overview/index.htm', checked: '2026-11-14', note: 'On premises, cloud, or hybrid (cloud with on-premises harvesting).'}
     reports: []
     repos: []
     extend: Data products and catalogue attributes in Qlik Talend Cloud.
@@ -670,6 +692,7 @@ vendors:
     name: Precisely Data Integrity Suite
     kind: catalogue
     deploy: [saas]
+    deploy_src: {prov: S, title: 'Where it runs', source: 'https://www.precisely.com/press-release/precisely-advances-data-integrity-foundation-to-power-data-management-at-scale/', checked: '2026-11-14', note: 'Interoperable SaaS services sharing one catalogue; execution agents can run where the data is.'}
     reports: []
     repos: []
     extend: Catalogue attributes in the Data Integrity Suite.
@@ -680,6 +703,7 @@ vendors:
     name: Select Star
     kind: catalogue
     deploy: [saas]
+    deploy_src: {prov: S, title: 'Where it runs', source: 'https://www.selectstar.com/security-compliance', checked: '2026-11-14', note: 'Select Star describes itself as a SaaS provider hosted on AWS. No self-hosted option was found.'}
     reports: []
     repos: []
     extend: Custom attributes and documentation on catalogue objects.
@@ -692,7 +716,8 @@ vendors:
   - id: secoda
     name: Secoda
     kind: catalogue
-    deploy: [saas]
+    deploy: [saas, on-prem]
+    deploy_src: {prov: S, title: 'Where it runs', source: 'https://docs.secoda.co/enterprise/self-hosted-secoda', checked: '2026-11-14', note: 'SaaS, or self-hosted on Kubernetes (EKS, GKE, Helm) or Docker Compose.'}
     reports: []
     repos:
       - {repo: secoda/secoda-mcp, role: Secoda's MCP server (MIT), commit: 6cd32bf4e716ee3065f3982c275bf550032f1d21, checked: '2026-11-07'}
@@ -708,6 +733,7 @@ vendors:
     name: Actian Data Intelligence Platform (formerly Zeenea)
     kind: catalogue
     deploy: [saas]
+    deploy_src: {prov: S, title: 'Where it runs', source: 'https://www.actian.com/data-intelligence/platform/?cdp=tx', checked: '2026-11-14', note: 'Actian describes the platform as cloud-native SaaS. A March 2025 Actian press release also says it can be deployed across hybrid, cloud and on-premises environments; the product page is followed here until Actian documents an on-premises install.'}
     reports: []
     repos: []
     extend: Custom properties on catalogue items.
@@ -722,6 +748,7 @@ vendors:
     name: Apache Polaris (Iceberg REST catalog)
     kind: open-source
     deploy: [open-source]
+    deploy_src: {prov: V, title: 'Where it runs', source: 'https://github.com/apache/polaris', checked: '2026-11-14', note: 'Apache-licensed source in the pinned repository.'}
     reports: []
     repos:
       - {repo: apache/polaris, role: Source, commit: 5f87d86e5f64cb2ec66bac3d7344875b9781898b, checked: '2026-11-07'}
@@ -740,6 +767,7 @@ vendors:
     name: OpenLineage (and Marquez)
     kind: open-source
     deploy: [open-source]
+    deploy_src: {prov: V, title: 'Where it runs', source: 'https://github.com/OpenLineage/OpenLineage', checked: '2026-11-14', note: 'An open specification and client libraries in the pinned repository.'}
     reports: []
     repos:
       - {repo: OpenLineage/OpenLineage, role: The OpenLineage specification and its dataset facets, commit: 6e9fd64478313b77884dd578cae94a1d9d32bc9a, checked: '2026-11-07'}
@@ -758,6 +786,7 @@ vendors:
     name: Amundsen
     kind: open-source
     deploy: [open-source]
+    deploy_src: {prov: V, title: 'Where it runs', source: 'https://github.com/amundsen-io/amundsen', checked: '2026-11-14', note: 'Apache-licensed source in the pinned repository.'}
     reports: []
     repos:
       - {repo: amundsen-io/amundsen, role: Source, including the databuilder table model, commit: 469c1b778340655d1967d1589355acb4f35c65a7, checked: '2026-11-07'}
@@ -773,6 +802,7 @@ vendors:
     name: Egeria (open metadata)
     kind: open-source
     deploy: [open-source]
+    deploy_src: {prov: V, title: 'Where it runs', source: 'https://github.com/odpi/egeria', checked: '2026-11-14', note: 'Apache-licensed source in the pinned repository.'}
     reports: []
     repos:
       - {repo: odpi/egeria, role: Source of the open metadata types and repository services, commit: 9c2bb9761329375a24308f480901e7e3719a7e00, checked: '2026-11-07'}
