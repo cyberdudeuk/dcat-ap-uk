@@ -1,0 +1,462 @@
+{
+ "since": "1.2.0-rc.1",
+ "date": "2026-11-06",
+ "version": "1.2.0-rc.1",
+ "pages": {
+  "adopt": {
+   "page": "updated",
+   "sections": {
+    "routes": "updated",
+    "crosswalks": "updated",
+    "identifiers": "updated"
+   }
+  },
+  "ai-ready": {
+   "page": "updated",
+   "sections": {
+    "policies": "updated",
+    "exports": "updated"
+   }
+  },
+  "builder": {
+   "page": "updated",
+   "sections": {
+    "b-h": "updated"
+   }
+  },
+  "bulk": {
+   "page": "updated",
+   "sections": {
+    "bk-h": "updated"
+   }
+  },
+  "changes": {
+   "page": "updated",
+   "sections": {
+    "crosswalk": "updated"
+   }
+  },
+  "class-agent": {
+   "page": "updated",
+   "sections": {
+    "diagram": "updated",
+    "summary": "updated",
+    "sum-M": "new",
+    "sum-R": "new",
+    "sum-O": "new",
+    "ob-M": "updated",
+    "ob-R": "updated",
+    "ob-O": "updated"
+   }
+  },
+  "class-attribution": {
+   "page": "updated",
+   "sections": {
+    "diagram": "updated",
+    "summary": "updated",
+    "sum-M": "new",
+    "ob-M": "updated"
+   }
+  },
+  "class-catalogue": {
+   "page": "updated",
+   "sections": {
+    "diagram": "updated",
+    "summary": "updated",
+    "sum-M": "new",
+    "sum-R": "new",
+    "sum-O": "new",
+    "ob-M": "updated",
+    "ob-R": "updated",
+    "ob-O": "updated"
+   }
+  },
+  "class-cataloguerecord": {
+   "page": "updated",
+   "sections": {
+    "diagram": "updated",
+    "summary": "updated",
+    "sum-M": "new",
+    "sum-R": "new",
+    "sum-O": "new",
+    "ob-M": "updated",
+    "ob-R": "updated",
+    "ob-O": "updated",
+    "p-securityClassification-h": "new",
+    "p-missingValue-h": "new",
+    "p-sourceRecord-h": "new",
+    "p-enrichedProperty-h": "new",
+    "examples": "new"
+   }
+  },
+  "class-checksum": {
+   "page": "updated",
+   "sections": {
+    "diagram": "updated",
+    "summary": "updated",
+    "sum-M": "new",
+    "ob-M": "updated"
+   }
+  },
+  "class-contactpoint": {
+   "page": "updated",
+   "sections": {
+    "diagram": "updated",
+    "summary": "updated",
+    "sum-M": "new",
+    "sum-C": "new",
+    "sum-O": "new",
+    "ob-M": "updated",
+    "ob-C": "updated",
+    "ob-O": "updated"
+   }
+  },
+  "class-dataservice": {
+   "page": "updated",
+   "sections": {
+    "diagram": "updated",
+    "summary": "updated",
+    "sum-M": "new",
+    "sum-C": "new",
+    "sum-R": "new",
+    "sum-O": "new",
+    "ob-M": "updated",
+    "p-securityClassification-h": "updated",
+    "ob-C": "updated",
+    "p-transferMechanism-h": "updated",
+    "ob-R": "updated",
+    "ob-O": "updated",
+    "p-hasPolicy-h": "updated",
+    "p-missingValue-h": "new"
+   }
+  },
+  "class-dataset": {
+   "page": "updated",
+   "sections": {
+    "diagram": "updated",
+    "summary": "updated",
+    "sum-M": "new",
+    "sum-C": "new",
+    "sum-R": "new",
+    "sum-O": "new",
+    "ob-M": "updated",
+    "p-securityClassification-h": "updated",
+    "ob-C": "updated",
+    "p-transferMechanism-h": "updated",
+    "ob-R": "updated",
+    "ob-O": "updated",
+    "p-hasPolicy-h": "updated",
+    "p-missingValue-h": "new",
+    "examples": "updated"
+   }
+  },
+  "class-datasetseries": {
+   "page": "updated",
+   "sections": {
+    "diagram": "updated",
+    "summary": "updated",
+    "sum-M": "new",
+    "sum-R": "new",
+    "sum-O": "new",
+    "ob-M": "updated",
+    "ob-R": "updated",
+    "ob-O": "updated"
+   }
+  },
+  "class-distribution": {
+   "page": "updated",
+   "sections": {
+    "diagram": "updated",
+    "summary": "updated",
+    "sum-M": "new",
+    "sum-R": "new",
+    "sum-O": "new",
+    "ob-M": "updated",
+    "ob-R": "updated",
+    "ob-O": "updated",
+    "p-hasPolicy-h": "updated"
+   }
+  },
+  "class-location": {
+   "page": "updated",
+   "sections": {
+    "diagram": "updated",
+    "summary": "updated",
+    "sum-R": "new",
+    "sum-O": "new",
+    "ob-R": "updated",
+    "ob-O": "updated"
+   }
+  },
+  "class-missingvalue": {
+   "page": "new",
+   "sections": {
+    "diagram": "new",
+    "summary": "new",
+    "sum-M": "new",
+    "ob-M": "new",
+    "p-missingProperty-h": "new",
+    "p-missingReason-h": "new"
+   }
+  },
+  "class-periodoftime": {
+   "page": "updated",
+   "sections": {
+    "diagram": "updated",
+    "summary": "updated",
+    "sum-C": "new",
+    "ob-C": "updated"
+   }
+  },
+  "class-relationship": {
+   "page": "updated",
+   "sections": {
+    "diagram": "updated",
+    "summary": "updated",
+    "sum-M": "new",
+    "ob-M": "updated"
+   }
+  },
+  "codelists": {
+   "page": "updated",
+   "sections": {
+    "cl-access-rights-h": "updated",
+    "cl-theme-h": "updated",
+    "cl-transfer-mechanism-h": "updated",
+    "cl-missing-reason-h": "new",
+    "cl-geodetic-technique-h": "new",
+    "cl-spatial-representation-type-h": "new",
+    "orgs-h": "updated"
+   }
+  },
+  "connectors": {
+   "page": "new",
+   "sections": {
+    "choose": "new",
+    "map": "new",
+    "vendors": "new",
+    "kind-ranked": "new",
+    "kind-platform": "new",
+    "kind-catalogue": "new",
+    "kind-open-source": "new",
+    "ai": "new",
+    "claude": "new",
+    "kits": "new",
+    "reports": "new",
+    "not-yet": "new"
+   }
+  },
+  "downloads": {
+   "page": "updated",
+   "sections": {
+    "examples": "updated"
+   }
+  },
+  "examples": {
+   "page": "updated",
+   "sections": {
+    "ex-series-census-h": "updated",
+    "ex-dataset-census-2021-h": "updated",
+    "ex-dataset-critical-asset-h": "updated",
+    "ex-catalogue-example-h": "updated",
+    "ex-record-harvested-h": "new",
+    "ex-dataset-cross-border-h": "updated",
+    "ex-dataset-missing-values-h": "new"
+   }
+  },
+  "extensions": {
+   "page": "updated",
+   "sections": {
+    "all": "updated",
+    "ext-health-h": "updated",
+    "ext-geospatial-h": "updated",
+    "ext-statistics-h": "updated",
+    "ext-transport-h": "updated",
+    "ext-hvd-h": "updated",
+    "ext-ai-ready-h": "updated",
+    "ext-dataspace-h": "updated",
+    "ext-organisations-h": "updated",
+    "ext-energy-h": "updated",
+    "ext-geodesy-h": "new"
+   }
+  },
+  "governance": {
+   "page": "updated",
+   "sections": {
+    "status": "updated",
+    "namespace": "updated",
+    "adrs": "updated",
+    "defects": "updated",
+    "open": "updated"
+   }
+  },
+  "index": {
+   "page": "updated",
+   "sections": {
+    "glance": "updated",
+    "tables": "updated",
+    "status": "updated"
+   }
+  },
+  "insights": {
+   "page": "updated",
+   "sections": {
+    "numbers": "updated",
+    "model": "updated",
+    "change": "updated",
+    "extensions": "updated"
+   }
+  },
+  "integrations": {
+   "page": "updated",
+   "sections": {
+    "products": "updated",
+    "kit": "updated",
+    "cli": "updated"
+   }
+  },
+  "international": {
+   "page": "updated",
+   "sections": {
+    "jurisdictions": "updated",
+    "safeguards": "updated"
+   }
+  },
+  "knowledge": {
+   "page": "updated",
+   "sections": {
+    "taxonomy": "updated",
+    "graph": "updated"
+   }
+  },
+  "lineage": {
+   "page": "updated",
+   "sections": {
+    "trace-h": "updated",
+    "everything": "updated"
+   }
+  },
+  "lockin": {
+   "page": "updated",
+   "sections": {
+    "schedule": "updated"
+   }
+  },
+  "openapi": {
+   "page": "updated",
+   "sections": {
+    "oas-h": "updated"
+   }
+  },
+  "profile": {
+   "page": "updated",
+   "sections": {
+    "model": "updated",
+    "classes": "updated",
+    "explorer-h": "updated"
+   }
+  },
+  "properties": {
+   "page": "updated",
+   "sections": {
+    "p-missingValue-h": "new",
+    "p-enrichedProperty-h": "new",
+    "p-missingProperty-h": "new",
+    "p-securityClassification-h": "updated",
+    "p-sourceRecord-h": "new",
+    "p-transferMechanism-h": "updated",
+    "p-hasPolicy-h": "updated",
+    "p-missingReason-h": "new"
+   }
+  },
+  "requirements": {
+   "page": "new",
+   "sections": {
+    "glance": "new",
+    "layers": "new",
+    "chain": "new",
+    "gates": "new",
+    "principles": "new",
+    "catalogue": "new",
+    "sources": "new",
+    "controlled": "new",
+    "programme": "new",
+    "against": "new"
+   }
+  },
+  "reuse": {
+   "page": "new",
+   "sections": {
+    "assets": "new",
+    "dsa": "new",
+    "evidence": "new",
+    "test": "new",
+    "method": "new"
+   }
+  },
+  "sitemap": {
+   "page": "updated",
+   "sections": {
+    "pages": "updated"
+   }
+  },
+  "standards": {
+   "page": "updated",
+   "sections": {
+    "map-h": "updated",
+    "relationships": "updated",
+    "standards": "updated"
+   }
+  },
+  "status": {
+   "page": "new",
+   "sections": {
+    "routines": "new",
+    "verification": "new",
+    "assessment": "new",
+    "staleness": "new",
+    "health": "new",
+    "health-problems": "new",
+    "repair": "new",
+    "automation": "new",
+    "never": "new",
+    "trials": "new",
+    "occurrences": "new",
+    "provenance": "new",
+    "provenance-todo": "new"
+   }
+  },
+  "strategy": {
+   "page": "updated",
+   "sections": {
+    "sources": "updated"
+   }
+  },
+  "types": {
+   "page": "updated",
+   "sections": {
+    "types": "updated"
+   }
+  },
+  "validate": {
+   "page": "updated",
+   "sections": {
+    "v-h": "updated"
+   }
+  },
+  "weaver": {
+   "page": "updated",
+   "sections": {
+    "w-h": "updated",
+    "matrix": "updated"
+   }
+  },
+  "whats-new": {
+   "page": "updated",
+   "sections": {
+    "changed": "new",
+    "v12": "updated"
+   }
+  }
+ }
+}

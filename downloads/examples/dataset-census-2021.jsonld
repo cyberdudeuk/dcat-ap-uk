@@ -1,0 +1,45 @@
+{
+  "@context": "https://cyberdudeuk.github.io/dcat-ap-uk/downloads/dcat-ap-uk.context.jsonld",
+  "class": "Dataset",
+  "id": "https://ons.gov.uk/peoplepopulationandcommunity/populationandmigration/populationestimates/adhocs/15432ts007acensus2021agebyfiveyearagebands",
+  "title": "TS007a Age by five-year age bands, Census 2021",
+  "description": "Census 2021 estimates that classify usual residents in England and Wales by five-year age bands, as at Census Day, 21 March 2021. Downloads cover England and Wales, countries, regions, local authorities and smaller areas.",
+  "identifier": "TS007a",
+  "inSeries": [
+    "https://www.ons.gov.uk/census"
+  ],
+  "publisher": "https://www.gov.uk/government/organisations/office-for-national-statistics",
+  "contactPoint": [
+    {
+      "fn": "Census customer services",
+      "hasURL": "https://www.ons.gov.uk/aboutus/contactus"
+    }
+  ],
+  "accessRights": "ukcl:access-rights/open",
+  "securityClassification": "ukcl:security-classification/official",
+  "personalData": "ukcl:personal-data/anonymised",
+  "licence": "http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+  "accrualPeriodicity": "eufreq:NEVER",
+  "temporal": [
+    {
+      "startDate": "2021-03-21",
+      "endDate": "2021-03-21"
+    }
+  ],
+  "spatial": [
+    "http://statistics.data.gov.uk/id/statistical-geography/K04000001"
+  ],
+  "conformsTo": [
+    "https://www.gov.uk/government/publications/recommended-open-standards-for-government/tabular-data-standard"
+  ],
+  "referenceData": [
+    "https://www.ons.gov.uk/census/census2021dictionary/variablesbytopic/demographyvariablescensus2021/age"
+  ],
+  "theme": [
+    "ukcl:theme/society"
+  ],
+  "language": [
+    "eulang:ENG",
+    "eulang:CYM"
+  ]
+}

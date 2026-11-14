@@ -1,0 +1,12 @@
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix eufreq: <http://publications.europa.eu/resource/authority/frequency/> .
+
+<https://www.ons.gov.uk/census> a dcat:DatasetSeries ;
+    dct:accrualPeriodicity eufreq:OTHER ;
+    dct:description "Every ten years, a count of all people and households in England and Wales, run by the Office for National Statistics." ;
+    dct:publisher <https://www.gov.uk/government/organisations/office-for-national-statistics> ;
+    dct:spatial <http://statistics.data.gov.uk/id/statistical-geography/K04000001> ;
+    dct:title "Census of population, England and Wales" ;
+    dcat:theme <https://w3id.org/dcat-ap-uk/codelist/theme/society> .
+

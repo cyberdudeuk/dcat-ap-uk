@@ -1,0 +1,43 @@
+{
+  "@context": {
+    "odrl": "http://www.w3.org/ns/odrl/2/",
+    "dcatuk": "https://w3id.org/dcat-ap-uk/ns#",
+    "dct": "http://purl.org/dc/terms/"
+  },
+  "@id": "https://cyberdudeuk.github.io/dcat-ap-uk/downloads/policies/agreement-required.jsonld",
+  "@type": "odrl:Offer",
+  "dct:title": {
+    "@value": "An offer: use under a data sharing agreement",
+    "@language": "en"
+  },
+  "odrl:profile": {
+    "@id": "https://w3id.org/dcat-ap-uk/ns"
+  },
+  "odrl:permission": [
+    {
+      "odrl:action": {
+        "@id": "odrl:use"
+      },
+      "odrl:constraint": [
+        {
+          "odrl:leftOperand": {
+            "@id": "dcatuk:agreement"
+          },
+          "odrl:operator": {
+            "@id": "odrl:isA"
+          },
+          "odrl:rightOperand": {
+            "@value": "A signed data sharing agreement with the publisher"
+          }
+        }
+      ]
+    }
+  ],
+  "odrl:prohibition": [
+    {
+      "odrl:action": {
+        "@id": "odrl:distribute"
+      }
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+DCAT-AP-UK property,Unity Catalog (open source and Databricks) field,Note
+description,comment,
+issued,created_at,Milliseconds since 1970.
+modified,updated_at,
+title,(none),"name is a three-part SQL name, not a title. Keep the title in properties."
+(every other property),properties,The DCAT-AP-UK extension place defined by the add-on kit.

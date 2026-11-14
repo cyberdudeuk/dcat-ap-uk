@@ -1,0 +1,5 @@
+DCAT-AP-UK property,AWS Glue Data Catalog field,Note
+description,Description,
+title,(none),"Name is the table identifier, not a title. Keep the title in Parameters."
+contactPoint,(none),Owner names a person. Give a team contact form in Parameters.
+(every other property),Parameters,The DCAT-AP-UK extension place defined by the add-on kit.

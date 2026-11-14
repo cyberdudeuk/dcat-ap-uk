@@ -1,0 +1,47 @@
+{
+  "class": "Dataset",
+  "id": "https://example.org/dataset/transport",
+  "title": "Synthetic bus timetables",
+  "description": "An invented dataset used to show an extension. It does not exist.",
+  "identifier": "synthetic-0001",
+  "publisher": "https://example.org/organisations/example-department",
+  "contactPoint": [
+    {
+      "fn": "Example data team",
+      "hasURL": "https://example.org/contact"
+    }
+  ],
+  "accessRights": "ukcl:access-rights/open",
+  "securityClassification": "ukcl:security-classification/official",
+  "personalData": "ukcl:personal-data/none",
+  "licence": "http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+  "accrualPeriodicity": "eufreq:MONTHLY",
+  "theme": [
+    "ukcl:theme/government"
+  ],
+  "keyword": [
+    "example"
+  ],
+  "modified": "2026-10-01",
+  "spatial": [
+    "http://statistics.data.gov.uk/id/statistical-geography/E92000001"
+  ],
+  "mobilityTheme": [
+    "https://w3id.org/mobilitydcat-ap/mobility-theme/timetables"
+  ],
+  "transportMode": [
+    "https://w3id.org/mobilitydcat-ap/transport-mode/bus"
+  ],
+  "distribution": [
+    {
+      "class": "Distribution",
+      "accessURL": [
+        "https://example.org/timetables"
+      ],
+      "mediaType": "https://www.iana.org/assignments/media-types/application/xml",
+      "mobilityDataStandard": [
+        "https://example.org/standard/transxchange"
+      ]
+    }
+  ]
+}

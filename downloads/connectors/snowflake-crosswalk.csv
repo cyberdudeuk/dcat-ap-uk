@@ -1,0 +1,4 @@
+DCAT-AP-UK property,Snowflake (Horizon Catalog and Snowflake Open Catalog) field,Note
+description,properties.comment,TableProperties.COMMENT in Apache Iceberg (core/src/main/java/org/apache/iceberg/TableProperties.java at the cited commit); Spark and Trino store CREATE TABLE ... COMMENT there.
+title,(none),"name is the table identifier, not a title. Keep the title in properties."
+(every other property),properties,The DCAT-AP-UK extension place defined by the add-on kit.

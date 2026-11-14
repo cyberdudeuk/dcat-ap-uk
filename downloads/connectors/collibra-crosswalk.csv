@@ -1,0 +1,7 @@
+DCAT-AP-UK property,Collibra Platform field,Note
+title,name,Collibra asset name; the identifier block also names the domain and community.
+description,"attributes[""Description""]","Single values are written as [{""value"": ...}], as in the repository examples."
+identifier,identifier.externalEntityId,With identifier.externalSystemId naming the source catalogue.
+keyword,tags,The repository has an example that adds assets with tags.
+contactPoint,(none),Responsibilities name people. Give a team contact form as an attribute.
+(every other property),"attributes[""DCAT-AP-UK <property>""]",The DCAT-AP-UK extension place defined by the add-on kit.

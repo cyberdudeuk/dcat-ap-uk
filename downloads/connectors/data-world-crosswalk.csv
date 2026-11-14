@@ -1,0 +1,7 @@
+DCAT-AP-UK property,data.world field,Note
+title,title,
+description,description,
+abstract,summary,
+keyword,tags,
+licence,license,"The API accepts a fixed list (CC-BY, ODC-BY, Public Domain, Other and others). OGL v3.0 is not on it: send Other and keep the licence address in properties."
+(every other property),properties,The DCAT-AP-UK extension place defined by the add-on kit.

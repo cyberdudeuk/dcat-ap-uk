@@ -1,0 +1,6 @@
+DCAT-AP-UK property,Amazon SageMaker Catalog (Amazon DataZone) field,Note
+title,name,
+description,description,
+identifier,externalIdentifier,
+keyword,(none),"glossaryTerms holds glossary term identifiers, not free keywords. Keywords stay in the form."
+(every other property),formsInput[DcatApUkForm].content,The DCAT-AP-UK extension place defined by the add-on kit.

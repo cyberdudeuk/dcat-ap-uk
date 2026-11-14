@@ -1,0 +1,11 @@
+{
+  "class": "Distribution",
+  "id": "https://example.org/x#f",
+  "accessURL": [
+    "https://example.org/f"
+  ],
+  "checksum": {
+    "algorithm": "https://example.org/my-hash",
+    "checksumValue": "abc"
+  }
+}

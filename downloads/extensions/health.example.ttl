@@ -1,0 +1,37 @@
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dcatuk: <https://w3id.org/dcat-ap-uk/ns#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix eufreq: <http://publications.europa.eu/resource/authority/frequency/> .
+@prefix healthdcatap: <http://healthdataportal.eu/ns/health#> .
+@prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://example.org/dataset/health> a dcat:Dataset ;
+    healthdcatap:hasCodingSystem <http://snomed.info/sct> ;
+    healthdcatap:numberOfRecords "12000000"^^xsd:nonNegativeInteger ;
+    healthdcatap:populationCoverage "People registered with a GP practice in Wales." ;
+    dct:accessRights <https://w3id.org/dcat-ap-uk/codelist/access-rights/internal> ;
+    dct:accrualPeriodicity eufreq:MONTHLY ;
+    dct:description "An invented dataset of GP appointments, used to show the health extension. It does not exist." ;
+    dct:identifier "synthetic-0001" ;
+    dct:license <https://w3id.org/dcat-ap-uk/codelist/licences/data-sharing-agreement-required> ;
+    dct:modified "2026-10-01"^^xsd:date ;
+    dct:publisher <https://example.org/organisations/example-department> ;
+    dct:rights "Available to approved researchers in a trusted research environment, under a data sharing agreement. Ask through the contact form." ;
+    dct:spatial <http://statistics.data.gov.uk/id/statistical-geography/W92000004> ;
+    dct:temporal [ a dct:PeriodOfTime ;
+            dcat:endDate "2025-12-31"^^xsd:date ;
+            dcat:startDate "2020-01-01"^^xsd:date ] ;
+    dct:title "Synthetic GP appointments, Wales" ;
+    dcat:contactPoint [ a vcard:Kind ;
+            vcard:fn "Example data team" ;
+            vcard:hasURL <https://example.org/contact> ] ;
+    dcat:keyword "example" ;
+    dcat:theme <https://w3id.org/dcat-ap-uk/codelist/theme/government> ;
+    dcatuk:jurisdiction <https://w3id.org/dcat-ap-uk/codelist/jurisdiction/gb-wls> ;
+    dcatuk:nationalDataOptOut false ;
+    dcatuk:personalData <https://w3id.org/dcat-ap-uk/codelist/personal-data/pseudonymised> ;
+    dcatuk:securityClassification <https://w3id.org/dcat-ap-uk/codelist/security-classification/official> ;
+    dcatuk:sensitiveData <https://w3id.org/dcat-ap-uk/codelist/sensitive-data/special-category> ;
+    dcatuk:trustedResearchEnvironment <https://example.org/tre> .
+

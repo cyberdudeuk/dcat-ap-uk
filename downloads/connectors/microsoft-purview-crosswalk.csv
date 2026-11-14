@@ -1,0 +1,6 @@
+DCAT-AP-UK property,Microsoft Purview (Data Map and Unified Catalog) field,Note
+title,name,Asset.name in the Atlas base model.
+description,userDescription,"Asset also has description, filled by scans."
+identifier,qualifiedName,Referenceable.qualifiedName is the unique key; keep the DCAT-AP-UK identifier in business metadata as well.
+contactPoint,(none),Asset.owner names a person. Give a team contact form in business metadata.
+(every other property),businessAttributes.dcat_ap_uk,The DCAT-AP-UK extension place defined by the add-on kit.

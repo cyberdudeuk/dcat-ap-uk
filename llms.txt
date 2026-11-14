@@ -1,0 +1,75 @@
+# DCAT Application Profile for the UK (DCAT-AP-UK)
+
+> A proposed UK application profile of W3C DCAT 3, aligned with DCAT-AP 3.0.1, for describing datasets and data services so they can be found, judged and shared across catalogues. Version 1.2.0-rc.1, as of 2026-11-06. Proposed and not endorsed; not an official GOV.UK service.
+
+## Home
+- [Home](https://cyberdudeuk.github.io/dcat-ap-uk/): A proposed UK application profile of DCAT for describing public sector datasets and data services, evolved from the xGov MEM.
+
+## The profile
+- [The profile at a glance](https://cyberdudeuk.github.io/dcat-ap-uk/profile.html): The classes of DCAT-AP-UK, how they connect, and every property with its obligation, filterable.
+- [Every property](https://cyberdudeuk.github.io/dcat-ap-uk/properties.html): Definitions, purpose, guidance, examples and lineage for every DCAT-AP-UK property.
+- [Codelists](https://cyberdudeuk.github.io/dcat-ap-uk/codelists.html): Controlled lists for access rights, security classification, themes, frequency and more, with EU mappings.
+- [Value types](https://cyberdudeuk.github.io/dcat-ap-uk/types.html): The kinds of value DCAT-AP-UK properties take, how each is written in RDF and JSON, and which properties use it.
+- [Sector extensions](https://cyberdudeuk.github.io/dcat-ap-uk/extensions.html): Extensions of DCAT-AP-UK for health, geospatial, statistics, transport, AI, data spaces, the private and voluntary sector, energy and EU exchange.
+
+## Tools
+- [Build a record](https://cyberdudeuk.github.io/dcat-ap-uk/builder.html): Build a DCAT-AP-UK record in your browser, with live checks, and download it as JSON, JSON-LD or Turtle.
+- [Check records](https://cyberdudeuk.github.io/dcat-ap-uk/validate.html): Check DCAT-AP-UK records, or convert xGov MEM records, in your browser. Nothing is uploaded.
+- [Check many records](https://cyberdudeuk.github.io/dcat-ap-uk/bulk.html): Convert a spreadsheet of records to DCAT-AP-UK and check them all in your browser. Nothing is uploaded.
+- [Metadata weaver](https://cyberdudeuk.github.io/dcat-ap-uk/weaver.html): Convert records between DCAT-AP-UK, xGov MEM, CKAN, DCAT-US, schema.org, Dublin Core, DDI and Croissant, with every field threaded, and the crosswalk matrix.
+- [Describe an API from OpenAPI](https://cyberdudeuk.github.io/dcat-ap-uk/openapi.html): Turn an OpenAPI description into a DCAT-AP-UK data service record, checked, in your browser.
+- [Worked examples](https://cyberdudeuk.github.io/dcat-ap-uk/examples.html): Worked DCAT-AP-UK records for datasets, data services, a series, a critical data asset and a catalogue.
+
+## Adopt
+- [Adoption toolkit](https://cyberdudeuk.github.io/dcat-ap-uk/adopt.html): Conformance levels, sector routes, a checklist, crosswalks, harvesting, procurement clauses and identifiers for adopting DCAT-AP-UK.
+- [Integrations and connectors](https://cyberdudeuk.github.io/dcat-ap-uk/integrations.html): How catalogues, metadata platforms and data space connectors connect to DCAT-AP-UK: patterns, products, a conformance kit, a command-line checker, a GitHub Action and a reference API.
+- [Vendor connectors and AI agents](https://cyberdudeuk.github.io/dcat-ap-uk/connectors.html): Data catalogue and metadata products from the Gartner and Forrester reports, and the platforms beside them: crosswalks from their published models, add-on kits, weaver conversions and their MCP servers for AI agents.
+- [Avoiding lock-in and technical debt](https://cyberdudeuk.github.io/dcat-ap-uk/lockin.html): How an open, mandated metadata standard prevents vendor lock-in and technical debt, and the contract clauses and schedule of standards to make suppliers adopt it.
+- [Cross-border data flows](https://cyberdudeuk.github.io/dcat-ap-uk/international.html): Describe where data is held and sent, and the safeguard for personal data leaving the UK, across the Crown Dependencies, Overseas Territories, Commonwealth and partners.
+- [AI-ready metadata](https://cyberdudeuk.github.io/dcat-ap-uk/ai-ready.html): Make records ready for AI: permission to train, usage policies, schema.org and Croissant exports, llms.txt and an MCP server.
+- [Quantum-ready metadata](https://cyberdudeuk.github.io/dcat-ap-uk/quantum.html): Prepare for post-quantum migration: strong checksums, crypto-agility and connection security in the catalogue.
+- [Profiles around the world](https://cyberdudeuk.github.io/dcat-ap-uk/landscape.html): A scan of DCAT profiles in Europe, the US and sectors, what each does best, and what DCAT-AP-UK takes from them.
+
+## Knowledge
+- [Knowledge](https://cyberdudeuk.github.io/dcat-ap-uk/knowledge.html): Glossary, thesaurus, taxonomy and knowledge graph for DCAT-AP-UK.
+- [Lineage explorer](https://cyberdudeuk.github.io/dcat-ap-uk/lineage.html): Trace any property, class, codelist, rule, issue, example, test, extension, standard or defect to its sources and to what depends on it.
+- [Standards map](https://cyberdudeuk.github.io/dcat-ap-uk/standards.html): An interactive map of every open standard DCAT-AP-UK profiles, reuses, extends, maps to or serves, with every relationship.
+- [Reuse across government](https://cyberdudeuk.github.io/dcat-ap-uk/reuse.html): Public standards, models, registers, catalogues and toolkits across UK government that fit with DCAT-AP-UK, with evidence of what is used and a real-world test.
+- [Insights](https://cyberdudeuk.github.io/dcat-ap-uk/insights.html): Charts of the profile: obligations, changes from the xGov MEM, the backlog, codelists, extensions, quality scores and the landscape.
+
+## Context
+- [What's changed from the xGov MEM](https://cyberdudeuk.github.io/dcat-ap-uk/changes.html): How DCAT-AP-UK differs from the xGov MEM, and how every issue in its backlog was dealt with.
+- [How it fits the strategy](https://cyberdudeuk.github.io/dcat-ap-uk/strategy.html): How DCAT-AP-UK supports the roadmap for modern digital government, the National Data Library and the DAM Policy.
+- [Requirements stream](https://cyberdudeuk.github.io/dcat-ap-uk/requirements.html): What communities need from DCAT-AP-UK, how each need is evidenced, and how it is met: a common core, governed layers and a proposed work programme.
+
+## Help
+- [User guide](https://cyberdudeuk.github.io/dcat-ap-uk/guide.html): How to use the portal: tasks, guided tours, display options, questions people ask and where to get help.
+- [Tutorials](https://cyberdudeuk.github.io/dcat-ap-uk/tutorials.html): Step-by-step lessons, from your first record to a sector extension, with progress you can tick off.
+- [Your role](https://cyberdudeuk.github.io/dcat-ap-uk/roles.html): Routes through DCAT-AP-UK for catalogue managers, data owners, leaders, engineers, suppliers and users.
+
+## Downloads
+- [Downloads and API](https://cyberdudeuk.github.io/dcat-ap-uk/downloads.html): SHACL shapes, JSON Schema, JSON-LD context, LinkML, codelists, data dictionary and examples.
+
+## Estate
+- [The estate: four portals](https://cyberdudeuk.github.io/dcat-ap-uk/estate.html): How DCAT-AP-UK compares with and joins the DAM playbooks, the Data Quality Commons and the Repos Asset Catalogue.
+
+## About
+- [Design and governance](https://cyberdudeuk.github.io/dcat-ap-uk/governance.html): Status, versioning, change process, decisions, defects, open items, checks and self-assessment.
+- [Status and self-checks](https://cyberdudeuk.github.io/dcat-ap-uk/status.html): The self-checks that run on every build of DCAT-AP-UK: verification, self-assessment, staleness, health of sources and the defects each check came from.
+- [Accessibility statement](https://cyberdudeuk.github.io/dcat-ap-uk/accessibility.html): Accessibility statement for the DCAT-AP-UK portal.
+- [Contact](https://cyberdudeuk.github.io/dcat-ap-uk/contact.html): Ask a question, report a problem or request a change to DCAT-AP-UK using the contact form.
+- [Licence](https://cyberdudeuk.github.io/dcat-ap-uk/licence.html): How you may reuse DCAT-AP-UK: the Open Government Licence v3.0 for content and the profile, MIT for code, and third-party parts.
+- [Site map](https://cyberdudeuk.github.io/dcat-ap-uk/sitemap.html): Every page of the DCAT-AP-UK portal.
+- [What's new](https://cyberdudeuk.github.io/dcat-ap-uk/whats-new.html): Changes in each release of DCAT-AP-UK.
+
+## Machine-readable
+- [SHACL shapes](https://cyberdudeuk.github.io/dcat-ap-uk/downloads/dcat-ap-uk.shacl.ttl)
+- [JSON Schema](https://cyberdudeuk.github.io/dcat-ap-uk/downloads/dcat-ap-uk.schema.json)
+- [JSON-LD context](https://cyberdudeuk.github.io/dcat-ap-uk/downloads/dcat-ap-uk.context.jsonld)
+- [Profile for tools](https://cyberdudeuk.github.io/dcat-ap-uk/downloads/profile.json)
+- [Codelists](https://cyberdudeuk.github.io/dcat-ap-uk/downloads/codelists.ttl)
+- [Extensions](https://cyberdudeuk.github.io/dcat-ap-uk/downloads/extensions/index.json)
+- [Cross-reference manifest](https://cyberdudeuk.github.io/dcat-ap-uk/xref.json)
+
+## Optional
+- [The whole profile as markdown](https://cyberdudeuk.github.io/dcat-ap-uk/llms-full.txt)

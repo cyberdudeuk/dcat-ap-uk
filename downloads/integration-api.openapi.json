@@ -1,0 +1,169 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "DCAT-AP-UK reference API",
+    "version": "1.2.0-rc.1",
+    "description": "Reference HTTP API from integrations/http/server.js. Run it yourself; it is not a hosted service. DCAT-AP-UK is a proposal, not endorsed.",
+    "license": {
+      "name": "MIT",
+      "identifier": "MIT"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://127.0.0.1:8787",
+      "description": "Your own copy"
+    }
+  ],
+  "paths": {
+    "/health": {
+      "get": {
+        "summary": "Is it running, and which profile version",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/profile": {
+      "get": {
+        "summary": "Classes, codelists and extensions",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/codelists/{name}": {
+      "get": {
+        "summary": "The values of a codelist",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "No such codelist"
+          }
+        }
+      }
+    },
+    "/validate": {
+      "post": {
+        "summary": "Check a record; returns errors, warnings and the conformance level",
+        "parameters": [
+          {
+            "name": "ext",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Comma-separated extensions"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "https://cyberdudeuk.github.io/dcat-ap-uk/downloads/dcat-ap-uk.schema.json"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The result"
+          }
+        }
+      }
+    },
+    "/score": {
+      "post": {
+        "summary": "The quality score of a record",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The score"
+          }
+        }
+      }
+    },
+    "/weave": {
+      "post": {
+        "summary": "Convert a record between models",
+        "parameters": [
+          {
+            "name": "from",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ukap",
+                "mem",
+                "ckan",
+                "dcatus",
+                "schemaorg",
+                "dc",
+                "ddi"
+              ]
+            }
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ukap",
+                "jsonld",
+                "turtle",
+                "schemaorg",
+                "croissant",
+                "ckan",
+                "dcatus",
+                "dc",
+                "ddi"
+              ]
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The woven record, the threads and the check"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "class": "Dataset",
+  "id": "https://example.org/id/dataset/estate-condition",
+  "title": "Condition of the departmental estate",
+  "description": "Condition grades for buildings in a synthetic departmental estate, collected each year by surveyors.",
+  "identifier": "estate-condition",
+  "publisher": "https://example.org/id/org/example-department",
+  "contactPoint": [
+    {
+      "fn": "Estates data team",
+      "hasURL": "https://example.org/contact/estates"
+    }
+  ],
+  "accessRights": "ukcl:access-rights/internal",
+  "rights": "Available to public sector bodies under a data sharing agreement. Ask through the contact form.",
+  "securityClassification": "ukcl:security-classification/official",
+  "licence": "ukcl:licences/data-sharing-agreement-required",
+  "accrualPeriodicity": "eufreq:ANNUAL",
+  "personalData": "ukcl:personal-data/none",
+  "modified": "2026-10-01",
+  "missingValue": [
+    {
+      "missingProperty": "dct:temporal",
+      "missingReason": "ukcl:missing-reason/unknown"
+    },
+    {
+      "missingProperty": "dct:spatial",
+      "missingReason": "ukcl:missing-reason/withheld"
+    },
+    {
+      "missingProperty": "dcat:spatialResolutionInMeters",
+      "missingReason": "ukcl:missing-reason/inapplicable"
+    }
+  ]
+}

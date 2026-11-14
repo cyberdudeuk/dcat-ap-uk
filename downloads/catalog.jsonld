@@ -1,0 +1,210 @@
+{
+ "@context": "https://cyberdudeuk.github.io/dcat-ap-uk/downloads/dcat-ap-uk.context.jsonld",
+ "@graph": [
+  {
+   "class": "Catalogue",
+   "id": "https://cyberdudeuk.github.io/dcat-ap-uk/downloads/",
+   "title": "DCAT Application Profile for the UK 1.2.0-rc.1 downloads",
+   "description": "The machine-readable forms of DCAT-AP-UK, generated from one source on every build.",
+   "publisher": "https://github.com/cyberdudeuk",
+   "homepage": "https://cyberdudeuk.github.io/dcat-ap-uk/",
+   "conformsTo": [
+    "https://w3id.org/dcat-ap-uk/1.0"
+   ],
+   "modified": "2026-11-06",
+   "language": [
+    "eulang:ENG"
+   ],
+   "licence": "http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+   "dataset": [
+    "https://cyberdudeuk.github.io/dcat-ap-uk/downloads/#profile"
+   ]
+  },
+  {
+   "class": "Dataset",
+   "id": "https://cyberdudeuk.github.io/dcat-ap-uk/downloads/#profile",
+   "title": "DCAT Application Profile for the UK 1.2.0-rc.1",
+   "description": "Shapes, schema, context, codelists and dictionary of the profile.",
+   "identifier": "DCAT-AP-UK-1.2.0-rc.1",
+   "publisher": "https://github.com/cyberdudeuk",
+   "contactPoint": [
+    {
+     "fn": "DCAT-AP-UK maintainers",
+     "hasURL": "https://github.com/cyberdudeuk/dcat-ap-uk/issues/new?template=contact.yml"
+    }
+   ],
+   "accessRights": "ukcl:access-rights/open",
+   "securityClassification": "ukcl:security-classification/official",
+   "personalData": "ukcl:personal-data/none",
+   "licence": "http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+   "accrualPeriodicity": "eufreq:IRREG",
+   "issued": "2026-11-06",
+   "modified": "2026-11-06",
+   "version": "1.2.0-rc.1",
+   "theme": [
+    "ukcl:theme/government-reference-data"
+   ],
+   "landingPage": [
+    "https://cyberdudeuk.github.io/dcat-ap-uk/downloads.html"
+   ],
+   "distribution": [
+    {
+     "class": "Distribution",
+     "id": "https://cyberdudeuk.github.io/dcat-ap-uk/downloads/dcat-ap-uk.shacl.ttl",
+     "title": "SHACL shapes",
+     "accessURL": [
+      "https://cyberdudeuk.github.io/dcat-ap-uk/downloads/dcat-ap-uk.shacl.ttl"
+     ],
+     "downloadURL": [
+      "https://cyberdudeuk.github.io/dcat-ap-uk/downloads/dcat-ap-uk.shacl.ttl"
+     ],
+     "mediaType": "https://www.iana.org/assignments/media-types/text/turtle"
+    },
+    {
+     "class": "Distribution",
+     "id": "https://cyberdudeuk.github.io/dcat-ap-uk/downloads/dcat-ap-uk.schema.json",
+     "title": "JSON Schema 2020-12",
+     "accessURL": [
+      "https://cyberdudeuk.github.io/dcat-ap-uk/downloads/dcat-ap-uk.schema.json"
+     ],
+     "downloadURL": [
+      "https://cyberdudeuk.github.io/dcat-ap-uk/downloads/dcat-ap-uk.schema.json"
+     ],
+     "mediaType": "https://www.iana.org/assignments/media-types/application/schema+json"
+    },
+    {
+     "class": "Distribution",
+     "id": "https://cyberdudeuk.github.io/dcat-ap-uk/downloads/dcat-ap-uk.context.jsonld",
+     "title": "JSON-LD context",
+     "accessURL": [
+      "https://cyberdudeuk.github.io/dcat-ap-uk/downloads/dcat-ap-uk.context.jsonld"
+     ],
+     "downloadURL": [
+      "https://cyberdudeuk.github.io/dcat-ap-uk/downloads/dcat-ap-uk.context.jsonld"
+     ],
+     "mediaType": "https://www.iana.org/assignments/media-types/application/ld+json"
+    },
+    {
+     "class": "Distribution",
+     "id": "https://cyberdudeuk.github.io/dcat-ap-uk/downloads/dcat-ap-uk.linkml.yaml",
+     "title": "LinkML schema",
+     "accessURL": [
+      "https://cyberdudeuk.github.io/dcat-ap-uk/downloads/dcat-ap-uk.linkml.yaml"
+     ],
+     "downloadURL": [
+      "https://cyberdudeuk.github.io/dcat-ap-uk/downloads/dcat-ap-uk.linkml.yaml"
+     ],
+     "mediaType": "https://www.iana.org/assignments/media-types/application/yaml"
+    },
+    {
+     "class": "Distribution",
+     "id": "https://cyberdudeuk.github.io/dcat-ap-uk/downloads/dcat-ap-uk.ns.ttl",
+     "title": "Terms the profile adds",
+     "accessURL": [
+      "https://cyberdudeuk.github.io/dcat-ap-uk/downloads/dcat-ap-uk.ns.ttl"
+     ],
+     "downloadURL": [
+      "https://cyberdudeuk.github.io/dcat-ap-uk/downloads/dcat-ap-uk.ns.ttl"
+     ],
+     "mediaType": "https://www.iana.org/assignments/media-types/text/turtle"
+    },
+    {
+     "class": "Distribution",
+     "id": "https://cyberdudeuk.github.io/dcat-ap-uk/downloads/codelists.ttl",
+     "title": "Codelists (SKOS, Turtle)",
+     "accessURL": [
+      "https://cyberdudeuk.github.io/dcat-ap-uk/downloads/codelists.ttl"
+     ],
+     "downloadURL": [
+      "https://cyberdudeuk.github.io/dcat-ap-uk/downloads/codelists.ttl"
+     ],
+     "mediaType": "https://www.iana.org/assignments/media-types/text/turtle"
+    },
+    {
+     "class": "Distribution",
+     "id": "https://cyberdudeuk.github.io/dcat-ap-uk/downloads/codelists.jsonld",
+     "title": "Codelists (SKOS, JSON-LD)",
+     "accessURL": [
+      "https://cyberdudeuk.github.io/dcat-ap-uk/downloads/codelists.jsonld"
+     ],
+     "downloadURL": [
+      "https://cyberdudeuk.github.io/dcat-ap-uk/downloads/codelists.jsonld"
+     ],
+     "mediaType": "https://www.iana.org/assignments/media-types/application/ld+json"
+    },
+    {
+     "class": "Distribution",
+     "id": "https://cyberdudeuk.github.io/dcat-ap-uk/downloads/codelists.csv",
+     "title": "Codelists (CSV)",
+     "accessURL": [
+      "https://cyberdudeuk.github.io/dcat-ap-uk/downloads/codelists.csv"
+     ],
+     "downloadURL": [
+      "https://cyberdudeuk.github.io/dcat-ap-uk/downloads/codelists.csv"
+     ],
+     "mediaType": "https://www.iana.org/assignments/media-types/text/csv"
+    },
+    {
+     "class": "Distribution",
+     "id": "https://cyberdudeuk.github.io/dcat-ap-uk/downloads/data-dictionary.csv",
+     "title": "Data dictionary (CSV)",
+     "accessURL": [
+      "https://cyberdudeuk.github.io/dcat-ap-uk/downloads/data-dictionary.csv"
+     ],
+     "downloadURL": [
+      "https://cyberdudeuk.github.io/dcat-ap-uk/downloads/data-dictionary.csv"
+     ],
+     "mediaType": "https://www.iana.org/assignments/media-types/text/csv"
+    },
+    {
+     "class": "Distribution",
+     "id": "https://cyberdudeuk.github.io/dcat-ap-uk/downloads/crosswalk-mem.csv",
+     "title": "xGov MEM crosswalk (CSV)",
+     "accessURL": [
+      "https://cyberdudeuk.github.io/dcat-ap-uk/downloads/crosswalk-mem.csv"
+     ],
+     "downloadURL": [
+      "https://cyberdudeuk.github.io/dcat-ap-uk/downloads/crosswalk-mem.csv"
+     ],
+     "mediaType": "https://www.iana.org/assignments/media-types/text/csv"
+    },
+    {
+     "class": "Distribution",
+     "id": "https://cyberdudeuk.github.io/dcat-ap-uk/downloads/backlog.csv",
+     "title": "Backlog register (CSV)",
+     "accessURL": [
+      "https://cyberdudeuk.github.io/dcat-ap-uk/downloads/backlog.csv"
+     ],
+     "downloadURL": [
+      "https://cyberdudeuk.github.io/dcat-ap-uk/downloads/backlog.csv"
+     ],
+     "mediaType": "https://www.iana.org/assignments/media-types/text/csv"
+    },
+    {
+     "class": "Distribution",
+     "id": "https://cyberdudeuk.github.io/dcat-ap-uk/downloads/profile.json",
+     "title": "Profile for tools (JSON)",
+     "accessURL": [
+      "https://cyberdudeuk.github.io/dcat-ap-uk/downloads/profile.json"
+     ],
+     "downloadURL": [
+      "https://cyberdudeuk.github.io/dcat-ap-uk/downloads/profile.json"
+     ],
+     "mediaType": "https://www.iana.org/assignments/media-types/application/json"
+    },
+    {
+     "class": "Distribution",
+     "id": "https://cyberdudeuk.github.io/dcat-ap-uk/downloads/organisations.json",
+     "title": "Organisations (JSON)",
+     "accessURL": [
+      "https://cyberdudeuk.github.io/dcat-ap-uk/downloads/organisations.json"
+     ],
+     "downloadURL": [
+      "https://cyberdudeuk.github.io/dcat-ap-uk/downloads/organisations.json"
+     ],
+     "mediaType": "https://www.iana.org/assignments/media-types/application/json"
+    }
+   ]
+  }
+ ]
+}

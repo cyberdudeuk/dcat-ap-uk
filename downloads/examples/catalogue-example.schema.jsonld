@@ -1,0 +1,14 @@
+{
+  "@context": "https://schema.org/",
+  "@type": "Dataset",
+  "@id": "https://example.org/catalogue",
+  "name": "Example department data catalogue",
+  "description": "Synthetic example. The data catalogue of an example department, harvested by central discovery services.",
+  "url": "https://example.org/catalogue",
+  "inLanguage": [
+    "en"
+  ],
+  "publisher": {
+    "@id": "https://example.org/organisations/example-department"
+  }
+}

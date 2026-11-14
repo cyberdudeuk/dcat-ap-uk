@@ -1,0 +1,62 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "sc": "https://schema.org/",
+    "cr": "http://mlcommons.org/croissant/",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "dct": "http://purl.org/dc/terms/"
+  },
+  "@type": "sc:Dataset",
+  "@id": "https://www.data.gov.uk/dataset/2dfb82b4-741a-4b93-807e-11abb4bb0875/os-postcodes-data",
+  "name": "Postcode locations for Great Britain",
+  "description": "The location of every postcode unit in Great Britain as a single point, with the codes of the areas it falls in. Often used for service planning, simple routing and statistical analysis.",
+  "abstract": "Free point locations for every postcode unit in Great Britain.",
+  "identifier": "2dfb82b4-741a-4b93-807e-11abb4bb0875",
+  "url": "https://www.ordnancesurvey.co.uk/products/code-point-open",
+  "license": "http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+  "isAccessibleForFree": true,
+  "keywords": [
+    "postcode",
+    "address",
+    "location"
+  ],
+  "spatialCoverage": [
+    {
+      "@id": "http://statistics.data.gov.uk/id/statistical-geography/K03000001"
+    }
+  ],
+  "datePublished": "2022-02-01",
+  "dateModified": "2026-08-01",
+  "version": "2026-08",
+  "inLanguage": [
+    "en"
+  ],
+  "publisher": {
+    "@id": "https://www.gov.uk/government/organisations/ordnance-survey"
+  },
+  "creator": [
+    {
+      "@id": "https://www.gov.uk/government/organisations/ordnance-survey"
+    }
+  ],
+  "distribution": [
+    {
+      "@type": "cr:FileObject",
+      "@id": "https://www.data.gov.uk/dataset/2dfb82b4-741a-4b93-807e-11abb4bb0875/os-postcodes-data#csv",
+      "name": "Postcode locations, CSV",
+      "contentUrl": "https://www.ordnancesurvey.co.uk/products/code-point-open",
+      "encodingFormat": "text/csv",
+      "contentSize": "14330000"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "https://www.data.gov.uk/dataset/2dfb82b4-741a-4b93-807e-11abb4bb0875/os-postcodes-data#gpkg",
+      "name": "Postcode locations, GeoPackage",
+      "contentUrl": "https://www.ordnancesurvey.co.uk/products/code-point-open",
+      "encodingFormat": "application/geopackage+sqlite3",
+      "contentSize": "55410000"
+    }
+  ],
+  "dct:conformsTo": "http://mlcommons.org/croissant/1.1"
+}

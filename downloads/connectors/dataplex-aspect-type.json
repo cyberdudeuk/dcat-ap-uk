@@ -1,0 +1,587 @@
+{
+  "_note": "Generated from DCAT-AP-UK. Names match the metadata weaver, so records written by the weaver load into these definitions. Not tested against a live tenant.",
+  "displayName": "DCAT-AP-UK",
+  "description": "DCAT-AP-UK properties for a dataset entry.",
+  "metadataTemplate": {
+    "name": "dcat-ap-uk",
+    "type": "record",
+    "recordFields": [
+      {
+        "index": 1,
+        "name": "title",
+        "type": "string",
+        "annotations": {
+          "displayName": "Title",
+          "description": "The name of the resource, in plain English."
+        },
+        "constraints": {
+          "required": true
+        }
+      },
+      {
+        "index": 2,
+        "name": "description",
+        "type": "string",
+        "annotations": {
+          "displayName": "Description",
+          "description": "A plain English account of what the resource contains and what it can be used for."
+        },
+        "constraints": {
+          "required": true
+        }
+      },
+      {
+        "index": 3,
+        "name": "identifier",
+        "type": "string",
+        "annotations": {
+          "displayName": "Identifier",
+          "description": "The main identifier of the resource in the publisher's own catalogue."
+        },
+        "constraints": {
+          "required": true
+        }
+      },
+      {
+        "index": 4,
+        "name": "publisher",
+        "type": "string",
+        "annotations": {
+          "displayName": "Publisher",
+          "description": "The organisation responsible for making the resource available."
+        },
+        "constraints": {
+          "required": true
+        }
+      },
+      {
+        "index": 5,
+        "name": "contactPoint",
+        "type": "string",
+        "annotations": {
+          "displayName": "Contact point",
+          "description": "Where to ask questions about the resource or give feedback on it."
+        },
+        "constraints": {
+          "required": true
+        }
+      },
+      {
+        "index": 6,
+        "name": "accessRights",
+        "type": "string",
+        "annotations": {
+          "displayName": "Access rights",
+          "description": "Who can get the data, and on what terms."
+        },
+        "constraints": {
+          "required": true
+        }
+      },
+      {
+        "index": 7,
+        "name": "securityClassification",
+        "type": "string",
+        "annotations": {
+          "displayName": "Security classification",
+          "description": "The classification under the Government Security Classifications Policy that the data itself carries."
+        },
+        "constraints": {
+          "required": true
+        }
+      },
+      {
+        "index": 8,
+        "name": "licence",
+        "type": "string",
+        "annotations": {
+          "displayName": "Licence",
+          "description": "The licence under which the resource can be used."
+        },
+        "constraints": {
+          "required": true
+        }
+      },
+      {
+        "index": 9,
+        "name": "accrualPeriodicity",
+        "type": "string",
+        "annotations": {
+          "displayName": "Update frequency",
+          "description": "How often the resource is updated."
+        },
+        "constraints": {
+          "required": true
+        }
+      },
+      {
+        "index": 10,
+        "name": "criticalDataAsset",
+        "type": "string",
+        "annotations": {
+          "displayName": "Critical data asset",
+          "description": "Whether the resource is a critical data asset under the Data Asset Management Policy."
+        },
+        "constraints": {
+          "required": false
+        }
+      },
+      {
+        "index": 11,
+        "name": "creator",
+        "type": "string",
+        "annotations": {
+          "displayName": "Creator",
+          "description": "The organisation that created or compiled the content of the resource."
+        },
+        "constraints": {
+          "required": false
+        }
+      },
+      {
+        "index": 12,
+        "name": "created",
+        "type": "string",
+        "annotations": {
+          "displayName": "Created",
+          "description": "The date the content of the resource was created or compiled."
+        },
+        "constraints": {
+          "required": false
+        }
+      },
+      {
+        "index": 13,
+        "name": "conformsTo",
+        "type": "string",
+        "annotations": {
+          "displayName": "Conforms to",
+          "description": "A standard, specification or schema the resource follows."
+        },
+        "constraints": {
+          "required": false
+        }
+      },
+      {
+        "index": 14,
+        "name": "temporal",
+        "type": "string",
+        "annotations": {
+          "displayName": "Time period covered",
+          "description": "The period of time the data is about."
+        },
+        "constraints": {
+          "required": false
+        }
+      },
+      {
+        "index": 15,
+        "name": "personalData",
+        "type": "string",
+        "annotations": {
+          "displayName": "Personal data",
+          "description": "Whether the data contains information about identifiable living people, and in what form."
+        },
+        "constraints": {
+          "required": false
+        }
+      },
+      {
+        "index": 16,
+        "name": "rights",
+        "type": "string",
+        "annotations": {
+          "displayName": "Rights statement",
+          "description": "A statement of any restriction on access or use, such as the data sharing agreement or legal gateway needed."
+        },
+        "constraints": {
+          "required": false
+        }
+      },
+      {
+        "index": 17,
+        "name": "modified",
+        "type": "string",
+        "annotations": {
+          "displayName": "Last updated",
+          "description": "The date the content of the resource last changed."
+        },
+        "constraints": {
+          "required": false
+        }
+      },
+      {
+        "index": 18,
+        "name": "issued",
+        "type": "string",
+        "annotations": {
+          "displayName": "Release date",
+          "description": "The date the resource was first made available."
+        },
+        "constraints": {
+          "required": false
+        }
+      },
+      {
+        "index": 19,
+        "name": "abstract",
+        "type": "string",
+        "annotations": {
+          "displayName": "Summary",
+          "description": "A one-sentence summary of the resource, of no more than 250 characters."
+        },
+        "constraints": {
+          "required": false
+        }
+      },
+      {
+        "index": 20,
+        "name": "theme",
+        "type": "string",
+        "annotations": {
+          "displayName": "Theme",
+          "description": "The broad subject of the resource, from a controlled list."
+        },
+        "constraints": {
+          "required": false
+        }
+      },
+      {
+        "index": 21,
+        "name": "keyword",
+        "type": "string",
+        "annotations": {
+          "displayName": "Keyword",
+          "description": "Words or short phrases that people might search for, not already in the title or description."
+        },
+        "constraints": {
+          "required": false
+        }
+      },
+      {
+        "index": 22,
+        "name": "spatial",
+        "type": "string",
+        "annotations": {
+          "displayName": "Geographic coverage",
+          "description": "The geographic area the data is about."
+        },
+        "constraints": {
+          "required": false
+        }
+      },
+      {
+        "index": 23,
+        "name": "distribution",
+        "type": "string",
+        "annotations": {
+          "displayName": "Distribution",
+          "description": "A form in which the data can be got, such as a file or an API."
+        },
+        "constraints": {
+          "required": false
+        }
+      },
+      {
+        "index": 24,
+        "name": "landingPage",
+        "type": "string",
+        "annotations": {
+          "displayName": "Landing page",
+          "description": "A web page where people can find out about the resource and how to get it."
+        },
+        "constraints": {
+          "required": false
+        }
+      },
+      {
+        "index": 25,
+        "name": "version",
+        "type": "string",
+        "annotations": {
+          "displayName": "Version",
+          "description": "The version of the resource."
+        },
+        "constraints": {
+          "required": false
+        }
+      },
+      {
+        "index": 26,
+        "name": "sensitiveData",
+        "type": "string",
+        "annotations": {
+          "displayName": "Sensitive data",
+          "description": "Whether the data contains information that needs extra care beyond being personal, such as special category data."
+        },
+        "constraints": {
+          "required": false
+        }
+      },
+      {
+        "index": 27,
+        "name": "qualifiedAttribution",
+        "type": "string",
+        "annotations": {
+          "displayName": "Responsible role",
+          "description": "An organisation and the role it plays for the resource, such as data owner or data steward."
+        },
+        "constraints": {
+          "required": false
+        }
+      },
+      {
+        "index": 28,
+        "name": "language",
+        "type": "string",
+        "annotations": {
+          "displayName": "Language",
+          "description": "The language or languages of the resource."
+        },
+        "constraints": {
+          "required": false
+        }
+      },
+      {
+        "index": 29,
+        "name": "alternative",
+        "type": "string",
+        "annotations": {
+          "displayName": "Alternative title",
+          "description": "Another name the resource is known by, such as an abbreviation or a former name."
+        },
+        "constraints": {
+          "required": false
+        }
+      },
+      {
+        "index": 30,
+        "name": "otherIdentifier",
+        "type": "string",
+        "annotations": {
+          "displayName": "Other identifier",
+          "description": "Any other identifier the resource is known by, such as one in a national or sector register."
+        },
+        "constraints": {
+          "required": false
+        }
+      },
+      {
+        "index": 31,
+        "name": "inSeries",
+        "type": "string",
+        "annotations": {
+          "displayName": "Part of series",
+          "description": "The dataset series this dataset belongs to."
+        },
+        "constraints": {
+          "required": false
+        }
+      },
+      {
+        "index": 32,
+        "name": "isReplacedBy",
+        "type": "string",
+        "annotations": {
+          "displayName": "Replaced by",
+          "description": "A newer resource that replaces this one."
+        },
+        "constraints": {
+          "required": false
+        }
+      },
+      {
+        "index": 33,
+        "name": "expires",
+        "type": "string",
+        "annotations": {
+          "displayName": "Expires",
+          "description": "The date after which the resource should no longer be used."
+        },
+        "constraints": {
+          "required": false
+        }
+      },
+      {
+        "index": 34,
+        "name": "previousVersion",
+        "type": "string",
+        "annotations": {
+          "displayName": "Previous version",
+          "description": "The version this one replaces in a sequence."
+        },
+        "constraints": {
+          "required": false
+        }
+      },
+      {
+        "index": 35,
+        "name": "versionNotes",
+        "type": "string",
+        "annotations": {
+          "displayName": "Version notes",
+          "description": "What changed in this version."
+        },
+        "constraints": {
+          "required": false
+        }
+      },
+      {
+        "index": 36,
+        "name": "spatialResolutionInMeters",
+        "type": "string",
+        "annotations": {
+          "displayName": "Spatial resolution (metres)",
+          "description": "The smallest distance the data can tell apart, in metres."
+        },
+        "constraints": {
+          "required": false
+        }
+      },
+      {
+        "index": 37,
+        "name": "temporalResolution",
+        "type": "string",
+        "annotations": {
+          "displayName": "Time resolution",
+          "description": "The smallest period the data can tell apart, as an ISO 8601 duration."
+        },
+        "constraints": {
+          "required": false
+        }
+      },
+      {
+        "index": 38,
+        "name": "referenceData",
+        "type": "string",
+        "annotations": {
+          "displayName": "Reference data used",
+          "description": "A code list, classification or set of groupings the data uses, such as age bands or a geography."
+        },
+        "constraints": {
+          "required": false
+        }
+      },
+      {
+        "index": 39,
+        "name": "qualityAnnotation",
+        "type": "string",
+        "annotations": {
+          "displayName": "Data quality",
+          "description": "A link to a published statement or measurement of the quality of the data."
+        },
+        "constraints": {
+          "required": false
+        }
+      },
+      {
+        "index": 40,
+        "name": "relation",
+        "type": "string",
+        "annotations": {
+          "displayName": "Related resource",
+          "description": "Another resource closely related to this one, such as the report the data supports."
+        },
+        "constraints": {
+          "required": false
+        }
+      },
+      {
+        "index": 41,
+        "name": "qualifiedRelation",
+        "type": "string",
+        "annotations": {
+          "displayName": "Qualified relation",
+          "description": "A related resource together with the kind of relationship."
+        },
+        "constraints": {
+          "required": false
+        }
+      },
+      {
+        "index": 42,
+        "name": "documentation",
+        "type": "string",
+        "annotations": {
+          "displayName": "Documentation",
+          "description": "A web page that documents the resource, such as a user guide or a methodology."
+        },
+        "constraints": {
+          "required": false
+        }
+      },
+      {
+        "index": 43,
+        "name": "metadataAudience",
+        "type": "string",
+        "annotations": {
+          "displayName": "Who can see this record",
+          "description": "Who is allowed to see the metadata record itself."
+        },
+        "constraints": {
+          "required": false
+        }
+      },
+      {
+        "index": 44,
+        "name": "applicableLegislation",
+        "type": "string",
+        "annotations": {
+          "displayName": "Applicable legislation",
+          "description": "Legislation that requires, governs or permits the publication or sharing of the resource."
+        },
+        "constraints": {
+          "required": false
+        }
+      },
+      {
+        "index": 45,
+        "name": "hasPolicy",
+        "type": "string",
+        "annotations": {
+          "displayName": "Usage policy",
+          "description": "A machine-readable policy, in the W3C Open Digital Rights Language (ODRL), saying what may and may not be done with the resource."
+        },
+        "constraints": {
+          "required": false
+        }
+      },
+      {
+        "index": 46,
+        "name": "jurisdiction",
+        "type": "string",
+        "annotations": {
+          "displayName": "Where the data is held or sent",
+          "description": "Every country or territory where the data is stored or processed, or to which it is sent."
+        },
+        "constraints": {
+          "required": false
+        }
+      },
+      {
+        "index": 47,
+        "name": "transferMechanism",
+        "type": "string",
+        "annotations": {
+          "displayName": "Transfer safeguard",
+          "description": "The basis under UK GDPR on which personal data in the resource may be sent outside the UK."
+        },
+        "constraints": {
+          "required": false
+        }
+      },
+      {
+        "index": 48,
+        "name": "missingValue",
+        "type": "string",
+        "annotations": {
+          "displayName": "Missing value",
+          "description": "A property this record leaves empty on purpose, and why."
+        },
+        "constraints": {
+          "required": false
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<title>Worked examples - DCAT-AP-UK</title>
+<meta name="description" content="Worked DCAT-AP-UK records for datasets, data services, a series, a critical data asset and a catalogue.">
+<link rel="canonical" href="https://cyberdudeuk.github.io/dcat-ap-uk/examples.html">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="style.css">
+<meta name="artefact:id" content="DCAT-AP-UK">
+<meta name="artefact:version" content="1.2.0-rc.1">
+<meta name="artefact:class" content="portal">
+<meta name="artefact:as-of" content="2026-11-06">
+<meta name="artefact:review-date" content="2027-02-06">
+<meta name="artefact:build" content="DCAT-AP-UK-1.2.0-rc.1-c40431909d">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebPage", "name": "Worked examples - DCAT-AP-UK", "description": "Worked DCAT-AP-UK records for datasets, data services, a series, a critical data asset and a catalogue.", "url": "https://cyberdudeuk.github.io/dcat-ap-uk/examples.html", "inLanguage": "en-GB", "identifier": "DCAT-AP-UK-1.2.0-rc.1-c40431909d", "version": "1.2.0-rc.1", "dateModified": "2026-11-06", "datePublished": "2026-11-06", "license": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/", "isPartOf": {"@type": "WebSite", "name": "DCAT Application Profile for the UK", "url": "https://cyberdudeuk.github.io/dcat-ap-uk/"}}</script>
+</head>
+<body data-section="tools">
+<a class="skip" href="#main">Skip to main content</a>
+<div class="banner" role="region" aria-label="Status"><strong class="tag warn">Proposed</strong>DCAT-AP-UK 1.2.0-rc.1 is a proposal for review. It is not endorsed and is not an official GOV.UK service. <a href="governance.html#status">What this means</a></div>
+<header class="mast"><div class="mast-in">
+<a class="name" href="index.html"><svg class="logo" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><rect width="32" height="32" rx="4" fill="#4c2c92"/><path d="M8 10h16M8 16h11M8 22h7" stroke="#fff" stroke-width="3" stroke-linecap="round"/><circle cx="24" cy="22" r="3" fill="#ffdd00"/></svg>DCAT-AP-UK<span class="visually-hidden">: DCAT Application Profile for the UK</span></a>
+<div class="mast-tools no-print">
+<button type="button" data-open="palette"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m21 21-4.34-4.34" /> <circle cx="11" cy="11" r="8" /></svg><span class="lbl">Search</span> <kbd>/</kbd></button>
+<button type="button" id="display-toggle" aria-expanded="false" aria-controls="display-panel" hidden><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m15 16 2.536-7.328a1.02 1.02 1 0 1 1.928 0L22 16" /> <path d="M15.697 14h5.606" /> <path d="m2 16 4.039-9.69a.5.5 0 0 1 .923 0L11 16" /> <path d="M3.304 13h6.392" /></svg><span class="lbl">Display options</span></button>
+<a class="mast-link" href="guide.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10" /> <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" /> <path d="M12 17h.01" /></svg><span class="lbl">Help</span></a>
+
+<a class="mast-link" href="sitemap.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z" /> <path d="M15 5.764v15" /> <path d="M9 3.236v15" /></svg><span class="lbl">Site map</span></a>
+<button type="button" id="share"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="18" cy="5" r="3" /> <circle cx="6" cy="12" r="3" /> <circle cx="18" cy="19" r="3" /> <line x1="8.59" x2="15.42" y1="13.51" y2="17.49" /> <line x1="15.41" x2="8.59" y1="6.51" y2="10.49" /></svg><span class="lbl">Share</span></button>
+</div></div>
+<div class="display-panel no-print" id="display-panel" hidden><div class="dp-in">
+<h2>Display options</h2>
+<fieldset><legend>Text size</legend><label><input type="radio" name="dp-text" value=""> Standard</label><label><input type="radio" name="dp-text" value="l"> Large</label><label><input type="radio" name="dp-text" value="xl"> Largest</label></fieldset>
+<fieldset><legend>Line spacing</legend><label><input type="radio" name="dp-space" value=""> Standard</label><label><input type="radio" name="dp-space" value="wide"> Wider</label></fieldset>
+<fieldset><legend>Colours</legend><label><input type="radio" name="dp-theme" value=""> Match my device</label><label><input type="radio" name="dp-theme" value="light"> Light</label><label><input type="radio" name="dp-theme" value="dark"> Dark</label></fieldset>
+<fieldset><legend>Contrast</legend><label><input type="radio" name="dp-contrast" value=""> Standard</label><label><input type="radio" name="dp-contrast" value="high"> High</label></fieldset>
+<fieldset><legend>Motion</legend><label><input type="radio" name="dp-motion" value=""> Match my device</label><label><input type="radio" name="dp-motion" value="reduce"> Reduce</label></fieldset>
+<fieldset><legend>Links</legend><label><input type="radio" name="dp-links" value=""> Standard</label><label><input type="radio" name="dp-links" value="underline"> Bold and underlined</label></fieldset>
+<p class="hint">Your choices apply to every page and are kept in this browser only. <button type="button" class="btn secondary small" id="dp-reset">Reset</button></p></div></div>
+</header>
+<nav class="gbar" aria-label="Portal sections"><ul class="top"><li><a href="index.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" /> <path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /></svg><span>Home</span><span class="navflag dot updated" title="Updated since 1.2.0-rc.1 (2026-11-06)"><span class="visually-hidden">Updated</span></span></a></li><li class="grp"><button type="button" aria-expanded="false"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z" /> <path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12" /> <path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17" /></svg><span>The profile</span><span class="navflag dot updated" title="5 pages new or updated"><span class="visually-hidden">5 new or updated</span></span><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6" /></svg></button><ul class="sub"><li><a href="profile.html">The profile at a glance<span class="navflag updated">Updated</span></a></li><li><a href="properties.html">Every property<span class="navflag updated">Updated</span></a></li><li><a href="codelists.html">Codelists<span class="navflag updated">Updated</span></a></li><li><a href="types.html">Value types<span class="navflag updated">Updated</span></a></li><li><a href="extensions.html">Sector extensions<span class="navflag updated">Updated</span></a></li></ul></li><li class="grp current"><button type="button" aria-expanded="false"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.106-3.105c.32-.322.863-.22.983.218a6 6 0 0 1-8.259 7.057l-7.91 7.91a1 1 0 0 1-2.999-3l7.91-7.91a6 6 0 0 1 7.057-8.259c.438.12.54.662.219.984z" /></svg><span>Tools</span><span class="navflag dot updated" title="6 pages new or updated"><span class="visually-hidden">6 new or updated</span></span><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6" /></svg></button><ul class="sub"><li><a href="builder.html">Build a record<span class="navflag updated">Updated</span></a></li><li><a href="validate.html">Check records<span class="navflag updated">Updated</span></a></li><li><a href="bulk.html">Check many records<span class="navflag updated">Updated</span></a></li><li><a href="weaver.html">Metadata weaver<span class="navflag updated">Updated</span></a></li><li><a href="openapi.html">Describe an API from OpenAPI<span class="navflag updated">Updated</span></a></li><li><a href="examples.html" aria-current="page">Worked examples<span class="navflag updated">Updated</span></a></li></ul></li><li class="grp"><button type="button" aria-expanded="false"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z" /> <path d="M12 22V12" /> <polyline points="3.29 7 12 12 20.71 7" /> <path d="m7.5 4.27 9 5.15" /></svg><span>Adopt</span><span class="navflag dot new" title="6 pages new or updated"><span class="visually-hidden">6 new or updated</span></span><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6" /></svg></button><ul class="sub"><li><a href="adopt.html">Adoption toolkit<span class="navflag updated">Updated</span></a></li><li><a href="integrations.html">Integrations and connectors<span class="navflag updated">Updated</span></a></li><li><a href="connectors.html">Vendor connectors and AI agents<span class="navflag new">New</span></a></li><li><a href="lockin.html">Avoiding lock-in and technical debt<span class="navflag updated">Updated</span></a></li><li><a href="international.html">Cross-border data flows<span class="navflag updated">Updated</span></a></li><li><a href="ai-ready.html">AI-ready metadata<span class="navflag updated">Updated</span></a></li><li><a href="quantum.html">Quantum-ready metadata</a></li><li><a href="landscape.html">Profiles around the world</a></li></ul></li><li class="grp"><button type="button" aria-expanded="false"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="16" y="16" width="6" height="6" rx="1" /> <rect x="2" y="16" width="6" height="6" rx="1" /> <rect x="9" y="2" width="6" height="6" rx="1" /> <path d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3" /> <path d="M12 12V8" /></svg><span>Knowledge</span><span class="navflag dot new" title="5 pages new or updated"><span class="visually-hidden">5 new or updated</span></span><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6" /></svg></button><ul class="sub"><li><a href="knowledge.html">Knowledge<span class="navflag updated">Updated</span></a></li><li><a href="lineage.html">Lineage explorer<span class="navflag updated">Updated</span></a></li><li><a href="standards.html">Standards map<span class="navflag updated">Updated</span></a></li><li><a href="reuse.html">Reuse across government<span class="navflag new">New</span></a></li><li><a href="insights.html">Insights<span class="navflag updated">Updated</span></a></li></ul></li><li class="grp"><button type="button" aria-expanded="false"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="6" cy="19" r="3" /> <path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15" /> <circle cx="18" cy="5" r="3" /></svg><span>Context</span><span class="navflag dot new" title="3 pages new or updated"><span class="visually-hidden">3 new or updated</span></span><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6" /></svg></button><ul class="sub"><li><a href="changes.html">What&#x27;s changed from the xGov MEM<span class="navflag updated">Updated</span></a></li><li><a href="strategy.html">How it fits the strategy<span class="navflag updated">Updated</span></a></li><li><a href="requirements.html">Requirements stream<span class="navflag new">New</span></a></li></ul></li><li><a href="downloads.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 15V3" /> <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /> <path d="m7 10 5 5 5-5" /></svg><span>Downloads</span><span class="navflag dot updated" title="Updated since 1.2.0-rc.1 (2026-11-06)"><span class="visually-hidden">Updated</span></span></a></li><li><a href="estate.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10" /> <path d="m16.24 7.76-1.804 5.411a2 2 0 0 1-1.265 1.265L7.76 16.24l1.804-5.411a2 2 0 0 1 1.265-1.265z" /></svg><span>Estate</span></a></li><li class="grp"><button type="button" aria-expanded="false"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10" /> <path d="M12 16v-4" /> <path d="M12 8h.01" /></svg><span>About</span><span class="navflag dot new" title="4 pages new or updated"><span class="visually-hidden">4 new or updated</span></span><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6" /></svg></button><ul class="sub"><li><a href="governance.html">Design and governance<span class="navflag updated">Updated</span></a></li><li><a href="status.html">Status and self-checks<span class="navflag new">New</span></a></li><li><a href="accessibility.html">Accessibility statement</a></li><li><a href="contact.html">Contact</a></li><li><a href="licence.html">Licence</a></li><li><a href="sitemap.html">Site map<span class="navflag updated">Updated</span></a></li><li><a href="whats-new.html">What&#x27;s new<span class="navflag updated">Updated</span></a></li></ul></li><li class="more"><button type="button" aria-expanded="false"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 5h16" /> <path d="M4 12h16" /> <path d="M4 19h16" /></svg><span>More</span><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6" /></svg></button><ul class="sub"></ul></li></ul></nav>
+<button type="button" class="toggle no-print" id="drawer-toggle" aria-controls="drawer" aria-expanded="true"><span class="track" aria-hidden="true"></span><span class="tlabel">Hide page contents</span></button>
+<div class="wrap"><nav class="drawer" id="drawer" aria-label="On this page"><h2>On this page</h2><p class="flagkey small"><span class="flag new">New</span> <span class="flag updated">Updated</span> since 1.2.0-rc.1 (2026-11-06)</p><details open><summary><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12.15V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.706.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2h-3.35" /> <path d="M14 2v5a1 1 0 0 0 1 1h5" /> <path d="m5 16-3 3 3 3" /> <path d="m9 22 3-3-3-3" /></svg><span>Examples</span><span class="flag updated" title="7 of 10 sections new or updated">7 updated</span></summary><ul><li><a href="#ex-dataset-postcodes"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12.15V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.706.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2h-3.35" /> <path d="M14 2v5a1 1 0 0 0 1 1h5" /> <path d="m5 16-3 3 3 3" /> <path d="m9 22 3-3-3-3" /></svg><span>An open dataset with two files</span></a></li><li><a href="#ex-service-food-alerts"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12.15V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.706.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2h-3.35" /> <path d="M14 2v5a1 1 0 0 0 1 1h5" /> <path d="m5 16-3 3 3 3" /> <path d="m9 22 3-3-3-3" /></svg><span>An open event API</span></a></li><li><a href="#ex-service-hmrc-irr"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12.15V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.706.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2h-3.35" /> <path d="M14 2v5a1 1 0 0 0 1 1h5" /> <path d="m5 16-3 3 3 3" /> <path d="m9 22 3-3-3-3" /></svg><span>An internal API that needs an agreement</span></a></li><li><a href="#ex-series-census"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12.15V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.706.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2h-3.35" /> <path d="M14 2v5a1 1 0 0 0 1 1h5" /> <path d="m5 16-3 3 3 3" /> <path d="m9 22 3-3-3-3" /></svg><span>A dataset series and one release in it</span><span class="flag updated">Updated</span></a></li><li><a href="#ex-dataset-census-2021"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12.15V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.706.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2h-3.35" /> <path d="M14 2v5a1 1 0 0 0 1 1h5" /> <path d="m5 16-3 3 3 3" /> <path d="m9 22 3-3-3-3" /></svg><span>One release in a series</span><span class="flag updated">Updated</span></a></li><li><a href="#ex-dataset-critical-asset"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12.15V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.706.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2h-3.35" /> <path d="M14 2v5a1 1 0 0 0 1 1h5" /> <path d="m5 16-3 3 3 3" /> <path d="m9 22 3-3-3-3" /></svg><span>A critical data asset (synthetic)</span><span class="flag updated">Updated</span></a></li><li><a href="#ex-catalogue-example"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12.15V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.706.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2h-3.35" /> <path d="M14 2v5a1 1 0 0 0 1 1h5" /> <path d="m5 16-3 3 3 3" /> <path d="m9 22 3-3-3-3" /></svg><span>A catalogue (synthetic)</span><span class="flag updated">Updated</span></a></li><li><a href="#ex-record-harvested"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12.15V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.706.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2h-3.35" /> <path d="M14 2v5a1 1 0 0 0 1 1h5" /> <path d="m5 16-3 3 3 3" /> <path d="m9 22 3-3-3-3" /></svg><span>A harvested catalogue record (synthetic)</span><span class="flag new">New</span></a></li><li><a href="#ex-dataset-cross-border"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12.15V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.706.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2h-3.35" /> <path d="M14 2v5a1 1 0 0 0 1 1h5" /> <path d="m5 16-3 3 3 3" /> <path d="m9 22 3-3-3-3" /></svg><span>Personal data shared across borders (synthetic)</span><span class="flag updated">Updated</span></a></li><li><a href="#ex-dataset-missing-values"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12.15V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.706.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2h-3.35" /> <path d="M14 2v5a1 1 0 0 0 1 1h5" /> <path d="m5 16-3 3 3 3" /> <path d="m9 22 3-3-3-3" /></svg><span>Values left empty on purpose (synthetic)</span><span class="flag new">New</span></a></li></ul></details></nav><main id="main" tabindex="-1"><nav aria-label="Breadcrumb"><ol class="crumbs"><li><a href="index.html">Home</a></li><li aria-current="page">Tools</li><li aria-current="page">Worked examples</li></ol></nav>
+<div class="hero"><div class="tile"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12.15V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.706.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2h-3.35" /> <path d="M14 2v5a1 1 0 0 0 1 1h5" /> <path d="m5 16-3 3 3 3" /> <path d="m9 22 3-3-3-3" /></svg></div><div><p class="caption">Tools</p><h1>Worked examples</h1><p class="pageflag"><span class="flag updated">Updated</span> 7 sections on this page are new or updated since 1.2.0-rc.1 (2026-11-06). <a href="whats-new.html#changed">Everything that changed</a></p><p class="lede">Each example passes the <a class="term" href="knowledge.html#g-shacl" data-tip="SHACL: The W3C language for rules that RDF data must meet. The profile&#x27;s rules are published as SHACL shapes.">SHACL</a> shapes, the <a class="term" href="knowledge.html#g-json-schema" data-tip="JSON Schema: A standard for describing what a JSON document must look like, so tools can check it.">JSON Schema</a> and the browser validator on every build. They are illustrative, built from public records, and not confirmed by the publishers. Synthetic examples say so.</p></div></div><section id="ex-dataset-postcodes" aria-labelledby="ex-dataset-postcodes-h"><h2 id="ex-dataset-postcodes-h">An open dataset with two files</h2><p>The everyday case. Open data, a licence, geographic coverage and two distributions described in the same record.</p><p class="small">Class: <a href="class-dataset.html">Dataset</a> · Backlog: <a href="changes.html#issue-69">#69</a> <a href="changes.html#issue-72">#72</a> <a href="changes.html#issue-1">#1</a> <a href="changes.html#issue-76">#76</a> <abbr class="prov U" title="Unconfirmed" data-tip="Unconfirmed">U</abbr></p><div class="tabs" id="tabs-dataset-postcodes"><div role="tablist" aria-label="Format of an open dataset with two files"><button role="tab" id="t-dataset-postcodes-j" aria-controls="p-dataset-postcodes-j">JSON</button><button role="tab" id="t-dataset-postcodes-t" aria-controls="p-dataset-postcodes-t">Turtle</button></div><div role="tabpanel" id="p-dataset-postcodes-j" aria-labelledby="t-dataset-postcodes-j" tabindex="0"><pre id="c-dataset-postcodes-j" tabindex="0">{
+  &quot;class&quot;: &quot;Dataset&quot;,
+  &quot;id&quot;: &quot;https://www.data.gov.uk/dataset/2dfb82b4-741a-4b93-807e-11abb4bb0875/os-postcodes-data&quot;,
+  &quot;title&quot;: &quot;Postcode locations for Great Britain&quot;,
+  &quot;alternative&quot;: &quot;Code-Point Open&quot;,
+  &quot;abstract&quot;: &quot;Free point locations for every postcode unit in Great Britain.&quot;,
+  &quot;description&quot;: &quot;The location of every postcode unit in Great Britain as a single point, with the codes of the areas it falls in. Often used for service planning, simple routing and statistical analysis.&quot;,
+  &quot;identifier&quot;: &quot;2dfb82b4-741a-4b93-807e-11abb4bb0875&quot;,
+  &quot;publisher&quot;: &quot;https://www.gov.uk/government/organisations/ordnance-survey&quot;,
+  &quot;creator&quot;: [
+    &quot;https://www.gov.uk/government/organisations/ordnance-survey&quot;
+  ],
+  &quot;contactPoint&quot;: [
+    {
+      &quot;fn&quot;: &quot;Ordnance Survey customer service&quot;,
+      &quot;hasURL&quot;: &quot;https://www.ordnancesurvey.co.uk/contact-us&quot;
+    }
+  ],
+  &quot;accessRights&quot;: &quot;ukcl:access-rights/open&quot;,
+  &quot;securityClassification&quot;: &quot;ukcl:security-classification/official&quot;,
+  &quot;personalData&quot;: &quot;ukcl:personal-data/none&quot;,
+  &quot;licence&quot;: &quot;http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/&quot;,
+  &quot;accrualPeriodicity&quot;: &quot;eufreq:QUARTERLY&quot;,
+  &quot;theme&quot;: [
+    &quot;ukcl:theme/mapping&quot;
+  ],
+  &quot;keyword&quot;: [
+    &quot;postcode&quot;,
+    &quot;address&quot;,
+    &quot;location&quot;
+  ],
+  &quot;spatial&quot;: [
+    &quot;http://statistics.data.gov.uk/id/statistical-geography/K03000001&quot;
+  ],
+  &quot;issued&quot;: &quot;2022-02-01&quot;,
+  &quot;modified&quot;: &quot;2026-08-01&quot;,
+  &quot;version&quot;: &quot;2026-08&quot;,
+  &quot;language&quot;: [
+    &quot;eulang:ENG&quot;
+  ],
+  &quot;landingPage&quot;: [
+    &quot;https://www.ordnancesurvey.co.uk/products/code-point-open&quot;
+  ],
+  &quot;distribution&quot;: [
+    {
+      &quot;class&quot;: &quot;Distribution&quot;,
+      &quot;id&quot;: &quot;https://www.data.gov.uk/dataset/2dfb82b4-741a-4b93-807e-11abb4bb0875/os-postcodes-data#csv&quot;,
+      &quot;title&quot;: &quot;Postcode locations, CSV&quot;,
+      &quot;accessURL&quot;: [
+        &quot;https://www.ordnancesurvey.co.uk/products/code-point-open&quot;
+      ],
+      &quot;mediaType&quot;: &quot;https://www.iana.org/assignments/media-types/text/csv&quot;,
+      &quot;licence&quot;: &quot;http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/&quot;,
+      &quot;byteSize&quot;: &quot;14330000&quot;
+    },
+    {
+      &quot;class&quot;: &quot;Distribution&quot;,
+      &quot;id&quot;: &quot;https://www.data.gov.uk/dataset/2dfb82b4-741a-4b93-807e-11abb4bb0875/os-postcodes-data#gpkg&quot;,
+      &quot;title&quot;: &quot;Postcode locations, GeoPackage&quot;,
+      &quot;accessURL&quot;: [
+        &quot;https://www.ordnancesurvey.co.uk/products/code-point-open&quot;
+      ],
+      &quot;mediaType&quot;: &quot;https://www.iana.org/assignments/media-types/application/geopackage+sqlite3&quot;,
+      &quot;licence&quot;: &quot;http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/&quot;,
+      &quot;byteSize&quot;: &quot;55410000&quot;
+    }
+  ]
+}
+</pre><p class="btns"><button type="button" class="btn secondary small" data-copy="c-dataset-postcodes-j">Copy</button><a class="btn secondary small" href="downloads/examples/dataset-postcodes.json" download><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 15V3" /> <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /> <path d="m7 10 5 5 5-5" /></svg> JSON</a><a class="btn secondary small" href="downloads/examples/dataset-postcodes.jsonld" download>JSON-LD</a></p></div><div role="tabpanel" id="p-dataset-postcodes-t" aria-labelledby="t-dataset-postcodes-t" tabindex="0" hidden><pre id="c-dataset-postcodes-t" tabindex="0">@prefix dcat: &lt;http://www.w3.org/ns/dcat#&gt; .
+@prefix dcatuk: &lt;https://w3id.org/dcat-ap-uk/ns#&gt; .
+@prefix dct: &lt;http://purl.org/dc/terms/&gt; .
+@prefix eufreq: &lt;http://publications.europa.eu/resource/authority/frequency/&gt; .
+@prefix eulang: &lt;http://publications.europa.eu/resource/authority/language/&gt; .
+@prefix vcard: &lt;http://www.w3.org/2006/vcard/ns#&gt; .
+@prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .
+
+&lt;https://www.data.gov.uk/dataset/2dfb82b4-741a-4b93-807e-11abb4bb0875/os-postcodes-data&gt; a dcat:Dataset ;
+    dct:abstract &quot;Free point locations for every postcode unit in Great Britain.&quot; ;
+    dct:accessRights &lt;https://w3id.org/dcat-ap-uk/codelist/access-rights/open&gt; ;
+    dct:accrualPeriodicity eufreq:QUARTERLY ;
+    dct:alternative &quot;Code-Point Open&quot; ;
+    dct:creator &lt;https://www.gov.uk/government/organisations/ordnance-survey&gt; ;
+    dct:description &quot;The location of every postcode unit in Great Britain as a single point, with the codes of the areas it falls in. Often used for service planning, simple routing and statistical analysis.&quot; ;
+    dct:identifier &quot;2dfb82b4-741a-4b93-807e-11abb4bb0875&quot; ;
+    dct:issued &quot;2022-02-01&quot;^^xsd:date ;
+    dct:language eulang:ENG ;
+    dct:license &lt;http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/&gt; ;
+    dct:modified &quot;2026-08-01&quot;^^xsd:date ;
+    dct:publisher &lt;https://www.gov.uk/government/organisations/ordnance-survey&gt; ;
+    dct:spatial &lt;http://statistics.data.gov.uk/id/statistical-geography/K03000001&gt; ;
+    dct:title &quot;Postcode locations for Great Britain&quot; ;
+    dcat:contactPoint [ a vcard:Kind ;
+            vcard:fn &quot;Ordnance Survey customer service&quot; ;
+            vcard:hasURL &lt;https://www.ordnancesurvey.co.uk/contact-us&gt; ] ;
+    dcat:distribution &lt;https://www.data.gov.uk/dataset/2dfb82b4-741a-4b93-807e-11abb4bb0875/os-postcodes-data#csv&gt;,
+        &lt;https://www.data.gov.uk/dataset/2dfb82b4-741a-4b93-807e-11abb4bb0875/os-postcodes-data#gpkg&gt; ;
+    dcat:keyword &quot;address&quot;,
+        &quot;location&quot;,
+        &quot;postcode&quot; ;
+    dcat:landingPage &lt;https://www.ordnancesurvey.co.uk/products/code-point-open&gt; ;
+    dcat:theme &lt;https://w3id.org/dcat-ap-uk/codelist/theme/mapping&gt; ;
+    dcat:version &quot;2026-08&quot; ;
+    dcatuk:personalData &lt;https://w3id.org/dcat-ap-uk/codelist/personal-data/none&gt; ;
+    dcatuk:securityClassification &lt;https://w3id.org/dcat-ap-uk/codelist/security-classification/official&gt; .
+
+&lt;https://www.data.gov.uk/dataset/2dfb82b4-741a-4b93-807e-11abb4bb0875/os-postcodes-data#csv&gt; a dcat:Distribution ;
+    dct:license &lt;http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/&gt; ;
+    dct:title &quot;Postcode locations, CSV&quot; ;
+    dcat:accessURL &lt;https://www.ordnancesurvey.co.uk/products/code-point-open&gt; ;
+    dcat:byteSize &quot;14330000&quot;^^xsd:nonNegativeInteger ;
+    dcat:mediaType &lt;https://www.iana.org/assignments/media-types/text/csv&gt; .
+
+&lt;https://www.data.gov.uk/dataset/2dfb82b4-741a-4b93-807e-11abb4bb0875/os-postcodes-data#gpkg&gt; a dcat:Distribution ;
+    dct:license &lt;http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/&gt; ;
+    dct:title &quot;Postcode locations, GeoPackage&quot; ;
+    dcat:accessURL &lt;https://www.ordnancesurvey.co.uk/products/code-point-open&gt; ;
+    dcat:byteSize &quot;55410000&quot;^^xsd:nonNegativeInteger ;
+    dcat:mediaType &lt;https://www.iana.org/assignments/media-types/application/geopackage+sqlite3&gt; .
+
+</pre><p class="btns"><button type="button" class="btn secondary small" data-copy="c-dataset-postcodes-t">Copy</button><a class="btn secondary small" href="downloads/examples/dataset-postcodes.ttl" download><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 15V3" /> <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /> <path d="m7 10 5 5 5-5" /></svg> Turtle</a></p></div></div><p><a href="builder.html">Open it in the record builder</a> by choosing it under "Start from an example".</p></section><section id="ex-service-food-alerts" aria-labelledby="ex-service-food-alerts-h"><h2 id="ex-service-food-alerts-h">An open event API</h2><p>A data service that pushes alerts, with its interface style and status.</p><p class="small">Class: <a href="class-dataservice.html">Data service</a> · Backlog: <a href="changes.html#issue-56">#56</a> <abbr class="prov U" title="Unconfirmed" data-tip="Unconfirmed">U</abbr></p><div class="tabs" id="tabs-service-food-alerts"><div role="tablist" aria-label="Format of an open event api"><button role="tab" id="t-service-food-alerts-j" aria-controls="p-service-food-alerts-j">JSON</button><button role="tab" id="t-service-food-alerts-t" aria-controls="p-service-food-alerts-t">Turtle</button></div><div role="tabpanel" id="p-service-food-alerts-j" aria-labelledby="t-service-food-alerts-j" tabindex="0"><pre id="c-service-food-alerts-j" tabindex="0">{
+  &quot;class&quot;: &quot;DataService&quot;,
+  &quot;id&quot;: &quot;https://data.food.gov.uk/food-alerts/&quot;,
+  &quot;title&quot;: &quot;Food alerts&quot;,
+  &quot;description&quot;: &quot;Current and recent food alerts: allergy alerts, product recall information notices and food alerts for action. Applications can list alerts that match a filter and get the details of one alert.&quot;,
+  &quot;identifier&quot;: &quot;food-alerts&quot;,
+  &quot;endpointURL&quot;: [
+    &quot;https://data.food.gov.uk/food-alerts/&quot;
+  ],
+  &quot;endpointDescription&quot;: [
+    &quot;https://data.food.gov.uk/food-alerts/ui/reference&quot;
+  ],
+  &quot;publisher&quot;: &quot;https://www.gov.uk/government/organisations/food-standards-agency&quot;,
+  &quot;contactPoint&quot;: [
+    {
+      &quot;fn&quot;: &quot;Food Standards Agency data team&quot;,
+      &quot;hasURL&quot;: &quot;https://www.food.gov.uk/contact&quot;
+    }
+  ],
+  &quot;accessRights&quot;: &quot;ukcl:access-rights/open&quot;,
+  &quot;securityClassification&quot;: &quot;ukcl:security-classification/official&quot;,
+  &quot;licence&quot;: &quot;http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/&quot;,
+  &quot;serviceStatus&quot;: &quot;ukcl:service-status/public-beta&quot;,
+  &quot;serviceType&quot;: &quot;ukcl:service-type/event&quot;,
+  &quot;theme&quot;: [
+    &quot;ukcl:theme/health&quot;
+  ],
+  &quot;keyword&quot;: [
+    &quot;allergy&quot;,
+    &quot;product recall&quot;,
+    &quot;food safety&quot;
+  ]
+}
+</pre><p class="btns"><button type="button" class="btn secondary small" data-copy="c-service-food-alerts-j">Copy</button><a class="btn secondary small" href="downloads/examples/service-food-alerts.json" download><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 15V3" /> <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /> <path d="m7 10 5 5 5-5" /></svg> JSON</a><a class="btn secondary small" href="downloads/examples/service-food-alerts.jsonld" download>JSON-LD</a></p></div><div role="tabpanel" id="p-service-food-alerts-t" aria-labelledby="t-service-food-alerts-t" tabindex="0" hidden><pre id="c-service-food-alerts-t" tabindex="0">@prefix adms: &lt;http://www.w3.org/ns/adms#&gt; .
+@prefix dcat: &lt;http://www.w3.org/ns/dcat#&gt; .
+@prefix dcatuk: &lt;https://w3id.org/dcat-ap-uk/ns#&gt; .
+@prefix dct: &lt;http://purl.org/dc/terms/&gt; .
+@prefix vcard: &lt;http://www.w3.org/2006/vcard/ns#&gt; .
+
+&lt;https://data.food.gov.uk/food-alerts/&gt; a dcat:DataService ;
+    dct:accessRights &lt;https://w3id.org/dcat-ap-uk/codelist/access-rights/open&gt; ;
+    dct:description &quot;Current and recent food alerts: allergy alerts, product recall information notices and food alerts for action. Applications can list alerts that match a filter and get the details of one alert.&quot; ;
+    dct:identifier &quot;food-alerts&quot; ;
+    dct:license &lt;http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/&gt; ;
+    dct:publisher &lt;https://www.gov.uk/government/organisations/food-standards-agency&gt; ;
+    dct:title &quot;Food alerts&quot; ;
+    dct:type &lt;https://w3id.org/dcat-ap-uk/codelist/service-type/event&gt; ;
+    adms:status &lt;https://w3id.org/dcat-ap-uk/codelist/service-status/public-beta&gt; ;
+    dcat:contactPoint [ a vcard:Kind ;
+            vcard:fn &quot;Food Standards Agency data team&quot; ;
+            vcard:hasURL &lt;https://www.food.gov.uk/contact&gt; ] ;
+    dcat:endpointDescription &lt;https://data.food.gov.uk/food-alerts/ui/reference&gt; ;
+    dcat:endpointURL &lt;https://data.food.gov.uk/food-alerts/&gt; ;
+    dcat:keyword &quot;allergy&quot;,
+        &quot;food safety&quot;,
+        &quot;product recall&quot; ;
+    dcat:theme &lt;https://w3id.org/dcat-ap-uk/codelist/theme/health&gt; ;
+    dcatuk:securityClassification &lt;https://w3id.org/dcat-ap-uk/codelist/security-classification/official&gt; .
+
+</pre><p class="btns"><button type="button" class="btn secondary small" data-copy="c-service-food-alerts-t">Copy</button><a class="btn secondary small" href="downloads/examples/service-food-alerts.ttl" download><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 15V3" /> <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /> <path d="m7 10 5 5 5-5" /></svg> Turtle</a></p></div></div><p><a href="builder.html">Open it in the record builder</a> by choosing it under "Start from an example".</p></section><section id="ex-service-hmrc-irr" aria-labelledby="ex-service-hmrc-irr-h"><h2 id="ex-service-hmrc-irr-h">An internal API that needs an agreement</h2><p>A data service only some organisations can use, with a rights statement, an OpenAPI description and the interface standard.</p><p class="small">Class: <a href="class-dataservice.html">Data service</a> · Backlog: <a href="changes.html#issue-44">#44</a> <a href="changes.html#issue-56">#56</a> <a href="changes.html#issue-15">#15</a> <abbr class="prov U" title="Unconfirmed" data-tip="Unconfirmed">U</abbr></p><div class="tabs" id="tabs-service-hmrc-irr"><div role="tablist" aria-label="Format of an internal api that needs an agreement"><button role="tab" id="t-service-hmrc-irr-j" aria-controls="p-service-hmrc-irr-j">JSON</button><button role="tab" id="t-service-hmrc-irr-t" aria-controls="p-service-hmrc-irr-t">Turtle</button></div><div role="tabpanel" id="p-service-hmrc-irr-j" aria-labelledby="t-service-hmrc-irr-j" tabindex="0"><pre id="c-service-hmrc-irr-j" tabindex="0">{
+  &quot;class&quot;: &quot;DataService&quot;,
+  &quot;id&quot;: &quot;https://developer.service.hmrc.gov.uk/api-documentation/docs/api/service/interest-restriction-return/1.0&quot;,
+  &quot;title&quot;: &quot;Interest restriction return API&quot;,
+  &quot;description&quot;: &quot;Lets software appoint or revoke a reporting company and submit full or abbreviated interest restriction returns.&quot;,
+  &quot;identifier&quot;: &quot;interest-restriction-return&quot;,
+  &quot;endpointURL&quot;: [
+    &quot;https://api.service.hmrc.gov.uk/&quot;
+  ],
+  &quot;endpointDescription&quot;: [
+    &quot;https://developer.service.hmrc.gov.uk/api-documentation/docs/api/service/interest-restriction-return/1.0/oas/page&quot;
+  ],
+  &quot;conformsTo&quot;: [
+    &quot;https://spec.openapis.org/oas/v3.0.3&quot;
+  ],
+  &quot;publisher&quot;: &quot;https://www.gov.uk/government/organisations/hm-revenue-customs&quot;,
+  &quot;contactPoint&quot;: [
+    {
+      &quot;fn&quot;: &quot;Software Development Support Team&quot;,
+      &quot;hasURL&quot;: &quot;https://developer.service.hmrc.gov.uk/developer/support&quot;
+    }
+  ],
+  &quot;accessRights&quot;: &quot;ukcl:access-rights/internal&quot;,
+  &quot;rights&quot;: &quot;Available to registered software developers. Production access needs approval through the HMRC Developer Hub.&quot;,
+  &quot;securityClassification&quot;: &quot;ukcl:security-classification/official&quot;,
+  &quot;licence&quot;: &quot;ukcl:licences/data-sharing-agreement-required&quot;,
+  &quot;serviceStatus&quot;: &quot;ukcl:service-status/public-beta&quot;,
+  &quot;serviceType&quot;: &quot;ukcl:service-type/rest&quot;,
+  &quot;theme&quot;: [
+    &quot;ukcl:theme/business-and-economy&quot;
+  ]
+}
+</pre><p class="btns"><button type="button" class="btn secondary small" data-copy="c-service-hmrc-irr-j">Copy</button><a class="btn secondary small" href="downloads/examples/service-hmrc-irr.json" download><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 15V3" /> <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /> <path d="m7 10 5 5 5-5" /></svg> JSON</a><a class="btn secondary small" href="downloads/examples/service-hmrc-irr.jsonld" download>JSON-LD</a></p></div><div role="tabpanel" id="p-service-hmrc-irr-t" aria-labelledby="t-service-hmrc-irr-t" tabindex="0" hidden><pre id="c-service-hmrc-irr-t" tabindex="0">@prefix adms: &lt;http://www.w3.org/ns/adms#&gt; .
+@prefix dcat: &lt;http://www.w3.org/ns/dcat#&gt; .
+@prefix dcatuk: &lt;https://w3id.org/dcat-ap-uk/ns#&gt; .
+@prefix dct: &lt;http://purl.org/dc/terms/&gt; .
+@prefix vcard: &lt;http://www.w3.org/2006/vcard/ns#&gt; .
+
+&lt;https://developer.service.hmrc.gov.uk/api-documentation/docs/api/service/interest-restriction-return/1.0&gt; a dcat:DataService ;
+    dct:accessRights &lt;https://w3id.org/dcat-ap-uk/codelist/access-rights/internal&gt; ;
+    dct:conformsTo &lt;https://spec.openapis.org/oas/v3.0.3&gt; ;
+    dct:description &quot;Lets software appoint or revoke a reporting company and submit full or abbreviated interest restriction returns.&quot; ;
+    dct:identifier &quot;interest-restriction-return&quot; ;
+    dct:license &lt;https://w3id.org/dcat-ap-uk/codelist/licences/data-sharing-agreement-required&gt; ;
+    dct:publisher &lt;https://www.gov.uk/government/organisations/hm-revenue-customs&gt; ;
+    dct:rights &quot;Available to registered software developers. Production access needs approval through the HMRC Developer Hub.&quot; ;
+    dct:title &quot;Interest restriction return API&quot; ;
+    dct:type &lt;https://w3id.org/dcat-ap-uk/codelist/service-type/rest&gt; ;
+    adms:status &lt;https://w3id.org/dcat-ap-uk/codelist/service-status/public-beta&gt; ;
+    dcat:contactPoint [ a vcard:Kind ;
+            vcard:fn &quot;Software Development Support Team&quot; ;
+            vcard:hasURL &lt;https://developer.service.hmrc.gov.uk/developer/support&gt; ] ;
+    dcat:endpointDescription &lt;https://developer.service.hmrc.gov.uk/api-documentation/docs/api/service/interest-restriction-return/1.0/oas/page&gt; ;
+    dcat:endpointURL &lt;https://api.service.hmrc.gov.uk/&gt; ;
+    dcat:theme &lt;https://w3id.org/dcat-ap-uk/codelist/theme/business-and-economy&gt; ;
+    dcatuk:securityClassification &lt;https://w3id.org/dcat-ap-uk/codelist/security-classification/official&gt; .
+
+</pre><p class="btns"><button type="button" class="btn secondary small" data-copy="c-service-hmrc-irr-t">Copy</button><a class="btn secondary small" href="downloads/examples/service-hmrc-irr.ttl" download><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 15V3" /> <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /> <path d="m7 10 5 5 5-5" /></svg> Turtle</a></p></div></div><p><a href="builder.html">Open it in the record builder</a> by choosing it under "Start from an example".</p></section><section id="ex-series-census" aria-labelledby="ex-series-census-h"><h2 id="ex-series-census-h">A dataset series and one release in it<span class="secflag updated">Updated</span></h2><p>How repeated releases share a series, and how to give the period the data covers rather than the publication date.</p><p class="small">Class: <a href="class-datasetseries.html">Dataset series</a> · Backlog: <a href="changes.html#issue-2">#2</a> <abbr class="prov U" title="Unconfirmed" data-tip="Unconfirmed">U</abbr></p><p class="small">Built from <a href="https://www.ons.gov.uk/census">the publisher's own page</a>, checked 2026-11-07. The ONS census pages; the 2021 release below is a real table in it.</p><div class="tabs" id="tabs-series-census"><div role="tablist" aria-label="Format of a dataset series and one release in it"><button role="tab" id="t-series-census-j" aria-controls="p-series-census-j">JSON</button><button role="tab" id="t-series-census-t" aria-controls="p-series-census-t">Turtle</button></div><div role="tabpanel" id="p-series-census-j" aria-labelledby="t-series-census-j" tabindex="0"><pre id="c-series-census-j" tabindex="0">{
+  &quot;class&quot;: &quot;DatasetSeries&quot;,
+  &quot;id&quot;: &quot;https://www.ons.gov.uk/census&quot;,
+  &quot;title&quot;: &quot;Census of population, England and Wales&quot;,
+  &quot;description&quot;: &quot;Every ten years, a count of all people and households in England and Wales, run by the Office for National Statistics.&quot;,
+  &quot;publisher&quot;: &quot;https://www.gov.uk/government/organisations/office-for-national-statistics&quot;,
+  &quot;accrualPeriodicity&quot;: &quot;eufreq:OTHER&quot;,
+  &quot;theme&quot;: [
+    &quot;ukcl:theme/society&quot;
+  ],
+  &quot;spatial&quot;: [
+    &quot;http://statistics.data.gov.uk/id/statistical-geography/K04000001&quot;
+  ]
+}
+</pre><p class="btns"><button type="button" class="btn secondary small" data-copy="c-series-census-j">Copy</button><a class="btn secondary small" href="downloads/examples/series-census.json" download><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 15V3" /> <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /> <path d="m7 10 5 5 5-5" /></svg> JSON</a><a class="btn secondary small" href="downloads/examples/series-census.jsonld" download>JSON-LD</a></p></div><div role="tabpanel" id="p-series-census-t" aria-labelledby="t-series-census-t" tabindex="0" hidden><pre id="c-series-census-t" tabindex="0">@prefix dcat: &lt;http://www.w3.org/ns/dcat#&gt; .
+@prefix dct: &lt;http://purl.org/dc/terms/&gt; .
+@prefix eufreq: &lt;http://publications.europa.eu/resource/authority/frequency/&gt; .
+
+&lt;https://www.ons.gov.uk/census&gt; a dcat:DatasetSeries ;
+    dct:accrualPeriodicity eufreq:OTHER ;
+    dct:description &quot;Every ten years, a count of all people and households in England and Wales, run by the Office for National Statistics.&quot; ;
+    dct:publisher &lt;https://www.gov.uk/government/organisations/office-for-national-statistics&gt; ;
+    dct:spatial &lt;http://statistics.data.gov.uk/id/statistical-geography/K04000001&gt; ;
+    dct:title &quot;Census of population, England and Wales&quot; ;
+    dcat:theme &lt;https://w3id.org/dcat-ap-uk/codelist/theme/society&gt; .
+
+</pre><p class="btns"><button type="button" class="btn secondary small" data-copy="c-series-census-t">Copy</button><a class="btn secondary small" href="downloads/examples/series-census.ttl" download><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 15V3" /> <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /> <path d="m7 10 5 5 5-5" /></svg> Turtle</a></p></div></div><p><a href="builder.html">Open it in the record builder</a> by choosing it under "Start from an example".</p></section><section id="ex-dataset-census-2021" aria-labelledby="ex-dataset-census-2021-h"><h2 id="ex-dataset-census-2021-h">One release in a series<span class="secflag updated">Updated</span></h2><p>inSeries, the time period covered, and reference data (the age bands used).</p><p class="small">Class: <a href="class-dataset.html">Dataset</a> · Backlog: <a href="changes.html#issue-2">#2</a> <a href="changes.html#issue-3">#3</a> <a href="changes.html#issue-4">#4</a> <abbr class="prov U" title="Unconfirmed" data-tip="Unconfirmed">U</abbr></p><p class="small">Built from <a href="https://ons.gov.uk/peoplepopulationandcommunity/populationandmigration/populationestimates/adhocs/15432ts007acensus2021agebyfiveyearagebands">the publisher's own page</a>, checked 2026-11-07. ONS page for table TS007a, with downloads from England and Wales down to output areas; the age variable is defined in the Census 2021 dictionary.</p><div class="tabs" id="tabs-dataset-census-2021"><div role="tablist" aria-label="Format of one release in a series"><button role="tab" id="t-dataset-census-2021-j" aria-controls="p-dataset-census-2021-j">JSON</button><button role="tab" id="t-dataset-census-2021-t" aria-controls="p-dataset-census-2021-t">Turtle</button></div><div role="tabpanel" id="p-dataset-census-2021-j" aria-labelledby="t-dataset-census-2021-j" tabindex="0"><pre id="c-dataset-census-2021-j" tabindex="0">{
+  &quot;class&quot;: &quot;Dataset&quot;,
+  &quot;id&quot;: &quot;https://ons.gov.uk/peoplepopulationandcommunity/populationandmigration/populationestimates/adhocs/15432ts007acensus2021agebyfiveyearagebands&quot;,
+  &quot;title&quot;: &quot;TS007a Age by five-year age bands, Census 2021&quot;,
+  &quot;description&quot;: &quot;Census 2021 estimates that classify usual residents in England and Wales by five-year age bands, as at Census Day, 21 March 2021. Downloads cover England and Wales, countries, regions, local authorities and smaller areas.&quot;,
+  &quot;identifier&quot;: &quot;TS007a&quot;,
+  &quot;inSeries&quot;: [
+    &quot;https://www.ons.gov.uk/census&quot;
+  ],
+  &quot;publisher&quot;: &quot;https://www.gov.uk/government/organisations/office-for-national-statistics&quot;,
+  &quot;contactPoint&quot;: [
+    {
+      &quot;fn&quot;: &quot;Census customer services&quot;,
+      &quot;hasURL&quot;: &quot;https://www.ons.gov.uk/aboutus/contactus&quot;
+    }
+  ],
+  &quot;accessRights&quot;: &quot;ukcl:access-rights/open&quot;,
+  &quot;securityClassification&quot;: &quot;ukcl:security-classification/official&quot;,
+  &quot;personalData&quot;: &quot;ukcl:personal-data/anonymised&quot;,
+  &quot;licence&quot;: &quot;http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/&quot;,
+  &quot;accrualPeriodicity&quot;: &quot;eufreq:NEVER&quot;,
+  &quot;temporal&quot;: [
+    {
+      &quot;startDate&quot;: &quot;2021-03-21&quot;,
+      &quot;endDate&quot;: &quot;2021-03-21&quot;
+    }
+  ],
+  &quot;spatial&quot;: [
+    &quot;http://statistics.data.gov.uk/id/statistical-geography/K04000001&quot;
+  ],
+  &quot;conformsTo&quot;: [
+    &quot;https://www.gov.uk/government/publications/recommended-open-standards-for-government/tabular-data-standard&quot;
+  ],
+  &quot;referenceData&quot;: [
+    &quot;https://www.ons.gov.uk/census/census2021dictionary/variablesbytopic/demographyvariablescensus2021/age&quot;
+  ],
+  &quot;theme&quot;: [
+    &quot;ukcl:theme/society&quot;
+  ],
+  &quot;language&quot;: [
+    &quot;eulang:ENG&quot;,
+    &quot;eulang:CYM&quot;
+  ]
+}
+</pre><p class="btns"><button type="button" class="btn secondary small" data-copy="c-dataset-census-2021-j">Copy</button><a class="btn secondary small" href="downloads/examples/dataset-census-2021.json" download><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 15V3" /> <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /> <path d="m7 10 5 5 5-5" /></svg> JSON</a><a class="btn secondary small" href="downloads/examples/dataset-census-2021.jsonld" download>JSON-LD</a></p></div><div role="tabpanel" id="p-dataset-census-2021-t" aria-labelledby="t-dataset-census-2021-t" tabindex="0" hidden><pre id="c-dataset-census-2021-t" tabindex="0">@prefix dcat: &lt;http://www.w3.org/ns/dcat#&gt; .
+@prefix dcatuk: &lt;https://w3id.org/dcat-ap-uk/ns#&gt; .
+@prefix dct: &lt;http://purl.org/dc/terms/&gt; .
+@prefix eufreq: &lt;http://publications.europa.eu/resource/authority/frequency/&gt; .
+@prefix eulang: &lt;http://publications.europa.eu/resource/authority/language/&gt; .
+@prefix vcard: &lt;http://www.w3.org/2006/vcard/ns#&gt; .
+@prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .
+
+&lt;https://ons.gov.uk/peoplepopulationandcommunity/populationandmigration/populationestimates/adhocs/15432ts007acensus2021agebyfiveyearagebands&gt; a dcat:Dataset ;
+    dct:accessRights &lt;https://w3id.org/dcat-ap-uk/codelist/access-rights/open&gt; ;
+    dct:accrualPeriodicity eufreq:NEVER ;
+    dct:conformsTo &lt;https://www.gov.uk/government/publications/recommended-open-standards-for-government/tabular-data-standard&gt; ;
+    dct:description &quot;Census 2021 estimates that classify usual residents in England and Wales by five-year age bands, as at Census Day, 21 March 2021. Downloads cover England and Wales, countries, regions, local authorities and smaller areas.&quot; ;
+    dct:identifier &quot;TS007a&quot; ;
+    dct:language eulang:CYM,
+        eulang:ENG ;
+    dct:license &lt;http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/&gt; ;
+    dct:publisher &lt;https://www.gov.uk/government/organisations/office-for-national-statistics&gt; ;
+    dct:spatial &lt;http://statistics.data.gov.uk/id/statistical-geography/K04000001&gt; ;
+    dct:temporal [ a dct:PeriodOfTime ;
+            dcat:endDate &quot;2021-03-21&quot;^^xsd:date ;
+            dcat:startDate &quot;2021-03-21&quot;^^xsd:date ] ;
+    dct:title &quot;TS007a Age by five-year age bands, Census 2021&quot; ;
+    dcat:contactPoint [ a vcard:Kind ;
+            vcard:fn &quot;Census customer services&quot; ;
+            vcard:hasURL &lt;https://www.ons.gov.uk/aboutus/contactus&gt; ] ;
+    dcat:inSeries &lt;https://www.ons.gov.uk/census&gt; ;
+    dcat:theme &lt;https://w3id.org/dcat-ap-uk/codelist/theme/society&gt; ;
+    dcatuk:personalData &lt;https://w3id.org/dcat-ap-uk/codelist/personal-data/anonymised&gt; ;
+    dcatuk:referenceData &lt;https://www.ons.gov.uk/census/census2021dictionary/variablesbytopic/demographyvariablescensus2021/age&gt; ;
+    dcatuk:securityClassification &lt;https://w3id.org/dcat-ap-uk/codelist/security-classification/official&gt; .
+
+</pre><p class="btns"><button type="button" class="btn secondary small" data-copy="c-dataset-census-2021-t">Copy</button><a class="btn secondary small" href="downloads/examples/dataset-census-2021.ttl" download><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 15V3" /> <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /> <path d="m7 10 5 5 5-5" /></svg> Turtle</a></p></div></div><p><a href="builder.html">Open it in the record builder</a> by choosing it under "Start from an example".</p></section><section id="ex-dataset-critical-asset" aria-labelledby="ex-dataset-critical-asset-h"><h2 id="ex-dataset-critical-asset-h">A critical data asset (synthetic)<span class="secflag updated">Updated</span></h2><p>What the <a class="term" href="knowledge.html#g-dam-policy" data-tip="Data Asset Management Policy: The 2026 policy that requires government departments and their arm&#x27;s-length bodies to manage metadata about critical data assets in their catalogues and report it to GDS.">Data Asset Management Policy</a> adds. Every property marked mandatory for critical data assets is given, and accountability is a role, not a person. Entirely synthetic: no real organisation or data.</p><p class="small">Class: <a href="class-dataset.html">Dataset</a> · Backlog: <a href="changes.html#issue-25">#25</a> <a href="changes.html#issue-26">#26</a> <a href="changes.html#issue-5">#5</a> <abbr class="prov U" title="Unconfirmed" data-tip="Unconfirmed">U</abbr></p><div class="panel warning"><p><strong>Synthetic.</strong> Departments report their critical data assets in returns that are not published, so no real record can be shown. Built to the April 2026 guidance, under an invented department.</p></div><div class="tabs" id="tabs-dataset-critical-asset"><div role="tablist" aria-label="Format of a critical data asset (synthetic)"><button role="tab" id="t-dataset-critical-asset-j" aria-controls="p-dataset-critical-asset-j">JSON</button><button role="tab" id="t-dataset-critical-asset-t" aria-controls="p-dataset-critical-asset-t">Turtle</button></div><div role="tabpanel" id="p-dataset-critical-asset-j" aria-labelledby="t-dataset-critical-asset-j" tabindex="0"><pre id="c-dataset-critical-asset-j" tabindex="0">{
+  &quot;class&quot;: &quot;Dataset&quot;,
+  &quot;id&quot;: &quot;https://example.org/dcat-ap-uk/examples/eligibility-decisions&quot;,
+  &quot;title&quot;: &quot;Eligibility decisions for an example support scheme&quot;,
+  &quot;description&quot;: &quot;Synthetic example. One row per eligibility decision, with the date, the outcome and the reason code. Shared with partner organisations to deliver the scheme.&quot;,
+  &quot;identifier&quot;: &quot;7f3c9a1e-58b2-4c3d-9e60-2b8f4a1d0c77&quot;,
+  &quot;criticalDataAsset&quot;: &quot;true&quot;,
+  &quot;publisher&quot;: &quot;https://example.org/organisations/example-department&quot;,
+  &quot;creator&quot;: [
+    &quot;https://example.org/organisations/example-department&quot;
+  ],
+  &quot;created&quot;: &quot;2024-04-01&quot;,
+  &quot;modified&quot;: &quot;2026-10-01&quot;,
+  &quot;contactPoint&quot;: [
+    {
+      &quot;fn&quot;: &quot;Example scheme data team&quot;,
+      &quot;hasURL&quot;: &quot;https://example.org/contact/scheme-data&quot;
+    }
+  ],
+  &quot;accessRights&quot;: &quot;ukcl:access-rights/internal&quot;,
+  &quot;rights&quot;: &quot;Shared under a data sharing agreement using the public service delivery powers in the Digital Economy Act 2017. Ask through the contact form.&quot;,
+  &quot;securityClassification&quot;: &quot;ukcl:security-classification/official-sensitive&quot;,
+  &quot;personalData&quot;: &quot;ukcl:personal-data/pseudonymised&quot;,
+  &quot;sensitiveData&quot;: [
+    &quot;ukcl:sensitive-data/none&quot;
+  ],
+  &quot;metadataAudience&quot;: &quot;ukcl:metadata-audience/public-sector&quot;,
+  &quot;licence&quot;: &quot;ukcl:licences/data-sharing-agreement-required&quot;,
+  &quot;accrualPeriodicity&quot;: &quot;eufreq:DAILY&quot;,
+  &quot;temporal&quot;: [
+    {
+      &quot;startDate&quot;: &quot;2024-04-01&quot;
+    }
+  ],
+  &quot;conformsTo&quot;: [
+    &quot;https://example.org/dcat-ap-uk/examples/eligibility-decisions/schema.json&quot;
+  ],
+  &quot;qualifiedAttribution&quot;: [
+    {
+      &quot;agent&quot;: &quot;https://example.org/organisations/example-department&quot;,
+      &quot;hadRole&quot;: &quot;ukcl:agent-role/data-owner&quot;
+    },
+    {
+      &quot;agent&quot;: &quot;https://example.org/organisations/example-department&quot;,
+      &quot;hadRole&quot;: &quot;ukcl:agent-role/data-steward&quot;
+    }
+  ],
+  &quot;theme&quot;: [
+    &quot;ukcl:theme/society&quot;
+  ]
+}
+</pre><p class="btns"><button type="button" class="btn secondary small" data-copy="c-dataset-critical-asset-j">Copy</button><a class="btn secondary small" href="downloads/examples/dataset-critical-asset.json" download><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 15V3" /> <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /> <path d="m7 10 5 5 5-5" /></svg> JSON</a><a class="btn secondary small" href="downloads/examples/dataset-critical-asset.jsonld" download>JSON-LD</a></p></div><div role="tabpanel" id="p-dataset-critical-asset-t" aria-labelledby="t-dataset-critical-asset-t" tabindex="0" hidden><pre id="c-dataset-critical-asset-t" tabindex="0">@prefix dcat: &lt;http://www.w3.org/ns/dcat#&gt; .
+@prefix dcatuk: &lt;https://w3id.org/dcat-ap-uk/ns#&gt; .
+@prefix dct: &lt;http://purl.org/dc/terms/&gt; .
+@prefix eufreq: &lt;http://publications.europa.eu/resource/authority/frequency/&gt; .
+@prefix prov: &lt;http://www.w3.org/ns/prov#&gt; .
+@prefix vcard: &lt;http://www.w3.org/2006/vcard/ns#&gt; .
+@prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .
+
+&lt;https://example.org/dcat-ap-uk/examples/eligibility-decisions&gt; a dcat:Dataset ;
+    dct:accessRights &lt;https://w3id.org/dcat-ap-uk/codelist/access-rights/internal&gt; ;
+    dct:accrualPeriodicity eufreq:DAILY ;
+    dct:conformsTo &lt;https://example.org/dcat-ap-uk/examples/eligibility-decisions/schema.json&gt; ;
+    dct:created &quot;2024-04-01&quot;^^xsd:date ;
+    dct:creator &lt;https://example.org/organisations/example-department&gt; ;
+    dct:description &quot;Synthetic example. One row per eligibility decision, with the date, the outcome and the reason code. Shared with partner organisations to deliver the scheme.&quot; ;
+    dct:identifier &quot;7f3c9a1e-58b2-4c3d-9e60-2b8f4a1d0c77&quot; ;
+    dct:license &lt;https://w3id.org/dcat-ap-uk/codelist/licences/data-sharing-agreement-required&gt; ;
+    dct:modified &quot;2026-10-01&quot;^^xsd:date ;
+    dct:publisher &lt;https://example.org/organisations/example-department&gt; ;
+    dct:rights &quot;Shared under a data sharing agreement using the public service delivery powers in the Digital Economy Act 2017. Ask through the contact form.&quot; ;
+    dct:temporal [ a dct:PeriodOfTime ;
+            dcat:startDate &quot;2024-04-01&quot;^^xsd:date ] ;
+    dct:title &quot;Eligibility decisions for an example support scheme&quot; ;
+    dcat:contactPoint [ a vcard:Kind ;
+            vcard:fn &quot;Example scheme data team&quot; ;
+            vcard:hasURL &lt;https://example.org/contact/scheme-data&gt; ] ;
+    dcat:theme &lt;https://w3id.org/dcat-ap-uk/codelist/theme/society&gt; ;
+    prov:qualifiedAttribution [ a prov:Attribution ;
+            dcat:hadRole &lt;https://w3id.org/dcat-ap-uk/codelist/agent-role/data-steward&gt; ;
+            prov:agent &lt;https://example.org/organisations/example-department&gt; ],
+        [ a prov:Attribution ;
+            dcat:hadRole &lt;https://w3id.org/dcat-ap-uk/codelist/agent-role/data-owner&gt; ;
+            prov:agent &lt;https://example.org/organisations/example-department&gt; ] ;
+    dcatuk:criticalDataAsset true ;
+    dcatuk:metadataAudience &lt;https://w3id.org/dcat-ap-uk/codelist/metadata-audience/public-sector&gt; ;
+    dcatuk:personalData &lt;https://w3id.org/dcat-ap-uk/codelist/personal-data/pseudonymised&gt; ;
+    dcatuk:securityClassification &lt;https://w3id.org/dcat-ap-uk/codelist/security-classification/official-sensitive&gt; ;
+    dcatuk:sensitiveData &lt;https://w3id.org/dcat-ap-uk/codelist/sensitive-data/none&gt; .
+
+</pre><p class="btns"><button type="button" class="btn secondary small" data-copy="c-dataset-critical-asset-t">Copy</button><a class="btn secondary small" href="downloads/examples/dataset-critical-asset.ttl" download><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 15V3" /> <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /> <path d="m7 10 5 5 5-5" /></svg> Turtle</a></p></div></div><p><a href="builder.html">Open it in the record builder</a> by choosing it under "Start from an example".</p></section><section id="ex-catalogue-example" aria-labelledby="ex-catalogue-example-h"><h2 id="ex-catalogue-example-h">A catalogue (synthetic)<span class="secflag updated">Updated</span></h2><p>The catalogue record that a harvester reads first, declaring that it conforms to this profile.</p><p class="small">Class: <a href="class-catalogue.html">Catalogue</a> <abbr class="prov U" title="Unconfirmed" data-tip="Unconfirmed">U</abbr></p><div class="panel warning"><p><strong>Synthetic.</strong> It declares conformance to DCAT-AP-UK. No real catalogue has adopted this proposed profile, and showing a real one would claim a conformance it has not made.</p></div><div class="tabs" id="tabs-catalogue-example"><div role="tablist" aria-label="Format of a catalogue (synthetic)"><button role="tab" id="t-catalogue-example-j" aria-controls="p-catalogue-example-j">JSON</button><button role="tab" id="t-catalogue-example-t" aria-controls="p-catalogue-example-t">Turtle</button></div><div role="tabpanel" id="p-catalogue-example-j" aria-labelledby="t-catalogue-example-j" tabindex="0"><pre id="c-catalogue-example-j" tabindex="0">{
+  &quot;class&quot;: &quot;Catalogue&quot;,
+  &quot;id&quot;: &quot;https://example.org/catalogue&quot;,
+  &quot;title&quot;: &quot;Example department data catalogue&quot;,
+  &quot;description&quot;: &quot;Synthetic example. The data catalogue of an example department, harvested by central discovery services.&quot;,
+  &quot;publisher&quot;: &quot;https://example.org/organisations/example-department&quot;,
+  &quot;homepage&quot;: &quot;https://example.org/catalogue&quot;,
+  &quot;conformsTo&quot;: [
+    &quot;https://w3id.org/dcat-ap-uk/1.0&quot;
+  ],
+  &quot;themeTaxonomy&quot;: [
+    &quot;https://w3id.org/dcat-ap-uk/codelist/theme&quot;
+  ],
+  &quot;language&quot;: [
+    &quot;eulang:ENG&quot;
+  ],
+  &quot;dataset&quot;: [
+    &quot;https://example.org/dcat-ap-uk/examples/eligibility-decisions&quot;
+  ]
+}
+</pre><p class="btns"><button type="button" class="btn secondary small" data-copy="c-catalogue-example-j">Copy</button><a class="btn secondary small" href="downloads/examples/catalogue-example.json" download><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 15V3" /> <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /> <path d="m7 10 5 5 5-5" /></svg> JSON</a><a class="btn secondary small" href="downloads/examples/catalogue-example.jsonld" download>JSON-LD</a></p></div><div role="tabpanel" id="p-catalogue-example-t" aria-labelledby="t-catalogue-example-t" tabindex="0" hidden><pre id="c-catalogue-example-t" tabindex="0">@prefix dcat: &lt;http://www.w3.org/ns/dcat#&gt; .
+@prefix dct: &lt;http://purl.org/dc/terms/&gt; .
+@prefix eulang: &lt;http://publications.europa.eu/resource/authority/language/&gt; .
+@prefix foaf: &lt;http://xmlns.com/foaf/0.1/&gt; .
+@prefix ukcl: &lt;https://w3id.org/dcat-ap-uk/codelist/&gt; .
+
+&lt;https://example.org/catalogue&gt; a dcat:Catalog ;
+    dct:conformsTo &lt;https://w3id.org/dcat-ap-uk/1.0&gt; ;
+    dct:description &quot;Synthetic example. The data catalogue of an example department, harvested by central discovery services.&quot; ;
+    dct:language eulang:ENG ;
+    dct:publisher &lt;https://example.org/organisations/example-department&gt; ;
+    dct:title &quot;Example department data catalogue&quot; ;
+    dcat:dataset &lt;https://example.org/dcat-ap-uk/examples/eligibility-decisions&gt; ;
+    dcat:themeTaxonomy ukcl:theme ;
+    foaf:homepage &lt;https://example.org/catalogue&gt; .
+
+</pre><p class="btns"><button type="button" class="btn secondary small" data-copy="c-catalogue-example-t">Copy</button><a class="btn secondary small" href="downloads/examples/catalogue-example.ttl" download><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 15V3" /> <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /> <path d="m7 10 5 5 5-5" /></svg> Turtle</a></p></div></div><p><a href="builder.html">Open it in the record builder</a> by choosing it under "Start from an example".</p></section><section id="ex-record-harvested" aria-labelledby="ex-record-harvested-h"><h2 id="ex-record-harvested-h">A harvested catalogue record (synthetic)<span class="secflag new">New</span></h2><p>A record kept by a central catalogue about a dataset it harvested. It points back to the source record, says which value the harvester added, declares the profile it was written to, and carries its own classification and audience, separate from the data&#x27;s (RQ-03, RQ-08, RQ-25).</p><p class="small">Class: <a href="class-cataloguerecord.html">Catalogue record</a> <abbr class="prov U" title="Unconfirmed" data-tip="Unconfirmed">U</abbr></p><div class="panel warning"><p><strong>Synthetic.</strong> It states which values a harvester added and which profile the record follows. Attributing that to a real central catalogue would describe behaviour it has not declared.</p></div><div class="tabs" id="tabs-record-harvested"><div role="tablist" aria-label="Format of a harvested catalogue record (synthetic)"><button role="tab" id="t-record-harvested-j" aria-controls="p-record-harvested-j">JSON</button><button role="tab" id="t-record-harvested-t" aria-controls="p-record-harvested-t">Turtle</button></div><div role="tabpanel" id="p-record-harvested-j" aria-labelledby="t-record-harvested-j" tabindex="0"><pre id="c-record-harvested-j" tabindex="0">{
+  &quot;class&quot;: &quot;CatalogueRecord&quot;,
+  &quot;id&quot;: &quot;https://example.org/central-catalogue/record/eligibility-decisions&quot;,
+  &quot;primaryTopic&quot;: &quot;https://example.org/dcat-ap-uk/examples/eligibility-decisions&quot;,
+  &quot;modified&quot;: &quot;2026-11-06&quot;,
+  &quot;issued&quot;: &quot;2026-10-01&quot;,
+  &quot;conformsTo&quot;: [
+    &quot;https://w3id.org/dcat-ap-uk/1.2&quot;
+  ],
+  &quot;metadataAudience&quot;: &quot;ukcl:metadata-audience/public-sector&quot;,
+  &quot;securityClassification&quot;: &quot;ukcl:security-classification/official&quot;,
+  &quot;sourceRecord&quot;: &quot;https://example.org/catalogue/record/eligibility-decisions&quot;,
+  &quot;enrichedProperty&quot;: [
+    &quot;dcat:theme&quot;
+  ]
+}
+</pre><p class="btns"><button type="button" class="btn secondary small" data-copy="c-record-harvested-j">Copy</button><a class="btn secondary small" href="downloads/examples/record-harvested.json" download><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 15V3" /> <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /> <path d="m7 10 5 5 5-5" /></svg> JSON</a><a class="btn secondary small" href="downloads/examples/record-harvested.jsonld" download>JSON-LD</a></p></div><div role="tabpanel" id="p-record-harvested-t" aria-labelledby="t-record-harvested-t" tabindex="0" hidden><pre id="c-record-harvested-t" tabindex="0">@prefix dcat: &lt;http://www.w3.org/ns/dcat#&gt; .
+@prefix dcatuk: &lt;https://w3id.org/dcat-ap-uk/ns#&gt; .
+@prefix dct: &lt;http://purl.org/dc/terms/&gt; .
+@prefix foaf: &lt;http://xmlns.com/foaf/0.1/&gt; .
+@prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .
+
+&lt;https://example.org/central-catalogue/record/eligibility-decisions&gt; a dcat:CatalogRecord ;
+    dct:conformsTo &lt;https://w3id.org/dcat-ap-uk/1.2&gt; ;
+    dct:issued &quot;2026-10-01&quot;^^xsd:date ;
+    dct:modified &quot;2026-11-06&quot;^^xsd:date ;
+    dct:source &lt;https://example.org/catalogue/record/eligibility-decisions&gt; ;
+    foaf:primaryTopic &lt;https://example.org/dcat-ap-uk/examples/eligibility-decisions&gt; ;
+    dcatuk:enrichedProperty dcat:theme ;
+    dcatuk:metadataAudience &lt;https://w3id.org/dcat-ap-uk/codelist/metadata-audience/public-sector&gt; ;
+    dcatuk:securityClassification &lt;https://w3id.org/dcat-ap-uk/codelist/security-classification/official&gt; .
+
+</pre><p class="btns"><button type="button" class="btn secondary small" data-copy="c-record-harvested-t">Copy</button><a class="btn secondary small" href="downloads/examples/record-harvested.ttl" download><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 15V3" /> <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /> <path d="m7 10 5 5 5-5" /></svg> Turtle</a></p></div></div><p><a href="builder.html">Open it in the record builder</a> by choosing it under "Start from an example".</p></section><section id="ex-dataset-cross-border" aria-labelledby="ex-dataset-cross-border-h"><h2 id="ex-dataset-cross-border-h">Personal data shared across borders (synthetic)<span class="secflag updated">Updated</span></h2><p>A synthetic record for data held in the UK, Jersey and Gibraltar. Because it contains pseudonymised personal data and leaves the UK, it names the transfer safeguard (rule R-08), the law that applies, a machine-readable usage policy and a strong checksum.</p><p class="small">Class: <a href="class-dataset.html">Dataset</a> <abbr class="prov U" title="Unconfirmed" data-tip="Unconfirmed">U</abbr></p><div class="panel warning"><p><strong>Synthetic.</strong> Details of personal data shared across borders are not published for individual datasets, and showing them for a real one would be wrong and could be harmful. Under an invented department.</p></div><div class="tabs" id="tabs-dataset-cross-border"><div role="tablist" aria-label="Format of personal data shared across borders (synthetic)"><button role="tab" id="t-dataset-cross-border-j" aria-controls="p-dataset-cross-border-j">JSON</button><button role="tab" id="t-dataset-cross-border-t" aria-controls="p-dataset-cross-border-t">Turtle</button></div><div role="tabpanel" id="p-dataset-cross-border-j" aria-labelledby="t-dataset-cross-border-j" tabindex="0"><pre id="c-dataset-cross-border-j" tabindex="0">{
+  &quot;class&quot;: &quot;Dataset&quot;,
+  &quot;id&quot;: &quot;https://example.org/dataset/cross-border-registrations&quot;,
+  &quot;title&quot;: &quot;Synthetic vehicle registrations shared with the Crown Dependencies&quot;,
+  &quot;description&quot;: &quot;An invented dataset, used to show how DCAT-AP-UK describes personal data that is held or sent outside the UK. It does not exist.&quot;,
+  &quot;identifier&quot;: &quot;synthetic-cross-border-0001&quot;,
+  &quot;publisher&quot;: &quot;https://example.org/organisations/example-department&quot;,
+  &quot;contactPoint&quot;: [
+    {
+      &quot;fn&quot;: &quot;Example data sharing team&quot;,
+      &quot;hasURL&quot;: &quot;https://example.org/contact&quot;
+    }
+  ],
+  &quot;accessRights&quot;: &quot;ukcl:access-rights/internal&quot;,
+  &quot;rights&quot;: &quot;Shared only with the vehicle registration authorities of Jersey and Gibraltar, under a data sharing agreement.&quot;,
+  &quot;securityClassification&quot;: &quot;ukcl:security-classification/official-sensitive&quot;,
+  &quot;personalData&quot;: &quot;ukcl:personal-data/pseudonymised&quot;,
+  &quot;licence&quot;: &quot;ukcl:licences/data-sharing-agreement-required&quot;,
+  &quot;accrualPeriodicity&quot;: &quot;eufreq:DAILY&quot;,
+  &quot;jurisdiction&quot;: [
+    &quot;ukcl:jurisdiction/gb-wls&quot;,
+    &quot;ukcl:jurisdiction/je&quot;,
+    &quot;ukcl:jurisdiction/gi&quot;
+  ],
+  &quot;transferMechanism&quot;: [
+    &quot;ukcl:transfer-mechanism/uk-adequacy&quot;
+  ],
+  &quot;applicableLegislation&quot;: [
+    &quot;https://www.legislation.gov.uk/ukpga/2018/12&quot;
+  ],
+  &quot;hasPolicy&quot;: [
+    &quot;https://cyberdudeuk.github.io/dcat-ap-uk/downloads/policies/agreement-required.jsonld&quot;
+  ],
+  &quot;theme&quot;: [
+    &quot;ukcl:theme/transport&quot;
+  ],
+  &quot;keyword&quot;: [
+    &quot;vehicles&quot;,
+    &quot;registration&quot;,
+    &quot;cross-border&quot;
+  ],
+  &quot;modified&quot;: &quot;2026-10-30&quot;,
+  &quot;distribution&quot;: [
+    {
+      &quot;class&quot;: &quot;Distribution&quot;,
+      &quot;id&quot;: &quot;https://example.org/dataset/cross-border-registrations#feed&quot;,
+      &quot;title&quot;: &quot;Daily extract, CSV&quot;,
+      &quot;accessURL&quot;: [
+        &quot;https://example.org/exchange&quot;
+      ],
+      &quot;mediaType&quot;: &quot;https://www.iana.org/assignments/media-types/text/csv&quot;,
+      &quot;checksum&quot;: {
+        &quot;algorithm&quot;: &quot;spdx:checksumAlgorithm_sha384&quot;,
+        &quot;checksumValue&quot;: &quot;0a1b2c3d4e5f60718293a4b5c6d7e8f90a1b2c3d4e5f60718293a4b5c6d7e8f90a1b2c3d4e5f60718293a4b5c6d7e8f9&quot;
+      },
+      &quot;hasPolicy&quot;: [
+        &quot;https://cyberdudeuk.github.io/dcat-ap-uk/downloads/policies/agreement-required.jsonld&quot;
+      ]
+    }
+  ]
+}
+</pre><p class="btns"><button type="button" class="btn secondary small" data-copy="c-dataset-cross-border-j">Copy</button><a class="btn secondary small" href="downloads/examples/dataset-cross-border.json" download><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 15V3" /> <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /> <path d="m7 10 5 5 5-5" /></svg> JSON</a><a class="btn secondary small" href="downloads/examples/dataset-cross-border.jsonld" download>JSON-LD</a></p></div><div role="tabpanel" id="p-dataset-cross-border-t" aria-labelledby="t-dataset-cross-border-t" tabindex="0" hidden><pre id="c-dataset-cross-border-t" tabindex="0">@prefix dcat: &lt;http://www.w3.org/ns/dcat#&gt; .
+@prefix dcatap: &lt;http://data.europa.eu/r5r/&gt; .
+@prefix dcatuk: &lt;https://w3id.org/dcat-ap-uk/ns#&gt; .
+@prefix dct: &lt;http://purl.org/dc/terms/&gt; .
+@prefix eufreq: &lt;http://publications.europa.eu/resource/authority/frequency/&gt; .
+@prefix odrl: &lt;http://www.w3.org/ns/odrl/2/&gt; .
+@prefix spdx: &lt;http://spdx.org/rdf/terms#&gt; .
+@prefix vcard: &lt;http://www.w3.org/2006/vcard/ns#&gt; .
+@prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .
+
+&lt;https://example.org/dataset/cross-border-registrations&gt; a dcat:Dataset ;
+    dcatap:applicableLegislation &lt;https://www.legislation.gov.uk/ukpga/2018/12&gt; ;
+    dct:accessRights &lt;https://w3id.org/dcat-ap-uk/codelist/access-rights/internal&gt; ;
+    dct:accrualPeriodicity eufreq:DAILY ;
+    dct:description &quot;An invented dataset, used to show how DCAT-AP-UK describes personal data that is held or sent outside the UK. It does not exist.&quot; ;
+    dct:identifier &quot;synthetic-cross-border-0001&quot; ;
+    dct:license &lt;https://w3id.org/dcat-ap-uk/codelist/licences/data-sharing-agreement-required&gt; ;
+    dct:modified &quot;2026-10-30&quot;^^xsd:date ;
+    dct:publisher &lt;https://example.org/organisations/example-department&gt; ;
+    dct:rights &quot;Shared only with the vehicle registration authorities of Jersey and Gibraltar, under a data sharing agreement.&quot; ;
+    dct:title &quot;Synthetic vehicle registrations shared with the Crown Dependencies&quot; ;
+    dcat:contactPoint [ a vcard:Kind ;
+            vcard:fn &quot;Example data sharing team&quot; ;
+            vcard:hasURL &lt;https://example.org/contact&gt; ] ;
+    dcat:distribution &lt;https://example.org/dataset/cross-border-registrations#feed&gt; ;
+    dcat:keyword &quot;cross-border&quot;,
+        &quot;registration&quot;,
+        &quot;vehicles&quot; ;
+    dcat:theme &lt;https://w3id.org/dcat-ap-uk/codelist/theme/transport&gt; ;
+    odrl:hasPolicy &lt;https://cyberdudeuk.github.io/dcat-ap-uk/downloads/policies/agreement-required.jsonld&gt; ;
+    dcatuk:jurisdiction &lt;https://w3id.org/dcat-ap-uk/codelist/jurisdiction/gb-wls&gt;,
+        &lt;https://w3id.org/dcat-ap-uk/codelist/jurisdiction/gi&gt;,
+        &lt;https://w3id.org/dcat-ap-uk/codelist/jurisdiction/je&gt; ;
+    dcatuk:personalData &lt;https://w3id.org/dcat-ap-uk/codelist/personal-data/pseudonymised&gt; ;
+    dcatuk:securityClassification &lt;https://w3id.org/dcat-ap-uk/codelist/security-classification/official-sensitive&gt; ;
+    dcatuk:transferMechanism &lt;https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism/uk-adequacy&gt; .
+
+&lt;https://example.org/dataset/cross-border-registrations#feed&gt; a dcat:Distribution ;
+    dct:title &quot;Daily extract, CSV&quot; ;
+    spdx:checksum [ a spdx:Checksum ;
+            spdx:algorithm spdx:checksumAlgorithm_sha384 ;
+            spdx:checksumValue &quot;0a1b2c3d4e5f60718293a4b5c6d7e8f90a1b2c3d4e5f60718293a4b5c6d7e8f90a1b2c3d4e5f60718293a4b5c6d7e8f9&quot; ] ;
+    dcat:accessURL &lt;https://example.org/exchange&gt; ;
+    dcat:mediaType &lt;https://www.iana.org/assignments/media-types/text/csv&gt; ;
+    odrl:hasPolicy &lt;https://cyberdudeuk.github.io/dcat-ap-uk/downloads/policies/agreement-required.jsonld&gt; .
+
+</pre><p class="btns"><button type="button" class="btn secondary small" data-copy="c-dataset-cross-border-t">Copy</button><a class="btn secondary small" href="downloads/examples/dataset-cross-border.ttl" download><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 15V3" /> <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /> <path d="m7 10 5 5 5-5" /></svg> Turtle</a></p></div></div><p><a href="builder.html">Open it in the record builder</a> by choosing it under "Start from an example".</p></section><section id="ex-dataset-missing-values" aria-labelledby="ex-dataset-missing-values-h"><h2 id="ex-dataset-missing-values-h">Values left empty on purpose (synthetic)<span class="secflag new">New</span></h2><p>Saying why a recommended property is empty, so a strict harvester can tell unknown or withheld from forgotten. The record keeps every mandatory property; a missing-value statement never replaces one (rule Q-02).</p><p class="small">Class: <a href="class-dataset.html">Dataset</a> <abbr class="prov U" title="Unconfirmed" data-tip="Unconfirmed">U</abbr></p><div class="panel warning"><p><strong>Synthetic.</strong> It shows properties left empty on purpose. A real record with these gaps would misstate what that publisher knows or withholds.</p></div><div class="tabs" id="tabs-dataset-missing-values"><div role="tablist" aria-label="Format of values left empty on purpose (synthetic)"><button role="tab" id="t-dataset-missing-values-j" aria-controls="p-dataset-missing-values-j">JSON</button><button role="tab" id="t-dataset-missing-values-t" aria-controls="p-dataset-missing-values-t">Turtle</button></div><div role="tabpanel" id="p-dataset-missing-values-j" aria-labelledby="t-dataset-missing-values-j" tabindex="0"><pre id="c-dataset-missing-values-j" tabindex="0">{
+  &quot;class&quot;: &quot;Dataset&quot;,
+  &quot;id&quot;: &quot;https://example.org/id/dataset/estate-condition&quot;,
+  &quot;title&quot;: &quot;Condition of the departmental estate&quot;,
+  &quot;description&quot;: &quot;Condition grades for buildings in a synthetic departmental estate, collected each year by surveyors.&quot;,
+  &quot;identifier&quot;: &quot;estate-condition&quot;,
+  &quot;publisher&quot;: &quot;https://example.org/id/org/example-department&quot;,
+  &quot;contactPoint&quot;: [
+    {
+      &quot;fn&quot;: &quot;Estates data team&quot;,
+      &quot;hasURL&quot;: &quot;https://example.org/contact/estates&quot;
+    }
+  ],
+  &quot;accessRights&quot;: &quot;ukcl:access-rights/internal&quot;,
+  &quot;rights&quot;: &quot;Available to public sector bodies under a data sharing agreement. Ask through the contact form.&quot;,
+  &quot;securityClassification&quot;: &quot;ukcl:security-classification/official&quot;,
+  &quot;licence&quot;: &quot;ukcl:licences/data-sharing-agreement-required&quot;,
+  &quot;accrualPeriodicity&quot;: &quot;eufreq:ANNUAL&quot;,
+  &quot;personalData&quot;: &quot;ukcl:personal-data/none&quot;,
+  &quot;modified&quot;: &quot;2026-10-01&quot;,
+  &quot;missingValue&quot;: [
+    {
+      &quot;missingProperty&quot;: &quot;dct:temporal&quot;,
+      &quot;missingReason&quot;: &quot;ukcl:missing-reason/unknown&quot;
+    },
+    {
+      &quot;missingProperty&quot;: &quot;dct:spatial&quot;,
+      &quot;missingReason&quot;: &quot;ukcl:missing-reason/withheld&quot;
+    },
+    {
+      &quot;missingProperty&quot;: &quot;dcat:spatialResolutionInMeters&quot;,
+      &quot;missingReason&quot;: &quot;ukcl:missing-reason/inapplicable&quot;
+    }
+  ]
+}
+</pre><p class="btns"><button type="button" class="btn secondary small" data-copy="c-dataset-missing-values-j">Copy</button><a class="btn secondary small" href="downloads/examples/dataset-missing-values.json" download><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 15V3" /> <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /> <path d="m7 10 5 5 5-5" /></svg> JSON</a><a class="btn secondary small" href="downloads/examples/dataset-missing-values.jsonld" download>JSON-LD</a></p></div><div role="tabpanel" id="p-dataset-missing-values-t" aria-labelledby="t-dataset-missing-values-t" tabindex="0" hidden><pre id="c-dataset-missing-values-t" tabindex="0">@prefix dcat: &lt;http://www.w3.org/ns/dcat#&gt; .
+@prefix dcatuk: &lt;https://w3id.org/dcat-ap-uk/ns#&gt; .
+@prefix dct: &lt;http://purl.org/dc/terms/&gt; .
+@prefix eufreq: &lt;http://publications.europa.eu/resource/authority/frequency/&gt; .
+@prefix vcard: &lt;http://www.w3.org/2006/vcard/ns#&gt; .
+@prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .
+
+&lt;https://example.org/id/dataset/estate-condition&gt; a dcat:Dataset ;
+    dct:accessRights &lt;https://w3id.org/dcat-ap-uk/codelist/access-rights/internal&gt; ;
+    dct:accrualPeriodicity eufreq:ANNUAL ;
+    dct:description &quot;Condition grades for buildings in a synthetic departmental estate, collected each year by surveyors.&quot; ;
+    dct:identifier &quot;estate-condition&quot; ;
+    dct:license &lt;https://w3id.org/dcat-ap-uk/codelist/licences/data-sharing-agreement-required&gt; ;
+    dct:modified &quot;2026-10-01&quot;^^xsd:date ;
+    dct:publisher &lt;https://example.org/id/org/example-department&gt; ;
+    dct:rights &quot;Available to public sector bodies under a data sharing agreement. Ask through the contact form.&quot; ;
+    dct:title &quot;Condition of the departmental estate&quot; ;
+    dcat:contactPoint [ a vcard:Kind ;
+            vcard:fn &quot;Estates data team&quot; ;
+            vcard:hasURL &lt;https://example.org/contact/estates&gt; ] ;
+    dcatuk:missingValue [ a dcatuk:MissingValue ;
+            dcatuk:missingProperty dct:spatial ;
+            dcatuk:missingReason &lt;https://w3id.org/dcat-ap-uk/codelist/missing-reason/withheld&gt; ],
+        [ a dcatuk:MissingValue ;
+            dcatuk:missingProperty dcat:spatialResolutionInMeters ;
+            dcatuk:missingReason &lt;https://w3id.org/dcat-ap-uk/codelist/missing-reason/inapplicable&gt; ],
+        [ a dcatuk:MissingValue ;
+            dcatuk:missingProperty dct:temporal ;
+            dcatuk:missingReason &lt;https://w3id.org/dcat-ap-uk/codelist/missing-reason/unknown&gt; ] ;
+    dcatuk:personalData &lt;https://w3id.org/dcat-ap-uk/codelist/personal-data/none&gt; ;
+    dcatuk:securityClassification &lt;https://w3id.org/dcat-ap-uk/codelist/security-classification/official&gt; .
+
+</pre><p class="btns"><button type="button" class="btn secondary small" data-copy="c-dataset-missing-values-t">Copy</button><a class="btn secondary small" href="downloads/examples/dataset-missing-values.ttl" download><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 15V3" /> <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /> <path d="m7 10 5 5 5-5" /></svg> Turtle</a></p></div></div><p><a href="builder.html">Open it in the record builder</a> by choosing it under "Start from an example".</p></section>
+</main></div>
+<footer class="colophon"><div class="col-in">
+<section aria-labelledby="f1"><h2 id="f1">About this portal</h2><ul>
+<li><a href="governance.html#status">Status: proposed, not endorsed</a></li><li><a href="accessibility.html">Accessibility statement</a></li>
+<li><a href="https://github.com/cyberdudeuk/dcat-ap-uk/issues/new?template=change-request.yml&amp;title=Suggested%20change%3A%20examples.html">Suggest a change to this page</a></li><li><a href="contact.html">Contact form</a></li><li><a href="sitemap.html">Site map</a></li><li><a href="licence.html">Licence</a></li><li><a href="https://github.com/cyberdudeuk/dcat-ap-uk">Source on GitHub</a></li></ul></section>
+<section aria-labelledby="f2"><h2 id="f2">Disclaimers and transparency</h2>
+<p class="small">Not an official GOV.UK service or policy, and not endorsed by the Data Standards Authority. Facts carry source labels: <abbr class="prov V" title="Verified against the primary source" data-tip="Verified against the primary source">V</abbr> verified, <abbr class="prov K" title="Background knowledge, not yet checked at the source" data-tip="Background knowledge, not yet checked at the source">K</abbr> background knowledge, <abbr class="prov P" title="From a supplied pack" data-tip="From a supplied pack">P</abbr> supplied pack, <abbr class="prov U" title="Unconfirmed" data-tip="Unconfirmed">U</abbr> unconfirmed. Examples are illustrative. Built with help from Claude, an AI model by Anthropic; every generated fact is checked by tests or labelled. No cookies, analytics or third-party requests.</p></section>
+<section aria-labelledby="f3"><h2 id="f3">Licence and version</h2>
+<p class="small">Content and the profile: <a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/">Open Government Licence v3.0</a>. Code: MIT. Lineage: the xGov MEM (OGL v3.0). Icons: Lucide (ISC).<br>Version 1.2.0-rc.1, as of 2026-11-06, review by 2027-02-06.<br>The DCAT-AP-UK maintainers. Contact is by the contact form only.</p></section>
+<section aria-labelledby="f4"><h2 id="f4">Build identifier</h2>
+<div class="codes"><svg role="img" aria-label="QR code linking to this page" xmlns="http://www.w3.org/2000/svg" width="111" height="111" class="qr"><title>QR code linking to this page</title><g transform="scale(3)"><path fill="#fff" d="M0 0h37v37h-37z"/><path class="qrline" stroke="#0b0c0c" d="M2 2.5h7m2 0h3m2 0h6m1 0h3m2 0h7m-33 1h1m5 0h1m8 0h1m1 0h2m1 0h2m1 0h1m2 0h1m5 0h1m-33 1h1m1 0h3m1 0h1m2 0h2m3 0h2m1 0h1m1 0h2m3 0h1m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m2 0h1m3 0h1m4 0h2m2 0h2m2 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m2 0h1m1 0h1m4 0h3m3 0h2m2 0h1m1 0h3m1 0h1m-33 1h1m5 0h1m1 0h1m2 0h1m7 0h4m1 0h1m1 0h1m5 0h1m-33 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-24 1h2m3 0h1m2 0h2m1 0h4m-24 1h1m2 0h1m1 0h2m1 0h2m1 0h1m1 0h4m4 0h1m1 0h1m1 0h1m1 0h1m-28 1h2m2 0h2m2 0h1m1 0h2m4 0h1m1 0h1m1 0h3m1 0h4m4 0h1m-33 1h3m1 0h3m1 0h1m1 0h1m5 0h1m2 0h2m5 0h3m1 0h1m1 0h1m-33 1h2m1 0h1m3 0h2m1 0h1m1 0h1m1 0h2m5 0h1m2 0h1m1 0h1m1 0h2m2 0h1m-33 1h2m1 0h2m1 0h2m1 0h1m5 0h1m2 0h2m1 0h1m2 0h4m1 0h1m2 0h1m-32 1h5m3 0h5m1 0h3m1 0h4m1 0h1m1 0h1m1 0h1m2 0h2m-28 1h2m1 0h1m1 0h3m4 0h1m5 0h9m-30 1h1m1 0h2m1 0h2m1 0h1m3 0h2m1 0h1m1 0h1m1 0h3m2 0h1m1 0h2m1 0h1m-32 1h3m2 0h2m5 0h3m2 0h1m2 0h5m1 0h1m1 0h1m2 0h1m-31 1h2m1 0h2m3 0h2m2 0h2m1 0h1m3 0h1m2 0h3m1 0h1m1 0h1m1 0h1m-30 1h1m2 0h2m2 0h4m1 0h1m1 0h1m1 0h1m5 0h1m5 0h3m-33 1h3m1 0h1m3 0h4m5 0h1m1 0h1m1 0h2m2 0h3m3 0h2m-31 1h7m2 0h2m1 0h6m1 0h1m1 0h1m-19 1h1m4 0h1m4 0h2m3 0h2m2 0h4m2 0h3m-33 1h2m1 0h1m1 0h2m2 0h7m2 0h3m1 0h1m2 0h2m2 0h2m1 0h1m-32 1h3m10 0h1m1 0h1m4 0h1m2 0h1m2 0h1m1 0h1m1 0h1m-32 1h1m4 0h8m1 0h4m1 0h3m2 0h5m2 0h2m-25 1h1m3 0h2m2 0h1m1 0h7m3 0h2m2 0h1m-33 1h7m2 0h3m1 0h2m1 0h1m3 0h1m3 0h1m1 0h1m1 0h4m-32 1h1m5 0h1m1 0h1m1 0h1m1 0h1m1 0h1m4 0h4m1 0h1m3 0h1m2 0h1m-32 1h1m1 0h3m1 0h1m4 0h3m2 0h1m2 0h4m1 0h6m2 0h1m-33 1h1m1 0h3m1 0h1m1 0h2m1 0h2m1 0h2m4 0h4m2 0h1m1 0h1m-29 1h1m1 0h3m1 0h1m2 0h2m3 0h1m10 0h1m2 0h3m1 0h1m-33 1h1m5 0h1m2 0h3m3 0h5m1 0h1m1 0h4m-27 1h7m1 0h1m2 0h4m1 0h1m3 0h2m2 0h3m1 0h1m2 0h1"/></g></svg>
+<svg role="img" aria-label="Barcode of the build identifier DCAT-AP-UK-1.2.0-rc.1-c40431909d" version="1.1" xmlns="http://www.w3.org/2000/svg" width="84.300mm" height="11.000mm">
+    <g id="barcode_group">
+        <rect width="100%" height="100%" fill="white"/>
+        <rect x="2.000mm" y="1.000mm" width="0.440mm" height="9.000mm" fill="black"/>
+        <rect x="2.660mm" y="1.000mm" width="0.220mm" height="9.000mm" fill="black"/>
+        <rect x="3.320mm" y="1.000mm" width="0.220mm" height="9.000mm" fill="black"/>
+        <rect x="4.420mm" y="1.000mm" width="0.220mm" height="9.000mm" fill="black"/>
+        <rect x="4.860mm" y="1.000mm" width="0.440mm" height="9.000mm" fill="black"/>
+        <rect x="5.960mm" y="1.000mm" width="0.220mm" height="9.000mm" fill="black"/>
+        <rect x="6.840mm" y="1.000mm" width="0.220mm" height="9.000mm" fill="black"/>
+        <rect x="7.720mm" y="1.000mm" width="0.220mm" height="9.000mm" fill="black"/>
+        <rect x="8.600mm" y="1.000mm" width="0.440mm" height="9.000mm" fill="black"/>
+        <rect x="9.260mm" y="1.000mm" width="0.220mm" height="9.000mm" fill="black"/>
+        <rect x="9.700mm" y="1.000mm" width="0.220mm" height="9.000mm" fill="black"/>
+        <rect x="10.580mm" y="1.000mm" width="0.440mm" height="9.000mm" fill="black"/>
+        <rect x="11.680mm" y="1.000mm" width="0.440mm" height="9.000mm" fill="black"/>
+        <rect x="12.340mm" y="1.000mm" width="0.660mm" height="9.000mm" fill="black"/>
+        <rect x="13.660mm" y="1.000mm" width="0.220mm" height="9.000mm" fill="black"/>
+        <rect x="14.100mm" y="1.000mm" width="0.220mm" height="9.000mm" fill="black"/>
+        <rect x="14.760mm" y="1.000mm" width="0.440mm" height="9.000mm" fill="black"/>
+        <rect x="15.420mm" y="1.000mm" width="0.660mm" height="9.000mm" fill="black"/>
+        <rect x="16.520mm" y="1.000mm" width="0.220mm" height="9.000mm" fill="black"/>
+        <rect x="16.960mm" y="1.000mm" width="0.220mm" height="9.000mm" fill="black"/>
+        <rect x="17.840mm" y="1.000mm" width="0.440mm" height="9.000mm" fill="black"/>
+        <rect x="18.940mm" y="1.000mm" width="0.660mm" height="9.000mm" fill="black"/>
+        <rect x="19.820mm" y="1.000mm" width="0.660mm" height="9.000mm" fill="black"/>
+        <rect x="20.700mm" y="1.000mm" width="0.440mm" height="9.000mm" fill="black"/>
+        <rect x="21.360mm" y="1.000mm" width="0.220mm" height="9.000mm" fill="black"/>
+        <rect x="22.020mm" y="1.000mm" width="0.440mm" height="9.000mm" fill="black"/>
+        <rect x="22.680mm" y="1.000mm" width="0.660mm" height="9.000mm" fill="black"/>
+        <rect x="23.780mm" y="1.000mm" width="0.440mm" height="9.000mm" fill="black"/>
+        <rect x="24.440mm" y="1.000mm" width="0.660mm" height="9.000mm" fill="black"/>
+        <rect x="25.320mm" y="1.000mm" width="0.660mm" height="9.000mm" fill="black"/>
+        <rect x="26.200mm" y="1.000mm" width="0.220mm" height="9.000mm" fill="black"/>
+        <rect x="26.640mm" y="1.000mm" width="0.440mm" height="9.000mm" fill="black"/>
+        <rect x="27.740mm" y="1.000mm" width="0.660mm" height="9.000mm" fill="black"/>
+        <rect x="28.620mm" y="1.000mm" width="0.220mm" height="9.000mm" fill="black"/>
+        <rect x="29.280mm" y="1.000mm" width="0.440mm" height="9.000mm" fill="black"/>
+        <rect x="29.940mm" y="1.000mm" width="0.660mm" height="9.000mm" fill="black"/>
+        <rect x="31.040mm" y="1.000mm" width="0.220mm" height="9.000mm" fill="black"/>
+        <rect x="31.700mm" y="1.000mm" width="0.660mm" height="9.000mm" fill="black"/>
+        <rect x="32.800mm" y="1.000mm" width="0.440mm" height="9.000mm" fill="black"/>
+        <rect x="33.460mm" y="1.000mm" width="0.220mm" height="9.000mm" fill="black"/>
+        <rect x="34.120mm" y="1.000mm" width="0.440mm" height="9.000mm" fill="black"/>
+        <rect x="35.000mm" y="1.000mm" width="0.660mm" height="9.000mm" fill="black"/>
+        <rect x="35.880mm" y="1.000mm" width="0.440mm" height="9.000mm" fill="black"/>
+        <rect x="36.760mm" y="1.000mm" width="0.660mm" height="9.000mm" fill="black"/>
+        <rect x="37.860mm" y="1.000mm" width="0.220mm" height="9.000mm" fill="black"/>
+        <rect x="38.300mm" y="1.000mm" width="0.220mm" height="9.000mm" fill="black"/>
+        <rect x="38.960mm" y="1.000mm" width="0.440mm" height="9.000mm" fill="black"/>
+        <rect x="39.840mm" y="1.000mm" width="0.660mm" height="9.000mm" fill="black"/>
+        <rect x="40.720mm" y="1.000mm" width="0.220mm" height="9.000mm" fill="black"/>
+        <rect x="41.380mm" y="1.000mm" width="0.660mm" height="9.000mm" fill="black"/>
+        <rect x="42.260mm" y="1.000mm" width="0.440mm" height="9.000mm" fill="black"/>
+        <rect x="43.140mm" y="1.000mm" width="0.220mm" height="9.000mm" fill="black"/>
+        <rect x="43.800mm" y="1.000mm" width="0.440mm" height="9.000mm" fill="black"/>
+        <rect x="44.460mm" y="1.000mm" width="0.660mm" height="9.000mm" fill="black"/>
+        <rect x="45.560mm" y="1.000mm" width="0.220mm" height="9.000mm" fill="black"/>
+        <rect x="46.220mm" y="1.000mm" width="0.220mm" height="9.000mm" fill="black"/>
+        <rect x="46.880mm" y="1.000mm" width="0.880mm" height="9.000mm" fill="black"/>
+        <rect x="47.980mm" y="1.000mm" width="0.220mm" height="9.000mm" fill="black"/>
+        <rect x="49.080mm" y="1.000mm" width="0.220mm" height="9.000mm" fill="black"/>
+        <rect x="49.520mm" y="1.000mm" width="0.440mm" height="9.000mm" fill="black"/>
+        <rect x="50.400mm" y="1.000mm" width="0.220mm" height="9.000mm" fill="black"/>
+        <rect x="51.060mm" y="1.000mm" width="0.440mm" height="9.000mm" fill="black"/>
+        <rect x="51.940mm" y="1.000mm" width="0.660mm" height="9.000mm" fill="black"/>
+        <rect x="52.820mm" y="1.000mm" width="0.220mm" height="9.000mm" fill="black"/>
+        <rect x="53.480mm" y="1.000mm" width="0.660mm" height="9.000mm" fill="black"/>
+        <rect x="54.580mm" y="1.000mm" width="0.440mm" height="9.000mm" fill="black"/>
+        <rect x="55.240mm" y="1.000mm" width="0.220mm" height="9.000mm" fill="black"/>
+        <rect x="55.900mm" y="1.000mm" width="0.440mm" height="9.000mm" fill="black"/>
+        <rect x="56.560mm" y="1.000mm" width="0.660mm" height="9.000mm" fill="black"/>
+        <rect x="57.660mm" y="1.000mm" width="0.220mm" height="9.000mm" fill="black"/>
+        <rect x="58.760mm" y="1.000mm" width="0.220mm" height="9.000mm" fill="black"/>
+        <rect x="59.200mm" y="1.000mm" width="0.440mm" height="9.000mm" fill="black"/>
+        <rect x="60.080mm" y="1.000mm" width="0.220mm" height="9.000mm" fill="black"/>
+        <rect x="60.520mm" y="1.000mm" width="0.660mm" height="9.000mm" fill="black"/>
+        <rect x="61.400mm" y="1.000mm" width="0.880mm" height="9.000mm" fill="black"/>
+        <rect x="62.500mm" y="1.000mm" width="0.440mm" height="9.000mm" fill="black"/>
+        <rect x="63.600mm" y="1.000mm" width="0.220mm" height="9.000mm" fill="black"/>
+        <rect x="64.040mm" y="1.000mm" width="0.220mm" height="9.000mm" fill="black"/>
+        <rect x="64.920mm" y="1.000mm" width="0.220mm" height="9.000mm" fill="black"/>
+        <rect x="65.360mm" y="1.000mm" width="0.440mm" height="9.000mm" fill="black"/>
+        <rect x="66.460mm" y="1.000mm" width="0.660mm" height="9.000mm" fill="black"/>
+        <rect x="67.340mm" y="1.000mm" width="0.440mm" height="9.000mm" fill="black"/>
+        <rect x="68.220mm" y="1.000mm" width="0.220mm" height="9.000mm" fill="black"/>
+        <rect x="68.660mm" y="1.000mm" width="0.660mm" height="9.000mm" fill="black"/>
+        <rect x="69.760mm" y="1.000mm" width="0.440mm" height="9.000mm" fill="black"/>
+        <rect x="70.640mm" y="1.000mm" width="0.220mm" height="9.000mm" fill="black"/>
+        <rect x="71.300mm" y="1.000mm" width="0.220mm" height="9.000mm" fill="black"/>
+        <rect x="72.180mm" y="1.000mm" width="0.220mm" height="9.000mm" fill="black"/>
+        <rect x="72.620mm" y="1.000mm" width="0.880mm" height="9.000mm" fill="black"/>
+        <rect x="73.720mm" y="1.000mm" width="0.660mm" height="9.000mm" fill="black"/>
+        <rect x="74.600mm" y="1.000mm" width="0.220mm" height="9.000mm" fill="black"/>
+        <rect x="75.700mm" y="1.000mm" width="0.220mm" height="9.000mm" fill="black"/>
+        <rect x="76.360mm" y="1.000mm" width="0.440mm" height="9.000mm" fill="black"/>
+        <rect x="77.020mm" y="1.000mm" width="0.660mm" height="9.000mm" fill="black"/>
+        <rect x="77.900mm" y="1.000mm" width="0.220mm" height="9.000mm" fill="black"/>
+        <rect x="78.780mm" y="1.000mm" width="0.440mm" height="9.000mm" fill="black"/>
+        <rect x="79.440mm" y="1.000mm" width="0.440mm" height="9.000mm" fill="black"/>
+        <rect x="80.540mm" y="1.000mm" width="0.660mm" height="9.000mm" fill="black"/>
+        <rect x="81.420mm" y="1.000mm" width="0.220mm" height="9.000mm" fill="black"/>
+        <rect x="81.860mm" y="1.000mm" width="0.440mm" height="9.000mm" fill="black"/>
+        
+    </g>
+</svg>
+</div>
+<p class="small"><code>DCAT-AP-UK-1.2.0-rc.1-c40431909d</code></p></section>
+</div></footer>
+<dialog id="palette" aria-labelledby="pal-h"><div class="pal-in"><h2 id="pal-h">Search the portal</h2>
+<label class="visually-hidden" for="pal-q">Search</label><input type="search" id="pal-q" role="combobox" aria-expanded="true" aria-controls="pal-list" autocomplete="off" placeholder="Property, class, codelist, issue or page">
+<p class="small" id="pal-count" aria-live="polite"></p><ul class="pal-list" id="pal-list" role="listbox" aria-label="Results"></ul>
+<p class="btns"><button type="button" class="btn secondary small" id="pal-close">Close</button></p></div></dialog>
+<dialog id="keys" aria-labelledby="keys-h"><div class="pal-in"><h2 id="keys-h">Keyboard shortcuts</h2>
+<dl class="facts"><dt><kbd>/</kbd> or <kbd>Ctrl</kbd> <kbd>K</kbd></dt><dd>Search</dd><dt><kbd>?</kbd></dt><dd>These shortcuts</dd><dt><kbd>Esc</kbd></dt><dd>Close menus, tooltips and dialogs</dd><dt>Arrow keys</dt><dd>Move between tabs and search results</dd></dl>
+<p class="btns"><button type="button" class="btn secondary small" id="keys-close">Close</button></p></div></dialog>
+<div id="live" class="visually-hidden" aria-live="polite"></div>
+<script src="search-index.js"></script><script src="app.js"></script>
+</body>
+</html>

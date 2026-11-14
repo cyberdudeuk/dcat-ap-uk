@@ -1,0 +1,429 @@
+{
+  "profile": "DCAT-AP-UK",
+  "version": "1.2.0-rc.1",
+  "as_of": "2026-11-06",
+  "base": "https://cyberdudeuk.github.io/dcat-ap-uk/downloads/conformance/",
+  "how": "Import each file into your product and export it again. Every pass case must be accepted and its export must still conform. Every fail case must be rejected, naming its rule.",
+  "cases": [
+    {
+      "id": "pass-dataset-postcodes",
+      "file": "pass-dataset-postcodes.json",
+      "extensions": [],
+      "expect": "pass"
+    },
+    {
+      "id": "pass-service-food-alerts",
+      "file": "pass-service-food-alerts.json",
+      "extensions": [],
+      "expect": "pass"
+    },
+    {
+      "id": "pass-service-hmrc-irr",
+      "file": "pass-service-hmrc-irr.json",
+      "extensions": [],
+      "expect": "pass"
+    },
+    {
+      "id": "pass-series-census",
+      "file": "pass-series-census.json",
+      "extensions": [],
+      "expect": "pass"
+    },
+    {
+      "id": "pass-dataset-census-2021",
+      "file": "pass-dataset-census-2021.json",
+      "extensions": [],
+      "expect": "pass"
+    },
+    {
+      "id": "pass-dataset-critical-asset",
+      "file": "pass-dataset-critical-asset.json",
+      "extensions": [],
+      "expect": "pass"
+    },
+    {
+      "id": "pass-catalogue-example",
+      "file": "pass-catalogue-example.json",
+      "extensions": [],
+      "expect": "pass"
+    },
+    {
+      "id": "pass-record-harvested",
+      "file": "pass-record-harvested.json",
+      "extensions": [],
+      "expect": "pass"
+    },
+    {
+      "id": "pass-dataset-cross-border",
+      "file": "pass-dataset-cross-border.json",
+      "extensions": [],
+      "expect": "pass"
+    },
+    {
+      "id": "pass-dataset-missing-values",
+      "file": "pass-dataset-missing-values.json",
+      "extensions": [],
+      "expect": "pass"
+    },
+    {
+      "id": "fail-missing-title",
+      "file": "fail-missing-title.json",
+      "extensions": [],
+      "expect": "fail",
+      "rule": "M-01"
+    },
+    {
+      "id": "fail-bad-access-rights",
+      "file": "fail-bad-access-rights.json",
+      "extensions": [],
+      "expect": "fail",
+      "rule": "V-01"
+    },
+    {
+      "id": "fail-withdrawn-not-applicable",
+      "file": "fail-withdrawn-not-applicable.json",
+      "extensions": [],
+      "expect": "fail",
+      "rule": "V-01"
+    },
+    {
+      "id": "fail-contact-without-route",
+      "file": "fail-contact-without-route.json",
+      "extensions": [],
+      "expect": "fail",
+      "rule": "R-01"
+    },
+    {
+      "id": "fail-email-not-mailto",
+      "file": "fail-email-not-mailto.json",
+      "extensions": [],
+      "expect": "fail",
+      "rule": "R-06"
+    },
+    {
+      "id": "fail-internal-without-rights",
+      "file": "fail-internal-without-rights.json",
+      "extensions": [],
+      "expect": "fail",
+      "rule": "R-03"
+    },
+    {
+      "id": "fail-critical-asset-incomplete",
+      "file": "fail-critical-asset-incomplete.json",
+      "extensions": [],
+      "expect": "fail",
+      "rule": "R-04"
+    },
+    {
+      "id": "fail-summary-too-long",
+      "file": "fail-summary-too-long.json",
+      "extensions": [],
+      "expect": "fail",
+      "rule": "R-05"
+    },
+    {
+      "id": "fail-period-end-before-start",
+      "file": "fail-period-end-before-start.json",
+      "extensions": [],
+      "expect": "fail",
+      "rule": "R-07"
+    },
+    {
+      "id": "fail-period-empty",
+      "file": "fail-period-empty.json",
+      "extensions": [],
+      "expect": "fail",
+      "rule": "R-02"
+    },
+    {
+      "id": "fail-bad-date",
+      "file": "fail-bad-date.json",
+      "extensions": [],
+      "expect": "fail",
+      "rule": "D-01"
+    },
+    {
+      "id": "fail-distribution-without-access-url",
+      "file": "fail-distribution-without-access-url.json",
+      "extensions": [],
+      "expect": "fail",
+      "rule": "M-01"
+    },
+    {
+      "id": "fail-service-without-endpoint",
+      "file": "fail-service-without-endpoint.json",
+      "extensions": [],
+      "expect": "fail",
+      "rule": "M-01"
+    },
+    {
+      "id": "fail-two-licences",
+      "file": "fail-two-licences.json",
+      "extensions": [],
+      "expect": "fail",
+      "rule": "C-01"
+    },
+    {
+      "id": "fail-dc-frequency-not-converted",
+      "file": "fail-dc-frequency-not-converted.json",
+      "extensions": [],
+      "expect": "fail",
+      "rule": "V-01"
+    },
+    {
+      "id": "fail-personal-data-abroad-without-safeguard",
+      "file": "fail-personal-data-abroad-without-safeguard.json",
+      "extensions": [],
+      "expect": "fail",
+      "rule": "R-08"
+    },
+    {
+      "id": "fail-service-personal-data-abroad",
+      "file": "fail-service-personal-data-abroad.json",
+      "extensions": [],
+      "expect": "fail",
+      "rule": "R-08"
+    },
+    {
+      "id": "fail-jurisdiction-not-a-code",
+      "file": "fail-jurisdiction-not-a-code.json",
+      "extensions": [],
+      "expect": "fail",
+      "rule": "P-01"
+    },
+    {
+      "id": "fail-unknown-transfer-safeguard",
+      "file": "fail-unknown-transfer-safeguard.json",
+      "extensions": [],
+      "expect": "fail",
+      "rule": "V-01"
+    },
+    {
+      "id": "fail-checksum-algorithm-not-spdx",
+      "file": "fail-checksum-algorithm-not-spdx.json",
+      "extensions": [],
+      "expect": "fail",
+      "rule": "V-01"
+    },
+    {
+      "id": "fail-missing-value-bad-reason",
+      "file": "fail-missing-value-bad-reason.json",
+      "extensions": [],
+      "expect": "fail",
+      "rule": "V-01"
+    },
+    {
+      "id": "fail-missing-value-no-reason",
+      "file": "fail-missing-value-no-reason.json",
+      "extensions": [],
+      "expect": "fail",
+      "rule": "M-01"
+    },
+    {
+      "id": "pass-ext-health",
+      "file": "pass-ext-health.json",
+      "extensions": [
+        "health"
+      ],
+      "expect": "pass"
+    },
+    {
+      "id": "fail-health-without-period",
+      "file": "fail-health-without-period.json",
+      "extensions": [
+        "health"
+      ],
+      "expect": "fail",
+      "rule": "M-01"
+    },
+    {
+      "id": "pass-ext-geospatial",
+      "file": "pass-ext-geospatial.json",
+      "extensions": [
+        "geospatial"
+      ],
+      "expect": "pass"
+    },
+    {
+      "id": "fail-geo-without-crs",
+      "file": "fail-geo-without-crs.json",
+      "extensions": [
+        "geospatial"
+      ],
+      "expect": "fail",
+      "rule": "M-01"
+    },
+    {
+      "id": "fail-geo-bad-representation",
+      "file": "fail-geo-bad-representation.json",
+      "extensions": [
+        "geospatial"
+      ],
+      "expect": "fail",
+      "rule": "V-01"
+    },
+    {
+      "id": "pass-ext-statistics",
+      "file": "pass-ext-statistics.json",
+      "extensions": [
+        "statistics"
+      ],
+      "expect": "pass"
+    },
+    {
+      "id": "fail-stats-without-status",
+      "file": "fail-stats-without-status.json",
+      "extensions": [
+        "statistics"
+      ],
+      "expect": "fail",
+      "rule": "M-01"
+    },
+    {
+      "id": "fail-stats-bad-status",
+      "file": "fail-stats-bad-status.json",
+      "extensions": [
+        "statistics"
+      ],
+      "expect": "fail",
+      "rule": "V-01"
+    },
+    {
+      "id": "pass-ext-transport",
+      "file": "pass-ext-transport.json",
+      "extensions": [
+        "transport"
+      ],
+      "expect": "pass"
+    },
+    {
+      "id": "fail-transport-without-theme",
+      "file": "fail-transport-without-theme.json",
+      "extensions": [
+        "transport"
+      ],
+      "expect": "fail",
+      "rule": "M-01"
+    },
+    {
+      "id": "pass-ext-hvd",
+      "file": "pass-ext-hvd.json",
+      "extensions": [
+        "hvd"
+      ],
+      "expect": "pass"
+    },
+    {
+      "id": "fail-hvd-without-legislation",
+      "file": "fail-hvd-without-legislation.json",
+      "extensions": [
+        "hvd"
+      ],
+      "expect": "fail",
+      "rule": "M-01"
+    },
+    {
+      "id": "pass-ext-ai-ready",
+      "file": "pass-ext-ai-ready.json",
+      "extensions": [
+        "ai-ready"
+      ],
+      "expect": "pass"
+    },
+    {
+      "id": "fail-ai-without-use",
+      "file": "fail-ai-without-use.json",
+      "extensions": [
+        "ai-ready"
+      ],
+      "expect": "fail",
+      "rule": "M-01"
+    },
+    {
+      "id": "fail-ai-bad-use",
+      "file": "fail-ai-bad-use.json",
+      "extensions": [
+        "ai-ready"
+      ],
+      "expect": "fail",
+      "rule": "V-01"
+    },
+    {
+      "id": "pass-ext-dataspace",
+      "file": "pass-ext-dataspace.json",
+      "extensions": [
+        "dataspace"
+      ],
+      "expect": "pass"
+    },
+    {
+      "id": "fail-dataspace-without-policy",
+      "file": "fail-dataspace-without-policy.json",
+      "extensions": [
+        "dataspace"
+      ],
+      "expect": "fail",
+      "rule": "M-01"
+    },
+    {
+      "id": "pass-ext-organisations",
+      "file": "pass-ext-organisations.json",
+      "extensions": [
+        "organisations"
+      ],
+      "expect": "pass"
+    },
+    {
+      "id": "fail-org-bad-identifier",
+      "file": "fail-org-bad-identifier.json",
+      "extensions": [
+        "organisations"
+      ],
+      "expect": "fail",
+      "rule": "P-01"
+    },
+    {
+      "id": "pass-ext-energy",
+      "file": "pass-ext-energy.json",
+      "extensions": [
+        "energy"
+      ],
+      "expect": "pass"
+    },
+    {
+      "id": "fail-energy-without-triage",
+      "file": "fail-energy-without-triage.json",
+      "extensions": [
+        "energy"
+      ],
+      "expect": "fail",
+      "rule": "M-01"
+    },
+    {
+      "id": "pass-ext-geodesy",
+      "file": "pass-ext-geodesy.json",
+      "extensions": [
+        "geodesy"
+      ],
+      "expect": "pass"
+    },
+    {
+      "id": "fail-geodesy-without-frame",
+      "file": "fail-geodesy-without-frame.json",
+      "extensions": [
+        "geodesy"
+      ],
+      "expect": "fail",
+      "rule": "M-01"
+    },
+    {
+      "id": "fail-geodesy-bad-technique",
+      "file": "fail-geodesy-bad-technique.json",
+      "extensions": [
+        "geodesy"
+      ],
+      "expect": "fail",
+      "rule": "V-01"
+    }
+  ]
+}

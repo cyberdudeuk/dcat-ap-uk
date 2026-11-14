@@ -1,0 +1,51 @@
+{
+  "class": "Dataset",
+  "id": "https://example.org/dcat-ap-uk/examples/eligibility-decisions",
+  "title": "Eligibility decisions for an example support scheme",
+  "description": "Synthetic example. One row per eligibility decision, with the date, the outcome and the reason code. Shared with partner organisations to deliver the scheme.",
+  "identifier": "7f3c9a1e-58b2-4c3d-9e60-2b8f4a1d0c77",
+  "criticalDataAsset": "true",
+  "publisher": "https://example.org/organisations/example-department",
+  "creator": [
+    "https://example.org/organisations/example-department"
+  ],
+  "created": "2024-04-01",
+  "modified": "2026-10-01",
+  "contactPoint": [
+    {
+      "fn": "Example scheme data team",
+      "hasURL": "https://example.org/contact/scheme-data"
+    }
+  ],
+  "accessRights": "ukcl:access-rights/internal",
+  "rights": "Shared under a data sharing agreement using the public service delivery powers in the Digital Economy Act 2017. Ask through the contact form.",
+  "securityClassification": "ukcl:security-classification/official-sensitive",
+  "personalData": "ukcl:personal-data/pseudonymised",
+  "sensitiveData": [
+    "ukcl:sensitive-data/none"
+  ],
+  "metadataAudience": "ukcl:metadata-audience/public-sector",
+  "licence": "ukcl:licences/data-sharing-agreement-required",
+  "accrualPeriodicity": "eufreq:DAILY",
+  "temporal": [
+    {
+      "startDate": "2024-04-01"
+    }
+  ],
+  "conformsTo": [
+    "https://example.org/dcat-ap-uk/examples/eligibility-decisions/schema.json"
+  ],
+  "qualifiedAttribution": [
+    {
+      "agent": "https://example.org/organisations/example-department",
+      "hadRole": "ukcl:agent-role/data-owner"
+    },
+    {
+      "agent": "https://example.org/organisations/example-department",
+      "hadRole": "ukcl:agent-role/data-steward"
+    }
+  ],
+  "theme": [
+    "ukcl:theme/society"
+  ]
+}

@@ -1,0 +1,801 @@
+{
+ "portal": "DCAT Application Profile for the UK",
+ "id": "ap",
+ "url": "https://cyberdudeuk.github.io/dcat-ap-uk/",
+ "version": "1.2.0-rc.1",
+ "as_of": "2026-11-06",
+ "status": "Proposed",
+ "keys": {
+  "properties": {
+   "title": {
+    "label": "Title",
+    "uri": "dct:title",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/properties.html#p-title"
+   },
+   "description": {
+    "label": "Description",
+    "uri": "dct:description",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/properties.html#p-description"
+   },
+   "abstract": {
+    "label": "Summary",
+    "uri": "dct:abstract",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/properties.html#p-abstract"
+   },
+   "alternative": {
+    "label": "Alternative title",
+    "uri": "dct:alternative",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/properties.html#p-alternative"
+   },
+   "identifier": {
+    "label": "Identifier",
+    "uri": "dct:identifier",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/properties.html#p-identifier"
+   },
+   "otherIdentifier": {
+    "label": "Other identifier",
+    "uri": "adms:identifier",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/properties.html#p-otherIdentifier"
+   },
+   "publisher": {
+    "label": "Publisher",
+    "uri": "dct:publisher",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/properties.html#p-publisher"
+   },
+   "creator": {
+    "label": "Creator",
+    "uri": "dct:creator",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/properties.html#p-creator"
+   },
+   "contactPoint": {
+    "label": "Contact point",
+    "uri": "dcat:contactPoint",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/properties.html#p-contactPoint"
+   },
+   "accessRights": {
+    "label": "Access rights",
+    "uri": "dct:accessRights",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/properties.html#p-accessRights"
+   },
+   "rights": {
+    "label": "Rights statement",
+    "uri": "dct:rights",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/properties.html#p-rights"
+   },
+   "securityClassification": {
+    "label": "Security classification",
+    "uri": "dcatuk:securityClassification",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/properties.html#p-securityClassification"
+   },
+   "personalData": {
+    "label": "Personal data",
+    "uri": "dcatuk:personalData",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/properties.html#p-personalData"
+   },
+   "sensitiveData": {
+    "label": "Sensitive data",
+    "uri": "dcatuk:sensitiveData",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/properties.html#p-sensitiveData"
+   },
+   "metadataAudience": {
+    "label": "Who can see this record",
+    "uri": "dcatuk:metadataAudience",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/properties.html#p-metadataAudience"
+   },
+   "licence": {
+    "label": "Licence",
+    "uri": "dct:license",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/properties.html#p-licence"
+   },
+   "issued": {
+    "label": "Release date",
+    "uri": "dct:issued",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/properties.html#p-issued"
+   },
+   "modified": {
+    "label": "Last updated",
+    "uri": "dct:modified",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/properties.html#p-modified"
+   },
+   "created": {
+    "label": "Created",
+    "uri": "dct:created",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/properties.html#p-created"
+   },
+   "accrualPeriodicity": {
+    "label": "Update frequency",
+    "uri": "dct:accrualPeriodicity",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/properties.html#p-accrualPeriodicity"
+   },
+   "theme": {
+    "label": "Theme",
+    "uri": "dcat:theme",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/properties.html#p-theme"
+   },
+   "keyword": {
+    "label": "Keyword",
+    "uri": "dcat:keyword",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/properties.html#p-keyword"
+   },
+   "spatial": {
+    "label": "Geographic coverage",
+    "uri": "dct:spatial",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/properties.html#p-spatial"
+   },
+   "spatialResolutionInMeters": {
+    "label": "Spatial resolution (metres)",
+    "uri": "dcat:spatialResolutionInMeters",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/properties.html#p-spatialResolutionInMeters"
+   },
+   "temporal": {
+    "label": "Time period covered",
+    "uri": "dct:temporal",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/properties.html#p-temporal"
+   },
+   "temporalResolution": {
+    "label": "Time resolution",
+    "uri": "dcat:temporalResolution",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/properties.html#p-temporalResolution"
+   },
+   "conformsTo": {
+    "label": "Conforms to",
+    "uri": "dct:conformsTo",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/properties.html#p-conformsTo"
+   },
+   "referenceData": {
+    "label": "Reference data used",
+    "uri": "dcatuk:referenceData",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/properties.html#p-referenceData"
+   },
+   "version": {
+    "label": "Version",
+    "uri": "dcat:version",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/properties.html#p-version"
+   },
+   "versionNotes": {
+    "label": "Version notes",
+    "uri": "adms:versionNotes",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/properties.html#p-versionNotes"
+   },
+   "previousVersion": {
+    "label": "Previous version",
+    "uri": "dcat:previousVersion",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/properties.html#p-previousVersion"
+   },
+   "isReplacedBy": {
+    "label": "Replaced by",
+    "uri": "dct:isReplacedBy",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/properties.html#p-isReplacedBy"
+   },
+   "expires": {
+    "label": "Expires",
+    "uri": "schema:expires",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/properties.html#p-expires"
+   },
+   "inSeries": {
+    "label": "Part of series",
+    "uri": "dcat:inSeries",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/properties.html#p-inSeries"
+   },
+   "distribution": {
+    "label": "Distribution",
+    "uri": "dcat:distribution",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/properties.html#p-distribution"
+   },
+   "relation": {
+    "label": "Related resource",
+    "uri": "dct:relation",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/properties.html#p-relation"
+   },
+   "qualifiedRelation": {
+    "label": "Qualified relation",
+    "uri": "dcat:qualifiedRelation",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/properties.html#p-qualifiedRelation"
+   },
+   "landingPage": {
+    "label": "Landing page",
+    "uri": "dcat:landingPage",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/properties.html#p-landingPage"
+   },
+   "documentation": {
+    "label": "Documentation",
+    "uri": "foaf:page",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/properties.html#p-documentation"
+   },
+   "language": {
+    "label": "Language",
+    "uri": "dct:language",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/properties.html#p-language"
+   },
+   "serviceType": {
+    "label": "Interface style",
+    "uri": "dct:type",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/properties.html#p-serviceType"
+   },
+   "serviceStatus": {
+    "label": "Status",
+    "uri": "adms:status",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/properties.html#p-serviceStatus"
+   },
+   "qualityAnnotation": {
+    "label": "Data quality",
+    "uri": "dqv:hasQualityAnnotation",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/properties.html#p-qualityAnnotation"
+   },
+   "criticalDataAsset": {
+    "label": "Critical data asset",
+    "uri": "dcatuk:criticalDataAsset",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/properties.html#p-criticalDataAsset"
+   },
+   "qualifiedAttribution": {
+    "label": "Responsible role",
+    "uri": "prov:qualifiedAttribution",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/properties.html#p-qualifiedAttribution"
+   },
+   "accessURL": {
+    "label": "Access address",
+    "uri": "dcat:accessURL",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/properties.html#p-accessURL"
+   },
+   "downloadURL": {
+    "label": "Download address",
+    "uri": "dcat:downloadURL",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/properties.html#p-downloadURL"
+   },
+   "mediaType": {
+    "label": "Media type",
+    "uri": "dcat:mediaType",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/properties.html#p-mediaType"
+   },
+   "format": {
+    "label": "Format",
+    "uri": "dct:format",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/properties.html#p-format"
+   },
+   "byteSize": {
+    "label": "Size (bytes)",
+    "uri": "dcat:byteSize",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/properties.html#p-byteSize"
+   },
+   "checksum": {
+    "label": "Checksum",
+    "uri": "spdx:checksum",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/properties.html#p-checksum"
+   },
+   "accessService": {
+    "label": "Access service",
+    "uri": "dcat:accessService",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/properties.html#p-accessService"
+   },
+   "compressFormat": {
+    "label": "Compression format",
+    "uri": "dcat:compressFormat",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/properties.html#p-compressFormat"
+   },
+   "endpointURL": {
+    "label": "Endpoint address",
+    "uri": "dcat:endpointURL",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/properties.html#p-endpointURL"
+   },
+   "endpointDescription": {
+    "label": "Endpoint description",
+    "uri": "dcat:endpointDescription",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/properties.html#p-endpointDescription"
+   },
+   "servesDataset": {
+    "label": "Serves dataset",
+    "uri": "dcat:servesDataset",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/properties.html#p-servesDataset"
+   },
+   "dataset": {
+    "label": "Dataset",
+    "uri": "dcat:dataset",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/properties.html#p-dataset"
+   },
+   "service": {
+    "label": "Data service",
+    "uri": "dcat:service",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/properties.html#p-service"
+   },
+   "homepage": {
+    "label": "Home page",
+    "uri": "foaf:homepage",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/properties.html#p-homepage"
+   },
+   "themeTaxonomy": {
+    "label": "Theme list used",
+    "uri": "dcat:themeTaxonomy",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/properties.html#p-themeTaxonomy"
+   },
+   "record": {
+    "label": "Catalogue record",
+    "uri": "dcat:record",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/properties.html#p-record"
+   },
+   "primaryTopic": {
+    "label": "Describes",
+    "uri": "foaf:primaryTopic",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/properties.html#p-primaryTopic"
+   },
+   "name": {
+    "label": "Name",
+    "uri": "foaf:name",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/properties.html#p-name"
+   },
+   "agentType": {
+    "label": "Organisation type",
+    "uri": "dct:type",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/properties.html#p-agentType"
+   },
+   "fn": {
+    "label": "Team name",
+    "uri": "vcard:fn",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/properties.html#p-fn"
+   },
+   "hasURL": {
+    "label": "Contact form",
+    "uri": "vcard:hasURL",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/properties.html#p-hasURL"
+   },
+   "hasEmail": {
+    "label": "Team email address",
+    "uri": "vcard:hasEmail",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/properties.html#p-hasEmail"
+   },
+   "hasTelephone": {
+    "label": "Telephone",
+    "uri": "vcard:hasTelephone",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/properties.html#p-hasTelephone"
+   },
+   "hasAddress": {
+    "label": "Postal address",
+    "uri": "vcard:hasAddress",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/properties.html#p-hasAddress"
+   },
+   "bbox": {
+    "label": "Bounding box",
+    "uri": "dcat:bbox",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/properties.html#p-bbox"
+   },
+   "geometry": {
+    "label": "Geometry",
+    "uri": "locn:geometry",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/properties.html#p-geometry"
+   },
+   "centroid": {
+    "label": "Centre point",
+    "uri": "dcat:centroid",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/properties.html#p-centroid"
+   },
+   "locationName": {
+    "label": "Place name",
+    "uri": "skos:prefLabel",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/properties.html#p-locationName"
+   },
+   "startDate": {
+    "label": "Start date",
+    "uri": "dcat:startDate",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/properties.html#p-startDate"
+   },
+   "endDate": {
+    "label": "End date",
+    "uri": "dcat:endDate",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/properties.html#p-endDate"
+   },
+   "algorithm": {
+    "label": "Algorithm",
+    "uri": "spdx:algorithm",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/properties.html#p-algorithm"
+   },
+   "checksumValue": {
+    "label": "Checksum value",
+    "uri": "spdx:checksumValue",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/properties.html#p-checksumValue"
+   },
+   "hadRole": {
+    "label": "Role",
+    "uri": "dcat:hadRole",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/properties.html#p-hadRole"
+   },
+   "agent": {
+    "label": "Organisation",
+    "uri": "prov:agent",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/properties.html#p-agent"
+   },
+   "applicableLegislation": {
+    "label": "Applicable legislation",
+    "uri": "dcatap:applicableLegislation",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/properties.html#p-applicableLegislation"
+   },
+   "hasPolicy": {
+    "label": "Usage policy",
+    "uri": "odrl:hasPolicy",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/properties.html#p-hasPolicy"
+   },
+   "jurisdiction": {
+    "label": "Where the data is held or sent",
+    "uri": "dcatuk:jurisdiction",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/properties.html#p-jurisdiction"
+   },
+   "transferMechanism": {
+    "label": "Transfer safeguard",
+    "uri": "dcatuk:transferMechanism",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/properties.html#p-transferMechanism"
+   },
+   "transportSecurity": {
+    "label": "Connection security",
+    "uri": "dcatuk:transportSecurity",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/properties.html#p-transportSecurity"
+   },
+   "missingValue": {
+    "label": "Missing value",
+    "uri": "dcatuk:missingValue",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/properties.html#p-missingValue"
+   },
+   "missingProperty": {
+    "label": "Property left empty",
+    "uri": "dcatuk:missingProperty",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/properties.html#p-missingProperty"
+   },
+   "missingReason": {
+    "label": "Why it is empty",
+    "uri": "dcatuk:missingReason",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/properties.html#p-missingReason"
+   },
+   "sourceRecord": {
+    "label": "Source record",
+    "uri": "dct:source",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/properties.html#p-sourceRecord"
+   },
+   "enrichedProperty": {
+    "label": "Property added or changed on the way",
+    "uri": "dcatuk:enrichedProperty",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/properties.html#p-enrichedProperty"
+   }
+  },
+  "classes": {
+   "Dataset": {
+    "label": "Dataset",
+    "uri": "dcat:Dataset",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/class-dataset.html"
+   },
+   "DataService": {
+    "label": "Data service",
+    "uri": "dcat:DataService",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/class-dataservice.html"
+   },
+   "Distribution": {
+    "label": "Distribution",
+    "uri": "dcat:Distribution",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/class-distribution.html"
+   },
+   "DatasetSeries": {
+    "label": "Dataset series",
+    "uri": "dcat:DatasetSeries",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/class-datasetseries.html"
+   },
+   "Catalogue": {
+    "label": "Catalogue",
+    "uri": "dcat:Catalog",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/class-catalogue.html"
+   },
+   "CatalogueRecord": {
+    "label": "Catalogue record",
+    "uri": "dcat:CatalogRecord",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/class-cataloguerecord.html"
+   },
+   "Agent": {
+    "label": "Organisation",
+    "uri": "foaf:Agent",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/class-agent.html"
+   },
+   "ContactPoint": {
+    "label": "Contact point",
+    "uri": "vcard:Kind",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/class-contactpoint.html"
+   },
+   "Location": {
+    "label": "Location",
+    "uri": "dct:Location",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/class-location.html"
+   },
+   "PeriodOfTime": {
+    "label": "Period of time",
+    "uri": "dct:PeriodOfTime",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/class-periodoftime.html"
+   },
+   "Checksum": {
+    "label": "Checksum",
+    "uri": "spdx:Checksum",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/class-checksum.html"
+   },
+   "Relationship": {
+    "label": "Relationship",
+    "uri": "dcat:Relationship",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/class-relationship.html"
+   },
+   "Attribution": {
+    "label": "Responsible role",
+    "uri": "prov:Attribution",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/class-attribution.html"
+   },
+   "MissingValue": {
+    "label": "Missing value",
+    "uri": "dcatuk:MissingValue",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/class-missingvalue.html"
+   }
+  },
+  "codelists": {
+   "access-rights": {
+    "label": "Access rights",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/codelists.html#cl-access-rights"
+   },
+   "security-classification": {
+    "label": "Security classification",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/codelists.html#cl-security-classification"
+   },
+   "personal-data": {
+    "label": "Personal data",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/codelists.html#cl-personal-data"
+   },
+   "sensitive-data": {
+    "label": "Sensitive data",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/codelists.html#cl-sensitive-data"
+   },
+   "metadata-audience": {
+    "label": "Who can see this record",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/codelists.html#cl-metadata-audience"
+   },
+   "licences": {
+    "label": "Licences",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/codelists.html#cl-licences"
+   },
+   "frequency": {
+    "label": "Update frequency",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/codelists.html#cl-frequency"
+   },
+   "theme": {
+    "label": "Theme",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/codelists.html#cl-theme"
+   },
+   "service-status": {
+    "label": "Service status",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/codelists.html#cl-service-status"
+   },
+   "service-type": {
+    "label": "Interface style",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/codelists.html#cl-service-type"
+   },
+   "language": {
+    "label": "Language",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/codelists.html#cl-language"
+   },
+   "agent-role": {
+    "label": "Responsible role",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/codelists.html#cl-agent-role"
+   },
+   "jurisdiction": {
+    "label": "Jurisdictions",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/codelists.html#cl-jurisdiction"
+   },
+   "transfer-mechanism": {
+    "label": "Transfer safeguards",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/codelists.html#cl-transfer-mechanism"
+   },
+   "checksum-algorithm": {
+    "label": "Checksum algorithms",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/codelists.html#cl-checksum-algorithm"
+   },
+   "transport-security": {
+    "label": "Connection security",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/codelists.html#cl-transport-security"
+   },
+   "ai-use": {
+    "label": "Use for artificial intelligence",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/codelists.html#cl-ai-use"
+   },
+   "statistics-status": {
+    "label": "Official statistics status",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/codelists.html#cl-statistics-status"
+   },
+   "open-data-triage": {
+    "label": "Open data triage outcome",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/codelists.html#cl-open-data-triage"
+   },
+   "missing-reason": {
+    "label": "Reasons a value is missing",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/codelists.html#cl-missing-reason"
+   },
+   "geodetic-technique": {
+    "label": "Geodetic observation techniques",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/codelists.html#cl-geodetic-technique"
+   },
+   "spatial-representation-type": {
+    "label": "Spatial representation types",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/codelists.html#cl-spatial-representation-type"
+   }
+  },
+  "terms": {
+   "application-profile": {
+    "term": "Application profile",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/knowledge.html#g-application-profile"
+   },
+   "dcat": {
+    "term": "DCAT",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/knowledge.html#g-dcat"
+   },
+   "dcat-ap": {
+    "term": "DCAT-AP",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/knowledge.html#g-dcat-ap"
+   },
+   "mem": {
+    "term": "xGov MEM",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/knowledge.html#g-mem"
+   },
+   "miwg": {
+    "term": "Metadata Implementation Working Group",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/knowledge.html#g-miwg"
+   },
+   "metadata": {
+    "term": "Metadata",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/knowledge.html#g-metadata"
+   },
+   "dataset": {
+    "term": "Dataset",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/knowledge.html#g-dataset"
+   },
+   "distribution": {
+    "term": "Distribution",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/knowledge.html#g-distribution"
+   },
+   "data-service": {
+    "term": "Data service",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/knowledge.html#g-data-service"
+   },
+   "dataset-series": {
+    "term": "Dataset series",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/knowledge.html#g-dataset-series"
+   },
+   "catalogue": {
+    "term": "Catalogue",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/knowledge.html#g-catalogue"
+   },
+   "catalogue-record": {
+    "term": "Catalogue record",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/knowledge.html#g-catalogue-record"
+   },
+   "codelist": {
+    "term": "Codelist",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/knowledge.html#g-codelist"
+   },
+   "skos": {
+    "term": "SKOS",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/knowledge.html#g-skos"
+   },
+   "shacl": {
+    "term": "SHACL",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/knowledge.html#g-shacl"
+   },
+   "json-schema": {
+    "term": "JSON Schema",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/knowledge.html#g-json-schema"
+   },
+   "json-ld": {
+    "term": "JSON-LD",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/knowledge.html#g-json-ld"
+   },
+   "rdf": {
+    "term": "RDF",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/knowledge.html#g-rdf"
+   },
+   "turtle": {
+    "term": "Turtle",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/knowledge.html#g-turtle"
+   },
+   "iri": {
+    "term": "IRI",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/knowledge.html#g-iri"
+   },
+   "curie": {
+    "term": "CURIE",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/knowledge.html#g-curie"
+   },
+   "obligation": {
+    "term": "Obligation",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/knowledge.html#g-obligation"
+   },
+   "conditional": {
+    "term": "Conditional",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/knowledge.html#g-conditional"
+   },
+   "critical-data-asset": {
+    "term": "Critical data asset",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/knowledge.html#g-critical-data-asset"
+   },
+   "dam-policy": {
+    "term": "Data Asset Management Policy",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/knowledge.html#g-dam-policy"
+   },
+   "harvesting": {
+    "term": "Harvesting",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/knowledge.html#g-harvesting"
+   },
+   "gss-code": {
+    "term": "GSS code",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/knowledge.html#g-gss-code"
+   },
+   "persistent-identifier": {
+    "term": "Persistent identifier",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/knowledge.html#g-persistent-identifier"
+   },
+   "linkml": {
+    "term": "LinkML",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/knowledge.html#g-linkml"
+   },
+   "conformance": {
+    "term": "Conformance",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/knowledge.html#g-conformance"
+   },
+   "crosswalk": {
+    "term": "Crosswalk",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/knowledge.html#g-crosswalk"
+   },
+   "ndl": {
+    "term": "National Data Library",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/knowledge.html#g-ndl"
+   },
+   "dsa": {
+    "term": "Data sharing agreement",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/knowledge.html#g-dsa"
+   },
+   "security-classification": {
+    "term": "Security classification",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/knowledge.html#g-security-classification"
+   },
+   "personal-data": {
+    "term": "Personal data",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/knowledge.html#g-personal-data"
+   },
+   "special-category": {
+    "term": "Special category data",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/knowledge.html#g-special-category"
+   },
+   "provenance": {
+    "term": "Provenance code",
+    "url": "https://cyberdudeuk.github.io/dcat-ap-uk/knowledge.html#g-provenance"
+   }
+  },
+  "organisations": {
+   "key": "GOV.UK organisation slug",
+   "url": "https://cyberdudeuk.github.io/dcat-ap-uk/downloads/organisations.json"
+  }
+ },
+ "related": [
+  {
+   "id": "dam",
+   "name": "DAM capability playbooks",
+   "url": "https://cyberdudeuk.github.io/dam-capability-playbooks/"
+  },
+  {
+   "id": "dqc",
+   "name": "Public Sector Data Quality Commons",
+   "url": "https://cyberdudeuk.github.io/dq-commons/"
+  },
+  {
+   "id": "cat",
+   "name": "GitHub Repos Asset Catalogue",
+   "url": "https://cyberdudeuk.github.io/github-repos-asset-catalogue/"
+  },
+  {
+   "id": "compass",
+   "name": "Estate compass",
+   "url": "https://cyberdudeuk.github.io/dam-capability-playbooks/compass/"
+  },
+  {
+   "id": "panuk-architecture",
+   "name": "Future pan-UK metadata architecture (private)",
+   "url": "https://github.com/co-cddo/future-panuk-metadata-architecture",
+   "relation": "implements"
+  }
+ ]
+}

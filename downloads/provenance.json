@@ -1,0 +1,2683 @@
+{
+ "misattributed": [],
+ "generated": "2026-11-14",
+ "stale_days": 180,
+ "counts": {
+  "P": 2,
+  "V": 93,
+  "K": 45,
+  "S": 101,
+  "U": 6,
+  "synthetic": 17
+ },
+ "needs_action": 54,
+ "unexplained_synthetic": 0,
+ "items": [
+  {
+   "kind": "fact",
+   "file": "content/lineage.yaml",
+   "path": "sources[0]",
+   "item": "Future pan-UK metadata architecture (DCAT-AP-UK founding specification and architecture blueprint)",
+   "prov": "P",
+   "url": "https://github.com/co-cddo/future-panuk-metadata-architecture",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/lineage.yaml",
+   "path": "sources[1]",
+   "item": "Data Catalog Vocabulary (DCAT) Version 3",
+   "prov": "V",
+   "url": "https://www.w3.org/TR/vocab-dcat-3/",
+   "checked": "watched weekly",
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/lineage.yaml",
+   "path": "sources[2]",
+   "item": "DCAT-AP 3.0.1",
+   "prov": "V",
+   "url": "https://semiceu.github.io/DCAT-AP/releases/3.0.1/",
+   "checked": "watched weekly",
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/lineage.yaml",
+   "path": "sources[3]",
+   "item": "UK Cross-Government Metadata Exchange Model",
+   "prov": "V",
+   "url": "https://co-cddo.github.io/ukgov-metadata-exchange-model/",
+   "checked": "watched weekly",
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/lineage.yaml",
+   "path": "sources[4]",
+   "item": "Recording metadata to describe critical data assets",
+   "prov": "V",
+   "url": "https://www.gov.uk/government/publications/record-metadata-to-describe-critical-data-assets/recording-metadata-to-describe-critical-data-assets",
+   "checked": "watched weekly",
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/lineage.yaml",
+   "path": "sources[5]",
+   "item": "Data asset management policy in government",
+   "prov": "V",
+   "url": "https://www.gov.uk/government/publications/data-asset-management-policy-in-government/data-asset-management-policy-in-government",
+   "checked": "watched weekly",
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/lineage.yaml",
+   "path": "sources[6]",
+   "item": "Using metadata to describe data assets in a data catalogue",
+   "prov": "V",
+   "url": "https://www.gov.uk/government/publications/recommended-open-standards-for-government/using-metadata-to-describe-data-assets-in-a-data-catalogue",
+   "checked": "watched weekly",
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/lineage.yaml",
+   "path": "sources[7]",
+   "item": "Data Marketplace data catalogue metadata (JSON Schema and API)",
+   "prov": "V",
+   "url": "https://github.com/co-cddo/data-catalogue-metadata",
+   "checked": "watched weekly",
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/lineage.yaml",
+   "path": "sources[8]",
+   "item": "Metadata Based Discovery of Data Sets and Sources (draft pattern, version 1.0)",
+   "prov": "V",
+   "url": "https://github.com/co-cddo/future-data-architecture/blob/main/Patterns/Metadata-Based-Discovery-Pattern.md",
+   "checked": "watched weekly",
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/lineage.yaml",
+   "path": "sources[9]",
+   "item": "Cross-government data sharing principles (draft)",
+   "prov": "V",
+   "url": "https://github.com/co-cddo/future-data-architecture/tree/main/principles",
+   "checked": "watched weekly",
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/lineage.yaml",
+   "path": "sources[10]",
+   "item": "A roadmap for modern digital government 2025 to 2030",
+   "prov": "V",
+   "url": "https://questions-statements.parliament.uk/written-statements/1872558",
+   "checked": null,
+   "action": "record the date it was checked"
+  },
+  {
+   "kind": "fact",
+   "file": "content/lineage.yaml",
+   "path": "sources[11]",
+   "item": "National Data Library: progress update, January 2026",
+   "prov": "V",
+   "url": "https://www.gov.uk/government/publications/national-data-library-progress-update-january-2026",
+   "checked": "watched weekly",
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/lineage.yaml",
+   "path": "sources[12]",
+   "item": "Guidelines and best practices for making government datasets ready for AI",
+   "prov": "V",
+   "url": "https://www.gov.uk/government/publications/making-government-datasets-ready-for-ai/guidelines-and-best-practices-for-making-government-datasets-ready-for-ai",
+   "checked": "watched weekly",
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/lineage.yaml",
+   "path": "sources[13]",
+   "item": "Government Security Classifications Policy, version 2.0",
+   "prov": "V",
+   "url": "https://www.gov.uk/government/publications/government-security-classifications",
+   "checked": "2026-11-09",
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/lineage.yaml",
+   "path": "sources[14]",
+   "item": "UK GEMINI",
+   "prov": "V",
+   "url": "https://www.agi.org.uk/uk-gemini/",
+   "checked": "2026-11-09",
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/lineage.yaml",
+   "path": "sources[15]",
+   "item": "data.gov.uk topics",
+   "prov": "V",
+   "url": "https://www.data.gov.uk/search",
+   "checked": "watched weekly",
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/lineage.yaml",
+   "path": "sources[16]",
+   "item": "GOV.UK organisations API",
+   "prov": "P",
+   "url": "https://www.gov.uk/api/organisations",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/lockin.yaml",
+   "path": "policy[0]",
+   "item": "The UK Open Standards Principles ask government to choose open standards for software interoperability, data…",
+   "prov": "K",
+   "url": "",
+   "checked": null,
+   "action": "verify against an authoritative source and relabel V with the date checked"
+  },
+  {
+   "kind": "fact",
+   "file": "content/lockin.yaml",
+   "path": "policy[1]",
+   "item": "The Technology Code of Practice asks teams to make things open, use open standards and avoid being locked in…",
+   "prov": "K",
+   "url": "",
+   "checked": null,
+   "action": "verify against an authoritative source and relabel V with the date checked"
+  },
+  {
+   "kind": "fact",
+   "file": "content/lockin.yaml",
+   "path": "policy[2]",
+   "item": "The Service Standard asks services to use open standards and common components where they exist.",
+   "prov": "K",
+   "url": "",
+   "checked": null,
+   "action": "verify against an authoritative source and relabel V with the date checked"
+  },
+  {
+   "kind": "fact",
+   "file": "content/reuse.yaml",
+   "path": "assets[0]",
+   "item": "Data Standards Authority",
+   "prov": "V",
+   "url": "https://github.com/alphagov/data-standards-authority",
+   "checked": "2026-11-06",
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/reuse.yaml",
+   "path": "assets[1]",
+   "item": "Linked Data community place",
+   "prov": "V",
+   "url": "https://github.com/co-cddo/linked-data",
+   "checked": "2026-11-06",
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/reuse.yaml",
+   "path": "assets[2]",
+   "item": "Future data architecture",
+   "prov": "V",
+   "url": "https://github.com/co-cddo/future-data-architecture",
+   "checked": "2026-11-06",
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/reuse.yaml",
+   "path": "assets[3]",
+   "item": "Digital identity vocabulary",
+   "prov": "V",
+   "url": "https://github.com/govuk-one-login/data-vocab",
+   "checked": "2026-11-06",
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/reuse.yaml",
+   "path": "assets[4]",
+   "item": "Digital archiving metadata schema",
+   "prov": "V",
+   "url": "https://github.com/nationalarchives/da-metadata-schema",
+   "checked": "2026-11-06",
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/reuse.yaml",
+   "path": "assets[5]",
+   "item": "Planning data specification",
+   "prov": "V",
+   "url": "https://github.com/digital-land/specification",
+   "checked": "2026-11-06",
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/reuse.yaml",
+   "path": "assets[6]",
+   "item": "Planning Inspectorate data model",
+   "prov": "V",
+   "url": "https://github.com/Planning-Inspectorate/data-model",
+   "checked": "2026-11-06",
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/reuse.yaml",
+   "path": "assets[7]",
+   "item": "Education Provider Registry models",
+   "prov": "V",
+   "url": "https://github.com/DFE-Digital/education-provider-registry-docs",
+   "checked": "2026-11-06",
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/reuse.yaml",
+   "path": "assets[8]",
+   "item": "UK Parliament ontologies",
+   "prov": "V",
+   "url": "https://github.com/ukparliament/ontologies",
+   "checked": "2026-11-06",
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/reuse.yaml",
+   "path": "assets[9]",
+   "item": "Linked Data Registry",
+   "prov": "V",
+   "url": "https://github.com/UKGovLD/registry-core",
+   "checked": "2026-11-06",
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/reuse.yaml",
+   "path": "assets[10]",
+   "item": "DfE reference data",
+   "prov": "V",
+   "url": "https://github.com/DFE-Digital/dfe-reference-data",
+   "checked": "2026-11-06",
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/reuse.yaml",
+   "path": "assets[11]",
+   "item": "MoG Navigator",
+   "prov": "V",
+   "url": "https://github.com/co-cddo/MoG-Navigator",
+   "checked": "2026-11-06",
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/reuse.yaml",
+   "path": "assets[12]",
+   "item": "Government API catalogue",
+   "prov": "V",
+   "url": "https://github.com/co-cddo/api-catalogue",
+   "checked": "2026-11-06",
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/reuse.yaml",
+   "path": "assets[13]",
+   "item": "Federated API discovery model",
+   "prov": "V",
+   "url": "https://github.com/co-cddo/federated-api-model",
+   "checked": "2026-11-06",
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/reuse.yaml",
+   "path": "assets[14]",
+   "item": "API standards linting",
+   "prov": "V",
+   "url": "https://github.com/co-cddo/api-standards-linting",
+   "checked": "2026-11-06",
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/reuse.yaml",
+   "path": "assets[15]",
+   "item": "Data Marketplace API (2023)",
+   "prov": "V",
+   "url": "https://github.com/co-cddo/data-marketplace-api",
+   "checked": "2026-11-06",
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/reuse.yaml",
+   "path": "assets[16]",
+   "item": "JNCC catalogue",
+   "prov": "V",
+   "url": "https://github.com/jncc/catalog",
+   "checked": "2026-11-06",
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/reuse.yaml",
+   "path": "assets[17]",
+   "item": "Data Sharing Risk Framework",
+   "prov": "V",
+   "url": "https://github.com/co-cddo/data-sharing-risk-framework",
+   "checked": "2026-11-06",
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/reuse.yaml",
+   "path": "assets[18]",
+   "item": "Public Sector Data Quality Commons",
+   "prov": "V",
+   "url": "https://github.com/cyberdudeuk/dq-commons",
+   "checked": "2026-11-06",
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/reuse.yaml",
+   "path": "assets[19]",
+   "item": "Data asset management capability playbooks",
+   "prov": "V",
+   "url": "https://github.com/cyberdudeuk/dam-capability-playbooks",
+   "checked": "2026-11-06",
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/reuse.yaml",
+   "path": "assets[20]",
+   "item": "The Knowledge Web",
+   "prov": "V",
+   "url": "https://github.com/cyberdudeuk/knowledge-web",
+   "checked": "2026-11-06",
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/standards.yaml",
+   "path": "standards[1]",
+   "item": "W3C DCAT 3",
+   "prov": "V",
+   "url": "https://www.w3.org/TR/vocab-dcat-3/",
+   "checked": "2026-11-06",
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/standards.yaml",
+   "path": "standards[2]",
+   "item": "DCAT-AP 3.0.1",
+   "prov": "V",
+   "url": "https://semiceu.github.io/DCAT-AP/releases/3.0.1/",
+   "checked": "2026-11-06",
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/standards.yaml",
+   "path": "standards[3]",
+   "item": "DCAT-AP HVD",
+   "prov": "V",
+   "url": "https://semiceu.github.io/DCAT-AP/releases/3.0.0-hvd/",
+   "checked": "2026-11-06",
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/standards.yaml",
+   "path": "standards[4]",
+   "item": "xGov MEM v0.1.0",
+   "prov": "V",
+   "url": "https://github.com/co-cddo/ukgov-metadata-exchange-model",
+   "checked": null,
+   "action": "record the date it was checked"
+  },
+  {
+   "kind": "fact",
+   "file": "content/standards.yaml",
+   "path": "standards[21]",
+   "item": "HealthDCAT-AP R7",
+   "prov": "V",
+   "url": "https://healthdataeu.pages.code.europa.eu/healthdcat-ap/",
+   "checked": "2026-11-06",
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/standards.yaml",
+   "path": "standards[22]",
+   "item": "GeoDCAT-AP 3.1",
+   "prov": "V",
+   "url": "https://semiceu.github.io/GeoDCAT-AP/",
+   "checked": "2026-11-06",
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/standards.yaml",
+   "path": "standards[25]",
+   "item": "MLDCAT-AP 3.x",
+   "prov": "S",
+   "url": "https://semiceu.github.io/MLDCAT-AP/",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/standards.yaml",
+   "path": "standards[26]",
+   "item": "BRegDCAT-AP",
+   "prov": "S",
+   "url": "https://interoperable-europe.ec.europa.eu/collection/access-base-registries/solution/bregdcat-ap",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/standards.yaml",
+   "path": "standards[27]",
+   "item": "Dataspace Protocol",
+   "prov": "S",
+   "url": "https://projects.eclipse.org/projects/technology.dataspace-protocol-base",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/standards.yaml",
+   "path": "standards[28]",
+   "item": "UK GEMINI 2.3",
+   "prov": "V",
+   "url": "https://www.agi.org.uk/gemini/",
+   "checked": "2026-11-06",
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/standards.yaml",
+   "path": "standards[29]",
+   "item": "MEDIN",
+   "prov": "S",
+   "url": "https://www.medin.org.uk/medin-discovery-metadata-standard",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/standards.yaml",
+   "path": "standards[30]",
+   "item": "HDR UK Gateway schema",
+   "prov": "S",
+   "url": "https://github.com/HDRUK/schemata",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/standards.yaml",
+   "path": "standards[31]",
+   "item": "Ofgem Data Best Practice",
+   "prov": "S",
+   "url": "https://www.ofgem.gov.uk/",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/standards.yaml",
+   "path": "standards[34]",
+   "item": "GML and INSPIRE nil reasons",
+   "prov": "S",
+   "url": "https://dd.eionet.europa.eu/vocabulary/common/NilReasonType/view",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/standards.yaml",
+   "path": "standards[35]",
+   "item": "NATO Core Metadata Specification (ADatP-5636)",
+   "prov": "S",
+   "url": "https://nhqc3s.hq.nato.int/apps/architecture/nisp/volume1/apd.html",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/standards.yaml",
+   "path": "standards[36]",
+   "item": "DCAT-US 3.0",
+   "prov": "S",
+   "url": "https://resources.data.gov/",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/standards.yaml",
+   "path": "standards[37]",
+   "item": "DCAT-AP-NO",
+   "prov": "S",
+   "url": "https://data.norge.no/specification/dcat-ap-no",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/standards.yaml",
+   "path": "standards[39]",
+   "item": "DCAT-AP-NL 3.0",
+   "prov": "S",
+   "url": "https://www.geonovum.nl/",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/standards.yaml",
+   "path": "standards[40]",
+   "item": "DCAT-AP_IT",
+   "prov": "S",
+   "url": "https://www.dati.gov.it/",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/standards.yaml",
+   "path": "standards[42]",
+   "item": "Croissant 1.1",
+   "prov": "V",
+   "url": "https://docs.mlcommons.org/croissant/",
+   "checked": "2026-11-06",
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/standards.yaml",
+   "path": "standards[57]",
+   "item": "UK GDPR and ICO transfer guidance",
+   "prov": "S",
+   "url": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/international-transfers/",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/standards.yaml",
+   "path": "standards[59]",
+   "item": "NCSC post-quantum timeline",
+   "prov": "S",
+   "url": "https://www.ncsc.gov.uk/guidance/pqc-migration-timelines",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/standards.yaml",
+   "path": "standards[62]",
+   "item": "WCAG 2.2",
+   "prov": "V",
+   "url": "https://www.w3.org/TR/WCAG22/",
+   "checked": "2026-11-06",
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/toolkit.yaml",
+   "path": "sources[0]",
+   "item": "DCAT-US Schema v3.0",
+   "prov": "S",
+   "url": "https://resources.data.gov/",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/toolkit.yaml",
+   "path": "sources[1]",
+   "item": "data.europa.eu Metadata Quality Assessment",
+   "prov": "K",
+   "url": "https://data.europa.eu/mqa/methodology",
+   "checked": null,
+   "action": "verify against an authoritative source and relabel V with the date checked"
+  },
+  {
+   "kind": "fact",
+   "file": "content/toolkit.yaml",
+   "path": "sources[2]",
+   "item": "DCAT-AP-NO and the data.norge.no tools",
+   "prov": "S",
+   "url": "https://data.norge.no/specification/dcat-ap-no",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/toolkit.yaml",
+   "path": "sources[3]",
+   "item": "DCAT-AP.de",
+   "prov": "K",
+   "url": "https://www.dcat-ap.de/",
+   "checked": null,
+   "action": "verify against an authoritative source and relabel V with the date checked"
+  },
+  {
+   "kind": "fact",
+   "file": "content/toolkit.yaml",
+   "path": "sources[4]",
+   "item": "DCAT-AP-SE",
+   "prov": "K",
+   "url": "https://docs.dataportal.se/dcat/",
+   "checked": null,
+   "action": "verify against an authoritative source and relabel V with the date checked"
+  },
+  {
+   "kind": "fact",
+   "file": "content/toolkit.yaml",
+   "path": "sources[5]",
+   "item": "DCAT-AP-NL 3.0",
+   "prov": "S",
+   "url": "https://www.geonovum.nl/",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/toolkit.yaml",
+   "path": "sources[6]",
+   "item": "DCAT-AP_IT",
+   "prov": "S",
+   "url": "https://www.dati.gov.it/",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/toolkit.yaml",
+   "path": "sources[7]",
+   "item": "DCAT-AP-ES (NTI-RISP)",
+   "prov": "K",
+   "url": "https://datos.gob.es/",
+   "checked": null,
+   "action": "verify against an authoritative source and relabel V with the date checked"
+  },
+  {
+   "kind": "fact",
+   "file": "content/toolkit.yaml",
+   "path": "sources[8]",
+   "item": "DCAT-AP-CH (eCH-0200)",
+   "prov": "K",
+   "url": "https://www.ech.ch/",
+   "checked": null,
+   "action": "verify against an authoritative source and relabel V with the date checked"
+  },
+  {
+   "kind": "fact",
+   "file": "content/toolkit.yaml",
+   "path": "sources[9]",
+   "item": "HealthDCAT-AP Release 7",
+   "prov": "S",
+   "url": "https://healthdataeu.pages.code.europa.eu/healthdcat-ap/",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/toolkit.yaml",
+   "path": "sources[10]",
+   "item": "GeoDCAT-AP 3.1.0",
+   "prov": "S",
+   "url": "https://semiceu.github.io/GeoDCAT-AP/",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/toolkit.yaml",
+   "path": "sources[11]",
+   "item": "StatDCAT-AP",
+   "prov": "K",
+   "url": "https://semiceu.github.io/StatDCAT-AP/",
+   "checked": null,
+   "action": "verify against an authoritative source and relabel V with the date checked"
+  },
+  {
+   "kind": "fact",
+   "file": "content/toolkit.yaml",
+   "path": "sources[12]",
+   "item": "mobilityDCAT-AP",
+   "prov": "K",
+   "url": "https://mobilitydcat-ap.github.io/mobilityDCAT-AP/",
+   "checked": null,
+   "action": "verify against an authoritative source and relabel V with the date checked"
+  },
+  {
+   "kind": "fact",
+   "file": "content/toolkit.yaml",
+   "path": "sources[13]",
+   "item": "BRegDCAT-AP",
+   "prov": "S",
+   "url": "https://interoperable-europe.ec.europa.eu/collection/access-base-registries/solution/bregdcat-ap",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/toolkit.yaml",
+   "path": "sources[14]",
+   "item": "MLDCAT-AP 3.0.0 and 3.1.0",
+   "prov": "S",
+   "url": "https://semiceu.github.io/MLDCAT-AP/",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/toolkit.yaml",
+   "path": "sources[15]",
+   "item": "DCAT-AP HVD 3.0",
+   "prov": "S",
+   "url": "https://semiceu.github.io/DCAT-AP/releases/3.0.0-hvd/",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/toolkit.yaml",
+   "path": "sources[16]",
+   "item": "Eclipse Dataspace Protocol",
+   "prov": "S",
+   "url": "https://projects.eclipse.org/projects/technology.dataspace-protocol-base",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/toolkit.yaml",
+   "path": "sources[17]",
+   "item": "Croissant 1.1",
+   "prov": "S",
+   "url": "https://docs.mlcommons.org/croissant/",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/toolkit.yaml",
+   "path": "sources[18]",
+   "item": "schema.org Dataset",
+   "prov": "K",
+   "url": "https://schema.org/Dataset",
+   "checked": null,
+   "action": "verify against an authoritative source and relabel V with the date checked"
+  },
+  {
+   "kind": "fact",
+   "file": "content/toolkit.yaml",
+   "path": "sources[19]",
+   "item": "UK GEMINI 2.3",
+   "prov": "S",
+   "url": "https://www.agi.org.uk/gemini/",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/toolkit.yaml",
+   "path": "sources[20]",
+   "item": "MEDIN discovery metadata standard",
+   "prov": "S",
+   "url": "https://www.medin.org.uk/medin-discovery-metadata-standard",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/toolkit.yaml",
+   "path": "sources[21]",
+   "item": "HDR UK Gateway schemata",
+   "prov": "S",
+   "url": "https://github.com/HDRUK/schemata",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/toolkit.yaml",
+   "path": "sources[22]",
+   "item": "Data Best Practice Guidance",
+   "prov": "S",
+   "url": "https://www.ofgem.gov.uk/sites/default/files/2026-03/data-best-practice-guidance.pdf",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/toolkit.yaml",
+   "path": "sources[23]",
+   "item": "Code of Practice for Statistics",
+   "prov": "K",
+   "url": "https://code.statisticsauthority.gov.uk/",
+   "checked": null,
+   "action": "verify against an authoritative source and relabel V with the date checked"
+  },
+  {
+   "kind": "fact",
+   "file": "content/toolkit.yaml",
+   "path": "sources[24]",
+   "item": "org-id.guide",
+   "prov": "K",
+   "url": "https://org-id.guide/",
+   "checked": null,
+   "action": "verify against an authoritative source and relabel V with the date checked"
+  },
+  {
+   "kind": "fact",
+   "file": "content/toolkit.yaml",
+   "path": "sources[25]",
+   "item": "ckanext-dcat",
+   "prov": "K",
+   "url": "https://github.com/ckan/ckanext-dcat",
+   "checked": null,
+   "action": "verify against an authoritative source and relabel V with the date checked"
+  },
+  {
+   "kind": "fact",
+   "file": "content/toolkit.yaml",
+   "path": "sources[26]",
+   "item": "DDI Codebook 2.5",
+   "prov": "V",
+   "url": "https://ddialliance.org/ddi-codebook_v2.5",
+   "checked": "2026-11-09",
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/toolkit.yaml",
+   "path": "sources[27]",
+   "item": "Dublin Core Metadata Element Set 1.1",
+   "prov": "V",
+   "url": "https://www.dublincore.org/specifications/dublin-core/dces/",
+   "checked": "2026-11-09",
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/toolkit.yaml",
+   "path": "sources[28]",
+   "item": "International transfers (guidance updated 15 January 2026)",
+   "prov": "S",
+   "url": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/international-transfers/",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/toolkit.yaml",
+   "path": "sources[29]",
+   "item": "Timelines for migration to post-quantum cryptography",
+   "prov": "S",
+   "url": "https://www.ncsc.gov.uk/guidance/pqc-migration-timelines",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/toolkit.yaml",
+   "path": "sources[30]",
+   "item": "FIPS 203, 204 and 205",
+   "prov": "K",
+   "url": "https://csrc.nist.gov/projects/post-quantum-cryptography",
+   "checked": null,
+   "action": "verify against an authoritative source and relabel V with the date checked"
+  },
+  {
+   "kind": "fact",
+   "file": "content/toolkit.yaml",
+   "path": "sources[31]",
+   "item": "ODRL Information Model 2.2",
+   "prov": "V",
+   "url": "https://www.w3.org/TR/odrl-model/",
+   "checked": "2026-11-09",
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/toolkit.yaml",
+   "path": "sources[32]",
+   "item": "The llms.txt proposal",
+   "prov": "K",
+   "url": "https://llmstxt.org/",
+   "checked": null,
+   "action": "verify against an authoritative source and relabel V with the date checked"
+  },
+  {
+   "kind": "fact",
+   "file": "content/toolkit.yaml",
+   "path": "sources[33]",
+   "item": "NATO Data Centric Reference Architecture",
+   "prov": "S",
+   "url": "https://nhqc3s.hq.nato.int/",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "reports[0]",
+   "item": "Magic Quadrant for Metadata Management Solutions",
+   "prov": "S",
+   "url": "https://www.gartner.com/en/documents/7195830",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "reports[0].leaders[0]",
+   "item": "(unnamed)",
+   "prov": "S",
+   "url": "https://businesswire.com/news/home/20251121159172/en/Informatica-Named-a-Leader-in-the-2025-Gartner-Magic-Quadrant-for-Metadata-Management-Solutions-Report",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "reports[0].leaders[1]",
+   "item": "(unnamed)",
+   "prov": "S",
+   "url": "https://www.ibm.com/forms/mkt-54143",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "reports[0].leaders[2]",
+   "item": "(unnamed)",
+   "prov": "S",
+   "url": "https://stocks.observer-reporter.com/observerreporter/article/gnwcq-2025-11-21-alation-named-as-a-leader-5x-in-the-gartner-magic-quadrant-for-metadata-management-solutions",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "reports[0].leaders[3]",
+   "item": "(unnamed)",
+   "prov": "K",
+   "url": "https://research.oz.spotlightar.com/reports/magic-quadrant-metadata-management-solutions-2025/leaders",
+   "checked": null,
+   "action": "verify against an authoritative source and relabel V with the date checked"
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "reports[0].leaders[4]",
+   "item": "(unnamed)",
+   "prov": "S",
+   "url": "https://www.businesswire.com/news/home/20251124723002/en",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "reports[1]",
+   "item": "Magic Quadrant for Data and Analytics Governance Platforms (first edition)",
+   "prov": "S",
+   "url": "https://www.gartner.com/en/documents/6059363",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "reports[1].leaders[0]",
+   "item": "(unnamed)",
+   "prov": "S",
+   "url": "https://www.hpcwire.com/bigdatawire/2025/01/16/slicing-and-dicing-the-data-governance-market/",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "reports[1].leaders[1]",
+   "item": "(unnamed)",
+   "prov": "S",
+   "url": "https://www.hpcwire.com/bigdatawire/2025/01/16/slicing-and-dicing-the-data-governance-market/",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "reports[1].leaders[2]",
+   "item": "(unnamed)",
+   "prov": "S",
+   "url": "https://www3.collibra.com/company/newsroom/press-releases/collibra-named-a-leader-in-the-first-ever-gartner-magic-quadrant-for-data-and-analytics",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "reports[2]",
+   "item": "Magic Quadrant for Data and Analytics Governance Platforms (second edition)",
+   "prov": "S",
+   "url": "https://www.ibm.com/forms/mkt-54249",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "reports[2].leaders[0]",
+   "item": "(unnamed)",
+   "prov": "S",
+   "url": "https://www.ibm.com/forms/mkt-54249",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "reports[2].leaders[1]",
+   "item": "(unnamed)",
+   "prov": "S",
+   "url": "https://atlan.com/p/metadata-management/",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "reports[3]",
+   "item": "The Forrester Wave: Data Governance Solutions, Q3 2025",
+   "prov": "S",
+   "url": "https://www.forrester.com/go?objectid=res184107",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "reports[3].leaders[0]",
+   "item": "(unnamed)",
+   "prov": "S",
+   "url": "https://www.alation.com/news-and-press/alation-named-leader-2025-forrester-data-governance-solutions-report/",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "reports[3].leaders[1]",
+   "item": "(unnamed)",
+   "prov": "S",
+   "url": "https://atlan.com/forrester-wave/",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "reports[3].leaders[2]",
+   "item": "(unnamed)",
+   "prov": "S",
+   "url": "https://www.collibra.com/resources/collibra-strong-performer-forrester-wave-ai-governance-platforms-q3-2025",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "reports[3].leaders[3]",
+   "item": "(unnamed)",
+   "prov": "S",
+   "url": "https://www.businesswire.com/news/home/20251105174177/en",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "reports[4]",
+   "item": "The Forrester Wave: Enterprise Data Catalogs, Q3 2024",
+   "prov": "S",
+   "url": "https://www.forrester.com/report/the-forrester-wave-tm-enterprise-data-catalogs-q3-2024/RES181073",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "reports[4].leaders[0]",
+   "item": "(unnamed)",
+   "prov": "S",
+   "url": "https://bigdatawire.com/this-just-in/atlan-named-a-leader-in-enterprise-data-catalogs-by-leading-global-market-research-firm",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "reports[4].leaders[1]",
+   "item": "(unnamed)",
+   "prov": "S",
+   "url": "https://www.collibra.com/company/newsroom/press-releases/collibra-named-a-leader-in-enterprise-data-catalogs-and-data-governance-solutions-by-independent",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "reports[4].leaders[2]",
+   "item": "(unnamed)",
+   "prov": "S",
+   "url": "https://www.businesswire.com/news/home/20240904383117/en",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "vendors[0].deploy_src",
+   "item": "Where it runs",
+   "prov": "S",
+   "url": "https://docs.atlan.com/platform/references/atlan-architecture",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "vendors[0].model",
+   "item": "(unnamed)",
+   "prov": "V",
+   "url": "",
+   "checked": "2026-11-07",
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "vendors[0].ai",
+   "item": "(unnamed)",
+   "prov": "V",
+   "url": "https://github.com/atlanhq/agent-toolkit",
+   "checked": "2026-11-07",
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "vendors[1].deploy_src",
+   "item": "Where it runs",
+   "prov": "S",
+   "url": "https://productresources.collibra.com/docs/cpsh/latest/Content/Installation/CPSH/to_cpsh-install-upgrade.htm",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "vendors[1].model",
+   "item": "(unnamed)",
+   "prov": "V",
+   "url": "",
+   "checked": "2026-11-07",
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "vendors[1].ai",
+   "item": "(unnamed)",
+   "prov": "V",
+   "url": "https://productresources.collibra.com/docs/collibra/latest/Content/ModelContextProtocol/co_integrating-with-collibra-mcp.htm",
+   "checked": "2026-11-07",
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "vendors[2].deploy_src",
+   "item": "Where it runs",
+   "prov": "S",
+   "url": "https://docs.alation.com/en/latest/cloud/CloudOverview/index.html",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "vendors[2].ai",
+   "item": "(unnamed)",
+   "prov": "V",
+   "url": "https://github.com/Alation/alation-ai-agent-sdk",
+   "checked": "2026-11-07",
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "vendors[3].deploy_src",
+   "item": "Where it runs",
+   "prov": "S",
+   "url": "https://www.informatica.com/gb/resources/data-sheets/cloud-data-governance-and-catalog-with-informatica.html",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "vendors[3].ai",
+   "item": "(unnamed)",
+   "prov": "S",
+   "url": "https://onlinehelp.informatica.com/IICS/dev/agentic-ui/en/uu-aiae-mcp-servers/Introduction_to_Informatica_MCP_servers.html",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "vendors[4].deploy_src",
+   "item": "Where it runs",
+   "prov": "S",
+   "url": "https://www.ibm.com/docs/SSQNUZ_5.0.x/cpd/overview/overview.html",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "vendors[4].ai",
+   "item": "(unnamed)",
+   "prov": "V",
+   "url": "https://github.com/IBM/data-intelligence-mcp-server",
+   "checked": "2026-11-07",
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "vendors[5].deploy_src",
+   "item": "Where it runs",
+   "prov": "S",
+   "url": "https://docs.data.world/en/257934-exploring-data-world-enterprise-offerings.html",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "vendors[5].model",
+   "item": "(unnamed)",
+   "prov": "V",
+   "url": "",
+   "checked": "2026-11-07",
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "vendors[5].ai",
+   "item": "(unnamed)",
+   "prov": "K",
+   "url": "",
+   "checked": null,
+   "action": "verify against an authoritative source and relabel V with the date checked"
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "vendors[6].deploy_src",
+   "item": "Where it runs",
+   "prov": "S",
+   "url": "https://learn.microsoft.com/en-us/Purview/unified-catalog",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "vendors[6].model",
+   "item": "(unnamed)",
+   "prov": "V",
+   "url": "",
+   "checked": "2026-11-07",
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "vendors[6].ai",
+   "item": "(unnamed)",
+   "prov": "K",
+   "url": "",
+   "checked": null,
+   "action": "verify against an authoritative source and relabel V with the date checked"
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "vendors[7].deploy_src",
+   "item": "Where it runs",
+   "prov": "V",
+   "url": "https://github.com/apache/atlas",
+   "checked": "2026-11-14",
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "vendors[7].model",
+   "item": "(unnamed)",
+   "prov": "V",
+   "url": "",
+   "checked": "2026-11-07",
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "vendors[7].ai",
+   "item": "(unnamed)",
+   "prov": "K",
+   "url": "",
+   "checked": null,
+   "action": "verify against an authoritative source and relabel V with the date checked"
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "vendors[8].deploy_src",
+   "item": "Where it runs",
+   "prov": "S",
+   "url": "https://open-metadata.org/llms.txt",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "vendors[8].model",
+   "item": "(unnamed)",
+   "prov": "V",
+   "url": "",
+   "checked": "2026-11-07",
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "vendors[8].ai",
+   "item": "(unnamed)",
+   "prov": "V",
+   "url": "https://github.com/open-metadata/ai-sdk",
+   "checked": "2026-11-07",
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "vendors[9].deploy_src",
+   "item": "Where it runs",
+   "prov": "S",
+   "url": "https://datahub.com/?p=2640",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "vendors[9].model",
+   "item": "(unnamed)",
+   "prov": "V",
+   "url": "",
+   "checked": "2026-11-07",
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "vendors[9].ai",
+   "item": "(unnamed)",
+   "prov": "V",
+   "url": "https://github.com/acryldata/mcp-server-datahub",
+   "checked": "2026-11-07",
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "vendors[10].deploy_src",
+   "item": "Where it runs",
+   "prov": "S",
+   "url": "https://docs.databricks.com/aws/data-governance/unity-catalog",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "vendors[10].model",
+   "item": "(unnamed)",
+   "prov": "V",
+   "url": "",
+   "checked": "2026-11-07",
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "vendors[10].ai",
+   "item": "(unnamed)",
+   "prov": "K",
+   "url": "",
+   "checked": null,
+   "action": "verify against an authoritative source and relabel V with the date checked"
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "vendors[11].deploy_src",
+   "item": "Where it runs",
+   "prov": "V",
+   "url": "https://github.com/googleapis/googleapis",
+   "checked": "2026-11-14",
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "vendors[11].model",
+   "item": "(unnamed)",
+   "prov": "V",
+   "url": "",
+   "checked": "2026-11-07",
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "vendors[11].ai",
+   "item": "(unnamed)",
+   "prov": "V",
+   "url": "https://github.com/googleapis/genai-toolbox",
+   "checked": "2026-11-07",
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "vendors[12].deploy_src",
+   "item": "Where it runs",
+   "prov": "S",
+   "url": "https://docs.ovaledge.com/installation-and-settings/deployment-types",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "vendors[12].ai",
+   "item": "(unnamed)",
+   "prov": "V",
+   "url": "https://github.com/ovaledge/oe_mcp",
+   "checked": "2026-11-07",
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "vendors[13].deploy_src",
+   "item": "Where it runs",
+   "prov": "S",
+   "url": "https://docs.ataccama.com/one/17.0.0/ataccama-cloud/ataccama-cloud.html",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "vendors[13].ai",
+   "item": "(unnamed)",
+   "prov": "S",
+   "url": "https://docs.ataccama.com/one/latest/generative-ai/mcp-dqc.html",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "vendors[14].deploy_src",
+   "item": "Where it runs",
+   "prov": "S",
+   "url": "https://aws.amazon.com/marketplace/pp/prodview-5s6qyh3piwf44",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "vendors[14].ai",
+   "item": "(unnamed)",
+   "prov": "S",
+   "url": "https://datagalaxy.freshdesk.com/en/support/solutions/articles/35000314586-how-to-connect-datagalaxy-mcp-server-to-onyx",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "vendors[15].deploy_src",
+   "item": "Where it runs",
+   "prov": "S",
+   "url": "https://other-docs.snowflake.com/polaris/overview.html",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "vendors[15].model",
+   "item": "(unnamed)",
+   "prov": "V",
+   "url": "",
+   "checked": "2026-11-07",
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "vendors[15].ai",
+   "item": "(unnamed)",
+   "prov": "V",
+   "url": "https://docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-agents-mcp",
+   "checked": "2026-11-07",
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "vendors[16].deploy_src",
+   "item": "Where it runs",
+   "prov": "V",
+   "url": "https://github.com/boto/botocore",
+   "checked": "2026-11-14",
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "vendors[16].model",
+   "item": "(unnamed)",
+   "prov": "V",
+   "url": "",
+   "checked": "2026-11-07",
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "vendors[16].ai",
+   "item": "(unnamed)",
+   "prov": "V",
+   "url": "https://github.com/awslabs/mcp/tree/main/src/aws-dataprocessing-mcp-server",
+   "checked": "2026-11-07",
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "vendors[17].deploy_src",
+   "item": "Where it runs",
+   "prov": "V",
+   "url": "https://github.com/boto/botocore",
+   "checked": "2026-11-14",
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "vendors[17].model",
+   "item": "(unnamed)",
+   "prov": "V",
+   "url": "",
+   "checked": "2026-11-07",
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "vendors[17].ai",
+   "item": "(unnamed)",
+   "prov": "K",
+   "url": "",
+   "checked": null,
+   "action": "verify against an authoritative source and relabel V with the date checked"
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "vendors[18].deploy_src",
+   "item": "Where it runs",
+   "prov": "V",
+   "url": "https://github.com/oracle/oci-python-sdk",
+   "checked": "2026-11-14",
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "vendors[18].model",
+   "item": "(unnamed)",
+   "prov": "V",
+   "url": "",
+   "checked": "2026-11-07",
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "vendors[18].ai",
+   "item": "(unnamed)",
+   "prov": "K",
+   "url": "",
+   "checked": null,
+   "action": "verify against an authoritative source and relabel V with the date checked"
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "vendors[19].deploy_src",
+   "item": "Where it runs",
+   "prov": "S",
+   "url": "https://news.sap.com/?p=203037",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "vendors[19].ai",
+   "item": "(unnamed)",
+   "prov": "V",
+   "url": "https://github.com/MarioDeFelipe/sap-datasphere-mcp",
+   "checked": "2026-11-07",
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "vendors[20].deploy_src",
+   "item": "Where it runs",
+   "prov": "S",
+   "url": "https://docs.cloudera.com/data-catalog/1.5.4/core-concepts/topics/dc-prereq-to-access-page.html",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "vendors[20].model",
+   "item": "(unnamed)",
+   "prov": "V",
+   "url": "",
+   "checked": "2026-11-07",
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "vendors[20].ai",
+   "item": "(unnamed)",
+   "prov": "K",
+   "url": "",
+   "checked": null,
+   "action": "verify against an authoritative source and relabel V with the date checked"
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "vendors[21].deploy_src",
+   "item": "Where it runs",
+   "prov": "S",
+   "url": "https://prod1.teradata.com/Cloud/Deployment-Options",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "vendors[21].ai",
+   "item": "(unnamed)",
+   "prov": "V",
+   "url": "https://github.com/teradata/teradata-mcp-server",
+   "checked": "2026-11-07",
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "vendors[22].deploy_src",
+   "item": "Where it runs",
+   "prov": "S",
+   "url": "https://help.qlik.com/talend/en-US/talend-data-catalog/Cloud/Content/user-guide/introduction/overview/index.htm",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "vendors[22].ai",
+   "item": "(unnamed)",
+   "prov": "S",
+   "url": "https://community.qlik.com/t5/Product-Innovation/MCP-for-Data-Engineering-in-Qlik-Talend-Cloud/ba-p/2542572",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "vendors[23].deploy_src",
+   "item": "Where it runs",
+   "prov": "S",
+   "url": "https://www.precisely.com/press-release/precisely-advances-data-integrity-foundation-to-power-data-management-at-scale/",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "vendors[23].ai",
+   "item": "(unnamed)",
+   "prov": "K",
+   "url": "",
+   "checked": null,
+   "action": "verify against an authoritative source and relabel V with the date checked"
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "vendors[24].deploy_src",
+   "item": "Where it runs",
+   "prov": "S",
+   "url": "https://www.selectstar.com/security-compliance",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "vendors[24].ai",
+   "item": "(unnamed)",
+   "prov": "S",
+   "url": "https://docs.selectstar.com/features/mcp-server",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "vendors[25].deploy_src",
+   "item": "Where it runs",
+   "prov": "S",
+   "url": "https://docs.secoda.co/enterprise/self-hosted-secoda",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "vendors[25].ai",
+   "item": "(unnamed)",
+   "prov": "V",
+   "url": "https://github.com/secoda/secoda-mcp",
+   "checked": "2026-11-07",
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "vendors[26].deploy_src",
+   "item": "Where it runs",
+   "prov": "S",
+   "url": "https://www.actian.com/data-intelligence/platform/?cdp=tx",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "vendors[26].ai",
+   "item": "(unnamed)",
+   "prov": "S",
+   "url": "https://www.actian.com/data-intelligence/mcp-server/",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "vendors[27].deploy_src",
+   "item": "Where it runs",
+   "prov": "V",
+   "url": "https://github.com/apache/polaris",
+   "checked": "2026-11-14",
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "vendors[27].model",
+   "item": "(unnamed)",
+   "prov": "V",
+   "url": "",
+   "checked": "2026-11-07",
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "vendors[27].ai",
+   "item": "(unnamed)",
+   "prov": "K",
+   "url": "",
+   "checked": null,
+   "action": "verify against an authoritative source and relabel V with the date checked"
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "vendors[28].deploy_src",
+   "item": "Where it runs",
+   "prov": "V",
+   "url": "https://github.com/OpenLineage/OpenLineage",
+   "checked": "2026-11-14",
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "vendors[28].model",
+   "item": "(unnamed)",
+   "prov": "V",
+   "url": "",
+   "checked": "2026-11-07",
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "vendors[28].ai",
+   "item": "(unnamed)",
+   "prov": "K",
+   "url": "",
+   "checked": null,
+   "action": "verify against an authoritative source and relabel V with the date checked"
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "vendors[29].deploy_src",
+   "item": "Where it runs",
+   "prov": "V",
+   "url": "https://github.com/amundsen-io/amundsen",
+   "checked": "2026-11-14",
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "vendors[29].model",
+   "item": "(unnamed)",
+   "prov": "V",
+   "url": "",
+   "checked": "2026-11-07",
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "vendors[29].ai",
+   "item": "(unnamed)",
+   "prov": "K",
+   "url": "",
+   "checked": null,
+   "action": "verify against an authoritative source and relabel V with the date checked"
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "vendors[30].deploy_src",
+   "item": "Where it runs",
+   "prov": "V",
+   "url": "https://github.com/odpi/egeria",
+   "checked": "2026-11-14",
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "vendors[30].ai",
+   "item": "(unnamed)",
+   "prov": "K",
+   "url": "",
+   "checked": null,
+   "action": "verify against an authoritative source and relabel V with the date checked"
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "not_yet[0]",
+   "item": "Ab Initio Software",
+   "prov": "K",
+   "url": "",
+   "checked": null,
+   "action": "verify against an authoritative source and relabel V with the date checked"
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "not_yet[1]",
+   "item": "Alex Solutions",
+   "prov": "K",
+   "url": "",
+   "checked": null,
+   "action": "verify against an authoritative source and relabel V with the date checked"
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "not_yet[2]",
+   "item": "Anjana Data",
+   "prov": "K",
+   "url": "",
+   "checked": null,
+   "action": "verify against an authoritative source and relabel V with the date checked"
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "not_yet[3]",
+   "item": "erwin by Quest",
+   "prov": "K",
+   "url": "",
+   "checked": null,
+   "action": "verify against an authoritative source and relabel V with the date checked"
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "not_yet[4]",
+   "item": "Global Data Excellence",
+   "prov": "K",
+   "url": "",
+   "checked": null,
+   "action": "verify against an authoritative source and relabel V with the date checked"
+  },
+  {
+   "kind": "fact",
+   "file": "content/vendors.yaml",
+   "path": "not_yet[5]",
+   "item": "Solidatus",
+   "prov": "K",
+   "url": "https://a-teaminsight.com/?p=76705",
+   "checked": null,
+   "action": "verify against an authoritative source and relabel V with the date checked"
+  },
+  {
+   "kind": "fact",
+   "file": "profile/codelists.yaml",
+   "path": "access-rights.concepts[0].maps",
+   "item": "(unnamed)",
+   "prov": "S",
+   "url": "",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "profile/codelists.yaml",
+   "path": "access-rights.concepts[1].maps",
+   "item": "(unnamed)",
+   "prov": "S",
+   "url": "",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "profile/codelists.yaml",
+   "path": "access-rights.concepts[2].maps",
+   "item": "(unnamed)",
+   "prov": "S",
+   "url": "",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "profile/codelists.yaml",
+   "path": "missing-reason.concepts[0].maps",
+   "item": "(unnamed)",
+   "prov": "S",
+   "url": "",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "profile/codelists.yaml",
+   "path": "missing-reason.concepts[1].maps",
+   "item": "(unnamed)",
+   "prov": "S",
+   "url": "",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "profile/codelists.yaml",
+   "path": "missing-reason.concepts[2].maps",
+   "item": "(unnamed)",
+   "prov": "S",
+   "url": "",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "profile/codelists.yaml",
+   "path": "missing-reason.concepts[3].maps",
+   "item": "(unnamed)",
+   "prov": "S",
+   "url": "",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "profile/codelists.yaml",
+   "path": "missing-reason.concepts[4].maps",
+   "item": "(unnamed)",
+   "prov": "S",
+   "url": "",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "profile/crosswalks.yaml",
+   "path": "ckan",
+   "item": "CKAN with ckanext-dcat",
+   "prov": "K",
+   "url": "ckandcat",
+   "checked": null,
+   "action": "verify against an authoritative source and relabel V with the date checked"
+  },
+  {
+   "kind": "fact",
+   "file": "profile/crosswalks.yaml",
+   "path": "dublin-core",
+   "item": "Dublin Core (15 elements)",
+   "prov": "K",
+   "url": "dcmes",
+   "checked": null,
+   "action": "verify against an authoritative source and relabel V with the date checked"
+  },
+  {
+   "kind": "fact",
+   "file": "profile/crosswalks.yaml",
+   "path": "gemini",
+   "item": "UK GEMINI 2.3",
+   "prov": "K",
+   "url": "gemini",
+   "checked": null,
+   "action": "verify against an authoritative source and relabel V with the date checked"
+  },
+  {
+   "kind": "fact",
+   "file": "profile/crosswalks.yaml",
+   "path": "hdruk",
+   "item": "HDR UK Gateway schema",
+   "prov": "K",
+   "url": "hdruk",
+   "checked": null,
+   "action": "verify against an authoritative source and relabel V with the date checked"
+  },
+  {
+   "kind": "fact",
+   "file": "profile/crosswalks.yaml",
+   "path": "croissant",
+   "item": "Croissant 1.1 (ML datasets)",
+   "prov": "K",
+   "url": "croissant",
+   "checked": null,
+   "action": "verify against an authoritative source and relabel V with the date checked"
+  },
+  {
+   "kind": "fact",
+   "file": "profile/crosswalks.yaml",
+   "path": "ddi",
+   "item": "DDI Codebook (study level)",
+   "prov": "K",
+   "url": "ddi",
+   "checked": null,
+   "action": "verify against an authoritative source and relabel V with the date checked"
+  },
+  {
+   "kind": "fact",
+   "file": "profile/extensions.yaml",
+   "path": "extensions[0].aligned_to[0]",
+   "item": "HealthDCAT-AP Release 7",
+   "prov": "S",
+   "url": "healthdcat",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "profile/extensions.yaml",
+   "path": "extensions[0].aligned_to[1]",
+   "item": "HDR UK Gateway dataset schema",
+   "prov": "S",
+   "url": "hdruk",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "profile/extensions.yaml",
+   "path": "extensions[1].aligned_to[0]",
+   "item": "GeoDCAT-AP 3.1.0",
+   "prov": "S",
+   "url": "geodcat",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "profile/extensions.yaml",
+   "path": "extensions[1].aligned_to[1]",
+   "item": "UK GEMINI 2.3",
+   "prov": "S",
+   "url": "gemini",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "profile/extensions.yaml",
+   "path": "extensions[1].aligned_to[2]",
+   "item": "MEDIN discovery metadata standard (marine)",
+   "prov": "S",
+   "url": "medin",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "profile/extensions.yaml",
+   "path": "extensions[2].aligned_to[0]",
+   "item": "StatDCAT-AP",
+   "prov": "K",
+   "url": "statdcat",
+   "checked": null,
+   "action": "verify against an authoritative source and relabel V with the date checked"
+  },
+  {
+   "kind": "fact",
+   "file": "profile/extensions.yaml",
+   "path": "extensions[2].aligned_to[1]",
+   "item": "Code of Practice for Statistics",
+   "prov": "K",
+   "url": "osr",
+   "checked": null,
+   "action": "verify against an authoritative source and relabel V with the date checked"
+  },
+  {
+   "kind": "fact",
+   "file": "profile/extensions.yaml",
+   "path": "extensions[3].aligned_to[0]",
+   "item": "mobilityDCAT-AP",
+   "prov": "K",
+   "url": "mobilitydcat",
+   "checked": null,
+   "action": "verify against an authoritative source and relabel V with the date checked"
+  },
+  {
+   "kind": "fact",
+   "file": "profile/extensions.yaml",
+   "path": "extensions[4].aligned_to[0]",
+   "item": "DCAT-AP HVD 3.0",
+   "prov": "S",
+   "url": "hvd",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "profile/extensions.yaml",
+   "path": "extensions[5].aligned_to[0]",
+   "item": "MLDCAT-AP 3.x",
+   "prov": "S",
+   "url": "mldcat",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "profile/extensions.yaml",
+   "path": "extensions[5].aligned_to[1]",
+   "item": "Croissant 1.1",
+   "prov": "S",
+   "url": "croissant",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "profile/extensions.yaml",
+   "path": "extensions[5].aligned_to[2]",
+   "item": "Guidelines for AI-ready datasets (January 2026)",
+   "prov": "S",
+   "url": "aiready",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "profile/extensions.yaml",
+   "path": "extensions[6].aligned_to[0]",
+   "item": "Eclipse Dataspace Protocol 1.0",
+   "prov": "S",
+   "url": "dsp",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "profile/extensions.yaml",
+   "path": "extensions[7].aligned_to[0]",
+   "item": "org-id.guide identifier lists",
+   "prov": "K",
+   "url": "orgid",
+   "checked": null,
+   "action": "verify against an authoritative source and relabel V with the date checked"
+  },
+  {
+   "kind": "fact",
+   "file": "profile/extensions.yaml",
+   "path": "extensions[8].aligned_to[0]",
+   "item": "Ofgem Data Best Practice Guidance (1 April 2026)",
+   "prov": "S",
+   "url": "ofgem",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "fact",
+   "file": "profile/extensions.yaml",
+   "path": "extensions[9].aligned_to[0]",
+   "item": "GeoDCAT-AP 3.1.0",
+   "prov": "S",
+   "url": "geodcat",
+   "checked": null,
+   "action": null
+  },
+  {
+   "kind": "worked example",
+   "file": "examples/examples.yaml",
+   "path": "dataset-postcodes",
+   "item": "An open dataset with two files",
+   "prov": "U",
+   "url": "https://www.data.gov.uk/dataset/2dfb82b4-741a-4b93-807e-11abb4bb0875/os-postcodes-data",
+   "synthetic": null,
+   "source": null,
+   "action": "compare with the publisher's record each review"
+  },
+  {
+   "kind": "worked example",
+   "file": "examples/examples.yaml",
+   "path": "service-food-alerts",
+   "item": "An open event API",
+   "prov": "U",
+   "url": "https://data.food.gov.uk/food-alerts/",
+   "synthetic": null,
+   "source": null,
+   "action": "compare with the publisher's record each review"
+  },
+  {
+   "kind": "worked example",
+   "file": "examples/examples.yaml",
+   "path": "service-hmrc-irr",
+   "item": "An internal API that needs an agreement",
+   "prov": "U",
+   "url": "https://developer.service.hmrc.gov.uk/api-documentation/docs/api/service/interest-restriction-return/1.0",
+   "synthetic": null,
+   "source": null,
+   "action": "compare with the publisher's record each review"
+  },
+  {
+   "kind": "worked example",
+   "file": "examples/examples.yaml",
+   "path": "series-census",
+   "item": "A dataset series and one release in it",
+   "prov": "U",
+   "url": "https://www.ons.gov.uk/census",
+   "synthetic": null,
+   "source": {
+    "url": "https://www.ons.gov.uk/census",
+    "checked": "2026-11-07",
+    "note": "The ONS census pages; the 2021 release below is a real table in it."
+   },
+   "action": "compare with the publisher's record each review"
+  },
+  {
+   "kind": "worked example",
+   "file": "examples/examples.yaml",
+   "path": "dataset-census-2021",
+   "item": "One release in a series",
+   "prov": "U",
+   "url": "https://ons.gov.uk/peoplepopulationandcommunity/populationandmigration/populationestimates/adhocs/15432ts007acensus2021agebyfiveyearagebands",
+   "synthetic": null,
+   "source": {
+    "url": "https://ons.gov.uk/peoplepopulationandcommunity/populationandmigration/populationestimates/adhocs/15432ts007acensus2021agebyfiveyearagebands",
+    "checked": "2026-11-07",
+    "note": "ONS page for table TS007a, with downloads from England and Wales down to output areas; the age variable is defined in the Census 2021 dictionary."
+   },
+   "action": "compare with the publisher's record each review"
+  },
+  {
+   "kind": "worked example",
+   "file": "examples/examples.yaml",
+   "path": "dataset-critical-asset",
+   "item": "A critical data asset (synthetic)",
+   "prov": "synthetic",
+   "url": "",
+   "synthetic": "Departments report their critical data assets in returns that are not published, so no real record can be shown. Built to the April 2026 guidance, under an invented department.",
+   "source": null,
+   "action": null
+  },
+  {
+   "kind": "worked example",
+   "file": "examples/examples.yaml",
+   "path": "catalogue-example",
+   "item": "A catalogue (synthetic)",
+   "prov": "synthetic",
+   "url": "",
+   "synthetic": "It declares conformance to DCAT-AP-UK. No real catalogue has adopted this proposed profile, and showing a real one would claim a conformance it has not made.",
+   "source": null,
+   "action": null
+  },
+  {
+   "kind": "worked example",
+   "file": "examples/examples.yaml",
+   "path": "record-harvested",
+   "item": "A harvested catalogue record (synthetic)",
+   "prov": "synthetic",
+   "url": "",
+   "synthetic": "It states which values a harvester added and which profile the record follows. Attributing that to a real central catalogue would describe behaviour it has not declared.",
+   "source": null,
+   "action": null
+  },
+  {
+   "kind": "worked example",
+   "file": "examples/examples.yaml",
+   "path": "dataset-cross-border",
+   "item": "Personal data shared across borders (synthetic)",
+   "prov": "synthetic",
+   "url": "",
+   "synthetic": "Details of personal data shared across borders are not published for individual datasets, and showing them for a real one would be wrong and could be harmful. Under an invented department.",
+   "source": null,
+   "action": null
+  },
+  {
+   "kind": "worked example",
+   "file": "examples/examples.yaml",
+   "path": "dataset-missing-values",
+   "item": "Values left empty on purpose (synthetic)",
+   "prov": "synthetic",
+   "url": "",
+   "synthetic": "It shows properties left empty on purpose. A real record with these gaps would misstate what that publisher knows or withholds.",
+   "source": null,
+   "action": null
+  },
+  {
+   "kind": "extension base record",
+   "file": "profile/extensions.yaml",
+   "path": "synthetic_base",
+   "item": "Synthetic example dataset",
+   "prov": "synthetic",
+   "url": "",
+   "synthetic": "The extensions are candidates that no publisher uses yet. Attributing their values to a real dataset would misrepresent it, so the examples build on this invented record, under an invented organisation (ADR 0020).",
+   "action": null
+  },
+  {
+   "kind": "extension example",
+   "file": "profile/extensions.yaml",
+   "path": "health.example",
+   "item": "Synthetic GP appointments, Wales",
+   "prov": "synthetic",
+   "url": "",
+   "synthetic": "The extensions are candidates that no publisher uses yet. Attributing their values to a real dataset would misrepresent it, so the examples build on this invented record, under an invented organisation (ADR 0020).",
+   "action": null
+  },
+  {
+   "kind": "extension example",
+   "file": "profile/extensions.yaml",
+   "path": "geospatial.example",
+   "item": "Geospatial example",
+   "prov": "U",
+   "url": "",
+   "synthetic": null,
+   "action": "compare the added values with the publisher's own documentation"
+  },
+  {
+   "kind": "extension example",
+   "file": "profile/extensions.yaml",
+   "path": "statistics.example",
+   "item": "Synthetic quarterly statistics",
+   "prov": "synthetic",
+   "url": "",
+   "synthetic": "The extensions are candidates that no publisher uses yet. Attributing their values to a real dataset would misrepresent it, so the examples build on this invented record, under an invented organisation (ADR 0020).",
+   "action": null
+  },
+  {
+   "kind": "extension example",
+   "file": "profile/extensions.yaml",
+   "path": "transport.example",
+   "item": "Synthetic bus timetables",
+   "prov": "synthetic",
+   "url": "",
+   "synthetic": "The extensions are candidates that no publisher uses yet. Attributing their values to a real dataset would misrepresent it, so the examples build on this invented record, under an invented organisation (ADR 0020).",
+   "action": null
+  },
+  {
+   "kind": "extension example",
+   "file": "profile/extensions.yaml",
+   "path": "hvd.example",
+   "item": "Synthetic geospatial high-value dataset",
+   "prov": "synthetic",
+   "url": "",
+   "synthetic": "The extensions are candidates that no publisher uses yet. Attributing their values to a real dataset would misrepresent it, so the examples build on this invented record, under an invented organisation (ADR 0020).",
+   "action": null
+  },
+  {
+   "kind": "extension example",
+   "file": "profile/extensions.yaml",
+   "path": "ai-ready.example",
+   "item": "Synthetic AI training dataset",
+   "prov": "synthetic",
+   "url": "",
+   "synthetic": "The extensions are candidates that no publisher uses yet. Attributing their values to a real dataset would misrepresent it, so the examples build on this invented record, under an invented organisation (ADR 0020).",
+   "action": null
+  },
+  {
+   "kind": "extension example",
+   "file": "profile/extensions.yaml",
+   "path": "dataspace.example",
+   "item": "Synthetic data space offer",
+   "prov": "synthetic",
+   "url": "",
+   "synthetic": "The extensions are candidates that no publisher uses yet. Attributing their values to a real dataset would misrepresent it, so the examples build on this invented record, under an invented organisation (ADR 0020).",
+   "action": null
+  },
+  {
+   "kind": "extension example",
+   "file": "profile/extensions.yaml",
+   "path": "organisations.example",
+   "item": "Synthetic charity dataset",
+   "prov": "synthetic",
+   "url": "",
+   "synthetic": "The extensions are candidates that no publisher uses yet. Attributing their values to a real dataset would misrepresent it, so the examples build on this invented record, under an invented organisation (ADR 0020).",
+   "action": null
+  },
+  {
+   "kind": "extension example",
+   "file": "profile/extensions.yaml",
+   "path": "energy.example",
+   "item": "Synthetic network capacity data",
+   "prov": "synthetic",
+   "url": "",
+   "synthetic": "The extensions are candidates that no publisher uses yet. Attributing their values to a real dataset would misrepresent it, so the examples build on this invented record, under an invented organisation (ADR 0020).",
+   "action": null
+  },
+  {
+   "kind": "extension example",
+   "file": "profile/extensions.yaml",
+   "path": "geodesy.example",
+   "item": "Synthetic coordinate time series for a survey control network",
+   "prov": "synthetic",
+   "url": "",
+   "synthetic": "The extensions are candidates that no publisher uses yet. Attributing their values to a real dataset would misrepresent it, so the examples build on this invented record, under an invented organisation (ADR 0020).",
+   "action": null
+  },
+  {
+   "kind": "tool sample",
+   "file": "tools/build.py",
+   "path": "openapi",
+   "item": "OpenAPI importer sample, the Food Hygiene Rating Scheme API (version 2)",
+   "prov": "V",
+   "url": "https://www.food.gov.uk/food-hygiene-rating-scheme-api-version-2",
+   "synthetic": null,
+   "source": "Food Standards Agency endpoint index for version 2 of the API. The FSA publishes no OpenAPI file, so this is written as OpenAPI for the portal.",
+   "action": null
+  },
+  {
+   "kind": "tool sample",
+   "file": "tools/build.py",
+   "path": "weaver-ckan",
+   "item": "Weaver CKAN sample, UK food hygiene rating data (London), from data.gov.uk's CKAN",
+   "prov": "V",
+   "url": "https://ckan.publishing.service.gov.uk/dataset/uk-food-hygiene-rating-data",
+   "synthetic": null,
+   "source": "The package on data.gov.uk's CKAN publisher site, and the FSA open data page it points to. Fields the package does not show (licence, last modified) are left out rather than guessed.",
+   "action": null
+  },
+  {
+   "kind": "tool sample",
+   "file": "tools/build.py",
+   "path": "weaver-schemaorg",
+   "item": "Weaver schema.org sample, Real-time Flood Data River Levels (Environment Agency)",
+   "prov": "V",
+   "url": "https://www.data.gov.uk/dataset/real-time-flood-data-river-levels",
+   "synthetic": null,
+   "source": "The data.gov.uk record and the Environment Agency flood-monitoring API reference. Written as schema.org for the portal.",
+   "action": null
+  },
+  {
+   "kind": "tool sample",
+   "file": "tools/build.py",
+   "path": "weaver-dc",
+   "item": "Weaver Dublin Core sample, the Data.gov.uk Website series (CAB 360) at The National Archives",
+   "prov": "V",
+   "url": "https://beta.nationalarchives.gov.uk/catalogue/id/C15202287/",
+   "synthetic": null,
+   "source": "The National Archives catalogue entry. Written as Dublin Core for the portal.",
+   "action": null
+  },
+  {
+   "kind": "tool sample",
+   "file": "tools/build.py",
+   "path": "weaver-ddi",
+   "item": "Weaver DDI sample, Living Costs and Food Survey 2023-2024 (UK Data Archive study 9468)",
+   "prov": "V",
+   "url": "https://doc.ukdataservice.ac.uk/doc/9468/mrdoc/pdf/9468_volume_a_introduction_2023-24.pdf",
+   "synthetic": null,
+   "source": "The study's user guide and the ONS survey methodology page. Written as DDI Codebook elements for the portal.",
+   "action": null
+  },
+  {
+   "kind": "tool sample",
+   "file": "tools/build.py",
+   "path": "weaver-dcatus",
+   "item": "Weaver DCAT-US sample, an invented school census",
+   "prov": "synthetic",
+   "url": "",
+   "synthetic": "Still to replace with a real US federal record from catalog.data.gov; none was verified on 7 November 2026. Listed for the weekly provenance issue.",
+   "source": null,
+   "action": "replace with a real public record"
+  },
+  {
+   "kind": "tool sample",
+   "file": "tools/build.py",
+   "path": "weaver-atlas",
+   "item": "Weaver Apache Atlas (Microsoft Purview) sample, an invented data map entity",
+   "prov": "synthetic",
+   "url": "",
+   "synthetic": "Data map entities live inside an organisation's own Purview account and are not published, so no real one can be shown.",
+   "source": null,
+   "action": null
+  },
+  {
+   "kind": "tool sample",
+   "file": "tools/build.py",
+   "path": "weaver-vendors",
+   "item": "Weaver samples for Collibra, OpenMetadata, DataHub, Unity Catalog, Dataplex, data.world, Apache Iceberg REST, AWS Glue, SageMaker Catalog, OCI Data Catalog and OpenLineage",
+   "prov": "V",
+   "url": "https://ckan.publishing.service.gov.uk/dataset/uk-food-hygiene-rating-data",
+   "synthetic": null,
+   "source": "The weaver-ckan record above, restated in each vendor's model by the portal's own writers at build time (ADR 0021). Vendor catalogue entries live inside each organisation's own tenant and are not published.",
+   "action": null
+  }
+ ]
+}

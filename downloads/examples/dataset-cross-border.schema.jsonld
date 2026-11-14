@@ -1,0 +1,30 @@
+{
+  "@context": "https://schema.org/",
+  "@type": "Dataset",
+  "@id": "https://example.org/dataset/cross-border-registrations",
+  "name": "Synthetic vehicle registrations shared with the Crown Dependencies",
+  "description": "An invented dataset, used to show how DCAT-AP-UK describes personal data that is held or sent outside the UK. It does not exist.",
+  "identifier": "synthetic-cross-border-0001",
+  "url": "https://example.org/dataset/cross-border-registrations",
+  "license": "https://w3id.org/dcat-ap-uk/codelist/licences/data-sharing-agreement-required",
+  "isAccessibleForFree": false,
+  "keywords": [
+    "vehicles",
+    "registration",
+    "cross-border"
+  ],
+  "dateModified": "2026-10-30",
+  "publisher": {
+    "@id": "https://example.org/organisations/example-department"
+  },
+  "conditionsOfAccess": "Shared only with the vehicle registration authorities of Jersey and Gibraltar, under a data sharing agreement.",
+  "usageInfo": "https://cyberdudeuk.github.io/dcat-ap-uk/downloads/policies/agreement-required.jsonld",
+  "distribution": [
+    {
+      "@type": "DataDownload",
+      "name": "Daily extract, CSV",
+      "contentUrl": "https://example.org/exchange",
+      "encodingFormat": "text/csv"
+    }
+  ]
+}

@@ -1,0 +1,717 @@
+{
+ "build": "DCAT-AP-UK-1.2.0-rc.1-c40431909d",
+ "version": "1.2.0-rc.1",
+ "as_of": "2026-11-06",
+ "in_order": false,
+ "routines": [
+  {
+   "routine": "Self-verification",
+   "in_order": true,
+   "summary": "25 site checks, 19 browser checks with deliberate breaks, 117 unit tests and the LinkML check run before every publish. A check is trusted only once its deliberate break is caught."
+  },
+  {
+   "routine": "Self-assessment",
+   "in_order": true,
+   "summary": "12 requirements met, 12 partly; 2 of 4 release gates met; 19 of 19 repository files in place."
+  },
+  {
+   "routine": "Staleness and self-updating",
+   "in_order": true,
+   "summary": "Review date, organisation list, change-flag baseline and watched sources, each against its own limit."
+  },
+  {
+   "routine": "Self-reporting",
+   "in_order": false,
+   "summary": "Latest health run: 3 problem(s) for a person, 2026-11-14T18:42:52+00:00."
+  },
+  {
+   "routine": "Self-repair",
+   "in_order": true,
+   "summary": "36 defects found and fixed, each with a check that stops it coming back. Automation reports and rebuilds; only a person changes content, settings or the open register (20 items)."
+  }
+ ],
+ "checks": [
+  {
+   "id": "C-01",
+   "what": "every page sets a Content Security Policy with no unsafe sources."
+  },
+  {
+   "id": "C-02",
+   "what": "no script, stylesheet, image or font loaded from another host (E2: self-contained pages)."
+  },
+  {
+   "id": "C-03",
+   "what": "no email address anywhere in the published files (COL-02), metadata and data included."
+  },
+  {
+   "id": "C-04",
+   "what": "ids are unique on every page."
+  },
+  {
+   "id": "C-05",
+   "what": "every internal link resolves, to a file and, if it has one, an anchor on that page."
+  },
+  {
+   "id": "C-06",
+   "what": "every table is captioned, has scoped headers and sits in a labelled, focusable scroll region."
+  },
+  {
+   "id": "C-07",
+   "what": "every page describes itself: artefact id, version, class, as-of, review date, and JSON-LD."
+  },
+  {
+   "id": "C-08",
+   "what": "every page carries the colophon: disclaimers, licence, version, QR code, barcode and the contact form."
+  },
+  {
+   "id": "C-09",
+   "what": "the first focusable element on every page is the skip link to main."
+  },
+  {
+   "id": "C-10",
+   "what": "no deck or film files in the repository or the site, unless the owner says so for that piece."
+  },
+  {
+   "id": "C-11",
+   "what": "no inline executable scripts and no inline event handlers, so the Content Security Policy can forbid them."
+  },
+  {
+   "id": "C-12",
+   "what": "every page shows the status banner: proposed, not endorsed, not an official service."
+  },
+  {
+   "id": "C-13",
+   "what": "every page has lang=\"en-GB\" and a unique title."
+  },
+  {
+   "id": "C-14",
+   "what": "no page over 1,500 KB with what it loads from this site (envelope: median page 1,500 KB)."
+  },
+  {
+   "id": "C-15",
+   "what": "every meaningful image has an accessible name; decorative icons are hidden."
+  },
+  {
+   "id": "C-16",
+   "what": "no unrendered template placeholders, such as [layers] or [prov(\"K\")], in page text (D-007)."
+  },
+  {
+   "id": "C-18",
+   "what": "llms.txt and llms-full.txt exist, every page is listed in llms.txt, and every link in it resolves to a built file."
+  },
+  {
+   "id": "C-19",
+   "what": "no style attributes in any page: the CSP (style-src 'self') blocks them, so they silently do nothing (D-018)."
+  },
+  {
+   "id": "C-20",
+   "what": "every guided tour stop points at something on its page, so no tour silently skips a step."
+  },
+  {
+   "id": "C-21",
+   "what": "every page offers \"Suggest a change to this page\", pointing at an issue form that exists and naming that page."
+  },
+  {
+   "id": "C-22",
+   "what": "no protective markings or handling caveats anywhere public: pages, downloads and the requirements file (ADR 0015, RQ-18)."
+  },
+  {
+   "id": "C-23",
+   "what": "no old directorate name and no personal or team details anywhere: pages, downloads or repository files. Contact is by form only."
+  },
+  {
+   "id": "C-24",
+   "what": "change flags agree with downloads/changes-since.json: each new or updated page says so under its title and in the global bar, and each changed section's heading is flagged (the Data Quality Commons pattern)."
+  },
+  {
+   "id": "C-17",
+   "what": "no email address in the repository's own files either; test fixtures may use reserved example domains only."
+  },
+  {
+   "id": "C-25",
+   "what": "vendor connectors agree with downloads/connectors/vendors.json: each mapped product has its section, crosswalk CSV and add-on kit, every kit names each property the profile file lists for a dataset, and no repository is cited without a commit (ADR 0021)."
+  }
+ ],
+ "browser_breaks": [
+  "contrast",
+  "overflow",
+  "label",
+  "console",
+  "skip",
+  "validator",
+  "csp",
+  "bulk",
+  "menus",
+  "menuedge",
+  "current",
+  "fold",
+  "moreview",
+  "submit",
+  "meter",
+  "nested",
+  "suggest",
+  "map",
+  "extension"
+ ],
+ "unit_tests": 117,
+ "requirements": {
+  "met": 12,
+  "partly": 12,
+  "planned": 3,
+  "controlled": 2
+ },
+ "gates": [
+  {
+   "gate": "Reuse assessed for every new term",
+   "status": "partly",
+   "evidence": "Each property records whether it is reused, changed or new against the xGov MEM and DCAT; not yet a blocking check."
+  },
+  {
+   "gate": "Every rule traced to a test",
+   "status": "met",
+   "evidence": "tests/test_profile.py fails the build if a rule has no deliberate break."
+  },
+  {
+   "gate": "No open serious semantic-loss or disclosure defect",
+   "status": "partly",
+   "evidence": "The defect register is complete and C-22 blocks protective markings; semantic-loss defects are not yet graded by severity."
+  },
+  {
+   "gate": "Compatibility claimed only with evidence",
+   "status": "met",
+   "evidence": "Conformance levels come from the kit; no allied or controlled compatibility is claimed (RQ-15, RQ-29)."
+  }
+ ],
+ "repository_files": {
+  "README.md": true,
+  "LICENSE": true,
+  "SECURITY.md": true,
+  "CONTRIBUTING.md": true,
+  "CODE_OF_CONDUCT.md": true,
+  "SUPPORT.md": true,
+  "CITATION.cff": true,
+  "CHANGELOG.md": true,
+  "THIRD-PARTY-NOTICES.md": true,
+  ".github/CODEOWNERS": true,
+  ".github/PULL_REQUEST_TEMPLATE.md": true,
+  ".github/dependabot.yml": true,
+  ".github/ISSUE_TEMPLATE/contact.yml": true,
+  ".github/ISSUE_TEMPLATE/defect.yml": true,
+  ".github/ISSUE_TEMPLATE/change-request.yml": true,
+  ".github/workflows/pages.yml": true,
+  ".github/workflows/codeql.yml": true,
+  "docs/registers.md": true,
+  "content/section-baseline.json": true
+ },
+ "staleness": [
+  {
+   "what": "Review date",
+   "as_of": "2027-02-06",
+   "days": 92,
+   "in_date": true
+  },
+  {
+   "what": "Organisation list (GOV.UK)",
+   "as_of": "2026-11-09",
+   "days": -3,
+   "in_date": true
+  },
+  {
+   "what": "Change-flag baseline",
+   "as_of": "2026-11-06",
+   "days": 0,
+   "in_date": true
+  },
+  {
+   "what": "Verified sources watched",
+   "as_of": "14 of 14",
+   "days": 0,
+   "in_date": true
+  }
+ ],
+ "health": {
+  "run": "2026-11-14",
+  "generated": "2026-11-14T18:42:52+00:00",
+  "sources": [
+   {
+    "id": "dcat3",
+    "title": "Data Catalog Vocabulary (DCAT) Version 3",
+    "url": "https://www.w3.org/TR/vocab-dcat-3/",
+    "ok": true,
+    "changed": false,
+    "baselined": true
+   },
+   {
+    "id": "dcatap",
+    "title": "DCAT-AP 3.0.1",
+    "url": "https://semiceu.github.io/DCAT-AP/releases/3.0.1/",
+    "ok": true,
+    "changed": false,
+    "baselined": true
+   },
+   {
+    "id": "mem",
+    "title": "UK Cross-Government Metadata Exchange Model",
+    "url": "https://co-cddo.github.io/ukgov-metadata-exchange-model/",
+    "ok": true,
+    "changed": false,
+    "baselined": true
+   },
+   {
+    "id": "rma2026",
+    "title": "Recording metadata to describe critical data assets",
+    "url": "https://www.gov.uk/government/publications/record-metadata-to-describe-critical-data-assets/recording-metadata-to-describe-critical-data-assets",
+    "ok": true,
+    "changed": false,
+    "baselined": true
+   },
+   {
+    "id": "dam",
+    "title": "Data asset management policy in government",
+    "url": "https://www.gov.uk/government/publications/data-asset-management-policy-in-government/data-asset-management-policy-in-government",
+    "ok": true,
+    "changed": false,
+    "baselined": true
+   },
+   {
+    "id": "dcmeta",
+    "title": "Using metadata to describe data assets in a data catalogue",
+    "url": "https://www.gov.uk/government/publications/recommended-open-standards-for-government/using-metadata-to-describe-data-assets-in-a-data-catalogue",
+    "ok": true,
+    "changed": false,
+    "baselined": true
+   },
+   {
+    "id": "dm",
+    "title": "Data Marketplace data catalogue metadata (JSON Schema and API)",
+    "url": "https://github.com/co-cddo/data-catalogue-metadata",
+    "ok": true,
+    "changed": false,
+    "baselined": true
+   },
+   {
+    "id": "discovery",
+    "title": "Metadata Based Discovery of Data Sets and Sources (draft pattern, version 1.0)",
+    "url": "https://github.com/co-cddo/future-data-architecture/blob/main/Patterns/Metadata-Based-Discovery-Pattern.md",
+    "ok": true,
+    "changed": false,
+    "baselined": true
+   },
+   {
+    "id": "principles",
+    "title": "Cross-government data sharing principles (draft)",
+    "url": "https://github.com/co-cddo/future-data-architecture/tree/main/principles",
+    "ok": true,
+    "changed": false,
+    "baselined": true
+   },
+   {
+    "id": "roadmap",
+    "title": "A roadmap for modern digital government 2025 to 2030",
+    "url": "https://questions-statements.parliament.uk/written-statements/1872558",
+    "ok": true,
+    "manual": true
+   },
+   {
+    "id": "ndl",
+    "title": "National Data Library: progress update, January 2026",
+    "url": "https://www.gov.uk/government/publications/national-data-library-progress-update-january-2026",
+    "ok": true,
+    "changed": true,
+    "baselined": true
+   },
+   {
+    "id": "aiready",
+    "title": "Guidelines and best practices for making government datasets ready for AI",
+    "url": "https://www.gov.uk/government/publications/making-government-datasets-ready-for-ai/guidelines-and-best-practices-for-making-government-datasets-ready-for-ai",
+    "ok": true,
+    "changed": false,
+    "baselined": true
+   },
+   {
+    "id": "gscp",
+    "title": "Government Security Classifications Policy, version 2.0",
+    "url": "https://www.gov.uk/government/publications/government-security-classifications",
+    "ok": true,
+    "changed": false,
+    "baselined": true
+   },
+   {
+    "id": "gemini",
+    "title": "UK GEMINI",
+    "url": "https://www.agi.org.uk/uk-gemini/",
+    "ok": true,
+    "changed": true,
+    "baselined": true
+   },
+   {
+    "id": "dguk",
+    "title": "data.gov.uk topics",
+    "url": "https://www.data.gov.uk/search",
+    "ok": true,
+    "changed": true,
+    "baselined": true
+   }
+  ],
+  "review": "2027-02-06",
+  "pages": [
+   {
+    "page": "404.html",
+    "bytes": 29295
+   },
+   {
+    "page": "accessibility.html",
+    "bytes": 33447
+   },
+   {
+    "page": "adopt.html",
+    "bytes": 89987
+   },
+   {
+    "page": "ai-ready.html",
+    "bytes": 46840
+   },
+   {
+    "page": "builder.html",
+    "bytes": 84547
+   },
+   {
+    "page": "bulk.html",
+    "bytes": 35969
+   },
+   {
+    "page": "changes.html",
+    "bytes": 85398
+   },
+   {
+    "page": "class-agent.html",
+    "bytes": 46449
+   },
+   {
+    "page": "class-attribution.html",
+    "bytes": 38846
+   },
+   {
+    "page": "class-catalogue.html",
+    "bytes": 63679
+   },
+   {
+    "page": "class-cataloguerecord.html",
+    "bytes": 54290
+   },
+   {
+    "page": "class-checksum.html",
+    "bytes": 39373
+   },
+   {
+    "page": "class-contactpoint.html",
+    "bytes": 47125
+   },
+   {
+    "page": "class-dataservice.html",
+    "bytes": 96192
+   },
+   {
+    "page": "class-dataset.html",
+    "bytes": 120568
+   },
+   {
+    "page": "class-datasetseries.html",
+    "bytes": 60532
+   },
+   {
+    "page": "class-distribution.html",
+    "bytes": 64713
+   },
+   {
+    "page": "class-location.html",
+    "bytes": 43330
+   },
+   {
+    "page": "class-missingvalue.html",
+    "bytes": 41785
+   },
+   {
+    "page": "class-periodoftime.html",
+    "bytes": 40147
+   },
+   {
+    "page": "class-relationship.html",
+    "bytes": 38663
+   },
+   {
+    "page": "codelists.html",
+    "bytes": 335889
+   },
+   {
+    "page": "connectors.html",
+    "bytes": 241993
+   },
+   {
+    "page": "contact.html",
+    "bytes": 31008
+   },
+   {
+    "page": "downloads.html",
+    "bytes": 39297
+   },
+   {
+    "page": "estate.html",
+    "bytes": 49574
+   },
+   {
+    "page": "examples.html",
+    "bytes": 97939
+   },
+   {
+    "page": "extensions.html",
+    "bytes": 121723
+   },
+   {
+    "page": "governance.html",
+    "bytes": 100793
+   },
+   {
+    "page": "guide.html",
+    "bytes": 44219
+   },
+   {
+    "page": "index.html",
+    "bytes": 48840
+   },
+   {
+    "page": "insights.html",
+    "bytes": 90752
+   },
+   {
+    "page": "integrations.html",
+    "bytes": 50878
+   },
+   {
+    "page": "international.html",
+    "bytes": 67807
+   },
+   {
+    "page": "knowledge.html",
+    "bytes": 101718
+   },
+   {
+    "page": "landscape.html",
+    "bytes": 53561
+   },
+   {
+    "page": "licence.html",
+    "bytes": 33369
+   },
+   {
+    "page": "lineage.html",
+    "bytes": 70179
+   },
+   {
+    "page": "lockin.html",
+    "bytes": 69890
+   },
+   {
+    "page": "openapi.html",
+    "bytes": 35813
+   },
+   {
+    "page": "profile.html",
+    "bytes": 129064
+   },
+   {
+    "page": "properties.html",
+    "bytes": 118099
+   },
+   {
+    "page": "quantum.html",
+    "bytes": 41432
+   },
+   {
+    "page": "requirements.html",
+    "bytes": 108291
+   },
+   {
+    "page": "reuse.html",
+    "bytes": 67608
+   },
+   {
+    "page": "roles.html",
+    "bytes": 46803
+   },
+   {
+    "page": "sitemap.html",
+    "bytes": 43863
+   },
+   {
+    "page": "standards.html",
+    "bytes": 101685
+   },
+   {
+    "page": "status.html",
+    "bytes": 81725
+   },
+   {
+    "page": "strategy.html",
+    "bytes": 51680
+   },
+   {
+    "page": "tutorials.html",
+    "bytes": 42806
+   },
+   {
+    "page": "types.html",
+    "bytes": 40447
+   },
+   {
+    "page": "validate.html",
+    "bytes": 37627
+   },
+   {
+    "page": "weaver.html",
+    "bytes": 102286
+   },
+   {
+    "page": "whats-new.html",
+    "bytes": 62636
+   }
+  ],
+  "envelope_bytes": 1500000,
+  "problems": [
+   "Source changed: National Data Library: progress update, January 2026 (https://www.gov.uk/government/publications/national-data-library-progress-update-january-2026). Re-verify what the profile relies on, then run health.py --record.",
+   "Source changed: UK GEMINI (https://www.agi.org.uk/uk-gemini/). Re-verify what the profile relies on, then run health.py --record.",
+   "Source changed: data.gov.uk topics (https://www.data.gov.uk/search). Re-verify what the profile relies on, then run health.py --record."
+  ],
+  "healthy": false
+ },
+ "defects": 36,
+ "open_items": 20,
+ "provenance": {
+  "counts": {
+   "P": 2,
+   "V": 93,
+   "K": 45,
+   "S": 101,
+   "U": 6,
+   "synthetic": 17
+  },
+  "needs_action": 54,
+  "unexplained_synthetic": 0,
+  "misattributed": 0
+ },
+ "automation": {
+  "kill_switch": {
+   "variable": "AUTOMATION",
+   "off_value": "off"
+  },
+  "oversight": {
+   "digest": "Every Monday the digest routine opens one issue (label digest) listing what every routine did, what failed and what needs a person. It closes last week's.",
+   "undo": "Every tier 1 change is one commit by github-actions, with the routine named in its message; revert it to undo.",
+   "audit": "Workflow run logs are kept by GitHub for 90 days; the digest links to the runs."
+  },
+  "routines": [
+   {
+    "id": "pages",
+    "workflow": "pages.yml",
+    "tier": 1,
+    "when": "every push, every pull request, Mondays 06:23 UTC, on request",
+    "does": "Builds the site, runs every check and deliberate break, runs the health run for the Status page, and publishes main.",
+    "changes": "The published site only (gh-pages), after every check passes."
+   },
+   {
+    "id": "health-issue",
+    "workflow": "pages.yml",
+    "tier": 0,
+    "when": "Mondays, on request",
+    "does": "Opens or updates an issue labelled health when a source changed or is unreachable, the review date is near or a page is too heavy; closes it when healthy.",
+    "changes": "Issues only."
+   },
+   {
+    "id": "release",
+    "workflow": "release.yml",
+    "tier": 3,
+    "when": "a person pushes a version tag, or presses Run on the Release workflow",
+    "does": "Builds and checks the tagged version and publishes a GitHub release with the profile files and the site.",
+    "changes": "A GitHub release. Only a person starts it."
+   },
+   {
+    "id": "flags-reset",
+    "workflow": "release.yml",
+    "tier": 1,
+    "when": "straight after each release",
+    "does": "Records the section baseline from the released tag, so change flags show what changed since that release; checks the site, commits content/section-baseline.json and republishes.",
+    "changes": "content/section-baseline.json."
+   },
+   {
+    "id": "upkeep",
+    "workflow": "upkeep.yml",
+    "tier": 1,
+    "when": "Mondays 05:47 UTC, on request",
+    "does": "Refreshes the organisation list from GOV.UK, repairs a change-flag baseline that lags the latest release, reminds about the review date, and keeps one provenance issue listing facts to verify and samples to replace (ADR 0020).",
+    "changes": "profile/organisations.json and content/section-baseline.json, after every check passes. A large organisation change (more than 25 rows) becomes a pull request instead. Review reminders and the provenance list are issues."
+   },
+   {
+    "id": "triage",
+    "workflow": "triage.yml",
+    "tier": 0,
+    "when": "weekdays 07:23 UTC, on request",
+    "does": "Labels contact, defect, change request and conformance claim issues that have waited too long for a reply (needs-reply) or a decision (overdue).",
+    "changes": "Labels only."
+   },
+   {
+    "id": "digest",
+    "workflow": "digest.yml",
+    "tier": 0,
+    "when": "Mondays 08:13 UTC, on request",
+    "does": "Writes the weekly operations digest for the owner: the Status page, what each routine did, failed runs, issues waiting, pull requests open and decisions needed.",
+    "changes": "One issue a week (label digest); closes the previous one."
+   },
+   {
+    "id": "labels",
+    "workflow": "labels.yml",
+    "tier": 1,
+    "when": "when .github/labels.yml changes, on request",
+    "does": "Keeps the repository labels in line with .github/labels.yml.",
+    "changes": "Labels."
+   },
+   {
+    "id": "codeql",
+    "workflow": "codeql.yml",
+    "tier": 0,
+    "when": "every push, every pull request, Mondays",
+    "does": "Scans the code for security problems.",
+    "changes": "Security alerts only."
+   },
+   {
+    "id": "scorecard",
+    "workflow": "scorecard.yml",
+    "tier": 0,
+    "when": "Mondays, on request, when branch rules change",
+    "does": "OpenSSF Scorecard: an independent check of how the repository is run.",
+    "changes": "Security alerts only."
+   },
+   {
+    "id": "dependency-review",
+    "workflow": "dependency-review.yml",
+    "tier": 0,
+    "when": "every pull request",
+    "does": "Stops a pull request that adds a dependency with a known moderate or worse vulnerability.",
+    "changes": "Nothing; fails the pull request."
+   }
+  ],
+  "trials": [],
+  "occurrences": {
+   "label": "occurrence",
+   "how": "Anyone, person or routine, reports a near miss or a surprise with the occurrence issue form. No blame: the report asks what happened and what would have stopped it, never who. A routine that stops itself (kill switch, failed gate, abort rule) says so in the digest.",
+   "follow_up": "Every occurrence closes with either a check that would have caught it (as for a defect) or a recorded reason why none is needed."
+  },
+  "never": [
+   "Change repository settings, rulesets, secrets or the kill switch.",
+   "Delete a branch, tag, release, issue or file a person made.",
+   "Send anything outside the repository (pull requests or issues elsewhere, email, posts).",
+   "Change the profile, its codelists, the requirements, the registers or any page content written by a person.",
+   "Claim conformance, endorsement or approval.",
+   "Merge a pull request."
+  ]
+ }
+}

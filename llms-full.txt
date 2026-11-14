@@ -1,0 +1,805 @@
+# DCAT Application Profile for the UK 1.2.0-rc.1
+
+A proposed evolution of the UK Cross-Government Metadata Exchange Model (xGov MEM), offered for review by the Metadata Implementation Working Group. It has not been endorsed by the Data Standards Authority Steering Board, and it is not an official GOV.UK service or policy. The endorsed model remains the xGov MEM until a decision is made.
+
+## Classes
+
+### Dataset (dcat:Dataset)
+
+A collection of data, published or curated by one organisation, available in one or more forms.
+
+| Property | Term | Obligation | Cardinality |
+|---|---|---|---|
+| Title | dct:title | Mandatory | 1..n |
+| Description | dct:description | Mandatory | 1..n |
+| Identifier | dct:identifier | Mandatory | 1 |
+| Publisher | dct:publisher | Mandatory | 1 |
+| Contact point | dcat:contactPoint | Mandatory | 1..n |
+| Access rights | dct:accessRights | Mandatory | 1 |
+| Security classification | dcatuk:securityClassification | Mandatory | 1 |
+| Licence | dct:license | Mandatory | 1 |
+| Update frequency | dct:accrualPeriodicity | Mandatory | 1 |
+| Critical data asset | dcatuk:criticalDataAsset | Recommended | 0..1 |
+| Creator | dct:creator | Recommended | 0..n |
+| Created | dct:created | Recommended | 0..1 |
+| Conforms to | dct:conformsTo | Recommended | 0..n |
+| Time period covered | dct:temporal | Recommended | 0..n |
+| Personal data | dcatuk:personalData | Recommended | 0..1 |
+| Rights statement | dct:rights | Conditional (Mandatory when access rights are commercial or internal.) | 0..n |
+| Last updated | dct:modified | Recommended | 0..1 |
+| Release date | dct:issued | Recommended | 0..1 |
+| Summary | dct:abstract | Recommended | 0..1 |
+| Theme | dcat:theme | Recommended | 0..n |
+| Keyword | dcat:keyword | Recommended | 0..n |
+| Geographic coverage | dct:spatial | Recommended | 0..n |
+| Distribution | dcat:distribution | Recommended | 0..n |
+| Landing page | dcat:landingPage | Recommended | 0..n |
+| Version | dcat:version | Recommended | 0..1 |
+| Sensitive data | dcatuk:sensitiveData | Recommended | 0..n |
+| Responsible role | prov:qualifiedAttribution | Optional | 0..n |
+| Language | dct:language | Optional | 0..n |
+| Alternative title | dct:alternative | Optional | 0..n |
+| Other identifier | adms:identifier | Optional | 0..n |
+| Part of series | dcat:inSeries | Optional | 0..n |
+| Replaced by | dct:isReplacedBy | Optional | 0..n |
+| Expires | schema:expires | Optional | 0..1 |
+| Previous version | dcat:previousVersion | Optional | 0..1 |
+| Version notes | adms:versionNotes | Optional | 0..n |
+| Spatial resolution (metres) | dcat:spatialResolutionInMeters | Optional | 0..n |
+| Time resolution | dcat:temporalResolution | Optional | 0..n |
+| Reference data used | dcatuk:referenceData | Optional | 0..n |
+| Data quality | dqv:hasQualityAnnotation | Optional | 0..n |
+| Related resource | dct:relation | Optional | 0..n |
+| Qualified relation | dcat:qualifiedRelation | Optional | 0..n |
+| Documentation | foaf:page | Optional | 0..n |
+| Who can see this record | dcatuk:metadataAudience | Optional | 0..1 |
+| Applicable legislation | dcatap:applicableLegislation | Optional | 0..n |
+| Usage policy | odrl:hasPolicy | Optional | 0..n |
+| Where the data is held or sent | dcatuk:jurisdiction | Optional | 0..n |
+| Transfer safeguard | dcatuk:transferMechanism | Conditional (Mandatory when the data contains personal data and is held in or sent to anywhere outside the UK (rule R-08).) | 0..n |
+| Missing value | dcatuk:missingValue | Optional | 0..n |
+
+### Data service (dcat:DataService)
+
+A set of operations, such as an API, that gives access to one or more datasets or data processing functions.
+
+| Property | Term | Obligation | Cardinality |
+|---|---|---|---|
+| Title | dct:title | Mandatory | 1..n |
+| Description | dct:description | Mandatory | 1..n |
+| Identifier | dct:identifier | Mandatory | 1 |
+| Endpoint address | dcat:endpointURL | Mandatory | 1..n |
+| Publisher | dct:publisher | Mandatory | 1 |
+| Contact point | dcat:contactPoint | Mandatory | 1..n |
+| Access rights | dct:accessRights | Mandatory | 1 |
+| Security classification | dcatuk:securityClassification | Mandatory | 1 |
+| Licence | dct:license | Mandatory | 1 |
+| Status | adms:status | Mandatory | 1 |
+| Interface style | dct:type | Recommended | 0..1 |
+| Conforms to | dct:conformsTo | Recommended | 0..n |
+| Endpoint description | dcat:endpointDescription | Recommended | 0..n |
+| Serves dataset | dcat:servesDataset | Recommended | 0..n |
+| Critical data asset | dcatuk:criticalDataAsset | Optional | 0..1 |
+| Rights statement | dct:rights | Conditional (Mandatory when access rights are commercial or internal.) | 0..n |
+| Creator | dct:creator | Optional | 0..n |
+| Release date | dct:issued | Recommended | 0..1 |
+| Last updated | dct:modified | Recommended | 0..1 |
+| Summary | dct:abstract | Optional | 0..1 |
+| Theme | dcat:theme | Recommended | 0..n |
+| Keyword | dcat:keyword | Recommended | 0..n |
+| Version | dcat:version | Optional | 0..1 |
+| Landing page | dcat:landingPage | Optional | 0..n |
+| Documentation | foaf:page | Optional | 0..n |
+| Language | dct:language | Optional | 0..n |
+| Personal data | dcatuk:personalData | Optional | 0..1 |
+| Who can see this record | dcatuk:metadataAudience | Optional | 0..1 |
+| Applicable legislation | dcatap:applicableLegislation | Optional | 0..n |
+| Usage policy | odrl:hasPolicy | Optional | 0..n |
+| Where the data is held or sent | dcatuk:jurisdiction | Optional | 0..n |
+| Transfer safeguard | dcatuk:transferMechanism | Conditional (Mandatory when the data contains personal data and is held in or sent to anywhere outside the UK (rule R-08).) | 0..n |
+| Connection security | dcatuk:transportSecurity | Optional | 0..1 |
+| Missing value | dcatuk:missingValue | Optional | 0..n |
+
+### Distribution (dcat:Distribution)
+
+A specific form of a dataset, such as a CSV file, a GeoPackage or an API response.
+
+| Property | Term | Obligation | Cardinality |
+|---|---|---|---|
+| Access address | dcat:accessURL | Mandatory | 1..n |
+| Media type | dcat:mediaType | Recommended | 0..1 |
+| Download address | dcat:downloadURL | Recommended | 0..n |
+| Description | dct:description | Recommended | 0..n |
+| Licence | dct:license | Recommended | 0..1 |
+| Title | dct:title | Optional | 0..n |
+| Format | dct:format | Optional | 0..1 |
+| Size (bytes) | dcat:byteSize | Optional | 0..1 |
+| Checksum | spdx:checksum | Optional | 0..1 |
+| Access service | dcat:accessService | Optional | 0..n |
+| Access rights | dct:accessRights | Optional | 0..1 |
+| Release date | dct:issued | Optional | 0..1 |
+| Last updated | dct:modified | Optional | 0..1 |
+| Conforms to | dct:conformsTo | Optional | 0..n |
+| Language | dct:language | Optional | 0..n |
+| Compression format | dcat:compressFormat | Optional | 0..1 |
+| Identifier | dct:identifier | Optional | 0..1 |
+| Usage policy | odrl:hasPolicy | Optional | 0..n |
+
+### Dataset series (dcat:DatasetSeries)
+
+A group of datasets published separately but sharing a subject and a method, such as each release of a census.
+
+| Property | Term | Obligation | Cardinality |
+|---|---|---|---|
+| Title | dct:title | Mandatory | 1..n |
+| Description | dct:description | Mandatory | 1..n |
+| Publisher | dct:publisher | Recommended | 0..1 |
+| Contact point | dcat:contactPoint | Recommended | 0..n |
+| Update frequency | dct:accrualPeriodicity | Recommended | 0..1 |
+| Geographic coverage | dct:spatial | Optional | 0..n |
+| Time period covered | dct:temporal | Optional | 0..n |
+| Theme | dcat:theme | Optional | 0..n |
+| Last updated | dct:modified | Optional | 0..1 |
+
+### Catalogue (dcat:Catalog)
+
+A curated collection of metadata about datasets and data services.
+
+| Property | Term | Obligation | Cardinality |
+|---|---|---|---|
+| Title | dct:title | Mandatory | 1..n |
+| Description | dct:description | Mandatory | 1..n |
+| Publisher | dct:publisher | Mandatory | 1 |
+| Dataset | dcat:dataset | Recommended | 0..n |
+| Data service | dcat:service | Recommended | 0..n |
+| Home page | foaf:homepage | Recommended | 0..1 |
+| Contact point | dcat:contactPoint | Recommended | 0..n |
+| Last updated | dct:modified | Recommended | 0..1 |
+| Licence | dct:license | Recommended | 0..1 |
+| Theme list used | dcat:themeTaxonomy | Recommended | 0..n |
+| Language | dct:language | Recommended | 0..n |
+| Conforms to | dct:conformsTo | Recommended | 0..n |
+| Release date | dct:issued | Optional | 0..1 |
+| Geographic coverage | dct:spatial | Optional | 0..n |
+| Catalogue record | dcat:record | Optional | 0..n |
+
+### Catalogue record (dcat:CatalogRecord)
+
+A record in a catalogue about one dataset or data service, with its own dates.
+
+| Property | Term | Obligation | Cardinality |
+|---|---|---|---|
+| Describes | foaf:primaryTopic | Mandatory | 1 |
+| Last updated | dct:modified | Mandatory | 1 |
+| Conforms to | dct:conformsTo | Recommended | 0..n |
+| Release date | dct:issued | Recommended | 0..1 |
+| Who can see this record | dcatuk:metadataAudience | Optional | 0..1 |
+| Security classification | dcatuk:securityClassification | Optional | 0..1 |
+| Missing value | dcatuk:missingValue | Optional | 0..n |
+| Source record | dct:source | Optional | 0..1 |
+| Property added or changed on the way | dcatuk:enrichedProperty | Optional | 0..n |
+
+### Organisation (foaf:Agent)
+
+An organisation that publishes, creates or is responsible for a resource. In this profile, never a person.
+
+| Property | Term | Obligation | Cardinality |
+|---|---|---|---|
+| Name | foaf:name | Mandatory | 1..n |
+| Identifier | dct:identifier | Recommended | 0..1 |
+| Home page | foaf:homepage | Optional | 0..1 |
+| Organisation type | dct:type | Optional | 0..1 |
+
+### Contact point (vcard:Kind)
+
+A team that can answer questions about a resource, with the routes to reach it.
+
+| Property | Term | Obligation | Cardinality |
+|---|---|---|---|
+| Team name | vcard:fn | Mandatory | 1 |
+| Contact form | vcard:hasURL | Conditional (Give a contact form, a team mailbox, or both. A contact form is preferred.) | 0..n |
+| Team email address | vcard:hasEmail | Conditional (Give a contact form, a team mailbox, or both. A contact form is preferred.) | 0..n |
+| Telephone | vcard:hasTelephone | Optional | 0..n |
+| Postal address | vcard:hasAddress | Optional | 0..1 |
+
+### Location (dct:Location)
+
+A named area or a shape on the earth. Prefer the identifier of a standard area, such as a GSS code.
+
+| Property | Term | Obligation | Cardinality |
+|---|---|---|---|
+| Place name | skos:prefLabel | Recommended | 0..n |
+| Bounding box | dcat:bbox | Optional | 0..1 |
+| Geometry | locn:geometry | Optional | 0..1 |
+| Centre point | dcat:centroid | Optional | 0..1 |
+
+### Period of time (dct:PeriodOfTime)
+
+A period with a start date, an end date or both.
+
+| Property | Term | Obligation | Cardinality |
+|---|---|---|---|
+| Start date | dcat:startDate | Conditional (Give a start date, an end date, or both.) | 0..1 |
+| End date | dcat:endDate | Conditional (Give a start date, an end date, or both.) | 0..1 |
+
+### Checksum (spdx:Checksum)
+
+A value calculated from a file, used to check it has not changed.
+
+| Property | Term | Obligation | Cardinality |
+|---|---|---|---|
+| Algorithm | spdx:algorithm | Mandatory | 1 |
+| Checksum value | spdx:checksumValue | Mandatory | 1 |
+
+### Relationship (dcat:Relationship)
+
+How one resource relates to another.
+
+| Property | Term | Obligation | Cardinality |
+|---|---|---|---|
+| Related resource | dct:relation | Mandatory | 1..n |
+| Role | dcat:hadRole | Mandatory | 1..n |
+
+### Responsible role (prov:Attribution)
+
+An organisation and the role it plays for a resource, such as data owner.
+
+| Property | Term | Obligation | Cardinality |
+|---|---|---|---|
+| Organisation | prov:agent | Mandatory | 1 |
+| Role | dcat:hadRole | Mandatory | 1 |
+
+### Missing value (dcatuk:MissingValue)
+
+A statement that one property is empty on purpose, and why, modelled on the nil reasons of GML and INSPIRE.
+
+| Property | Term | Obligation | Cardinality |
+|---|---|---|---|
+| Property left empty | dcatuk:missingProperty | Mandatory | 1 |
+| Why it is empty | dcatuk:missingReason | Mandatory | 1 |
+
+## Properties
+
+### Title (`title`, dct:title)
+
+The name of the resource, in plain English. Use sentence case. Include the topic and, where it helps, the place and period. Avoid acronyms and jargon, or spell them out. Give a Welsh title too where the publisher has Welsh language duties, tagged with the language.
+
+### Description (`description`, dct:description)
+
+A plain English account of what the resource contains and what it can be used for. Say what the data is about, who or what it covers, how it was collected and what it is good for. Put warnings about use in the access rights or the licence, not here.
+
+### Summary (`abstract`, dct:abstract)
+
+A one-sentence summary of the resource, of no more than 250 characters. If you leave it out, catalogues may show the start of the description instead.
+
+### Alternative title (`alternative`, dct:alternative)
+
+Another name the resource is known by, such as an abbreviation or a former name. Follow the same rules as the title, including sentence case. Do not repeat the title.
+
+### Identifier (`identifier`, dct:identifier)
+
+The main identifier of the resource in the publisher's own catalogue. Use an identifier that will not change, even if the resource moves or the organisation is reorganised. Opaque, non-sequential identifiers are best. Do not reuse an identifier for a different resource.
+
+### Other identifier (`otherIdentifier`, adms:identifier)
+
+Any other identifier the resource is known by, such as one in a national or sector register. Record every identifier you know about, for example a data.gov.uk dataset identifier or a register entry.
+
+### Publisher (`publisher`, dct:publisher)
+
+The organisation responsible for making the resource available. Use the organisation's GOV.UK organisation address (for example https://www.gov.uk/government/organisations/ordnance-survey), or the equivalent register entry for a body that is not on GOV.UK. Never name a person.
+
+### Creator (`creator`, dct:creator)
+
+The organisation that created or compiled the content of the resource. Use the same identifiers as for the publisher. A resource can have more than one creator.
+
+### Contact point (`contactPoint`, dcat:contactPoint)
+
+Where to ask questions about the resource or give feedback on it. Give a team, never a named person. A contact form is the preferred route: it keeps addresses private and can be moved when teams change. An address for a shared team mailbox is allowed; a personal address is not.
+
+### Access rights (`accessRights`, dct:accessRights)
+
+Who can get the data, and on what terms. Choose open when anyone can have it without asking; commercial when it is available for a fee or under commercial terms; internal when it is only available to the public sector, or to named organisations, under an agreement. Say what the restriction is in the rights statement when it is not open.
+
+### Rights statement (`rights`, dct:rights)
+
+A statement of any restriction on access or use, such as the data sharing agreement or legal gateway needed. Name the kind of agreement and the legal basis, for example a data sharing agreement under the Digital Economy Act 2017. Link to the process for asking.
+
+### Security classification (`securityClassification`, dcatuk:securityClassification)
+
+The classification under the Government Security Classifications Policy that the data itself carries. Most public sector data is OFFICIAL. Use the OFFICIAL-SENSITIVE marking where it applies. Records about SECRET or TOP SECRET data must not be put in an OFFICIAL catalogue; the Data Asset Management Policy covers OFFICIAL assets only.
+
+### Personal data (`personalData`, dcatuk:personalData)
+
+Whether the data contains information about identifiable living people, and in what form. Answer for the data, not the metadata. Choose unknown only while you find out, and say who is finding out in the rights statement.
+
+### Sensitive data (`sensitiveData`, dcatuk:sensitiveData)
+
+Whether the data contains information that needs extra care beyond being personal, such as special category data. Choose every value that applies.
+
+### Who can see this record (`metadataAudience`, dcatuk:metadataAudience)
+
+Who is allowed to see the metadata record itself. Provisional. The levels are a starting point for research with catalogue owners and information assurance (issue 5).
+
+### Licence (`licence`, dct:license)
+
+The licence under which the resource can be used. Link to the licence, for example the Open Government Licence v3.0. If there is no licence and a data sharing agreement is needed, use the value "data sharing agreement required" and describe the agreement in the rights statement.
+
+### Release date (`issued`, dct:issued)
+
+The date the resource was first made available. Use ISO 8601. Include a time with Z or an offset if you release more than one version a day.
+
+### Last updated (`modified`, dct:modified)
+
+The date the content of the resource last changed. Give it whenever you know it. If you do not know it, leave it out rather than using the date the record was harvested: a false date is worse than none (issue 30).
+
+### Created (`created`, dct:created)
+
+The date the content of the resource was created or compiled.
+
+### Update frequency (`accrualPeriodicity`, dct:accrualPeriodicity)
+
+How often the resource is updated. Choose from the EU frequency list that DCAT-AP uses. If it is not updated on a schedule, choose irregular; if it will never be updated, choose never.
+
+### Theme (`theme`, dcat:theme)
+
+The broad subject of the resource, from a controlled list. Choose one or more themes from the DCAT-AP-UK theme list, which uses the data.gov.uk topics. Each is mapped to the EU data themes, so records also make sense to European tools. The cross-government taxonomy from the master and reference data working group will replace or extend it when it is published (issue 49).
+
+### Keyword (`keyword`, dcat:keyword)
+
+Words or short phrases that people might search for, not already in the title or description.
+
+### Geographic coverage (`spatial`, dct:spatial)
+
+The geographic area the data is about. Prefer the identifier of a standard area: a GSS code from the ONS (for example K02000001 for the United Kingdom) for statistical and administrative areas, or another controlled list such as national parks. Use a bounding box or a geometry only where no named area fits. Say whether the data covers the whole area or only some places in it (issue 1). For geospatial data, also follow UK GEMINI.
+
+### Spatial resolution (metres) (`spatialResolutionInMeters`, dcat:spatialResolutionInMeters)
+
+The smallest distance the data can tell apart, in metres.
+
+### Time period covered (`temporal`, dct:temporal)
+
+The period of time the data is about. Give a start date, an end date, or both. An open-ended period has only a start date. Each census is its own dataset in a series.
+
+### Time resolution (`temporalResolution`, dcat:temporalResolution)
+
+The smallest period the data can tell apart, as an ISO 8601 duration.
+
+### Conforms to (`conformsTo`, dct:conformsTo)
+
+A standard, specification or schema the resource follows. For a dataset, link to its schema (for example a CSV on the Web metadata file, a JSON Schema or an XML schema) or the data standard it follows. Tabular data should follow the Tabular data standard. For a data service, link to the standard the interface follows (for example OpenAPI 3.1 or OGC API - Features), not the data.
+
+### Reference data used (`referenceData`, dcatuk:referenceData)
+
+A code list, classification or set of groupings the data uses, such as age bands or a geography. Provisional. Link to the classification or code list, with its version, for example a published age band classification (issue 3).
+
+### Version (`version`, dcat:version)
+
+The version of the resource. Follow the resource's own versioning scheme, such as a semantic version or a release date in the form yyyy-mm-dd.
+
+### Version notes (`versionNotes`, adms:versionNotes)
+
+What changed in this version.
+
+### Previous version (`previousVersion`, dcat:previousVersion)
+
+The version this one replaces in a sequence.
+
+### Replaced by (`isReplacedBy`, dct:isReplacedBy)
+
+A newer resource that replaces this one.
+
+### Expires (`expires`, schema:expires)
+
+The date after which the resource should no longer be used.
+
+### Part of series (`inSeries`, dcat:inSeries)
+
+The dataset series this dataset belongs to.
+
+### Distribution (`distribution`, dcat:distribution)
+
+A form in which the data can be got, such as a file or an API. Describe each format separately. A distribution can be described in the same record or referred to by its identifier.
+
+### Related resource (`relation`, dct:relation)
+
+Another resource closely related to this one, such as the report the data supports.
+
+### Qualified relation (`qualifiedRelation`, dcat:qualifiedRelation)
+
+A related resource together with the kind of relationship.
+
+### Landing page (`landingPage`, dcat:landingPage)
+
+A web page where people can find out about the resource and how to get it.
+
+### Documentation (`documentation`, foaf:page)
+
+A web page that documents the resource, such as a user guide or a methodology.
+
+### Language (`language`, dct:language)
+
+The language or languages of the resource. Give every language the resource is available in.
+
+### Interface style (`serviceType`, dct:type)
+
+For a data service, the kind of interface. The class of the record (dataset, data service) is given by its RDF type and is not repeated here. For a data service, use this property for the interface style, and conformsTo for the exact standard.
+
+### Status (`serviceStatus`, adms:status)
+
+Where a data service is in its life, from discovery to retirement.
+
+### Data quality (`qualityAnnotation`, dqv:hasQualityAnnotation)
+
+A link to a published statement or measurement of the quality of the data. Link to a data quality report, a Data Quality Vocabulary measurement or a quality action plan.
+
+### Critical data asset (`criticalDataAsset`, dcatuk:criticalDataAsset)
+
+Whether the resource is a critical data asset under the Data Asset Management Policy. A critical data asset is shared with another public sector organisation to deliver an essential purpose or process. Answer true or false. When true, the properties marked "mandatory for critical data assets" must be given.
+
+### Responsible role (`qualifiedAttribution`, prov:qualifiedAttribution)
+
+An organisation and the role it plays for the resource, such as data owner or data steward. Name a role and an organisation, never a person. People change jobs; roles survive reorganisation.
+
+### Access address (`accessURL`, dcat:accessURL)
+
+A web address that gives access to the distribution, such as a landing page, a download page or an API.
+
+### Download address (`downloadURL`, dcat:downloadURL)
+
+A direct link to a file.
+
+### Media type (`mediaType`, dcat:mediaType)
+
+The file format, as an IANA media type. Use the IANA media type address, for example https://www.iana.org/assignments/media-types/text/csv. Plain values such as text/csv are accepted and converted.
+
+### Format (`format`, dct:format)
+
+The file type, from the EU file type list, where there is no IANA media type.
+
+### Size (bytes) (`byteSize`, dcat:byteSize)
+
+The size of the file in bytes.
+
+### Checksum (`checksum`, spdx:checksum)
+
+A value that lets people check the file they downloaded is complete and unchanged.
+
+### Access service (`accessService`, dcat:accessService)
+
+A data service that gives access to this distribution.
+
+### Compression format (`compressFormat`, dcat:compressFormat)
+
+The format the file is compressed in, as an IANA media type.
+
+### Endpoint address (`endpointURL`, dcat:endpointURL)
+
+The root address of the service. For a service that is not public, give the address of its API gateway or developer portal rather than an internal host name: publishing internal host names helps attackers.
+
+### Endpoint description (`endpointDescription`, dcat:endpointDescription)
+
+A description of what the service does and how to call it, such as an OpenAPI document.
+
+### Serves dataset (`servesDataset`, dcat:servesDataset)
+
+A dataset this service gives access to.
+
+### Dataset (`dataset`, dcat:dataset)
+
+A dataset listed in the catalogue.
+
+### Data service (`service`, dcat:service)
+
+A data service listed in the catalogue.
+
+### Home page (`homepage`, foaf:homepage)
+
+The home page of the catalogue or the organisation.
+
+### Theme list used (`themeTaxonomy`, dcat:themeTaxonomy)
+
+The list of themes the catalogue uses to classify its records.
+
+### Catalogue record (`record`, dcat:record)
+
+A record describing an entry in the catalogue.
+
+### Describes (`primaryTopic`, foaf:primaryTopic)
+
+The dataset or data service this record describes.
+
+### Name (`name`, foaf:name)
+
+The name of the organisation.
+
+### Organisation type (`agentType`, dct:type)
+
+The kind of organisation, as GOV.UK lists it, for example ministerial department or executive agency.
+
+### Team name (`fn`, vcard:fn)
+
+The name of the team to contact. Never a person's name.
+
+### Contact form (`hasURL`, vcard:hasURL)
+
+The address of a contact form or contact page for the team.
+
+### Team email address (`hasEmail`, vcard:hasEmail)
+
+A shared team mailbox, as a mailto address. Never a personal address. Prefer a contact form. If you give an address, it must be a shared mailbox that will outlive any one person.
+
+### Telephone (`hasTelephone`, vcard:hasTelephone)
+
+A team telephone number.
+
+### Postal address (`hasAddress`, vcard:hasAddress)
+
+A postal address for the team.
+
+### Bounding box (`bbox`, dcat:bbox)
+
+The rectangle that contains the area, as Well-Known Text in WGS 84.
+
+### Geometry (`geometry`, locn:geometry)
+
+The exact shape of the area, as Well-Known Text.
+
+### Centre point (`centroid`, dcat:centroid)
+
+The centre point of the area, as Well-Known Text.
+
+### Place name (`locationName`, skos:prefLabel)
+
+The name of the place, from a gazetteer where there is one.
+
+### Start date (`startDate`, dcat:startDate)
+
+The first day the data covers.
+
+### End date (`endDate`, dcat:endDate)
+
+The last day the data covers.
+
+### Algorithm (`algorithm`, spdx:algorithm)
+
+The algorithm used to calculate the checksum, from the SPDX list. Use SHA-256 or stronger. For files that must stay trustworthy for many years, prefer SHA-384, SHA-512 or SHA3. MD5 and SHA-1 are accepted so old records still conform, but the validator warns about them (rule Q-01): they are broken against deliberate tampering today. Quantum computers do not break these hash functions in the way they break public-key cryptography; see the quantum-ready page.
+
+### Checksum value (`checksumValue`, spdx:checksumValue)
+
+The checksum, in lower-case hexadecimal.
+
+### Role (`hadRole`, dcat:hadRole)
+
+The role in the relationship or attribution.
+
+### Organisation (`agent`, prov:agent)
+
+The organisation that plays the role.
+
+### Applicable legislation (`applicableLegislation`, dcatap:applicableLegislation)
+
+Legislation that requires, governs or permits the publication or sharing of the resource. Give the legislation.gov.uk address of the Act or regulation, for example https://www.legislation.gov.uk/ukpga/2017/30 for the Digital Economy Act 2017. For EU law, give its European Legislation Identifier (ELI) address. Give one value per law.
+
+### Usage policy (`hasPolicy`, odrl:hasPolicy)
+
+A machine-readable policy, in the W3C Open Digital Rights Language (ODRL), saying what may and may not be done with the resource. Give the web address of a published ODRL policy. Start from the policy templates on the AI-ready page. Where a licence and a policy disagree, the licence wins: say so in the rights statement.
+
+### Where the data is held or sent (`jurisdiction`, dcatuk:jurisdiction)
+
+Every country or territory where the data is stored or processed, or to which it is sent. Choose every place that applies, including where a supplier or cloud region holds it. Use the UK nations when it stays in the UK. For a country not on the list, use its ISO 3166-1 code in the same form, for example ukcl:jurisdiction/br.
+
+### Transfer safeguard (`transferMechanism`, dcatuk:transferMechanism)
+
+The basis under UK GDPR on which personal data in the resource may be sent outside the UK. Needed when the data contains personal data and is held in or sent to anywhere outside the UK (rule R-08). Follow the guidance from the Information Commission (the ICO, called the Information Commissioner's Office until 29 October 2026) on international transfers, updated on 15 January 2026. This records the basis; it is not legal advice and does not replace a transfer risk assessment.
+
+### Connection security (`transportSecurity`, dcatuk:transportSecurity)
+
+The kind of key exchange the service's endpoint uses to protect data in transit, classical or post-quantum. Say what the endpoint negotiates today. Choose hybrid when it offers a post-quantum key exchange (ML-KEM, FIPS 203) alongside a classical one. Update it when the service changes. This describes the service; it does not make it secure.
+
+### Missing value (`missingValue`, dcatuk:missingValue)
+
+A property this record leaves empty on purpose, and why. Use it for recommended or optional properties you cannot give. It never satisfies a mandatory property, which must have a value; the validator warns if you try (rule Q-02). Say withheld only when a value exists but cannot be published in this record.
+
+### Property left empty (`missingProperty`, dcatuk:missingProperty)
+
+The property that has no value, as its prefixed name or full IRI. Use the name as it appears on the property's page, such as dct:temporal or dcat:spatialResolutionInMeters.
+
+### Why it is empty (`missingReason`, dcatuk:missingReason)
+
+The reason the property has no value, from a list based on the GML and INSPIRE nil reasons. Choose the most specific reason. Withheld says a value exists but is not divulged in this record.
+
+### Source record (`sourceRecord`, dct:source)
+
+The original metadata record this record was harvested or converted from. Give the web address of the record in the catalogue it came from. DCAT-AP uses the same property for source metadata (RQ-08).
+
+### Property added or changed on the way (`enrichedProperty`, dcatuk:enrichedProperty)
+
+A property whose value was added or changed by the harvester or converter, rather than taken from the source record. Give the property's prefixed name, such as dcat:theme, once for each property the harvester filled or changed.
+
+## Rules
+
+- R-01: A contact point must give a contact form, a team mailbox, or both.
+- R-02: A period of time must have a start date, an end date, or both.
+- R-03: When access rights are commercial or internal, give a rights statement saying how to ask for the data.
+- R-04: When the record describes a critical data asset, the properties marked mandatory for critical data assets must be given.
+- R-05: The summary must be 250 characters or fewer.
+- R-06: A team email address must be a mailto address. A contact form must be a web address.
+- R-07: A period's end date must not be before its start date.
+- R-08: When the data contains personal data and is held in or sent to anywhere outside the UK, give the transfer safeguard.
+
+## Codelists
+
+### Access rights (`access-rights`)
+
+Who can get the data, and on what terms.
+
+Open, Commercial, Internal to the public sector
+
+### Security classification (`security-classification`)
+
+Classifications and the main marking from the Government Security Classifications Policy (version 2.0, August 2024).
+
+OFFICIAL, OFFICIAL-SENSITIVE, SECRET, TOP SECRET
+
+### Personal data (`personal-data`)
+
+Whether the data contains information about identifiable living people (UK GDPR).
+
+No personal data, Personal data, Pseudonymised, Anonymised, Not yet known
+
+### Sensitive data (`sensitive-data`)
+
+Kinds of information that need extra care beyond being personal.
+
+None, Special category personal data, Criminal offence data, Data about children, Commercially sensitive, Security sensitive, Not yet known
+
+### Who can see this record (`metadata-audience`)
+
+Who may see the metadata record. Provisional, pending research (issue 5).
+
+Everyone, UK public sector, UK government departments and their bodies, The publisher only
+
+### Licences (`licences`)
+
+Licences commonly used for UK public sector data, and a value for when no licence applies and an agreement is needed.
+
+Open Government Licence v3.0, Non-Commercial Government Licence v2.0, Open Parliament Licence v3.0, Creative Commons Attribution 4.0, Creative Commons Zero 1.0, Data sharing agreement required
+
+### Update frequency (`frequency`)
+
+The EU frequency vocabulary, which DCAT-AP uses, with the Dublin Core frequency terms the xGov MEM used.
+
+Continuously updated, Daily, Weekly, Twice a week, Three times a week, Every two weeks, Monthly, Twice a month, Three times a month, Every two months, Quarterly, Three times a year, Twice a year, Every year, Every two years, Every three years, Irregularly, Never, Other, Not known
+
+### Theme (`theme`)
+
+The 14 data.gov.uk topics (read on 6 November 2026), each mapped to the EU data themes used by DCAT-AP.
+
+Business and economy, Crime and justice, Defence, Digital services performance, Education, Environment, Government, Government reference data, Government spending, Health, Mapping, Society, Towns and cities, Transport
+
+### Service status (`service-status`)
+
+Phases of a service, from the Service Manual.
+
+Discovery, Alpha, Private beta, Public beta, Beta (unspecified), Live, Deprecated, Withdrawn
+
+### Interface style (`service-type`)
+
+The style of interface a data service offers. Use conformsTo for the exact standard.
+
+REST, SOAP, Event or message, GraphQL, SPARQL, OGC web service, File transfer
+
+### Language (`language`)
+
+Languages of the UK and Ireland in the EU language vocabulary. Any other EU language code may also be used.
+
+English, Welsh (Cymraeg), Scottish Gaelic (Gàidhlig), Irish (Gaeilge), Scots, Cornish (Kernewek)
+
+### Responsible role (`agent-role`)
+
+Roles an organisation can play for a resource. Roles, never people.
+
+Data owner, Data steward, Data custodian, Information asset owner, Distributor
+
+### Jurisdictions (`jurisdiction`)
+
+Countries and territories where data may be held, processed or sent, including the UK nations, the Crown Dependencies, the British Overseas Territories, the Commonwealth, the EEA and others.
+
+United Kingdom, England, Scotland, Wales, Northern Ireland, Jersey, Guernsey, Isle of Man, Anguilla, Bermuda, British Antarctic Territory, British Indian Ocean Territory, British Virgin Islands, Cayman Islands, Falkland Islands, Gibraltar, Montserrat, Pitcairn, Henderson, Ducie and Oeno Islands, St Helena, Ascension and Tristan da Cunha, South Georgia and the South Sandwich Islands, Sovereign Base Areas of Akrotiri and Dhekelia, Turks and Caicos Islands, Botswana, Cameroon, Eswatini, Gabon, The Gambia, Ghana, Kenya, Lesotho, Malawi, Mauritius, Mozambique, Namibia, Nigeria, Rwanda, Seychelles, Sierra Leone, South Africa, Togo, Uganda, Tanzania, Zambia, Bangladesh, Brunei Darussalam, India, Malaysia, Maldives, Pakistan, Singapore, Sri Lanka, Antigua and Barbuda, The Bahamas, Barbados, Belize, Canada, Dominica, Grenada, Guyana, Jamaica
+
+### Transfer safeguards (`transfer-mechanism`)
+
+The bases in UK GDPR for sending personal data outside the UK, as the ICO guidance of 15 January 2026 sets them out (provenance S).
+
+Not a restricted transfer, UK adequacy regulations (data bridge), Partial UK adequacy regulations, International data transfer agreement (IDTA), UK Addendum to the EU standard contractual clauses, Binding corporate rules, Instrument between public authorities, Administrative arrangement between public bodies, Approved code of conduct or certification, An exception (derogation), Law enforcement transfer rules
+
+### Checksum algorithms (`checksum-algorithm`)
+
+Algorithms in the SPDX list for checking a file has not changed, with this profile's advice on each for long-term and quantum-era trust.
+
+SHA-256, SHA-384, SHA-512, SHA3-256, SHA3-384, SHA3-512, BLAKE2b-256, BLAKE2b-512, BLAKE3, SHA-224, SHA-1, MD5
+
+### Connection security (`transport-security`)
+
+The key exchange a service's endpoint uses to protect data in transit, for the post-quantum migration inventory.
+
+Hybrid post-quantum, Post-quantum only, TLS 1.3 with classical key exchange, TLS 1.2 with classical key exchange, Not yet assessed
+
+### Use for artificial intelligence (`ai-use`)
+
+Whether the data may be used to train, fine-tune or evaluate AI models. Used by the AI-ready extension. Provisional.
+
+Training permitted, Training permitted with conditions, Evaluation only, Not permitted, Not yet assessed
+
+### Official statistics status (`statistics-status`)
+
+The status of statistics under the Code of Practice for Statistics, as the Office for Statistics Regulation names them. Used by the statistics extension (provenance K).
+
+Accredited official statistics, Official statistics, Official statistics in development, Management information, Other statistics
+
+### Open data triage outcome (`open-data-triage`)
+
+The outcome of open data triage for data that is presumed open, as in the energy sector's Data Best Practice guidance. Used by the energy extension (provenance K).
+
+Open, Public, Shared, Closed
+
+### Reasons a value is missing (`missing-reason`)
+
+Why a property is empty on purpose. Based on the nil reasons of GML 3.2 and the INSPIRE void reasons, so records can be mapped to geospatial and allied metadata that use the same idea.
+
+Unknown, Withheld, Not applicable, Not collected, Not yet available
+
+### Geodetic observation techniques (`geodetic-technique`)
+
+How geodetic positions, heights or reference frame products were observed. A candidate list for the geodesy module.
+
+Global navigation satellite systems (GNSS), Satellite laser ranging (SLR), Very long baseline interferometry (VLBI), DORIS, Interferometric synthetic aperture radar (InSAR), Levelling, Gravimetry
+
+### Spatial representation types (`spatial-representation-type`)
+
+How geographic information is represented, from the INSPIRE register of ISO 19115 spatial representation types, as GeoDCAT-AP uses them.
+
+Vector, Grid, Text table, Triangulated irregular network, Stereo model, Video
+
+## Sector extensions
+
+### Health and care (`health`)
+
+Describes health and care data well enough for a researcher or analyst to judge it before asking: who is covered, how many records, which clinical codes, and how access is controlled.
+
+### Geospatial (`geospatial`)
+
+Adds what GeoDCAT-AP and UK GEMINI ask for: coverage, coordinate reference system, resolution, topic category and lineage, so geospatial records can sit in the same catalogue as everything else.
+
+### Official statistics (`statistics`)
+
+Says what status the statistics have under the Code of Practice, and describes their dimensions and measures so tables can be found by what they count, as StatDCAT-AP does.
+
+### Transport and mobility (`transport`)
+
+Says which mode of transport, which network and which data standard (TransXChange, NeTEx, SIRI, GTFS, DATEX II) a dataset uses, as mobilityDCAT-AP does for European national access points.
+
+### High-value datasets (for EU exchange) (`hvd`)
+
+Adds the two properties the DCAT-AP high-value datasets profile requires, so UK records can be harvested by EU catalogues that report under the EU high-value datasets regulation.
+
+### AI-ready (`ai-ready`)
+
+Makes the record answer the questions an AI team asks first: may we train on it, is it synthetic, where is the data card, what policy applies, how good is it, and what period does it cover.
+
+### Data spaces (`dataspace`)
+
+Follows the Dataspace Protocol catalogue rules: every dataset carries a machine-readable usage policy, every distribution names the service that gives it, and the catalogue names its participant.
+
+### Private and voluntary sector (`organisations`)
+
+GOV.UK organisation addresses only cover government. This extension asks for a registered identifier for every organisation, in the org-id.guide form, so a charity in Scotland, a company in Northern Ireland and a council in Wales are named the same way.
+
+### Energy (`energy`)
+
+Records the open data triage outcome for presumed-open energy system data, and asks for the Dublin Core elements the guidance requires. Every Dublin Core element already has a DCAT-AP-UK property.
+
+### Geodesy (`geodesy`)
+
+A candidate module on top of the geospatial extension. It says which reference frame and epoch the coordinates are in, how they were observed, and how uncertain they are, so precise positions are not silently mixed across frames or dates. Requirement RQ-23.
+

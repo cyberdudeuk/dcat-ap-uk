@@ -1,0 +1,390 @@
+{
+  "_note": "Generated from DCAT-AP-UK. Names match the metadata weaver, so records written by the weaver load into these definitions. Not tested against a live tenant. Add each to the table type with PUT /api/v1/metadata/types/{id}; propertyType names a field type such as string or markdown.",
+  "entityType": "table",
+  "customProperties": [
+    {
+      "name": "title",
+      "displayName": "Title",
+      "description": "The name of the resource, in plain English.",
+      "propertyType": {
+        "name": "string"
+      }
+    },
+    {
+      "name": "description",
+      "displayName": "Description",
+      "description": "A plain English account of what the resource contains and what it can be used for.",
+      "propertyType": {
+        "name": "string"
+      }
+    },
+    {
+      "name": "identifier",
+      "displayName": "Identifier",
+      "description": "The main identifier of the resource in the publisher's own catalogue.",
+      "propertyType": {
+        "name": "string"
+      }
+    },
+    {
+      "name": "publisher",
+      "displayName": "Publisher",
+      "description": "The organisation responsible for making the resource available.",
+      "propertyType": {
+        "name": "string"
+      }
+    },
+    {
+      "name": "contactPoint",
+      "displayName": "Contact point",
+      "description": "Where to ask questions about the resource or give feedback on it.",
+      "propertyType": {
+        "name": "string"
+      }
+    },
+    {
+      "name": "accessRights",
+      "displayName": "Access rights",
+      "description": "Who can get the data, and on what terms.",
+      "propertyType": {
+        "name": "string"
+      }
+    },
+    {
+      "name": "securityClassification",
+      "displayName": "Security classification",
+      "description": "The classification under the Government Security Classifications Policy that the data itself carries.",
+      "propertyType": {
+        "name": "string"
+      }
+    },
+    {
+      "name": "licence",
+      "displayName": "Licence",
+      "description": "The licence under which the resource can be used.",
+      "propertyType": {
+        "name": "string"
+      }
+    },
+    {
+      "name": "accrualPeriodicity",
+      "displayName": "Update frequency",
+      "description": "How often the resource is updated.",
+      "propertyType": {
+        "name": "string"
+      }
+    },
+    {
+      "name": "criticalDataAsset",
+      "displayName": "Critical data asset",
+      "description": "Whether the resource is a critical data asset under the Data Asset Management Policy.",
+      "propertyType": {
+        "name": "string"
+      }
+    },
+    {
+      "name": "creator",
+      "displayName": "Creator",
+      "description": "The organisation that created or compiled the content of the resource.",
+      "propertyType": {
+        "name": "string"
+      }
+    },
+    {
+      "name": "created",
+      "displayName": "Created",
+      "description": "The date the content of the resource was created or compiled.",
+      "propertyType": {
+        "name": "string"
+      }
+    },
+    {
+      "name": "conformsTo",
+      "displayName": "Conforms to",
+      "description": "A standard, specification or schema the resource follows.",
+      "propertyType": {
+        "name": "string"
+      }
+    },
+    {
+      "name": "temporal",
+      "displayName": "Time period covered",
+      "description": "The period of time the data is about.",
+      "propertyType": {
+        "name": "string"
+      }
+    },
+    {
+      "name": "personalData",
+      "displayName": "Personal data",
+      "description": "Whether the data contains information about identifiable living people, and in what form.",
+      "propertyType": {
+        "name": "string"
+      }
+    },
+    {
+      "name": "rights",
+      "displayName": "Rights statement",
+      "description": "A statement of any restriction on access or use, such as the data sharing agreement or legal gateway needed.",
+      "propertyType": {
+        "name": "string"
+      }
+    },
+    {
+      "name": "modified",
+      "displayName": "Last updated",
+      "description": "The date the content of the resource last changed.",
+      "propertyType": {
+        "name": "string"
+      }
+    },
+    {
+      "name": "issued",
+      "displayName": "Release date",
+      "description": "The date the resource was first made available.",
+      "propertyType": {
+        "name": "string"
+      }
+    },
+    {
+      "name": "abstract",
+      "displayName": "Summary",
+      "description": "A one-sentence summary of the resource, of no more than 250 characters.",
+      "propertyType": {
+        "name": "string"
+      }
+    },
+    {
+      "name": "theme",
+      "displayName": "Theme",
+      "description": "The broad subject of the resource, from a controlled list.",
+      "propertyType": {
+        "name": "string"
+      }
+    },
+    {
+      "name": "keyword",
+      "displayName": "Keyword",
+      "description": "Words or short phrases that people might search for, not already in the title or description.",
+      "propertyType": {
+        "name": "string"
+      }
+    },
+    {
+      "name": "spatial",
+      "displayName": "Geographic coverage",
+      "description": "The geographic area the data is about.",
+      "propertyType": {
+        "name": "string"
+      }
+    },
+    {
+      "name": "distribution",
+      "displayName": "Distribution",
+      "description": "A form in which the data can be got, such as a file or an API.",
+      "propertyType": {
+        "name": "string"
+      }
+    },
+    {
+      "name": "landingPage",
+      "displayName": "Landing page",
+      "description": "A web page where people can find out about the resource and how to get it.",
+      "propertyType": {
+        "name": "string"
+      }
+    },
+    {
+      "name": "version",
+      "displayName": "Version",
+      "description": "The version of the resource.",
+      "propertyType": {
+        "name": "string"
+      }
+    },
+    {
+      "name": "sensitiveData",
+      "displayName": "Sensitive data",
+      "description": "Whether the data contains information that needs extra care beyond being personal, such as special category data.",
+      "propertyType": {
+        "name": "string"
+      }
+    },
+    {
+      "name": "qualifiedAttribution",
+      "displayName": "Responsible role",
+      "description": "An organisation and the role it plays for the resource, such as data owner or data steward.",
+      "propertyType": {
+        "name": "string"
+      }
+    },
+    {
+      "name": "language",
+      "displayName": "Language",
+      "description": "The language or languages of the resource.",
+      "propertyType": {
+        "name": "string"
+      }
+    },
+    {
+      "name": "alternative",
+      "displayName": "Alternative title",
+      "description": "Another name the resource is known by, such as an abbreviation or a former name.",
+      "propertyType": {
+        "name": "string"
+      }
+    },
+    {
+      "name": "otherIdentifier",
+      "displayName": "Other identifier",
+      "description": "Any other identifier the resource is known by, such as one in a national or sector register.",
+      "propertyType": {
+        "name": "string"
+      }
+    },
+    {
+      "name": "inSeries",
+      "displayName": "Part of series",
+      "description": "The dataset series this dataset belongs to.",
+      "propertyType": {
+        "name": "string"
+      }
+    },
+    {
+      "name": "isReplacedBy",
+      "displayName": "Replaced by",
+      "description": "A newer resource that replaces this one.",
+      "propertyType": {
+        "name": "string"
+      }
+    },
+    {
+      "name": "expires",
+      "displayName": "Expires",
+      "description": "The date after which the resource should no longer be used.",
+      "propertyType": {
+        "name": "string"
+      }
+    },
+    {
+      "name": "previousVersion",
+      "displayName": "Previous version",
+      "description": "The version this one replaces in a sequence.",
+      "propertyType": {
+        "name": "string"
+      }
+    },
+    {
+      "name": "versionNotes",
+      "displayName": "Version notes",
+      "description": "What changed in this version.",
+      "propertyType": {
+        "name": "string"
+      }
+    },
+    {
+      "name": "spatialResolutionInMeters",
+      "displayName": "Spatial resolution (metres)",
+      "description": "The smallest distance the data can tell apart, in metres.",
+      "propertyType": {
+        "name": "string"
+      }
+    },
+    {
+      "name": "temporalResolution",
+      "displayName": "Time resolution",
+      "description": "The smallest period the data can tell apart, as an ISO 8601 duration.",
+      "propertyType": {
+        "name": "string"
+      }
+    },
+    {
+      "name": "referenceData",
+      "displayName": "Reference data used",
+      "description": "A code list, classification or set of groupings the data uses, such as age bands or a geography.",
+      "propertyType": {
+        "name": "string"
+      }
+    },
+    {
+      "name": "qualityAnnotation",
+      "displayName": "Data quality",
+      "description": "A link to a published statement or measurement of the quality of the data.",
+      "propertyType": {
+        "name": "string"
+      }
+    },
+    {
+      "name": "relation",
+      "displayName": "Related resource",
+      "description": "Another resource closely related to this one, such as the report the data supports.",
+      "propertyType": {
+        "name": "string"
+      }
+    },
+    {
+      "name": "qualifiedRelation",
+      "displayName": "Qualified relation",
+      "description": "A related resource together with the kind of relationship.",
+      "propertyType": {
+        "name": "string"
+      }
+    },
+    {
+      "name": "documentation",
+      "displayName": "Documentation",
+      "description": "A web page that documents the resource, such as a user guide or a methodology.",
+      "propertyType": {
+        "name": "string"
+      }
+    },
+    {
+      "name": "metadataAudience",
+      "displayName": "Who can see this record",
+      "description": "Who is allowed to see the metadata record itself.",
+      "propertyType": {
+        "name": "string"
+      }
+    },
+    {
+      "name": "applicableLegislation",
+      "displayName": "Applicable legislation",
+      "description": "Legislation that requires, governs or permits the publication or sharing of the resource.",
+      "propertyType": {
+        "name": "string"
+      }
+    },
+    {
+      "name": "hasPolicy",
+      "displayName": "Usage policy",
+      "description": "A machine-readable policy, in the W3C Open Digital Rights Language (ODRL), saying what may and may not be done with the resource.",
+      "propertyType": {
+        "name": "string"
+      }
+    },
+    {
+      "name": "jurisdiction",
+      "displayName": "Where the data is held or sent",
+      "description": "Every country or territory where the data is stored or processed, or to which it is sent.",
+      "propertyType": {
+        "name": "string"
+      }
+    },
+    {
+      "name": "transferMechanism",
+      "displayName": "Transfer safeguard",
+      "description": "The basis under UK GDPR on which personal data in the resource may be sent outside the UK.",
+      "propertyType": {
+        "name": "string"
+      }
+    },
+    {
+      "name": "missingValue",
+      "displayName": "Missing value",
+      "description": "A property this record leaves empty on purpose, and why.",
+      "propertyType": {
+        "name": "string"
+      }
+    }
+  ]
+}

@@ -1,0 +1,784 @@
+{
+ "profile": "DCAT-AP-UK",
+ "version": "1.2.0-rc.1",
+ "handling": "Public. Communities by kind only; no people, meetings or controlled material.",
+ "requirements": [
+  {
+   "id": "RQ-01",
+   "theme": "interop",
+   "statement": "Records can be exchanged with international and allied DCAT-based profiles without bespoke translation for each pair.",
+   "rationale": "Every bespoke translation is a cost and a place where meaning is lost.",
+   "communities": [
+    "international",
+    "defence",
+    "catalogues"
+   ],
+   "evidence": [
+    "E"
+   ],
+   "sources": [
+    "dsa-dcat"
+   ],
+   "priority": "must",
+   "layer": "mappings",
+   "acceptance": "For each listed profile, a crosswalk exists and a round trip through the weaver keeps every mandatory value.",
+   "validation": "tests/test_integrations.py Weaver round trip",
+   "traces": {
+    "pages": [
+     "weaver.html",
+     "changes.html"
+    ],
+    "tests": [
+     "Weaver round trip"
+    ]
+   },
+   "status": "partly",
+   "gap": "Crosswalks cover CKAN, Dublin Core, UK GEMINI, HDR UK, Croissant and DDI, and the weaver also reads and writes DCAT-US and schema.org. Allied profiles that are not public are out of scope here."
+  },
+  {
+   "id": "RQ-02",
+   "theme": "security",
+   "statement": "Finding a record never grants access to the data. Who may have the data is stated separately from who may see the record.",
+   "rationale": "Discovery across government only works if publishing a record does not expose the data.",
+   "communities": [
+    "defence",
+    "dam",
+    "discovery"
+   ],
+   "evidence": [
+    "E"
+   ],
+   "priority": "must",
+   "layer": "core",
+   "acceptance": "Datasets and data services carry access rights; catalogue records carry their own audience.",
+   "validation": "SHACL and JSON Schema shapes for accessRights and metadataAudience",
+   "traces": {
+    "properties": [
+     "accessRights",
+     "metadataAudience",
+     "rights"
+    ]
+   },
+   "status": "met"
+  },
+  {
+   "id": "RQ-03",
+   "theme": "security",
+   "statement": "A catalogue record can say how the record itself must be handled, separately from the handling of the data it describes.",
+   "rationale": "A record about protected data is often itself OFFICIAL, and a shared catalogue needs to know that.",
+   "communities": [
+    "defence",
+    "catalogues"
+   ],
+   "evidence": [
+    "E"
+   ],
+   "priority": "must",
+   "layer": "core",
+   "acceptance": "Catalogue records take a security classification of their own, from the same list as datasets.",
+   "validation": "Generated shapes for CatalogueRecord; class page diagram",
+   "traces": {
+    "properties": [
+     "securityClassification",
+     "metadataAudience"
+    ],
+    "pages": [
+     "class-cataloguerecord.html"
+    ]
+   },
+   "status": "met",
+   "added": "1.2.0-rc.1"
+  },
+  {
+   "id": "RQ-04",
+   "theme": "conformance",
+   "statement": "A record can say why a property is empty (unknown, withheld, not applicable, not collected or not yet available), so a strict harvester need not guess.",
+   "rationale": "Stricter validators treat an absent value as an error. An explicit reason lets them tell a withheld value from a forgotten one.",
+   "communities": [
+    "defence",
+    "discovery",
+    "geo"
+   ],
+   "evidence": [
+    "E"
+   ],
+   "sources": [
+    "nilreason"
+   ],
+   "priority": "should",
+   "layer": "core",
+   "acceptance": "Missing values are structured, use a controlled list of reasons, and never satisfy a mandatory property (rule Q-02).",
+   "validation": "tests/test_toolkit.py MissingValues; tests/fixtures/invalid.yaml missing-value-bad-reason and missing-value-no-reason",
+   "traces": {
+    "properties": [
+     "missingValue",
+     "missingProperty",
+     "missingReason"
+    ],
+    "pages": [
+     "class-missingvalue.html",
+     "codelists.html"
+    ],
+    "fixtures": [
+     "missing-value-bad-reason",
+     "missing-value-no-reason"
+    ]
+   },
+   "status": "met",
+   "added": "1.2.0-rc.1"
+  },
+  {
+   "id": "RQ-05",
+   "theme": "conformance",
+   "statement": "Validation is machine-readable and gives one verdict wherever it runs.",
+   "rationale": "A record that passes in one tool and fails in another cannot be trusted by either.",
+   "communities": [
+    "catalogues",
+    "discovery",
+    "defence"
+   ],
+   "evidence": [
+    "E",
+    "O"
+   ],
+   "priority": "must",
+   "layer": "core",
+   "acceptance": "pySHACL, JSON Schema and validator.js agree on every example and every deliberate break.",
+   "validation": "tests/test_profile.py every example passes all three; every break fails all three",
+   "traces": {
+    "pages": [
+     "validate.html",
+     "downloads.html"
+    ],
+    "tests": [
+     "every example passes all three",
+     "every break fails all three"
+    ]
+   },
+   "status": "met"
+  },
+  {
+   "id": "RQ-06",
+   "theme": "conformance",
+   "statement": "Conformance is claimed by level and by layer, and only after the matching tests pass.",
+   "rationale": "A single yes or no hides what a catalogue can actually exchange.",
+   "communities": [
+    "catalogues",
+    "defence",
+    "dam"
+   ],
+   "evidence": [
+    "E"
+   ],
+   "priority": "must",
+   "layer": "core",
+   "acceptance": "The conformance kit gives levels 1 to 3 for the core. Each further layer gets its own test records before anyone may claim it.",
+   "validation": "downloads/conformance-kit.json expected verdicts",
+   "traces": {
+    "pages": [
+     "integrations.html"
+    ]
+   },
+   "status": "partly",
+   "gap": "Levels exist for the core only. Layer claims (data asset management, sectors, controlled overlays) are planned."
+  },
+  {
+   "id": "RQ-07",
+   "theme": "interop",
+   "statement": "Specialist terms live in their own namespaces, as modules that can be required or left out as a whole.",
+   "rationale": "Modules let a community be strict about its own terms without making everyone else carry them.",
+   "communities": [
+    "defence",
+    "geo",
+    "catalogues"
+   ],
+   "evidence": [
+    "E"
+   ],
+   "priority": "should",
+   "layer": "sector",
+   "acceptance": "Each extension is a module with its own mandatory and optional properties, using its sector's vocabulary, merged by one function.",
+   "validation": "Profile.with_extensions; extension tests in check_browser (break extension)",
+   "traces": {
+    "pages": [
+     "extensions.html"
+    ]
+   },
+   "status": "partly",
+   "gap": "Extensions reuse their sectors' namespaces. New UK-only terms still go in the one dcatuk namespace; a namespace per module is not yet decided."
+  },
+  {
+   "id": "RQ-08",
+   "theme": "provenance",
+   "statement": "The authoritative source of a record, and of each value changed on the way, survives harvesting and mapping.",
+   "rationale": "Enriched or merged records that look like the original mislead people about who is accountable.",
+   "communities": [
+    "discovery",
+    "catalogues",
+    "dam"
+   ],
+   "evidence": [
+    "E"
+   ],
+   "priority": "must",
+   "layer": "core",
+   "acceptance": "Records carry publisher, creator and qualified attribution; harvested copies keep the original identifier, point to the record they came from (source record) and list the properties they enriched.",
+   "validation": "Generated shapes; weaver notes; worked example record-harvested",
+   "traces": {
+    "properties": [
+     "publisher",
+     "creator",
+     "qualifiedAttribution",
+     "identifier",
+     "otherIdentifier",
+     "sourceRecord",
+     "enrichedProperty"
+    ]
+   },
+   "status": "met"
+  },
+  {
+   "id": "RQ-09",
+   "theme": "provenance",
+   "statement": "Every mapping says what it loses.",
+   "rationale": "Silent loss is worse than visible loss.",
+   "communities": [
+    "catalogues",
+    "international"
+   ],
+   "evidence": [
+    "E",
+    "O"
+   ],
+   "priority": "must",
+   "layer": "mappings",
+   "acceptance": "The weaver returns notes on values it changes or drops, and the crosswalk matrix marks partial and missing matches.",
+   "validation": "tests/test_integrations.py Weaver",
+   "traces": {
+    "pages": [
+     "weaver.html"
+    ]
+   },
+   "status": "partly",
+   "gap": "Notes are written by hand for each reader and writer, so a new mapping could drop a value without a note. A generic loss report is planned."
+  },
+  {
+   "id": "RQ-10",
+   "theme": "adoption",
+   "statement": "Asset, dataset, data product, data service and distribution have one meaning each, which policy and catalogues share.",
+   "rationale": "Departments reporting under the same policy count different things when the words differ.",
+   "communities": [
+    "dam",
+    "catalogues"
+   ],
+   "evidence": [
+    "E"
+   ],
+   "priority": "must",
+   "layer": "dam",
+   "acceptance": "Each term has a definition, a class or a stated mapping to one, and an entry in the glossary.",
+   "validation": "Glossary and class pages",
+   "traces": {
+    "pages": [
+     "knowledge.html",
+     "class-dataset.html",
+     "class-dataservice.html",
+     "class-distribution.html"
+    ]
+   },
+   "status": "partly",
+   "gap": "Data product has no class of its own and no agreed mapping yet."
+  },
+  {
+   "id": "RQ-11",
+   "theme": "adoption",
+   "statement": "Organisations without an enterprise catalogue can still describe their assets, from a spreadsheet, and be found.",
+   "rationale": "Discovery should not wait for every department to buy a catalogue.",
+   "communities": [
+    "dam",
+    "discovery"
+   ],
+   "evidence": [
+    "E"
+   ],
+   "priority": "should",
+   "layer": "core",
+   "acceptance": "The bulk checker reads a spreadsheet (CSV) and gives a verdict for every row.",
+   "validation": "tools/check_browser.py bulk (break bulk)",
+   "traces": {
+    "pages": [
+     "bulk.html"
+    ]
+   },
+   "status": "met"
+  },
+  {
+   "id": "RQ-12",
+   "theme": "adoption",
+   "statement": "The profile works with the catalogue platforms departments already run, through configuration or adapters.",
+   "rationale": "Replacing platforms to adopt a standard is the lock-in the standard is meant to prevent.",
+   "communities": [
+    "catalogues",
+    "dam"
+   ],
+   "evidence": [
+    "E"
+   ],
+   "priority": "must",
+   "layer": "mappings",
+   "acceptance": "Each named platform has an integration pattern and a test route through the conformance kit.",
+   "validation": "integrations page; conformance kit",
+   "traces": {
+    "pages": [
+     "integrations.html",
+     "lockin.html"
+    ]
+   },
+   "status": "partly",
+   "gap": "Product entries are background knowledge until each supplier confirms them (open register O-19)."
+  },
+  {
+   "id": "RQ-13",
+   "theme": "adoption",
+   "statement": "Validation works in disconnected and air-gapped environments, with no calls to the network.",
+   "rationale": "Many protected environments cannot reach the internet.",
+   "communities": [
+    "defence"
+   ],
+   "evidence": [
+    "E"
+   ],
+   "priority": "must",
+   "layer": "core",
+   "acceptance": "The validator, its profile file and the command line run offline; validator.js makes no network calls.",
+   "validation": "tests/test_toolkit.py Offline",
+   "traces": {
+    "pages": [
+     "integrations.html"
+    ]
+   },
+   "status": "met",
+   "added": "1.2.0-rc.1"
+  },
+  {
+   "id": "RQ-14",
+   "theme": "security",
+   "statement": "The public profile describes OFFICIAL information only. Anything needing higher classifications is handled in controlled layers.",
+   "rationale": "An OFFICIAL catalogue must not become a list of protected holdings.",
+   "communities": [
+    "defence",
+    "dam"
+   ],
+   "evidence": [
+    "E",
+    "O"
+   ],
+   "priority": "must",
+   "layer": "core",
+   "acceptance": "The security classification guidance says records about SECRET or TOP SECRET data do not belong in an OFFICIAL catalogue; the portal carries no protective markings.",
+   "validation": "tools/check_site.py C-22",
+   "traces": {
+    "properties": [
+     "securityClassification"
+    ]
+   },
+   "status": "met"
+  },
+  {
+   "id": "RQ-15",
+   "theme": "interop",
+   "statement": "Where allied exchange needs it, DCAT-AP-UK maps to the NATO Core Metadata Specification and its confidentiality labelling.",
+   "rationale": "Defence data shared with allies is described in NATO's own core metadata.",
+   "communities": [
+    "defence",
+    "international"
+   ],
+   "evidence": [
+    "E",
+    "V"
+   ],
+   "sources": [
+    "ncms",
+    "defence-data"
+   ],
+   "priority": "could",
+   "layer": "controlled",
+   "acceptance": "A mapping reviewed against authorised sources. No conformance claim is made until then.",
+   "validation": "Outside this repository",
+   "traces": {
+    "pages": [
+     "standards.html"
+    ]
+   },
+   "status": "controlled"
+  },
+  {
+   "id": "RQ-16",
+   "theme": "interop",
+   "statement": "Geospatial records reference GEMINI rather than repeat it.",
+   "rationale": "Two sources of truth for the same geospatial terms drift apart.",
+   "communities": [
+    "geo",
+    "catalogues"
+   ],
+   "evidence": [
+    "E"
+   ],
+   "priority": "should",
+   "layer": "geo",
+   "acceptance": "The geospatial extension is aligned to GeoDCAT-AP and UK GEMINI, with a crosswalk to GEMINI, and defines nothing they already define.",
+   "validation": "Extension tests",
+   "traces": {
+    "pages": [
+     "extensions.html",
+     "standards.html"
+    ]
+   },
+   "status": "partly",
+   "gap": "Review of the crosswalk by geospatial specialists is planned."
+  },
+  {
+   "id": "RQ-17",
+   "theme": "governance",
+   "statement": "Catalogues and information asset registers work together without becoming two registers of the same things.",
+   "rationale": "Duplicate registers disagree, and people stop trusting both.",
+   "communities": [
+    "dam",
+    "catalogues"
+   ],
+   "evidence": [
+    "E"
+   ],
+   "priority": "should",
+   "layer": "dam",
+   "acceptance": "A stated mapping between register fields and DCAT-AP-UK properties, tested on a real register extract.",
+   "validation": "Planned",
+   "traces": {
+    "pages": [
+     "strategy.html"
+    ]
+   },
+   "status": "planned"
+  },
+  {
+   "id": "RQ-18",
+   "theme": "governance",
+   "statement": "Public artefacts never expose controlled semantics, and never name people or meetings from internal engagement.",
+   "rationale": "Openness is the default, but aggregation can reveal what single facts do not.",
+   "communities": [
+    "defence"
+   ],
+   "evidence": [
+    "O"
+   ],
+   "priority": "must",
+   "layer": "core",
+   "acceptance": "A check fails the build if requirements or pages carry protective markings or controlled-specification terms.",
+   "validation": "tools/check_site.py C-22 (deliberate break registered)",
+   "traces": {
+    "pages": [
+     "requirements.html"
+    ]
+   },
+   "status": "met",
+   "added": "1.2.0-rc.1"
+  },
+  {
+   "id": "RQ-19",
+   "theme": "governance",
+   "statement": "Missing metadata is collected from the business areas that hold it, without a central team re-keying it.",
+   "rationale": "Departments often do not hold all the metadata centrally.",
+   "communities": [
+    "dam"
+   ],
+   "evidence": [
+    "E"
+   ],
+   "priority": "should",
+   "layer": "dam",
+   "acceptance": "Guidance and a bulk route for business areas to supply and verify their own entries.",
+   "validation": "Planned",
+   "traces": {
+    "pages": [
+     "bulk.html",
+     "adopt.html"
+    ]
+   },
+   "status": "partly",
+   "gap": "The bulk checker exists; the commissioning guidance does not."
+  },
+  {
+   "id": "RQ-20",
+   "theme": "interop",
+   "statement": "Policing and justice systems can describe shared data with the same core, alongside their own interoperability layers.",
+   "rationale": "Interoperability in policing is organised in layers that a common metadata core can sit inside.",
+   "communities": [
+    "policing"
+   ],
+   "evidence": [
+    "V"
+   ],
+   "sources": [
+    "pds-interop"
+   ],
+   "priority": "could",
+   "layer": "core",
+   "acceptance": "A worked mapping from the core to the semantic layer of policing interoperability guidance.",
+   "validation": "Planned",
+   "traces": {
+    "pages": [
+     "standards.html"
+    ]
+   },
+   "status": "planned"
+  },
+  {
+   "id": "RQ-21",
+   "theme": "interop",
+   "statement": "Metadata held in a catalogue platform's own model, such as the Apache Atlas types behind Microsoft Purview, converts to DCAT-AP-UK through a mapping layer, not by re-keying.",
+   "rationale": "Departments adopting a platform should not have to choose between its tooling and cross-government discovery.",
+   "communities": [
+    "catalogues",
+    "dam",
+    "discovery"
+   ],
+   "evidence": [
+    "E"
+   ],
+   "priority": "must",
+   "layer": "mappings",
+   "acceptance": "The weaver reads Atlas v2 entities, turns epoch times into dates, keeps GUIDs only as identifiers, and names every DCAT-AP-UK property the entity cannot supply.",
+   "validation": "tests/test_integrations.py AtlasReader; weaver sample",
+   "traces": {
+    "properties": [
+     "identifier",
+     "issued",
+     "modified",
+     "keyword",
+     "theme",
+     "securityClassification"
+    ],
+    "pages": [
+     "weaver.html",
+     "integrations.html"
+    ]
+   },
+   "status": "met",
+   "added": "1.2.0-rc.1"
+  },
+  {
+   "id": "RQ-22",
+   "theme": "provenance",
+   "statement": "A mapping never invents a value. No default description, licence, language, contact name or classification; a missing value stays missing and is reported.",
+   "rationale": "A plausible default is worse than a gap, because nobody goes back to check it. Defaulting an unlabelled asset to OFFICIAL is a security decision nobody made.",
+   "communities": [
+    "catalogues",
+    "defence",
+    "discovery"
+   ],
+   "evidence": [
+    "E",
+    "O"
+   ],
+   "priority": "must",
+   "layer": "mappings",
+   "acceptance": "No reader in the weaver sets a value the source does not hold; each gap becomes a note.",
+   "validation": "tests/test_integrations.py AtlasReader nothing is invented",
+   "traces": {
+    "pages": [
+     "weaver.html"
+    ]
+   },
+   "status": "met",
+   "added": "1.2.0-rc.1"
+  },
+  {
+   "id": "RQ-23",
+   "theme": "interop",
+   "statement": "Precise positions say which reference frame and epoch they are in, how they were observed and how uncertain they are, at a stated confidence.",
+   "rationale": "The same point has different coordinates in different frames and at different dates; mixing them silently is an error of centimetres to metres.",
+   "communities": [
+    "geodesy",
+    "geo",
+    "defence"
+   ],
+   "evidence": [
+    "E"
+   ],
+   "priority": "should",
+   "layer": "geodesy",
+   "acceptance": "A geodesy module with frame, epoch, vertical reference, technique and uncertainty with confidence, and deliberate breaks.",
+   "validation": "Extension breaks geodesy-without-frame and geodesy-bad-technique",
+   "traces": {
+    "pages": [
+     "extensions.html"
+    ],
+    "fixtures": [
+     "geodesy-without-frame",
+     "geodesy-bad-technique"
+    ]
+   },
+   "status": "partly",
+   "gap": "A candidate for review by geodetic specialists. Rules linking uncertainty to confidence, and frame to epoch, are not yet enforced.",
+   "added": "1.2.0-rc.1"
+  },
+  {
+   "id": "RQ-24",
+   "theme": "conformance",
+   "statement": "Geospatial records state their coordinate reference system, give resolution with a unit, and say how the data is represented; geospatial services state the OGC standards they conform to.",
+   "rationale": "These are the facts a geospatial user checks first, and the ones generic discovery metadata leaves out.",
+   "communities": [
+    "geo",
+    "catalogues"
+   ],
+   "evidence": [
+    "E"
+   ],
+   "priority": "should",
+   "layer": "geo",
+   "acceptance": "Shapes in the geospatial extension for each of the four, with deliberate breaks.",
+   "validation": "Extension breaks geo-without-crs and geo-bad-representation; a data service without conforms to fails under the extension",
+   "traces": {
+    "properties": [
+     "conformsTo",
+     "spatialResolutionInMeters"
+    ],
+    "pages": [
+     "extensions.html"
+    ],
+    "fixtures": [
+     "geo-without-crs",
+     "geo-bad-representation"
+    ]
+   },
+   "status": "met"
+  },
+  {
+   "id": "RQ-25",
+   "theme": "conformance",
+   "statement": "A record declares which profile, layers and versions it was written to.",
+   "rationale": "A harvester cannot apply the right rules, or migrate a record, if it does not know which ones it was made against.",
+   "communities": [
+    "catalogues",
+    "discovery",
+    "defence"
+   ],
+   "evidence": [
+    "E"
+   ],
+   "priority": "should",
+   "layer": "core",
+   "acceptance": "Catalogue records give the profile and each layer as versioned identifiers in conforms to.",
+   "validation": "Generated shapes for CatalogueRecord; worked example record-harvested",
+   "traces": {
+    "properties": [
+     "conformsTo"
+    ],
+    "pages": [
+     "class-cataloguerecord.html"
+    ]
+   },
+   "status": "partly",
+   "gap": "The property exists, but there is no published identifier per layer version yet, and no rule checks that the identifier is a known one."
+  },
+  {
+   "id": "RQ-26",
+   "theme": "governance",
+   "statement": "A release passes four gates. Reuse is assessed for every new term; every rule is traced to a test; no serious semantic-loss or disclosure defect is open; compatibility is claimed only with evidence.",
+   "rationale": "Gates make \"ready\" a fact anyone can check rather than an opinion.",
+   "communities": [
+    "catalogues",
+    "defence",
+    "geo"
+   ],
+   "evidence": [
+    "E",
+    "O"
+   ],
+   "priority": "must",
+   "layer": "core",
+   "acceptance": "Each gate has a check in the release workflow or a recorded decision, shown on this page.",
+   "validation": "Release gates table below",
+   "traces": {
+    "pages": [
+     "governance.html",
+     "requirements.html"
+    ]
+   },
+   "status": "partly",
+   "gap": "Traceable tests and the defect register are enforced; reuse assessment is recorded per property but not as a gate, and semantic-loss defects are not graded by severity."
+  },
+  {
+   "id": "RQ-27",
+   "theme": "governance",
+   "statement": "UK profiles agree which properties are mandatory, recommended and optional, so a record that conforms to one is not rejected by another.",
+   "rationale": "Profiles built for statistics and for cross-government catalogues drifted apart on obligations, so the same record passed one and failed the other.",
+   "communities": [
+    "statistics",
+    "catalogues"
+   ],
+   "evidence": [
+    "E"
+   ],
+   "priority": "must",
+   "layer": "core",
+   "acceptance": "A published comparison of obligations with each UK profile, and a decision on every difference.",
+   "validation": "Planned",
+   "traces": {
+    "pages": [
+     "changes.html"
+    ]
+   },
+   "status": "planned"
+  },
+  {
+   "id": "RQ-28",
+   "theme": "governance",
+   "statement": "Every requirement can be followed from its evidence to the properties, rules, tests, decisions and release that meet it.",
+   "rationale": "A requirement that cannot be traced cannot be shown to be met, or safely changed.",
+   "communities": [
+    "catalogues",
+    "defence",
+    "dam"
+   ],
+   "evidence": [
+    "O"
+   ],
+   "priority": "must",
+   "layer": "core",
+   "acceptance": "The lineage explorer links each requirement to what traces it; the chain below counts each link.",
+   "validation": "tests/test_integrations.py RequirementsStream every requirement is in the lineage",
+   "traces": {
+    "pages": [
+     "lineage.html"
+    ]
+   },
+   "status": "partly",
+   "gap": "Decisions and releases are not yet linked to individual requirements in the lineage.",
+   "added": "1.2.0-rc.1"
+  },
+  {
+   "id": "RQ-29",
+   "theme": "security",
+   "statement": "Partner overlays attach to the core without changing it. Core discovery stays open; overlay terms apply only in partner exchanges.",
+   "rationale": "Loading partner controls onto the civil core would make it harder to adopt and leak semantics that should stay controlled.",
+   "communities": [
+    "defence",
+    "international"
+   ],
+   "evidence": [
+    "E"
+   ],
+   "priority": "must",
+   "layer": "controlled",
+   "acceptance": "A controlled overlay specified, tested and governed outside this repository, using only the extension points the core publishes.",
+   "validation": "Outside this repository",
+   "traces": {
+    "pages": [
+     "requirements.html"
+    ]
+   },
+   "status": "controlled"
+  }
+ ]
+}

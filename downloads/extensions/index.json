@@ -1,0 +1,237 @@
+{
+  "profile": "DCAT-AP-UK",
+  "version": "1.2.0-rc.1",
+  "extensions": [
+    {
+      "id": "health",
+      "label": "Health and care",
+      "iri": "https://w3id.org/dcat-ap-uk/ext/health",
+      "status": "Proposed",
+      "summary": "Describes health and care data well enough for a researcher or analyst to judge it before asking: who is covered, how many records, which clinical codes, and how access is controlled.",
+      "aligned_to": [
+        "HealthDCAT-AP Release 7",
+        "HDR UK Gateway dataset schema"
+      ],
+      "shapes": "https://cyberdudeuk.github.io/dcat-ap-uk/downloads/extensions/health.shacl.ttl",
+      "schema": "https://cyberdudeuk.github.io/dcat-ap-uk/downloads/extensions/health.schema.json",
+      "adds": [
+        "hasCodingSystem",
+        "healthCategory",
+        "healthTheme",
+        "maxTypicalAge",
+        "minTypicalAge",
+        "nationalDataOptOut",
+        "numberOfRecords",
+        "numberOfUniqueIndividuals",
+        "populationCoverage",
+        "trustedResearchEnvironment"
+      ],
+      "raises": [
+        "personalData",
+        "sensitiveData",
+        "spatial",
+        "temporal"
+      ]
+    },
+    {
+      "id": "geospatial",
+      "label": "Geospatial",
+      "iri": "https://w3id.org/dcat-ap-uk/ext/geospatial",
+      "status": "Proposed",
+      "summary": "Adds what GeoDCAT-AP and UK GEMINI ask for: coverage, coordinate reference system, resolution, topic category and lineage, so geospatial records can sit in the same catalogue as everything else.",
+      "aligned_to": [
+        "GeoDCAT-AP 3.1.0",
+        "UK GEMINI 2.3",
+        "MEDIN discovery metadata standard (marine)"
+      ],
+      "shapes": "https://cyberdudeuk.github.io/dcat-ap-uk/downloads/extensions/geospatial.shacl.ttl",
+      "schema": "https://cyberdudeuk.github.io/dcat-ap-uk/downloads/extensions/geospatial.schema.json",
+      "adds": [
+        "lineage",
+        "purpose",
+        "representationTechnique",
+        "statement",
+        "topicCategory"
+      ],
+      "raises": [
+        "conformsTo",
+        "spatial",
+        "spatialResolutionInMeters"
+      ]
+    },
+    {
+      "id": "statistics",
+      "label": "Official statistics",
+      "iri": "https://w3id.org/dcat-ap-uk/ext/statistics",
+      "status": "Proposed",
+      "summary": "Says what status the statistics have under the Code of Practice, and describes their dimensions and measures so tables can be found by what they count, as StatDCAT-AP does.",
+      "aligned_to": [
+        "StatDCAT-AP",
+        "Code of Practice for Statistics"
+      ],
+      "shapes": "https://cyberdudeuk.github.io/dcat-ap-uk/downloads/extensions/statistics.shacl.ttl",
+      "schema": "https://cyberdudeuk.github.io/dcat-ap-uk/downloads/extensions/statistics.schema.json",
+      "adds": [
+        "attribute",
+        "dimension",
+        "numSeries",
+        "statMeasure",
+        "statisticsStatus"
+      ],
+      "raises": [
+        "inSeries",
+        "qualityAnnotation",
+        "temporal"
+      ]
+    },
+    {
+      "id": "transport",
+      "label": "Transport and mobility",
+      "iri": "https://w3id.org/dcat-ap-uk/ext/transport",
+      "status": "Proposed",
+      "summary": "Says which mode of transport, which network and which data standard (TransXChange, NeTEx, SIRI, GTFS, DATEX II) a dataset uses, as mobilityDCAT-AP does for European national access points.",
+      "aligned_to": [
+        "mobilityDCAT-AP"
+      ],
+      "shapes": "https://cyberdudeuk.github.io/dcat-ap-uk/downloads/extensions/transport.shacl.ttl",
+      "schema": "https://cyberdudeuk.github.io/dcat-ap-uk/downloads/extensions/transport.schema.json",
+      "adds": [
+        "georeferencingMethod",
+        "mobilityDataStandard",
+        "mobilityTheme",
+        "networkCoverage",
+        "transportMode"
+      ],
+      "raises": [
+        "spatial"
+      ]
+    },
+    {
+      "id": "hvd",
+      "label": "High-value datasets (for EU exchange)",
+      "iri": "https://w3id.org/dcat-ap-uk/ext/hvd",
+      "status": "Proposed",
+      "summary": "Adds the two properties the DCAT-AP high-value datasets profile requires, so UK records can be harvested by EU catalogues that report under the EU high-value datasets regulation.",
+      "aligned_to": [
+        "DCAT-AP HVD 3.0"
+      ],
+      "shapes": "https://cyberdudeuk.github.io/dcat-ap-uk/downloads/extensions/hvd.shacl.ttl",
+      "schema": "https://cyberdudeuk.github.io/dcat-ap-uk/downloads/extensions/hvd.schema.json",
+      "adds": [
+        "hvdCategory"
+      ],
+      "raises": [
+        "applicableLegislation"
+      ]
+    },
+    {
+      "id": "ai-ready",
+      "label": "AI-ready",
+      "iri": "https://w3id.org/dcat-ap-uk/ext/ai-ready",
+      "status": "Proposed",
+      "summary": "Makes the record answer the questions an AI team asks first: may we train on it, is it synthetic, where is the data card, what policy applies, how good is it, and what period does it cover.",
+      "aligned_to": [
+        "MLDCAT-AP 3.x",
+        "Croissant 1.1",
+        "Guidelines for AI-ready datasets (January 2026)"
+      ],
+      "shapes": "https://cyberdudeuk.github.io/dcat-ap-uk/downloads/extensions/ai-ready.shacl.ttl",
+      "schema": "https://cyberdudeuk.github.io/dcat-ap-uk/downloads/extensions/ai-ready.schema.json",
+      "adds": [
+        "aiUse",
+        "dataCard",
+        "syntheticData",
+        "wasGeneratedBy"
+      ],
+      "raises": [
+        "documentation",
+        "hasPolicy",
+        "personalData",
+        "qualityAnnotation",
+        "temporal"
+      ]
+    },
+    {
+      "id": "dataspace",
+      "label": "Data spaces",
+      "iri": "https://w3id.org/dcat-ap-uk/ext/dataspace",
+      "status": "Proposed",
+      "summary": "Follows the Dataspace Protocol catalogue rules: every dataset carries a machine-readable usage policy, every distribution names the service that gives it, and the catalogue names its participant.",
+      "aligned_to": [
+        "Eclipse Dataspace Protocol 1.0"
+      ],
+      "shapes": "https://cyberdudeuk.github.io/dcat-ap-uk/downloads/extensions/dataspace.shacl.ttl",
+      "schema": "https://cyberdudeuk.github.io/dcat-ap-uk/downloads/extensions/dataspace.schema.json",
+      "adds": [
+        "participantId"
+      ],
+      "raises": [
+        "accessService",
+        "hasPolicy"
+      ]
+    },
+    {
+      "id": "organisations",
+      "label": "Private and voluntary sector",
+      "iri": "https://w3id.org/dcat-ap-uk/ext/organisations",
+      "status": "Proposed",
+      "summary": "GOV.UK organisation addresses only cover government. This extension asks for a registered identifier for every organisation, in the org-id.guide form, so a charity in Scotland, a company in Northern Ireland and a council in Wales are named the same way.",
+      "aligned_to": [
+        "org-id.guide identifier lists"
+      ],
+      "shapes": "https://cyberdudeuk.github.io/dcat-ap-uk/downloads/extensions/organisations.shacl.ttl",
+      "schema": "https://cyberdudeuk.github.io/dcat-ap-uk/downloads/extensions/organisations.schema.json",
+      "adds": [],
+      "raises": [
+        "agentType",
+        "identifier"
+      ]
+    },
+    {
+      "id": "energy",
+      "label": "Energy",
+      "iri": "https://w3id.org/dcat-ap-uk/ext/energy",
+      "status": "Proposed",
+      "summary": "Records the open data triage outcome for presumed-open energy system data, and asks for the Dublin Core elements the guidance requires. Every Dublin Core element already has a DCAT-AP-UK property.",
+      "aligned_to": [
+        "Ofgem Data Best Practice Guidance (1 April 2026)"
+      ],
+      "shapes": "https://cyberdudeuk.github.io/dcat-ap-uk/downloads/extensions/energy.shacl.ttl",
+      "schema": "https://cyberdudeuk.github.io/dcat-ap-uk/downloads/extensions/energy.schema.json",
+      "adds": [
+        "openDataTriage",
+        "presumedOpen"
+      ],
+      "raises": [
+        "creator",
+        "keyword",
+        "spatial",
+        "temporal"
+      ]
+    },
+    {
+      "id": "geodesy",
+      "label": "Geodesy",
+      "iri": "https://w3id.org/dcat-ap-uk/ext/geodesy",
+      "status": "Candidate",
+      "summary": "A candidate module on top of the geospatial extension. It says which reference frame and epoch the coordinates are in, how they were observed, and how uncertain they are, so precise positions are not silently mixed across frames or dates. Requirement RQ-23.",
+      "aligned_to": [
+        "GeoDCAT-AP 3.1.0"
+      ],
+      "shapes": "https://cyberdudeuk.github.io/dcat-ap-uk/downloads/extensions/geodesy.shacl.ttl",
+      "schema": "https://cyberdudeuk.github.io/dcat-ap-uk/downloads/extensions/geodesy.schema.json",
+      "adds": [
+        "confidenceLevel",
+        "coordinateEpoch",
+        "horizontalUncertainty",
+        "observationTechnique",
+        "referenceFrame",
+        "verticalReference",
+        "verticalUncertainty"
+      ],
+      "raises": [
+        "spatial"
+      ]
+    }
+  ]
+}

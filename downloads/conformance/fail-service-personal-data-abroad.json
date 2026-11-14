@@ -1,0 +1,24 @@
+{
+  "class": "DataService",
+  "id": "https://example.org/api",
+  "title": "t",
+  "description": "d",
+  "identifier": "api",
+  "endpointURL": [
+    "https://example.org/api"
+  ],
+  "personalData": "ukcl:personal-data/personal",
+  "jurisdiction": "ukcl:jurisdiction/us",
+  "publisher": "https://example.org/o",
+  "contactPoint": [
+    {
+      "fn": "Team",
+      "hasURL": "https://example.org/c"
+    }
+  ],
+  "accessRights": "ukcl:access-rights/internal",
+  "rights": "r",
+  "securityClassification": "ukcl:security-classification/official",
+  "licence": "ukcl:licences/data-sharing-agreement-required",
+  "serviceStatus": "ukcl:service-status/live"
+}

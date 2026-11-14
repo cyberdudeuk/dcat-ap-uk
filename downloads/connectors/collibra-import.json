@@ -1,0 +1,265 @@
+{
+  "_note": "Generated from DCAT-AP-UK. Names match the metadata weaver, so records written by the weaver load into these definitions. Not tested against a live tenant. An administrator creates the attribute types and the Data Set asset type in the operating model first; the Import API loads data, not the model.",
+  "attributeTypes": [
+    {
+      "name": "DCAT-AP-UK title",
+      "kind": "Text",
+      "description": "The name of the resource, in plain English."
+    },
+    {
+      "name": "DCAT-AP-UK description",
+      "kind": "Text",
+      "description": "A plain English account of what the resource contains and what it can be used for."
+    },
+    {
+      "name": "DCAT-AP-UK identifier",
+      "kind": "Text",
+      "description": "The main identifier of the resource in the publisher's own catalogue."
+    },
+    {
+      "name": "DCAT-AP-UK publisher",
+      "kind": "Text",
+      "description": "The organisation responsible for making the resource available."
+    },
+    {
+      "name": "DCAT-AP-UK contactPoint",
+      "kind": "Text",
+      "description": "Where to ask questions about the resource or give feedback on it."
+    },
+    {
+      "name": "DCAT-AP-UK accessRights",
+      "kind": "Text",
+      "description": "Who can get the data, and on what terms."
+    },
+    {
+      "name": "DCAT-AP-UK securityClassification",
+      "kind": "Text",
+      "description": "The classification under the Government Security Classifications Policy that the data itself carries."
+    },
+    {
+      "name": "DCAT-AP-UK licence",
+      "kind": "Text",
+      "description": "The licence under which the resource can be used."
+    },
+    {
+      "name": "DCAT-AP-UK accrualPeriodicity",
+      "kind": "Text",
+      "description": "How often the resource is updated."
+    },
+    {
+      "name": "DCAT-AP-UK criticalDataAsset",
+      "kind": "Text",
+      "description": "Whether the resource is a critical data asset under the Data Asset Management Policy."
+    },
+    {
+      "name": "DCAT-AP-UK creator",
+      "kind": "Text",
+      "description": "The organisation that created or compiled the content of the resource."
+    },
+    {
+      "name": "DCAT-AP-UK created",
+      "kind": "Text",
+      "description": "The date the content of the resource was created or compiled."
+    },
+    {
+      "name": "DCAT-AP-UK conformsTo",
+      "kind": "Text",
+      "description": "A standard, specification or schema the resource follows."
+    },
+    {
+      "name": "DCAT-AP-UK temporal",
+      "kind": "Text",
+      "description": "The period of time the data is about."
+    },
+    {
+      "name": "DCAT-AP-UK personalData",
+      "kind": "Text",
+      "description": "Whether the data contains information about identifiable living people, and in what form."
+    },
+    {
+      "name": "DCAT-AP-UK rights",
+      "kind": "Text",
+      "description": "A statement of any restriction on access or use, such as the data sharing agreement or legal gateway needed."
+    },
+    {
+      "name": "DCAT-AP-UK modified",
+      "kind": "Text",
+      "description": "The date the content of the resource last changed."
+    },
+    {
+      "name": "DCAT-AP-UK issued",
+      "kind": "Text",
+      "description": "The date the resource was first made available."
+    },
+    {
+      "name": "DCAT-AP-UK abstract",
+      "kind": "Text",
+      "description": "A one-sentence summary of the resource, of no more than 250 characters."
+    },
+    {
+      "name": "DCAT-AP-UK theme",
+      "kind": "Text",
+      "description": "The broad subject of the resource, from a controlled list."
+    },
+    {
+      "name": "DCAT-AP-UK keyword",
+      "kind": "Text",
+      "description": "Words or short phrases that people might search for, not already in the title or description."
+    },
+    {
+      "name": "DCAT-AP-UK spatial",
+      "kind": "Text",
+      "description": "The geographic area the data is about."
+    },
+    {
+      "name": "DCAT-AP-UK distribution",
+      "kind": "Text",
+      "description": "A form in which the data can be got, such as a file or an API."
+    },
+    {
+      "name": "DCAT-AP-UK landingPage",
+      "kind": "Text",
+      "description": "A web page where people can find out about the resource and how to get it."
+    },
+    {
+      "name": "DCAT-AP-UK version",
+      "kind": "Text",
+      "description": "The version of the resource."
+    },
+    {
+      "name": "DCAT-AP-UK sensitiveData",
+      "kind": "Text",
+      "description": "Whether the data contains information that needs extra care beyond being personal, such as special category data."
+    },
+    {
+      "name": "DCAT-AP-UK qualifiedAttribution",
+      "kind": "Text",
+      "description": "An organisation and the role it plays for the resource, such as data owner or data steward."
+    },
+    {
+      "name": "DCAT-AP-UK language",
+      "kind": "Text",
+      "description": "The language or languages of the resource."
+    },
+    {
+      "name": "DCAT-AP-UK alternative",
+      "kind": "Text",
+      "description": "Another name the resource is known by, such as an abbreviation or a former name."
+    },
+    {
+      "name": "DCAT-AP-UK otherIdentifier",
+      "kind": "Text",
+      "description": "Any other identifier the resource is known by, such as one in a national or sector register."
+    },
+    {
+      "name": "DCAT-AP-UK inSeries",
+      "kind": "Text",
+      "description": "The dataset series this dataset belongs to."
+    },
+    {
+      "name": "DCAT-AP-UK isReplacedBy",
+      "kind": "Text",
+      "description": "A newer resource that replaces this one."
+    },
+    {
+      "name": "DCAT-AP-UK expires",
+      "kind": "Text",
+      "description": "The date after which the resource should no longer be used."
+    },
+    {
+      "name": "DCAT-AP-UK previousVersion",
+      "kind": "Text",
+      "description": "The version this one replaces in a sequence."
+    },
+    {
+      "name": "DCAT-AP-UK versionNotes",
+      "kind": "Text",
+      "description": "What changed in this version."
+    },
+    {
+      "name": "DCAT-AP-UK spatialResolutionInMeters",
+      "kind": "Text",
+      "description": "The smallest distance the data can tell apart, in metres."
+    },
+    {
+      "name": "DCAT-AP-UK temporalResolution",
+      "kind": "Text",
+      "description": "The smallest period the data can tell apart, as an ISO 8601 duration."
+    },
+    {
+      "name": "DCAT-AP-UK referenceData",
+      "kind": "Text",
+      "description": "A code list, classification or set of groupings the data uses, such as age bands or a geography."
+    },
+    {
+      "name": "DCAT-AP-UK qualityAnnotation",
+      "kind": "Text",
+      "description": "A link to a published statement or measurement of the quality of the data."
+    },
+    {
+      "name": "DCAT-AP-UK relation",
+      "kind": "Text",
+      "description": "Another resource closely related to this one, such as the report the data supports."
+    },
+    {
+      "name": "DCAT-AP-UK qualifiedRelation",
+      "kind": "Text",
+      "description": "A related resource together with the kind of relationship."
+    },
+    {
+      "name": "DCAT-AP-UK documentation",
+      "kind": "Text",
+      "description": "A web page that documents the resource, such as a user guide or a methodology."
+    },
+    {
+      "name": "DCAT-AP-UK metadataAudience",
+      "kind": "Text",
+      "description": "Who is allowed to see the metadata record itself."
+    },
+    {
+      "name": "DCAT-AP-UK applicableLegislation",
+      "kind": "Text",
+      "description": "Legislation that requires, governs or permits the publication or sharing of the resource."
+    },
+    {
+      "name": "DCAT-AP-UK hasPolicy",
+      "kind": "Text",
+      "description": "A machine-readable policy, in the W3C Open Digital Rights Language (ODRL), saying what may and may not be done with the resource."
+    },
+    {
+      "name": "DCAT-AP-UK jurisdiction",
+      "kind": "Text",
+      "description": "Every country or territory where the data is stored or processed, or to which it is sent."
+    },
+    {
+      "name": "DCAT-AP-UK transferMechanism",
+      "kind": "Text",
+      "description": "The basis under UK GDPR on which personal data in the resource may be sent outside the UK."
+    },
+    {
+      "name": "DCAT-AP-UK missingValue",
+      "kind": "Text",
+      "description": "A property this record leaves empty on purpose, and why."
+    }
+  ],
+  "template": [
+    {
+      "resourceType": "Asset",
+      "identifier": {
+        "externalSystemId": "dcat-ap-uk",
+        "externalEntityId": "${identifier}"
+      },
+      "name": "${title}",
+      "type": {
+        "name": "Data Set"
+      },
+      "attributes": {
+        "Description": [
+          {
+            "value": "${description}"
+          }
+        ]
+      }
+    }
+  ]
+}

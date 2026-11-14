@@ -1,0 +1,16 @@
+dcat_uk_ap_property,DDI Codebook 2.5 elements,note
+title,titl,
+identifier,IDNo,
+description,abstract,
+keyword,keyword,
+publisher,producer,
+creator,AuthEnty,"Give organisation addresses, not people."
+temporal,timePrd,
+spatial,geogCover,And nation.
+rights,restrctn,And conditions.
+landingPage,accsPlac,
+version,version,
+created,prodDate,
+issued,distDate,
+populationCoverage,universe,Health extension.
+distribution,fileDscr,

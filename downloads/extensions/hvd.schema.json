@@ -1,0 +1,3126 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cyberdudeuk.github.io/dcat-ap-uk/downloads/extensions/hvd.schema.json",
+  "title": "DCAT Application Profile for the UK 1.2.0-rc.1",
+  "description": "JSON Schema for records in the compact JSON form of DCAT-AP-UK. Pair it with the JSON-LD context to get RDF.",
+  "oneOf": [
+    {
+      "$ref": "#/$defs/Dataset"
+    },
+    {
+      "$ref": "#/$defs/DataService"
+    },
+    {
+      "$ref": "#/$defs/Distribution"
+    },
+    {
+      "$ref": "#/$defs/DatasetSeries"
+    },
+    {
+      "$ref": "#/$defs/Catalogue"
+    },
+    {
+      "$ref": "#/$defs/CatalogueRecord"
+    },
+    {
+      "$ref": "#/$defs/Agent"
+    },
+    {
+      "$ref": "#/$defs/ContactPoint"
+    },
+    {
+      "$ref": "#/$defs/Location"
+    },
+    {
+      "$ref": "#/$defs/PeriodOfTime"
+    },
+    {
+      "$ref": "#/$defs/Checksum"
+    },
+    {
+      "$ref": "#/$defs/Relationship"
+    },
+    {
+      "$ref": "#/$defs/Attribution"
+    },
+    {
+      "$ref": "#/$defs/MissingValue"
+    }
+  ],
+  "$defs": {
+    "Dataset": {
+      "type": "object",
+      "title": "Dataset",
+      "description": "A collection of data, published or curated by one organisation, available in one or more forms.",
+      "properties": {
+        "class": {
+          "const": "Dataset"
+        },
+        "id": {
+          "type": "string"
+        },
+        "title": {
+          "description": "The name of the resource, in plain English.",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "description": {
+          "description": "A plain English account of what the resource contains and what it can be used for.",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "identifier": {
+          "description": "The main identifier of the resource in the publisher's own catalogue.",
+          "type": "string"
+        },
+        "publisher": {
+          "description": "The organisation responsible for making the resource available.",
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "iri-reference"
+            },
+            {
+              "$ref": "#/$defs/Agent"
+            }
+          ]
+        },
+        "contactPoint": {
+          "description": "Where to ask questions about the resource or give feedback on it.",
+          "anyOf": [
+            {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "iri-reference"
+                },
+                {
+                  "$ref": "#/$defs/ContactPoint"
+                }
+              ]
+            },
+            {
+              "type": "array",
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "format": "iri-reference"
+                  },
+                  {
+                    "$ref": "#/$defs/ContactPoint"
+                  }
+                ]
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "accessRights": {
+          "description": "Who can get the data, and on what terms.",
+          "type": "string",
+          "enum": [
+            "https://w3id.org/dcat-ap-uk/codelist/access-rights/commercial",
+            "https://w3id.org/dcat-ap-uk/codelist/access-rights/internal",
+            "https://w3id.org/dcat-ap-uk/codelist/access-rights/open",
+            "ukcl:access-rights/commercial",
+            "ukcl:access-rights/internal",
+            "ukcl:access-rights/open"
+          ]
+        },
+        "securityClassification": {
+          "description": "The classification under the Government Security Classifications Policy that the data itself carries.",
+          "type": "string",
+          "enum": [
+            "https://w3id.org/dcat-ap-uk/codelist/security-classification/official",
+            "https://w3id.org/dcat-ap-uk/codelist/security-classification/official-sensitive",
+            "https://w3id.org/dcat-ap-uk/codelist/security-classification/secret",
+            "https://w3id.org/dcat-ap-uk/codelist/security-classification/top-secret",
+            "ukcl:security-classification/official",
+            "ukcl:security-classification/official-sensitive",
+            "ukcl:security-classification/secret",
+            "ukcl:security-classification/top-secret"
+          ]
+        },
+        "licence": {
+          "description": "The licence under which the resource can be used.",
+          "type": "string"
+        },
+        "accrualPeriodicity": {
+          "description": "How often the resource is updated.",
+          "type": "string",
+          "enum": [
+            "eufreq:ANNUAL",
+            "eufreq:ANNUAL_2",
+            "eufreq:ANNUAL_3",
+            "eufreq:BIENNIAL",
+            "eufreq:BIMONTHLY",
+            "eufreq:BIWEEKLY",
+            "eufreq:CONT",
+            "eufreq:DAILY",
+            "eufreq:IRREG",
+            "eufreq:MONTHLY",
+            "eufreq:MONTHLY_2",
+            "eufreq:MONTHLY_3",
+            "eufreq:NEVER",
+            "eufreq:OTHER",
+            "eufreq:QUARTERLY",
+            "eufreq:TRIENNIAL",
+            "eufreq:UNKNOWN",
+            "eufreq:WEEKLY",
+            "eufreq:WEEKLY_2",
+            "eufreq:WEEKLY_3",
+            "http://publications.europa.eu/resource/authority/frequency/ANNUAL",
+            "http://publications.europa.eu/resource/authority/frequency/ANNUAL_2",
+            "http://publications.europa.eu/resource/authority/frequency/ANNUAL_3",
+            "http://publications.europa.eu/resource/authority/frequency/BIENNIAL",
+            "http://publications.europa.eu/resource/authority/frequency/BIMONTHLY",
+            "http://publications.europa.eu/resource/authority/frequency/BIWEEKLY",
+            "http://publications.europa.eu/resource/authority/frequency/CONT",
+            "http://publications.europa.eu/resource/authority/frequency/DAILY",
+            "http://publications.europa.eu/resource/authority/frequency/IRREG",
+            "http://publications.europa.eu/resource/authority/frequency/MONTHLY",
+            "http://publications.europa.eu/resource/authority/frequency/MONTHLY_2",
+            "http://publications.europa.eu/resource/authority/frequency/MONTHLY_3",
+            "http://publications.europa.eu/resource/authority/frequency/NEVER",
+            "http://publications.europa.eu/resource/authority/frequency/OTHER",
+            "http://publications.europa.eu/resource/authority/frequency/QUARTERLY",
+            "http://publications.europa.eu/resource/authority/frequency/TRIENNIAL",
+            "http://publications.europa.eu/resource/authority/frequency/UNKNOWN",
+            "http://publications.europa.eu/resource/authority/frequency/WEEKLY",
+            "http://publications.europa.eu/resource/authority/frequency/WEEKLY_2",
+            "http://publications.europa.eu/resource/authority/frequency/WEEKLY_3"
+          ]
+        },
+        "criticalDataAsset": {
+          "description": "Whether the resource is a critical data asset under the Data Asset Management Policy.",
+          "type": [
+            "string",
+            "boolean"
+          ],
+          "enum": [
+            "true",
+            "false",
+            true,
+            false
+          ]
+        },
+        "creator": {
+          "description": "The organisation that created or compiled the content of the resource.",
+          "anyOf": [
+            {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "iri-reference"
+                },
+                {
+                  "$ref": "#/$defs/Agent"
+                }
+              ]
+            },
+            {
+              "type": "array",
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "format": "iri-reference"
+                  },
+                  {
+                    "$ref": "#/$defs/Agent"
+                  }
+                ]
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "created": {
+          "description": "The date the content of the resource was created or compiled.",
+          "type": "string",
+          "pattern": "^\\d{4}(-\\d{2}(-\\d{2}(T\\d{2}:\\d{2}(:\\d{2}(\\.\\d+)?)?(Z|[+-]\\d{2}:\\d{2}))?)?)?$"
+        },
+        "conformsTo": {
+          "description": "A standard, specification or schema the resource follows.",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "temporal": {
+          "description": "The period of time the data is about.",
+          "anyOf": [
+            {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "iri-reference"
+                },
+                {
+                  "$ref": "#/$defs/PeriodOfTime"
+                }
+              ]
+            },
+            {
+              "type": "array",
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "format": "iri-reference"
+                  },
+                  {
+                    "$ref": "#/$defs/PeriodOfTime"
+                  }
+                ]
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "personalData": {
+          "description": "Whether the data contains information about identifiable living people, and in what form.",
+          "type": "string",
+          "enum": [
+            "https://w3id.org/dcat-ap-uk/codelist/personal-data/anonymised",
+            "https://w3id.org/dcat-ap-uk/codelist/personal-data/none",
+            "https://w3id.org/dcat-ap-uk/codelist/personal-data/personal",
+            "https://w3id.org/dcat-ap-uk/codelist/personal-data/pseudonymised",
+            "https://w3id.org/dcat-ap-uk/codelist/personal-data/unknown",
+            "ukcl:personal-data/anonymised",
+            "ukcl:personal-data/none",
+            "ukcl:personal-data/personal",
+            "ukcl:personal-data/pseudonymised",
+            "ukcl:personal-data/unknown"
+          ]
+        },
+        "rights": {
+          "description": "A statement of any restriction on access or use, such as the data sharing agreement or legal gateway needed.",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "modified": {
+          "description": "The date the content of the resource last changed.",
+          "type": "string",
+          "pattern": "^\\d{4}(-\\d{2}(-\\d{2}(T\\d{2}:\\d{2}(:\\d{2}(\\.\\d+)?)?(Z|[+-]\\d{2}:\\d{2}))?)?)?$"
+        },
+        "issued": {
+          "description": "The date the resource was first made available.",
+          "type": "string",
+          "pattern": "^\\d{4}(-\\d{2}(-\\d{2}(T\\d{2}:\\d{2}(:\\d{2}(\\.\\d+)?)?(Z|[+-]\\d{2}:\\d{2}))?)?)?$"
+        },
+        "abstract": {
+          "description": "A one-sentence summary of the resource, of no more than 250 characters.",
+          "type": "string",
+          "maxLength": 250
+        },
+        "theme": {
+          "description": "The broad subject of the resource, from a controlled list.",
+          "anyOf": [
+            {
+              "type": "string",
+              "enum": [
+                "https://w3id.org/dcat-ap-uk/codelist/theme/business-and-economy",
+                "https://w3id.org/dcat-ap-uk/codelist/theme/crime-and-justice",
+                "https://w3id.org/dcat-ap-uk/codelist/theme/defence",
+                "https://w3id.org/dcat-ap-uk/codelist/theme/digital-services-performance",
+                "https://w3id.org/dcat-ap-uk/codelist/theme/education",
+                "https://w3id.org/dcat-ap-uk/codelist/theme/environment",
+                "https://w3id.org/dcat-ap-uk/codelist/theme/government",
+                "https://w3id.org/dcat-ap-uk/codelist/theme/government-reference-data",
+                "https://w3id.org/dcat-ap-uk/codelist/theme/government-spending",
+                "https://w3id.org/dcat-ap-uk/codelist/theme/health",
+                "https://w3id.org/dcat-ap-uk/codelist/theme/mapping",
+                "https://w3id.org/dcat-ap-uk/codelist/theme/society",
+                "https://w3id.org/dcat-ap-uk/codelist/theme/towns-and-cities",
+                "https://w3id.org/dcat-ap-uk/codelist/theme/transport",
+                "ukcl:theme/business-and-economy",
+                "ukcl:theme/crime-and-justice",
+                "ukcl:theme/defence",
+                "ukcl:theme/digital-services-performance",
+                "ukcl:theme/education",
+                "ukcl:theme/environment",
+                "ukcl:theme/government",
+                "ukcl:theme/government-reference-data",
+                "ukcl:theme/government-spending",
+                "ukcl:theme/health",
+                "ukcl:theme/mapping",
+                "ukcl:theme/society",
+                "ukcl:theme/towns-and-cities",
+                "ukcl:theme/transport"
+              ]
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "https://w3id.org/dcat-ap-uk/codelist/theme/business-and-economy",
+                  "https://w3id.org/dcat-ap-uk/codelist/theme/crime-and-justice",
+                  "https://w3id.org/dcat-ap-uk/codelist/theme/defence",
+                  "https://w3id.org/dcat-ap-uk/codelist/theme/digital-services-performance",
+                  "https://w3id.org/dcat-ap-uk/codelist/theme/education",
+                  "https://w3id.org/dcat-ap-uk/codelist/theme/environment",
+                  "https://w3id.org/dcat-ap-uk/codelist/theme/government",
+                  "https://w3id.org/dcat-ap-uk/codelist/theme/government-reference-data",
+                  "https://w3id.org/dcat-ap-uk/codelist/theme/government-spending",
+                  "https://w3id.org/dcat-ap-uk/codelist/theme/health",
+                  "https://w3id.org/dcat-ap-uk/codelist/theme/mapping",
+                  "https://w3id.org/dcat-ap-uk/codelist/theme/society",
+                  "https://w3id.org/dcat-ap-uk/codelist/theme/towns-and-cities",
+                  "https://w3id.org/dcat-ap-uk/codelist/theme/transport",
+                  "ukcl:theme/business-and-economy",
+                  "ukcl:theme/crime-and-justice",
+                  "ukcl:theme/defence",
+                  "ukcl:theme/digital-services-performance",
+                  "ukcl:theme/education",
+                  "ukcl:theme/environment",
+                  "ukcl:theme/government",
+                  "ukcl:theme/government-reference-data",
+                  "ukcl:theme/government-spending",
+                  "ukcl:theme/health",
+                  "ukcl:theme/mapping",
+                  "ukcl:theme/society",
+                  "ukcl:theme/towns-and-cities",
+                  "ukcl:theme/transport"
+                ]
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "keyword": {
+          "description": "Words or short phrases that people might search for, not already in the title or description.",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "spatial": {
+          "description": "The geographic area the data is about.",
+          "anyOf": [
+            {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "iri-reference"
+                },
+                {
+                  "$ref": "#/$defs/Location"
+                }
+              ]
+            },
+            {
+              "type": "array",
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "format": "iri-reference"
+                  },
+                  {
+                    "$ref": "#/$defs/Location"
+                  }
+                ]
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "distribution": {
+          "description": "A form in which the data can be got, such as a file or an API.",
+          "anyOf": [
+            {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "iri-reference"
+                },
+                {
+                  "$ref": "#/$defs/Distribution"
+                }
+              ]
+            },
+            {
+              "type": "array",
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "format": "iri-reference"
+                  },
+                  {
+                    "$ref": "#/$defs/Distribution"
+                  }
+                ]
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "landingPage": {
+          "description": "A web page where people can find out about the resource and how to get it.",
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^https?://"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^https?://"
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "version": {
+          "description": "The version of the resource.",
+          "type": "string"
+        },
+        "sensitiveData": {
+          "description": "Whether the data contains information that needs extra care beyond being personal, such as special category data.",
+          "anyOf": [
+            {
+              "type": "string",
+              "enum": [
+                "https://w3id.org/dcat-ap-uk/codelist/sensitive-data/children",
+                "https://w3id.org/dcat-ap-uk/codelist/sensitive-data/commercially-sensitive",
+                "https://w3id.org/dcat-ap-uk/codelist/sensitive-data/criminal-offence",
+                "https://w3id.org/dcat-ap-uk/codelist/sensitive-data/none",
+                "https://w3id.org/dcat-ap-uk/codelist/sensitive-data/security-sensitive",
+                "https://w3id.org/dcat-ap-uk/codelist/sensitive-data/special-category",
+                "https://w3id.org/dcat-ap-uk/codelist/sensitive-data/unknown",
+                "ukcl:sensitive-data/children",
+                "ukcl:sensitive-data/commercially-sensitive",
+                "ukcl:sensitive-data/criminal-offence",
+                "ukcl:sensitive-data/none",
+                "ukcl:sensitive-data/security-sensitive",
+                "ukcl:sensitive-data/special-category",
+                "ukcl:sensitive-data/unknown"
+              ]
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "https://w3id.org/dcat-ap-uk/codelist/sensitive-data/children",
+                  "https://w3id.org/dcat-ap-uk/codelist/sensitive-data/commercially-sensitive",
+                  "https://w3id.org/dcat-ap-uk/codelist/sensitive-data/criminal-offence",
+                  "https://w3id.org/dcat-ap-uk/codelist/sensitive-data/none",
+                  "https://w3id.org/dcat-ap-uk/codelist/sensitive-data/security-sensitive",
+                  "https://w3id.org/dcat-ap-uk/codelist/sensitive-data/special-category",
+                  "https://w3id.org/dcat-ap-uk/codelist/sensitive-data/unknown",
+                  "ukcl:sensitive-data/children",
+                  "ukcl:sensitive-data/commercially-sensitive",
+                  "ukcl:sensitive-data/criminal-offence",
+                  "ukcl:sensitive-data/none",
+                  "ukcl:sensitive-data/security-sensitive",
+                  "ukcl:sensitive-data/special-category",
+                  "ukcl:sensitive-data/unknown"
+                ]
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "qualifiedAttribution": {
+          "description": "An organisation and the role it plays for the resource, such as data owner or data steward.",
+          "anyOf": [
+            {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "iri-reference"
+                },
+                {
+                  "$ref": "#/$defs/Attribution"
+                }
+              ]
+            },
+            {
+              "type": "array",
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "format": "iri-reference"
+                  },
+                  {
+                    "$ref": "#/$defs/Attribution"
+                  }
+                ]
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "language": {
+          "description": "The language or languages of the resource.",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "alternative": {
+          "description": "Another name the resource is known by, such as an abbreviation or a former name.",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "otherIdentifier": {
+          "description": "Any other identifier the resource is known by, such as one in a national or sector register.",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "inSeries": {
+          "description": "The dataset series this dataset belongs to.",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "isReplacedBy": {
+          "description": "A newer resource that replaces this one.",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "expires": {
+          "description": "The date after which the resource should no longer be used.",
+          "type": "string",
+          "pattern": "^\\d{4}(-\\d{2}(-\\d{2}(T\\d{2}:\\d{2}(:\\d{2}(\\.\\d+)?)?(Z|[+-]\\d{2}:\\d{2}))?)?)?$"
+        },
+        "previousVersion": {
+          "description": "The version this one replaces in a sequence.",
+          "type": "string"
+        },
+        "versionNotes": {
+          "description": "What changed in this version.",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "spatialResolutionInMeters": {
+          "description": "The smallest distance the data can tell apart, in metres.",
+          "anyOf": [
+            {
+              "type": [
+                "string",
+                "number"
+              ],
+              "pattern": "^\\d+(\\.\\d+)?$"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": [
+                  "string",
+                  "number"
+                ],
+                "pattern": "^\\d+(\\.\\d+)?$"
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "temporalResolution": {
+          "description": "The smallest period the data can tell apart, as an ISO 8601 duration.",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "referenceData": {
+          "description": "A code list, classification or set of groupings the data uses, such as age bands or a geography.",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "qualityAnnotation": {
+          "description": "A link to a published statement or measurement of the quality of the data.",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "relation": {
+          "description": "Another resource closely related to this one, such as the report the data supports.",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "qualifiedRelation": {
+          "description": "A related resource together with the kind of relationship.",
+          "anyOf": [
+            {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "iri-reference"
+                },
+                {
+                  "$ref": "#/$defs/Relationship"
+                }
+              ]
+            },
+            {
+              "type": "array",
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "format": "iri-reference"
+                  },
+                  {
+                    "$ref": "#/$defs/Relationship"
+                  }
+                ]
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "documentation": {
+          "description": "A web page that documents the resource, such as a user guide or a methodology.",
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^https?://"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^https?://"
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "metadataAudience": {
+          "description": "Who is allowed to see the metadata record itself.",
+          "type": "string",
+          "enum": [
+            "https://w3id.org/dcat-ap-uk/codelist/metadata-audience/government",
+            "https://w3id.org/dcat-ap-uk/codelist/metadata-audience/public",
+            "https://w3id.org/dcat-ap-uk/codelist/metadata-audience/public-sector",
+            "https://w3id.org/dcat-ap-uk/codelist/metadata-audience/publisher-only",
+            "ukcl:metadata-audience/government",
+            "ukcl:metadata-audience/public",
+            "ukcl:metadata-audience/public-sector",
+            "ukcl:metadata-audience/publisher-only"
+          ]
+        },
+        "applicableLegislation": {
+          "description": "Legislation that requires, governs or permits the publication or sharing of the resource.",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "hasPolicy": {
+          "description": "A machine-readable policy, in the W3C Open Digital Rights Language (ODRL), saying what may and may not be done with the resource.",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "jurisdiction": {
+          "description": "Every country or territory where the data is stored or processed, or to which it is sent.",
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^(ukcl:jurisdiction/|https://w3id\\.org/dcat-ap-uk/codelist/jurisdiction/)[a-z]{2,3}(-[a-z0-9]{1,3})?$"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^(ukcl:jurisdiction/|https://w3id\\.org/dcat-ap-uk/codelist/jurisdiction/)[a-z]{2,3}(-[a-z0-9]{1,3})?$"
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "transferMechanism": {
+          "description": "The basis under UK GDPR on which personal data in the resource may be sent outside the UK.",
+          "anyOf": [
+            {
+              "type": "string",
+              "enum": [
+                "https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism/addendum",
+                "https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism/administrative-arrangement",
+                "https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism/bcr",
+                "https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism/code-or-certification",
+                "https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism/exception",
+                "https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism/idta",
+                "https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism/law-enforcement",
+                "https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism/not-restricted",
+                "https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism/public-body-instrument",
+                "https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism/uk-adequacy",
+                "https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism/uk-adequacy-partial",
+                "ukcl:transfer-mechanism/addendum",
+                "ukcl:transfer-mechanism/administrative-arrangement",
+                "ukcl:transfer-mechanism/bcr",
+                "ukcl:transfer-mechanism/code-or-certification",
+                "ukcl:transfer-mechanism/exception",
+                "ukcl:transfer-mechanism/idta",
+                "ukcl:transfer-mechanism/law-enforcement",
+                "ukcl:transfer-mechanism/not-restricted",
+                "ukcl:transfer-mechanism/public-body-instrument",
+                "ukcl:transfer-mechanism/uk-adequacy",
+                "ukcl:transfer-mechanism/uk-adequacy-partial"
+              ]
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism/addendum",
+                  "https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism/administrative-arrangement",
+                  "https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism/bcr",
+                  "https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism/code-or-certification",
+                  "https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism/exception",
+                  "https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism/idta",
+                  "https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism/law-enforcement",
+                  "https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism/not-restricted",
+                  "https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism/public-body-instrument",
+                  "https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism/uk-adequacy",
+                  "https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism/uk-adequacy-partial",
+                  "ukcl:transfer-mechanism/addendum",
+                  "ukcl:transfer-mechanism/administrative-arrangement",
+                  "ukcl:transfer-mechanism/bcr",
+                  "ukcl:transfer-mechanism/code-or-certification",
+                  "ukcl:transfer-mechanism/exception",
+                  "ukcl:transfer-mechanism/idta",
+                  "ukcl:transfer-mechanism/law-enforcement",
+                  "ukcl:transfer-mechanism/not-restricted",
+                  "ukcl:transfer-mechanism/public-body-instrument",
+                  "ukcl:transfer-mechanism/uk-adequacy",
+                  "ukcl:transfer-mechanism/uk-adequacy-partial"
+                ]
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "missingValue": {
+          "description": "A property this record leaves empty on purpose, and why.",
+          "anyOf": [
+            {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "iri-reference"
+                },
+                {
+                  "$ref": "#/$defs/MissingValue"
+                }
+              ]
+            },
+            {
+              "type": "array",
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "format": "iri-reference"
+                  },
+                  {
+                    "$ref": "#/$defs/MissingValue"
+                  }
+                ]
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "hvdCategory": {
+          "description": "The category of high-value dataset, from the EU high-value dataset categories vocabulary.",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            }
+          ]
+        }
+      },
+      "required": [
+        "title",
+        "description",
+        "identifier",
+        "publisher",
+        "contactPoint",
+        "accessRights",
+        "securityClassification",
+        "licence",
+        "accrualPeriodicity",
+        "applicableLegislation",
+        "hvdCategory"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "accessRights": {
+                "not": {
+                  "enum": [
+                    "https://w3id.org/dcat-ap-uk/codelist/access-rights/open",
+                    "ukcl:access-rights/open"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "accessRights"
+            ]
+          },
+          "then": {
+            "required": [
+              "rights"
+            ]
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "personalData",
+              "jurisdiction"
+            ],
+            "properties": {
+              "personalData": {
+                "enum": [
+                  "https://w3id.org/dcat-ap-uk/codelist/personal-data/personal",
+                  "ukcl:personal-data/personal",
+                  "https://w3id.org/dcat-ap-uk/codelist/personal-data/pseudonymised",
+                  "ukcl:personal-data/pseudonymised",
+                  "https://w3id.org/dcat-ap-uk/codelist/personal-data/unknown",
+                  "ukcl:personal-data/unknown"
+                ]
+              },
+              "jurisdiction": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "not": {
+                      "enum": [
+                        "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/gb",
+                        "ukcl:jurisdiction/gb",
+                        "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/gb-eng",
+                        "ukcl:jurisdiction/gb-eng",
+                        "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/gb-sct",
+                        "ukcl:jurisdiction/gb-sct",
+                        "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/gb-wls",
+                        "ukcl:jurisdiction/gb-wls",
+                        "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/gb-nir",
+                        "ukcl:jurisdiction/gb-nir"
+                      ]
+                    }
+                  },
+                  {
+                    "type": "array",
+                    "contains": {
+                      "not": {
+                        "enum": [
+                          "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/gb",
+                          "ukcl:jurisdiction/gb",
+                          "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/gb-eng",
+                          "ukcl:jurisdiction/gb-eng",
+                          "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/gb-sct",
+                          "ukcl:jurisdiction/gb-sct",
+                          "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/gb-wls",
+                          "ukcl:jurisdiction/gb-wls",
+                          "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/gb-nir",
+                          "ukcl:jurisdiction/gb-nir"
+                        ]
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "transferMechanism"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "criticalDataAsset": {
+                "enum": [
+                  "true",
+                  true
+                ]
+              }
+            },
+            "required": [
+              "criticalDataAsset"
+            ]
+          },
+          "then": {
+            "required": [
+              "creator",
+              "created",
+              "conformsTo",
+              "temporal",
+              "personalData"
+            ]
+          }
+        }
+      ]
+    },
+    "DataService": {
+      "type": "object",
+      "title": "Data service",
+      "description": "A set of operations, such as an API, that gives access to one or more datasets or data processing functions.",
+      "properties": {
+        "class": {
+          "const": "DataService"
+        },
+        "id": {
+          "type": "string"
+        },
+        "title": {
+          "description": "The name of the resource, in plain English.",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "description": {
+          "description": "A plain English account of what the resource contains and what it can be used for.",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "identifier": {
+          "description": "The main identifier of the resource in the publisher's own catalogue.",
+          "type": "string"
+        },
+        "endpointURL": {
+          "description": "The root address of the service.",
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^https?://"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^https?://"
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "publisher": {
+          "description": "The organisation responsible for making the resource available.",
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "iri-reference"
+            },
+            {
+              "$ref": "#/$defs/Agent"
+            }
+          ]
+        },
+        "contactPoint": {
+          "description": "Where to ask questions about the resource or give feedback on it.",
+          "anyOf": [
+            {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "iri-reference"
+                },
+                {
+                  "$ref": "#/$defs/ContactPoint"
+                }
+              ]
+            },
+            {
+              "type": "array",
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "format": "iri-reference"
+                  },
+                  {
+                    "$ref": "#/$defs/ContactPoint"
+                  }
+                ]
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "accessRights": {
+          "description": "Who can get the data, and on what terms.",
+          "type": "string",
+          "enum": [
+            "https://w3id.org/dcat-ap-uk/codelist/access-rights/commercial",
+            "https://w3id.org/dcat-ap-uk/codelist/access-rights/internal",
+            "https://w3id.org/dcat-ap-uk/codelist/access-rights/open",
+            "ukcl:access-rights/commercial",
+            "ukcl:access-rights/internal",
+            "ukcl:access-rights/open"
+          ]
+        },
+        "securityClassification": {
+          "description": "The classification under the Government Security Classifications Policy that the data itself carries.",
+          "type": "string",
+          "enum": [
+            "https://w3id.org/dcat-ap-uk/codelist/security-classification/official",
+            "https://w3id.org/dcat-ap-uk/codelist/security-classification/official-sensitive",
+            "https://w3id.org/dcat-ap-uk/codelist/security-classification/secret",
+            "https://w3id.org/dcat-ap-uk/codelist/security-classification/top-secret",
+            "ukcl:security-classification/official",
+            "ukcl:security-classification/official-sensitive",
+            "ukcl:security-classification/secret",
+            "ukcl:security-classification/top-secret"
+          ]
+        },
+        "licence": {
+          "description": "The licence under which the resource can be used.",
+          "type": "string"
+        },
+        "serviceStatus": {
+          "description": "Where a data service is in its life, from discovery to retirement.",
+          "type": "string",
+          "enum": [
+            "https://w3id.org/dcat-ap-uk/codelist/service-status/alpha",
+            "https://w3id.org/dcat-ap-uk/codelist/service-status/beta",
+            "https://w3id.org/dcat-ap-uk/codelist/service-status/deprecated",
+            "https://w3id.org/dcat-ap-uk/codelist/service-status/discovery",
+            "https://w3id.org/dcat-ap-uk/codelist/service-status/live",
+            "https://w3id.org/dcat-ap-uk/codelist/service-status/private-beta",
+            "https://w3id.org/dcat-ap-uk/codelist/service-status/public-beta",
+            "https://w3id.org/dcat-ap-uk/codelist/service-status/withdrawn",
+            "ukcl:service-status/alpha",
+            "ukcl:service-status/beta",
+            "ukcl:service-status/deprecated",
+            "ukcl:service-status/discovery",
+            "ukcl:service-status/live",
+            "ukcl:service-status/private-beta",
+            "ukcl:service-status/public-beta",
+            "ukcl:service-status/withdrawn"
+          ]
+        },
+        "serviceType": {
+          "description": "For a data service, the kind of interface.",
+          "type": "string",
+          "enum": [
+            "https://w3id.org/dcat-ap-uk/codelist/service-type/event",
+            "https://w3id.org/dcat-ap-uk/codelist/service-type/file-transfer",
+            "https://w3id.org/dcat-ap-uk/codelist/service-type/graphql",
+            "https://w3id.org/dcat-ap-uk/codelist/service-type/ogc",
+            "https://w3id.org/dcat-ap-uk/codelist/service-type/rest",
+            "https://w3id.org/dcat-ap-uk/codelist/service-type/soap",
+            "https://w3id.org/dcat-ap-uk/codelist/service-type/sparql",
+            "ukcl:service-type/event",
+            "ukcl:service-type/file-transfer",
+            "ukcl:service-type/graphql",
+            "ukcl:service-type/ogc",
+            "ukcl:service-type/rest",
+            "ukcl:service-type/soap",
+            "ukcl:service-type/sparql"
+          ]
+        },
+        "conformsTo": {
+          "description": "A standard, specification or schema the resource follows.",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "endpointDescription": {
+          "description": "A description of what the service does and how to call it, such as an OpenAPI document.",
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^https?://"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^https?://"
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "servesDataset": {
+          "description": "A dataset this service gives access to.",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "criticalDataAsset": {
+          "description": "Whether the resource is a critical data asset under the Data Asset Management Policy.",
+          "type": [
+            "string",
+            "boolean"
+          ],
+          "enum": [
+            "true",
+            "false",
+            true,
+            false
+          ]
+        },
+        "rights": {
+          "description": "A statement of any restriction on access or use, such as the data sharing agreement or legal gateway needed.",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "creator": {
+          "description": "The organisation that created or compiled the content of the resource.",
+          "anyOf": [
+            {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "iri-reference"
+                },
+                {
+                  "$ref": "#/$defs/Agent"
+                }
+              ]
+            },
+            {
+              "type": "array",
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "format": "iri-reference"
+                  },
+                  {
+                    "$ref": "#/$defs/Agent"
+                  }
+                ]
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "issued": {
+          "description": "The date the resource was first made available.",
+          "type": "string",
+          "pattern": "^\\d{4}(-\\d{2}(-\\d{2}(T\\d{2}:\\d{2}(:\\d{2}(\\.\\d+)?)?(Z|[+-]\\d{2}:\\d{2}))?)?)?$"
+        },
+        "modified": {
+          "description": "The date the content of the resource last changed.",
+          "type": "string",
+          "pattern": "^\\d{4}(-\\d{2}(-\\d{2}(T\\d{2}:\\d{2}(:\\d{2}(\\.\\d+)?)?(Z|[+-]\\d{2}:\\d{2}))?)?)?$"
+        },
+        "abstract": {
+          "description": "A one-sentence summary of the resource, of no more than 250 characters.",
+          "type": "string",
+          "maxLength": 250
+        },
+        "theme": {
+          "description": "The broad subject of the resource, from a controlled list.",
+          "anyOf": [
+            {
+              "type": "string",
+              "enum": [
+                "https://w3id.org/dcat-ap-uk/codelist/theme/business-and-economy",
+                "https://w3id.org/dcat-ap-uk/codelist/theme/crime-and-justice",
+                "https://w3id.org/dcat-ap-uk/codelist/theme/defence",
+                "https://w3id.org/dcat-ap-uk/codelist/theme/digital-services-performance",
+                "https://w3id.org/dcat-ap-uk/codelist/theme/education",
+                "https://w3id.org/dcat-ap-uk/codelist/theme/environment",
+                "https://w3id.org/dcat-ap-uk/codelist/theme/government",
+                "https://w3id.org/dcat-ap-uk/codelist/theme/government-reference-data",
+                "https://w3id.org/dcat-ap-uk/codelist/theme/government-spending",
+                "https://w3id.org/dcat-ap-uk/codelist/theme/health",
+                "https://w3id.org/dcat-ap-uk/codelist/theme/mapping",
+                "https://w3id.org/dcat-ap-uk/codelist/theme/society",
+                "https://w3id.org/dcat-ap-uk/codelist/theme/towns-and-cities",
+                "https://w3id.org/dcat-ap-uk/codelist/theme/transport",
+                "ukcl:theme/business-and-economy",
+                "ukcl:theme/crime-and-justice",
+                "ukcl:theme/defence",
+                "ukcl:theme/digital-services-performance",
+                "ukcl:theme/education",
+                "ukcl:theme/environment",
+                "ukcl:theme/government",
+                "ukcl:theme/government-reference-data",
+                "ukcl:theme/government-spending",
+                "ukcl:theme/health",
+                "ukcl:theme/mapping",
+                "ukcl:theme/society",
+                "ukcl:theme/towns-and-cities",
+                "ukcl:theme/transport"
+              ]
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "https://w3id.org/dcat-ap-uk/codelist/theme/business-and-economy",
+                  "https://w3id.org/dcat-ap-uk/codelist/theme/crime-and-justice",
+                  "https://w3id.org/dcat-ap-uk/codelist/theme/defence",
+                  "https://w3id.org/dcat-ap-uk/codelist/theme/digital-services-performance",
+                  "https://w3id.org/dcat-ap-uk/codelist/theme/education",
+                  "https://w3id.org/dcat-ap-uk/codelist/theme/environment",
+                  "https://w3id.org/dcat-ap-uk/codelist/theme/government",
+                  "https://w3id.org/dcat-ap-uk/codelist/theme/government-reference-data",
+                  "https://w3id.org/dcat-ap-uk/codelist/theme/government-spending",
+                  "https://w3id.org/dcat-ap-uk/codelist/theme/health",
+                  "https://w3id.org/dcat-ap-uk/codelist/theme/mapping",
+                  "https://w3id.org/dcat-ap-uk/codelist/theme/society",
+                  "https://w3id.org/dcat-ap-uk/codelist/theme/towns-and-cities",
+                  "https://w3id.org/dcat-ap-uk/codelist/theme/transport",
+                  "ukcl:theme/business-and-economy",
+                  "ukcl:theme/crime-and-justice",
+                  "ukcl:theme/defence",
+                  "ukcl:theme/digital-services-performance",
+                  "ukcl:theme/education",
+                  "ukcl:theme/environment",
+                  "ukcl:theme/government",
+                  "ukcl:theme/government-reference-data",
+                  "ukcl:theme/government-spending",
+                  "ukcl:theme/health",
+                  "ukcl:theme/mapping",
+                  "ukcl:theme/society",
+                  "ukcl:theme/towns-and-cities",
+                  "ukcl:theme/transport"
+                ]
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "keyword": {
+          "description": "Words or short phrases that people might search for, not already in the title or description.",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "version": {
+          "description": "The version of the resource.",
+          "type": "string"
+        },
+        "landingPage": {
+          "description": "A web page where people can find out about the resource and how to get it.",
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^https?://"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^https?://"
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "documentation": {
+          "description": "A web page that documents the resource, such as a user guide or a methodology.",
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^https?://"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^https?://"
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "language": {
+          "description": "The language or languages of the resource.",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "personalData": {
+          "description": "Whether the data contains information about identifiable living people, and in what form.",
+          "type": "string",
+          "enum": [
+            "https://w3id.org/dcat-ap-uk/codelist/personal-data/anonymised",
+            "https://w3id.org/dcat-ap-uk/codelist/personal-data/none",
+            "https://w3id.org/dcat-ap-uk/codelist/personal-data/personal",
+            "https://w3id.org/dcat-ap-uk/codelist/personal-data/pseudonymised",
+            "https://w3id.org/dcat-ap-uk/codelist/personal-data/unknown",
+            "ukcl:personal-data/anonymised",
+            "ukcl:personal-data/none",
+            "ukcl:personal-data/personal",
+            "ukcl:personal-data/pseudonymised",
+            "ukcl:personal-data/unknown"
+          ]
+        },
+        "metadataAudience": {
+          "description": "Who is allowed to see the metadata record itself.",
+          "type": "string",
+          "enum": [
+            "https://w3id.org/dcat-ap-uk/codelist/metadata-audience/government",
+            "https://w3id.org/dcat-ap-uk/codelist/metadata-audience/public",
+            "https://w3id.org/dcat-ap-uk/codelist/metadata-audience/public-sector",
+            "https://w3id.org/dcat-ap-uk/codelist/metadata-audience/publisher-only",
+            "ukcl:metadata-audience/government",
+            "ukcl:metadata-audience/public",
+            "ukcl:metadata-audience/public-sector",
+            "ukcl:metadata-audience/publisher-only"
+          ]
+        },
+        "applicableLegislation": {
+          "description": "Legislation that requires, governs or permits the publication or sharing of the resource.",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "hasPolicy": {
+          "description": "A machine-readable policy, in the W3C Open Digital Rights Language (ODRL), saying what may and may not be done with the resource.",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "jurisdiction": {
+          "description": "Every country or territory where the data is stored or processed, or to which it is sent.",
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^(ukcl:jurisdiction/|https://w3id\\.org/dcat-ap-uk/codelist/jurisdiction/)[a-z]{2,3}(-[a-z0-9]{1,3})?$"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^(ukcl:jurisdiction/|https://w3id\\.org/dcat-ap-uk/codelist/jurisdiction/)[a-z]{2,3}(-[a-z0-9]{1,3})?$"
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "transferMechanism": {
+          "description": "The basis under UK GDPR on which personal data in the resource may be sent outside the UK.",
+          "anyOf": [
+            {
+              "type": "string",
+              "enum": [
+                "https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism/addendum",
+                "https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism/administrative-arrangement",
+                "https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism/bcr",
+                "https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism/code-or-certification",
+                "https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism/exception",
+                "https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism/idta",
+                "https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism/law-enforcement",
+                "https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism/not-restricted",
+                "https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism/public-body-instrument",
+                "https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism/uk-adequacy",
+                "https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism/uk-adequacy-partial",
+                "ukcl:transfer-mechanism/addendum",
+                "ukcl:transfer-mechanism/administrative-arrangement",
+                "ukcl:transfer-mechanism/bcr",
+                "ukcl:transfer-mechanism/code-or-certification",
+                "ukcl:transfer-mechanism/exception",
+                "ukcl:transfer-mechanism/idta",
+                "ukcl:transfer-mechanism/law-enforcement",
+                "ukcl:transfer-mechanism/not-restricted",
+                "ukcl:transfer-mechanism/public-body-instrument",
+                "ukcl:transfer-mechanism/uk-adequacy",
+                "ukcl:transfer-mechanism/uk-adequacy-partial"
+              ]
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism/addendum",
+                  "https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism/administrative-arrangement",
+                  "https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism/bcr",
+                  "https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism/code-or-certification",
+                  "https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism/exception",
+                  "https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism/idta",
+                  "https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism/law-enforcement",
+                  "https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism/not-restricted",
+                  "https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism/public-body-instrument",
+                  "https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism/uk-adequacy",
+                  "https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism/uk-adequacy-partial",
+                  "ukcl:transfer-mechanism/addendum",
+                  "ukcl:transfer-mechanism/administrative-arrangement",
+                  "ukcl:transfer-mechanism/bcr",
+                  "ukcl:transfer-mechanism/code-or-certification",
+                  "ukcl:transfer-mechanism/exception",
+                  "ukcl:transfer-mechanism/idta",
+                  "ukcl:transfer-mechanism/law-enforcement",
+                  "ukcl:transfer-mechanism/not-restricted",
+                  "ukcl:transfer-mechanism/public-body-instrument",
+                  "ukcl:transfer-mechanism/uk-adequacy",
+                  "ukcl:transfer-mechanism/uk-adequacy-partial"
+                ]
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "transportSecurity": {
+          "description": "The kind of key exchange the service's endpoint uses to protect data in transit, classical or post-quantum.",
+          "type": "string",
+          "enum": [
+            "https://w3id.org/dcat-ap-uk/codelist/transport-security/not-assessed",
+            "https://w3id.org/dcat-ap-uk/codelist/transport-security/pqc-hybrid",
+            "https://w3id.org/dcat-ap-uk/codelist/transport-security/pqc-only",
+            "https://w3id.org/dcat-ap-uk/codelist/transport-security/tls12-classical",
+            "https://w3id.org/dcat-ap-uk/codelist/transport-security/tls13-classical",
+            "ukcl:transport-security/not-assessed",
+            "ukcl:transport-security/pqc-hybrid",
+            "ukcl:transport-security/pqc-only",
+            "ukcl:transport-security/tls12-classical",
+            "ukcl:transport-security/tls13-classical"
+          ]
+        },
+        "missingValue": {
+          "description": "A property this record leaves empty on purpose, and why.",
+          "anyOf": [
+            {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "iri-reference"
+                },
+                {
+                  "$ref": "#/$defs/MissingValue"
+                }
+              ]
+            },
+            {
+              "type": "array",
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "format": "iri-reference"
+                  },
+                  {
+                    "$ref": "#/$defs/MissingValue"
+                  }
+                ]
+              },
+              "minItems": 1
+            }
+          ]
+        }
+      },
+      "required": [
+        "title",
+        "description",
+        "identifier",
+        "endpointURL",
+        "publisher",
+        "contactPoint",
+        "accessRights",
+        "securityClassification",
+        "licence",
+        "serviceStatus"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "accessRights": {
+                "not": {
+                  "enum": [
+                    "https://w3id.org/dcat-ap-uk/codelist/access-rights/open",
+                    "ukcl:access-rights/open"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "accessRights"
+            ]
+          },
+          "then": {
+            "required": [
+              "rights"
+            ]
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "personalData",
+              "jurisdiction"
+            ],
+            "properties": {
+              "personalData": {
+                "enum": [
+                  "https://w3id.org/dcat-ap-uk/codelist/personal-data/personal",
+                  "ukcl:personal-data/personal",
+                  "https://w3id.org/dcat-ap-uk/codelist/personal-data/pseudonymised",
+                  "ukcl:personal-data/pseudonymised",
+                  "https://w3id.org/dcat-ap-uk/codelist/personal-data/unknown",
+                  "ukcl:personal-data/unknown"
+                ]
+              },
+              "jurisdiction": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "not": {
+                      "enum": [
+                        "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/gb",
+                        "ukcl:jurisdiction/gb",
+                        "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/gb-eng",
+                        "ukcl:jurisdiction/gb-eng",
+                        "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/gb-sct",
+                        "ukcl:jurisdiction/gb-sct",
+                        "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/gb-wls",
+                        "ukcl:jurisdiction/gb-wls",
+                        "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/gb-nir",
+                        "ukcl:jurisdiction/gb-nir"
+                      ]
+                    }
+                  },
+                  {
+                    "type": "array",
+                    "contains": {
+                      "not": {
+                        "enum": [
+                          "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/gb",
+                          "ukcl:jurisdiction/gb",
+                          "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/gb-eng",
+                          "ukcl:jurisdiction/gb-eng",
+                          "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/gb-sct",
+                          "ukcl:jurisdiction/gb-sct",
+                          "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/gb-wls",
+                          "ukcl:jurisdiction/gb-wls",
+                          "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/gb-nir",
+                          "ukcl:jurisdiction/gb-nir"
+                        ]
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "transferMechanism"
+            ]
+          }
+        }
+      ]
+    },
+    "Distribution": {
+      "type": "object",
+      "title": "Distribution",
+      "description": "A specific form of a dataset, such as a CSV file, a GeoPackage or an API response.",
+      "properties": {
+        "class": {
+          "const": "Distribution"
+        },
+        "id": {
+          "type": "string"
+        },
+        "accessURL": {
+          "description": "A web address that gives access to the distribution, such as a landing page, a download page or an API.",
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^https?://"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^https?://"
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "mediaType": {
+          "description": "The file format, as an IANA media type.",
+          "type": "string"
+        },
+        "downloadURL": {
+          "description": "A direct link to a file.",
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^https?://"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^https?://"
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "description": {
+          "description": "A plain English account of what the resource contains and what it can be used for.",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "licence": {
+          "description": "The licence under which the resource can be used.",
+          "type": "string"
+        },
+        "title": {
+          "description": "The name of the resource, in plain English.",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "format": {
+          "description": "The file type, from the EU file type list, where there is no IANA media type.",
+          "type": "string"
+        },
+        "byteSize": {
+          "description": "The size of the file in bytes.",
+          "type": [
+            "string",
+            "integer"
+          ],
+          "pattern": "^\\d+$"
+        },
+        "checksum": {
+          "description": "A value that lets people check the file they downloaded is complete and unchanged.",
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "iri-reference"
+            },
+            {
+              "$ref": "#/$defs/Checksum"
+            }
+          ]
+        },
+        "accessService": {
+          "description": "A data service that gives access to this distribution.",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "accessRights": {
+          "description": "Who can get the data, and on what terms.",
+          "type": "string",
+          "enum": [
+            "https://w3id.org/dcat-ap-uk/codelist/access-rights/commercial",
+            "https://w3id.org/dcat-ap-uk/codelist/access-rights/internal",
+            "https://w3id.org/dcat-ap-uk/codelist/access-rights/open",
+            "ukcl:access-rights/commercial",
+            "ukcl:access-rights/internal",
+            "ukcl:access-rights/open"
+          ]
+        },
+        "issued": {
+          "description": "The date the resource was first made available.",
+          "type": "string",
+          "pattern": "^\\d{4}(-\\d{2}(-\\d{2}(T\\d{2}:\\d{2}(:\\d{2}(\\.\\d+)?)?(Z|[+-]\\d{2}:\\d{2}))?)?)?$"
+        },
+        "modified": {
+          "description": "The date the content of the resource last changed.",
+          "type": "string",
+          "pattern": "^\\d{4}(-\\d{2}(-\\d{2}(T\\d{2}:\\d{2}(:\\d{2}(\\.\\d+)?)?(Z|[+-]\\d{2}:\\d{2}))?)?)?$"
+        },
+        "conformsTo": {
+          "description": "A standard, specification or schema the resource follows.",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "language": {
+          "description": "The language or languages of the resource.",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "compressFormat": {
+          "description": "The format the file is compressed in, as an IANA media type.",
+          "type": "string"
+        },
+        "identifier": {
+          "description": "The main identifier of the resource in the publisher's own catalogue.",
+          "type": "string"
+        },
+        "hasPolicy": {
+          "description": "A machine-readable policy, in the W3C Open Digital Rights Language (ODRL), saying what may and may not be done with the resource.",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            }
+          ]
+        }
+      },
+      "required": [
+        "accessURL"
+      ],
+      "additionalProperties": false
+    },
+    "DatasetSeries": {
+      "type": "object",
+      "title": "Dataset series",
+      "description": "A group of datasets published separately but sharing a subject and a method, such as each release of a census.",
+      "properties": {
+        "class": {
+          "const": "DatasetSeries"
+        },
+        "id": {
+          "type": "string"
+        },
+        "title": {
+          "description": "The name of the resource, in plain English.",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "description": {
+          "description": "A plain English account of what the resource contains and what it can be used for.",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "publisher": {
+          "description": "The organisation responsible for making the resource available.",
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "iri-reference"
+            },
+            {
+              "$ref": "#/$defs/Agent"
+            }
+          ]
+        },
+        "contactPoint": {
+          "description": "Where to ask questions about the resource or give feedback on it.",
+          "anyOf": [
+            {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "iri-reference"
+                },
+                {
+                  "$ref": "#/$defs/ContactPoint"
+                }
+              ]
+            },
+            {
+              "type": "array",
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "format": "iri-reference"
+                  },
+                  {
+                    "$ref": "#/$defs/ContactPoint"
+                  }
+                ]
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "accrualPeriodicity": {
+          "description": "How often the resource is updated.",
+          "type": "string",
+          "enum": [
+            "eufreq:ANNUAL",
+            "eufreq:ANNUAL_2",
+            "eufreq:ANNUAL_3",
+            "eufreq:BIENNIAL",
+            "eufreq:BIMONTHLY",
+            "eufreq:BIWEEKLY",
+            "eufreq:CONT",
+            "eufreq:DAILY",
+            "eufreq:IRREG",
+            "eufreq:MONTHLY",
+            "eufreq:MONTHLY_2",
+            "eufreq:MONTHLY_3",
+            "eufreq:NEVER",
+            "eufreq:OTHER",
+            "eufreq:QUARTERLY",
+            "eufreq:TRIENNIAL",
+            "eufreq:UNKNOWN",
+            "eufreq:WEEKLY",
+            "eufreq:WEEKLY_2",
+            "eufreq:WEEKLY_3",
+            "http://publications.europa.eu/resource/authority/frequency/ANNUAL",
+            "http://publications.europa.eu/resource/authority/frequency/ANNUAL_2",
+            "http://publications.europa.eu/resource/authority/frequency/ANNUAL_3",
+            "http://publications.europa.eu/resource/authority/frequency/BIENNIAL",
+            "http://publications.europa.eu/resource/authority/frequency/BIMONTHLY",
+            "http://publications.europa.eu/resource/authority/frequency/BIWEEKLY",
+            "http://publications.europa.eu/resource/authority/frequency/CONT",
+            "http://publications.europa.eu/resource/authority/frequency/DAILY",
+            "http://publications.europa.eu/resource/authority/frequency/IRREG",
+            "http://publications.europa.eu/resource/authority/frequency/MONTHLY",
+            "http://publications.europa.eu/resource/authority/frequency/MONTHLY_2",
+            "http://publications.europa.eu/resource/authority/frequency/MONTHLY_3",
+            "http://publications.europa.eu/resource/authority/frequency/NEVER",
+            "http://publications.europa.eu/resource/authority/frequency/OTHER",
+            "http://publications.europa.eu/resource/authority/frequency/QUARTERLY",
+            "http://publications.europa.eu/resource/authority/frequency/TRIENNIAL",
+            "http://publications.europa.eu/resource/authority/frequency/UNKNOWN",
+            "http://publications.europa.eu/resource/authority/frequency/WEEKLY",
+            "http://publications.europa.eu/resource/authority/frequency/WEEKLY_2",
+            "http://publications.europa.eu/resource/authority/frequency/WEEKLY_3"
+          ]
+        },
+        "spatial": {
+          "description": "The geographic area the data is about.",
+          "anyOf": [
+            {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "iri-reference"
+                },
+                {
+                  "$ref": "#/$defs/Location"
+                }
+              ]
+            },
+            {
+              "type": "array",
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "format": "iri-reference"
+                  },
+                  {
+                    "$ref": "#/$defs/Location"
+                  }
+                ]
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "temporal": {
+          "description": "The period of time the data is about.",
+          "anyOf": [
+            {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "iri-reference"
+                },
+                {
+                  "$ref": "#/$defs/PeriodOfTime"
+                }
+              ]
+            },
+            {
+              "type": "array",
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "format": "iri-reference"
+                  },
+                  {
+                    "$ref": "#/$defs/PeriodOfTime"
+                  }
+                ]
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "theme": {
+          "description": "The broad subject of the resource, from a controlled list.",
+          "anyOf": [
+            {
+              "type": "string",
+              "enum": [
+                "https://w3id.org/dcat-ap-uk/codelist/theme/business-and-economy",
+                "https://w3id.org/dcat-ap-uk/codelist/theme/crime-and-justice",
+                "https://w3id.org/dcat-ap-uk/codelist/theme/defence",
+                "https://w3id.org/dcat-ap-uk/codelist/theme/digital-services-performance",
+                "https://w3id.org/dcat-ap-uk/codelist/theme/education",
+                "https://w3id.org/dcat-ap-uk/codelist/theme/environment",
+                "https://w3id.org/dcat-ap-uk/codelist/theme/government",
+                "https://w3id.org/dcat-ap-uk/codelist/theme/government-reference-data",
+                "https://w3id.org/dcat-ap-uk/codelist/theme/government-spending",
+                "https://w3id.org/dcat-ap-uk/codelist/theme/health",
+                "https://w3id.org/dcat-ap-uk/codelist/theme/mapping",
+                "https://w3id.org/dcat-ap-uk/codelist/theme/society",
+                "https://w3id.org/dcat-ap-uk/codelist/theme/towns-and-cities",
+                "https://w3id.org/dcat-ap-uk/codelist/theme/transport",
+                "ukcl:theme/business-and-economy",
+                "ukcl:theme/crime-and-justice",
+                "ukcl:theme/defence",
+                "ukcl:theme/digital-services-performance",
+                "ukcl:theme/education",
+                "ukcl:theme/environment",
+                "ukcl:theme/government",
+                "ukcl:theme/government-reference-data",
+                "ukcl:theme/government-spending",
+                "ukcl:theme/health",
+                "ukcl:theme/mapping",
+                "ukcl:theme/society",
+                "ukcl:theme/towns-and-cities",
+                "ukcl:theme/transport"
+              ]
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "https://w3id.org/dcat-ap-uk/codelist/theme/business-and-economy",
+                  "https://w3id.org/dcat-ap-uk/codelist/theme/crime-and-justice",
+                  "https://w3id.org/dcat-ap-uk/codelist/theme/defence",
+                  "https://w3id.org/dcat-ap-uk/codelist/theme/digital-services-performance",
+                  "https://w3id.org/dcat-ap-uk/codelist/theme/education",
+                  "https://w3id.org/dcat-ap-uk/codelist/theme/environment",
+                  "https://w3id.org/dcat-ap-uk/codelist/theme/government",
+                  "https://w3id.org/dcat-ap-uk/codelist/theme/government-reference-data",
+                  "https://w3id.org/dcat-ap-uk/codelist/theme/government-spending",
+                  "https://w3id.org/dcat-ap-uk/codelist/theme/health",
+                  "https://w3id.org/dcat-ap-uk/codelist/theme/mapping",
+                  "https://w3id.org/dcat-ap-uk/codelist/theme/society",
+                  "https://w3id.org/dcat-ap-uk/codelist/theme/towns-and-cities",
+                  "https://w3id.org/dcat-ap-uk/codelist/theme/transport",
+                  "ukcl:theme/business-and-economy",
+                  "ukcl:theme/crime-and-justice",
+                  "ukcl:theme/defence",
+                  "ukcl:theme/digital-services-performance",
+                  "ukcl:theme/education",
+                  "ukcl:theme/environment",
+                  "ukcl:theme/government",
+                  "ukcl:theme/government-reference-data",
+                  "ukcl:theme/government-spending",
+                  "ukcl:theme/health",
+                  "ukcl:theme/mapping",
+                  "ukcl:theme/society",
+                  "ukcl:theme/towns-and-cities",
+                  "ukcl:theme/transport"
+                ]
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "modified": {
+          "description": "The date the content of the resource last changed.",
+          "type": "string",
+          "pattern": "^\\d{4}(-\\d{2}(-\\d{2}(T\\d{2}:\\d{2}(:\\d{2}(\\.\\d+)?)?(Z|[+-]\\d{2}:\\d{2}))?)?)?$"
+        }
+      },
+      "required": [
+        "title",
+        "description"
+      ],
+      "additionalProperties": false
+    },
+    "Catalogue": {
+      "type": "object",
+      "title": "Catalogue",
+      "description": "A curated collection of metadata about datasets and data services.",
+      "properties": {
+        "class": {
+          "const": "Catalogue"
+        },
+        "id": {
+          "type": "string"
+        },
+        "title": {
+          "description": "The name of the resource, in plain English.",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "description": {
+          "description": "A plain English account of what the resource contains and what it can be used for.",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "publisher": {
+          "description": "The organisation responsible for making the resource available.",
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "iri-reference"
+            },
+            {
+              "$ref": "#/$defs/Agent"
+            }
+          ]
+        },
+        "dataset": {
+          "description": "A dataset listed in the catalogue.",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "service": {
+          "description": "A data service listed in the catalogue.",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "homepage": {
+          "description": "The home page of the catalogue or the organisation.",
+          "type": "string",
+          "pattern": "^https?://"
+        },
+        "contactPoint": {
+          "description": "Where to ask questions about the resource or give feedback on it.",
+          "anyOf": [
+            {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "iri-reference"
+                },
+                {
+                  "$ref": "#/$defs/ContactPoint"
+                }
+              ]
+            },
+            {
+              "type": "array",
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "format": "iri-reference"
+                  },
+                  {
+                    "$ref": "#/$defs/ContactPoint"
+                  }
+                ]
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "modified": {
+          "description": "The date the content of the resource last changed.",
+          "type": "string",
+          "pattern": "^\\d{4}(-\\d{2}(-\\d{2}(T\\d{2}:\\d{2}(:\\d{2}(\\.\\d+)?)?(Z|[+-]\\d{2}:\\d{2}))?)?)?$"
+        },
+        "licence": {
+          "description": "The licence under which the resource can be used.",
+          "type": "string"
+        },
+        "themeTaxonomy": {
+          "description": "The list of themes the catalogue uses to classify its records.",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "language": {
+          "description": "The language or languages of the resource.",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "conformsTo": {
+          "description": "A standard, specification or schema the resource follows.",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "issued": {
+          "description": "The date the resource was first made available.",
+          "type": "string",
+          "pattern": "^\\d{4}(-\\d{2}(-\\d{2}(T\\d{2}:\\d{2}(:\\d{2}(\\.\\d+)?)?(Z|[+-]\\d{2}:\\d{2}))?)?)?$"
+        },
+        "spatial": {
+          "description": "The geographic area the data is about.",
+          "anyOf": [
+            {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "iri-reference"
+                },
+                {
+                  "$ref": "#/$defs/Location"
+                }
+              ]
+            },
+            {
+              "type": "array",
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "format": "iri-reference"
+                  },
+                  {
+                    "$ref": "#/$defs/Location"
+                  }
+                ]
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "record": {
+          "description": "A record describing an entry in the catalogue.",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            }
+          ]
+        }
+      },
+      "required": [
+        "title",
+        "description",
+        "publisher"
+      ],
+      "additionalProperties": false
+    },
+    "CatalogueRecord": {
+      "type": "object",
+      "title": "Catalogue record",
+      "description": "A record in a catalogue about one dataset or data service, with its own dates.",
+      "properties": {
+        "class": {
+          "const": "CatalogueRecord"
+        },
+        "id": {
+          "type": "string"
+        },
+        "primaryTopic": {
+          "description": "The dataset or data service this record describes.",
+          "type": "string"
+        },
+        "modified": {
+          "description": "The date the content of the resource last changed.",
+          "type": "string",
+          "pattern": "^\\d{4}(-\\d{2}(-\\d{2}(T\\d{2}:\\d{2}(:\\d{2}(\\.\\d+)?)?(Z|[+-]\\d{2}:\\d{2}))?)?)?$"
+        },
+        "conformsTo": {
+          "description": "A standard, specification or schema the resource follows.",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "issued": {
+          "description": "The date the resource was first made available.",
+          "type": "string",
+          "pattern": "^\\d{4}(-\\d{2}(-\\d{2}(T\\d{2}:\\d{2}(:\\d{2}(\\.\\d+)?)?(Z|[+-]\\d{2}:\\d{2}))?)?)?$"
+        },
+        "metadataAudience": {
+          "description": "Who is allowed to see the metadata record itself.",
+          "type": "string",
+          "enum": [
+            "https://w3id.org/dcat-ap-uk/codelist/metadata-audience/government",
+            "https://w3id.org/dcat-ap-uk/codelist/metadata-audience/public",
+            "https://w3id.org/dcat-ap-uk/codelist/metadata-audience/public-sector",
+            "https://w3id.org/dcat-ap-uk/codelist/metadata-audience/publisher-only",
+            "ukcl:metadata-audience/government",
+            "ukcl:metadata-audience/public",
+            "ukcl:metadata-audience/public-sector",
+            "ukcl:metadata-audience/publisher-only"
+          ]
+        },
+        "securityClassification": {
+          "description": "The classification under the Government Security Classifications Policy that the data itself carries.",
+          "type": "string",
+          "enum": [
+            "https://w3id.org/dcat-ap-uk/codelist/security-classification/official",
+            "https://w3id.org/dcat-ap-uk/codelist/security-classification/official-sensitive",
+            "https://w3id.org/dcat-ap-uk/codelist/security-classification/secret",
+            "https://w3id.org/dcat-ap-uk/codelist/security-classification/top-secret",
+            "ukcl:security-classification/official",
+            "ukcl:security-classification/official-sensitive",
+            "ukcl:security-classification/secret",
+            "ukcl:security-classification/top-secret"
+          ]
+        },
+        "missingValue": {
+          "description": "A property this record leaves empty on purpose, and why.",
+          "anyOf": [
+            {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "iri-reference"
+                },
+                {
+                  "$ref": "#/$defs/MissingValue"
+                }
+              ]
+            },
+            {
+              "type": "array",
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "format": "iri-reference"
+                  },
+                  {
+                    "$ref": "#/$defs/MissingValue"
+                  }
+                ]
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "sourceRecord": {
+          "description": "The original metadata record this record was harvested or converted from.",
+          "type": "string"
+        },
+        "enrichedProperty": {
+          "description": "A property whose value was added or changed by the harvester or converter, rather than taken from the source record.",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            }
+          ]
+        }
+      },
+      "required": [
+        "primaryTopic",
+        "modified"
+      ],
+      "additionalProperties": false
+    },
+    "Agent": {
+      "type": "object",
+      "title": "Organisation",
+      "description": "An organisation that publishes, creates or is responsible for a resource. In this profile, never a person.",
+      "properties": {
+        "class": {
+          "const": "Agent"
+        },
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "description": "The name of the organisation.",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "identifier": {
+          "description": "The main identifier of the resource in the publisher's own catalogue.",
+          "type": "string"
+        },
+        "homepage": {
+          "description": "The home page of the catalogue or the organisation.",
+          "type": "string",
+          "pattern": "^https?://"
+        },
+        "agentType": {
+          "description": "The kind of organisation, as GOV.UK lists it, for example ministerial department or executive agency.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "additionalProperties": false
+    },
+    "ContactPoint": {
+      "type": "object",
+      "title": "Contact point",
+      "description": "A team that can answer questions about a resource, with the routes to reach it.",
+      "properties": {
+        "class": {
+          "const": "ContactPoint"
+        },
+        "id": {
+          "type": "string"
+        },
+        "fn": {
+          "description": "The name of the team to contact. Never a person's name.",
+          "type": "string"
+        },
+        "hasURL": {
+          "description": "The address of a contact form or contact page for the team.",
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^https?://"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^https?://"
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "hasEmail": {
+          "description": "A shared team mailbox, as a mailto address. Never a personal address.",
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^(mailto:)?[^@\\s]+@[^@\\s]+$"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^(mailto:)?[^@\\s]+@[^@\\s]+$"
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "hasTelephone": {
+          "description": "A team telephone number.",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "hasAddress": {
+          "description": "A postal address for the team.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "fn"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "anyOf": [
+            {
+              "required": [
+                "hasURL"
+              ]
+            },
+            {
+              "required": [
+                "hasEmail"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "Location": {
+      "type": "object",
+      "title": "Location",
+      "description": "A named area or a shape on the earth. Prefer the identifier of a standard area, such as a GSS code.",
+      "properties": {
+        "class": {
+          "const": "Location"
+        },
+        "id": {
+          "type": "string"
+        },
+        "locationName": {
+          "description": "The name of the place, from a gazetteer where there is one.",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "bbox": {
+          "description": "The rectangle that contains the area, as Well-Known Text in WGS 84.",
+          "type": "string"
+        },
+        "geometry": {
+          "description": "The exact shape of the area, as Well-Known Text.",
+          "type": "string"
+        },
+        "centroid": {
+          "description": "The centre point of the area, as Well-Known Text.",
+          "type": "string"
+        }
+      },
+      "required": [],
+      "additionalProperties": false
+    },
+    "PeriodOfTime": {
+      "type": "object",
+      "title": "Period of time",
+      "description": "A period with a start date, an end date or both.",
+      "properties": {
+        "class": {
+          "const": "PeriodOfTime"
+        },
+        "id": {
+          "type": "string"
+        },
+        "startDate": {
+          "description": "The first day the data covers.",
+          "type": "string",
+          "pattern": "^\\d{4}(-\\d{2}(-\\d{2}(T\\d{2}:\\d{2}(:\\d{2}(\\.\\d+)?)?(Z|[+-]\\d{2}:\\d{2}))?)?)?$"
+        },
+        "endDate": {
+          "description": "The last day the data covers.",
+          "type": "string",
+          "pattern": "^\\d{4}(-\\d{2}(-\\d{2}(T\\d{2}:\\d{2}(:\\d{2}(\\.\\d+)?)?(Z|[+-]\\d{2}:\\d{2}))?)?)?$"
+        }
+      },
+      "required": [],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "anyOf": [
+            {
+              "required": [
+                "startDate"
+              ]
+            },
+            {
+              "required": [
+                "endDate"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "Checksum": {
+      "type": "object",
+      "title": "Checksum",
+      "description": "A value calculated from a file, used to check it has not changed.",
+      "properties": {
+        "class": {
+          "const": "Checksum"
+        },
+        "id": {
+          "type": "string"
+        },
+        "algorithm": {
+          "description": "The algorithm used to calculate the checksum, from the SPDX list.",
+          "type": "string",
+          "enum": [
+            "http://spdx.org/rdf/terms#checksumAlgorithm_blake2b256",
+            "http://spdx.org/rdf/terms#checksumAlgorithm_blake2b512",
+            "http://spdx.org/rdf/terms#checksumAlgorithm_blake3",
+            "http://spdx.org/rdf/terms#checksumAlgorithm_md5",
+            "http://spdx.org/rdf/terms#checksumAlgorithm_sha1",
+            "http://spdx.org/rdf/terms#checksumAlgorithm_sha224",
+            "http://spdx.org/rdf/terms#checksumAlgorithm_sha256",
+            "http://spdx.org/rdf/terms#checksumAlgorithm_sha384",
+            "http://spdx.org/rdf/terms#checksumAlgorithm_sha3_256",
+            "http://spdx.org/rdf/terms#checksumAlgorithm_sha3_384",
+            "http://spdx.org/rdf/terms#checksumAlgorithm_sha3_512",
+            "http://spdx.org/rdf/terms#checksumAlgorithm_sha512",
+            "spdx:checksumAlgorithm_blake2b256",
+            "spdx:checksumAlgorithm_blake2b512",
+            "spdx:checksumAlgorithm_blake3",
+            "spdx:checksumAlgorithm_md5",
+            "spdx:checksumAlgorithm_sha1",
+            "spdx:checksumAlgorithm_sha224",
+            "spdx:checksumAlgorithm_sha256",
+            "spdx:checksumAlgorithm_sha384",
+            "spdx:checksumAlgorithm_sha3_256",
+            "spdx:checksumAlgorithm_sha3_384",
+            "spdx:checksumAlgorithm_sha3_512",
+            "spdx:checksumAlgorithm_sha512"
+          ]
+        },
+        "checksumValue": {
+          "description": "The checksum, in lower-case hexadecimal.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "algorithm",
+        "checksumValue"
+      ],
+      "additionalProperties": false
+    },
+    "Relationship": {
+      "type": "object",
+      "title": "Relationship",
+      "description": "How one resource relates to another.",
+      "properties": {
+        "class": {
+          "const": "Relationship"
+        },
+        "id": {
+          "type": "string"
+        },
+        "relation": {
+          "description": "Another resource closely related to this one, such as the report the data supports.",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "hadRole": {
+          "description": "The role in the relationship or attribution.",
+          "anyOf": [
+            {
+              "type": "string",
+              "enum": [
+                "https://w3id.org/dcat-ap-uk/codelist/agent-role/data-custodian",
+                "https://w3id.org/dcat-ap-uk/codelist/agent-role/data-owner",
+                "https://w3id.org/dcat-ap-uk/codelist/agent-role/data-steward",
+                "https://w3id.org/dcat-ap-uk/codelist/agent-role/distributor",
+                "https://w3id.org/dcat-ap-uk/codelist/agent-role/information-asset-owner",
+                "ukcl:agent-role/data-custodian",
+                "ukcl:agent-role/data-owner",
+                "ukcl:agent-role/data-steward",
+                "ukcl:agent-role/distributor",
+                "ukcl:agent-role/information-asset-owner"
+              ]
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "https://w3id.org/dcat-ap-uk/codelist/agent-role/data-custodian",
+                  "https://w3id.org/dcat-ap-uk/codelist/agent-role/data-owner",
+                  "https://w3id.org/dcat-ap-uk/codelist/agent-role/data-steward",
+                  "https://w3id.org/dcat-ap-uk/codelist/agent-role/distributor",
+                  "https://w3id.org/dcat-ap-uk/codelist/agent-role/information-asset-owner",
+                  "ukcl:agent-role/data-custodian",
+                  "ukcl:agent-role/data-owner",
+                  "ukcl:agent-role/data-steward",
+                  "ukcl:agent-role/distributor",
+                  "ukcl:agent-role/information-asset-owner"
+                ]
+              },
+              "minItems": 1
+            }
+          ]
+        }
+      },
+      "required": [
+        "relation",
+        "hadRole"
+      ],
+      "additionalProperties": false
+    },
+    "Attribution": {
+      "type": "object",
+      "title": "Responsible role",
+      "description": "An organisation and the role it plays for a resource, such as data owner.",
+      "properties": {
+        "class": {
+          "const": "Attribution"
+        },
+        "id": {
+          "type": "string"
+        },
+        "agent": {
+          "description": "The organisation that plays the role.",
+          "type": "string"
+        },
+        "hadRole": {
+          "description": "The role in the relationship or attribution.",
+          "type": "string",
+          "enum": [
+            "https://w3id.org/dcat-ap-uk/codelist/agent-role/data-custodian",
+            "https://w3id.org/dcat-ap-uk/codelist/agent-role/data-owner",
+            "https://w3id.org/dcat-ap-uk/codelist/agent-role/data-steward",
+            "https://w3id.org/dcat-ap-uk/codelist/agent-role/distributor",
+            "https://w3id.org/dcat-ap-uk/codelist/agent-role/information-asset-owner",
+            "ukcl:agent-role/data-custodian",
+            "ukcl:agent-role/data-owner",
+            "ukcl:agent-role/data-steward",
+            "ukcl:agent-role/distributor",
+            "ukcl:agent-role/information-asset-owner"
+          ]
+        }
+      },
+      "required": [
+        "agent",
+        "hadRole"
+      ],
+      "additionalProperties": false
+    },
+    "MissingValue": {
+      "type": "object",
+      "title": "Missing value",
+      "description": "A statement that one property is empty on purpose, and why, modelled on the nil reasons of GML and INSPIRE.",
+      "properties": {
+        "class": {
+          "const": "MissingValue"
+        },
+        "id": {
+          "type": "string"
+        },
+        "missingProperty": {
+          "description": "The property that has no value, as its prefixed name or full IRI.",
+          "type": "string"
+        },
+        "missingReason": {
+          "description": "The reason the property has no value, from a list based on the GML and INSPIRE nil reasons.",
+          "type": "string",
+          "enum": [
+            "https://w3id.org/dcat-ap-uk/codelist/missing-reason/inapplicable",
+            "https://w3id.org/dcat-ap-uk/codelist/missing-reason/template",
+            "https://w3id.org/dcat-ap-uk/codelist/missing-reason/unknown",
+            "https://w3id.org/dcat-ap-uk/codelist/missing-reason/unpopulated",
+            "https://w3id.org/dcat-ap-uk/codelist/missing-reason/withheld",
+            "ukcl:missing-reason/inapplicable",
+            "ukcl:missing-reason/template",
+            "ukcl:missing-reason/unknown",
+            "ukcl:missing-reason/unpopulated",
+            "ukcl:missing-reason/withheld"
+          ]
+        }
+      },
+      "required": [
+        "missingProperty",
+        "missingReason"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

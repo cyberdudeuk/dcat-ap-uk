@@ -1,0 +1,32 @@
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dcatuk: <https://w3id.org/dcat-ap-uk/ns#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix eufreq: <http://publications.europa.eu/resource/authority/frequency/> .
+@prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://example.org/id/dataset/estate-condition> a dcat:Dataset ;
+    dct:accessRights <https://w3id.org/dcat-ap-uk/codelist/access-rights/internal> ;
+    dct:accrualPeriodicity eufreq:ANNUAL ;
+    dct:description "Condition grades for buildings in a synthetic departmental estate, collected each year by surveyors." ;
+    dct:identifier "estate-condition" ;
+    dct:license <https://w3id.org/dcat-ap-uk/codelist/licences/data-sharing-agreement-required> ;
+    dct:modified "2026-10-01"^^xsd:date ;
+    dct:publisher <https://example.org/id/org/example-department> ;
+    dct:rights "Available to public sector bodies under a data sharing agreement. Ask through the contact form." ;
+    dct:title "Condition of the departmental estate" ;
+    dcat:contactPoint [ a vcard:Kind ;
+            vcard:fn "Estates data team" ;
+            vcard:hasURL <https://example.org/contact/estates> ] ;
+    dcatuk:missingValue [ a dcatuk:MissingValue ;
+            dcatuk:missingProperty dct:spatial ;
+            dcatuk:missingReason <https://w3id.org/dcat-ap-uk/codelist/missing-reason/withheld> ],
+        [ a dcatuk:MissingValue ;
+            dcatuk:missingProperty dcat:spatialResolutionInMeters ;
+            dcatuk:missingReason <https://w3id.org/dcat-ap-uk/codelist/missing-reason/inapplicable> ],
+        [ a dcatuk:MissingValue ;
+            dcatuk:missingProperty dct:temporal ;
+            dcatuk:missingReason <https://w3id.org/dcat-ap-uk/codelist/missing-reason/unknown> ] ;
+    dcatuk:personalData <https://w3id.org/dcat-ap-uk/codelist/personal-data/none> ;
+    dcatuk:securityClassification <https://w3id.org/dcat-ap-uk/codelist/security-classification/official> .
+

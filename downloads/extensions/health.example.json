@@ -1,0 +1,51 @@
+{
+  "class": "Dataset",
+  "id": "https://example.org/dataset/health",
+  "title": "Synthetic GP appointments, Wales",
+  "description": "An invented dataset of GP appointments, used to show the health extension. It does not exist.",
+  "identifier": "synthetic-0001",
+  "publisher": "https://example.org/organisations/example-department",
+  "contactPoint": [
+    {
+      "fn": "Example data team",
+      "hasURL": "https://example.org/contact"
+    }
+  ],
+  "accessRights": "ukcl:access-rights/internal",
+  "securityClassification": "ukcl:security-classification/official",
+  "personalData": "ukcl:personal-data/pseudonymised",
+  "licence": "ukcl:licences/data-sharing-agreement-required",
+  "accrualPeriodicity": "eufreq:MONTHLY",
+  "theme": [
+    "ukcl:theme/government"
+  ],
+  "keyword": [
+    "example"
+  ],
+  "modified": "2026-10-01",
+  "rights": "Available to approved researchers in a trusted research environment, under a data sharing agreement. Ask through the contact form.",
+  "sensitiveData": [
+    "ukcl:sensitive-data/special-category"
+  ],
+  "temporal": [
+    {
+      "startDate": "2020-01-01",
+      "endDate": "2025-12-31"
+    }
+  ],
+  "spatial": [
+    "http://statistics.data.gov.uk/id/statistical-geography/W92000004"
+  ],
+  "jurisdiction": [
+    "ukcl:jurisdiction/gb-wls"
+  ],
+  "populationCoverage": "People registered with a GP practice in Wales.",
+  "numberOfRecords": "12000000",
+  "hasCodingSystem": [
+    "http://snomed.info/sct"
+  ],
+  "nationalDataOptOut": "false",
+  "trustedResearchEnvironment": [
+    "https://example.org/tre"
+  ]
+}

@@ -1,0 +1,32 @@
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dcatuk: <https://w3id.org/dcat-ap-uk/ns#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix eufreq: <http://publications.europa.eu/resource/authority/frequency/> .
+@prefix mobilitydcatap: <https://w3id.org/mobilitydcat-ap#> .
+@prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://example.org/dataset/transport> a dcat:Dataset ;
+    dct:accessRights <https://w3id.org/dcat-ap-uk/codelist/access-rights/open> ;
+    dct:accrualPeriodicity eufreq:MONTHLY ;
+    dct:description "An invented dataset used to show an extension. It does not exist." ;
+    dct:identifier "synthetic-0001" ;
+    dct:license <http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/> ;
+    dct:modified "2026-10-01"^^xsd:date ;
+    dct:publisher <https://example.org/organisations/example-department> ;
+    dct:spatial <http://statistics.data.gov.uk/id/statistical-geography/E92000001> ;
+    dct:title "Synthetic bus timetables" ;
+    dcat:contactPoint [ a vcard:Kind ;
+            vcard:fn "Example data team" ;
+            vcard:hasURL <https://example.org/contact> ] ;
+    dcat:distribution [ a dcat:Distribution ;
+            dcat:accessURL <https://example.org/timetables> ;
+            dcat:mediaType <https://www.iana.org/assignments/media-types/application/xml> ;
+            mobilitydcatap:mobilityDataStandard <https://example.org/standard/transxchange> ] ;
+    dcat:keyword "example" ;
+    dcat:theme <https://w3id.org/dcat-ap-uk/codelist/theme/government> ;
+    dcatuk:personalData <https://w3id.org/dcat-ap-uk/codelist/personal-data/none> ;
+    dcatuk:securityClassification <https://w3id.org/dcat-ap-uk/codelist/security-classification/official> ;
+    mobilitydcatap:mobilityTheme <https://w3id.org/mobilitydcat-ap/mobility-theme/timetables> ;
+    mobilitydcatap:transportMode <https://w3id.org/mobilitydcat-ap/transport-mode/bus> .
+

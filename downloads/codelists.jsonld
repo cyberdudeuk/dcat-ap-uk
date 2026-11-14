@@ -1,0 +1,7566 @@
+[
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/cn",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "cn"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "China"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/in",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "in"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "India"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/agent-role/data-custodian",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "Runs the systems that hold the data."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/agent-role"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "data-custodian"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Data custodian"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/agent-role"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/checksum-algorithm",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#ConceptScheme"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "Algorithms in the SPDX list for checking a file has not changed, with this profile's advice on each for long-term and quantum-era trust."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Checksum algorithms"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/geodetic-technique/gravimetry",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "Measurements of gravity, used for heights and the geoid."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/geodetic-technique"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "gravimetry"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Gravimetry"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/geodetic-technique"
+   }
+  ]
+ },
+ {
+  "@id": "http://spdx.org/rdf/terms#checksumAlgorithm_sha3_384",
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/checksum-algorithm"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "SHA3-384"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/pn",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "pn"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Pitcairn, Henderson, Ducie and Oeno Islands"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/uy",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "uy"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Uruguay"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/pt",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "pt"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Portugal"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/gd",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "gd"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Grenada"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/si",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "si"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Slovenia"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/zm",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "zm"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Zambia"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/bat",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "Has no ISO 3166-1 code of its own; this code is this profile’s."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "bat"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "British Antarctic Territory"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/ms",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "ms"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Montserrat"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/access-rights/open",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "Anyone can get the data, without registering or asking."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#exactMatch": [
+   {
+    "@id": "http://publications.europa.eu/resource/authority/access-right/PUBLIC"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#hiddenLabel": [
+   {
+    "@value": "OPEN"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/access-rights"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "open"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Open"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#scopeNote": [
+   {
+    "@language": "en",
+    "@value": "Usually published under the Open Government Licence. Check the security classification is OFFICIAL and the data contains no personal data unless lawfully published."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/access-rights"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/sensitive-data",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#ConceptScheme"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "Kinds of information that need extra care beyond being personal."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Sensitive data"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/li",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "li"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Liechtenstein"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/spatial-representation-type",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#ConceptScheme"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "How geographic information is represented, from the INSPIRE register of ISO 19115 spatial representation types, as GeoDCAT-AP uses them."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Spatial representation types"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/geodetic-technique/levelling",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "Height differences measured on the ground."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/geodetic-technique"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "levelling"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Levelling"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/geodetic-technique"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/ke",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "ke"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Kenya"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/mt",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "mt"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Malta"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/vu",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "vu"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Vanuatu"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/personal-data/none",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "The data contains no information about identifiable living people."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/personal-data"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "none"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "No personal data"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/personal-data"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/cm",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "cm"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Cameroon"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/kn",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "kn"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "St Kitts and Nevis"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/tz",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "tz"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Tanzania"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/licences/data-sharing-agreement-required",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "There is no licence. A data sharing agreement, memorandum of understanding or other legal instrument is needed. Describe it in the rights statement."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#hiddenLabel": [
+   {
+    "@value": "DATA_SHARE_REQUEST"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/licences"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "data-sharing-agreement-required"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Data sharing agreement required"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/licences"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/geodetic-technique",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#ConceptScheme"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "How geodetic positions, heights or reference frame products were observed. A candidate list for the geodesy module."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Geodetic observation techniques"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/ai-use",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#ConceptScheme"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "Whether the data may be used to train, fine-tune or evaluate AI models. Used by the AI-ready extension. Provisional."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Use for artificial intelligence"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/hr",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "hr"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Croatia"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/fi",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "fi"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Finland"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/ai-use/not-assessed",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "The owner has not decided. Treat as not permitted until they do."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/ai-use"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "not-assessed"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Not yet assessed"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/ai-use"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/access-rights/commercial",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#closeMatch": [
+   {
+    "@id": "http://publications.europa.eu/resource/authority/access-right/RESTRICTED"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "The data is available to anyone, for a fee or under commercial terms."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#hiddenLabel": [
+   {
+    "@value": "COMMERCIAL"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/access-rights"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "commercial"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Commercial"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#scopeNote": [
+   {
+    "@language": "en",
+    "@value": "Say in the rights statement how to buy or licence it."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/access-rights"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/lc",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "lc"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "St Lucia"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism/code-or-certification",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "An approved code of conduct or certification scheme, with binding commitments from the receiver."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "code-or-certification"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Approved code of conduct or certification"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism"
+   }
+  ]
+ },
+ {
+  "@id": "http://spdx.org/rdf/terms#checksumAlgorithm_sha1",
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/checksum-algorithm"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "SHA-1"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/ph",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "ph"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Philippines"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/lu",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "lu"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Luxembourg"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/licences",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#ConceptScheme"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "Licences commonly used for UK public sector data, and a value for when no licence applies and an agreement is needed."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Licences"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/tr",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "tr"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Türkiye"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/kr",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "kr"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Republic of Korea"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/missing-reason/inapplicable",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#closeMatch": [
+   {
+    "@id": "http://dd.eionet.europa.eu/vocabulary/common/NilReasonType/inapplicable"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "The property does not apply to this resource, so there is no value to give."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/missing-reason"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "inapplicable"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Not applicable"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/missing-reason"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/security-classification/secret",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "Very sensitive information. Records about it must not be held in an OFFICIAL catalogue."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#hiddenLabel": [
+   {
+    "@value": "SECRET"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/security-classification"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "secret"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "SECRET"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/security-classification"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/sk",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "sk"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Slovakia"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "http://spdx.org/rdf/terms#checksumAlgorithm_sha224",
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/checksum-algorithm"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "SHA-224"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/security-classification",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#ConceptScheme"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "Classifications and the main marking from the Government Security Classifications Policy (version 2.0, August 2024)."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Security classification"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/bb",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "bb"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Barbados"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism/uk-adequacy-partial",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "Covered by adequacy regulations for a sector or a class of receiver only, such as organisations certified to the UK-US data bridge."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "uk-adequacy-partial"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Partial UK adequacy regulations"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism/idta",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "The ICO international data transfer agreement."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "idta"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "International data transfer agreement (IDTA)"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/metadata-audience/government",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "Central government departments and arm's-length bodies can see the record."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/metadata-audience"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "government"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "UK government departments and their bodies"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/metadata-audience"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/service-status/alpha",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2000/01/rdf-schema#seeAlso": [
+   {
+    "@id": "https://www.gov.uk/service-manual/agile-delivery/how-the-alpha-phase-works"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#hiddenLabel": [
+   {
+    "@value": "ALPHA"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/service-status"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "alpha"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Alpha"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/service-status"
+   }
+  ]
+ },
+ {
+  "@id": "https://www.parliament.uk/site-information/copyright-parliament/open-parliament-licence/",
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/licences"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Open Parliament Licence v3.0"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/lk",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "lk"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Sri Lanka"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/dm",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "dm"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Dominica"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/ad",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "ad"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Andorra"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/gb-eng",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "gb-eng"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "England"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/theme/government-reference-data",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#closeMatch": [
+   {
+    "@id": "http://publications.europa.eu/resource/authority/data-theme/GOVE"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "Trusted data that is referenced and shared across government departments."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/theme"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "government-reference-data"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Government reference data"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/theme"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/sensitive-data/special-category",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "Data about health, ethnicity, religion, sexual orientation and the other categories in UK GDPR Article 9."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/sensitive-data"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "special-category"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Special category personal data"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/sensitive-data"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/gb-sct",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "gb-sct"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Scotland"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/ai-use/not-permitted",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "The data must not be used to train, fine-tune or evaluate AI models."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/ai-use"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "not-permitted"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Not permitted"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/ai-use"
+   }
+  ]
+ },
+ {
+  "@id": "http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/licences"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Open Government Licence v3.0"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/it",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "it"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Italy"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/sensitive-data/unknown",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "Not yet assessed."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/sensitive-data"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "unknown"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Not yet known"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/sensitive-data"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/nr",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "nr"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Nauru"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/access-rights",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#ConceptScheme"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "Who can get the data, and on what terms."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Access rights"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/sl",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "sl"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Sierra Leone"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/ky",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "ky"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Cayman Islands"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/theme/towns-and-cities",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#closeMatch": [
+   {
+    "@id": "http://publications.europa.eu/resource/authority/data-theme/REGI"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "Housing, urban planning, leisure, waste and energy consumption."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/theme"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "towns-and-cities"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Towns and cities"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/theme"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/ca",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "Commercial organisations subject to PIPEDA."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "ca"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Canada"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/ae",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "ae"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "United Arab Emirates"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/personal-data/anonymised",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "People cannot reasonably be identified, by anyone, with any means likely to be used."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/personal-data"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "anonymised"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Anonymised"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/personal-data"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/il",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "il"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Israel"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/je",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "je"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Jersey"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/gb-wls",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "gb-wls"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Wales"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "http://inspire.ec.europa.eu/metadata-codelist/SpatialRepresentationType/stereoModel",
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/spatial-representation-type"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Stereo model"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/statistics-status/other",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "Statistics from a body that does not produce official statistics, such as a charity or company."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/statistics-status"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "other"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Other statistics"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/statistics-status"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/service-type/soap",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "XML messages over a SOAP envelope."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#hiddenLabel": [
+   {
+    "@value": "SOAP"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/service-type"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "soap"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "SOAP"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/service-type"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/service-type/rest",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "Resources accessed over HTTP with standard methods."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#hiddenLabel": [
+   {
+    "@value": "REST"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/service-type"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "rest"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "REST"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/service-type"
+   }
+  ]
+ },
+ {
+  "@id": "http://spdx.org/rdf/terms#checksumAlgorithm_sha256",
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/checksum-algorithm"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "SHA-256"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/open-data-triage",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#ConceptScheme"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "The outcome of open data triage for data that is presumed open, as in the energy sector's Data Best Practice guidance. Used by the energy extension (provenance K)."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Open data triage outcome"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/open-data-triage/closed",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "Not shared outside the organisation, for reasons recorded in the triage, such as security or privacy."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/open-data-triage"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "closed"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Closed"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/open-data-triage"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/theme/defence",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#closeMatch": [
+   {
+    "@id": "http://publications.europa.eu/resource/authority/data-theme/GOVE"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "Armed forces, health and safety, search and rescue."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/theme"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "defence"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Defence"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/theme"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/statistics-status/management-information",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "Data used to run a service, not published as official statistics."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/statistics-status"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "management-information"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Management information"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/statistics-status"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/sensitive-data/commercially-sensitive",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "Release could harm the commercial interests of the public body or a third party."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/sensitive-data"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "commercially-sensitive"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Commercially sensitive"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/sensitive-data"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/na",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "na"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Namibia"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/statistics-status",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#ConceptScheme"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "The status of statistics under the Code of Practice for Statistics, as the Office for Statistics Regulation names them. Used by the statistics extension (provenance K)."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Official statistics status"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/fj",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "fj"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Fiji"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/sensitive-data/none",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "None of the kinds below."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/sensitive-data"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "none"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "None"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/sensitive-data"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/tv",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "tv"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Tuvalu"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/us",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "Organisations certified to the UK Extension to the EU-US Data Privacy Framework (the UK-US data bridge)."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "us"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "United States"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/ws",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "ws"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Samoa"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/bs",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "bs"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "The Bahamas"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/tt",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "tt"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Trinidad and Tobago"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/security-classification/official-sensitive",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "OFFICIAL information that needs extra care because it is of interest to threat actors, and is not intended for public release."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/security-classification"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "official-sensitive"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "OFFICIAL-SENSITIVE"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/security-classification"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/my",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "my"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Malaysia"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/service-status",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#ConceptScheme"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "Phases of a service, from the Service Manual."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Service status"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/gb",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "The whole UK. Use a nation when you know it."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "gb"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "United Kingdom"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/ki",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "ki"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Kiribati"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/bw",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "bw"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Botswana"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/ga",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "ga"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Gabon"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/mz",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "mz"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Mozambique"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/sc",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "sc"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Seychelles"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism/uk-adequacy",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "The receiver is in a country, territory or international organisation covered in full by UK adequacy regulations, known as data bridges. Since the Data (Use and Access) Act 2025 came into force on 5 February 2026, the test is that protection there is not materially lower than in the UK."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "uk-adequacy"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "UK adequacy regulations (data bridge)"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/service-status/private-beta",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2000/01/rdf-schema#seeAlso": [
+   {
+    "@id": "https://www.gov.uk/service-manual/agile-delivery/how-the-beta-phase-works"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#hiddenLabel": [
+   {
+    "@value": "PRIVATE_BETA"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/service-status"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "private-beta"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Private beta"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/service-status"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/service-type/file-transfer",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "Bulk files moved on a schedule, such as SFTP."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/service-type"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "file-transfer"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "File transfer"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/service-type"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/metadata-audience/publisher-only",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "Only the publishing organisation can see the record."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/metadata-audience"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "publisher-only"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "The publisher only"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/metadata-audience"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/tg",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "tg"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Togo"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/transport-security/pqc-only",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "Negotiates a post-quantum key exchange alone."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/transport-security"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "pqc-only"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Post-quantum only"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/transport-security"
+   }
+  ]
+ },
+ {
+  "@id": "https://creativecommons.org/licenses/by/4.0/",
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/licences"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Creative Commons Attribution 4.0"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/service-type",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#ConceptScheme"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "The style of interface a data service offers. Use conformsTo for the exact standard."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Interface style"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/service-type/sparql",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "Queries over linked data."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/service-type"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "sparql"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "SPARQL"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/service-type"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/ag",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "ag"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Antigua and Barbuda"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/geodetic-technique/doris",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "Doppler orbitography and radiopositioning integrated by satellite."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/geodetic-technique"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "doris"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "DORIS"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/geodetic-technique"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/service-status/discovery",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2000/01/rdf-schema#seeAlso": [
+   {
+    "@id": "https://www.gov.uk/service-manual/agile-delivery/how-the-discovery-phase-works"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#hiddenLabel": [
+   {
+    "@value": "DISCOVERY"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/service-status"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "discovery"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Discovery"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/service-status"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/agent-role/distributor",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "Makes the data available on behalf of the publisher."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/agent-role"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "distributor"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Distributor"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/agent-role"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/missing-reason/unpopulated",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#closeMatch": [
+   {
+    "@id": "http://dd.eionet.europa.eu/vocabulary/common/NilReasonType/unpopulated"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "The publisher does not hold this kind of value for any of its resources."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/missing-reason"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "unpopulated"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Not collected"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/missing-reason"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism/law-enforcement",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "A transfer by a competent authority under Part 3 of the Data Protection Act 2018, which has its own rules."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "law-enforcement"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Law enforcement transfer rules"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/sensitive-data/security-sensitive",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "Release could help someone attack people, places or systems."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/sensitive-data"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "security-sensitive"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Security sensitive"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/sensitive-data"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/metadata-audience/public-sector",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "Any UK public sector organisation can see the record."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/metadata-audience"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "public-sector"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "UK public sector"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/metadata-audience"
+   }
+  ]
+ },
+ {
+  "@id": "http://inspire.ec.europa.eu/metadata-codelist/SpatialRepresentationType/video",
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/spatial-representation-type"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Video"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/gm",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "gm"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "The Gambia"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/sa",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "sa"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Saudi Arabia"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/agent-role/data-steward",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "Looks after the data day to day: its metadata, quality and access."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/agent-role"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "data-steward"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Data steward"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/agent-role"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/mu",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "mu"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Mauritius"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "http://spdx.org/rdf/terms#checksumAlgorithm_blake2b256",
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/checksum-algorithm"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "BLAKE2b-256"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/sh",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "sh"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "St Helena, Ascension and Tristan da Cunha"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/gb-nir",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "gb-nir"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Northern Ireland"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/vg",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "vg"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "British Virgin Islands"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/ug",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "ug"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Uganda"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/bd",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "bd"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Bangladesh"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/service-status/live",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2000/01/rdf-schema#seeAlso": [
+   {
+    "@id": "https://www.gov.uk/service-manual/agile-delivery/how-the-live-phase-works"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#hiddenLabel": [
+   {
+    "@value": "LIVE"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/service-status"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "live"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Live"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/service-status"
+   }
+  ]
+ },
+ {
+  "@id": "http://spdx.org/rdf/terms#checksumAlgorithm_md5",
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/checksum-algorithm"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "MD5"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism/exception",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "One of the exceptions in Article 49 UK GDPR, such as explicit consent or important reasons of public interest. For occasional transfers only."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "exception"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "An exception (derogation)"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/bz",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "bz"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Belize"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/de",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "de"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Germany"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/ai-use/evaluation-only",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "The data may be used to test or evaluate AI models, but not to train them."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/ai-use"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "evaluation-only"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Evaluation only"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/ai-use"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/dk",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "dk"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Denmark"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "http://www.nationalarchives.gov.uk/doc/non-commercial-government-licence/version/2/",
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/licences"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Non-Commercial Government Licence v2.0"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/hu",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "hu"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Hungary"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/cz",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "cz"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Czechia"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/sz",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "sz"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Eswatini"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/service-status/withdrawn",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#hiddenLabel": [
+   {
+    "@value": "WITHDRAWN"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/service-status"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "withdrawn"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Withdrawn"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/service-status"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/ch",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "ch"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Switzerland"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/au",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "au"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Australia"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/statistics-status/official-in-development",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "New or changed official statistics still being developed and tested with users."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/statistics-status"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "official-in-development"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Official statistics in development"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/statistics-status"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/theme/health",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "Smoking, drugs, alcohol, medicine performance and hospitals."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#exactMatch": [
+   {
+    "@id": "http://publications.europa.eu/resource/authority/data-theme/HEAL"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/theme"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "health"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Health"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/theme"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/gi",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "gi"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Gibraltar"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/im",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "im"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Isle of Man"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/gy",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "gy"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Guyana"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "http://inspire.ec.europa.eu/metadata-codelist/SpatialRepresentationType/vector",
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/spatial-representation-type"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Vector"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/sensitive-data/children",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "Data mainly about people under 18."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/sensitive-data"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "children"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Data about children"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/sensitive-data"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism/addendum",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "The EU standard contractual clauses with the ICO UK Addendum."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "addendum"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "UK Addendum to the EU standard contractual clauses"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/gs",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "gs"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "South Georgia and the South Sandwich Islands"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "http://inspire.ec.europa.eu/metadata-codelist/SpatialRepresentationType/textTable",
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/spatial-representation-type"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Text table"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism/not-restricted",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "The ICO three-step test shows the flow is not a restricted transfer, for example because the receiver is not a separate legal entity, or the data is not personal data in the receiver's hands."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "not-restricted"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Not a restricted transfer"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/missing-reason",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#ConceptScheme"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "Why a property is empty on purpose. Based on the nil reasons of GML 3.2 and the INSPIRE void reasons, so records can be mapped to geospatial and allied metadata that use the same idea."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Reasons a value is missing"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/missing-reason/unknown",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#closeMatch": [
+   {
+    "@id": "http://dd.eionet.europa.eu/vocabulary/common/NilReasonType/unknown"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "The correct value is not known to the publisher and cannot be worked out, but it probably exists."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/missing-reason"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "unknown"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Unknown"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/missing-reason"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/open-data-triage/open",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "Published for anyone to use, under an open licence."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/open-data-triage"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "open"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Open"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/open-data-triage"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/theme/business-and-economy",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "Small businesses, industry, imports, exports and trade."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#exactMatch": [
+   {
+    "@id": "http://publications.europa.eu/resource/authority/data-theme/ECON"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/theme"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "business-and-economy"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Business and economy"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/theme"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/be",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "be"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Belgium"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/gg",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "The Bailiwick of Guernsey, including Alderney and Sark."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "gg"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Guernsey"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/access-rights/internal",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#closeMatch": [
+   {
+    "@id": "http://publications.europa.eu/resource/authority/access-right/NON_PUBLIC"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "The data is available only to public sector organisations, or to named organisations, under an agreement."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#hiddenLabel": [
+   {
+    "@value": "INTERNAL"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/access-rights"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "internal"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Internal to the public sector"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#scopeNote": [
+   {
+    "@language": "en",
+    "@value": "Say in the rights statement which agreement or legal gateway is needed. Finer levels are being researched (issue 5)."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/access-rights"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/bm",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "bm"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Bermuda"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/service-type/graphql",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "A query language over a single endpoint."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/service-type"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "graphql"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "GraphQL"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/service-type"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/service-status/public-beta",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2000/01/rdf-schema#seeAlso": [
+   {
+    "@id": "https://www.gov.uk/service-manual/agile-delivery/how-the-beta-phase-works"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#hiddenLabel": [
+   {
+    "@value": "PUBLIC_BETA"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/service-status"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "public-beta"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Public beta"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/service-status"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/rw",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "rw"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Rwanda"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/geodetic-technique/vlbi",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "Radio telescopes observing distant sources, which ties the frame to space."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/geodetic-technique"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "vlbi"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Very long baseline interferometry (VLBI)"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/geodetic-technique"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/statistics-status/accredited-official",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "Official statistics the Office for Statistics Regulation has assessed as complying with the Code of Practice."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/statistics-status"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "accredited-official"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Accredited official statistics"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/statistics-status"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/transport-security/pqc-hybrid",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "Negotiates a post-quantum key exchange (ML-KEM, FIPS 203) combined with a classical one, such as X25519MLKEM768 in TLS 1.3."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/transport-security"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "pqc-hybrid"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Hybrid post-quantum"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/transport-security"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism/administrative-arrangement",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "Provisions in an administrative arrangement between public authorities or bodies, authorised by the ICO."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "administrative-arrangement"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Administrative arrangement between public bodies"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/personal-data",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#ConceptScheme"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "Whether the data contains information about identifiable living people (UK GDPR)."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Personal data"
+   }
+  ]
+ },
+ {
+  "@id": "http://inspire.ec.europa.eu/metadata-codelist/SpatialRepresentationType/grid",
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/spatial-representation-type"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Grid"
+   }
+  ]
+ },
+ {
+  "@id": "http://spdx.org/rdf/terms#checksumAlgorithm_sha3_512",
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/checksum-algorithm"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "SHA3-512"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/statistics-status/official",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "Statistics produced by a body named as producing official statistics."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/statistics-status"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "official"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Official statistics"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/statistics-status"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/mw",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "mw"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Malawi"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/theme/society",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "Employment, benefits, household finances, poverty and population."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#exactMatch": [
+   {
+    "@id": "http://publications.europa.eu/resource/authority/data-theme/SOCI"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/theme"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "society"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Society"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/theme"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/nl",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "nl"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Netherlands"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "http://spdx.org/rdf/terms#checksumAlgorithm_blake2b512",
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/checksum-algorithm"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "BLAKE2b-512"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/no",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "no"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Norway"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/missing-reason/withheld",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#closeMatch": [
+   {
+    "@id": "http://dd.eionet.europa.eu/vocabulary/common/NilReasonType/withheld"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "A value exists but is not given in this record, for example because the record is shared more widely than the value may be."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/missing-reason"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "withheld"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Withheld"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/missing-reason"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/vc",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "vc"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "St Vincent and the Grenadines"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/io",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "io"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "British Indian Ocean Territory"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "http://spdx.org/rdf/terms#checksumAlgorithm_sha3_256",
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/checksum-algorithm"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "SHA3-256"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/pk",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "pk"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Pakistan"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/sg",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "sg"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Singapore"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/nz",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "nz"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "New Zealand"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/ls",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "ls"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Lesotho"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/theme/transport",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "Airports, roads, freight, electric vehicles, parking, buses and footpaths."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#exactMatch": [
+   {
+    "@id": "http://publications.europa.eu/resource/authority/data-theme/TRAN"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/theme"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "transport"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Transport"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/theme"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/at",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "at"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Austria"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/service-type/ogc",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "Geospatial services such as OGC API - Features, WMS or WFS."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/service-type"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "ogc"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "OGC web service"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/service-type"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/mv",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "mv"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Maldives"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/se",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "se"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Sweden"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/lv",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "lv"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Latvia"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#ConceptScheme"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "Countries and territories where data may be held, processed or sent, including the UK nations, the Crown Dependencies, the British Overseas Territories, the Commonwealth, the EEA and others."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Jurisdictions"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/cy",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "cy"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Cyprus"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism/bcr",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "Binding corporate rules approved by the ICO, for transfers within a group."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "bcr"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Binding corporate rules"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/ai-use/permitted-with-conditions",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "The data may be used for AI training under conditions in the usage policy or rights statement, such as attribution, non-commercial use or a data sharing agreement."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/ai-use"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "permitted-with-conditions"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Training permitted with conditions"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/ai-use"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/es",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "es"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Spain"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/theme/digital-services-performance",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#closeMatch": [
+   {
+    "@id": "http://publications.europa.eu/resource/authority/data-theme/TECH"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "How government digital services perform."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/theme"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "digital-services-performance"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Digital services performance"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/theme"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/open-data-triage/shared",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "Shared with named people or organisations, or groups of them, under conditions."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/open-data-triage"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "shared"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Shared"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/open-data-triage"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/jm",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "jm"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Jamaica"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/fr",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "fr"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "France"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/gr",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "gr"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Greece"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/theme/education",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "Students, training, qualifications and the national curriculum."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#exactMatch": [
+   {
+    "@id": "http://publications.europa.eu/resource/authority/data-theme/EDUC"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/theme"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "education"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Education"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/theme"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/security-classification/top-secret",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "The most sensitive information. Records about it must not be held in an OFFICIAL catalogue."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#hiddenLabel": [
+   {
+    "@value": "TOP_SECRET"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/security-classification"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "top-secret"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "TOP SECRET"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/security-classification"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/geodetic-technique/insar",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "Ground movement measured from repeated radar images."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/geodetic-technique"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "insar"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Interferometric synthetic aperture radar (InSAR)"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/geodetic-technique"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/agent-role/information-asset-owner",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "The senior role accountable for the information asset under information assurance."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/agent-role"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "information-asset-owner"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Information asset owner"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/agent-role"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/mx",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "mx"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Mexico"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "http://spdx.org/rdf/terms#checksumAlgorithm_sha384",
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/checksum-algorithm"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "SHA-384"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/personal-data/pseudonymised",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "People are not named, but could be re-identified with other information. Still personal data under UK GDPR."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/personal-data"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "pseudonymised"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Pseudonymised"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/personal-data"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/service-status/beta",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2000/01/rdf-schema#seeAlso": [
+   {
+    "@id": "https://www.gov.uk/service-manual/agile-delivery/how-the-beta-phase-works"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#hiddenLabel": [
+   {
+    "@value": "BETA"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/service-status"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "beta"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Beta (unspecified)"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#scopeNote": [
+   {
+    "@language": "en",
+    "@value": "Kept for records converted from the xGov MEM. Prefer private or public beta."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/service-status"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/theme/crime-and-justice",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "Courts, police, prisons, offenders and borders."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#exactMatch": [
+   {
+    "@id": "http://publications.europa.eu/resource/authority/data-theme/JUST"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/theme"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "crime-and-justice"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Crime and justice"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/theme"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/pg",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "pg"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Papua New Guinea"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/personal-data/unknown",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "Not yet assessed. Use only while the assessment is done."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/personal-data"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "unknown"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Not yet known"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/personal-data"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/theme",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#ConceptScheme"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "The 14 data.gov.uk topics (read on 6 November 2026), each mapped to the EU data themes used by DCAT-AP."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Theme"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/is",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "is"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Iceland"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#ConceptScheme"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "The bases in UK GDPR for sending personal data outside the UK, as the ICO guidance of 15 January 2026 sets them out (provenance S)."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Transfer safeguards"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/bg",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "bg"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Bulgaria"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/gh",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "gh"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Ghana"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/theme/government",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "Staff numbers and pay, local councillors and department business plans."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#exactMatch": [
+   {
+    "@id": "http://publications.europa.eu/resource/authority/data-theme/GOVE"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/theme"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "government"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Government"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/theme"
+   }
+  ]
+ },
+ {
+  "@id": "http://inspire.ec.europa.eu/metadata-codelist/SpatialRepresentationType/tin",
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/spatial-representation-type"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Triangulated irregular network"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/geodetic-technique/slr",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "Distances to satellites measured by laser."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/geodetic-technique"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "slr"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Satellite laser ranging (SLR)"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/geodetic-technique"
+   }
+  ]
+ },
+ {
+  "@id": "http://spdx.org/rdf/terms#checksumAlgorithm_sha512",
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/checksum-algorithm"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "SHA-512"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/sba",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "Has no ISO 3166-1 code of its own; this code is this profile’s."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "sba"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Sovereign Base Areas of Akrotiri and Dhekelia"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/ng",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "ng"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Nigeria"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/security-classification/official",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "Most public sector information. The routine business of government."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#hiddenLabel": [
+   {
+    "@value": "OFFICIAL"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/security-classification"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "official"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "OFFICIAL"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/security-classification"
+   }
+  ]
+ },
+ {
+  "@id": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/licences"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Creative Commons Zero 1.0"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/ro",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "ro"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Romania"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/ai-use/permitted",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "The data may be used to train and fine-tune AI models under its licence, with no further conditions."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/ai-use"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "permitted"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Training permitted"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/ai-use"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/metadata-audience",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#ConceptScheme"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "Who may see the metadata record. Provisional, pending research (issue 5)."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Who can see this record"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/br",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "br"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Brazil"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/transport-security/not-assessed",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "Not yet checked. Checking is part of the discovery work the NCSC asks for by 2028."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/transport-security"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "not-assessed"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Not yet assessed"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/transport-security"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/theme/environment",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "Weather, flooding, rivers, air quality, geology and agriculture."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#exactMatch": [
+   {
+    "@id": "http://publications.europa.eu/resource/authority/data-theme/ENVI"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/theme"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "environment"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Environment"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#relatedMatch": [
+   {
+    "@id": "http://publications.europa.eu/resource/authority/data-theme/AGRI"
+   },
+   {
+    "@id": "http://publications.europa.eu/resource/authority/data-theme/ENER"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/theme"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/pl",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "pl"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Poland"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/geodetic-technique/gnss",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "Positions from satellite navigation signals, such as GPS and Galileo."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/geodetic-technique"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "gnss"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Global navigation satellite systems (GNSS)"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/geodetic-technique"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism/public-body-instrument",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "A legally binding and enforceable instrument between public authorities or bodies."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "public-body-instrument"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Instrument between public authorities"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/tc",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "tc"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Turks and Caicos Islands"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/ai",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "ai"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Anguilla"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/transport-security",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#ConceptScheme"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "The key exchange a service's endpoint uses to protect data in transit, for the post-quantum migration inventory."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Connection security"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/sb",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "sb"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Solomon Islands"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/service-status/deprecated",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2000/01/rdf-schema#seeAlso": [
+   {
+    "@id": "https://www.gov.uk/service-manual/agile-delivery/retiring-your-service"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#hiddenLabel": [
+   {
+    "@value": "DEPRECATED"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/service-status"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "deprecated"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Deprecated"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/service-status"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/ar",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "ar"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Argentina"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "http://spdx.org/rdf/terms#checksumAlgorithm_blake3",
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/checksum-algorithm"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "BLAKE3"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/personal-data/personal",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "The data identifies people, directly or indirectly."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/personal-data"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "personal"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Personal data"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/personal-data"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/theme/mapping",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#closeMatch": [
+   {
+    "@id": "http://publications.europa.eu/resource/authority/data-theme/REGI"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "Addresses, boundaries, land ownership, aerial photographs, seabed and land terrain."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/theme"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "mapping"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Mapping"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/theme"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/agent-role/data-owner",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "Accountable for the data asset, its use and its quality. Named as a post, not a person."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/agent-role"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "data-owner"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Data owner"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/agent-role"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/sensitive-data/criminal-offence",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "Data about criminal convictions and offences (UK GDPR Article 10)."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/sensitive-data"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "criminal-offence"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Criminal offence data"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/sensitive-data"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/ua",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "ua"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Ukraine"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/metadata-audience/public",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "The record can be published openly, even if the data is not open."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/metadata-audience"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "public"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Everyone"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/metadata-audience"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/id",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "id"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Indonesia"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/service-type/event",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "Messages or events pushed to subscribers, such as webhooks or a message queue."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#hiddenLabel": [
+   {
+    "@value": "EVENT"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/service-type"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "event"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Event or message"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/service-type"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/transport-security/tls12-classical",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "Upgrade to TLS 1.3 first; post-quantum key exchange needs it."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/transport-security"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "tls12-classical"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "TLS 1.2 with classical key exchange"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/transport-security"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/fo",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "fo"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Faroe Islands"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/jp",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "Private sector organisations."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "jp"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Japan"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/open-data-triage/public",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "Available to anyone, but under a licence with conditions that make it not open."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/open-data-triage"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "public"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Public"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/open-data-triage"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/bn",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "bn"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Brunei Darussalam"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/missing-reason/template",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#closeMatch": [
+   {
+    "@id": "http://dd.eionet.europa.eu/vocabulary/common/NilReasonType/template"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "The value will be given later, for example once the data is published."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/missing-reason"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "template"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Not yet available"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/missing-reason"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/to",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "to"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Tonga"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/ie",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "ie"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Ireland"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/agent-role",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#ConceptScheme"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "Roles an organisation can play for a resource. Roles, never people."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Responsible role"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/za",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "za"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "South Africa"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/transport-security/tls13-classical",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "Secure against today's attackers, but data recorded now could be decrypted later by a quantum computer (harvest now, decrypt later). Plan the migration."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/transport-security"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "tls13-classical"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "TLS 1.3 with classical key exchange"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/transport-security"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/lt",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "lt"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Lithuania"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/ee",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "ee"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Estonia"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction/fk",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "fk"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Falkland Islands"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/jurisdiction"
+   }
+  ]
+ },
+ {
+  "@id": "https://w3id.org/dcat-ap-uk/codelist/theme/government-spending",
+  "@type": [
+   "http://www.w3.org/2004/02/skos/core#Concept"
+  ],
+  "http://www.w3.org/2004/02/skos/core#closeMatch": [
+   {
+    "@id": "http://publications.europa.eu/resource/authority/data-theme/ECON"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#definition": [
+   {
+    "@language": "en",
+    "@value": "Payments by government departments over 25,000 pounds and other spending."
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#inScheme": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/theme"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#notation": [
+   {
+    "@value": "government-spending"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel": [
+   {
+    "@language": "en",
+    "@value": "Government spending"
+   }
+  ],
+  "http://www.w3.org/2004/02/skos/core#topConceptOf": [
+   {
+    "@id": "https://w3id.org/dcat-ap-uk/codelist/theme"
+   }
+  ]
+ }
+]

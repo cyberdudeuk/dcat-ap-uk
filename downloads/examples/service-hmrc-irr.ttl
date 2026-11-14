@@ -1,0 +1,25 @@
+@prefix adms: <http://www.w3.org/ns/adms#> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dcatuk: <https://w3id.org/dcat-ap-uk/ns#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
+
+<https://developer.service.hmrc.gov.uk/api-documentation/docs/api/service/interest-restriction-return/1.0> a dcat:DataService ;
+    dct:accessRights <https://w3id.org/dcat-ap-uk/codelist/access-rights/internal> ;
+    dct:conformsTo <https://spec.openapis.org/oas/v3.0.3> ;
+    dct:description "Lets software appoint or revoke a reporting company and submit full or abbreviated interest restriction returns." ;
+    dct:identifier "interest-restriction-return" ;
+    dct:license <https://w3id.org/dcat-ap-uk/codelist/licences/data-sharing-agreement-required> ;
+    dct:publisher <https://www.gov.uk/government/organisations/hm-revenue-customs> ;
+    dct:rights "Available to registered software developers. Production access needs approval through the HMRC Developer Hub." ;
+    dct:title "Interest restriction return API" ;
+    dct:type <https://w3id.org/dcat-ap-uk/codelist/service-type/rest> ;
+    adms:status <https://w3id.org/dcat-ap-uk/codelist/service-status/public-beta> ;
+    dcat:contactPoint [ a vcard:Kind ;
+            vcard:fn "Software Development Support Team" ;
+            vcard:hasURL <https://developer.service.hmrc.gov.uk/developer/support> ] ;
+    dcat:endpointDescription <https://developer.service.hmrc.gov.uk/api-documentation/docs/api/service/interest-restriction-return/1.0/oas/page> ;
+    dcat:endpointURL <https://api.service.hmrc.gov.uk/> ;
+    dcat:theme <https://w3id.org/dcat-ap-uk/codelist/theme/business-and-economy> ;
+    dcatuk:securityClassification <https://w3id.org/dcat-ap-uk/codelist/security-classification/official> .
+

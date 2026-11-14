@@ -1,0 +1,6 @@
+{
+  "class": "Distribution",
+  "id": "https://example.org/x#csv",
+  "title": "CSV",
+  "mediaType": "https://www.iana.org/assignments/media-types/text/csv"
+}

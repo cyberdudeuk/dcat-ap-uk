@@ -1,0 +1,1262 @@
+@prefix adms: <http://www.w3.org/ns/adms#> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dcatap: <http://data.europa.eu/r5r/> .
+@prefix dcatuk: <https://w3id.org/dcat-ap-uk/ns#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix dqv: <http://www.w3.org/ns/dqv#> .
+@prefix eufreq: <http://publications.europa.eu/resource/authority/frequency/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix geosparql: <http://www.opengis.net/ont/geosparql#> .
+@prefix locn: <http://www.w3.org/ns/locn#> .
+@prefix odrl: <http://www.w3.org/ns/odrl/2/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix schema1: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix spdx: <http://spdx.org/rdf/terms#> .
+@prefix ukshapes: <https://w3id.org/dcat-ap-uk/shapes#> .
+@prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://w3id.org/dcat-ap-uk/shapes> a owl:Ontology ;
+    dct:license <http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/> ;
+    dct:title "DCAT Application Profile for the UK SHACL shapes"@en ;
+    owl:versionInfo "1.2.0-rc.1" .
+
+ukshapes:AgentShape a sh:NodeShape ;
+    sh:description "An organisation that publishes, creates or is responsible for a resource. In this profile, never a person."@en ;
+    sh:name "Organisation"@en ;
+    sh:property [ sh:description "The home page of the catalogue or the organisation."@en ;
+            sh:maxCount 1 ;
+            sh:name "Home page"@en ;
+            sh:nodeKind sh:IRI ;
+            sh:path foaf:homepage ;
+            sh:pattern "^https?://" ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "O" ],
+        [ sh:description "The name of the organisation."@en ;
+            sh:minCount 1 ;
+            sh:name "Name"@en ;
+            sh:nodeKind sh:Literal ;
+            sh:path foaf:name ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "M" ],
+        [ sh:description "The main identifier of the resource in the publisher's own catalogue."@en ;
+            sh:maxCount 1 ;
+            sh:name "Identifier"@en ;
+            sh:nodeKind sh:Literal ;
+            sh:path dct:identifier ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "R" ],
+        [ sh:description "The kind of organisation, as GOV.UK lists it, for example ministerial department or executive agency."@en ;
+            sh:maxCount 1 ;
+            sh:name "Organisation type"@en ;
+            sh:nodeKind sh:Literal ;
+            sh:path dct:type ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "O" ] ;
+    sh:targetClass foaf:Agent .
+
+ukshapes:AttributionShape a sh:NodeShape ;
+    sh:description "An organisation and the role it plays for a resource, such as data owner."@en ;
+    sh:name "Responsible role"@en ;
+    sh:property [ sh:description "The organisation that plays the role."@en ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "Organisation"@en ;
+            sh:nodeKind sh:IRI ;
+            sh:path prov:agent ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "M" ],
+        [ sh:description "The role in the relationship or attribution."@en ;
+            sh:in ( <https://w3id.org/dcat-ap-uk/codelist/agent-role/data-owner> <https://w3id.org/dcat-ap-uk/codelist/agent-role/data-steward> <https://w3id.org/dcat-ap-uk/codelist/agent-role/data-custodian> <https://w3id.org/dcat-ap-uk/codelist/agent-role/information-asset-owner> <https://w3id.org/dcat-ap-uk/codelist/agent-role/distributor> ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "Role"@en ;
+            sh:nodeKind sh:IRI ;
+            sh:path dcat:hadRole ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "M" ] ;
+    sh:targetClass prov:Attribution .
+
+ukshapes:CatalogueRecordShape a sh:NodeShape ;
+    sh:description "A record in a catalogue about one dataset or data service, with its own dates."@en ;
+    sh:name "Catalogue record"@en ;
+    sh:property [ sh:description "The original metadata record this record was harvested or converted from."@en ;
+            sh:maxCount 1 ;
+            sh:name "Source record"@en ;
+            sh:nodeKind sh:IRI ;
+            sh:path dct:source ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "O" ],
+        [ sh:description "The classification under the Government Security Classifications Policy that the data itself carries."@en ;
+            sh:in ( <https://w3id.org/dcat-ap-uk/codelist/security-classification/official> <https://w3id.org/dcat-ap-uk/codelist/security-classification/official-sensitive> <https://w3id.org/dcat-ap-uk/codelist/security-classification/secret> <https://w3id.org/dcat-ap-uk/codelist/security-classification/top-secret> ) ;
+            sh:maxCount 1 ;
+            sh:name "Security classification"@en ;
+            sh:nodeKind sh:IRI ;
+            sh:path dcatuk:securityClassification ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "O" ],
+        [ sh:description "A property whose value was added or changed by the harvester or converter, rather than taken from the source record."@en ;
+            sh:name "Property added or changed on the way"@en ;
+            sh:nodeKind sh:IRI ;
+            sh:path dcatuk:enrichedProperty ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "O" ],
+        [ sh:description "Who is allowed to see the metadata record itself."@en ;
+            sh:in ( <https://w3id.org/dcat-ap-uk/codelist/metadata-audience/public> <https://w3id.org/dcat-ap-uk/codelist/metadata-audience/public-sector> <https://w3id.org/dcat-ap-uk/codelist/metadata-audience/government> <https://w3id.org/dcat-ap-uk/codelist/metadata-audience/publisher-only> ) ;
+            sh:maxCount 1 ;
+            sh:name "Who can see this record"@en ;
+            sh:nodeKind sh:IRI ;
+            sh:path dcatuk:metadataAudience ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "O" ],
+        [ sh:description "A property this record leaves empty on purpose, and why."@en ;
+            sh:name "Missing value"@en ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:path dcatuk:missingValue ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "O" ],
+        [ sh:description "The dataset or data service this record describes."@en ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "Describes"@en ;
+            sh:nodeKind sh:IRI ;
+            sh:path foaf:primaryTopic ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "M" ],
+        [ sh:description "The date the resource was first made available."@en ;
+            sh:maxCount 1 ;
+            sh:name "Release date"@en ;
+            sh:or ( [ sh:datatype xsd:date ] [ sh:datatype xsd:dateTime ] [ sh:datatype xsd:gYearMonth ] [ sh:datatype xsd:gYear ] ) ;
+            sh:path dct:issued ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "R" ],
+        [ sh:description "A standard, specification or schema the resource follows."@en ;
+            sh:name "Conforms to"@en ;
+            sh:nodeKind sh:IRI ;
+            sh:path dct:conformsTo ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "R" ],
+        [ sh:description "The date the content of the resource last changed."@en ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "Last updated"@en ;
+            sh:or ( [ sh:datatype xsd:date ] [ sh:datatype xsd:dateTime ] [ sh:datatype xsd:gYearMonth ] [ sh:datatype xsd:gYear ] ) ;
+            sh:path dct:modified ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "M" ] ;
+    sh:targetClass dcat:CatalogRecord .
+
+ukshapes:CatalogueShape a sh:NodeShape ;
+    sh:description "A curated collection of metadata about datasets and data services."@en ;
+    sh:name "Catalogue"@en ;
+    sh:property [ sh:description "The language or languages of the resource."@en ;
+            sh:name "Language"@en ;
+            sh:nodeKind sh:IRI ;
+            sh:path dct:language ;
+            sh:pattern "^http://publications.europa.eu/resource/authority/language/" ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "R" ],
+        [ sh:description "The organisation responsible for making the resource available."@en ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "Publisher"@en ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:path dct:publisher ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "M" ],
+        [ sh:description "The geographic area the data is about."@en ;
+            sh:name "Geographic coverage"@en ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:path dct:spatial ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "O" ],
+        [ sh:description "A record describing an entry in the catalogue."@en ;
+            sh:name "Catalogue record"@en ;
+            sh:nodeKind sh:IRI ;
+            sh:path dcat:record ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "O" ],
+        [ sh:description "A data service listed in the catalogue."@en ;
+            sh:name "Data service"@en ;
+            sh:nodeKind sh:IRI ;
+            sh:path dcat:service ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "R" ],
+        [ sh:description "The list of themes the catalogue uses to classify its records."@en ;
+            sh:name "Theme list used"@en ;
+            sh:nodeKind sh:IRI ;
+            sh:path dcat:themeTaxonomy ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "R" ],
+        [ sh:description "A dataset listed in the catalogue."@en ;
+            sh:name "Dataset"@en ;
+            sh:nodeKind sh:IRI ;
+            sh:path dcat:dataset ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "R" ],
+        [ sh:description "Where to ask questions about the resource or give feedback on it."@en ;
+            sh:name "Contact point"@en ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:path dcat:contactPoint ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "R" ],
+        [ sh:description "The licence under which the resource can be used."@en ;
+            sh:maxCount 1 ;
+            sh:name "Licence"@en ;
+            sh:nodeKind sh:IRI ;
+            sh:path dct:license ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "R" ],
+        [ sh:description "The date the resource was first made available."@en ;
+            sh:maxCount 1 ;
+            sh:name "Release date"@en ;
+            sh:or ( [ sh:datatype xsd:date ] [ sh:datatype xsd:dateTime ] [ sh:datatype xsd:gYearMonth ] [ sh:datatype xsd:gYear ] ) ;
+            sh:path dct:issued ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "O" ],
+        [ sh:description "The name of the resource, in plain English."@en ;
+            sh:minCount 1 ;
+            sh:name "Title"@en ;
+            sh:nodeKind sh:Literal ;
+            sh:path dct:title ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "M" ],
+        [ sh:description "A standard, specification or schema the resource follows."@en ;
+            sh:name "Conforms to"@en ;
+            sh:nodeKind sh:IRI ;
+            sh:path dct:conformsTo ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "R" ],
+        [ sh:description "The home page of the catalogue or the organisation."@en ;
+            sh:maxCount 1 ;
+            sh:name "Home page"@en ;
+            sh:nodeKind sh:IRI ;
+            sh:path foaf:homepage ;
+            sh:pattern "^https?://" ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "R" ],
+        [ sh:description "The date the content of the resource last changed."@en ;
+            sh:maxCount 1 ;
+            sh:name "Last updated"@en ;
+            sh:or ( [ sh:datatype xsd:date ] [ sh:datatype xsd:dateTime ] [ sh:datatype xsd:gYearMonth ] [ sh:datatype xsd:gYear ] ) ;
+            sh:path dct:modified ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "R" ],
+        [ sh:description "A plain English account of what the resource contains and what it can be used for."@en ;
+            sh:minCount 1 ;
+            sh:name "Description"@en ;
+            sh:nodeKind sh:Literal ;
+            sh:path dct:description ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "M" ] ;
+    sh:targetClass dcat:Catalog .
+
+ukshapes:ChecksumShape a sh:NodeShape ;
+    sh:description "A value calculated from a file, used to check it has not changed."@en ;
+    sh:name "Checksum"@en ;
+    sh:property [ sh:description "The checksum, in lower-case hexadecimal."@en ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "Checksum value"@en ;
+            sh:nodeKind sh:Literal ;
+            sh:path spdx:checksumValue ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "M" ],
+        [ sh:description "The algorithm used to calculate the checksum, from the SPDX list."@en ;
+            sh:in ( spdx:checksumAlgorithm_sha256 spdx:checksumAlgorithm_sha384 spdx:checksumAlgorithm_sha512 spdx:checksumAlgorithm_sha3_256 spdx:checksumAlgorithm_sha3_384 spdx:checksumAlgorithm_sha3_512 spdx:checksumAlgorithm_blake2b256 spdx:checksumAlgorithm_blake2b512 spdx:checksumAlgorithm_blake3 spdx:checksumAlgorithm_sha224 spdx:checksumAlgorithm_sha1 spdx:checksumAlgorithm_md5 ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "Algorithm"@en ;
+            sh:nodeKind sh:IRI ;
+            sh:path spdx:algorithm ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "M" ] ;
+    sh:targetClass spdx:Checksum .
+
+ukshapes:ContactPointShape a sh:NodeShape ;
+    sh:description "A team that can answer questions about a resource, with the routes to reach it."@en ;
+    sh:message "A contact point must give a contact form, a team mailbox, or both. (rule R-01)"@en ;
+    sh:name "Contact point"@en ;
+    sh:or ( [ sh:property [ sh:minCount 1 ;
+                        sh:path vcard:hasURL ] ] [ sh:property [ sh:minCount 1 ;
+                        sh:path vcard:hasEmail ] ] ) ;
+    sh:property [ sh:description "The address of a contact form or contact page for the team."@en ;
+            sh:name "Contact form"@en ;
+            sh:nodeKind sh:IRI ;
+            sh:path vcard:hasURL ;
+            sh:pattern "^https?://" ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "C" ],
+        [ sh:description "A postal address for the team."@en ;
+            sh:maxCount 1 ;
+            sh:name "Postal address"@en ;
+            sh:nodeKind sh:Literal ;
+            sh:path vcard:hasAddress ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "O" ],
+        [ sh:description "A team telephone number."@en ;
+            sh:name "Telephone"@en ;
+            sh:nodeKind sh:Literal ;
+            sh:path vcard:hasTelephone ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "O" ],
+        [ sh:description "A shared team mailbox, as a mailto address. Never a personal address."@en ;
+            sh:message "A team email address must be a mailto address (rule R-06)."@en ;
+            sh:name "Team email address"@en ;
+            sh:nodeKind sh:IRI ;
+            sh:path vcard:hasEmail ;
+            sh:pattern "^mailto:[^@]+@[^@]+$" ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "C" ],
+        [ sh:description "The name of the team to contact. Never a person's name."@en ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "Team name"@en ;
+            sh:nodeKind sh:Literal ;
+            sh:path vcard:fn ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "M" ] ;
+    sh:targetClass vcard:Kind .
+
+ukshapes:CriticalDataAssetShape a sh:NodeShape ;
+    sh:message "A critical data asset must give every property marked mandatory for critical data assets (rule R-04)."@en ;
+    sh:or ( [ sh:not [ sh:property [ sh:hasValue true ;
+                                sh:path dcatuk:criticalDataAsset ] ] ] [ sh:property [ sh:minCount 1 ;
+                        sh:path dct:conformsTo ],
+                    [ sh:minCount 1 ;
+                        sh:path dct:creator ],
+                    [ sh:minCount 1 ;
+                        sh:path dcatuk:personalData ],
+                    [ sh:minCount 1 ;
+                        sh:path dct:temporal ],
+                    [ sh:minCount 1 ;
+                        sh:path dct:created ] ] ) ;
+    sh:targetClass dcat:Dataset .
+
+ukshapes:DataServiceRightsShape a sh:NodeShape ;
+    sh:message "When access rights are commercial or internal, give a rights statement (rule R-03)."@en ;
+    sh:or ( [ sh:property [ sh:in ( <https://w3id.org/dcat-ap-uk/codelist/access-rights/open> ) ;
+                        sh:path dct:accessRights ] ] [ sh:property [ sh:minCount 1 ;
+                        sh:path dct:rights ] ] ) ;
+    sh:targetClass dcat:DataService .
+
+ukshapes:DataServiceShape a sh:NodeShape ;
+    sh:description "A set of operations, such as an API, that gives access to one or more datasets or data processing functions."@en ;
+    sh:name "Data service"@en ;
+    sh:property [ sh:description "The date the content of the resource last changed."@en ;
+            sh:maxCount 1 ;
+            sh:name "Last updated"@en ;
+            sh:or ( [ sh:datatype xsd:date ] [ sh:datatype xsd:dateTime ] [ sh:datatype xsd:gYearMonth ] [ sh:datatype xsd:gYear ] ) ;
+            sh:path dct:modified ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "R" ],
+        [ sh:description "A statement of any restriction on access or use, such as the data sharing agreement or legal gateway needed."@en ;
+            sh:name "Rights statement"@en ;
+            sh:nodeKind sh:Literal ;
+            sh:path dct:rights ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "C" ],
+        [ sh:description "The organisation that created or compiled the content of the resource."@en ;
+            sh:name "Creator"@en ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:path dct:creator ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "O" ],
+        [ sh:description "A description of what the service does and how to call it, such as an OpenAPI document."@en ;
+            sh:name "Endpoint description"@en ;
+            sh:nodeKind sh:IRI ;
+            sh:path dcat:endpointDescription ;
+            sh:pattern "^https?://" ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "R" ],
+        [ sh:description "The classification under the Government Security Classifications Policy that the data itself carries."@en ;
+            sh:in ( <https://w3id.org/dcat-ap-uk/codelist/security-classification/official> <https://w3id.org/dcat-ap-uk/codelist/security-classification/official-sensitive> <https://w3id.org/dcat-ap-uk/codelist/security-classification/secret> <https://w3id.org/dcat-ap-uk/codelist/security-classification/top-secret> ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "Security classification"@en ;
+            sh:nodeKind sh:IRI ;
+            sh:path dcatuk:securityClassification ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "M" ],
+        [ sh:description "Every country or territory where the data is stored or processed, or to which it is sent."@en ;
+            sh:name "Where the data is held or sent"@en ;
+            sh:nodeKind sh:IRI ;
+            sh:path dcatuk:jurisdiction ;
+            sh:pattern "^(ukcl:jurisdiction/|https://w3id\\.org/dcat-ap-uk/codelist/jurisdiction/)[a-z]{2,3}(-[a-z0-9]{1,3})?$" ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "O" ],
+        [ sh:description "Who is allowed to see the metadata record itself."@en ;
+            sh:in ( <https://w3id.org/dcat-ap-uk/codelist/metadata-audience/public> <https://w3id.org/dcat-ap-uk/codelist/metadata-audience/public-sector> <https://w3id.org/dcat-ap-uk/codelist/metadata-audience/government> <https://w3id.org/dcat-ap-uk/codelist/metadata-audience/publisher-only> ) ;
+            sh:maxCount 1 ;
+            sh:name "Who can see this record"@en ;
+            sh:nodeKind sh:IRI ;
+            sh:path dcatuk:metadataAudience ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "O" ],
+        [ sh:description "A one-sentence summary of the resource, of no more than 250 characters."@en ;
+            sh:maxCount 1 ;
+            sh:maxLength 250 ;
+            sh:name "Summary"@en ;
+            sh:nodeKind sh:Literal ;
+            sh:path dct:abstract ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "O" ],
+        [ sh:description "Words or short phrases that people might search for, not already in the title or description."@en ;
+            sh:name "Keyword"@en ;
+            sh:nodeKind sh:Literal ;
+            sh:path dcat:keyword ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "R" ],
+        [ sh:description "Where a data service is in its life, from discovery to retirement."@en ;
+            sh:in ( <https://w3id.org/dcat-ap-uk/codelist/service-status/discovery> <https://w3id.org/dcat-ap-uk/codelist/service-status/alpha> <https://w3id.org/dcat-ap-uk/codelist/service-status/private-beta> <https://w3id.org/dcat-ap-uk/codelist/service-status/public-beta> <https://w3id.org/dcat-ap-uk/codelist/service-status/beta> <https://w3id.org/dcat-ap-uk/codelist/service-status/live> <https://w3id.org/dcat-ap-uk/codelist/service-status/deprecated> <https://w3id.org/dcat-ap-uk/codelist/service-status/withdrawn> ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "Status"@en ;
+            sh:nodeKind sh:IRI ;
+            sh:path adms:status ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "M" ],
+        [ sh:description "For a data service, the kind of interface."@en ;
+            sh:in ( <https://w3id.org/dcat-ap-uk/codelist/service-type/rest> <https://w3id.org/dcat-ap-uk/codelist/service-type/soap> <https://w3id.org/dcat-ap-uk/codelist/service-type/event> <https://w3id.org/dcat-ap-uk/codelist/service-type/graphql> <https://w3id.org/dcat-ap-uk/codelist/service-type/sparql> <https://w3id.org/dcat-ap-uk/codelist/service-type/ogc> <https://w3id.org/dcat-ap-uk/codelist/service-type/file-transfer> ) ;
+            sh:maxCount 1 ;
+            sh:name "Interface style"@en ;
+            sh:nodeKind sh:IRI ;
+            sh:path dct:type ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "R" ],
+        [ sh:description "The basis under UK GDPR on which personal data in the resource may be sent outside the UK."@en ;
+            sh:in ( <https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism/not-restricted> <https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism/uk-adequacy> <https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism/uk-adequacy-partial> <https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism/idta> <https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism/addendum> <https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism/bcr> <https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism/public-body-instrument> <https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism/administrative-arrangement> <https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism/code-or-certification> <https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism/exception> <https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism/law-enforcement> ) ;
+            sh:name "Transfer safeguard"@en ;
+            sh:nodeKind sh:IRI ;
+            sh:path dcatuk:transferMechanism ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "C" ],
+        [ sh:description "A web page that documents the resource, such as a user guide or a methodology."@en ;
+            sh:name "Documentation"@en ;
+            sh:nodeKind sh:IRI ;
+            sh:path foaf:page ;
+            sh:pattern "^https?://" ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "O" ],
+        [ sh:description "A machine-readable policy, in the W3C Open Digital Rights Language (ODRL), saying what may and may not be done with the resource."@en ;
+            sh:name "Usage policy"@en ;
+            sh:nodeKind sh:IRI ;
+            sh:path odrl:hasPolicy ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "O" ],
+        [ sh:description "The language or languages of the resource."@en ;
+            sh:name "Language"@en ;
+            sh:nodeKind sh:IRI ;
+            sh:path dct:language ;
+            sh:pattern "^http://publications.europa.eu/resource/authority/language/" ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "O" ],
+        [ sh:description "A plain English account of what the resource contains and what it can be used for."@en ;
+            sh:minCount 1 ;
+            sh:name "Description"@en ;
+            sh:nodeKind sh:Literal ;
+            sh:path dct:description ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "M" ],
+        [ sh:description "Where to ask questions about the resource or give feedback on it."@en ;
+            sh:minCount 1 ;
+            sh:name "Contact point"@en ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:path dcat:contactPoint ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "M" ],
+        [ sh:description "The kind of key exchange the service's endpoint uses to protect data in transit, classical or post-quantum."@en ;
+            sh:in ( <https://w3id.org/dcat-ap-uk/codelist/transport-security/pqc-hybrid> <https://w3id.org/dcat-ap-uk/codelist/transport-security/pqc-only> <https://w3id.org/dcat-ap-uk/codelist/transport-security/tls13-classical> <https://w3id.org/dcat-ap-uk/codelist/transport-security/tls12-classical> <https://w3id.org/dcat-ap-uk/codelist/transport-security/not-assessed> ) ;
+            sh:maxCount 1 ;
+            sh:name "Connection security"@en ;
+            sh:nodeKind sh:IRI ;
+            sh:path dcatuk:transportSecurity ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "O" ],
+        [ sh:description "A dataset this service gives access to."@en ;
+            sh:name "Serves dataset"@en ;
+            sh:nodeKind sh:IRI ;
+            sh:path dcat:servesDataset ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "R" ],
+        [ sh:description "The version of the resource."@en ;
+            sh:maxCount 1 ;
+            sh:name "Version"@en ;
+            sh:nodeKind sh:Literal ;
+            sh:path dcat:version ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "O" ],
+        [ sh:datatype xsd:boolean ;
+            sh:description "Whether the resource is a critical data asset under the Data Asset Management Policy."@en ;
+            sh:maxCount 1 ;
+            sh:name "Critical data asset"@en ;
+            sh:path dcatuk:criticalDataAsset ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "O" ],
+        [ sh:description "The licence under which the resource can be used."@en ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "Licence"@en ;
+            sh:nodeKind sh:IRI ;
+            sh:path dct:license ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "M" ],
+        [ sh:description "A web page where people can find out about the resource and how to get it."@en ;
+            sh:name "Landing page"@en ;
+            sh:nodeKind sh:IRI ;
+            sh:path dcat:landingPage ;
+            sh:pattern "^https?://" ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "O" ],
+        [ sh:description "A standard, specification or schema the resource follows."@en ;
+            sh:name "Conforms to"@en ;
+            sh:nodeKind sh:IRI ;
+            sh:path dct:conformsTo ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "R" ],
+        [ sh:description "The root address of the service."@en ;
+            sh:minCount 1 ;
+            sh:name "Endpoint address"@en ;
+            sh:nodeKind sh:IRI ;
+            sh:path dcat:endpointURL ;
+            sh:pattern "^https?://" ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "M" ],
+        [ sh:description "The name of the resource, in plain English."@en ;
+            sh:minCount 1 ;
+            sh:name "Title"@en ;
+            sh:nodeKind sh:Literal ;
+            sh:path dct:title ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "M" ],
+        [ sh:description "The main identifier of the resource in the publisher's own catalogue."@en ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "Identifier"@en ;
+            sh:nodeKind sh:Literal ;
+            sh:path dct:identifier ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "M" ],
+        [ sh:description "The broad subject of the resource, from a controlled list."@en ;
+            sh:in ( <https://w3id.org/dcat-ap-uk/codelist/theme/business-and-economy> <https://w3id.org/dcat-ap-uk/codelist/theme/crime-and-justice> <https://w3id.org/dcat-ap-uk/codelist/theme/defence> <https://w3id.org/dcat-ap-uk/codelist/theme/digital-services-performance> <https://w3id.org/dcat-ap-uk/codelist/theme/education> <https://w3id.org/dcat-ap-uk/codelist/theme/environment> <https://w3id.org/dcat-ap-uk/codelist/theme/government> <https://w3id.org/dcat-ap-uk/codelist/theme/government-reference-data> <https://w3id.org/dcat-ap-uk/codelist/theme/government-spending> <https://w3id.org/dcat-ap-uk/codelist/theme/health> <https://w3id.org/dcat-ap-uk/codelist/theme/mapping> <https://w3id.org/dcat-ap-uk/codelist/theme/society> <https://w3id.org/dcat-ap-uk/codelist/theme/towns-and-cities> <https://w3id.org/dcat-ap-uk/codelist/theme/transport> ) ;
+            sh:name "Theme"@en ;
+            sh:nodeKind sh:IRI ;
+            sh:path dcat:theme ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "R" ],
+        [ sh:description "A property this record leaves empty on purpose, and why."@en ;
+            sh:name "Missing value"@en ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:path dcatuk:missingValue ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "O" ],
+        [ sh:description "Whether the data contains information about identifiable living people, and in what form."@en ;
+            sh:in ( <https://w3id.org/dcat-ap-uk/codelist/personal-data/none> <https://w3id.org/dcat-ap-uk/codelist/personal-data/personal> <https://w3id.org/dcat-ap-uk/codelist/personal-data/pseudonymised> <https://w3id.org/dcat-ap-uk/codelist/personal-data/anonymised> <https://w3id.org/dcat-ap-uk/codelist/personal-data/unknown> ) ;
+            sh:maxCount 1 ;
+            sh:name "Personal data"@en ;
+            sh:nodeKind sh:IRI ;
+            sh:path dcatuk:personalData ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "O" ],
+        [ sh:description "Who can get the data, and on what terms."@en ;
+            sh:in ( <https://w3id.org/dcat-ap-uk/codelist/access-rights/open> <https://w3id.org/dcat-ap-uk/codelist/access-rights/commercial> <https://w3id.org/dcat-ap-uk/codelist/access-rights/internal> ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "Access rights"@en ;
+            sh:nodeKind sh:IRI ;
+            sh:path dct:accessRights ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "M" ],
+        [ sh:description "The date the resource was first made available."@en ;
+            sh:maxCount 1 ;
+            sh:name "Release date"@en ;
+            sh:or ( [ sh:datatype xsd:date ] [ sh:datatype xsd:dateTime ] [ sh:datatype xsd:gYearMonth ] [ sh:datatype xsd:gYear ] ) ;
+            sh:path dct:issued ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "R" ],
+        [ sh:description "The organisation responsible for making the resource available."@en ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "Publisher"@en ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:path dct:publisher ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "M" ],
+        [ sh:description "Legislation that requires, governs or permits the publication or sharing of the resource."@en ;
+            sh:name "Applicable legislation"@en ;
+            sh:nodeKind sh:IRI ;
+            sh:path dcatap:applicableLegislation ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "O" ] ;
+    sh:targetClass dcat:DataService .
+
+ukshapes:DataServiceTransferShape a sh:NodeShape ;
+    sh:message "Personal data held in or sent to anywhere outside the UK needs a transfer safeguard (rule R-08)."@en ;
+    sh:or ( [ sh:not [ sh:property [ sh:in ( <https://w3id.org/dcat-ap-uk/codelist/personal-data/personal> <https://w3id.org/dcat-ap-uk/codelist/personal-data/pseudonymised> <https://w3id.org/dcat-ap-uk/codelist/personal-data/unknown> ) ;
+                                sh:minCount 1 ;
+                                sh:path dcatuk:personalData ] ] ] [ sh:property [ sh:in ( <https://w3id.org/dcat-ap-uk/codelist/jurisdiction/gb> <https://w3id.org/dcat-ap-uk/codelist/jurisdiction/gb-eng> <https://w3id.org/dcat-ap-uk/codelist/jurisdiction/gb-sct> <https://w3id.org/dcat-ap-uk/codelist/jurisdiction/gb-wls> <https://w3id.org/dcat-ap-uk/codelist/jurisdiction/gb-nir> ) ;
+                        sh:path dcatuk:jurisdiction ] ] [ sh:property [ sh:minCount 1 ;
+                        sh:path dcatuk:transferMechanism ] ] ) ;
+    sh:targetClass dcat:DataService .
+
+ukshapes:DatasetRightsShape a sh:NodeShape ;
+    sh:message "When access rights are commercial or internal, give a rights statement (rule R-03)."@en ;
+    sh:or ( [ sh:property [ sh:in ( <https://w3id.org/dcat-ap-uk/codelist/access-rights/open> ) ;
+                        sh:path dct:accessRights ] ] [ sh:property [ sh:minCount 1 ;
+                        sh:path dct:rights ] ] ) ;
+    sh:targetClass dcat:Dataset .
+
+ukshapes:DatasetSeriesShape a sh:NodeShape ;
+    sh:description "A group of datasets published separately but sharing a subject and a method, such as each release of a census."@en ;
+    sh:name "Dataset series"@en ;
+    sh:property [ sh:description "The geographic area the data is about."@en ;
+            sh:name "Geographic coverage"@en ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:path dct:spatial ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "O" ],
+        [ sh:description "Where to ask questions about the resource or give feedback on it."@en ;
+            sh:name "Contact point"@en ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:path dcat:contactPoint ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "R" ],
+        [ sh:description "The broad subject of the resource, from a controlled list."@en ;
+            sh:in ( <https://w3id.org/dcat-ap-uk/codelist/theme/business-and-economy> <https://w3id.org/dcat-ap-uk/codelist/theme/crime-and-justice> <https://w3id.org/dcat-ap-uk/codelist/theme/defence> <https://w3id.org/dcat-ap-uk/codelist/theme/digital-services-performance> <https://w3id.org/dcat-ap-uk/codelist/theme/education> <https://w3id.org/dcat-ap-uk/codelist/theme/environment> <https://w3id.org/dcat-ap-uk/codelist/theme/government> <https://w3id.org/dcat-ap-uk/codelist/theme/government-reference-data> <https://w3id.org/dcat-ap-uk/codelist/theme/government-spending> <https://w3id.org/dcat-ap-uk/codelist/theme/health> <https://w3id.org/dcat-ap-uk/codelist/theme/mapping> <https://w3id.org/dcat-ap-uk/codelist/theme/society> <https://w3id.org/dcat-ap-uk/codelist/theme/towns-and-cities> <https://w3id.org/dcat-ap-uk/codelist/theme/transport> ) ;
+            sh:name "Theme"@en ;
+            sh:nodeKind sh:IRI ;
+            sh:path dcat:theme ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "O" ],
+        [ sh:description "The organisation responsible for making the resource available."@en ;
+            sh:maxCount 1 ;
+            sh:name "Publisher"@en ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:path dct:publisher ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "R" ],
+        [ sh:description "The date the content of the resource last changed."@en ;
+            sh:maxCount 1 ;
+            sh:name "Last updated"@en ;
+            sh:or ( [ sh:datatype xsd:date ] [ sh:datatype xsd:dateTime ] [ sh:datatype xsd:gYearMonth ] [ sh:datatype xsd:gYear ] ) ;
+            sh:path dct:modified ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "O" ],
+        [ sh:description "A plain English account of what the resource contains and what it can be used for."@en ;
+            sh:minCount 1 ;
+            sh:name "Description"@en ;
+            sh:nodeKind sh:Literal ;
+            sh:path dct:description ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "M" ],
+        [ sh:description "The period of time the data is about."@en ;
+            sh:name "Time period covered"@en ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:path dct:temporal ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "O" ],
+        [ sh:description "How often the resource is updated."@en ;
+            sh:in ( eufreq:CONT eufreq:DAILY eufreq:WEEKLY eufreq:WEEKLY_2 eufreq:WEEKLY_3 eufreq:BIWEEKLY eufreq:MONTHLY eufreq:MONTHLY_2 eufreq:MONTHLY_3 eufreq:BIMONTHLY eufreq:QUARTERLY eufreq:ANNUAL_3 eufreq:ANNUAL_2 eufreq:ANNUAL eufreq:BIENNIAL eufreq:TRIENNIAL eufreq:IRREG eufreq:NEVER eufreq:OTHER eufreq:UNKNOWN ) ;
+            sh:maxCount 1 ;
+            sh:name "Update frequency"@en ;
+            sh:nodeKind sh:IRI ;
+            sh:path dct:accrualPeriodicity ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "R" ],
+        [ sh:description "The name of the resource, in plain English."@en ;
+            sh:minCount 1 ;
+            sh:name "Title"@en ;
+            sh:nodeKind sh:Literal ;
+            sh:path dct:title ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "M" ] ;
+    sh:targetClass dcat:DatasetSeries .
+
+ukshapes:DatasetShape a sh:NodeShape ;
+    sh:description "A collection of data, published or curated by one organisation, available in one or more forms."@en ;
+    sh:name "Dataset"@en ;
+    sh:property [ sh:description "The geographic area the data is about."@en ;
+            sh:name "Geographic coverage"@en ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:path dct:spatial ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "R" ],
+        [ sh:description "Where to ask questions about the resource or give feedback on it."@en ;
+            sh:minCount 1 ;
+            sh:name "Contact point"@en ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:path dcat:contactPoint ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "M" ],
+        [ sh:description "A plain English account of what the resource contains and what it can be used for."@en ;
+            sh:minCount 1 ;
+            sh:name "Description"@en ;
+            sh:nodeKind sh:Literal ;
+            sh:path dct:description ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "M" ],
+        [ sh:description "The broad subject of the resource, from a controlled list."@en ;
+            sh:in ( <https://w3id.org/dcat-ap-uk/codelist/theme/business-and-economy> <https://w3id.org/dcat-ap-uk/codelist/theme/crime-and-justice> <https://w3id.org/dcat-ap-uk/codelist/theme/defence> <https://w3id.org/dcat-ap-uk/codelist/theme/digital-services-performance> <https://w3id.org/dcat-ap-uk/codelist/theme/education> <https://w3id.org/dcat-ap-uk/codelist/theme/environment> <https://w3id.org/dcat-ap-uk/codelist/theme/government> <https://w3id.org/dcat-ap-uk/codelist/theme/government-reference-data> <https://w3id.org/dcat-ap-uk/codelist/theme/government-spending> <https://w3id.org/dcat-ap-uk/codelist/theme/health> <https://w3id.org/dcat-ap-uk/codelist/theme/mapping> <https://w3id.org/dcat-ap-uk/codelist/theme/society> <https://w3id.org/dcat-ap-uk/codelist/theme/towns-and-cities> <https://w3id.org/dcat-ap-uk/codelist/theme/transport> ) ;
+            sh:name "Theme"@en ;
+            sh:nodeKind sh:IRI ;
+            sh:path dcat:theme ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "R" ],
+        [ sh:description "The date after which the resource should no longer be used."@en ;
+            sh:maxCount 1 ;
+            sh:name "Expires"@en ;
+            sh:or ( [ sh:datatype xsd:date ] [ sh:datatype xsd:dateTime ] [ sh:datatype xsd:gYearMonth ] [ sh:datatype xsd:gYear ] ) ;
+            sh:path schema1:expires ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "O" ],
+        [ sh:description "The period of time the data is about."@en ;
+            sh:name "Time period covered"@en ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:path dct:temporal ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "R" ],
+        [ sh:description "A web page that documents the resource, such as a user guide or a methodology."@en ;
+            sh:name "Documentation"@en ;
+            sh:nodeKind sh:IRI ;
+            sh:path foaf:page ;
+            sh:pattern "^https?://" ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "O" ],
+        [ sh:description "A form in which the data can be got, such as a file or an API."@en ;
+            sh:name "Distribution"@en ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:path dcat:distribution ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "R" ],
+        [ sh:description "A link to a published statement or measurement of the quality of the data."@en ;
+            sh:name "Data quality"@en ;
+            sh:nodeKind sh:IRI ;
+            sh:path dqv:hasQualityAnnotation ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "O" ],
+        [ sh:description "A standard, specification or schema the resource follows."@en ;
+            sh:name "Conforms to"@en ;
+            sh:nodeKind sh:IRI ;
+            sh:path dct:conformsTo ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "R" ],
+        [ sh:description "The licence under which the resource can be used."@en ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "Licence"@en ;
+            sh:nodeKind sh:IRI ;
+            sh:path dct:license ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "M" ],
+        [ sh:description "A property this record leaves empty on purpose, and why."@en ;
+            sh:name "Missing value"@en ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:path dcatuk:missingValue ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "O" ],
+        [ sh:description "A code list, classification or set of groupings the data uses, such as age bands or a geography."@en ;
+            sh:name "Reference data used"@en ;
+            sh:nodeKind sh:IRI ;
+            sh:path dcatuk:referenceData ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "O" ],
+        [ sh:description "A related resource together with the kind of relationship."@en ;
+            sh:name "Qualified relation"@en ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:path dcat:qualifiedRelation ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "O" ],
+        [ sh:description "What changed in this version."@en ;
+            sh:name "Version notes"@en ;
+            sh:nodeKind sh:Literal ;
+            sh:path adms:versionNotes ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "O" ],
+        [ sh:description "Who is allowed to see the metadata record itself."@en ;
+            sh:in ( <https://w3id.org/dcat-ap-uk/codelist/metadata-audience/public> <https://w3id.org/dcat-ap-uk/codelist/metadata-audience/public-sector> <https://w3id.org/dcat-ap-uk/codelist/metadata-audience/government> <https://w3id.org/dcat-ap-uk/codelist/metadata-audience/publisher-only> ) ;
+            sh:maxCount 1 ;
+            sh:name "Who can see this record"@en ;
+            sh:nodeKind sh:IRI ;
+            sh:path dcatuk:metadataAudience ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "O" ],
+        [ sh:description "The language or languages of the resource."@en ;
+            sh:name "Language"@en ;
+            sh:nodeKind sh:IRI ;
+            sh:path dct:language ;
+            sh:pattern "^http://publications.europa.eu/resource/authority/language/" ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "O" ],
+        [ sh:description "A one-sentence summary of the resource, of no more than 250 characters."@en ;
+            sh:maxCount 1 ;
+            sh:maxLength 250 ;
+            sh:name "Summary"@en ;
+            sh:nodeKind sh:Literal ;
+            sh:path dct:abstract ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "R" ],
+        [ sh:description "Legislation that requires, governs or permits the publication or sharing of the resource."@en ;
+            sh:name "Applicable legislation"@en ;
+            sh:nodeKind sh:IRI ;
+            sh:path dcatap:applicableLegislation ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "O" ],
+        [ sh:description "A web page where people can find out about the resource and how to get it."@en ;
+            sh:name "Landing page"@en ;
+            sh:nodeKind sh:IRI ;
+            sh:path dcat:landingPage ;
+            sh:pattern "^https?://" ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "R" ],
+        [ sh:datatype xsd:boolean ;
+            sh:description "Whether the resource is a critical data asset under the Data Asset Management Policy."@en ;
+            sh:maxCount 1 ;
+            sh:name "Critical data asset"@en ;
+            sh:path dcatuk:criticalDataAsset ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "R" ],
+        [ sh:description "Another name the resource is known by, such as an abbreviation or a former name."@en ;
+            sh:name "Alternative title"@en ;
+            sh:nodeKind sh:Literal ;
+            sh:path dct:alternative ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "O" ],
+        [ sh:description "Words or short phrases that people might search for, not already in the title or description."@en ;
+            sh:minCount 1 ;
+            sh:name "Keyword"@en ;
+            sh:nodeKind sh:Literal ;
+            sh:path dcat:keyword ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "M" ],
+        [ sh:description "The classification under the Government Security Classifications Policy that the data itself carries."@en ;
+            sh:in ( <https://w3id.org/dcat-ap-uk/codelist/security-classification/official> <https://w3id.org/dcat-ap-uk/codelist/security-classification/official-sensitive> <https://w3id.org/dcat-ap-uk/codelist/security-classification/secret> <https://w3id.org/dcat-ap-uk/codelist/security-classification/top-secret> ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "Security classification"@en ;
+            sh:nodeKind sh:IRI ;
+            sh:path dcatuk:securityClassification ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "M" ],
+        [ sh:description "The date the resource was first made available."@en ;
+            sh:maxCount 1 ;
+            sh:name "Release date"@en ;
+            sh:or ( [ sh:datatype xsd:date ] [ sh:datatype xsd:dateTime ] [ sh:datatype xsd:gYearMonth ] [ sh:datatype xsd:gYear ] ) ;
+            sh:path dct:issued ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "R" ],
+        [ sh:description "The basis under UK GDPR on which personal data in the resource may be sent outside the UK."@en ;
+            sh:in ( <https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism/not-restricted> <https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism/uk-adequacy> <https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism/uk-adequacy-partial> <https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism/idta> <https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism/addendum> <https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism/bcr> <https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism/public-body-instrument> <https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism/administrative-arrangement> <https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism/code-or-certification> <https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism/exception> <https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism/law-enforcement> ) ;
+            sh:name "Transfer safeguard"@en ;
+            sh:nodeKind sh:IRI ;
+            sh:path dcatuk:transferMechanism ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "C" ],
+        [ sh:description "The main identifier of the resource in the publisher's own catalogue."@en ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "Identifier"@en ;
+            sh:nodeKind sh:Literal ;
+            sh:path dct:identifier ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "M" ],
+        [ sh:description "Whether the data contains information about identifiable living people, and in what form."@en ;
+            sh:in ( <https://w3id.org/dcat-ap-uk/codelist/personal-data/none> <https://w3id.org/dcat-ap-uk/codelist/personal-data/personal> <https://w3id.org/dcat-ap-uk/codelist/personal-data/pseudonymised> <https://w3id.org/dcat-ap-uk/codelist/personal-data/anonymised> <https://w3id.org/dcat-ap-uk/codelist/personal-data/unknown> ) ;
+            sh:maxCount 1 ;
+            sh:name "Personal data"@en ;
+            sh:nodeKind sh:IRI ;
+            sh:path dcatuk:personalData ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "R" ],
+        [ sh:description "An organisation and the role it plays for the resource, such as data owner or data steward."@en ;
+            sh:name "Responsible role"@en ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:path prov:qualifiedAttribution ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "O" ],
+        [ sh:description "The outcome of open data triage for data that is presumed open."@en ;
+            sh:in ( <https://w3id.org/dcat-ap-uk/codelist/open-data-triage/open> <https://w3id.org/dcat-ap-uk/codelist/open-data-triage/public> <https://w3id.org/dcat-ap-uk/codelist/open-data-triage/shared> <https://w3id.org/dcat-ap-uk/codelist/open-data-triage/closed> ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "Open data triage outcome"@en ;
+            sh:nodeKind sh:IRI ;
+            sh:path dcatuk:openDataTriage ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "M" ],
+        [ sh:datatype xsd:boolean ;
+            sh:description "Whether the data falls under the presumed open principle."@en ;
+            sh:maxCount 1 ;
+            sh:name "Presumed open"@en ;
+            sh:path dcatuk:presumedOpen ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "R" ],
+        [ sh:description "How often the resource is updated."@en ;
+            sh:in ( eufreq:CONT eufreq:DAILY eufreq:WEEKLY eufreq:WEEKLY_2 eufreq:WEEKLY_3 eufreq:BIWEEKLY eufreq:MONTHLY eufreq:MONTHLY_2 eufreq:MONTHLY_3 eufreq:BIMONTHLY eufreq:QUARTERLY eufreq:ANNUAL_3 eufreq:ANNUAL_2 eufreq:ANNUAL eufreq:BIENNIAL eufreq:TRIENNIAL eufreq:IRREG eufreq:NEVER eufreq:OTHER eufreq:UNKNOWN ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "Update frequency"@en ;
+            sh:nodeKind sh:IRI ;
+            sh:path dct:accrualPeriodicity ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "M" ],
+        [ sh:datatype xsd:duration ;
+            sh:description "The smallest period the data can tell apart, as an ISO 8601 duration."@en ;
+            sh:name "Time resolution"@en ;
+            sh:path dcat:temporalResolution ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "O" ],
+        [ sh:description "Every country or territory where the data is stored or processed, or to which it is sent."@en ;
+            sh:name "Where the data is held or sent"@en ;
+            sh:nodeKind sh:IRI ;
+            sh:path dcatuk:jurisdiction ;
+            sh:pattern "^(ukcl:jurisdiction/|https://w3id\\.org/dcat-ap-uk/codelist/jurisdiction/)[a-z]{2,3}(-[a-z0-9]{1,3})?$" ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "O" ],
+        [ sh:description "The date the content of the resource was created or compiled."@en ;
+            sh:maxCount 1 ;
+            sh:name "Created"@en ;
+            sh:or ( [ sh:datatype xsd:date ] [ sh:datatype xsd:dateTime ] [ sh:datatype xsd:gYearMonth ] [ sh:datatype xsd:gYear ] ) ;
+            sh:path dct:created ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "R" ],
+        [ sh:description "The dataset series this dataset belongs to."@en ;
+            sh:name "Part of series"@en ;
+            sh:nodeKind sh:IRI ;
+            sh:path dcat:inSeries ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "O" ],
+        [ sh:description "A machine-readable policy, in the W3C Open Digital Rights Language (ODRL), saying what may and may not be done with the resource."@en ;
+            sh:name "Usage policy"@en ;
+            sh:nodeKind sh:IRI ;
+            sh:path odrl:hasPolicy ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "O" ],
+        [ sh:description "Whether the data contains information that needs extra care beyond being personal, such as special category data."@en ;
+            sh:in ( <https://w3id.org/dcat-ap-uk/codelist/sensitive-data/none> <https://w3id.org/dcat-ap-uk/codelist/sensitive-data/special-category> <https://w3id.org/dcat-ap-uk/codelist/sensitive-data/criminal-offence> <https://w3id.org/dcat-ap-uk/codelist/sensitive-data/children> <https://w3id.org/dcat-ap-uk/codelist/sensitive-data/commercially-sensitive> <https://w3id.org/dcat-ap-uk/codelist/sensitive-data/security-sensitive> <https://w3id.org/dcat-ap-uk/codelist/sensitive-data/unknown> ) ;
+            sh:name "Sensitive data"@en ;
+            sh:nodeKind sh:IRI ;
+            sh:path dcatuk:sensitiveData ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "R" ],
+        [ sh:description "The name of the resource, in plain English."@en ;
+            sh:minCount 1 ;
+            sh:name "Title"@en ;
+            sh:nodeKind sh:Literal ;
+            sh:path dct:title ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "M" ],
+        [ sh:description "The date the content of the resource last changed."@en ;
+            sh:maxCount 1 ;
+            sh:name "Last updated"@en ;
+            sh:or ( [ sh:datatype xsd:date ] [ sh:datatype xsd:dateTime ] [ sh:datatype xsd:gYearMonth ] [ sh:datatype xsd:gYear ] ) ;
+            sh:path dct:modified ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "R" ],
+        [ sh:description "A newer resource that replaces this one."@en ;
+            sh:name "Replaced by"@en ;
+            sh:nodeKind sh:IRI ;
+            sh:path dct:isReplacedBy ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "O" ],
+        [ sh:datatype xsd:decimal ;
+            sh:description "The smallest distance the data can tell apart, in metres."@en ;
+            sh:name "Spatial resolution (metres)"@en ;
+            sh:path dcat:spatialResolutionInMeters ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "O" ],
+        [ sh:description "A statement of any restriction on access or use, such as the data sharing agreement or legal gateway needed."@en ;
+            sh:name "Rights statement"@en ;
+            sh:nodeKind sh:Literal ;
+            sh:path dct:rights ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "C" ],
+        [ sh:description "Any other identifier the resource is known by, such as one in a national or sector register."@en ;
+            sh:name "Other identifier"@en ;
+            sh:nodeKind sh:Literal ;
+            sh:path adms:identifier ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "O" ],
+        [ sh:description "Another resource closely related to this one, such as the report the data supports."@en ;
+            sh:name "Related resource"@en ;
+            sh:nodeKind sh:IRI ;
+            sh:path dct:relation ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "O" ],
+        [ sh:description "Who can get the data, and on what terms."@en ;
+            sh:in ( <https://w3id.org/dcat-ap-uk/codelist/access-rights/open> <https://w3id.org/dcat-ap-uk/codelist/access-rights/commercial> <https://w3id.org/dcat-ap-uk/codelist/access-rights/internal> ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "Access rights"@en ;
+            sh:nodeKind sh:IRI ;
+            sh:path dct:accessRights ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "M" ],
+        [ sh:description "The version this one replaces in a sequence."@en ;
+            sh:maxCount 1 ;
+            sh:name "Previous version"@en ;
+            sh:nodeKind sh:IRI ;
+            sh:path dcat:previousVersion ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "O" ],
+        [ sh:description "The organisation responsible for making the resource available."@en ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "Publisher"@en ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:path dct:publisher ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "M" ],
+        [ sh:description "The organisation that created or compiled the content of the resource."@en ;
+            sh:name "Creator"@en ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:path dct:creator ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "R" ],
+        [ sh:description "The version of the resource."@en ;
+            sh:maxCount 1 ;
+            sh:name "Version"@en ;
+            sh:nodeKind sh:Literal ;
+            sh:path dcat:version ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "R" ] ;
+    sh:targetClass dcat:Dataset .
+
+ukshapes:DatasetTransferShape a sh:NodeShape ;
+    sh:message "Personal data held in or sent to anywhere outside the UK needs a transfer safeguard (rule R-08)."@en ;
+    sh:or ( [ sh:not [ sh:property [ sh:in ( <https://w3id.org/dcat-ap-uk/codelist/personal-data/personal> <https://w3id.org/dcat-ap-uk/codelist/personal-data/pseudonymised> <https://w3id.org/dcat-ap-uk/codelist/personal-data/unknown> ) ;
+                                sh:minCount 1 ;
+                                sh:path dcatuk:personalData ] ] ] [ sh:property [ sh:in ( <https://w3id.org/dcat-ap-uk/codelist/jurisdiction/gb> <https://w3id.org/dcat-ap-uk/codelist/jurisdiction/gb-eng> <https://w3id.org/dcat-ap-uk/codelist/jurisdiction/gb-sct> <https://w3id.org/dcat-ap-uk/codelist/jurisdiction/gb-wls> <https://w3id.org/dcat-ap-uk/codelist/jurisdiction/gb-nir> ) ;
+                        sh:path dcatuk:jurisdiction ] ] [ sh:property [ sh:minCount 1 ;
+                        sh:path dcatuk:transferMechanism ] ] ) ;
+    sh:targetClass dcat:Dataset .
+
+ukshapes:DistributionShape a sh:NodeShape ;
+    sh:description "A specific form of a dataset, such as a CSV file, a GeoPackage or an API response."@en ;
+    sh:name "Distribution"@en ;
+    sh:property [ sh:description "A standard, specification or schema the resource follows."@en ;
+            sh:name "Conforms to"@en ;
+            sh:nodeKind sh:IRI ;
+            sh:path dct:conformsTo ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "O" ],
+        [ sh:description "A direct link to a file."@en ;
+            sh:name "Download address"@en ;
+            sh:nodeKind sh:IRI ;
+            sh:path dcat:downloadURL ;
+            sh:pattern "^https?://" ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "R" ],
+        [ sh:description "The file type, from the EU file type list, where there is no IANA media type."@en ;
+            sh:maxCount 1 ;
+            sh:name "Format"@en ;
+            sh:nodeKind sh:IRI ;
+            sh:path dct:format ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "O" ],
+        [ sh:description "A machine-readable policy, in the W3C Open Digital Rights Language (ODRL), saying what may and may not be done with the resource."@en ;
+            sh:name "Usage policy"@en ;
+            sh:nodeKind sh:IRI ;
+            sh:path odrl:hasPolicy ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "O" ],
+        [ sh:description "The licence under which the resource can be used."@en ;
+            sh:maxCount 1 ;
+            sh:name "Licence"@en ;
+            sh:nodeKind sh:IRI ;
+            sh:path dct:license ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "R" ],
+        [ sh:description "The date the content of the resource last changed."@en ;
+            sh:maxCount 1 ;
+            sh:name "Last updated"@en ;
+            sh:or ( [ sh:datatype xsd:date ] [ sh:datatype xsd:dateTime ] [ sh:datatype xsd:gYearMonth ] [ sh:datatype xsd:gYear ] ) ;
+            sh:path dct:modified ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "O" ],
+        [ sh:description "The name of the resource, in plain English."@en ;
+            sh:name "Title"@en ;
+            sh:nodeKind sh:Literal ;
+            sh:path dct:title ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "O" ],
+        [ sh:description "A value that lets people check the file they downloaded is complete and unchanged."@en ;
+            sh:maxCount 1 ;
+            sh:name "Checksum"@en ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:path spdx:checksum ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "O" ],
+        [ sh:description "A data service that gives access to this distribution."@en ;
+            sh:name "Access service"@en ;
+            sh:nodeKind sh:IRI ;
+            sh:path dcat:accessService ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "O" ],
+        [ sh:description "The main identifier of the resource in the publisher's own catalogue."@en ;
+            sh:maxCount 1 ;
+            sh:name "Identifier"@en ;
+            sh:nodeKind sh:Literal ;
+            sh:path dct:identifier ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "O" ],
+        [ sh:description "Who can get the data, and on what terms."@en ;
+            sh:in ( <https://w3id.org/dcat-ap-uk/codelist/access-rights/open> <https://w3id.org/dcat-ap-uk/codelist/access-rights/commercial> <https://w3id.org/dcat-ap-uk/codelist/access-rights/internal> ) ;
+            sh:maxCount 1 ;
+            sh:name "Access rights"@en ;
+            sh:nodeKind sh:IRI ;
+            sh:path dct:accessRights ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "O" ],
+        [ sh:description "The file format, as an IANA media type."@en ;
+            sh:maxCount 1 ;
+            sh:name "Media type"@en ;
+            sh:nodeKind sh:IRI ;
+            sh:path dcat:mediaType ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "R" ],
+        [ sh:description "A plain English account of what the resource contains and what it can be used for."@en ;
+            sh:name "Description"@en ;
+            sh:nodeKind sh:Literal ;
+            sh:path dct:description ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "R" ],
+        [ sh:description "The language or languages of the resource."@en ;
+            sh:name "Language"@en ;
+            sh:nodeKind sh:IRI ;
+            sh:path dct:language ;
+            sh:pattern "^http://publications.europa.eu/resource/authority/language/" ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "O" ],
+        [ sh:description "The date the resource was first made available."@en ;
+            sh:maxCount 1 ;
+            sh:name "Release date"@en ;
+            sh:or ( [ sh:datatype xsd:date ] [ sh:datatype xsd:dateTime ] [ sh:datatype xsd:gYearMonth ] [ sh:datatype xsd:gYear ] ) ;
+            sh:path dct:issued ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "O" ],
+        [ sh:datatype xsd:nonNegativeInteger ;
+            sh:description "The size of the file in bytes."@en ;
+            sh:maxCount 1 ;
+            sh:name "Size (bytes)"@en ;
+            sh:path dcat:byteSize ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "O" ],
+        [ sh:description "A web address that gives access to the distribution, such as a landing page, a download page or an API."@en ;
+            sh:minCount 1 ;
+            sh:name "Access address"@en ;
+            sh:nodeKind sh:IRI ;
+            sh:path dcat:accessURL ;
+            sh:pattern "^https?://" ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "M" ],
+        [ sh:description "The format the file is compressed in, as an IANA media type."@en ;
+            sh:maxCount 1 ;
+            sh:name "Compression format"@en ;
+            sh:nodeKind sh:IRI ;
+            sh:path dcat:compressFormat ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "O" ] ;
+    sh:targetClass dcat:Distribution .
+
+ukshapes:LocationShape a sh:NodeShape ;
+    sh:description "A named area or a shape on the earth. Prefer the identifier of a standard area, such as a GSS code."@en ;
+    sh:name "Location"@en ;
+    sh:property [ sh:datatype geosparql:wktLiteral ;
+            sh:description "The exact shape of the area, as Well-Known Text."@en ;
+            sh:maxCount 1 ;
+            sh:name "Geometry"@en ;
+            sh:path locn:geometry ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "O" ],
+        [ sh:description "The name of the place, from a gazetteer where there is one."@en ;
+            sh:name "Place name"@en ;
+            sh:nodeKind sh:Literal ;
+            sh:path skos:prefLabel ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "R" ],
+        [ sh:datatype geosparql:wktLiteral ;
+            sh:description "The rectangle that contains the area, as Well-Known Text in WGS 84."@en ;
+            sh:maxCount 1 ;
+            sh:name "Bounding box"@en ;
+            sh:path dcat:bbox ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "O" ],
+        [ sh:datatype geosparql:wktLiteral ;
+            sh:description "The centre point of the area, as Well-Known Text."@en ;
+            sh:maxCount 1 ;
+            sh:name "Centre point"@en ;
+            sh:path dcat:centroid ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "O" ] ;
+    sh:targetClass dct:Location .
+
+ukshapes:MissingValueShape a sh:NodeShape ;
+    sh:description "A statement that one property is empty on purpose, and why, modelled on the nil reasons of GML and INSPIRE."@en ;
+    sh:name "Missing value"@en ;
+    sh:property [ sh:description "The reason the property has no value, from a list based on the GML and INSPIRE nil reasons."@en ;
+            sh:in ( <https://w3id.org/dcat-ap-uk/codelist/missing-reason/unknown> <https://w3id.org/dcat-ap-uk/codelist/missing-reason/withheld> <https://w3id.org/dcat-ap-uk/codelist/missing-reason/inapplicable> <https://w3id.org/dcat-ap-uk/codelist/missing-reason/unpopulated> <https://w3id.org/dcat-ap-uk/codelist/missing-reason/template> ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "Why it is empty"@en ;
+            sh:nodeKind sh:IRI ;
+            sh:path dcatuk:missingReason ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "M" ],
+        [ sh:description "The property that has no value, as its prefixed name or full IRI."@en ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "Property left empty"@en ;
+            sh:nodeKind sh:IRI ;
+            sh:path dcatuk:missingProperty ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "M" ] ;
+    sh:targetClass dcatuk:MissingValue .
+
+ukshapes:PeriodOfTimeShape a sh:NodeShape ;
+    sh:description "A period with a start date, an end date or both."@en ;
+    sh:message "A period of time must have a start date, an end date, or both. (rule R-02)"@en ;
+    sh:name "Period of time"@en ;
+    sh:or ( [ sh:property [ sh:minCount 1 ;
+                        sh:path dcat:startDate ] ] [ sh:property [ sh:minCount 1 ;
+                        sh:path dcat:endDate ] ] ) ;
+    sh:property [ sh:description "The first day the data covers."@en ;
+            sh:lessThanOrEquals dcat:endDate ;
+            sh:maxCount 1 ;
+            sh:message "A period's end date must not be before its start date (rule R-07)."@en ;
+            sh:name "Start date"@en ;
+            sh:or ( [ sh:datatype xsd:date ] [ sh:datatype xsd:dateTime ] [ sh:datatype xsd:gYearMonth ] [ sh:datatype xsd:gYear ] ) ;
+            sh:path dcat:startDate ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "C" ],
+        [ sh:description "The last day the data covers."@en ;
+            sh:maxCount 1 ;
+            sh:name "End date"@en ;
+            sh:or ( [ sh:datatype xsd:date ] [ sh:datatype xsd:dateTime ] [ sh:datatype xsd:gYearMonth ] [ sh:datatype xsd:gYear ] ) ;
+            sh:path dcat:endDate ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "C" ] ;
+    sh:targetClass dct:PeriodOfTime .
+
+ukshapes:RelationshipShape a sh:NodeShape ;
+    sh:description "How one resource relates to another."@en ;
+    sh:name "Relationship"@en ;
+    sh:property [ sh:description "The role in the relationship or attribution."@en ;
+            sh:in ( <https://w3id.org/dcat-ap-uk/codelist/agent-role/data-owner> <https://w3id.org/dcat-ap-uk/codelist/agent-role/data-steward> <https://w3id.org/dcat-ap-uk/codelist/agent-role/data-custodian> <https://w3id.org/dcat-ap-uk/codelist/agent-role/information-asset-owner> <https://w3id.org/dcat-ap-uk/codelist/agent-role/distributor> ) ;
+            sh:minCount 1 ;
+            sh:name "Role"@en ;
+            sh:nodeKind sh:IRI ;
+            sh:path dcat:hadRole ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "M" ],
+        [ sh:description "Another resource closely related to this one, such as the report the data supports."@en ;
+            sh:minCount 1 ;
+            sh:name "Related resource"@en ;
+            sh:nodeKind sh:IRI ;
+            sh:path dct:relation ;
+            sh:severity sh:Violation ;
+            dcatuk:obligation "M" ] ;
+    sh:targetClass dcat:Relationship .
+

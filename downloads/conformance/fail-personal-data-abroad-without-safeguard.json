@@ -1,0 +1,24 @@
+{
+  "class": "Dataset",
+  "id": "https://example.org/x",
+  "title": "t",
+  "description": "d",
+  "identifier": "x",
+  "personalData": "ukcl:personal-data/pseudonymised",
+  "jurisdiction": [
+    "ukcl:jurisdiction/gb-eng",
+    "ukcl:jurisdiction/in"
+  ],
+  "publisher": "https://example.org/o",
+  "contactPoint": [
+    {
+      "fn": "Team",
+      "hasURL": "https://example.org/c"
+    }
+  ],
+  "accessRights": "ukcl:access-rights/internal",
+  "rights": "r",
+  "securityClassification": "ukcl:security-classification/official",
+  "licence": "ukcl:licences/data-sharing-agreement-required",
+  "accrualPeriodicity": "eufreq:MONTHLY"
+}

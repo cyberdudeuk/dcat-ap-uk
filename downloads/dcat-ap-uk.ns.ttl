@@ -1,0 +1,193 @@
+@prefix dcatuk: <https://w3id.org/dcat-ap-uk/ns#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix ns1: <http://www.w3.org/2003/06/sw-vocab-status/ns#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+dcatuk:agreement a skos:Concept ;
+    rdfs:isDefinedBy <https://w3id.org/dcat-ap-uk/ns> ;
+    skos:definition "A left operand: the identifier of the data sharing agreement that must be in place."@en ;
+    skos:prefLabel "Agreement in place"@en .
+
+dcatuk:aiEvaluation a skos:Concept ;
+    rdfs:isDefinedBy <https://w3id.org/dcat-ap-uk/ns> ;
+    skos:definition "The purpose of testing or evaluating an artificial intelligence model, without training it."@en ;
+    skos:prefLabel "Evaluating AI models"@en .
+
+dcatuk:aiTraining a skos:Concept ;
+    rdfs:isDefinedBy <https://w3id.org/dcat-ap-uk/ns> ;
+    skos:definition "The purpose of training or fine-tuning an artificial intelligence model."@en ;
+    skos:prefLabel "Training AI models"@en .
+
+dcatuk:aiUse a rdf:Property ;
+    rdfs:label "Use for AI"@en ;
+    rdfs:comment "Whether the data may be used to train, fine-tune or evaluate AI models. (extension ai-ready)"@en ;
+    rdfs:isDefinedBy <https://w3id.org/dcat-ap-uk/ns> ;
+    ns1:term_status "unstable" .
+
+dcatuk:confidenceLevel a rdf:Property ;
+    rdfs:label "Confidence level (per cent)"@en ;
+    rdfs:comment "The confidence level the uncertainties are stated at, as a percentage, such as 95. (extension geodesy)"@en ;
+    rdfs:isDefinedBy <https://w3id.org/dcat-ap-uk/ns> ;
+    ns1:term_status "unstable" .
+
+dcatuk:coordinateEpoch a rdf:Property ;
+    rdfs:label "Coordinate epoch"@en ;
+    rdfs:comment "The date the coordinates refer to, as a decimal year, for frames in which positions move over time. (extension geodesy)"@en ;
+    rdfs:isDefinedBy <https://w3id.org/dcat-ap-uk/ns> ;
+    ns1:term_status "unstable" .
+
+dcatuk:criticalDataAsset a owl:DatatypeProperty ;
+    rdfs:label "Critical data asset"@en ;
+    rdfs:comment "Whether the resource is a critical data asset under the Data Asset Management Policy."@en ;
+    rdfs:isDefinedBy <https://w3id.org/dcat-ap-uk/ns> .
+
+dcatuk:dataCard a rdf:Property ;
+    rdfs:label "Data card"@en ;
+    rdfs:comment "A page that documents how the data was collected, what it contains, what it is for and its known gaps and biases. (extension ai-ready)"@en ;
+    rdfs:isDefinedBy <https://w3id.org/dcat-ap-uk/ns> ;
+    ns1:term_status "unstable" .
+
+dcatuk:enrichedProperty a owl:ObjectProperty ;
+    rdfs:label "Property added or changed on the way"@en ;
+    rdfs:comment "A property whose value was added or changed by the harvester or converter, rather than taken from the source record."@en ;
+    rdfs:isDefinedBy <https://w3id.org/dcat-ap-uk/ns> .
+
+dcatuk:horizontalUncertainty a rdf:Property ;
+    rdfs:label "Horizontal uncertainty (metres)"@en ;
+    rdfs:comment "The typical horizontal uncertainty of the positions, in metres, at the confidence level given. (extension geodesy)"@en ;
+    rdfs:isDefinedBy <https://w3id.org/dcat-ap-uk/ns> ;
+    ns1:term_status "unstable" .
+
+dcatuk:jurisdiction a owl:ObjectProperty ;
+    rdfs:label "Where the data is held or sent"@en ;
+    rdfs:comment "Every country or territory where the data is stored or processed, or to which it is sent."@en ;
+    rdfs:isDefinedBy <https://w3id.org/dcat-ap-uk/ns> ;
+    ns1:term_status "unstable" .
+
+dcatuk:metadataAudience a owl:ObjectProperty ;
+    rdfs:label "Who can see this record"@en ;
+    rdfs:comment "Who is allowed to see the metadata record itself."@en ;
+    rdfs:isDefinedBy <https://w3id.org/dcat-ap-uk/ns> ;
+    ns1:term_status "unstable" .
+
+dcatuk:missingProperty a owl:ObjectProperty ;
+    rdfs:label "Property left empty"@en ;
+    rdfs:comment "The property that has no value, as its prefixed name or full IRI."@en ;
+    rdfs:isDefinedBy <https://w3id.org/dcat-ap-uk/ns> .
+
+dcatuk:missingReason a owl:ObjectProperty ;
+    rdfs:label "Why it is empty"@en ;
+    rdfs:comment "The reason the property has no value, from a list based on the GML and INSPIRE nil reasons."@en ;
+    rdfs:isDefinedBy <https://w3id.org/dcat-ap-uk/ns> .
+
+dcatuk:missingValue a rdf:Property ;
+    rdfs:label "Missing value"@en ;
+    rdfs:comment "A property this record leaves empty on purpose, and why."@en ;
+    rdfs:isDefinedBy <https://w3id.org/dcat-ap-uk/ns> .
+
+dcatuk:nationalDataOptOut a rdf:Property ;
+    rdfs:label "National data opt-out applied"@en ;
+    rdfs:comment "Whether patients' national data opt-out choices have been applied to the data (England). (extension health)"@en ;
+    rdfs:isDefinedBy <https://w3id.org/dcat-ap-uk/ns> ;
+    ns1:term_status "unstable" .
+
+dcatuk:observationTechnique a rdf:Property ;
+    rdfs:label "Observation technique"@en ;
+    rdfs:comment "How the positions or heights were observed. (extension geodesy)"@en ;
+    rdfs:isDefinedBy <https://w3id.org/dcat-ap-uk/ns> ;
+    ns1:term_status "unstable" .
+
+dcatuk:openDataTriage a rdf:Property ;
+    rdfs:label "Open data triage outcome"@en ;
+    rdfs:comment "The outcome of open data triage for data that is presumed open. (extension energy)"@en ;
+    rdfs:isDefinedBy <https://w3id.org/dcat-ap-uk/ns> ;
+    ns1:term_status "unstable" .
+
+dcatuk:personalData a owl:ObjectProperty ;
+    rdfs:label "Personal data"@en ;
+    rdfs:comment "Whether the data contains information about identifiable living people, and in what form."@en ;
+    rdfs:isDefinedBy <https://w3id.org/dcat-ap-uk/ns> .
+
+dcatuk:presumedOpen a rdf:Property ;
+    rdfs:label "Presumed open"@en ;
+    rdfs:comment "Whether the data falls under the presumed open principle. (extension energy)"@en ;
+    rdfs:isDefinedBy <https://w3id.org/dcat-ap-uk/ns> ;
+    ns1:term_status "unstable" .
+
+dcatuk:referenceData a owl:ObjectProperty ;
+    rdfs:label "Reference data used"@en ;
+    rdfs:comment "A code list, classification or set of groupings the data uses, such as age bands or a geography."@en ;
+    rdfs:isDefinedBy <https://w3id.org/dcat-ap-uk/ns> ;
+    ns1:term_status "unstable" .
+
+dcatuk:referenceFrame a rdf:Property ;
+    rdfs:label "Reference frame"@en ;
+    rdfs:comment "The coordinate reference system or terrestrial reference frame, and its realisation, that the coordinates are given in. (extension geodesy)"@en ;
+    rdfs:isDefinedBy <https://w3id.org/dcat-ap-uk/ns> ;
+    ns1:term_status "unstable" .
+
+dcatuk:research a skos:Concept ;
+    rdfs:isDefinedBy <https://w3id.org/dcat-ap-uk/ns> ;
+    skos:definition "The purpose of research in the public interest."@en ;
+    skos:prefLabel "Research"@en .
+
+dcatuk:securityClassification a owl:ObjectProperty ;
+    rdfs:label "Security classification"@en ;
+    rdfs:comment "The classification under the Government Security Classifications Policy that the data itself carries."@en ;
+    rdfs:isDefinedBy <https://w3id.org/dcat-ap-uk/ns> .
+
+dcatuk:sensitiveData a owl:ObjectProperty ;
+    rdfs:label "Sensitive data"@en ;
+    rdfs:comment "Whether the data contains information that needs extra care beyond being personal, such as special category data."@en ;
+    rdfs:isDefinedBy <https://w3id.org/dcat-ap-uk/ns> .
+
+dcatuk:statisticsStatus a rdf:Property ;
+    rdfs:label "Statistics status"@en ;
+    rdfs:comment "The status of the statistics under the Code of Practice for Statistics. (extension statistics)"@en ;
+    rdfs:isDefinedBy <https://w3id.org/dcat-ap-uk/ns> ;
+    ns1:term_status "unstable" .
+
+dcatuk:syntheticData a rdf:Property ;
+    rdfs:label "Synthetic data"@en ;
+    rdfs:comment "Whether the data was generated rather than collected. (extension ai-ready)"@en ;
+    rdfs:isDefinedBy <https://w3id.org/dcat-ap-uk/ns> ;
+    ns1:term_status "unstable" .
+
+dcatuk:transferMechanism a owl:ObjectProperty ;
+    rdfs:label "Transfer safeguard"@en ;
+    rdfs:comment "The basis under UK GDPR on which personal data in the resource may be sent outside the UK."@en ;
+    rdfs:isDefinedBy <https://w3id.org/dcat-ap-uk/ns> ;
+    ns1:term_status "unstable" .
+
+dcatuk:transportSecurity a owl:ObjectProperty ;
+    rdfs:label "Connection security"@en ;
+    rdfs:comment "The kind of key exchange the service's endpoint uses to protect data in transit, classical or post-quantum."@en ;
+    rdfs:isDefinedBy <https://w3id.org/dcat-ap-uk/ns> ;
+    ns1:term_status "unstable" .
+
+dcatuk:trustedResearchEnvironment a rdf:Property ;
+    rdfs:label "Trusted research environment"@en ;
+    rdfs:comment "The web page of the trusted research environment or secure data environment where approved people can use the data. (extension health)"@en ;
+    rdfs:isDefinedBy <https://w3id.org/dcat-ap-uk/ns> ;
+    ns1:term_status "unstable" .
+
+dcatuk:verticalReference a rdf:Property ;
+    rdfs:label "Vertical reference"@en ;
+    rdfs:comment "The height system the vertical values use, such as a national height datum or the ellipsoid. (extension geodesy)"@en ;
+    rdfs:isDefinedBy <https://w3id.org/dcat-ap-uk/ns> ;
+    ns1:term_status "unstable" .
+
+dcatuk:verticalUncertainty a rdf:Property ;
+    rdfs:label "Vertical uncertainty (metres)"@en ;
+    rdfs:comment "The typical vertical uncertainty, in metres, at the confidence level given. (extension geodesy)"@en ;
+    rdfs:isDefinedBy <https://w3id.org/dcat-ap-uk/ns> ;
+    ns1:term_status "unstable" .
+
+<https://w3id.org/dcat-ap-uk/ns> a owl:Ontology ;
+    dct:title "Terms added by DCAT Application Profile for the UK"@en ;
+    rdfs:comment "Proposed persistent identifier (issue 13). The redirect was submitted to w3id.org as pull request 7100 on 6 November 2026; until it is merged, these identifiers do not resolve."@en ;
+    owl:versionInfo "1.2.0-rc.1" .
+

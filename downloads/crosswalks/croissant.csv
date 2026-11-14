@@ -1,0 +1,18 @@
+dcat_uk_ap_property,Croissant and schema.org properties,note
+title,name,
+description,description,
+licence,license,
+landingPage,url,
+issued,datePublished,
+modified,dateModified,
+version,version,
+keyword,keywords,
+creator,creator,
+publisher,publisher,
+distribution,distribution (cr:FileObject),
+downloadURL,contentUrl,
+mediaType,encodingFormat,
+byteSize,contentSize,
+checksum,sha256,Only when the algorithm is SHA-256.
+conformsTo,dct:conformsTo,The export adds the Croissant 1.1 specification address.
+dataCard,rai:dataCollection and related RAI properties,AI-ready extension. The data card holds what the responsible AI properties ask.

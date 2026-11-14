@@ -1,0 +1,26 @@
+@prefix adms: <http://www.w3.org/ns/adms#> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dcatuk: <https://w3id.org/dcat-ap-uk/ns#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
+
+<https://data.food.gov.uk/food-alerts/> a dcat:DataService ;
+    dct:accessRights <https://w3id.org/dcat-ap-uk/codelist/access-rights/open> ;
+    dct:description "Current and recent food alerts: allergy alerts, product recall information notices and food alerts for action. Applications can list alerts that match a filter and get the details of one alert." ;
+    dct:identifier "food-alerts" ;
+    dct:license <http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/> ;
+    dct:publisher <https://www.gov.uk/government/organisations/food-standards-agency> ;
+    dct:title "Food alerts" ;
+    dct:type <https://w3id.org/dcat-ap-uk/codelist/service-type/event> ;
+    adms:status <https://w3id.org/dcat-ap-uk/codelist/service-status/public-beta> ;
+    dcat:contactPoint [ a vcard:Kind ;
+            vcard:fn "Food Standards Agency data team" ;
+            vcard:hasURL <https://www.food.gov.uk/contact> ] ;
+    dcat:endpointDescription <https://data.food.gov.uk/food-alerts/ui/reference> ;
+    dcat:endpointURL <https://data.food.gov.uk/food-alerts/> ;
+    dcat:keyword "allergy",
+        "food safety",
+        "product recall" ;
+    dcat:theme <https://w3id.org/dcat-ap-uk/codelist/theme/health> ;
+    dcatuk:securityClassification <https://w3id.org/dcat-ap-uk/codelist/security-classification/official> .
+

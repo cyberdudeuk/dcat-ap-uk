@@ -1,0 +1,386 @@
+# Generated from DCAT-AP-UK. Names match the metadata weaver, so records written by the weaver load into these definitions. Not tested against a live tenant.
+# Load with: datahub properties upsert -f datahub-structured-properties.yaml
+- id: dcat_ap_uk.title
+  qualified_name: dcat_ap_uk.title
+  type: string
+  cardinality: MULTIPLE
+  display_name: Title
+  entity_types:
+  - dataset
+  description: The name of the resource, in plain English.
+- id: dcat_ap_uk.description
+  qualified_name: dcat_ap_uk.description
+  type: string
+  cardinality: MULTIPLE
+  display_name: Description
+  entity_types:
+  - dataset
+  description: A plain English account of what the resource contains and what it can be used for.
+- id: dcat_ap_uk.identifier
+  qualified_name: dcat_ap_uk.identifier
+  type: string
+  cardinality: SINGLE
+  display_name: Identifier
+  entity_types:
+  - dataset
+  description: The main identifier of the resource in the publisher's own catalogue.
+- id: dcat_ap_uk.publisher
+  qualified_name: dcat_ap_uk.publisher
+  type: string
+  cardinality: SINGLE
+  display_name: Publisher
+  entity_types:
+  - dataset
+  description: The organisation responsible for making the resource available.
+- id: dcat_ap_uk.contactPoint
+  qualified_name: dcat_ap_uk.contactPoint
+  type: string
+  cardinality: MULTIPLE
+  display_name: Contact point
+  entity_types:
+  - dataset
+  description: Where to ask questions about the resource or give feedback on it.
+- id: dcat_ap_uk.accessRights
+  qualified_name: dcat_ap_uk.accessRights
+  type: string
+  cardinality: SINGLE
+  display_name: Access rights
+  entity_types:
+  - dataset
+  description: Who can get the data, and on what terms.
+- id: dcat_ap_uk.securityClassification
+  qualified_name: dcat_ap_uk.securityClassification
+  type: string
+  cardinality: SINGLE
+  display_name: Security classification
+  entity_types:
+  - dataset
+  description: The classification under the Government Security Classifications Policy that the data itself carries.
+- id: dcat_ap_uk.licence
+  qualified_name: dcat_ap_uk.licence
+  type: string
+  cardinality: SINGLE
+  display_name: Licence
+  entity_types:
+  - dataset
+  description: The licence under which the resource can be used.
+- id: dcat_ap_uk.accrualPeriodicity
+  qualified_name: dcat_ap_uk.accrualPeriodicity
+  type: string
+  cardinality: SINGLE
+  display_name: Update frequency
+  entity_types:
+  - dataset
+  description: How often the resource is updated.
+- id: dcat_ap_uk.criticalDataAsset
+  qualified_name: dcat_ap_uk.criticalDataAsset
+  type: string
+  cardinality: SINGLE
+  display_name: Critical data asset
+  entity_types:
+  - dataset
+  description: Whether the resource is a critical data asset under the Data Asset Management Policy.
+- id: dcat_ap_uk.creator
+  qualified_name: dcat_ap_uk.creator
+  type: string
+  cardinality: MULTIPLE
+  display_name: Creator
+  entity_types:
+  - dataset
+  description: The organisation that created or compiled the content of the resource.
+- id: dcat_ap_uk.created
+  qualified_name: dcat_ap_uk.created
+  type: string
+  cardinality: SINGLE
+  display_name: Created
+  entity_types:
+  - dataset
+  description: The date the content of the resource was created or compiled.
+- id: dcat_ap_uk.conformsTo
+  qualified_name: dcat_ap_uk.conformsTo
+  type: string
+  cardinality: MULTIPLE
+  display_name: Conforms to
+  entity_types:
+  - dataset
+  description: A standard, specification or schema the resource follows.
+- id: dcat_ap_uk.temporal
+  qualified_name: dcat_ap_uk.temporal
+  type: string
+  cardinality: MULTIPLE
+  display_name: Time period covered
+  entity_types:
+  - dataset
+  description: The period of time the data is about.
+- id: dcat_ap_uk.personalData
+  qualified_name: dcat_ap_uk.personalData
+  type: string
+  cardinality: SINGLE
+  display_name: Personal data
+  entity_types:
+  - dataset
+  description: Whether the data contains information about identifiable living people, and in what form.
+- id: dcat_ap_uk.rights
+  qualified_name: dcat_ap_uk.rights
+  type: string
+  cardinality: MULTIPLE
+  display_name: Rights statement
+  entity_types:
+  - dataset
+  description: A statement of any restriction on access or use, such as the data sharing agreement or legal gateway needed.
+- id: dcat_ap_uk.modified
+  qualified_name: dcat_ap_uk.modified
+  type: string
+  cardinality: SINGLE
+  display_name: Last updated
+  entity_types:
+  - dataset
+  description: The date the content of the resource last changed.
+- id: dcat_ap_uk.issued
+  qualified_name: dcat_ap_uk.issued
+  type: string
+  cardinality: SINGLE
+  display_name: Release date
+  entity_types:
+  - dataset
+  description: The date the resource was first made available.
+- id: dcat_ap_uk.abstract
+  qualified_name: dcat_ap_uk.abstract
+  type: string
+  cardinality: SINGLE
+  display_name: Summary
+  entity_types:
+  - dataset
+  description: A one-sentence summary of the resource, of no more than 250 characters.
+- id: dcat_ap_uk.theme
+  qualified_name: dcat_ap_uk.theme
+  type: string
+  cardinality: MULTIPLE
+  display_name: Theme
+  entity_types:
+  - dataset
+  description: The broad subject of the resource, from a controlled list.
+- id: dcat_ap_uk.keyword
+  qualified_name: dcat_ap_uk.keyword
+  type: string
+  cardinality: MULTIPLE
+  display_name: Keyword
+  entity_types:
+  - dataset
+  description: Words or short phrases that people might search for, not already in the title or description.
+- id: dcat_ap_uk.spatial
+  qualified_name: dcat_ap_uk.spatial
+  type: string
+  cardinality: MULTIPLE
+  display_name: Geographic coverage
+  entity_types:
+  - dataset
+  description: The geographic area the data is about.
+- id: dcat_ap_uk.distribution
+  qualified_name: dcat_ap_uk.distribution
+  type: string
+  cardinality: MULTIPLE
+  display_name: Distribution
+  entity_types:
+  - dataset
+  description: A form in which the data can be got, such as a file or an API.
+- id: dcat_ap_uk.landingPage
+  qualified_name: dcat_ap_uk.landingPage
+  type: string
+  cardinality: MULTIPLE
+  display_name: Landing page
+  entity_types:
+  - dataset
+  description: A web page where people can find out about the resource and how to get it.
+- id: dcat_ap_uk.version
+  qualified_name: dcat_ap_uk.version
+  type: string
+  cardinality: SINGLE
+  display_name: Version
+  entity_types:
+  - dataset
+  description: The version of the resource.
+- id: dcat_ap_uk.sensitiveData
+  qualified_name: dcat_ap_uk.sensitiveData
+  type: string
+  cardinality: MULTIPLE
+  display_name: Sensitive data
+  entity_types:
+  - dataset
+  description: Whether the data contains information that needs extra care beyond being personal, such as special category data.
+- id: dcat_ap_uk.qualifiedAttribution
+  qualified_name: dcat_ap_uk.qualifiedAttribution
+  type: string
+  cardinality: MULTIPLE
+  display_name: Responsible role
+  entity_types:
+  - dataset
+  description: An organisation and the role it plays for the resource, such as data owner or data steward.
+- id: dcat_ap_uk.language
+  qualified_name: dcat_ap_uk.language
+  type: string
+  cardinality: MULTIPLE
+  display_name: Language
+  entity_types:
+  - dataset
+  description: The language or languages of the resource.
+- id: dcat_ap_uk.alternative
+  qualified_name: dcat_ap_uk.alternative
+  type: string
+  cardinality: MULTIPLE
+  display_name: Alternative title
+  entity_types:
+  - dataset
+  description: Another name the resource is known by, such as an abbreviation or a former name.
+- id: dcat_ap_uk.otherIdentifier
+  qualified_name: dcat_ap_uk.otherIdentifier
+  type: string
+  cardinality: MULTIPLE
+  display_name: Other identifier
+  entity_types:
+  - dataset
+  description: Any other identifier the resource is known by, such as one in a national or sector register.
+- id: dcat_ap_uk.inSeries
+  qualified_name: dcat_ap_uk.inSeries
+  type: string
+  cardinality: MULTIPLE
+  display_name: Part of series
+  entity_types:
+  - dataset
+  description: The dataset series this dataset belongs to.
+- id: dcat_ap_uk.isReplacedBy
+  qualified_name: dcat_ap_uk.isReplacedBy
+  type: string
+  cardinality: MULTIPLE
+  display_name: Replaced by
+  entity_types:
+  - dataset
+  description: A newer resource that replaces this one.
+- id: dcat_ap_uk.expires
+  qualified_name: dcat_ap_uk.expires
+  type: string
+  cardinality: SINGLE
+  display_name: Expires
+  entity_types:
+  - dataset
+  description: The date after which the resource should no longer be used.
+- id: dcat_ap_uk.previousVersion
+  qualified_name: dcat_ap_uk.previousVersion
+  type: string
+  cardinality: SINGLE
+  display_name: Previous version
+  entity_types:
+  - dataset
+  description: The version this one replaces in a sequence.
+- id: dcat_ap_uk.versionNotes
+  qualified_name: dcat_ap_uk.versionNotes
+  type: string
+  cardinality: MULTIPLE
+  display_name: Version notes
+  entity_types:
+  - dataset
+  description: What changed in this version.
+- id: dcat_ap_uk.spatialResolutionInMeters
+  qualified_name: dcat_ap_uk.spatialResolutionInMeters
+  type: string
+  cardinality: MULTIPLE
+  display_name: Spatial resolution (metres)
+  entity_types:
+  - dataset
+  description: The smallest distance the data can tell apart, in metres.
+- id: dcat_ap_uk.temporalResolution
+  qualified_name: dcat_ap_uk.temporalResolution
+  type: string
+  cardinality: MULTIPLE
+  display_name: Time resolution
+  entity_types:
+  - dataset
+  description: The smallest period the data can tell apart, as an ISO 8601 duration.
+- id: dcat_ap_uk.referenceData
+  qualified_name: dcat_ap_uk.referenceData
+  type: string
+  cardinality: MULTIPLE
+  display_name: Reference data used
+  entity_types:
+  - dataset
+  description: A code list, classification or set of groupings the data uses, such as age bands or a geography.
+- id: dcat_ap_uk.qualityAnnotation
+  qualified_name: dcat_ap_uk.qualityAnnotation
+  type: string
+  cardinality: MULTIPLE
+  display_name: Data quality
+  entity_types:
+  - dataset
+  description: A link to a published statement or measurement of the quality of the data.
+- id: dcat_ap_uk.relation
+  qualified_name: dcat_ap_uk.relation
+  type: string
+  cardinality: MULTIPLE
+  display_name: Related resource
+  entity_types:
+  - dataset
+  description: Another resource closely related to this one, such as the report the data supports.
+- id: dcat_ap_uk.qualifiedRelation
+  qualified_name: dcat_ap_uk.qualifiedRelation
+  type: string
+  cardinality: MULTIPLE
+  display_name: Qualified relation
+  entity_types:
+  - dataset
+  description: A related resource together with the kind of relationship.
+- id: dcat_ap_uk.documentation
+  qualified_name: dcat_ap_uk.documentation
+  type: string
+  cardinality: MULTIPLE
+  display_name: Documentation
+  entity_types:
+  - dataset
+  description: A web page that documents the resource, such as a user guide or a methodology.
+- id: dcat_ap_uk.metadataAudience
+  qualified_name: dcat_ap_uk.metadataAudience
+  type: string
+  cardinality: SINGLE
+  display_name: Who can see this record
+  entity_types:
+  - dataset
+  description: Who is allowed to see the metadata record itself.
+- id: dcat_ap_uk.applicableLegislation
+  qualified_name: dcat_ap_uk.applicableLegislation
+  type: string
+  cardinality: MULTIPLE
+  display_name: Applicable legislation
+  entity_types:
+  - dataset
+  description: Legislation that requires, governs or permits the publication or sharing of the resource.
+- id: dcat_ap_uk.hasPolicy
+  qualified_name: dcat_ap_uk.hasPolicy
+  type: string
+  cardinality: MULTIPLE
+  display_name: Usage policy
+  entity_types:
+  - dataset
+  description: A machine-readable policy, in the W3C Open Digital Rights Language (ODRL), saying what may and may not be done with the resource.
+- id: dcat_ap_uk.jurisdiction
+  qualified_name: dcat_ap_uk.jurisdiction
+  type: string
+  cardinality: MULTIPLE
+  display_name: Where the data is held or sent
+  entity_types:
+  - dataset
+  description: Every country or territory where the data is stored or processed, or to which it is sent.
+- id: dcat_ap_uk.transferMechanism
+  qualified_name: dcat_ap_uk.transferMechanism
+  type: string
+  cardinality: MULTIPLE
+  display_name: Transfer safeguard
+  entity_types:
+  - dataset
+  description: The basis under UK GDPR on which personal data in the resource may be sent outside the UK.
+- id: dcat_ap_uk.missingValue
+  qualified_name: dcat_ap_uk.missingValue
+  type: string
+  cardinality: MULTIPLE
+  display_name: Missing value
+  entity_types:
+  - dataset
+  description: A property this record leaves empty on purpose, and why.

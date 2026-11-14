@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<title>Describe an API from OpenAPI - DCAT-AP-UK</title>
+<meta name="description" content="Turn an OpenAPI description into a DCAT-AP-UK data service record, checked, in your browser.">
+<link rel="canonical" href="https://cyberdudeuk.github.io/dcat-ap-uk/openapi.html">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="style.css">
+<meta name="artefact:id" content="DCAT-AP-UK">
+<meta name="artefact:version" content="1.2.0-rc.1">
+<meta name="artefact:class" content="portal">
+<meta name="artefact:as-of" content="2026-11-06">
+<meta name="artefact:review-date" content="2027-02-06">
+<meta name="artefact:build" content="DCAT-AP-UK-1.2.0-rc.1-c40431909d">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebPage", "name": "Describe an API from OpenAPI - DCAT-AP-UK", "description": "Turn an OpenAPI description into a DCAT-AP-UK data service record, checked, in your browser.", "url": "https://cyberdudeuk.github.io/dcat-ap-uk/openapi.html", "inLanguage": "en-GB", "identifier": "DCAT-AP-UK-1.2.0-rc.1-c40431909d", "version": "1.2.0-rc.1", "dateModified": "2026-11-06", "datePublished": "2026-11-06", "license": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/", "isPartOf": {"@type": "WebSite", "name": "DCAT Application Profile for the UK", "url": "https://cyberdudeuk.github.io/dcat-ap-uk/"}}</script>
+</head>
+<body data-section="tools">
+<a class="skip" href="#main">Skip to main content</a>
+<div class="banner" role="region" aria-label="Status"><strong class="tag warn">Proposed</strong>DCAT-AP-UK 1.2.0-rc.1 is a proposal for review. It is not endorsed and is not an official GOV.UK service. <a href="governance.html#status">What this means</a></div>
+<header class="mast"><div class="mast-in">
+<a class="name" href="index.html"><svg class="logo" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><rect width="32" height="32" rx="4" fill="#4c2c92"/><path d="M8 10h16M8 16h11M8 22h7" stroke="#fff" stroke-width="3" stroke-linecap="round"/><circle cx="24" cy="22" r="3" fill="#ffdd00"/></svg>DCAT-AP-UK<span class="visually-hidden">: DCAT Application Profile for the UK</span></a>
+<div class="mast-tools no-print">
+<button type="button" data-open="palette"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m21 21-4.34-4.34" /> <circle cx="11" cy="11" r="8" /></svg><span class="lbl">Search</span> <kbd>/</kbd></button>
+<button type="button" id="display-toggle" aria-expanded="false" aria-controls="display-panel" hidden><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m15 16 2.536-7.328a1.02 1.02 1 0 1 1.928 0L22 16" /> <path d="M15.697 14h5.606" /> <path d="m2 16 4.039-9.69a.5.5 0 0 1 .923 0L11 16" /> <path d="M3.304 13h6.392" /></svg><span class="lbl">Display options</span></button>
+<a class="mast-link" href="guide.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10" /> <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" /> <path d="M12 17h.01" /></svg><span class="lbl">Help</span></a>
+
+<a class="mast-link" href="sitemap.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z" /> <path d="M15 5.764v15" /> <path d="M9 3.236v15" /></svg><span class="lbl">Site map</span></a>
+<button type="button" id="share"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="18" cy="5" r="3" /> <circle cx="6" cy="12" r="3" /> <circle cx="18" cy="19" r="3" /> <line x1="8.59" x2="15.42" y1="13.51" y2="17.49" /> <line x1="15.41" x2="8.59" y1="6.51" y2="10.49" /></svg><span class="lbl">Share</span></button>
+</div></div>
+<div class="display-panel no-print" id="display-panel" hidden><div class="dp-in">
+<h2>Display options</h2>
+<fieldset><legend>Text size</legend><label><input type="radio" name="dp-text" value=""> Standard</label><label><input type="radio" name="dp-text" value="l"> Large</label><label><input type="radio" name="dp-text" value="xl"> Largest</label></fieldset>
+<fieldset><legend>Line spacing</legend><label><input type="radio" name="dp-space" value=""> Standard</label><label><input type="radio" name="dp-space" value="wide"> Wider</label></fieldset>
+<fieldset><legend>Colours</legend><label><input type="radio" name="dp-theme" value=""> Match my device</label><label><input type="radio" name="dp-theme" value="light"> Light</label><label><input type="radio" name="dp-theme" value="dark"> Dark</label></fieldset>
+<fieldset><legend>Contrast</legend><label><input type="radio" name="dp-contrast" value=""> Standard</label><label><input type="radio" name="dp-contrast" value="high"> High</label></fieldset>
+<fieldset><legend>Motion</legend><label><input type="radio" name="dp-motion" value=""> Match my device</label><label><input type="radio" name="dp-motion" value="reduce"> Reduce</label></fieldset>
+<fieldset><legend>Links</legend><label><input type="radio" name="dp-links" value=""> Standard</label><label><input type="radio" name="dp-links" value="underline"> Bold and underlined</label></fieldset>
+<p class="hint">Your choices apply to every page and are kept in this browser only. <button type="button" class="btn secondary small" id="dp-reset">Reset</button></p></div></div>
+</header>
+<nav class="gbar" aria-label="Portal sections"><ul class="top"><li><a href="index.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" /> <path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /></svg><span>Home</span><span class="navflag dot updated" title="Updated since 1.2.0-rc.1 (2026-11-06)"><span class="visually-hidden">Updated</span></span></a></li><li class="grp"><button type="button" aria-expanded="false"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z" /> <path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12" /> <path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17" /></svg><span>The profile</span><span class="navflag dot updated" title="5 pages new or updated"><span class="visually-hidden">5 new or updated</span></span><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6" /></svg></button><ul class="sub"><li><a href="profile.html">The profile at a glance<span class="navflag updated">Updated</span></a></li><li><a href="properties.html">Every property<span class="navflag updated">Updated</span></a></li><li><a href="codelists.html">Codelists<span class="navflag updated">Updated</span></a></li><li><a href="types.html">Value types<span class="navflag updated">Updated</span></a></li><li><a href="extensions.html">Sector extensions<span class="navflag updated">Updated</span></a></li></ul></li><li class="grp current"><button type="button" aria-expanded="false"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.106-3.105c.32-.322.863-.22.983.218a6 6 0 0 1-8.259 7.057l-7.91 7.91a1 1 0 0 1-2.999-3l7.91-7.91a6 6 0 0 1 7.057-8.259c.438.12.54.662.219.984z" /></svg><span>Tools</span><span class="navflag dot updated" title="6 pages new or updated"><span class="visually-hidden">6 new or updated</span></span><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6" /></svg></button><ul class="sub"><li><a href="builder.html">Build a record<span class="navflag updated">Updated</span></a></li><li><a href="validate.html">Check records<span class="navflag updated">Updated</span></a></li><li><a href="bulk.html">Check many records<span class="navflag updated">Updated</span></a></li><li><a href="weaver.html">Metadata weaver<span class="navflag updated">Updated</span></a></li><li><a href="openapi.html" aria-current="page">Describe an API from OpenAPI<span class="navflag updated">Updated</span></a></li><li><a href="examples.html">Worked examples<span class="navflag updated">Updated</span></a></li></ul></li><li class="grp"><button type="button" aria-expanded="false"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z" /> <path d="M12 22V12" /> <polyline points="3.29 7 12 12 20.71 7" /> <path d="m7.5 4.27 9 5.15" /></svg><span>Adopt</span><span class="navflag dot new" title="6 pages new or updated"><span class="visually-hidden">6 new or updated</span></span><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6" /></svg></button><ul class="sub"><li><a href="adopt.html">Adoption toolkit<span class="navflag updated">Updated</span></a></li><li><a href="integrations.html">Integrations and connectors<span class="navflag updated">Updated</span></a></li><li><a href="connectors.html">Vendor connectors and AI agents<span class="navflag new">New</span></a></li><li><a href="lockin.html">Avoiding lock-in and technical debt<span class="navflag updated">Updated</span></a></li><li><a href="international.html">Cross-border data flows<span class="navflag updated">Updated</span></a></li><li><a href="ai-ready.html">AI-ready metadata<span class="navflag updated">Updated</span></a></li><li><a href="quantum.html">Quantum-ready metadata</a></li><li><a href="landscape.html">Profiles around the world</a></li></ul></li><li class="grp"><button type="button" aria-expanded="false"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="16" y="16" width="6" height="6" rx="1" /> <rect x="2" y="16" width="6" height="6" rx="1" /> <rect x="9" y="2" width="6" height="6" rx="1" /> <path d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3" /> <path d="M12 12V8" /></svg><span>Knowledge</span><span class="navflag dot new" title="5 pages new or updated"><span class="visually-hidden">5 new or updated</span></span><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6" /></svg></button><ul class="sub"><li><a href="knowledge.html">Knowledge<span class="navflag updated">Updated</span></a></li><li><a href="lineage.html">Lineage explorer<span class="navflag updated">Updated</span></a></li><li><a href="standards.html">Standards map<span class="navflag updated">Updated</span></a></li><li><a href="reuse.html">Reuse across government<span class="navflag new">New</span></a></li><li><a href="insights.html">Insights<span class="navflag updated">Updated</span></a></li></ul></li><li class="grp"><button type="button" aria-expanded="false"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="6" cy="19" r="3" /> <path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15" /> <circle cx="18" cy="5" r="3" /></svg><span>Context</span><span class="navflag dot new" title="3 pages new or updated"><span class="visually-hidden">3 new or updated</span></span><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6" /></svg></button><ul class="sub"><li><a href="changes.html">What&#x27;s changed from the xGov MEM<span class="navflag updated">Updated</span></a></li><li><a href="strategy.html">How it fits the strategy<span class="navflag updated">Updated</span></a></li><li><a href="requirements.html">Requirements stream<span class="navflag new">New</span></a></li></ul></li><li><a href="downloads.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 15V3" /> <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /> <path d="m7 10 5 5 5-5" /></svg><span>Downloads</span><span class="navflag dot updated" title="Updated since 1.2.0-rc.1 (2026-11-06)"><span class="visually-hidden">Updated</span></span></a></li><li><a href="estate.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10" /> <path d="m16.24 7.76-1.804 5.411a2 2 0 0 1-1.265 1.265L7.76 16.24l1.804-5.411a2 2 0 0 1 1.265-1.265z" /></svg><span>Estate</span></a></li><li class="grp"><button type="button" aria-expanded="false"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10" /> <path d="M12 16v-4" /> <path d="M12 8h.01" /></svg><span>About</span><span class="navflag dot new" title="4 pages new or updated"><span class="visually-hidden">4 new or updated</span></span><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6" /></svg></button><ul class="sub"><li><a href="governance.html">Design and governance<span class="navflag updated">Updated</span></a></li><li><a href="status.html">Status and self-checks<span class="navflag new">New</span></a></li><li><a href="accessibility.html">Accessibility statement</a></li><li><a href="contact.html">Contact</a></li><li><a href="licence.html">Licence</a></li><li><a href="sitemap.html">Site map<span class="navflag updated">Updated</span></a></li><li><a href="whats-new.html">What&#x27;s new<span class="navflag updated">Updated</span></a></li></ul></li><li class="more"><button type="button" aria-expanded="false"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 5h16" /> <path d="M4 12h16" /> <path d="M4 19h16" /></svg><span>More</span><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6" /></svg></button><ul class="sub"></ul></li></ul></nav>
+<button type="button" class="toggle no-print" id="drawer-toggle" aria-controls="drawer" aria-expanded="true"><span class="track" aria-hidden="true"></span><span class="tlabel">Hide page contents</span></button>
+<div class="wrap"><nav class="drawer" id="drawer" aria-label="On this page"><h2>On this page</h2><p class="flagkey small"><span class="flag new">New</span> <span class="flag updated">Updated</span> since 1.2.0-rc.1 (2026-11-06)</p><details open><summary><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 22v-5" /> <path d="M15 8V2" /> <path d="M17 8a1 1 0 0 1 1 1v4a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V9a1 1 0 0 1 1-1z" /> <path d="M9 8V2" /></svg><span>OpenAPI</span><span class="flag updated" title="1 of 2 sections new or updated">1 updated</span></summary><ul><li><a href="#oas-h"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3v12" /> <path d="m17 8-5-5-5 5" /> <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /></svg><span>Your description</span><span class="flag updated">Updated</span></a></li><li><a href="#mapping"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9h18" /> <path d="M9 3v18" /> <rect x="3" y="3" width="18" height="18" rx="2" /></svg><span>What is copied</span></a></li></ul></details></nav><main id="main" tabindex="-1"><nav aria-label="Breadcrumb"><ol class="crumbs"><li><a href="index.html">Home</a></li><li aria-current="page">Tools</li><li aria-current="page">Describe an API from OpenAPI</li></ol></nav>
+<div class="hero"><div class="tile"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 22v-5" /> <path d="M15 8V2" /> <path d="M17 8a1 1 0 0 1 1 1v4a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V9a1 1 0 0 1 1-1z" /> <path d="M9 8V2" /></svg></div><div><p class="caption">Tools</p><h1>Describe an API from OpenAPI</h1><p class="pageflag"><span class="flag updated">Updated</span> 1 section on this page is new or updated since 1.2.0-rc.1 (2026-11-06). <a href="whats-new.html#changed">Everything that changed</a></p><p class="lede">Paste an OpenAPI description, as JSON, to draft a data service record. The converter copies what OpenAPI holds, lists what it could not find, and checks the result. It never copies an email address. Inspired by the Norwegian oastodcat tool.</p></div></div><noscript><div class="panel warning"><p>The converter needs JavaScript.</p></div></noscript><form id="oas-form" novalidate aria-labelledby="oas-h"><h2 id="oas-h">Your OpenAPI description<span class="secflag updated">Updated</span></h2><div class="field"><label for="oas-url">Where it is published (optional)</label><p class="hint" id="oas-url-h">Used as the endpoint description, and to complete relative server addresses.</p><input type="url" id="oas-url" aria-describedby="oas-url-h" placeholder="https://"></div><div class="field"><label for="oas-text">OpenAPI description (JSON)</label><p class="hint" id="oas-text-h">For a YAML description, convert it to JSON first.</p><textarea id="oas-text" aria-describedby="oas-text-h" spellcheck="false"></textarea></div><p class="btns"><button type="button" class="btn" id="oas-run"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 22v-5" /> <path d="M15 8V2" /> <path d="M17 8a1 1 0 0 1 1 1v4a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V9a1 1 0 0 1 1-1z" /> <path d="M9 8V2" /></svg> Draft the record</button><button type="button" class="btn secondary" id="oas-sample">Try an example</button></p></form><div id="oas-out" aria-live="polite"></div><details><summary>The example OpenAPI description</summary><pre id="oas-s" tabindex="0">{
+  &quot;openapi&quot;: &quot;3.1.0&quot;,
+  &quot;info&quot;: {
+    &quot;title&quot;: &quot;Food Hygiene Rating Scheme API&quot;,
+    &quot;version&quot;: &quot;2&quot;,
+    &quot;description&quot;: &quot;Free programmatic access to the Food Standards Agency food hygiene rating data for England, Scotland, Wales and Northern Ireland, with no registration. Written as OpenAPI for the DCAT-AP-UK portal from the FSA endpoint index; the FSA does not publish an OpenAPI file.&quot;,
+    &quot;license&quot;: {
+      &quot;name&quot;: &quot;Food Standards Agency terms and conditions for the ratings data&quot;,
+      &quot;url&quot;: &quot;https://www.food.gov.uk/ratings-terms-and-conditions&quot;
+    },
+    &quot;contact&quot;: {
+      &quot;name&quot;: &quot;Food Standards Agency&quot;,
+      &quot;url&quot;: &quot;https://www.food.gov.uk/food-hygiene-rating-scheme-api-version-2&quot;
+    }
+  },
+  &quot;servers&quot;: [
+    {
+      &quot;url&quot;: &quot;https://api.ratings.food.gov.uk&quot;
+    }
+  ],
+  &quot;tags&quot;: [
+    {
+      &quot;name&quot;: &quot;food hygiene&quot;
+    },
+    {
+      &quot;name&quot;: &quot;ratings&quot;
+    }
+  ],
+  &quot;paths&quot;: {
+    &quot;/BusinessTypes/{pageNumber}/{pageSize}&quot;: {
+      &quot;get&quot;: {
+        &quot;summary&quot;: &quot;Details of all business types, a page at a time&quot;,
+        &quot;responses&quot;: {
+          &quot;200&quot;: {
+            &quot;description&quot;: &quot;OK&quot;
+          }
+        }
+      }
+    },
+    &quot;/Authorities/basic&quot;: {
+      &quot;get&quot;: {
+        &quot;summary&quot;: &quot;A basic list of local authorities&quot;,
+        &quot;responses&quot;: {
+          &quot;200&quot;: {
+            &quot;description&quot;: &quot;OK&quot;
+          }
+        }
+      }
+    },
+    &quot;/Regions/basic&quot;: {
+      &quot;get&quot;: {
+        &quot;summary&quot;: &quot;A basic list of regions&quot;,
+        &quot;responses&quot;: {
+          &quot;200&quot;: {
+            &quot;description&quot;: &quot;OK&quot;
+          }
+        }
+      }
+    }
+  }
+}</pre></details><h2 id="mapping">What is copied</h2><div class="table-wrap" role="region" aria-labelledby="t-oas-cap" tabindex="0"><table id="t-oas"><caption id="t-oas-cap">OpenAPI to DCAT-AP-UK</caption><thead><tr><th scope="col">OpenAPI</th><th scope="col">DCAT-AP-UK</th><th scope="col">Note</th></tr></thead><tbody><tr><th scope="row">info.title</th><td>Title</td><td></td></tr><tr><th scope="row">info.description</th><td>Description</td><td></td></tr><tr><th scope="row">info.version</th><td>Version</td><td></td></tr><tr><th scope="row">servers[].url</th><td>Endpoint address</td><td>Relative addresses are completed from where it is published.</td></tr><tr><th scope="row">(where it is published)</th><td>Endpoint description</td><td></td></tr><tr><th scope="row">openapi</th><td>Conforms to</td><td>The OpenAPI specification version.</td></tr><tr><th scope="row">info.license.url</th><td>Licence</td><td></td></tr><tr><th scope="row">info.contact.url and name</th><td>Contact point</td><td>An email address is never copied.</td></tr><tr><th scope="row">tags[].name</th><td>Keywords</td><td></td></tr><tr><th scope="row">components.securitySchemes</th><td>(a note)</td><td>An API with security schemes is probably not open.</td></tr></tbody></table></div>
+</main></div>
+<footer class="colophon"><div class="col-in">
+<section aria-labelledby="f1"><h2 id="f1">About this portal</h2><ul>
+<li><a href="governance.html#status">Status: proposed, not endorsed</a></li><li><a href="accessibility.html">Accessibility statement</a></li>
+<li><a href="https://github.com/cyberdudeuk/dcat-ap-uk/issues/new?template=change-request.yml&amp;title=Suggested%20change%3A%20openapi.html">Suggest a change to this page</a></li><li><a href="contact.html">Contact form</a></li><li><a href="sitemap.html">Site map</a></li><li><a href="licence.html">Licence</a></li><li><a href="https://github.com/cyberdudeuk/dcat-ap-uk">Source on GitHub</a></li></ul></section>
+<section aria-labelledby="f2"><h2 id="f2">Disclaimers and transparency</h2>
+<p class="small">Not an official GOV.UK service or policy, and not endorsed by the Data Standards Authority. Facts carry source labels: <abbr class="prov V" title="Verified against the primary source" data-tip="Verified against the primary source">V</abbr> verified, <abbr class="prov K" title="Background knowledge, not yet checked at the source" data-tip="Background knowledge, not yet checked at the source">K</abbr> background knowledge, <abbr class="prov P" title="From a supplied pack" data-tip="From a supplied pack">P</abbr> supplied pack, <abbr class="prov U" title="Unconfirmed" data-tip="Unconfirmed">U</abbr> unconfirmed. Examples are illustrative. Built with help from Claude, an AI model by Anthropic; every generated fact is checked by tests or labelled. No cookies, analytics or third-party requests.</p></section>
+<section aria-labelledby="f3"><h2 id="f3">Licence and version</h2>
+<p class="small">Content and the profile: <a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/">Open Government Licence v3.0</a>. Code: MIT. Lineage: the xGov MEM (OGL v3.0). Icons: Lucide (ISC).<br>Version 1.2.0-rc.1, as of 2026-11-06, review by 2027-02-06.<br>The DCAT-AP-UK maintainers. Contact is by the contact form only.</p></section>
+<section aria-labelledby="f4"><h2 id="f4">Build identifier</h2>
+<div class="codes"><svg role="img" aria-label="QR code linking to this page" xmlns="http://www.w3.org/2000/svg" width="111" height="111" class="qr"><title>QR code linking to this page</title><g transform="scale(3)"><path fill="#fff" d="M0 0h37v37h-37z"/><path class="qrline" stroke="#0b0c0c" d="M2 2.5h7m2 0h5m3 0h4m2 0h1m2 0h7m-33 1h1m5 0h1m2 0h1m1 0h6m3 0h1m1 0h1m1 0h1m1 0h1m5 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m2 0h1m1 0h1m2 0h1m1 0h4m1 0h2m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h2m1 0h1m2 0h1m1 0h1m1 0h1m3 0h1m1 0h1m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m1 0h4m1 0h1m1 0h5m1 0h1m2 0h1m1 0h3m1 0h1m-33 1h1m5 0h1m1 0h2m1 0h6m1 0h1m1 0h3m3 0h1m5 0h1m-33 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-25 1h3m1 0h1m1 0h2m4 0h2m-22 1h1m1 0h5m2 0h1m1 0h1m1 0h3m1 0h1m1 0h1m2 0h1m3 0h5m-31 1h1m1 0h2m4 0h1m2 0h1m4 0h1m2 0h5m2 0h2m1 0h4m-33 1h3m3 0h1m1 0h1m1 0h3m2 0h2m1 0h1m2 0h1m3 0h1m2 0h1m1 0h2m-32 1h3m2 0h1m1 0h2m1 0h1m1 0h1m1 0h2m2 0h5m2 0h1m2 0h4m-32 1h1m3 0h1m1 0h3m1 0h3m5 0h2m2 0h1m1 0h2m2 0h2m-30 1h2m1 0h2m2 0h1m1 0h8m1 0h6m2 0h1m2 0h4m-32 1h2m1 0h3m1 0h3m2 0h1m7 0h2m1 0h3m3 0h2m-32 1h2m3 0h1m1 0h3m3 0h1m2 0h1m1 0h1m1 0h3m1 0h3m1 0h1m1 0h1m-29 1h2m2 0h1m1 0h1m2 0h3m3 0h1m4 0h1m1 0h2m1 0h2m3 0h1m-31 1h1m2 0h1m3 0h1m1 0h1m1 0h1m2 0h4m1 0h1m1 0h1m2 0h2m1 0h2m1 0h1m-31 1h1m1 0h1m1 0h3m3 0h1m2 0h1m1 0h1m2 0h2m2 0h1m1 0h3m1 0h2m-32 1h1m1 0h1m2 0h1m2 0h1m1 0h1m5 0h4m1 0h1m1 0h10m-33 1h7m3 0h1m1 0h2m2 0h1m2 0h2m1 0h1m4 0h3m-30 1h1m1 0h1m2 0h1m2 0h2m1 0h3m1 0h1m1 0h5m1 0h1m2 0h2m1 0h1m2 0h1m-33 1h1m5 0h1m1 0h1m6 0h2m1 0h1m2 0h2m4 0h1m1 0h3m-32 1h1m1 0h2m7 0h2m1 0h2m2 0h1m2 0h1m1 0h1m1 0h3m1 0h3m-32 1h1m2 0h4m3 0h1m1 0h2m1 0h1m1 0h1m1 0h1m2 0h7m2 0h1m-24 1h2m4 0h1m4 0h2m3 0h1m3 0h1m1 0h1m1 0h1m-33 1h7m2 0h4m1 0h2m2 0h1m1 0h2m1 0h2m1 0h1m1 0h1m1 0h2m-32 1h1m5 0h1m1 0h1m1 0h1m2 0h1m6 0h5m3 0h3m-31 1h1m1 0h3m1 0h1m1 0h1m3 0h1m2 0h1m2 0h1m5 0h6m1 0h1m-32 1h1m1 0h3m1 0h1m1 0h2m1 0h6m2 0h3m1 0h3m2 0h1m1 0h3m-33 1h1m1 0h3m1 0h1m1 0h1m2 0h1m1 0h2m6 0h2m2 0h3m1 0h2m-31 1h1m5 0h1m2 0h4m3 0h1m2 0h4m2 0h2m1 0h3m-31 1h7m1 0h1m2 0h1m5 0h1m1 0h2m1 0h6m1 0h1m1 0h1"/></g></svg>
+<svg role="img" aria-label="Barcode of the build identifier DCAT-AP-UK-1.2.0-rc.1-c40431909d" version="1.1" xmlns="http://www.w3.org/2000/svg" width="84.300mm" height="11.000mm">
+    <g id="barcode_group">
+        <rect width="100%" height="100%" fill="white"/>
+        <rect x="2.000mm" y="1.000mm" width="0.440mm" height="9.000mm" fill="black"/>
+        <rect x="2.660mm" y="1.000mm" width="0.220mm" height="9.000mm" fill="black"/>
+        <rect x="3.320mm" y="1.000mm" width="0.220mm" height="9.000mm" fill="black"/>
+        <rect x="4.420mm" y="1.000mm" width="0.220mm" height="9.000mm" fill="black"/>
+        <rect x="4.860mm" y="1.000mm" width="0.440mm" height="9.000mm" fill="black"/>
+        <rect x="5.960mm" y="1.000mm" width="0.220mm" height="9.000mm" fill="black"/>
+        <rect x="6.840mm" y="1.000mm" width="0.220mm" height="9.000mm" fill="black"/>
+        <rect x="7.720mm" y="1.000mm" width="0.220mm" height="9.000mm" fill="black"/>
+        <rect x="8.600mm" y="1.000mm" width="0.440mm" height="9.000mm" fill="black"/>
+        <rect x="9.260mm" y="1.000mm" width="0.220mm" height="9.000mm" fill="black"/>
+        <rect x="9.700mm" y="1.000mm" width="0.220mm" height="9.000mm" fill="black"/>
+        <rect x="10.580mm" y="1.000mm" width="0.440mm" height="9.000mm" fill="black"/>
+        <rect x="11.680mm" y="1.000mm" width="0.440mm" height="9.000mm" fill="black"/>
+        <rect x="12.340mm" y="1.000mm" width="0.660mm" height="9.000mm" fill="black"/>
+        <rect x="13.660mm" y="1.000mm" width="0.220mm" height="9.000mm" fill="black"/>
+        <rect x="14.100mm" y="1.000mm" width="0.220mm" height="9.000mm" fill="black"/>
+        <rect x="14.760mm" y="1.000mm" width="0.440mm" height="9.000mm" fill="black"/>
+        <rect x="15.420mm" y="1.000mm" width="0.660mm" height="9.000mm" fill="black"/>
+        <rect x="16.520mm" y="1.000mm" width="0.220mm" height="9.000mm" fill="black"/>
+        <rect x="16.960mm" y="1.000mm" width="0.220mm" height="9.000mm" fill="black"/>
+        <rect x="17.840mm" y="1.000mm" width="0.440mm" height="9.000mm" fill="black"/>
+        <rect x="18.940mm" y="1.000mm" width="0.660mm" height="9.000mm" fill="black"/>
+        <rect x="19.820mm" y="1.000mm" width="0.660mm" height="9.000mm" fill="black"/>
+        <rect x="20.700mm" y="1.000mm" width="0.440mm" height="9.000mm" fill="black"/>
+        <rect x="21.360mm" y="1.000mm" width="0.220mm" height="9.000mm" fill="black"/>
+        <rect x="22.020mm" y="1.000mm" width="0.440mm" height="9.000mm" fill="black"/>
+        <rect x="22.680mm" y="1.000mm" width="0.660mm" height="9.000mm" fill="black"/>
+        <rect x="23.780mm" y="1.000mm" width="0.440mm" height="9.000mm" fill="black"/>
+        <rect x="24.440mm" y="1.000mm" width="0.660mm" height="9.000mm" fill="black"/>
+        <rect x="25.320mm" y="1.000mm" width="0.660mm" height="9.000mm" fill="black"/>
+        <rect x="26.200mm" y="1.000mm" width="0.220mm" height="9.000mm" fill="black"/>
+        <rect x="26.640mm" y="1.000mm" width="0.440mm" height="9.000mm" fill="black"/>
+        <rect x="27.740mm" y="1.000mm" width="0.660mm" height="9.000mm" fill="black"/>
+        <rect x="28.620mm" y="1.000mm" width="0.220mm" height="9.000mm" fill="black"/>
+        <rect x="29.280mm" y="1.000mm" width="0.440mm" height="9.000mm" fill="black"/>
+        <rect x="29.940mm" y="1.000mm" width="0.660mm" height="9.000mm" fill="black"/>
+        <rect x="31.040mm" y="1.000mm" width="0.220mm" height="9.000mm" fill="black"/>
+        <rect x="31.700mm" y="1.000mm" width="0.660mm" height="9.000mm" fill="black"/>
+        <rect x="32.800mm" y="1.000mm" width="0.440mm" height="9.000mm" fill="black"/>
+        <rect x="33.460mm" y="1.000mm" width="0.220mm" height="9.000mm" fill="black"/>
+        <rect x="34.120mm" y="1.000mm" width="0.440mm" height="9.000mm" fill="black"/>
+        <rect x="35.000mm" y="1.000mm" width="0.660mm" height="9.000mm" fill="black"/>
+        <rect x="35.880mm" y="1.000mm" width="0.440mm" height="9.000mm" fill="black"/>
+        <rect x="36.760mm" y="1.000mm" width="0.660mm" height="9.000mm" fill="black"/>
+        <rect x="37.860mm" y="1.000mm" width="0.220mm" height="9.000mm" fill="black"/>
+        <rect x="38.300mm" y="1.000mm" width="0.220mm" height="9.000mm" fill="black"/>
+        <rect x="38.960mm" y="1.000mm" width="0.440mm" height="9.000mm" fill="black"/>
+        <rect x="39.840mm" y="1.000mm" width="0.660mm" height="9.000mm" fill="black"/>
+        <rect x="40.720mm" y="1.000mm" width="0.220mm" height="9.000mm" fill="black"/>
+        <rect x="41.380mm" y="1.000mm" width="0.660mm" height="9.000mm" fill="black"/>
+        <rect x="42.260mm" y="1.000mm" width="0.440mm" height="9.000mm" fill="black"/>
+        <rect x="43.140mm" y="1.000mm" width="0.220mm" height="9.000mm" fill="black"/>
+        <rect x="43.800mm" y="1.000mm" width="0.440mm" height="9.000mm" fill="black"/>
+        <rect x="44.460mm" y="1.000mm" width="0.660mm" height="9.000mm" fill="black"/>
+        <rect x="45.560mm" y="1.000mm" width="0.220mm" height="9.000mm" fill="black"/>
+        <rect x="46.220mm" y="1.000mm" width="0.220mm" height="9.000mm" fill="black"/>
+        <rect x="46.880mm" y="1.000mm" width="0.880mm" height="9.000mm" fill="black"/>
+        <rect x="47.980mm" y="1.000mm" width="0.220mm" height="9.000mm" fill="black"/>
+        <rect x="49.080mm" y="1.000mm" width="0.220mm" height="9.000mm" fill="black"/>
+        <rect x="49.520mm" y="1.000mm" width="0.440mm" height="9.000mm" fill="black"/>
+        <rect x="50.400mm" y="1.000mm" width="0.220mm" height="9.000mm" fill="black"/>
+        <rect x="51.060mm" y="1.000mm" width="0.440mm" height="9.000mm" fill="black"/>
+        <rect x="51.940mm" y="1.000mm" width="0.660mm" height="9.000mm" fill="black"/>
+        <rect x="52.820mm" y="1.000mm" width="0.220mm" height="9.000mm" fill="black"/>
+        <rect x="53.480mm" y="1.000mm" width="0.660mm" height="9.000mm" fill="black"/>
+        <rect x="54.580mm" y="1.000mm" width="0.440mm" height="9.000mm" fill="black"/>
+        <rect x="55.240mm" y="1.000mm" width="0.220mm" height="9.000mm" fill="black"/>
+        <rect x="55.900mm" y="1.000mm" width="0.440mm" height="9.000mm" fill="black"/>
+        <rect x="56.560mm" y="1.000mm" width="0.660mm" height="9.000mm" fill="black"/>
+        <rect x="57.660mm" y="1.000mm" width="0.220mm" height="9.000mm" fill="black"/>
+        <rect x="58.760mm" y="1.000mm" width="0.220mm" height="9.000mm" fill="black"/>
+        <rect x="59.200mm" y="1.000mm" width="0.440mm" height="9.000mm" fill="black"/>
+        <rect x="60.080mm" y="1.000mm" width="0.220mm" height="9.000mm" fill="black"/>
+        <rect x="60.520mm" y="1.000mm" width="0.660mm" height="9.000mm" fill="black"/>
+        <rect x="61.400mm" y="1.000mm" width="0.880mm" height="9.000mm" fill="black"/>
+        <rect x="62.500mm" y="1.000mm" width="0.440mm" height="9.000mm" fill="black"/>
+        <rect x="63.600mm" y="1.000mm" width="0.220mm" height="9.000mm" fill="black"/>
+        <rect x="64.040mm" y="1.000mm" width="0.220mm" height="9.000mm" fill="black"/>
+        <rect x="64.920mm" y="1.000mm" width="0.220mm" height="9.000mm" fill="black"/>
+        <rect x="65.360mm" y="1.000mm" width="0.440mm" height="9.000mm" fill="black"/>
+        <rect x="66.460mm" y="1.000mm" width="0.660mm" height="9.000mm" fill="black"/>
+        <rect x="67.340mm" y="1.000mm" width="0.440mm" height="9.000mm" fill="black"/>
+        <rect x="68.220mm" y="1.000mm" width="0.220mm" height="9.000mm" fill="black"/>
+        <rect x="68.660mm" y="1.000mm" width="0.660mm" height="9.000mm" fill="black"/>
+        <rect x="69.760mm" y="1.000mm" width="0.440mm" height="9.000mm" fill="black"/>
+        <rect x="70.640mm" y="1.000mm" width="0.220mm" height="9.000mm" fill="black"/>
+        <rect x="71.300mm" y="1.000mm" width="0.220mm" height="9.000mm" fill="black"/>
+        <rect x="72.180mm" y="1.000mm" width="0.220mm" height="9.000mm" fill="black"/>
+        <rect x="72.620mm" y="1.000mm" width="0.880mm" height="9.000mm" fill="black"/>
+        <rect x="73.720mm" y="1.000mm" width="0.660mm" height="9.000mm" fill="black"/>
+        <rect x="74.600mm" y="1.000mm" width="0.220mm" height="9.000mm" fill="black"/>
+        <rect x="75.700mm" y="1.000mm" width="0.220mm" height="9.000mm" fill="black"/>
+        <rect x="76.360mm" y="1.000mm" width="0.440mm" height="9.000mm" fill="black"/>
+        <rect x="77.020mm" y="1.000mm" width="0.660mm" height="9.000mm" fill="black"/>
+        <rect x="77.900mm" y="1.000mm" width="0.220mm" height="9.000mm" fill="black"/>
+        <rect x="78.780mm" y="1.000mm" width="0.440mm" height="9.000mm" fill="black"/>
+        <rect x="79.440mm" y="1.000mm" width="0.440mm" height="9.000mm" fill="black"/>
+        <rect x="80.540mm" y="1.000mm" width="0.660mm" height="9.000mm" fill="black"/>
+        <rect x="81.420mm" y="1.000mm" width="0.220mm" height="9.000mm" fill="black"/>
+        <rect x="81.860mm" y="1.000mm" width="0.440mm" height="9.000mm" fill="black"/>
+        
+    </g>
+</svg>
+</div>
+<p class="small"><code>DCAT-AP-UK-1.2.0-rc.1-c40431909d</code></p></section>
+</div></footer>
+<dialog id="palette" aria-labelledby="pal-h"><div class="pal-in"><h2 id="pal-h">Search the portal</h2>
+<label class="visually-hidden" for="pal-q">Search</label><input type="search" id="pal-q" role="combobox" aria-expanded="true" aria-controls="pal-list" autocomplete="off" placeholder="Property, class, codelist, issue or page">
+<p class="small" id="pal-count" aria-live="polite"></p><ul class="pal-list" id="pal-list" role="listbox" aria-label="Results"></ul>
+<p class="btns"><button type="button" class="btn secondary small" id="pal-close">Close</button></p></div></dialog>
+<dialog id="keys" aria-labelledby="keys-h"><div class="pal-in"><h2 id="keys-h">Keyboard shortcuts</h2>
+<dl class="facts"><dt><kbd>/</kbd> or <kbd>Ctrl</kbd> <kbd>K</kbd></dt><dd>Search</dd><dt><kbd>?</kbd></dt><dd>These shortcuts</dd><dt><kbd>Esc</kbd></dt><dd>Close menus, tooltips and dialogs</dd><dt>Arrow keys</dt><dd>Move between tabs and search results</dd></dl>
+<p class="btns"><button type="button" class="btn secondary small" id="keys-close">Close</button></p></div></dialog>
+<div id="live" class="visually-hidden" aria-live="polite"></div>
+<script src="search-index.js"></script><script src="validator.js"></script><script src="profile-data.js"></script><script src="app.js"></script>
+</body>
+</html>
