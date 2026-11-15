@@ -23,7 +23,7 @@ VOLATILE = re.compile(r'DCAT-AP-UK-\d+\.\d+\.\d+(?:-[a-z0-9.]+)?-[0-9a-f]{6,}|\b
 
 
 def plain(fragment):
-    fragment = re.sub(r'<script\b.*?</script>|<style\b.*?</style>|<svg\b.*?</svg>|<span class="(?:flag|secflag)[^"]*">.*?</span>', ' ', fragment, flags=re.S)
+    fragment = re.sub(r'<script\b.*?</script\b[^>]*>|<style\b.*?</style\b[^>]*>|<svg\b.*?</svg\b[^>]*>|<span class="(?:flag|secflag)[^"]*">.*?</span>', ' ', fragment, flags=re.S | re.I)
     text = html.unescape(re.sub(r'<[^>]+>', ' ', fragment))
     text = re.sub(r'\s+', ' ', VOLATILE.sub(' ', text)).strip()
     return re.sub(r'\s+([.,;:!?)\]])', r'\1', re.sub(r'([(\[])\s+', r'\1', text))  # inline markup must not move punctuation

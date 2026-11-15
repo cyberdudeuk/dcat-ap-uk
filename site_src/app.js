@@ -208,8 +208,9 @@
     var b = e.target.closest('[data-copy]');
     if (b) {
       var src = doc.getElementById(b.getAttribute('data-copy')); var text = src ? (src.value || src.textContent) : '';
-      var was = b.getAttribute('data-was') || b.innerHTML; b.setAttribute('data-was', was);
-      var done = function () { announce('Copied'); b.textContent = 'Copied'; setTimeout(function () { b.innerHTML = was; }, 1500); };
+      // CodeQL #16 (D-040): keep the button's own child nodes and put them back, instead of re-parsing HTML text.
+      if (!b.__was) b.__was = Array.prototype.slice.call(b.childNodes);
+      var done = function () { announce('Copied'); b.textContent = 'Copied'; setTimeout(function () { b.replaceChildren.apply(b, b.__was); }, 1500); };
       if (navigator.clipboard) navigator.clipboard.writeText(text).then(done, function () { announce('Copy failed: select the text and copy it'); });
       return;
     }

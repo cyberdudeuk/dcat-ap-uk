@@ -247,7 +247,7 @@ def c_unrendered(site, docs):
     contains them (D-038: the Words for contracts box showed {E(pc)} because <pre> was not checked)."""
     bad = []
     for p, d in docs:
-        t = re.sub(r'<script.*?</script>|<pre.*?</pre>|<code>.*?</code>', '', d.text, flags=re.S)
+        t = re.sub(r'<script.*?</script\b[^>]*>|<pre.*?</pre\b[^>]*>|<code>.*?</code\b[^>]*>', '', d.text, flags=re.S | re.I)
         for m in re.finditer(r'\{(?:[a-z_]+(?:\([^)]*\))?|E\([^)]*\)|self\.[^}]*)\}', t):
             bad.append(f'{p.name}: {m.group(0)[:40]}')
         for pre in re.findall(r'<pre.*?</pre>', d.text, flags=re.S):
