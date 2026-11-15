@@ -14,4 +14,4 @@ purpose with or without fee is hereby granted, provided that the above copyright
 
 ## ESLint, @eslint/js, globals and Ruff (test only, not shipped)
 
-Used by CI to lint the JavaScript and Python (D-037). MIT License.
+Used by CI to lint the JavaScript and Python (D-038). MIT License.

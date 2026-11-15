@@ -16,10 +16,11 @@ All notable changes to DCAT-AP-UK. The format follows [Keep a Changelog](https:/
     existed. The two packages it told people to install have no such names on PyPI or npm.
 
 ### Fixed
-- The Adopt page's Words for contracts box showed the literal text `{E(pc)}` instead of the procurement clauses, and Copy the clauses copied that. The clauses now show, and check C-16 now looks inside `pre` blocks for the build's own placeholders (D-037).
+- Two defects were numbered D-037, and the knowledge page had its Taxonomy heading twice after two pull requests landed in parallel, so the build on main failed. The duplicate is removed, the Adopt page defect is now D-038, and a test rejects a repeated register id (D-039).
+- The Adopt page's Words for contracts box showed the literal text `{E(pc)}` instead of the procurement clauses, and Copy the clauses copied that. The clauses now show, and check C-16 now looks inside `pre` blocks for the build's own placeholders (D-038).
 
 ### Changed
-- Ruff (Python) and ESLint (JavaScript) run in CI and fail on any finding; the lint pass removed dead code and made the validator comparisons in the tests strict (D-037). Part of applying the secure development standard to every project.
+- Ruff (Python) and ESLint (JavaScript) run in CI and fail on any finding; the lint pass removed dead code and made the validator comparisons in the tests strict (D-038). Part of applying the secure development standard to every project.
 
 ### Fixed
 - D-037: the first draft of the namespace register linked each namespace. Several do not resolve (the StatDCAT-AP
