@@ -9,6 +9,8 @@ import socket
 import subprocess
 import sys
 import unittest
+from urllib.parse import urlparse
+import urllib.error
 import urllib.request
 from pathlib import Path
 
@@ -171,6 +173,16 @@ class ReferenceAPI(unittest.TestCase):
             self.assertEqual(rec['title'], json.load(urllib.request.urlopen(req, timeout=5))['out']['title'])
             api = json.loads((SITE / 'downloads' / 'integration-api.openapi.json').read_text(encoding='utf-8'))
             self.assertEqual({'/health', '/profile', '/codelists/{name}', '/validate', '/score', '/weave'}, set(api['paths']))
+            # D-040 (CodeQL #2): a known validator message is returned; any other failure is generic, with no detail.
+            def err(path, body):
+                try:
+                    urllib.request.urlopen(urllib.request.Request(base + path, data=body, method='POST'), timeout=5)
+                except urllib.error.HTTPError as e:
+                    return e.code, json.load(e)
+                self.fail('expected an error for ' + path)
+            self.assertEqual((400, {'error': 'Unknown extension no-such-ext'}), err('/validate?ext=no-such-ext', json.dumps(rec).encode()))
+            code, body = err('/weave?from=ukap&to=dcatus', b'null')
+            self.assertEqual((400, {'error': 'The request could not be processed'}), (code, body))
         finally:
             proc.terminate()
             proc.wait(5)
@@ -481,5 +493,5 @@ class VerifiedSourcesWatched(unittest.TestCase):
             if s['prov'] == 'V':
                 with self.subTest(source=s['id']):
                     self.assertTrue(s.get('watch') == 'manual' or s['id'] in state, 'run tools/health.py --record after verifying it')
-                    if 'github.com' in s['url'] and s.get('watch') != 'manual':
+                    if urlparse(s['url']).hostname == 'github.com' and s.get('watch') != 'manual':  # whole host (CodeQL #20)
                         self.assertTrue(s.get('watch'), 'GitHub pages change on every load: watch the raw files instead')

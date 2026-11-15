@@ -16,6 +16,7 @@ All notable changes to DCAT-AP-UK. The format follows [Keep a Changelog](https:/
     existed. The two packages it told people to install have no such names on PyPI or npm.
 
 ### Fixed
+- The reference HTTP service no longer returns internal error text to callers; Copy buttons restore their label without re-parsing HTML; host and closing-tag checks are exact (D-040, code scanning).
 - Two defects were numbered D-037, and the knowledge page had its Taxonomy heading twice after two pull requests landed in parallel, so the build on main failed. The duplicate is removed, the Adopt page defect is now D-038, and a test rejects a repeated register id (D-039).
 - The Adopt page's Words for contracts box showed the literal text `{E(pc)}` instead of the procurement clauses, and Copy the clauses copied that. The clauses now show, and check C-16 now looks inside `pre` blocks for the build's own placeholders (D-038).
 

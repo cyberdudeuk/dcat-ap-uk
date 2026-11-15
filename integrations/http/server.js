@@ -45,7 +45,14 @@ const server = http.createServer((req, res) => {
         return typeof w.out === 'string' && u.searchParams.get('to') === 'turtle' ? send(res, 200, w.out) : send(res, 200, w);
       }
       return send(res, 404, { error: 'Not found' });
-    } catch (e) { return send(res, 400, { error: String(e.message || e) }); }
+    } catch (e) {
+      // CodeQL #2 (D-040): only the validator's own messages about the request are returned; anything else is logged here
+      // and the caller gets a generic message, so no internal detail or stack reaches the client.
+      const msg = String((e && e.message) || '');
+      if (/^Unknown (extension|source model|target model) [\w.:-]{1,80}$/.test(msg)) return send(res, 400, { error: msg });
+      console.error(e);
+      return send(res, 400, { error: 'The request could not be processed' });
+    }
   });
 });
 const port = Number(arg('port', 8787)), host = arg('host', '127.0.0.1');
