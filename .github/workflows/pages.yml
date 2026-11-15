@@ -37,7 +37,7 @@ jobs:
           pip install -r requirements.txt
           npm ci
           python -m playwright install --with-deps chromium
-      - name: Linters, failing on any finding (D-037)
+      - name: Linters, failing on any finding (D-038)
         run: |
           ruff check .
           npx eslint .

@@ -1,4 +1,4 @@
-"""D-037: no linter ran in CI. These tests keep both linters, pinned, in the Build, check and publish workflow."""
+"""D-038: no linter ran in CI. These tests keep both linters, pinned, in the Build, check and publish workflow."""
 import json
 import unittest
 from pathlib import Path

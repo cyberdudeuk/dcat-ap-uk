@@ -244,7 +244,7 @@ def c_svg_names(site, docs):
 def c_unrendered(site, docs):
     """C-16 no unrendered template placeholders, such as {layers} or {prov("K")}, in page text (D-007); inside <pre>, the
     build's own signatures {E(...)}, {icon(...)}, {prov(...)} and {self....} are flagged too, because a code example never
-    contains them (D-037: the Words for contracts box showed {E(pc)} because <pre> was not checked)."""
+    contains them (D-038: the Words for contracts box showed {E(pc)} because <pre> was not checked)."""
     bad = []
     for p, d in docs:
         t = re.sub(r'<script.*?</script>|<pre.*?</pre>|<code>.*?</code>', '', d.text, flags=re.S)
