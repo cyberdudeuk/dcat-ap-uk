@@ -164,6 +164,11 @@ td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
 .filters{display:flex;flex-wrap:wrap;gap:.75rem;align-items:flex-end;margin:1rem 0 .5rem;padding:.75rem;background:var(--panel)}
 .filters label{display:flex;flex-direction:column;font-weight:700;font-size:.9rem;gap:.2rem}
 .filters output{margin-left:auto;font-weight:700}
+/* Glossary A to Z: letters with no term are shown but not linked (from the Metadata Weaver prototype, 15 Nov 2026) */
+.az ul{display:flex;flex-wrap:wrap;gap:.25rem;list-style:none;margin:.5rem 0;padding:0}
+.az li>*{display:inline-flex;justify-content:center;align-items:center;min-width:2.25rem;min-height:2.25rem;border:1px solid var(--border);font-weight:700}
+.az a{text-decoration:none}.az a:hover{background:var(--panel)}
+.az span[aria-disabled]{color:var(--muted);border-style:dashed}
 input[type="search"],input[type="text"],input[type="url"],input[type="date"],select,textarea{font:inherit;color:var(--text);background:var(--bg);border:2px solid var(--text);border-radius:0;padding:.35rem .5rem;min-height:2.5rem;max-width:100%}
 textarea{width:100%;min-height:12rem;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.9rem}
 .btn{font:inherit;font-weight:700;background:#00703c;color:#fff;border:0;box-shadow:0 2px 0 #002d18;padding:.55rem 1rem;min-height:2.6rem;cursor:pointer;display:inline-flex;gap:.4rem;align-items:center;text-decoration:none}

@@ -1282,11 +1282,31 @@ class Site:
     def knowledge_page(self):
         c, p = self.c, self.p
         g = sorted(c['glossary'], key=lambda t: t['term'].lower())
-        gl = ''.join(f'<dt id="g-{t["id"]}">{E(t["term"])}</dt><dd>{E(t["def"])}</dd>' for t in g)
+        gl = ''.join(f'<dt id="g-{t["id"]}" data-letter="{E(t["term"][0].upper())}">{E(t["term"])}</dt><dd data-letter="{E(t["term"][0].upper())}">{E(t["def"])}</dd>' for t in g)
+        # A to Z and search over the glossary (from the GOV.UK Metadata Weaver prototype's glossary, 15 Nov 2026).
+        # Letters with no term are shown but not linked, so the index tells you what is not there too.
+        have = {t['term'][0].upper() for t in g}
+        first = {}
+        for t in g:
+            first.setdefault(t['term'][0].upper(), t['id'])
+        az = ''.join(f'<li><a href="#g-{first[ch]}">{ch}</a></li>' if ch in have else f'<li><span aria-disabled="true">{ch}</span></li>' for ch in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ')
+        gfind = (f'<nav class="az" aria-label="Glossary A to Z"><ul>{az}</ul></nav>'
+                 '<div class="filters" data-for-dl="g-list"><label>Search the glossary<input type="search" placeholder="term or definition"></label><output aria-live="polite"></output></div>')
+        # Namespaces the profile uses, with how many of its properties come from each (counted from the profile, not estimated).
+        ns_use, ns_cls = {}, {}
+        for v in p.props.values():
+            ns_use[v['uri'].split(':', 1)[0]] = ns_use.get(v['uri'].split(':', 1)[0], 0) + 1
+        for cl in p.classes.values():
+            ns_cls[cl['uri'].split(':', 1)[0]] = ns_cls.get(cl['uri'].split(':', 1)[0], 0) + 1
+        # Namespaces are identifiers, not web pages: several do not resolve (statdcat-ap's contains "(xyz)"; w3id.org/dcat-ap-uk
+        # is not registered yet, O-17), so they are shown as code, never as links.
+        ns_rows = [[f'<code>{E(pf)}:</code>', f'<code>{E(uri)}</code>', str(ns_use.get(pf, 0)), str(ns_cls.get(pf, 0))] for pf, uri in p.prefixes.items()]
+        ns = ('<div class="filters" data-for="t-ns"><label>Search<input type="search" placeholder="prefix or namespace"></label><output aria-live="polite"></output></div>'
+              + table('t-ns', f'Every namespace the profile and its sector extensions use, counted from the profile {prov("S")}', ['Prefix', 'Namespace', 'Properties from it', 'Classes from it'], ns_rows, num=(2, 3)))
         for t in g:
             self.add_search(t['term'], 'Glossary', f'knowledge.html#g-{t["id"]}', t['def'])
         th_rows = [[E(a), f'<a href="#g-{t["id"]}">{E(t["term"])}</a>'] for t in g for a in t.get('alt', [])]
-        th = table('t-th', 'Other words people use, and the term used here', ['If you say', 'This portal says'], sorted(th_rows))
+        th = '<div class="filters" data-for="t-th"><label>Search<input type="search" placeholder="a word you use"></label><output aria-live="polite"></output></div>' + table('t-th', 'Other words people use, and the term used here', ['If you say', 'This portal says'], sorted(th_rows))
         tax = '<ul>' + ''.join(f'<li><a href="{self.class_page(ck)}">{E(cl["label"])}</a> <code>{E(cl["uri"])}</code><ul>' + ''.join(
             f'<li><a href="properties.html#p-{x["p"]}">{E(p.props[x["p"]]["label"])}</a> {tag(x["ob"], x["ob"])}</li>' for x in cl['properties']) + '</ul></li>' for ck, cl in p.classes.items()) + '</ul>'
         cltax = '<ul>' + ''.join(f'<li><a href="codelists.html#cl-{sk}">{E(s["label"])}</a><ul>' + ''.join(f'<li>{E(x["label"])}</li>' for x in s['concepts']) + '</ul></li>' for sk, s in p.codelists.items()) + '</ul>'
@@ -1294,14 +1314,15 @@ class Site:
         nl = ''.join(f'<li><a href="{E(n[3])}">{E(n[1])}</a> ({E(n[2])})</li>' for n in nodes)
         terms = [f'<li><code>{E(v["uri"])}</code>: {E(v["definition"])}{" (provisional)" if v.get("provisional") else ""}</li>' for v in p.props.values() if v['uri'].startswith('dcatuk:')]
         body = self.hero('network', 'Knowledge', 'Knowledge', self.gloss('The words, structure and connections behind the profile: a glossary, a thesaurus of other words people use, the taxonomy of classes and codelists, the few terms the profile adds, and a graph of how it all connects.'))
-        body += f'<h2 id="glossary">Glossary</h2><dl class="facts">{gl}</dl>'
+        body += f'<h2 id="glossary">Glossary</h2>{gfind}<dl class="facts" id="g-list">{gl}</dl>'
         body += f'<h2 id="thesaurus">Thesaurus</h2>{th}'
+        body += f'<h2 id="namespaces">Namespaces</h2><p>The vocabularies the profile reuses, by the prefix used throughout this portal. A namespace is an identifier, not always a web page you can open. Namespaces with no property or class supply datatypes, shapes, codelist values or terms for the <a href="extensions.html">sector extensions</a>.</p>{ns}'
         body += f'<h2 id="taxonomy">Taxonomy</h2><div class="tabs" id="tax-tabs"><div role="tablist" aria-label="Taxonomy"><button role="tab" id="tt-c" aria-controls="tp-c">Classes and properties</button><button role="tab" id="tt-l" aria-controls="tp-l">Codelists</button><button role="tab" id="tt-o" aria-controls="tp-o">Terms the profile adds</button></div>'
         body += f'<div role="tabpanel" id="tp-c" aria-labelledby="tt-c" tabindex="0">{tax}</div><div role="tabpanel" id="tp-l" aria-labelledby="tt-l" tabindex="0" hidden>{cltax}</div>'
         body += f'<div role="tabpanel" id="tp-o" aria-labelledby="tt-o" tabindex="0" hidden><p>Everything else is reused from DCAT, Dublin Core, vCard, ADMS, PROV, SPDX, DQV and schema.org. Only these are new, under the proposed namespace <code>{E(self.m["namespace"])}</code>. Download the <a href="downloads/dcat-ap-uk.ns.ttl">definitions</a>.</p><ul>{"".join(terms)}</ul></div></div>'
         body += f'<h2 id="graph">Knowledge graph</h2><p>Classes in the middle, then codelists, then the backlog items that shaped them, with the strategy and the sister portals around the edge. Select a node to go to it; point at it to light up its links.</p>{graph}<details><summary>The same graph as a list</summary><ul>{nl}</ul></details>'
         drawer = [{'title': 'Knowledge', 'icon': 'network', 'items': [{'id': 'glossary', 'label': 'Glossary', 'icon': 'book-open', 'count': len(g)}, {'id': 'thesaurus', 'label': 'Thesaurus', 'icon': 'languages', 'count': len(th_rows)},
-                   {'id': 'taxonomy', 'label': 'Taxonomy', 'icon': 'boxes'}, {'id': 'graph', 'label': 'Knowledge graph', 'icon': 'waypoints', 'count': len(nodes)}]}]
+                   {'id': 'namespaces', 'label': 'Namespaces', 'icon': 'link', 'count': len(ns_rows)}, {'id': 'taxonomy', 'label': 'Taxonomy', 'icon': 'boxes'}, {'id': 'graph', 'label': 'Knowledge graph', 'icon': 'waypoints', 'count': len(nodes)}]}]
         self.page('knowledge', body, drawer, crumbs=[('Knowledge', None)])
 
     def downloads_page(self):
@@ -1962,7 +1983,8 @@ class Site:
                  f'<form id="weave-form" novalidate aria-labelledby="w-h"><h2 id="w-h">Your record</h2><div class="filters"><label for="w-from">From<select id="w-from">{frm}</select></label>'
                  f'<label for="w-to">To<select id="w-to">{to}</select></label></div>'
                  '<div class="field"><label for="w-in">Record (JSON)</label><p class="hint" id="w-in-h">DDI may also be pasted as XML.</p><textarea id="w-in" aria-describedby="w-in-h" spellcheck="false"></textarea></div>'
-                 f'<p class="btns"><button type="button" class="btn" id="w-run">{icon("waypoints")} Weave</button><button type="button" class="btn secondary" id="w-sample">Try an example in this model</button></p></form>'
+                 '<div class="field"><label for="w-file">Or open a file from your computer</label><p class="hint" id="w-file-h">JSON, JSON-LD or DDI XML, up to 2 MB. It is read in your browser and never uploaded.</p><input type="file" id="w-file" accept=".json,.jsonld,.xml,application/json,application/ld+json,application/xml,text/xml" aria-describedby="w-file-h"></div>'
+                 f'<p class="btns"><button type="button" class="btn" id="w-run">{icon("waypoints")} Weave</button><button type="button" class="btn secondary" id="w-sample">Try an example in this model</button><button type="button" class="btn secondary" id="w-swap">{icon("arrow-left-right")} Swap From and To</button></p></form>'
                  f'<div id="w-out" aria-live="polite"></div>{samples}</div>'
                  f'<div role="tabpanel" id="wp-m" aria-labelledby="wt-m" tabindex="0" hidden><h2 id="matrix">Crosswalk matrix</h2><p>One row per property, one column per model. The weaver uses these mappings. '
                  f'Download each crosswalk as CSV from the <a href="adopt.html#crosswalks">adoption toolkit</a>.</p>{mx}</div></div>')
