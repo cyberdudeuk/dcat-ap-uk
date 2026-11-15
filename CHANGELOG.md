@@ -4,6 +4,17 @@ All notable changes to DCAT-AP-UK. The format follows [Keep a Changelog](https:/
 
 ## [Unreleased]
 
+### Added
+- From a like-for-like review of the retired GOV.UK Metadata Weaver prototype (Figma Make), the features it did better:
+  - Knowledge: an A to Z over the glossary (letters with no term are shown, unlinked) and search over the glossary
+    and the thesaurus.
+  - Knowledge: a namespace register of every prefix the profile and its extensions use, with how many properties and
+    classes come from each, counted from the profile. The prototype's counts were invented; these are computed.
+  - Weaver: open a record from a file (read in the browser, never uploaded, 2 MB limit) and swap From and To, with
+    a message when a model can only be read or only be written.
+  - The prototype's catalogue, metrics, sign-ins, SDK packages and status banner were not carried over: none of them
+    existed. The two packages it told people to install have no such names on PyPI or npm.
+
 ### Fixed
 - The Adopt page's Words for contracts box showed the literal text `{E(pc)}` instead of the procurement clauses, and Copy the clauses copied that. The clauses now show, and check C-16 now looks inside `pre` blocks for the build's own placeholders (D-037).
 
@@ -11,6 +22,9 @@ All notable changes to DCAT-AP-UK. The format follows [Keep a Changelog](https:/
 - Ruff (Python) and ESLint (JavaScript) run in CI and fail on any finding; the lint pass removed dead code and made the validator comparisons in the tests strict (D-037). Part of applying the secure development standard to every project.
 
 ### Fixed
+- D-037: the first draft of the namespace register linked each namespace. Several do not resolve (the StatDCAT-AP
+  namespace contains a literal "(xyz)", and w3id.org/dcat-ap-uk is not registered yet, O-17), so the links would have
+  sent people to errors. Namespaces are now shown as code. Check C-26, with a deliberate break.
 - Where each product runs is now sourced product by product, each with a check date (D-036). Most lists were
   confirmed at the vendor's own documentation; open-source and cloud-service entries cite the repository they pin.
   Secoda now shows its documented self-hosted, on-premises option. Actian's product page (SaaS) and a 2025 press

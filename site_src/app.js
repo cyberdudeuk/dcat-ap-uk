@@ -169,6 +169,20 @@
       download(dl.getAttribute('data-csv'), csv, 'text/csv');
     });
   });
+  /* ---- glossary search: the same filter, over a definition list (dt + dd pairs) ------------------------------------- */
+  $$('.filters[data-for-dl]').forEach(function (f) {
+    var dl = doc.getElementById(f.getAttribute('data-for-dl')), out = $('output', f), q = $('input[type="search"]', f);
+    if (!dl || !q) return;
+    var run = function () {
+      var v = q.value.toLowerCase().trim(), n = 0;
+      $$('dt', dl).forEach(function (dt) {
+        var dd = dt.nextElementSibling, ok = !v || (dt.textContent + ' ' + (dd ? dd.textContent : '')).toLowerCase().indexOf(v) > -1;
+        dt.hidden = !ok; if (dd) dd.hidden = !ok; if (ok) n++;
+      });
+      if (out) out.textContent = n + ' shown';
+    };
+    q.addEventListener('input', run); run();
+  });
   function download(name, text, type) {
     var a = el('a', { href: URL.createObjectURL(new Blob([text], { type: type + ';charset=utf-8' })), download: name });
     doc.body.appendChild(a); a.click(); setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 500);
@@ -467,6 +481,26 @@
         return '<path class="' + c + '" d="M0,' + y1 + ' C' + w / 2 + ',' + y1 + ' ' + w / 2 + ',' + y2 + ' ' + w + ',' + y2 + '"/>';
       }).join('');
     };
+    /* Open a file (read here, never uploaded) and swap direction: from the GOV.UK Metadata Weaver prototype, 15 Nov 2026. */
+    var wFile = $('#w-file'), wSwap = $('#w-swap'), MAXB = 2 * 1024 * 1024;
+    if (wFile) wFile.addEventListener('change', function () {
+      var f = wFile.files && wFile.files[0];
+      if (!f) return;
+      if (f.size > MAXB) { wFile.value = ''; announce(f.name + ' is larger than 2 MB, so it was not opened.'); return; }
+      var r = new FileReader();
+      r.onload = function () { wIn.value = String(r.result); announce('Opened ' + f.name + '. Choose From and To, then Weave.'); wIn.focus(); };
+      r.onerror = function () { announce('Could not read ' + f.name + '.'); };
+      r.readAsText(f);
+    });
+    if (wSwap) wSwap.addEventListener('click', function () {
+      var a = wFrom.value, b = wTo.value;
+      var canTo = $$('option', wTo).some(function (o) { return o.value === a; }), canFrom = $$('option', wFrom).some(function (o) { return o.value === b; });
+      if (!canTo || !canFrom) {
+        announce('Cannot swap: ' + (canFrom ? wFrom.selectedOptions[0].text + ' can only be read, not written' : wTo.selectedOptions[0].text + ' can only be written, not read') + '.');
+        return;
+      }
+      wFrom.value = b; wTo.value = a; announce('Swapped. From ' + wFrom.selectedOptions[0].text + ' to ' + wTo.selectedOptions[0].text + '.');
+    });
     var run = function () {
       var t = wIn.value.trim(), input;
       if (!t) { wOut.innerHTML = '<p>Paste a record, or try the example.</p>'; return; }

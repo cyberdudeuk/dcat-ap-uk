@@ -456,7 +456,43 @@ def c_vendors(site, docs):
     return bad
 
 
-CHECKS = [c_csp, c_external, c_email, c_ids, c_links, c_tables, c_meta, c_colophon, c_skip, c_deck_film, c_inline, c_banner, c_lang_title, c_weight, c_svg_names, c_unrendered, c_email_repo, c_llms, c_no_style_attr, c_tours, c_feedback, c_markings, c_people, c_flags, c_vendors]
+def c_finders(site, docs):
+    """C-26 the glossary A to Z links exactly the letters that have a term, the namespace register lists every prefix in the profile as plain code (never a link, D-037), and the weaver offers open-a-file and swap."""
+    bad = []
+    k = (site / 'knowledge.html').read_text(encoding='utf-8')
+    terms = re.findall(r'<dt id="(g-[^"]+)" data-letter="([A-Z])">', k)
+    have = {l for _, l in terms}
+    az = re.search(r'<nav class="az"[^>]*><ul>(.*?)</ul></nav>', k, re.S)
+    if not az:
+        bad.append('knowledge.html: no glossary A to Z')
+    else:
+        linked = re.findall(r'<li><a href="#(g-[^"]+)">([A-Z])</a></li>', az.group(1))
+        plain = re.findall(r'<li><span aria-disabled="true">([A-Z])</span></li>', az.group(1))
+        if len(linked) + len(plain) != 26:
+            bad.append(f'glossary A to Z has {len(linked) + len(plain)} letters, not 26')
+        if {l for _, l in linked} != have:
+            bad.append(f'glossary A to Z links {sorted(l for _, l in linked)} but terms start with {sorted(have)}')
+        ids = {i for i, _ in terms}
+        bad += [f'glossary A to Z links missing #{i}' for i, _ in linked if i not in ids]
+    t = re.search(r'<table id="t-ns".*?</table>', k, re.S)
+    prof = json.loads((site / 'downloads' / 'profile.json').read_text(encoding='utf-8'))
+    if not t:
+        bad.append('knowledge.html: no namespace register')
+    else:
+        rows = re.findall(r'<tr><th scope="row"><code>([a-z]+):</code></th><td>(.*?)</td>', t.group(0))
+        missing = sorted(set(prof.get('prefixes', {})) - {r[0] for r in rows})
+        if missing:
+            bad.append(f'namespace register is missing {", ".join(missing)}')
+        bad += [f'namespace {r[0]}: is a link; namespaces are identifiers and several do not resolve (D-037)' for r in rows if '<a ' in r[1]]
+    w = (site / 'weaver.html').read_text(encoding='utf-8')
+    if not re.search(r'<input type="file" id="w-file" accept="[^"]+"', w):
+        bad.append('weaver.html: no open-a-file control with an accept list')
+    if 'id="w-swap"' not in w:
+        bad.append('weaver.html: no swap control')
+    return bad
+
+
+CHECKS = [c_finders, c_csp, c_external, c_email, c_ids, c_links, c_tables, c_meta, c_colophon, c_skip, c_deck_film, c_inline, c_banner, c_lang_title, c_weight, c_svg_names, c_unrendered, c_email_repo, c_llms, c_no_style_attr, c_tours, c_feedback, c_markings, c_people, c_flags, c_vendors]
 
 
 def run(site, quiet=False):
@@ -519,6 +555,7 @@ BREAKS = {
     'C-18': lambda s: _sub(s / 'llms.txt', 'downloads/profile.json)', 'downloads/no-such-file.json)'),
     'C-25': lambda s: (s / 'downloads' / 'connectors' / 'dataplex-aspect-type.json').unlink(),
     'C-15': lambda s: _sub(s / 'profile.html', 'role="group" aria-labelledby="map-model-t"', 'role="img"'),
+    'C-26': lambda s: _sub(s / 'knowledge.html', '<td><code>http://www.w3.org/ns/dcat#</code></td>', '<td><a href="http://www.w3.org/ns/dcat#">http://www.w3.org/ns/dcat#</a></td>'),
 }
 
 
