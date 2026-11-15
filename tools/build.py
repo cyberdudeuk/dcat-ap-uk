@@ -650,7 +650,7 @@ class Site:
         p = self.p
         got = {}
         for ck in p.classes:
-            for x, prop in p.class_props(ck):
+            for _x, prop in p.class_props(ck):
                 r = prop.get('range')
                 if r in p.classes and r != ck:
                     got.setdefault((ck, r), []).append(prop['label'].lower())
@@ -763,7 +763,7 @@ class Site:
             nodes.append(self.class_node(b, cx + 300, 30 + (rows - len(outs)) * 38 + j * 76))
             edges.append((ck, b, ', '.join(links[(ck, b)]), ''))
         uses = {}
-        for x, prop in p.class_props(ck):
+        for _x, prop in p.class_props(ck):
             cl = prop.get('codelist')
             if cl and (cl in p.codelists or cl == 'organisations'):
                 uses.setdefault(cl, []).append(prop['label'].lower())
@@ -872,8 +872,8 @@ class Site:
             return m.group(1) if m else (txt or '')
         body += (f'<h2 id="diagram">How it connects</h2><p>The {E(c["label"].lower())} in the middle; on the left, what links to it; on the right, what it links to. '
                  f'Under the map, the lists its values come from.</p>{self.class_map(ck)}')
-        body += (f'<h2 id="summary">Properties</h2><p>What a record of this kind can say, grouped by whether it must, should or may be filled in. '
-                 f'Select a name for how to fill it in.</p>')
+        body += ('<h2 id="summary">Properties</h2><p>What a record of this kind can say, grouped by whether it must, should or may be filled in. '
+                 'Select a name for how to fill it in.</p>')
         for o in 'MCRO':
             if not groups[o]:
                 continue
@@ -1058,7 +1058,7 @@ class Site:
                      f'<p class="small">Class: <a href="{self.class_page(e["record"]["class"])}">{E(p.classes[e["record"]["class"]]["label"])}</a>{" · Backlog: " + iss if iss else ""} {prov("U")}</p>'
                      + (f'<div class="panel warning"><p><strong>Synthetic.</strong> {E(e["synthetic"])}</p></div>' if e.get('synthetic') else
                         f'<p class="small">Built from <a href="{E(e["source"]["url"])}">the publisher\'s own page</a>, checked {E(e["source"]["checked"])}. {E(e["source"].get("note", ""))}</p>' if e.get('source') else '')
-                     + 
+                     +
                      f'<div class="tabs" id="tabs-{k}"><div role="tablist" aria-label="Format of {E(e["label"].lower())}">'
                      f'<button role="tab" id="t-{k}-j" aria-controls="p-{k}-j">JSON</button><button role="tab" id="t-{k}-t" aria-controls="p-{k}-t">Turtle</button></div>'
                      f'<div role="tabpanel" id="p-{k}-j" aria-labelledby="t-{k}-j" tabindex="0"><pre id="c-{k}-j" tabindex="0">{E(js)}</pre><p class="btns"><button type="button" class="btn secondary small" data-copy="c-{k}-j">Copy</button><a class="btn secondary small" href="downloads/examples/{k}.json" download>{icon("download")} JSON</a><a class="btn secondary small" href="downloads/examples/{k}.jsonld" download>JSON-LD</a></p></div>'
@@ -1196,8 +1196,6 @@ class Site:
             self.add_search(ps['title'], 'Role', f'roles.html#role-{ps["id"]}', ps['need'])
         deia = ''.join(f'<div class="card"><h3>{icon(d["icon"])} {E(d["title"])}</h3><p>{E(d["text"])}</p></div>' for d in c['deia'])
         easy = ''.join(f'<li>{E(x)}</li>' for x in c['easy_read'])
-        display = ('<div class="filters"><label>Text size<select data-display="size"><option value="">Standard</option><option value="large">Large</option></select></label>'
-                   '<label>Spacing<select data-display="spacing"><option value="">Standard</option><option value="wide">Wide</option></select></label></div>')
         body = self.hero('users-round', 'Your role', 'Your role', self.gloss('Routes through the profile for the people who record, check, build, buy and use metadata. These are proto-personas: written from the backlog and policy, and not yet tested with users.'))
         body += (f'<h2 id="start">New to metadata?</h2><div class="easy"><h3>{icon("book-open")} Easy Read</h3><ul>{easy}</ul></div>'
                  '<p>A good record answers five questions for the person who finds it: what is this, who looks after it, can I have it, what may I do with it, and who do I ask? '
@@ -1228,8 +1226,8 @@ class Site:
             if pt['id'] != 'ap':
                 add('e:' + pt['id'], {'dam': 'DAM playbooks', 'dqc': 'DQ Commons', 'cat': 'Repos catalogue'}[pt['id']], 'portal', 'estate.html')
         ids = {n[0] for n in nodes}
-        for ck, c in p.classes.items():
-            for x, prop in p.class_props(ck):
+        for ck, _c in p.classes.items():
+            for _x, prop in p.class_props(ck):
                 if prop.get('range') and prop['range'] != ck:
                     edges.append(('c:' + ck, 'c:' + prop['range']))
                 if prop.get('codelist') and prop['codelist'] in p.codelists:
@@ -1296,7 +1294,7 @@ class Site:
         body = self.hero('network', 'Knowledge', 'Knowledge', self.gloss('The words, structure and connections behind the profile: a glossary, a thesaurus of other words people use, the taxonomy of classes and codelists, the few terms the profile adds, and a graph of how it all connects.'))
         body += f'<h2 id="glossary">Glossary</h2><dl class="facts">{gl}</dl>'
         body += f'<h2 id="thesaurus">Thesaurus</h2>{th}'
-        body += f'<h2 id="taxonomy">Taxonomy</h2><div class="tabs" id="tax-tabs"><div role="tablist" aria-label="Taxonomy"><button role="tab" id="tt-c" aria-controls="tp-c">Classes and properties</button><button role="tab" id="tt-l" aria-controls="tp-l">Codelists</button><button role="tab" id="tt-o" aria-controls="tp-o">Terms the profile adds</button></div>'
+        body += '<h2 id="taxonomy">Taxonomy</h2><div class="tabs" id="tax-tabs"><div role="tablist" aria-label="Taxonomy"><button role="tab" id="tt-c" aria-controls="tp-c">Classes and properties</button><button role="tab" id="tt-l" aria-controls="tp-l">Codelists</button><button role="tab" id="tt-o" aria-controls="tp-o">Terms the profile adds</button></div>'
         body += f'<div role="tabpanel" id="tp-c" aria-labelledby="tt-c" tabindex="0">{tax}</div><div role="tabpanel" id="tp-l" aria-labelledby="tt-l" tabindex="0" hidden>{cltax}</div>'
         body += f'<div role="tabpanel" id="tp-o" aria-labelledby="tt-o" tabindex="0" hidden><p>Everything else is reused from DCAT, Dublin Core, vCard, ADMS, PROV, SPDX, DQV and schema.org. Only these are new, under the proposed namespace <code>{E(self.m["namespace"])}</code>. Download the <a href="downloads/dcat-ap-uk.ns.ttl">definitions</a>.</p><ul>{"".join(terms)}</ul></div></div>'
         body += f'<h2 id="graph">Knowledge graph</h2><p>Classes in the middle, then codelists, then the backlog items that shaped them, with the strategy and the sister portals around the edge. Select a node to go to it; point at it to light up its links.</p>{graph}<details><summary>The same graph as a list</summary><ul>{nl}</ul></details>'
@@ -1326,8 +1324,8 @@ class Site:
         rows = [[f'<a href="downloads/{E(f)}" download>{E(t)}</a>', E(d), f'<code>{E(mt)}</code>'] for f, t, d, mt in meta]
         ex_rows = [[E(e['label']), ' · '.join(f'<a href="downloads/examples/{e["key"]}.{x}" download>{x}</a>' for x in ('json', 'jsonld', 'ttl'))] for e in p.examples]
         body = self.hero('download', 'Downloads', 'Downloads and API', self.gloss('Every file is generated from the profile source on each build, so they always agree. They are static files: use the addresses as a simple read-only API.'))
-        body += f'<h2 id="files">The profile in every format</h2>' + table('t-dl', 'Files', ['File', 'What it is for', 'Media type'], rows, sortable=False)
-        body += f'<h2 id="examples">Examples</h2>' + table('t-ex', 'Worked examples', ['Example', 'Formats'], ex_rows, sortable=False)
+        body += '<h2 id="files">The profile in every format</h2>' + table('t-dl', 'Files', ['File', 'What it is for', 'Media type'], rows, sortable=False)
+        body += '<h2 id="examples">Examples</h2>' + table('t-ex', 'Worked examples', ['Example', 'Formats'], ex_rows, sortable=False)
         body += (f'<h2 id="tests">Test records for suppliers</h2><p>The repository holds records that must pass (the examples) and records that must fail (<a href="{E(self.m["repo_url"])}/blob/main/tests/fixtures/invalid.yaml">tests/fixtures/invalid.yaml</a>), '
                  f'each naming the rule it breaks. A product that claims conformance should accept every example and reject every failing record. The repository’s own tests hold the SHACL shapes, the JSON Schema and the browser validator to exactly that.</p>')
         body += ('<h2 id="use">How to use them</h2>' + ul([
@@ -1440,7 +1438,6 @@ class Site:
 
     def whatsnew_page(self):
         body = self.hero('history', 'About', "What's new", 'Changes in each release, newest first, and every page and section that is new or updated since the last baseline.')
-        k = self.counts()
         crow = self.changed_table()
         if self.base.get('since'):
             body += (f'<h2 id="changed">Changed since {E(self.since_text())}</h2><p>Each section of each page is fingerprinted when a release is made. '
@@ -1467,7 +1464,7 @@ class Site:
             'Checked at source: current versions of the standards, the organisation list after the July 2026 machinery of government change, and UK adequacy, now called data bridges.',
             'New and Updated flags on every changed section, drawer item and group, under each page title and in the global bar, with the full list <a href="#changed">above</a>, and a <a href="status.html">Status page</a> with the self-checks that run on every build (<a href="governance.html#adrs">ADR 0016</a>).'])
         body += '<h2 id="v11">1.1.0-rc.1, 2026-11-06</h2>' + ul([
-            f'Nine <a href="extensions.html">sector extensions</a> (health, geospatial, statistics, transport, high-value datasets, AI-ready, data spaces, private and voluntary sector, energy), each with its own shapes, schema, example and break.',
+            'Nine <a href="extensions.html">sector extensions</a> (health, geospatial, statistics, transport, high-value datasets, AI-ready, data spaces, private and voluntary sector, energy), each with its own shapes, schema, example and break.',
             'Cross-border flows: where data is held or sent, across the UK nations, Crown Dependencies, Overseas Territories, Commonwealth and partners, and the UK GDPR transfer safeguard (rule R-08).',
             'A quality score on the five EU quality dimensions and three conformance levels, in the builder, the checker and the new bulk checker.',
             'AI-ready: usage policies in ODRL, schema.org and Croissant exports, llms.txt and an MCP server. Quantum-ready: strong checksums, connection security and crypto-agility.',
@@ -1510,7 +1507,7 @@ class Site:
                 pat = f' <span class="small">Pattern: <code>{E(x["pattern"])}</code></span>' if x.get('pattern') else ''
                 rows.append([link, E(q.classes[ck]['label']), tag(x['ob']) + (' <span class="tag warn">Provisional</span>' if prop.get('provisional') else ''),
                              f'<code>{E(prop["uri"])}</code>', E(what), E(prop['definition']) + pat])
-        for ck, c in (e.get('new_classes') or {}).items():
+        for _ck, c in (e.get('new_classes') or {}).items():
             for x in c['properties']:
                 prop = q.props[x['p']]
                 rows.append([E(prop['label']), E(c['label']) + ' (new class)', tag(x['ob']), f'<code>{E(prop["uri"])}</code>', 'New', E(prop['definition'])])
@@ -1647,8 +1644,8 @@ class Site:
         body += f'<h2 id="checklist">Adoption checklist</h2><p>Tick as you go. Your ticks stay in this browser only.</p><form id="checklist-form" class="checklist" aria-label="Adoption checklist">{ck}</form><p class="small" id="ck-count" aria-live="polite"></p>'
         body += f'<h2 id="crosswalks">Crosswalks from the models you use now</h2>{self.crosswalk_tabs()}'
         body += f'<h2 id="harvest">Being harvested</h2><ol>{hv}</ol>'
-        body += (f'<h2 id="procurement">Words for contracts</h2><p>Clauses a buyer can adapt when buying or replacing a catalogue product. They are a starting point, not legal or commercial advice. '
-                 'For the full set, covering every open standard named here, exit and technical debt, see <a href="lockin.html#clauses">avoiding lock-in and technical debt</a>.</p><pre id="proc" tabindex="0">{E(pc)}</pre>'
+        body += ('<h2 id="procurement">Words for contracts</h2><p>Clauses a buyer can adapt when buying or replacing a catalogue product. They are a starting point, not legal or commercial advice. '
+                 f'For the full set, covering every open standard named here, exit and technical debt, see <a href="lockin.html#clauses">avoiding lock-in and technical debt</a>.</p><pre id="proc" tabindex="0">{E(pc)}</pre>'
                  '<p class="btns"><button type="button" class="btn secondary small" data-copy="proc">Copy the clauses</button></p>')
         body += f'<h2 id="identifiers">Naming organisations outside government</h2><p>GOV.UK addresses only cover government. For everyone else use a registered identifier in the org-id.guide form; the <a href="extensions.html#ext-organisations">private and voluntary sector extension</a> checks the form. {prov("K")}</p>{ids}'
         body += ('<h2 id="tools">The tools</h2>' + ul(['<a href="builder.html">Build a record</a>, with live checks, level and quality score', '<a href="validate.html">Check records</a>, or convert xGov MEM records',
@@ -1795,7 +1792,7 @@ class Site:
         u = m['site_url']
         lines = [f'# {m["title"]} ({m["short_title"]})', '',
                  f'> A proposed UK application profile of W3C DCAT 3, aligned with DCAT-AP 3.0.1, for describing datasets and data services so they can be found, judged and shared across catalogues. Version {m["version"]}, as of {m["as_of"]}. Proposed and not endorsed; not an official GOV.UK service.', '']
-        for k, label, ic, kids in NAV:
+        for k, label, _ic, kids in NAV:
             lines.append(f'## {label}')
             for x in (kids or [k]):
                 lines.append(f'- [{TITLES[x]}]({u}{"" if x == "index" else x + ".html"}): {DESC[x]}')
@@ -1805,7 +1802,7 @@ class Site:
                   f'- [Extensions]({u}downloads/extensions/index.json)', f'- [Cross-reference manifest]({u}xref.json)', '', '## Optional', f'- [The whole profile as markdown]({u}llms-full.txt)', '']
         (self.out / 'llms.txt').write_text('\n'.join(lines), encoding='utf-8')
         full = [f'# {m["title"]} {m["version"]}', '', ' '.join(m['status_note'].split()), '', '## Classes', '']
-        for ck, c in p.classes.items():
+        for _ck, c in p.classes.items():
             full += [f'### {c["label"]} ({c["uri"]})', '', c['definition'], '', '| Property | Term | Obligation | Cardinality |', '|---|---|---|---|']
             full += [f'| {p.props[x["p"]]["label"]} | {p.props[x["p"]]["uri"]} | {OB_LABEL[x["ob"]]}{" (" + x["condition"] + ")" if x.get("condition") else ""} | {x["card"]} |' for x in c['properties']]
             full.append('')
@@ -1834,7 +1831,7 @@ class Site:
         body += (f'<h2 id="tours">Guided tours</h2><p>A tour points out the parts of a page one at a time. Start one from <strong>Tour</strong> at the top of a page that has one, or here. '
                  f'Use the buttons or the arrow keys to move; Escape ends it.</p><ul class="cols">{tours}</ul>')
         body += f'<h2 id="tutorials">Tutorials</h2><p>Step-by-step lessons with something to show at the end. <a href="tutorials.html">See all {len(self.g["tutorials"])} tutorials</a>.</p>'
-        body += (f'<h2 id="display">Display options</h2><p><strong>Display options</strong>, at the top of every page, changes text size, line spacing, colours (including high contrast), '
+        body += ('<h2 id="display">Display options</h2><p><strong>Display options</strong>, at the top of every page, changes text size, line spacing, colours (including high contrast), '
                  'motion and link style. Your choices apply to every page and stay in this browser only. The portal also follows your device’s settings for dark mode and reduced motion.</p>')
         body += f'<h2 id="faqs">Questions people ask</h2>{faqs}'
         body += (f'<h2 id="help">Getting help</h2><p>Use the <a href="contact.html">contact form</a>. To change the profile, use the <a href="{E(self.m["change_request"])}">change request form</a>. '
@@ -1950,8 +1947,8 @@ class Site:
                 cells.append(f'<code>{E(val)}</code>' if val and c != 'eu' else (E(val) if val else '<span class="small">None</span>'))
             rows.append(cells)
             attrs.append(f' data-coverage="{"wide" if n >= 6 else "some" if n >= 2 else "few"}"')
-        mx = (f'<div class="filters" data-for="t-cwm"><label>Search<input type="search" placeholder="property or term"></label><label>Coverage<select data-col="coverage"><option value="">All</option>'
-              f'<option value="wide">In six or more models</option><option value="some">In two to five</option><option value="few">In one or none</option></select></label><output aria-live="polite"></output></div>'
+        mx = ('<div class="filters" data-for="t-cwm"><label>Search<input type="search" placeholder="property or term"></label><label>Coverage<select data-col="coverage"><option value="">All</option>'
+              '<option value="wide">In six or more models</option><option value="some">In two to five</option><option value="few">In one or none</option></select></label><output aria-live="polite"></output></div>'
               + table('t-cwm', f'Every DCAT-AP-UK property in {len(cols)} other models {prov("K")}', ['Property'] + [E(l) for _, l in cols], rows, row_attrs=attrs))
         body = self.hero('waypoints', 'Tools', 'Metadata weaver', self.gloss(
             'Convert a record from one metadata model to another, with DCAT-AP-UK in the middle. Every field is threaded to the property it becomes, so you can see what carried, what changed and what was lost. Nothing leaves your browser.'))
@@ -2077,7 +2074,7 @@ class Site:
         sd = self.sd
         for st in sd['standards']:
             n('standard:' + st['id'], st['label'], 'standard', f'standards.html#std-{st["id"]}', st.get('note', ''))
-        for a, r, b in sd['links']:
+        for a, _r, b in sd['links']:
             e('standard:' + b, 'standard:' + a)
         PRE = {'dct': 'dct', 'skos': 'skos', 'foaf': 'foaf', 'vcard': 'vcard', 'adms': 'adms', 'prov': 'prov', 'dqv': 'dqv', 'spdx': 'spdx', 'locn': 'locn', 'geosparql': 'geosparql',
                'odrl': 'odrl', 'dcat': 'dcat3', 'dcatap': 'dcatap', 'healthdcatap': 'healthdcat', 'geodcatap': 'geodcat', 'statdcatap': 'statdcat', 'mobilitydcatap': 'mobilitydcat', 'dspace': 'dsp', 'dcatuk': 'ukap', 'schema': 'schemaorg'}
@@ -2153,7 +2150,7 @@ class Site:
             y = 10 + i * (bh + gap)
             parts.append(f'<text x="{lw - 8}" y="{y + bh * .7:.0f}" text-anchor="end">{E(lab[:34])}</text>')
             x = lw
-            for (sn, ci), v in zip(series, vals):
+            for (sn, ci), v in zip(series, vals, strict=False):
                 if v:
                     w = v * sc
                     parts.append(f'<rect class="f{ci}" x="{x:.1f}" y="{y}" width="{max(w, 1):.1f}" height="{bh}" rx="2"><title>{E(lab)}: {E(sn)} {v}</title></rect>')
@@ -2185,7 +2182,7 @@ class Site:
         cl = sorted([(s['label'], [len(s['concepts'])]) for sk, s in p.codelists.items() if sk != 'organisations'], key=lambda r: -r[1][0])
         c4 = self.bar_chart('c-codelists', 'Values in each codelist', cl, [('Values', 7)], note=f'Not shown: {len(p.codelists["organisations"]["concepts"]):,} GOV.UK organisations.' if 'organisations' in p.codelists else '')
         ex = []
-        for eid, e in p.extensions.items():
+        for _eid, e in p.extensions.items():
             new = len(e.get('properties') or {})
             raised = len({x['p'] for xs in e['classes'].values() for x in xs} - set(e.get('properties') or {}))
             ex.append((e['label'], [new, raised]))
@@ -2203,7 +2200,6 @@ class Site:
         lr = [(x['name'], [sum(1 for v in x['levels'].values() if v == 'full'), sum(1 for v in x['levels'].values() if v == 'partial')]) for x in ls['profiles']]
         c8 = self.bar_chart('c-landscape', 'Profiles scanned: features offered', sorted(lr, key=lambda r: -r[1][0]), [('Full', 2), ('Partial', 8)], maxv=len(ls['columns']),
                             note=f'Out of {len(ls["columns"])} features. "Not seen" counts as none.')
-        k = self.counts()
         tiles = ''.join(f'<div class="card"><p class="stat">{v}</p><p>{icon(i)} {E(l)}</p></div>' for v, l, i in [
             (len(p.props), 'properties', 'tags'), (len(p.classes), 'classes', 'boxes'), (len(p.codelists), 'codelists', 'list-tree'), (len(p.rules), 'rules', 'scale'),
             (len(p.extensions), 'sector extensions', 'puzzle'), (len(p.crosswalks) + 2, 'models crosswalked', 'merge'), (len(p.examples), 'worked examples', 'book-open'),
@@ -2289,7 +2285,7 @@ class Site:
         return man
 
     def integrations_page(self):
-        p, it = self.p, self.ig
+        it = self.ig
         man = self.integration_files()
         cat = {c['id']: c['label'] for c in it['categories']}
         pats = ''.join(f'<div class="card" id="pat-{x["id"]}"><h3>{icon(x["icon"])} {E(x["title"])}</h3><p class="small">{E(x["for"])}</p><p>{E(x["text"])}</p><p class="go"><a href="{E(x["how"])}">How {icon("arrow-right")}</a></p></div>' for x in it['patterns'])
@@ -2322,7 +2318,7 @@ class Site:
         body += (f'<h2 id="claims">Conformance claims and badges</h2><p>{E(" ".join(it["claim"]["text"].split()))}</p><ul class="cols">{badges}</ul>'
                  f'<p class="btns"><a class="btn" href="{E(self.m["repo_url"])}/issues/new?template=conformance-claim.yml">{icon("badge-check") if "badge-check" in ICONS else icon("check")} Claim conformance for a product</a></p>'
                  '<p>No claims have been checked yet.</p>')
-        body += f'<h2 id="standards">Working with other standards</h2><p>DCAT-AP-UK sits among many other open standards. See every connection on the <a href="standards.html">standards map</a>.</p>'
+        body += '<h2 id="standards">Working with other standards</h2><p>DCAT-AP-UK sits among many other open standards. See every connection on the <a href="standards.html">standards map</a>.</p>'
         drawer = [{'title': 'Integrations', 'icon': 'plug', 'items': [{'id': 'patterns', 'label': 'Ways to connect', 'icon': 'workflow', 'count': len(it['patterns'])}, {'id': 'products', 'label': 'Products', 'icon': 'boxes', 'count': len(it['products'])},
                    {'id': 'kit', 'label': 'Conformance kit', 'icon': 'clipboard-check', 'count': len(man['cases'])}, {'id': 'cli', 'label': 'Command line', 'icon': 'terminal' if 'terminal' in ICONS else 'code-xml'},
                    {'id': 'embed', 'label': 'Embed', 'icon': 'package'}, {'id': 'api', 'label': 'Reference API', 'icon': 'plug'}, {'id': 'claims', 'label': 'Claims and badges', 'icon': 'shield-check'},
@@ -2491,13 +2487,13 @@ class Site:
                  + ''.join(f'<li>{icon(ic)}<strong>{E(t)}</strong><span class="small">{n}</span></li>' for t, n, ic in chain) + '</ol>')
         grows = [[E(g['gate']), f'<strong class="tag {TAG[g["status"]]}">{E(st[g["status"]]["label"])}</strong>', E(g['evidence'])] for g in rq['gates']]
         body += '<h2 id="gates">Release gates</h2><p>A release is ready when all four gates are met (RQ-26).</p>' + table('t-gates', 'Release gates and where they stand', ['Gate', 'Status', 'Evidence'], grows, sortable=False)
-        body += f'<h2 id="principles">Design principles</h2><ol>' + ''.join(f'<li>{E(x["text"])}</li>' for x in rq['principles']) + '</ol>'
+        body += '<h2 id="principles">Design principles</h2><ol>' + ''.join(f'<li>{E(x["text"])}</li>' for x in rq['principles']) + '</ol>'
         body += (f'<h2 id="catalogue">The requirements</h2><p>{len(reqs)} requirements in {len(th)} themes. Each says who raised it, by kind of community; how it is evidenced; what would show it met; and where it is traced. '
                  'Select one in the <a href="lineage.html">lineage explorer</a> to follow it to properties and tests.</p>' + cat
                  + '<p><a class="btn secondary" href="downloads/requirements.csv" download>' + icon('download') + ' Requirements (CSV)</a> '
                  '<a class="btn secondary" href="downloads/requirements.json" download>' + icon('download') + ' Requirements (JSON)</a> '
                  '<a class="btn secondary" href="downloads/requirements-template.csv" download>' + icon('download') + ' Blank template (CSV)</a></p>')
-        body += f'<h2 id="sources">Public sources</h2>' + table('t-rqs', 'Public sources behind the requirements', ['Source', 'What it says', 'Checked', 'Requirements'], srows, sortable=False)
+        body += '<h2 id="sources">Public sources</h2>' + table('t-rqs', 'Public sources behind the requirements', ['Source', 'What it says', 'Checked', 'Requirements'], srows, sortable=False)
         body += (f'<h2 id="controlled">Controlled layers</h2><p>{E(" ".join(rq["controlled"]["text"].split()))}</p><p>What the open core gives those layers to attach to:</p>'
                  + ul([E(x) for x in rq['controlled']['extension_points']]))
         body += f'<h2 id="programme">Proposed work programme</h2><p>This project\'s proposal. Nothing here is commissioned or endorsed.</p><ol class="steps">{prog}</ol>'
@@ -2637,7 +2633,7 @@ class Site:
         kits['glue-parameters'] = {'_note': note + ' Set in TableInput.Parameters; values are strings, with lists and objects written as JSON.', 'Parameters': flat}
         smithy = ['// ' + note, '// Create with CreateFormType (model.smithy), then attach to assets as the form DcatApUkForm.', '// The Smithy syntax here is background knowledge; check it against the SageMaker Catalog guide before loading.',
                   '@amazon.datazone#displayName("DCAT-AP-UK")', 'structure DcatApUkFormType {']
-        for k, pr, ob, m in rows:
+        for k, pr, ob, _m in rows:
             smithy.append(f'    @documentation("{desc(pr).replace(chr(34), chr(39))}")')
             smithy.append(f'    {"@required " if ob == "M" else ""}{k}: String')
         smithy.append('}')
@@ -2717,7 +2713,7 @@ class Site:
         for i, r in enumerate(reps):
             nodes.append({'id': r['id'], 'small': True, 'x': 30, 'y': 30 + top_r + i * gap, 'kind': 'codelist', 'chip': f'{r["publisher"].upper()} · {r["date"][:4]}', 'title': r['title'].replace('The Forrester Wave: ', '').replace('Magic Quadrant for ', ''),
                           'sub': f'{len(r.get("leaders", []))} leaders named', 'href': '#reports', 'facts': [('Published', r['date']), ('By', r['publisher'])], 'desc': r.get('note', ''), 'uri': r['url'], 'open': 'Go to the reports'})
-        for i, x in enumerate(prods):
+        for _i, x in enumerate(prods):
             c = self.vendor_caps(x)
             nodes.append({'id': x['id'], 'small': True, 'x': pos[x['id']][0], 'y': pos[x['id']][1], 'kind': 'M' if c['mapped'] else 'class', 'chip': ('MAPPED · ' if c['mapped'] else '') + x['kind'].upper().replace('-', ' '), 'title': x['name'],
                           'sub': ', '.join(k for k, ok in (('kit', c['kit']), ('weave', bool(c['weave'])), ('MCP', c['mcp']), ('Claude', c['claude'])) if ok) or 'listed',
@@ -2740,7 +2736,7 @@ class Site:
                          'Select a report, product or route to see its details. Without JavaScript, each card goes to its section.', legend=legend)
 
     def connectors_page(self):
-        v, p = self.vd, self.p
+        v = self.vd
         errs = self.vendor_problems()
         if errs:
             raise SystemExit('content/vendors.yaml: ' + '; '.join(errs))
@@ -2761,9 +2757,9 @@ class Site:
             mattrs.append(f' data-kind="{x["kind"]}" data-deploy="{" ".join(x["deploy"])}" data-has="' + ' '.join(k for k in ('repo', 'mapped', 'kit', 'weave', 'mcp', 'claude') if c[k]) + '"'
                           + ' data-report="' + ' '.join(x.get('reports', [])) + '"')
         ropts = ''.join(f'<option value="{E(r["id"])}">{E(r["short"])}</option>' for r in v['reports'])
-        flt = (f'<div class="filters" data-for="t-matrix"><label>Search<input type="search" placeholder="product name"></label>'
-               f'<label>Kind<select data-col="kind"><option value="">All</option>' + ''.join(f'<option value="{k}">{E(l)}</option>' for k, l in self.KINDS.items()) + '</select></label>'
-               f'<label>Runs as<select data-col="deploy"><option value="">Any</option>' + ''.join(f'<option value="{k}">{E(l)}</option>' for k, l in self.DEPLOY.items()) + '</select></label>'
+        flt = ('<div class="filters" data-for="t-matrix"><label>Search<input type="search" placeholder="product name"></label>'
+               '<label>Kind<select data-col="kind"><option value="">All</option>' + ''.join(f'<option value="{k}">{E(l)}</option>' for k, l in self.KINDS.items()) + '</select></label>'
+               '<label>Runs as<select data-col="deploy"><option value="">Any</option>' + ''.join(f'<option value="{k}">{E(l)}</option>' for k, l in self.DEPLOY.items()) + '</select></label>'
                f'<label>Report<select data-col="report"><option value="">All</option>{ropts}</select></label>'
                f'<label>Offers<select data-col="has"><option value="">Anything</option><option value="mapped">A field mapping</option><option value="kit">An add-on kit</option>'
                f'<option value="weave">Weaver conversion</option><option value="mcp">An MCP server</option><option value="claude">Something in Claude</option><option value="repo">A public repository</option></select></label><output aria-live="polite"></output></div>')
@@ -2828,8 +2824,8 @@ class Site:
                  'or from secondary sources, labelled K. Suppliers can correct an entry with the claim form on the <a href="integrations.html#claims">integrations page</a>.</p></div>')
         body += f'<h2 id="choose">Find your product</h2><p>Filter by kind, report or what you need; select a product to see how to connect it.</p>{mt}'
         body += f'<h2 id="map">How it fits together</h2>{self.vendor_map()}'
-        body += (f'<h2 id="vendors">Products and how to connect them</h2><p>Each product has steps in order. A field mapping cites the public file it was mapped from and the commit read; '
-                 f'a product whose model is not published has no mapping, rather than a guessed one.</p>'
+        body += ('<h2 id="vendors">Products and how to connect them</h2><p>Each product has steps in order. A field mapping cites the public file it was mapped from and the commit read; '
+                 'a product whose model is not published has no mapping, rather than a guessed one.</p>'
                  + ''.join(f'<h3 id="kind-{k}">{E(l)} ({len(cards[k])})</h3>{"".join(cards[k])}' for k, l in self.KINDS.items() if cards[k]))
         body += (f'<h2 id="ai">AI agents, MCP servers and skills</h2><p>What each vendor offers AI agents that find, explain and govern catalogue metadata. '
                  f'An agent can use these alongside this portal\'s own <a href="integrations.html">MCP server</a>, which checks and converts DCAT-AP-UK records.</p>{at}')

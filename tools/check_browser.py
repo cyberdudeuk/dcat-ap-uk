@@ -13,7 +13,6 @@ and pages still render their content with app.js blocked.
 import argparse
 import functools
 import http.server
-import json
 import shutil
 import sys
 import tempfile

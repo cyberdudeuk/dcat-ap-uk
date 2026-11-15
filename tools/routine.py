@@ -67,7 +67,7 @@ def commit_and_publish(routine, paths, message, dry):
     verify()
     sh('git', '-c', f'user.name={BOT[0]}', '-c', f'user.email={BOT[1]}', 'add', *paths)
     sh('git', '-c', f'user.name={BOT[0]}', '-c', f'user.email={BOT[1]}', 'commit', '-q', '-m', f'{message}\n\nRoutine: {routine}\nTier: 1 (ops/automation.yaml)')
-    for attempt in range(3):  # main may have moved while the checks ran
+    for _attempt in range(3):  # main may have moved while the checks ran
         if sh('git', 'push', '-q', 'origin', 'HEAD:main', check=False) == 0:
             break
         sh('git', 'pull', '-q', '--rebase', 'origin', 'main')

@@ -5,6 +5,12 @@ All notable changes to DCAT-AP-UK. The format follows [Keep a Changelog](https:/
 ## [Unreleased]
 
 ### Fixed
+- The Adopt page's Words for contracts box showed the literal text `{E(pc)}` instead of the procurement clauses, and Copy the clauses copied that. The clauses now show, and check C-16 now looks inside `pre` blocks for the build's own placeholders (D-037).
+
+### Changed
+- Ruff (Python) and ESLint (JavaScript) run in CI and fail on any finding; the lint pass removed dead code and made the validator comparisons in the tests strict (D-037). Part of applying the secure development standard to every project.
+
+### Fixed
 - Where each product runs is now sourced product by product, each with a check date (D-036). Most lists were
   confirmed at the vendor's own documentation; open-source and cloud-service entries cite the repository they pin.
   Secoda now shows its documented self-hosted, on-premises option. Actian's product page (SaaS) and a 2025 press

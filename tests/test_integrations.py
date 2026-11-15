@@ -8,7 +8,6 @@ import re
 import socket
 import subprocess
 import sys
-import time
 import unittest
 import urllib.request
 from pathlib import Path
@@ -19,7 +18,7 @@ sys.path.insert(0, str(ROOT / 'tests'))
 
 import yaml  # noqa: E402
 
-from test_toolkit import FILES, P, PROF, js  # noqa: E402
+from test_toolkit import P, js  # noqa: E402
 
 SITE = ROOT / 'site'
 EMAIL = re.compile(r'[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}')
@@ -185,10 +184,10 @@ class MemPortalFeatures(unittest.TestCase):
     """Features brought over from the xGov MEM portal stay complete."""
 
     def test_every_class_page_has_a_diagram_linking_its_ranges(self):
-        for ck, c in P.classes.items():
+        for ck, _c in P.classes.items():
             html = (SITE / f'class-{re.sub(r"[^a-z0-9]+", "-", ck.lower()).strip("-")}.html').read_text(encoding='utf-8')
             self.assertIn('id="diagram"', html, ck)
-            for x, prop in P.class_props(ck):
+            for _x, prop in P.class_props(ck):
                 r = prop.get('range')
                 if r in P.classes and r != ck:
                     # ADR 0019: the diagram is a model map; each range class is a card linking to its page

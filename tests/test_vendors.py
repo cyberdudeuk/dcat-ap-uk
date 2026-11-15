@@ -120,8 +120,8 @@ class VendorSchemas(unittest.TestCase):
         import tempfile
         try:
             subprocess.run(['git', 'ls-remote', 'https://github.com/boto/botocore', 'HEAD'], check=True, capture_output=True, timeout=30)
-        except Exception:
-            raise unittest.SkipTest('github.com is not reachable here; CI runs tools/check_vendor_shapes.py')
+        except Exception as e:
+            raise unittest.SkipTest('github.com is not reachable here; CI runs tools/check_vendor_shapes.py') from e
         import check_vendor_shapes as cvs
         cls.cvs = cvs
         cls.tmp = tempfile.TemporaryDirectory()

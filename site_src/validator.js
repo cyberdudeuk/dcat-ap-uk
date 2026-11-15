@@ -300,7 +300,7 @@
   // Read CSV (RFC 4180). Returns an array of rows (arrays of strings).
   function parseCSV(text) {
     var rows = [], row = [], cell = '', q = false, i, c;
-    text = String(text).replace(/^﻿/, '');
+    text = String(text).replace(/^\uFEFF/, '');
     for (i = 0; i < text.length; i++) {
       c = text[i];
       if (q) { if (c === '"') { if (text[i + 1] === '"') { cell += '"'; i++; } else q = false; } else cell += c; }
@@ -567,7 +567,7 @@
     if (kind === 'cvalue') return first(v) === undefined ? undefined : [{ value: String(first(v)) }];
     return v;
   }
-  function fieldIn(kind, v, prop) {
+  function fieldIn(kind, v) {
     if (v === undefined || v === null || v === '') return undefined;
     if (kind === 'text') return String(v);
     if (kind === 'list') return asList(v).map(String).filter(Boolean);
