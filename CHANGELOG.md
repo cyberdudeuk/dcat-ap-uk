@@ -4,6 +4,13 @@ All notable changes to DCAT-AP-UK. The format follows [Keep a Changelog](https:/
 
 ## [Unreleased]
 
+### Fixed
+- Where each product runs is now sourced product by product, each with a check date (D-036). Most lists were
+  confirmed at the vendor's own documentation; open-source and cloud-service entries cite the repository they pin.
+  Secoda now shows its documented self-hosted, on-premises option. Actian's product page (SaaS) and a 2025 press
+  release (also on premises) disagree, and the card says so. Ab Initio's leader position was rechecked and is still
+  unconfirmed: Gartner's public abstract lists Ab Initio as evaluated but not where it was placed.
+
 ### Added
 - Cloud, SaaS, on-premises and open-source vendors on the connectors page, now 31 products in four groups, with a
   "Runs as" filter (SaaS, cloud platform, on premises, self-hosted).

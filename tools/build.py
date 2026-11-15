@@ -2571,6 +2571,17 @@ class Site:
                 errs.append(f'vendor {x["id"]}: unknown kind {x.get("kind")}')
             if not x.get('deploy') or any(d not in self.DEPLOY for d in x['deploy']):
                 errs.append(f'vendor {x["id"]}: deploy must list one or more of {", ".join(self.DEPLOY)}')
+            # D-036: where a product runs is a claim like any other; it carries its own source, and a V source must be
+            # a repository this entry pins, so "verified" always means a commit someone can fetch.
+            ds = x.get('deploy_src') or {}
+            if ds.get('prov') not in ('V', 'S', 'K', 'U'):
+                errs.append(f'vendor {x["id"]}: deploy list has no provenance (D-036)')
+            elif ds['prov'] in ('V', 'S') and (not str(ds.get('source', '')).startswith('https://') or not ds.get('checked') or not ds.get('note')):
+                errs.append(f'vendor {x["id"]}: deploy list marked {ds["prov"]} needs an https source, a check date and a note (D-036)')
+            elif ds['prov'] == 'V' and ds['source'].removeprefix('https://github.com/').lower() not in {r['repo'].lower() for r in x.get('repos', [])}:
+                errs.append(f'vendor {x["id"]}: deploy list marked V must cite a repository this entry pins (D-036)')
+            if 'open-source' in x.get('deploy', []) and not x.get('repos'):
+                errs.append(f'vendor {x["id"]}: open source but no repository pinned (D-036)')
             if x.get('crosswalk'):
                 if not x.get('model') or x['model'].get('prov') != 'V':
                     errs.append(f'vendor {x["id"]}: a crosswalk needs a verified model file')
@@ -2802,7 +2813,7 @@ class Site:
                 mapped = ''
             steps = ''.join(f'<li>{st}</li>' for st in self.vendor_steps(x))
             badges = ' '.join(f'<strong class="tag {"ok" if ok else ""}">{E(lbl)}</strong>' for lbl, ok in (('Mapped', c['mapped']), ('Schema-checked', bool(x.get('schema_checked'))), ('Kit', c['kit']), ('Weaver', bool(c['weave'])), ('MCP', c['mcp']), ('In Claude', c['claude'])) if ok)
-            cards[x['kind']].append(f'<section class="panel" id="v-{x["id"]}"><h4>{E(x["name"])}</h4><p class="small">{badges} Runs as: {E(dlab(x))} {prov("K")}. In: {inr}</p>'
+            cards[x['kind']].append(f'<section class="panel" id="v-{x["id"]}"><h4>{E(x["name"])}</h4><p class="small">{badges} Runs as: {E(dlab(x))} {prov(x['deploy_src']['prov'])}. {E(x['deploy_src']['note'])} (<a href="{E(x['deploy_src']['source'])}">source</a>, checked {date.fromisoformat(str(x['deploy_src']['checked'])).strftime('%-d %B %Y')}.) In: {inr}</p>'
                                     f'<h5>How to connect</h5><ol>{steps}</ol>{mapped}'
                                     + (f'<details><summary>Public repositories ({len(x["repos"])})</summary><ul>{rp}</ul></details>' if rp else '<p class="small">No public repository found.</p>')
                                     + (f'<p class="small">MCP tools include {tools_}.</p>' if tools_ else '') + '</section>')
