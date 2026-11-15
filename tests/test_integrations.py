@@ -179,7 +179,7 @@ class ReferenceAPI(unittest.TestCase):
                     urllib.request.urlopen(urllib.request.Request(base + path, data=body, method='POST'), timeout=5)
                 except urllib.error.HTTPError as e:
                     return e.code, json.load(e)
-                self.fail('expected an error for ' + path)
+                return None, None  # no error raised: the assertions below then fail and name the call
             self.assertEqual((400, {'error': 'Unknown extension no-such-ext'}), err('/validate?ext=no-such-ext', json.dumps(rec).encode()))
             code, body = err('/weave?from=ukap&to=dcatus', b'null')
             self.assertEqual((400, {'error': 'The request could not be processed'}), (code, body))
