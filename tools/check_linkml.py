@@ -8,7 +8,6 @@ breaks are skipped and counted. Exit 1 on any disagreement.
     python3 tools/check_linkml.py            # uses site/downloads/dcat-ap-uk.linkml.yaml from the last build
     python3 tools/check_linkml.py --break     # proves the check fails when the schema is wrong
 """
-import copy
 import sys
 from pathlib import Path
 
@@ -34,7 +33,7 @@ def normalise(p, ck, rec):
         if x and p.multi(x) and not isinstance(v, list):
             v = [v]
         if prop and prop['kind'] == 'object':
-            def one(o):
+            def one(o, prop=prop):
                 return normalise(p, prop['range'], o) if isinstance(o, dict) else o
             v = [one(o) for o in v] if isinstance(v, list) else one(v)
         out[k] = v

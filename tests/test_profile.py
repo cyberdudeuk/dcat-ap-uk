@@ -58,7 +58,7 @@ class ValidExamples(unittest.TestCase):
     def test_every_example_passes_all_three(self):
         recs = [e['record'] for e in P.examples]
         js = js_validate(recs)
-        for e, j in zip(P.examples, js):
+        for e, j in zip(P.examples, js, strict=True):
             with self.subTest(example=e['key']):
                 ok, text = shacl_ok(e['record'])
                 self.assertTrue(ok, text)
@@ -71,7 +71,7 @@ class DeliberateBreaks(unittest.TestCase):
 
     def test_every_break_fails_all_three(self):
         js = js_validate([x['record'] for x in INVALID])
-        for x, j in zip(INVALID, js):
+        for x, j in zip(INVALID, js, strict=True):
             with self.subTest(fixture=x['key']):
                 ok, _ = shacl_ok(x['record'])
                 self.assertFalse(ok, 'SHACL accepted a deliberate break')

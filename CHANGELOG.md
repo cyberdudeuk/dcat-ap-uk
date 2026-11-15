@@ -16,6 +16,12 @@ All notable changes to DCAT-AP-UK. The format follows [Keep a Changelog](https:/
     existed. The two packages it told people to install have no such names on PyPI or npm.
 
 ### Fixed
+- The Adopt page's Words for contracts box showed the literal text `{E(pc)}` instead of the procurement clauses, and Copy the clauses copied that. The clauses now show, and check C-16 now looks inside `pre` blocks for the build's own placeholders (D-037).
+
+### Changed
+- Ruff (Python) and ESLint (JavaScript) run in CI and fail on any finding; the lint pass removed dead code and made the validator comparisons in the tests strict (D-037). Part of applying the secure development standard to every project.
+
+### Fixed
 - D-037: the first draft of the namespace register linked each namespace. Several do not resolve (the StatDCAT-AP
   namespace contains a literal "(xyz)", and w3id.org/dcat-ap-uk is not registered yet, O-17), so the links would have
   sent people to errors. Namespaces are now shown as code. Check C-26, with a deliberate break.

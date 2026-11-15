@@ -461,7 +461,7 @@
       return o;
     };
     var threads = function (map, leftTitle, rightTitle) {
-      var L = map.map(function (m) { return m[0]; }), R = [];
+      var R = [];
       map.forEach(function (m) { if (m[1] && R.indexOf(m[1]) < 0) R.push(m[1]); });
       var li = function (s, miss) { return '<li' + (miss ? ' class="miss"' : '') + '>' + esc(s) + '</li>'; };
       var html = '<div class="weave" data-w><div><h3 class="h4">' + esc(leftTitle) + '</h3><ul class="wl">' + map.map(function (m) { return li(m[0], !m[1]); }).join('') + '</ul></div>' +

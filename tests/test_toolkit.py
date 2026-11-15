@@ -117,7 +117,7 @@ class Integrity(unittest.TestCase):
 class QualityAndLevels(unittest.TestCase):
     def test_scores(self):
         out = js('return d.map(function(r){return [V.fair(P,r), V.conformance(P,r)];});', [e['record'] for e in P.examples])
-        for e, (q, c) in zip(P.examples, out):
+        for e, (q, c) in zip(P.examples, out, strict=True):
             with self.subTest(example=e['key']):
                 self.assertEqual(405, q['max'])
                 self.assertEqual(q['score'], sum(d['score'] for d in q['dimensions']))

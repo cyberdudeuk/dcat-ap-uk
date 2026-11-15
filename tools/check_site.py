@@ -117,7 +117,7 @@ def c_links(site, docs):
     ids = {p.name: d.ids for p, d in docs}
     bad = []
     for p, d in docs:
-        for tag, href, rel in d.links:
+        for _tag, href, _rel in d.links:
             u = urlparse(href)
             if u.scheme or href.startswith(('//', 'mailto:', 'data:')):
                 continue
@@ -139,7 +139,7 @@ def c_tables(site, docs):
         n_tables = len(re.findall(r'<table[\s>]', d.text))
         if len(re.findall(r'<caption[\s>]', d.text)) < n_tables:  # exact tag names, not prefixes (D-006)
             bad.append(f'{p.name}: table without caption')
-        for m in re.finditer(r'<th(?=[\s>])(?![^>]*scope=)[^>]*>', d.text):  # not <thead> (D-005)
+        for _m in re.finditer(r'<th(?=[\s>])(?![^>]*scope=)[^>]*>', d.text):  # not <thead> (D-005)
             bad.append(f'{p.name}: th without scope')
             break
         for m in re.finditer(r'<table', d.text):
@@ -242,12 +242,17 @@ def c_svg_names(site, docs):
 
 
 def c_unrendered(site, docs):
-    """C-16 no unrendered template placeholders, such as {layers} or {prov("K")}, in page text (D-007)."""
+    """C-16 no unrendered template placeholders, such as {layers} or {prov("K")}, in page text (D-007); inside <pre>, the
+    build's own signatures {E(...)}, {icon(...)}, {prov(...)} and {self....} are flagged too, because a code example never
+    contains them (D-037: the Words for contracts box showed {E(pc)} because <pre> was not checked)."""
     bad = []
     for p, d in docs:
         t = re.sub(r'<script.*?</script>|<pre.*?</pre>|<code>.*?</code>', '', d.text, flags=re.S)
         for m in re.finditer(r'\{(?:[a-z_]+(?:\([^)]*\))?|E\([^)]*\)|self\.[^}]*)\}', t):
             bad.append(f'{p.name}: {m.group(0)[:40]}')
+        for pre in re.findall(r'<pre.*?</pre>', d.text, flags=re.S):
+            for m in re.finditer(r'\{(?:E|icon|prov|tag|table)\([^)]*\)\}|\{self\.[^}]*\}', pre):
+                bad.append(f'{p.name}: {m.group(0)[:40]} inside <pre>')
     return bad
 
 
@@ -267,7 +272,7 @@ def c_llms(site, docs):
             continue
         if not (site / (rel or 'index.html')).exists():
             bad.append(f'llms.txt: {u} does not resolve')
-    for p, d in docs:
+    for p, _d in docs:
         name = '' if p.name == 'index.html' else p.name
         if p.name not in ('404.html',) and not p.name.startswith('class-') and (base + name) + ')' not in text and (base + name + ':') not in text:
             if f'({base}{name})' not in text:
@@ -308,7 +313,7 @@ def c_feedback(site, docs):
     """C-21 every page offers "Suggest a change to this page", pointing at an issue form that exists and naming that page."""
     bad = []
     forms = {x.name for x in (ROOT / '.github' / 'ISSUE_TEMPLATE').glob('*.yml')}
-    for p, d in docs:
+    for p, _d in docs:
         html = p.read_text(encoding='utf-8')
         m = re.search(r'<a href="([^"]+)">Suggest a change to this page</a>', html)
         if not m:

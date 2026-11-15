@@ -359,7 +359,7 @@ def namespace_terms(p):
     g.add((ont, DCTERMS.title, Literal('Terms added by ' + p.meta['title'], lang='en')))
     g.add((ont, OWL.versionInfo, Literal(p.meta['version'])))
     g.add((ont, RDFS.comment, Literal(p.meta['namespace_status'], lang='en')))
-    for k, v in p.props.items():
+    for _k, v in p.props.items():
         if v['uri'].startswith('dcatuk:'):
             t = URIRef(p.expand(v['uri']))
             g.add((t, RDF.type, OWL.DatatypeProperty if v['kind'] == 'boolean' else OWL.ObjectProperty if v['kind'] in ('concept', 'iri') else RDF.Property))
@@ -369,7 +369,7 @@ def namespace_terms(p):
             if v.get('provisional'):
                 g.add((t, URIRef('http://www.w3.org/2003/06/sw-vocab-status/ns#term_status'), Literal('unstable')))
     for e in p.extensions.values():
-        for k, v in (e.get('properties') or {}).items():
+        for _k, v in (e.get('properties') or {}).items():
             if v['uri'].startswith('dcatuk:'):
                 t = URIRef(p.expand(v['uri']))
                 g.add((t, RDF.type, RDF.Property))
@@ -434,7 +434,7 @@ def csv_text(rows, header):
 
 def data_dictionary(p):
     rows = []
-    for ck, c in p.classes.items():
+    for ck, _c in p.classes.items():
         for x, prop in p.class_props(ck):
             mem = prop.get('mem') or {}
             rows.append([ck, x['p'], prop['label'], prop['uri'], x['ob'], x.get('cda', ''), x['card'], prop['kind'],

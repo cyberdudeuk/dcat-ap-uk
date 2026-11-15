@@ -37,6 +37,10 @@ jobs:
           pip install -r requirements.txt
           npm ci
           python -m playwright install --with-deps chromium
+      - name: Linters, failing on any finding (D-037)
+        run: |
+          ruff check .
+          npx eslint .
       - name: Tests (three validators agree; every rule has a deliberate break)
         run: python -I -m unittest discover -s tests -v
       - name: Build (first pass, for page weights)
