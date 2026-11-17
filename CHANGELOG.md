@@ -4,6 +4,11 @@ All notable changes to DCAT-AP-UK. The format follows [Keep a Changelog](https:/
 
 ## [Unreleased]
 
+### Added (repository standards for the move to gds-dtx, 17 November 2026)
+
+- Pre-commit hooks: detect-secrets against a new `.secrets.baseline`, YAML and JSON checks, whitespace fixes, and gitlint for GDS Way commit messages (`.gitlint`).
+- `.secrets.baseline` with every candidate audited, and the audit recorded in `docs/compliance/secrets-audit.md`.
+
 ### Added
 - From a like-for-like review of the retired GOV.UK Metadata Weaver prototype (Figma Make), the features it did better:
   - Knowledge: an A to Z over the glossary (letters with no term are shown, unlinked) and search over the glossary
