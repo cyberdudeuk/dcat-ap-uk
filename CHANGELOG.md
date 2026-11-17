@@ -4,6 +4,10 @@ All notable changes to DCAT-AP-UK. The format follows [Keep a Changelog](https:/
 
 ## [Unreleased]
 
+### Fixed
+
+- The release workflow no longer fails when the release already exists (made by hand): it attaches the assets to it instead. Regression test `tests/test_release_workflow.py` (issue #20).
+
 ### Added (repository standards for the move to gds-dtx, 17 November 2026)
 
 - Pre-commit hooks: detect-secrets against a new `.secrets.baseline`, YAML and JSON checks, whitespace fixes, and gitlint for GDS Way commit messages (`.gitlint`).
