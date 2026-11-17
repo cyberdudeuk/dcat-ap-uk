@@ -64,9 +64,16 @@ jobs:
         run: |
           (cd site && zip -qr "../dcat-ap-uk-site-${TAG}.zip" .)
           cd site/downloads
-          gh release create "${TAG}" --generate-notes --title "DCAT-AP-UK ${TAG}" $( [[ "$TAG" == *-* ]] && echo --prerelease ) \
-            dcat-ap-uk.shacl.ttl dcat-ap-uk.schema.json dcat-ap-uk.context.jsonld dcat-ap-uk.linkml.yaml dcat-ap-uk.ns.ttl \
-            codelists.ttl codelists.csv data-dictionary.csv crosswalk-mem.csv "../../dcat-ap-uk-site-${TAG}.zip"
+          assets=(dcat-ap-uk.shacl.ttl dcat-ap-uk.schema.json dcat-ap-uk.context.jsonld dcat-ap-uk.linkml.yaml dcat-ap-uk.ns.ttl
+                  codelists.ttl codelists.csv data-dictionary.csv crosswalk-mem.csv "../../dcat-ap-uk-site-${TAG}.zip")
+          # Issue #20: a person may already have made the release by hand, and `gh release create` then fails with
+          # "a release with the same tag name already exists". Attach the assets to it instead (same guard as
+          # ai-capability-governance and dam-capability-playbooks).
+          if gh release view "${TAG}" > /dev/null 2>&1; then
+            gh release upload "${TAG}" "${assets[@]}" --clobber
+          else
+            gh release create "${TAG}" --generate-notes --title "DCAT-AP-UK ${TAG}" $( [[ "$TAG" == *-* ]] && echo --prerelease ) "${assets[@]}"
+          fi
 
   flags-reset:
     # Tier 1 routine: reset the change flags to the release just made.
