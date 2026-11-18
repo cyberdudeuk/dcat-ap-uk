@@ -1,0 +1,58 @@
+# publiccode.yml: machine-readable description for public sector software catalogues.
+# Standard: https://yml.publiccode.tools  Validated by tests/test_publiccode.py and the
+# official parser (publiccode-parser-go). Version, release date and licence must match CITATION.cff.
+# No person is named and no email address is given: contact is by the contact form only.
+publiccodeYmlVersion: "0"
+
+name: DCAT-AP-UK
+url: https://github.com/cyberdudeuk/dcat-ap-uk
+landingURL: https://cyberdudeuk.github.io/dcat-ap-uk/
+softwareVersion: 1.2.0-rc.1
+releaseDate: "2026-11-06"
+
+platforms:
+  - web
+
+categories:
+  - data-collection
+  - knowledge-management
+
+developmentStatus: beta
+softwareType: standalone/web
+
+description:
+  en:
+    shortDescription: >-
+      A proposed UK application profile of DCAT 3 for describing public sector
+      datasets and data services. Proposed, not endorsed.
+    longDescription: >-
+      DCAT-AP-UK is one way to describe UK public sector datasets and data
+      services, so they can be found, judged and shared across every catalogue.
+      It is built on the W3C DCAT 3 Recommendation, aligned with DCAT-AP 3.0.1,
+      and evolved from the UK Cross-Government Metadata Exchange Model (xGov MEM).
+      It is a proposal for review by the Metadata Implementation Working Group:
+      it has not been endorsed by the Data Standards Authority, and it is not an
+      official GOV.UK service or policy. The repository holds the profile, its
+      SHACL shapes, JSON Schema, JSON-LD context and codelists, a validator
+      available as a command line, a local HTTP API and a GitHub Action, and the
+      portal that documents it.
+    documentation: https://cyberdudeuk.github.io/dcat-ap-uk/
+    features:
+      - Crosswalk from every xGov MEM property
+      - SHACL, JSON Schema and JSON-LD downloads
+      - Record validator as command line, HTTP API and GitHub Action
+      - Metadata weaver reading and writing several catalogue formats
+      - Conformance kit for suppliers
+
+legal:
+  license: MIT AND OGL-UK-3.0
+
+maintenance:
+  type: community
+  contacts:
+    - name: DCAT-AP-UK maintainers (contact form only)
+
+localisation:
+  localisationReady: false
+  availableLanguages:
+    - en
