@@ -56,7 +56,7 @@ class PubliccodeAgrees(unittest.TestCase):
             "softwareVersion": ({**pc, "softwareVersion": "0.0.0"}, raw),
             "releaseDate": ({**pc, "releaseDate": "1999-01-01"}, raw),
             "legal.license": ({**pc, "legal": {"license": "GPL-3.0-only"}}, raw),
-            "email address": (pc, raw + "\n# someone@example.gov.uk\n"),
+            "email address": (pc, raw + "\n# someone@example.org\n"),
             "maintenance contact": ({**pc, "maintenance": {"type": "community",
                                      "contacts": [{"name": "x", "email": "x"}]}}, raw),
             "missing key": ({k: v for k, v in pc.items() if k != "legal"}, raw),
