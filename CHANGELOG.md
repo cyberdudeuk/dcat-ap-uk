@@ -4,6 +4,11 @@ All notable changes to DCAT-AP-UK. The format follows [Keep a Changelog](https:/
 
 ## [Unreleased]
 
+## [1.3.0-rc.1] - 2026-11-19
+
+A minor release candidate: it adds a candidate extension (geodesy) and the changes below, so it is minor under the
+versioning rules in CONTRIBUTING.md.
+
 ### Fixed
 
 - The release workflow no longer fails when the release already exists (made by hand): it attaches the assets to it instead. Regression test `tests/test_release_workflow.py` (issue #20).
