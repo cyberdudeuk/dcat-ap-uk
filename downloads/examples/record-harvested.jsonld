@@ -1,0 +1,17 @@
+{
+  "@context": "https://cyberdudeuk.github.io/dcat-ap-uk/downloads/dcat-ap-uk.context.jsonld",
+  "class": "CatalogueRecord",
+  "id": "https://example.org/central-catalogue/record/eligibility-decisions",
+  "primaryTopic": "https://example.org/dcat-ap-uk/examples/eligibility-decisions",
+  "modified": "2026-11-06",
+  "issued": "2026-10-01",
+  "conformsTo": [
+    "https://w3id.org/dcat-ap-uk/1.2"
+  ],
+  "metadataAudience": "ukcl:metadata-audience/public-sector",
+  "securityClassification": "ukcl:security-classification/official",
+  "sourceRecord": "https://example.org/catalogue/record/eligibility-decisions",
+  "enrichedProperty": [
+    "dcat:theme"
+  ]
+}

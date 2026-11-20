@@ -1,0 +1,32 @@
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dcatuk: <https://w3id.org/dcat-ap-uk/ns#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix eufreq: <http://publications.europa.eu/resource/authority/frequency/> .
+@prefix eulang: <http://publications.europa.eu/resource/authority/language/> .
+@prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://ons.gov.uk/peoplepopulationandcommunity/populationandmigration/populationestimates/adhocs/15432ts007acensus2021agebyfiveyearagebands> a dcat:Dataset ;
+    dct:accessRights <https://w3id.org/dcat-ap-uk/codelist/access-rights/open> ;
+    dct:accrualPeriodicity eufreq:NEVER ;
+    dct:conformsTo <https://www.gov.uk/government/publications/recommended-open-standards-for-government/tabular-data-standard> ;
+    dct:description "Census 2021 estimates that classify usual residents in England and Wales by five-year age bands, as at Census Day, 21 March 2021. Downloads cover England and Wales, countries, regions, local authorities and smaller areas." ;
+    dct:identifier "TS007a" ;
+    dct:language eulang:CYM,
+        eulang:ENG ;
+    dct:license <http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/> ;
+    dct:publisher <https://www.gov.uk/government/organisations/office-for-national-statistics> ;
+    dct:spatial <http://statistics.data.gov.uk/id/statistical-geography/K04000001> ;
+    dct:temporal [ a dct:PeriodOfTime ;
+            dcat:endDate "2021-03-21"^^xsd:date ;
+            dcat:startDate "2021-03-21"^^xsd:date ] ;
+    dct:title "TS007a Age by five-year age bands, Census 2021" ;
+    dcat:contactPoint [ a vcard:Kind ;
+            vcard:fn "Census customer services" ;
+            vcard:hasURL <https://www.ons.gov.uk/aboutus/contactus> ] ;
+    dcat:inSeries <https://www.ons.gov.uk/census> ;
+    dcat:theme <https://w3id.org/dcat-ap-uk/codelist/theme/society> ;
+    dcatuk:personalData <https://w3id.org/dcat-ap-uk/codelist/personal-data/anonymised> ;
+    dcatuk:referenceData <https://www.ons.gov.uk/census/census2021dictionary/variablesbytopic/demographyvariablescensus2021/age> ;
+    dcatuk:securityClassification <https://w3id.org/dcat-ap-uk/codelist/security-classification/official> .
+

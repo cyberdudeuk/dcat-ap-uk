@@ -1,0 +1,589 @@
+{
+  "_note": "Generated from DCAT-AP-UK. Names match the metadata weaver, so records written by the weaver load into these definitions. Not tested against a live tenant. Atlan addresses custom metadata by internal names in its API; map these names when loading.",
+  "businessMetadataDefs": [
+    {
+      "category": "BUSINESS_METADATA",
+      "name": "dcat_ap_uk",
+      "description": "DCAT-AP-UK properties that the Atlas base model does not have.",
+      "typeVersion": "1.0",
+      "attributeDefs": [
+        {
+          "name": "title",
+          "displayName": "Title",
+          "description": "The name of the resource, in plain English.",
+          "typeName": "string",
+          "isOptional": true,
+          "cardinality": "SINGLE",
+          "options": {
+            "applicableEntityTypes": "[\"DataSet\"]",
+            "maxStrLength": "20000"
+          }
+        },
+        {
+          "name": "description",
+          "displayName": "Description",
+          "description": "A plain English account of what the resource contains and what it can be used for.",
+          "typeName": "string",
+          "isOptional": true,
+          "cardinality": "SINGLE",
+          "options": {
+            "applicableEntityTypes": "[\"DataSet\"]",
+            "maxStrLength": "20000"
+          }
+        },
+        {
+          "name": "identifier",
+          "displayName": "Identifier",
+          "description": "The main identifier of the resource in the publisher's own catalogue.",
+          "typeName": "string",
+          "isOptional": true,
+          "cardinality": "SINGLE",
+          "options": {
+            "applicableEntityTypes": "[\"DataSet\"]",
+            "maxStrLength": "20000"
+          }
+        },
+        {
+          "name": "publisher",
+          "displayName": "Publisher",
+          "description": "The organisation responsible for making the resource available.",
+          "typeName": "string",
+          "isOptional": true,
+          "cardinality": "SINGLE",
+          "options": {
+            "applicableEntityTypes": "[\"DataSet\"]",
+            "maxStrLength": "20000"
+          }
+        },
+        {
+          "name": "contactPoint",
+          "displayName": "Contact point",
+          "description": "Where to ask questions about the resource or give feedback on it.",
+          "typeName": "string",
+          "isOptional": true,
+          "cardinality": "SINGLE",
+          "options": {
+            "applicableEntityTypes": "[\"DataSet\"]",
+            "maxStrLength": "20000"
+          }
+        },
+        {
+          "name": "accessRights",
+          "displayName": "Access rights",
+          "description": "Who can get the data, and on what terms.",
+          "typeName": "string",
+          "isOptional": true,
+          "cardinality": "SINGLE",
+          "options": {
+            "applicableEntityTypes": "[\"DataSet\"]",
+            "maxStrLength": "20000"
+          }
+        },
+        {
+          "name": "securityClassification",
+          "displayName": "Security classification",
+          "description": "The classification under the Government Security Classifications Policy that the data itself carries.",
+          "typeName": "string",
+          "isOptional": true,
+          "cardinality": "SINGLE",
+          "options": {
+            "applicableEntityTypes": "[\"DataSet\"]",
+            "maxStrLength": "20000"
+          }
+        },
+        {
+          "name": "licence",
+          "displayName": "Licence",
+          "description": "The licence under which the resource can be used.",
+          "typeName": "string",
+          "isOptional": true,
+          "cardinality": "SINGLE",
+          "options": {
+            "applicableEntityTypes": "[\"DataSet\"]",
+            "maxStrLength": "20000"
+          }
+        },
+        {
+          "name": "accrualPeriodicity",
+          "displayName": "Update frequency",
+          "description": "How often the resource is updated.",
+          "typeName": "string",
+          "isOptional": true,
+          "cardinality": "SINGLE",
+          "options": {
+            "applicableEntityTypes": "[\"DataSet\"]",
+            "maxStrLength": "20000"
+          }
+        },
+        {
+          "name": "criticalDataAsset",
+          "displayName": "Critical data asset",
+          "description": "Whether the resource is a critical data asset under the Data Asset Management Policy.",
+          "typeName": "string",
+          "isOptional": true,
+          "cardinality": "SINGLE",
+          "options": {
+            "applicableEntityTypes": "[\"DataSet\"]",
+            "maxStrLength": "20000"
+          }
+        },
+        {
+          "name": "creator",
+          "displayName": "Creator",
+          "description": "The organisation that created or compiled the content of the resource.",
+          "typeName": "string",
+          "isOptional": true,
+          "cardinality": "SINGLE",
+          "options": {
+            "applicableEntityTypes": "[\"DataSet\"]",
+            "maxStrLength": "20000"
+          }
+        },
+        {
+          "name": "created",
+          "displayName": "Created",
+          "description": "The date the content of the resource was created or compiled.",
+          "typeName": "string",
+          "isOptional": true,
+          "cardinality": "SINGLE",
+          "options": {
+            "applicableEntityTypes": "[\"DataSet\"]",
+            "maxStrLength": "20000"
+          }
+        },
+        {
+          "name": "conformsTo",
+          "displayName": "Conforms to",
+          "description": "A standard, specification or schema the resource follows.",
+          "typeName": "string",
+          "isOptional": true,
+          "cardinality": "SINGLE",
+          "options": {
+            "applicableEntityTypes": "[\"DataSet\"]",
+            "maxStrLength": "20000"
+          }
+        },
+        {
+          "name": "temporal",
+          "displayName": "Time period covered",
+          "description": "The period of time the data is about.",
+          "typeName": "string",
+          "isOptional": true,
+          "cardinality": "SINGLE",
+          "options": {
+            "applicableEntityTypes": "[\"DataSet\"]",
+            "maxStrLength": "20000"
+          }
+        },
+        {
+          "name": "personalData",
+          "displayName": "Personal data",
+          "description": "Whether the data contains information about identifiable living people, and in what form.",
+          "typeName": "string",
+          "isOptional": true,
+          "cardinality": "SINGLE",
+          "options": {
+            "applicableEntityTypes": "[\"DataSet\"]",
+            "maxStrLength": "20000"
+          }
+        },
+        {
+          "name": "rights",
+          "displayName": "Rights statement",
+          "description": "A statement of any restriction on access or use, such as the data sharing agreement or legal gateway needed.",
+          "typeName": "string",
+          "isOptional": true,
+          "cardinality": "SINGLE",
+          "options": {
+            "applicableEntityTypes": "[\"DataSet\"]",
+            "maxStrLength": "20000"
+          }
+        },
+        {
+          "name": "modified",
+          "displayName": "Last updated",
+          "description": "The date the content of the resource last changed.",
+          "typeName": "string",
+          "isOptional": true,
+          "cardinality": "SINGLE",
+          "options": {
+            "applicableEntityTypes": "[\"DataSet\"]",
+            "maxStrLength": "20000"
+          }
+        },
+        {
+          "name": "issued",
+          "displayName": "Release date",
+          "description": "The date the resource was first made available.",
+          "typeName": "string",
+          "isOptional": true,
+          "cardinality": "SINGLE",
+          "options": {
+            "applicableEntityTypes": "[\"DataSet\"]",
+            "maxStrLength": "20000"
+          }
+        },
+        {
+          "name": "abstract",
+          "displayName": "Summary",
+          "description": "A one-sentence summary of the resource, of no more than 250 characters.",
+          "typeName": "string",
+          "isOptional": true,
+          "cardinality": "SINGLE",
+          "options": {
+            "applicableEntityTypes": "[\"DataSet\"]",
+            "maxStrLength": "20000"
+          }
+        },
+        {
+          "name": "theme",
+          "displayName": "Theme",
+          "description": "The broad subject of the resource, from a controlled list.",
+          "typeName": "string",
+          "isOptional": true,
+          "cardinality": "SINGLE",
+          "options": {
+            "applicableEntityTypes": "[\"DataSet\"]",
+            "maxStrLength": "20000"
+          }
+        },
+        {
+          "name": "keyword",
+          "displayName": "Keyword",
+          "description": "Words or short phrases that people might search for, not already in the title or description.",
+          "typeName": "string",
+          "isOptional": true,
+          "cardinality": "SINGLE",
+          "options": {
+            "applicableEntityTypes": "[\"DataSet\"]",
+            "maxStrLength": "20000"
+          }
+        },
+        {
+          "name": "spatial",
+          "displayName": "Geographic coverage",
+          "description": "The geographic area the data is about.",
+          "typeName": "string",
+          "isOptional": true,
+          "cardinality": "SINGLE",
+          "options": {
+            "applicableEntityTypes": "[\"DataSet\"]",
+            "maxStrLength": "20000"
+          }
+        },
+        {
+          "name": "distribution",
+          "displayName": "Distribution",
+          "description": "A form in which the data can be got, such as a file or an API.",
+          "typeName": "string",
+          "isOptional": true,
+          "cardinality": "SINGLE",
+          "options": {
+            "applicableEntityTypes": "[\"DataSet\"]",
+            "maxStrLength": "20000"
+          }
+        },
+        {
+          "name": "landingPage",
+          "displayName": "Landing page",
+          "description": "A web page where people can find out about the resource and how to get it.",
+          "typeName": "string",
+          "isOptional": true,
+          "cardinality": "SINGLE",
+          "options": {
+            "applicableEntityTypes": "[\"DataSet\"]",
+            "maxStrLength": "20000"
+          }
+        },
+        {
+          "name": "version",
+          "displayName": "Version",
+          "description": "The version of the resource.",
+          "typeName": "string",
+          "isOptional": true,
+          "cardinality": "SINGLE",
+          "options": {
+            "applicableEntityTypes": "[\"DataSet\"]",
+            "maxStrLength": "20000"
+          }
+        },
+        {
+          "name": "sensitiveData",
+          "displayName": "Sensitive data",
+          "description": "Whether the data contains information that needs extra care beyond being personal, such as special category data.",
+          "typeName": "string",
+          "isOptional": true,
+          "cardinality": "SINGLE",
+          "options": {
+            "applicableEntityTypes": "[\"DataSet\"]",
+            "maxStrLength": "20000"
+          }
+        },
+        {
+          "name": "qualifiedAttribution",
+          "displayName": "Responsible role",
+          "description": "An organisation and the role it plays for the resource, such as data owner or data steward.",
+          "typeName": "string",
+          "isOptional": true,
+          "cardinality": "SINGLE",
+          "options": {
+            "applicableEntityTypes": "[\"DataSet\"]",
+            "maxStrLength": "20000"
+          }
+        },
+        {
+          "name": "language",
+          "displayName": "Language",
+          "description": "The language or languages of the resource.",
+          "typeName": "string",
+          "isOptional": true,
+          "cardinality": "SINGLE",
+          "options": {
+            "applicableEntityTypes": "[\"DataSet\"]",
+            "maxStrLength": "20000"
+          }
+        },
+        {
+          "name": "alternative",
+          "displayName": "Alternative title",
+          "description": "Another name the resource is known by, such as an abbreviation or a former name.",
+          "typeName": "string",
+          "isOptional": true,
+          "cardinality": "SINGLE",
+          "options": {
+            "applicableEntityTypes": "[\"DataSet\"]",
+            "maxStrLength": "20000"
+          }
+        },
+        {
+          "name": "otherIdentifier",
+          "displayName": "Other identifier",
+          "description": "Any other identifier the resource is known by, such as one in a national or sector register.",
+          "typeName": "string",
+          "isOptional": true,
+          "cardinality": "SINGLE",
+          "options": {
+            "applicableEntityTypes": "[\"DataSet\"]",
+            "maxStrLength": "20000"
+          }
+        },
+        {
+          "name": "inSeries",
+          "displayName": "Part of series",
+          "description": "The dataset series this dataset belongs to.",
+          "typeName": "string",
+          "isOptional": true,
+          "cardinality": "SINGLE",
+          "options": {
+            "applicableEntityTypes": "[\"DataSet\"]",
+            "maxStrLength": "20000"
+          }
+        },
+        {
+          "name": "isReplacedBy",
+          "displayName": "Replaced by",
+          "description": "A newer resource that replaces this one.",
+          "typeName": "string",
+          "isOptional": true,
+          "cardinality": "SINGLE",
+          "options": {
+            "applicableEntityTypes": "[\"DataSet\"]",
+            "maxStrLength": "20000"
+          }
+        },
+        {
+          "name": "expires",
+          "displayName": "Expires",
+          "description": "The date after which the resource should no longer be used.",
+          "typeName": "string",
+          "isOptional": true,
+          "cardinality": "SINGLE",
+          "options": {
+            "applicableEntityTypes": "[\"DataSet\"]",
+            "maxStrLength": "20000"
+          }
+        },
+        {
+          "name": "previousVersion",
+          "displayName": "Previous version",
+          "description": "The version this one replaces in a sequence.",
+          "typeName": "string",
+          "isOptional": true,
+          "cardinality": "SINGLE",
+          "options": {
+            "applicableEntityTypes": "[\"DataSet\"]",
+            "maxStrLength": "20000"
+          }
+        },
+        {
+          "name": "versionNotes",
+          "displayName": "Version notes",
+          "description": "What changed in this version.",
+          "typeName": "string",
+          "isOptional": true,
+          "cardinality": "SINGLE",
+          "options": {
+            "applicableEntityTypes": "[\"DataSet\"]",
+            "maxStrLength": "20000"
+          }
+        },
+        {
+          "name": "spatialResolutionInMeters",
+          "displayName": "Spatial resolution (metres)",
+          "description": "The smallest distance the data can tell apart, in metres.",
+          "typeName": "string",
+          "isOptional": true,
+          "cardinality": "SINGLE",
+          "options": {
+            "applicableEntityTypes": "[\"DataSet\"]",
+            "maxStrLength": "20000"
+          }
+        },
+        {
+          "name": "temporalResolution",
+          "displayName": "Time resolution",
+          "description": "The smallest period the data can tell apart, as an ISO 8601 duration.",
+          "typeName": "string",
+          "isOptional": true,
+          "cardinality": "SINGLE",
+          "options": {
+            "applicableEntityTypes": "[\"DataSet\"]",
+            "maxStrLength": "20000"
+          }
+        },
+        {
+          "name": "referenceData",
+          "displayName": "Reference data used",
+          "description": "A code list, classification or set of groupings the data uses, such as age bands or a geography.",
+          "typeName": "string",
+          "isOptional": true,
+          "cardinality": "SINGLE",
+          "options": {
+            "applicableEntityTypes": "[\"DataSet\"]",
+            "maxStrLength": "20000"
+          }
+        },
+        {
+          "name": "qualityAnnotation",
+          "displayName": "Data quality",
+          "description": "A link to a published statement or measurement of the quality of the data.",
+          "typeName": "string",
+          "isOptional": true,
+          "cardinality": "SINGLE",
+          "options": {
+            "applicableEntityTypes": "[\"DataSet\"]",
+            "maxStrLength": "20000"
+          }
+        },
+        {
+          "name": "relation",
+          "displayName": "Related resource",
+          "description": "Another resource closely related to this one, such as the report the data supports.",
+          "typeName": "string",
+          "isOptional": true,
+          "cardinality": "SINGLE",
+          "options": {
+            "applicableEntityTypes": "[\"DataSet\"]",
+            "maxStrLength": "20000"
+          }
+        },
+        {
+          "name": "qualifiedRelation",
+          "displayName": "Qualified relation",
+          "description": "A related resource together with the kind of relationship.",
+          "typeName": "string",
+          "isOptional": true,
+          "cardinality": "SINGLE",
+          "options": {
+            "applicableEntityTypes": "[\"DataSet\"]",
+            "maxStrLength": "20000"
+          }
+        },
+        {
+          "name": "documentation",
+          "displayName": "Documentation",
+          "description": "A web page that documents the resource, such as a user guide or a methodology.",
+          "typeName": "string",
+          "isOptional": true,
+          "cardinality": "SINGLE",
+          "options": {
+            "applicableEntityTypes": "[\"DataSet\"]",
+            "maxStrLength": "20000"
+          }
+        },
+        {
+          "name": "metadataAudience",
+          "displayName": "Who can see this record",
+          "description": "Who is allowed to see the metadata record itself.",
+          "typeName": "string",
+          "isOptional": true,
+          "cardinality": "SINGLE",
+          "options": {
+            "applicableEntityTypes": "[\"DataSet\"]",
+            "maxStrLength": "20000"
+          }
+        },
+        {
+          "name": "applicableLegislation",
+          "displayName": "Applicable legislation",
+          "description": "Legislation that requires, governs or permits the publication or sharing of the resource.",
+          "typeName": "string",
+          "isOptional": true,
+          "cardinality": "SINGLE",
+          "options": {
+            "applicableEntityTypes": "[\"DataSet\"]",
+            "maxStrLength": "20000"
+          }
+        },
+        {
+          "name": "hasPolicy",
+          "displayName": "Usage policy",
+          "description": "A machine-readable policy, in the W3C Open Digital Rights Language (ODRL), saying what may and may not be done with the resource.",
+          "typeName": "string",
+          "isOptional": true,
+          "cardinality": "SINGLE",
+          "options": {
+            "applicableEntityTypes": "[\"DataSet\"]",
+            "maxStrLength": "20000"
+          }
+        },
+        {
+          "name": "jurisdiction",
+          "displayName": "Where the data is held or sent",
+          "description": "Every country or territory where the data is stored or processed, or to which it is sent.",
+          "typeName": "string",
+          "isOptional": true,
+          "cardinality": "SINGLE",
+          "options": {
+            "applicableEntityTypes": "[\"DataSet\"]",
+            "maxStrLength": "20000"
+          }
+        },
+        {
+          "name": "transferMechanism",
+          "displayName": "Transfer safeguard",
+          "description": "The basis under UK GDPR on which personal data in the resource may be sent outside the UK.",
+          "typeName": "string",
+          "isOptional": true,
+          "cardinality": "SINGLE",
+          "options": {
+            "applicableEntityTypes": "[\"DataSet\"]",
+            "maxStrLength": "20000"
+          }
+        },
+        {
+          "name": "missingValue",
+          "displayName": "Missing value",
+          "description": "A property this record leaves empty on purpose, and why.",
+          "typeName": "string",
+          "isOptional": true,
+          "cardinality": "SINGLE",
+          "options": {
+            "applicableEntityTypes": "[\"DataSet\"]",
+            "maxStrLength": "20000"
+          }
+        }
+      ]
+    }
+  ]
+}

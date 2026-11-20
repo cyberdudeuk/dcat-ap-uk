@@ -1,0 +1,27 @@
+dcat_uk_ap_property,UK GEMINI elements,note
+title,Title,
+alternative,Alternative title,
+language,Dataset language,
+description,Abstract,Use abstract for a short summary as well.
+topicCategory,Topic category,Geospatial extension.
+keyword,Keyword,
+temporal,Temporal extent,
+issued,Dataset reference date,Publication date; also created and modified for the other date types.
+lineage,Lineage,Geospatial extension.
+spatial,Extent,A named area; use a GSS code where there is one.
+bbox,Bounding box,On the location.
+conformsTo,Spatial reference system,Give the coordinate reference system address. Mandatory in the geospatial extension.
+spatialResolutionInMeters,Spatial resolution,
+accessURL,Resource locator,And download address.
+mediaType,Data format,And format.
+publisher,Responsible organisation,With contact point and responsible role for the other roles.
+accrualPeriodicity,Frequency of update,
+accessRights,Limitations on public access,With the rights statement.
+licence,Use constraints,
+conformsTo,Conformity,
+identifier,Unique resource identifier,
+inSeries,Parent identifier,
+serviceType,Spatial data service type,
+servesDataset,Coupled resource,
+qualityAnnotation,Data quality,
+(class),Resource type,

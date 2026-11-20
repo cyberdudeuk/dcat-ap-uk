@@ -1,0 +1,24 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "sc": "https://schema.org/",
+    "cr": "http://mlcommons.org/croissant/",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "dct": "http://purl.org/dc/terms/"
+  },
+  "@type": "sc:Dataset",
+  "@id": "https://example.org/id/dataset/estate-condition",
+  "name": "Condition of the departmental estate",
+  "description": "Condition grades for buildings in a synthetic departmental estate, collected each year by surveyors.",
+  "identifier": "estate-condition",
+  "url": "https://example.org/id/dataset/estate-condition",
+  "license": "https://w3id.org/dcat-ap-uk/codelist/licences/data-sharing-agreement-required",
+  "isAccessibleForFree": false,
+  "dateModified": "2026-10-01",
+  "publisher": {
+    "@id": "https://example.org/id/org/example-department"
+  },
+  "conditionsOfAccess": "Available to public sector bodies under a data sharing agreement. Ask through the contact form.",
+  "dct:conformsTo": "http://mlcommons.org/croissant/1.1"
+}

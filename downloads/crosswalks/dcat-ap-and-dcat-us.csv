@@ -1,0 +1,90 @@
+dcat_uk_ap_property,rdf_term,dcat_ap_3_0_1,dcat_us_3_0
+title,dct:title,Same term (dct:title). Exchanged as it is.,Same term (dct:title). Exchanged as it is.
+description,dct:description,Same term (dct:description). Exchanged as it is.,Same term (dct:description). Exchanged as it is.
+abstract,dct:abstract,Same term (dct:abstract). Exchanged as it is.,Same term (dct:abstract). Exchanged as it is.
+alternative,dct:alternative,Same term (dct:alternative). Exchanged as it is.,Same term (dct:alternative). Exchanged as it is.
+identifier,dct:identifier,Same term (dct:identifier). Exchanged as it is.,Same term (dct:identifier). Exchanged as it is.
+otherIdentifier,adms:identifier,Same term (adms:identifier). Exchanged as it is.,Same term (adms:identifier). Exchanged as it is.
+publisher,dct:publisher,Same term (dct:publisher). Exchanged as it is.,Same term (dct:publisher). Exchanged as it is.
+creator,dct:creator,Same term (dct:creator). Exchanged as it is.,Same term (dct:creator). Exchanged as it is.
+contactPoint,dcat:contactPoint,Same term (dcat:contactPoint). Exchanged as it is.,Same term (dcat:contactPoint). Exchanged as it is.
+accessRights,dct:accessRights,Same term (dct:accessRights). Exchanged as it is.,Same term (dct:accessRights). Exchanged as it is.
+rights,dct:rights,Same term (dct:rights). Exchanged as it is.,Same term (dct:rights). Exchanged as it is.
+securityClassification,dcatuk:securityClassification,No equivalent. Kept as an extra term; a harvester that ignores unknown terms drops it.,No equivalent. Kept as an extra term; a harvester that ignores unknown terms drops it.
+personalData,dcatuk:personalData,No equivalent. Kept as an extra term; a harvester that ignores unknown terms drops it.,No equivalent. Kept as an extra term; a harvester that ignores unknown terms drops it.
+sensitiveData,dcatuk:sensitiveData,No equivalent. Kept as an extra term; a harvester that ignores unknown terms drops it.,No equivalent. Kept as an extra term; a harvester that ignores unknown terms drops it.
+metadataAudience,dcatuk:metadataAudience,No equivalent. Kept as an extra term; a harvester that ignores unknown terms drops it.,No equivalent. Kept as an extra term; a harvester that ignores unknown terms drops it.
+licence,dct:license,Same term (dct:license). Exchanged as it is.,Same term (dct:license). Exchanged as it is.
+issued,dct:issued,Same term (dct:issued). Exchanged as it is.,Same term (dct:issued). Exchanged as it is.
+modified,dct:modified,Same term (dct:modified). Exchanged as it is.,Same term (dct:modified). Exchanged as it is.
+created,dct:created,Same term (dct:created). Exchanged as it is.,Same term (dct:created). Exchanged as it is.
+accrualPeriodicity,dct:accrualPeriodicity,Same term (dct:accrualPeriodicity). Exchanged as it is.,Same term (dct:accrualPeriodicity). Exchanged as it is.
+theme,dcat:theme,Same term (dcat:theme). Exchanged as it is.,Same term (dcat:theme). Exchanged as it is.
+keyword,dcat:keyword,Same term (dcat:keyword). Exchanged as it is.,Same term (dcat:keyword). Exchanged as it is.
+spatial,dct:spatial,Same term (dct:spatial). Exchanged as it is.,Same term (dct:spatial). Exchanged as it is.
+spatialResolutionInMeters,dcat:spatialResolutionInMeters,Same term (dcat:spatialResolutionInMeters). Exchanged as it is.,Same term (dcat:spatialResolutionInMeters). Exchanged as it is.
+temporal,dct:temporal,Same term (dct:temporal). Exchanged as it is.,Same term (dct:temporal). Exchanged as it is.
+temporalResolution,dcat:temporalResolution,Same term (dcat:temporalResolution). Exchanged as it is.,Same term (dcat:temporalResolution). Exchanged as it is.
+conformsTo,dct:conformsTo,Same term (dct:conformsTo). Exchanged as it is.,Same term (dct:conformsTo). Exchanged as it is.
+referenceData,dcatuk:referenceData,No equivalent. Kept as an extra term; a harvester that ignores unknown terms drops it.,No equivalent. Kept as an extra term; a harvester that ignores unknown terms drops it.
+version,dcat:version,Same term (dcat:version). Exchanged as it is.,Same term (dcat:version). Exchanged as it is.
+versionNotes,adms:versionNotes,Same term (adms:versionNotes). Exchanged as it is.,Same term (adms:versionNotes). Exchanged as it is.
+previousVersion,dcat:previousVersion,Same term (dcat:previousVersion). Exchanged as it is.,Same term (dcat:previousVersion). Exchanged as it is.
+isReplacedBy,dct:isReplacedBy,Same term (dct:isReplacedBy). Exchanged as it is.,Same term (dct:isReplacedBy). Exchanged as it is.
+expires,schema:expires,No equivalent. Kept as an extra term; a harvester that ignores unknown terms drops it.,No equivalent. Kept as an extra term; a harvester that ignores unknown terms drops it.
+inSeries,dcat:inSeries,Same term (dcat:inSeries). Exchanged as it is.,Same term (dcat:inSeries). Exchanged as it is.
+distribution,dcat:distribution,Same term (dcat:distribution). Exchanged as it is.,Same term (dcat:distribution). Exchanged as it is.
+relation,dct:relation,Same term (dct:relation). Exchanged as it is.,Same term (dct:relation). Exchanged as it is.
+qualifiedRelation,dcat:qualifiedRelation,Same term (dcat:qualifiedRelation). Exchanged as it is.,Same term (dcat:qualifiedRelation). Exchanged as it is.
+landingPage,dcat:landingPage,Same term (dcat:landingPage). Exchanged as it is.,Same term (dcat:landingPage). Exchanged as it is.
+documentation,foaf:page,Same term (foaf:page). Exchanged as it is.,Same term (foaf:page). Exchanged as it is.
+language,dct:language,Same term (dct:language). Exchanged as it is.,Same term (dct:language). Exchanged as it is.
+serviceType,dct:type,Same term (dct:type). Exchanged as it is.,Same term (dct:type). Exchanged as it is.
+serviceStatus,adms:status,Same term (adms:status). Exchanged as it is.,Same term (adms:status). Exchanged as it is.
+qualityAnnotation,dqv:hasQualityAnnotation,Same term (dqv:hasQualityAnnotation). Exchanged as it is.,Same term (dqv:hasQualityAnnotation). Exchanged as it is.
+criticalDataAsset,dcatuk:criticalDataAsset,No equivalent. Kept as an extra term; a harvester that ignores unknown terms drops it.,No equivalent. Kept as an extra term; a harvester that ignores unknown terms drops it.
+qualifiedAttribution,prov:qualifiedAttribution,Same term (prov:qualifiedAttribution). Exchanged as it is.,Same term (prov:qualifiedAttribution). Exchanged as it is.
+accessURL,dcat:accessURL,Same term (dcat:accessURL). Exchanged as it is.,Same term (dcat:accessURL). Exchanged as it is.
+downloadURL,dcat:downloadURL,Same term (dcat:downloadURL). Exchanged as it is.,Same term (dcat:downloadURL). Exchanged as it is.
+mediaType,dcat:mediaType,Same term (dcat:mediaType). Exchanged as it is.,Same term (dcat:mediaType). Exchanged as it is.
+format,dct:format,Same term (dct:format). Exchanged as it is.,Same term (dct:format). Exchanged as it is.
+byteSize,dcat:byteSize,Same term (dcat:byteSize). Exchanged as it is.,Same term (dcat:byteSize). Exchanged as it is.
+checksum,spdx:checksum,Same term (spdx:checksum). Exchanged as it is.,Same term (spdx:checksum). Exchanged as it is.
+accessService,dcat:accessService,Same term (dcat:accessService). Exchanged as it is.,Same term (dcat:accessService). Exchanged as it is.
+compressFormat,dcat:compressFormat,Same term (dcat:compressFormat). Exchanged as it is.,Same term (dcat:compressFormat). Exchanged as it is.
+endpointURL,dcat:endpointURL,Same term (dcat:endpointURL). Exchanged as it is.,Same term (dcat:endpointURL). Exchanged as it is.
+endpointDescription,dcat:endpointDescription,Same term (dcat:endpointDescription). Exchanged as it is.,Same term (dcat:endpointDescription). Exchanged as it is.
+servesDataset,dcat:servesDataset,Same term (dcat:servesDataset). Exchanged as it is.,Same term (dcat:servesDataset). Exchanged as it is.
+dataset,dcat:dataset,Same term (dcat:dataset). Exchanged as it is.,Same term (dcat:dataset). Exchanged as it is.
+service,dcat:service,Same term (dcat:service). Exchanged as it is.,Same term (dcat:service). Exchanged as it is.
+homepage,foaf:homepage,Same term (foaf:homepage). Exchanged as it is.,Same term (foaf:homepage). Exchanged as it is.
+themeTaxonomy,dcat:themeTaxonomy,Same term (dcat:themeTaxonomy). Exchanged as it is.,Same term (dcat:themeTaxonomy). Exchanged as it is.
+record,dcat:record,Same term (dcat:record). Exchanged as it is.,Same term (dcat:record). Exchanged as it is.
+primaryTopic,foaf:primaryTopic,Same term (foaf:primaryTopic). Exchanged as it is.,Same term (foaf:primaryTopic). Exchanged as it is.
+name,foaf:name,Same term (foaf:name). Exchanged as it is.,Same term (foaf:name). Exchanged as it is.
+agentType,dct:type,Same term (dct:type). Exchanged as it is.,Same term (dct:type). Exchanged as it is.
+fn,vcard:fn,Same term (vcard:fn). Exchanged as it is.,Same term (vcard:fn). Exchanged as it is.
+hasURL,vcard:hasURL,Same term (vcard:hasURL). Exchanged as it is.,Same term (vcard:hasURL). Exchanged as it is.
+hasEmail,vcard:hasEmail,Same term (vcard:hasEmail). Exchanged as it is.,Same term (vcard:hasEmail). Exchanged as it is.
+hasTelephone,vcard:hasTelephone,Same term (vcard:hasTelephone). Exchanged as it is.,Same term (vcard:hasTelephone). Exchanged as it is.
+hasAddress,vcard:hasAddress,Same term (vcard:hasAddress). Exchanged as it is.,Same term (vcard:hasAddress). Exchanged as it is.
+bbox,dcat:bbox,Same term (dcat:bbox). Exchanged as it is.,Same term (dcat:bbox). Exchanged as it is.
+geometry,locn:geometry,Same term (locn:geometry). Exchanged as it is.,Same term (locn:geometry). Exchanged as it is.
+centroid,dcat:centroid,Same term (dcat:centroid). Exchanged as it is.,Same term (dcat:centroid). Exchanged as it is.
+locationName,skos:prefLabel,Same term (skos:prefLabel). Exchanged as it is.,Same term (skos:prefLabel). Exchanged as it is.
+startDate,dcat:startDate,Same term (dcat:startDate). Exchanged as it is.,Same term (dcat:startDate). Exchanged as it is.
+endDate,dcat:endDate,Same term (dcat:endDate). Exchanged as it is.,Same term (dcat:endDate). Exchanged as it is.
+algorithm,spdx:algorithm,Same term (spdx:algorithm). Exchanged as it is.,Same term (spdx:algorithm). Exchanged as it is.
+checksumValue,spdx:checksumValue,Same term (spdx:checksumValue). Exchanged as it is.,Same term (spdx:checksumValue). Exchanged as it is.
+hadRole,dcat:hadRole,Same term (dcat:hadRole). Exchanged as it is.,Same term (dcat:hadRole). Exchanged as it is.
+agent,prov:agent,Same term (prov:agent). Exchanged as it is.,Same term (prov:agent). Exchanged as it is.
+applicableLegislation,dcatap:applicableLegislation,Same term (dcatap:applicableLegislation). Exchanged as it is.,Same term (dcatap:applicableLegislation). Exchanged as it is.
+hasPolicy,odrl:hasPolicy,Same term (odrl:hasPolicy). Exchanged as it is.,Same term (odrl:hasPolicy). Exchanged as it is.
+jurisdiction,dcatuk:jurisdiction,No equivalent. Kept as an extra term; a harvester that ignores unknown terms drops it.,No equivalent. Kept as an extra term; a harvester that ignores unknown terms drops it.
+transferMechanism,dcatuk:transferMechanism,No equivalent. Kept as an extra term; a harvester that ignores unknown terms drops it.,No equivalent. Kept as an extra term; a harvester that ignores unknown terms drops it.
+transportSecurity,dcatuk:transportSecurity,No equivalent. Kept as an extra term; a harvester that ignores unknown terms drops it.,No equivalent. Kept as an extra term; a harvester that ignores unknown terms drops it.
+missingValue,dcatuk:missingValue,No equivalent. Kept as an extra term; a harvester that ignores unknown terms drops it.,No equivalent. Kept as an extra term; a harvester that ignores unknown terms drops it.
+missingProperty,dcatuk:missingProperty,No equivalent. Kept as an extra term; a harvester that ignores unknown terms drops it.,No equivalent. Kept as an extra term; a harvester that ignores unknown terms drops it.
+missingReason,dcatuk:missingReason,No equivalent. Kept as an extra term; a harvester that ignores unknown terms drops it.,No equivalent. Kept as an extra term; a harvester that ignores unknown terms drops it.
+sourceRecord,dct:source,Same term (dct:source). Exchanged as it is.,Same term (dct:source). Exchanged as it is.
+enrichedProperty,dcatuk:enrichedProperty,No equivalent. Kept as an extra term; a harvester that ignores unknown terms drops it.,No equivalent. Kept as an extra term; a harvester that ignores unknown terms drops it.

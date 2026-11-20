@@ -1,0 +1,24 @@
+dcat_uk_ap_property,HDR UK dataset schema fields,note
+title,summary.title,
+abstract,summary.abstract,
+description,documentation.description,
+keyword,summary.keywords,
+publisher,summary.publisher,
+contactPoint,summary.contactPoint,Give a contact form address.
+otherIdentifier,summary.doiName,
+identifier,identifier,
+version,version,
+issued,issued,
+modified,modified,
+rights,accessibility.access.accessRights,
+jurisdiction,accessibility.access.jurisdiction,
+hasPolicy,accessibility.usage.dataUseLimitation,"Express the limitation as an ODRL policy, and in words in the rights statement."
+hasCodingSystem,accessibility.formatAndStandards.vocabularyEncodingScheme,Health extension.
+mediaType,accessibility.formatAndStandards.format,
+language,accessibility.formatAndStandards.language,
+temporal,provenance.temporal.startDate and endDate,
+accrualPeriodicity,provenance.temporal.accrualPeriodicity,
+spatial,coverage.spatial,
+minTypicalAge,coverage.typicalAgeRange,Health extension; and oldest typical age.
+numberOfUniqueIndividuals,summary.populationSize,Health extension. Subject to disclosure control.
+trustedResearchEnvironment,accessibility.access.accessService,Health extension.

@@ -1,0 +1,390 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "class": "@type",
+    "id": "@id",
+    "dcat": "http://www.w3.org/ns/dcat#",
+    "dct": "http://purl.org/dc/terms/",
+    "foaf": "http://xmlns.com/foaf/0.1/",
+    "vcard": "http://www.w3.org/2006/vcard/ns#",
+    "adms": "http://www.w3.org/ns/adms#",
+    "spdx": "http://spdx.org/rdf/terms#",
+    "locn": "http://www.w3.org/ns/locn#",
+    "skos": "http://www.w3.org/2004/02/skos/core#",
+    "dqv": "http://www.w3.org/ns/dqv#",
+    "prov": "http://www.w3.org/ns/prov#",
+    "schema": "http://schema.org/",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "owl": "http://www.w3.org/2002/07/owl#",
+    "dcatuk": "https://w3id.org/dcat-ap-uk/ns#",
+    "ukcl": "https://w3id.org/dcat-ap-uk/codelist/",
+    "eufreq": "http://publications.europa.eu/resource/authority/frequency/",
+    "eutheme": "http://publications.europa.eu/resource/authority/data-theme/",
+    "euaccess": "http://publications.europa.eu/resource/authority/access-right/",
+    "eulang": "http://publications.europa.eu/resource/authority/language/",
+    "geosparql": "http://www.opengis.net/ont/geosparql#",
+    "odrl": "http://www.w3.org/ns/odrl/2/",
+    "dcatap": "http://data.europa.eu/r5r/",
+    "healthdcatap": "http://healthdataportal.eu/ns/health#",
+    "geodcatap": "http://data.europa.eu/930/",
+    "inspiresrt": "http://inspire.ec.europa.eu/metadata-codelist/SpatialRepresentationType/",
+    "statdcatap": "http://data.europa.eu/(xyz)/statdcat-ap/",
+    "mobilitydcatap": "https://w3id.org/mobilitydcat-ap#",
+    "dspace": "https://w3id.org/dspace/2025/1/",
+    "Dataset": "dcat:Dataset",
+    "DataService": "dcat:DataService",
+    "Distribution": "dcat:Distribution",
+    "DatasetSeries": "dcat:DatasetSeries",
+    "Catalogue": "dcat:Catalog",
+    "CatalogueRecord": "dcat:CatalogRecord",
+    "Agent": "foaf:Agent",
+    "ContactPoint": "vcard:Kind",
+    "Location": "dct:Location",
+    "PeriodOfTime": "dct:PeriodOfTime",
+    "Checksum": "spdx:Checksum",
+    "Relationship": "dcat:Relationship",
+    "Attribution": "prov:Attribution",
+    "MissingValue": "dcatuk:MissingValue",
+    "title": {
+      "@id": "dct:title"
+    },
+    "description": {
+      "@id": "dct:description"
+    },
+    "abstract": {
+      "@id": "dct:abstract"
+    },
+    "alternative": {
+      "@id": "dct:alternative"
+    },
+    "identifier": {
+      "@id": "dct:identifier"
+    },
+    "otherIdentifier": {
+      "@id": "adms:identifier"
+    },
+    "publisher": {
+      "@id": "dct:publisher",
+      "@type": "@id"
+    },
+    "creator": {
+      "@id": "dct:creator",
+      "@type": "@id"
+    },
+    "contactPoint": {
+      "@id": "dcat:contactPoint",
+      "@type": "@id"
+    },
+    "accessRights": {
+      "@id": "dct:accessRights",
+      "@type": "@id"
+    },
+    "rights": {
+      "@id": "dct:rights"
+    },
+    "securityClassification": {
+      "@id": "dcatuk:securityClassification",
+      "@type": "@id"
+    },
+    "personalData": {
+      "@id": "dcatuk:personalData",
+      "@type": "@id"
+    },
+    "sensitiveData": {
+      "@id": "dcatuk:sensitiveData",
+      "@type": "@id"
+    },
+    "metadataAudience": {
+      "@id": "dcatuk:metadataAudience",
+      "@type": "@id"
+    },
+    "licence": {
+      "@id": "dct:license",
+      "@type": "@id"
+    },
+    "issued": {
+      "@id": "dct:issued",
+      "@type": "xsd:date"
+    },
+    "modified": {
+      "@id": "dct:modified",
+      "@type": "xsd:date"
+    },
+    "created": {
+      "@id": "dct:created",
+      "@type": "xsd:date"
+    },
+    "accrualPeriodicity": {
+      "@id": "dct:accrualPeriodicity",
+      "@type": "@id"
+    },
+    "theme": {
+      "@id": "dcat:theme",
+      "@type": "@id"
+    },
+    "keyword": {
+      "@id": "dcat:keyword"
+    },
+    "spatial": {
+      "@id": "dct:spatial",
+      "@type": "@id"
+    },
+    "spatialResolutionInMeters": {
+      "@id": "dcat:spatialResolutionInMeters",
+      "@type": "xsd:decimal"
+    },
+    "temporal": {
+      "@id": "dct:temporal",
+      "@type": "@id"
+    },
+    "temporalResolution": {
+      "@id": "dcat:temporalResolution",
+      "@type": "xsd:duration"
+    },
+    "conformsTo": {
+      "@id": "dct:conformsTo",
+      "@type": "@id"
+    },
+    "referenceData": {
+      "@id": "dcatuk:referenceData",
+      "@type": "@id"
+    },
+    "version": {
+      "@id": "dcat:version"
+    },
+    "versionNotes": {
+      "@id": "adms:versionNotes"
+    },
+    "previousVersion": {
+      "@id": "dcat:previousVersion",
+      "@type": "@id"
+    },
+    "isReplacedBy": {
+      "@id": "dct:isReplacedBy",
+      "@type": "@id"
+    },
+    "expires": {
+      "@id": "schema:expires",
+      "@type": "xsd:date"
+    },
+    "inSeries": {
+      "@id": "dcat:inSeries",
+      "@type": "@id"
+    },
+    "distribution": {
+      "@id": "dcat:distribution",
+      "@type": "@id"
+    },
+    "relation": {
+      "@id": "dct:relation",
+      "@type": "@id"
+    },
+    "qualifiedRelation": {
+      "@id": "dcat:qualifiedRelation",
+      "@type": "@id"
+    },
+    "landingPage": {
+      "@id": "dcat:landingPage",
+      "@type": "@id"
+    },
+    "documentation": {
+      "@id": "foaf:page",
+      "@type": "@id"
+    },
+    "language": {
+      "@id": "dct:language",
+      "@type": "@id"
+    },
+    "serviceType": {
+      "@id": "dct:type",
+      "@type": "@id"
+    },
+    "serviceStatus": {
+      "@id": "adms:status",
+      "@type": "@id"
+    },
+    "qualityAnnotation": {
+      "@id": "dqv:hasQualityAnnotation",
+      "@type": "@id"
+    },
+    "criticalDataAsset": {
+      "@id": "dcatuk:criticalDataAsset",
+      "@type": "xsd:boolean"
+    },
+    "qualifiedAttribution": {
+      "@id": "prov:qualifiedAttribution",
+      "@type": "@id"
+    },
+    "accessURL": {
+      "@id": "dcat:accessURL",
+      "@type": "@id"
+    },
+    "downloadURL": {
+      "@id": "dcat:downloadURL",
+      "@type": "@id"
+    },
+    "mediaType": {
+      "@id": "dcat:mediaType",
+      "@type": "@id"
+    },
+    "format": {
+      "@id": "dct:format",
+      "@type": "@id"
+    },
+    "byteSize": {
+      "@id": "dcat:byteSize",
+      "@type": "xsd:nonNegativeInteger"
+    },
+    "checksum": {
+      "@id": "spdx:checksum",
+      "@type": "@id"
+    },
+    "accessService": {
+      "@id": "dcat:accessService",
+      "@type": "@id"
+    },
+    "compressFormat": {
+      "@id": "dcat:compressFormat",
+      "@type": "@id"
+    },
+    "endpointURL": {
+      "@id": "dcat:endpointURL",
+      "@type": "@id"
+    },
+    "endpointDescription": {
+      "@id": "dcat:endpointDescription",
+      "@type": "@id"
+    },
+    "servesDataset": {
+      "@id": "dcat:servesDataset",
+      "@type": "@id"
+    },
+    "dataset": {
+      "@id": "dcat:dataset",
+      "@type": "@id"
+    },
+    "service": {
+      "@id": "dcat:service",
+      "@type": "@id"
+    },
+    "homepage": {
+      "@id": "foaf:homepage",
+      "@type": "@id"
+    },
+    "themeTaxonomy": {
+      "@id": "dcat:themeTaxonomy",
+      "@type": "@id"
+    },
+    "record": {
+      "@id": "dcat:record",
+      "@type": "@id"
+    },
+    "primaryTopic": {
+      "@id": "foaf:primaryTopic",
+      "@type": "@id"
+    },
+    "name": {
+      "@id": "foaf:name"
+    },
+    "agentType": {
+      "@id": "dct:type"
+    },
+    "fn": {
+      "@id": "vcard:fn"
+    },
+    "hasURL": {
+      "@id": "vcard:hasURL",
+      "@type": "@id"
+    },
+    "hasEmail": {
+      "@id": "vcard:hasEmail",
+      "@type": "@id"
+    },
+    "hasTelephone": {
+      "@id": "vcard:hasTelephone"
+    },
+    "hasAddress": {
+      "@id": "vcard:hasAddress"
+    },
+    "bbox": {
+      "@id": "dcat:bbox",
+      "@type": "geosparql:wktLiteral"
+    },
+    "geometry": {
+      "@id": "locn:geometry",
+      "@type": "geosparql:wktLiteral"
+    },
+    "centroid": {
+      "@id": "dcat:centroid",
+      "@type": "geosparql:wktLiteral"
+    },
+    "locationName": {
+      "@id": "skos:prefLabel"
+    },
+    "startDate": {
+      "@id": "dcat:startDate",
+      "@type": "xsd:date"
+    },
+    "endDate": {
+      "@id": "dcat:endDate",
+      "@type": "xsd:date"
+    },
+    "algorithm": {
+      "@id": "spdx:algorithm",
+      "@type": "@id"
+    },
+    "checksumValue": {
+      "@id": "spdx:checksumValue"
+    },
+    "hadRole": {
+      "@id": "dcat:hadRole",
+      "@type": "@id"
+    },
+    "agent": {
+      "@id": "prov:agent",
+      "@type": "@id"
+    },
+    "applicableLegislation": {
+      "@id": "dcatap:applicableLegislation",
+      "@type": "@id"
+    },
+    "hasPolicy": {
+      "@id": "odrl:hasPolicy",
+      "@type": "@id"
+    },
+    "jurisdiction": {
+      "@id": "dcatuk:jurisdiction",
+      "@type": "@id"
+    },
+    "transferMechanism": {
+      "@id": "dcatuk:transferMechanism",
+      "@type": "@id"
+    },
+    "transportSecurity": {
+      "@id": "dcatuk:transportSecurity",
+      "@type": "@id"
+    },
+    "missingValue": {
+      "@id": "dcatuk:missingValue",
+      "@type": "@id"
+    },
+    "missingProperty": {
+      "@id": "dcatuk:missingProperty",
+      "@type": "@id"
+    },
+    "missingReason": {
+      "@id": "dcatuk:missingReason",
+      "@type": "@id"
+    },
+    "sourceRecord": {
+      "@id": "dct:source",
+      "@type": "@id"
+    },
+    "enrichedProperty": {
+      "@id": "dcatuk:enrichedProperty",
+      "@type": "@id"
+    }
+  }
+}

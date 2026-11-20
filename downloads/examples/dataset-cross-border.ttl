@@ -1,0 +1,46 @@
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dcatap: <http://data.europa.eu/r5r/> .
+@prefix dcatuk: <https://w3id.org/dcat-ap-uk/ns#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix eufreq: <http://publications.europa.eu/resource/authority/frequency/> .
+@prefix odrl: <http://www.w3.org/ns/odrl/2/> .
+@prefix spdx: <http://spdx.org/rdf/terms#> .
+@prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://example.org/dataset/cross-border-registrations> a dcat:Dataset ;
+    dcatap:applicableLegislation <https://www.legislation.gov.uk/ukpga/2018/12> ;
+    dct:accessRights <https://w3id.org/dcat-ap-uk/codelist/access-rights/internal> ;
+    dct:accrualPeriodicity eufreq:DAILY ;
+    dct:description "An invented dataset, used to show how DCAT-AP-UK describes personal data that is held or sent outside the UK. It does not exist." ;
+    dct:identifier "synthetic-cross-border-0001" ;
+    dct:license <https://w3id.org/dcat-ap-uk/codelist/licences/data-sharing-agreement-required> ;
+    dct:modified "2026-10-30"^^xsd:date ;
+    dct:publisher <https://example.org/organisations/example-department> ;
+    dct:rights "Shared only with the vehicle registration authorities of Jersey and Gibraltar, under a data sharing agreement." ;
+    dct:title "Synthetic vehicle registrations shared with the Crown Dependencies" ;
+    dcat:contactPoint [ a vcard:Kind ;
+            vcard:fn "Example data sharing team" ;
+            vcard:hasURL <https://example.org/contact> ] ;
+    dcat:distribution <https://example.org/dataset/cross-border-registrations#feed> ;
+    dcat:keyword "cross-border",
+        "registration",
+        "vehicles" ;
+    dcat:theme <https://w3id.org/dcat-ap-uk/codelist/theme/transport> ;
+    odrl:hasPolicy <https://cyberdudeuk.github.io/dcat-ap-uk/downloads/policies/agreement-required.jsonld> ;
+    dcatuk:jurisdiction <https://w3id.org/dcat-ap-uk/codelist/jurisdiction/gb-wls>,
+        <https://w3id.org/dcat-ap-uk/codelist/jurisdiction/gi>,
+        <https://w3id.org/dcat-ap-uk/codelist/jurisdiction/je> ;
+    dcatuk:personalData <https://w3id.org/dcat-ap-uk/codelist/personal-data/pseudonymised> ;
+    dcatuk:securityClassification <https://w3id.org/dcat-ap-uk/codelist/security-classification/official-sensitive> ;
+    dcatuk:transferMechanism <https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism/uk-adequacy> .
+
+<https://example.org/dataset/cross-border-registrations#feed> a dcat:Distribution ;
+    dct:title "Daily extract, CSV" ;
+    spdx:checksum [ a spdx:Checksum ;
+            spdx:algorithm spdx:checksumAlgorithm_sha384 ;
+            spdx:checksumValue "0a1b2c3d4e5f60718293a4b5c6d7e8f90a1b2c3d4e5f60718293a4b5c6d7e8f90a1b2c3d4e5f60718293a4b5c6d7e8f9" ] ;
+    dcat:accessURL <https://example.org/exchange> ;
+    dcat:mediaType <https://www.iana.org/assignments/media-types/text/csv> ;
+    odrl:hasPolicy <https://cyberdudeuk.github.io/dcat-ap-uk/downloads/policies/agreement-required.jsonld> .
+

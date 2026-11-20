@@ -1,0 +1,5 @@
+DCAT-AP-UK property,OpenLineage (and Marquez) field,Note
+description,facets.documentation.description,
+identifier,namespace and name,A dataset is identified by its namespace and name; keep the DCAT-AP-UK identifier in the facet as well.
+contactPoint,(none),The ownership facet names people and teams. Give a team contact form in the facet.
+(every other property),facets.dcat_ap_uk,The DCAT-AP-UK extension place defined by the add-on kit.

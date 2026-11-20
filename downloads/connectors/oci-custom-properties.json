@@ -1,0 +1,341 @@
+{
+  "_note": "Generated from DCAT-AP-UK. Names match the metadata weaver, so records written by the weaver load into these definitions. Not tested against a live tenant. Create each with CreateCustomProperty in a namespace, then set values as custom property members on entities.",
+  "customProperties": [
+    {
+      "displayName": "title",
+      "description": "The name of the resource, in plain English.",
+      "dataType": "TEXT",
+      "isMultiValued": true,
+      "isFilterable": true
+    },
+    {
+      "displayName": "description",
+      "description": "A plain English account of what the resource contains and what it can be used for.",
+      "dataType": "TEXT",
+      "isMultiValued": true,
+      "isFilterable": true
+    },
+    {
+      "displayName": "identifier",
+      "description": "The main identifier of the resource in the publisher's own catalogue.",
+      "dataType": "TEXT",
+      "isMultiValued": false,
+      "isFilterable": true
+    },
+    {
+      "displayName": "publisher",
+      "description": "The organisation responsible for making the resource available.",
+      "dataType": "TEXT",
+      "isMultiValued": false,
+      "isFilterable": true
+    },
+    {
+      "displayName": "contactPoint",
+      "description": "Where to ask questions about the resource or give feedback on it.",
+      "dataType": "TEXT",
+      "isMultiValued": true,
+      "isFilterable": true
+    },
+    {
+      "displayName": "accessRights",
+      "description": "Who can get the data, and on what terms.",
+      "dataType": "TEXT",
+      "isMultiValued": false,
+      "isFilterable": true
+    },
+    {
+      "displayName": "securityClassification",
+      "description": "The classification under the Government Security Classifications Policy that the data itself carries.",
+      "dataType": "TEXT",
+      "isMultiValued": false,
+      "isFilterable": true
+    },
+    {
+      "displayName": "licence",
+      "description": "The licence under which the resource can be used.",
+      "dataType": "TEXT",
+      "isMultiValued": false,
+      "isFilterable": true
+    },
+    {
+      "displayName": "accrualPeriodicity",
+      "description": "How often the resource is updated.",
+      "dataType": "TEXT",
+      "isMultiValued": false,
+      "isFilterable": true
+    },
+    {
+      "displayName": "criticalDataAsset",
+      "description": "Whether the resource is a critical data asset under the Data Asset Management Policy.",
+      "dataType": "TEXT",
+      "isMultiValued": false,
+      "isFilterable": true
+    },
+    {
+      "displayName": "creator",
+      "description": "The organisation that created or compiled the content of the resource.",
+      "dataType": "TEXT",
+      "isMultiValued": true,
+      "isFilterable": true
+    },
+    {
+      "displayName": "created",
+      "description": "The date the content of the resource was created or compiled.",
+      "dataType": "TEXT",
+      "isMultiValued": false,
+      "isFilterable": true
+    },
+    {
+      "displayName": "conformsTo",
+      "description": "A standard, specification or schema the resource follows.",
+      "dataType": "TEXT",
+      "isMultiValued": true,
+      "isFilterable": true
+    },
+    {
+      "displayName": "temporal",
+      "description": "The period of time the data is about.",
+      "dataType": "TEXT",
+      "isMultiValued": true,
+      "isFilterable": true
+    },
+    {
+      "displayName": "personalData",
+      "description": "Whether the data contains information about identifiable living people, and in what form.",
+      "dataType": "TEXT",
+      "isMultiValued": false,
+      "isFilterable": true
+    },
+    {
+      "displayName": "rights",
+      "description": "A statement of any restriction on access or use, such as the data sharing agreement or legal gateway needed.",
+      "dataType": "TEXT",
+      "isMultiValued": true,
+      "isFilterable": true
+    },
+    {
+      "displayName": "modified",
+      "description": "The date the content of the resource last changed.",
+      "dataType": "TEXT",
+      "isMultiValued": false,
+      "isFilterable": true
+    },
+    {
+      "displayName": "issued",
+      "description": "The date the resource was first made available.",
+      "dataType": "TEXT",
+      "isMultiValued": false,
+      "isFilterable": true
+    },
+    {
+      "displayName": "abstract",
+      "description": "A one-sentence summary of the resource, of no more than 250 characters.",
+      "dataType": "TEXT",
+      "isMultiValued": false,
+      "isFilterable": true
+    },
+    {
+      "displayName": "theme",
+      "description": "The broad subject of the resource, from a controlled list.",
+      "dataType": "TEXT",
+      "isMultiValued": true,
+      "isFilterable": true
+    },
+    {
+      "displayName": "keyword",
+      "description": "Words or short phrases that people might search for, not already in the title or description.",
+      "dataType": "TEXT",
+      "isMultiValued": true,
+      "isFilterable": true
+    },
+    {
+      "displayName": "spatial",
+      "description": "The geographic area the data is about.",
+      "dataType": "TEXT",
+      "isMultiValued": true,
+      "isFilterable": true
+    },
+    {
+      "displayName": "distribution",
+      "description": "A form in which the data can be got, such as a file or an API.",
+      "dataType": "TEXT",
+      "isMultiValued": true,
+      "isFilterable": true
+    },
+    {
+      "displayName": "landingPage",
+      "description": "A web page where people can find out about the resource and how to get it.",
+      "dataType": "TEXT",
+      "isMultiValued": true,
+      "isFilterable": true
+    },
+    {
+      "displayName": "version",
+      "description": "The version of the resource.",
+      "dataType": "TEXT",
+      "isMultiValued": false,
+      "isFilterable": true
+    },
+    {
+      "displayName": "sensitiveData",
+      "description": "Whether the data contains information that needs extra care beyond being personal, such as special category data.",
+      "dataType": "TEXT",
+      "isMultiValued": true,
+      "isFilterable": true
+    },
+    {
+      "displayName": "qualifiedAttribution",
+      "description": "An organisation and the role it plays for the resource, such as data owner or data steward.",
+      "dataType": "TEXT",
+      "isMultiValued": true,
+      "isFilterable": true
+    },
+    {
+      "displayName": "language",
+      "description": "The language or languages of the resource.",
+      "dataType": "TEXT",
+      "isMultiValued": true,
+      "isFilterable": true
+    },
+    {
+      "displayName": "alternative",
+      "description": "Another name the resource is known by, such as an abbreviation or a former name.",
+      "dataType": "TEXT",
+      "isMultiValued": true,
+      "isFilterable": true
+    },
+    {
+      "displayName": "otherIdentifier",
+      "description": "Any other identifier the resource is known by, such as one in a national or sector register.",
+      "dataType": "TEXT",
+      "isMultiValued": true,
+      "isFilterable": true
+    },
+    {
+      "displayName": "inSeries",
+      "description": "The dataset series this dataset belongs to.",
+      "dataType": "TEXT",
+      "isMultiValued": true,
+      "isFilterable": true
+    },
+    {
+      "displayName": "isReplacedBy",
+      "description": "A newer resource that replaces this one.",
+      "dataType": "TEXT",
+      "isMultiValued": true,
+      "isFilterable": true
+    },
+    {
+      "displayName": "expires",
+      "description": "The date after which the resource should no longer be used.",
+      "dataType": "TEXT",
+      "isMultiValued": false,
+      "isFilterable": true
+    },
+    {
+      "displayName": "previousVersion",
+      "description": "The version this one replaces in a sequence.",
+      "dataType": "TEXT",
+      "isMultiValued": false,
+      "isFilterable": true
+    },
+    {
+      "displayName": "versionNotes",
+      "description": "What changed in this version.",
+      "dataType": "TEXT",
+      "isMultiValued": true,
+      "isFilterable": true
+    },
+    {
+      "displayName": "spatialResolutionInMeters",
+      "description": "The smallest distance the data can tell apart, in metres.",
+      "dataType": "TEXT",
+      "isMultiValued": true,
+      "isFilterable": true
+    },
+    {
+      "displayName": "temporalResolution",
+      "description": "The smallest period the data can tell apart, as an ISO 8601 duration.",
+      "dataType": "TEXT",
+      "isMultiValued": true,
+      "isFilterable": true
+    },
+    {
+      "displayName": "referenceData",
+      "description": "A code list, classification or set of groupings the data uses, such as age bands or a geography.",
+      "dataType": "TEXT",
+      "isMultiValued": true,
+      "isFilterable": true
+    },
+    {
+      "displayName": "qualityAnnotation",
+      "description": "A link to a published statement or measurement of the quality of the data.",
+      "dataType": "TEXT",
+      "isMultiValued": true,
+      "isFilterable": true
+    },
+    {
+      "displayName": "relation",
+      "description": "Another resource closely related to this one, such as the report the data supports.",
+      "dataType": "TEXT",
+      "isMultiValued": true,
+      "isFilterable": true
+    },
+    {
+      "displayName": "qualifiedRelation",
+      "description": "A related resource together with the kind of relationship.",
+      "dataType": "TEXT",
+      "isMultiValued": true,
+      "isFilterable": true
+    },
+    {
+      "displayName": "documentation",
+      "description": "A web page that documents the resource, such as a user guide or a methodology.",
+      "dataType": "TEXT",
+      "isMultiValued": true,
+      "isFilterable": true
+    },
+    {
+      "displayName": "metadataAudience",
+      "description": "Who is allowed to see the metadata record itself.",
+      "dataType": "TEXT",
+      "isMultiValued": false,
+      "isFilterable": true
+    },
+    {
+      "displayName": "applicableLegislation",
+      "description": "Legislation that requires, governs or permits the publication or sharing of the resource.",
+      "dataType": "TEXT",
+      "isMultiValued": true,
+      "isFilterable": true
+    },
+    {
+      "displayName": "hasPolicy",
+      "description": "A machine-readable policy, in the W3C Open Digital Rights Language (ODRL), saying what may and may not be done with the resource.",
+      "dataType": "TEXT",
+      "isMultiValued": true,
+      "isFilterable": true
+    },
+    {
+      "displayName": "jurisdiction",
+      "description": "Every country or territory where the data is stored or processed, or to which it is sent.",
+      "dataType": "TEXT",
+      "isMultiValued": true,
+      "isFilterable": true
+    },
+    {
+      "displayName": "transferMechanism",
+      "description": "The basis under UK GDPR on which personal data in the resource may be sent outside the UK.",
+      "dataType": "TEXT",
+      "isMultiValued": true,
+      "isFilterable": true
+    },
+    {
+      "displayName": "missingValue",
+      "description": "A property this record leaves empty on purpose, and why.",
+      "dataType": "TEXT",
+      "isMultiValued": true,
+      "isFilterable": true
+    }
+  ]
+}

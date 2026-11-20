@@ -1,0 +1,1647 @@
+@prefix euaccess: <http://publications.europa.eu/resource/authority/access-right/> .
+@prefix eutheme: <http://publications.europa.eu/resource/authority/data-theme/> .
+@prefix inspiresrt: <http://inspire.ec.europa.eu/metadata-codelist/SpatialRepresentationType/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix spdx: <http://spdx.org/rdf/terms#> .
+@prefix ukcl: <https://w3id.org/dcat-ap-uk/codelist/> .
+
+inspiresrt:grid skos:inScheme ukcl:spatial-representation-type ;
+    skos:prefLabel "Grid"@en .
+
+inspiresrt:stereoModel skos:inScheme ukcl:spatial-representation-type ;
+    skos:prefLabel "Stereo model"@en .
+
+inspiresrt:textTable skos:inScheme ukcl:spatial-representation-type ;
+    skos:prefLabel "Text table"@en .
+
+inspiresrt:tin skos:inScheme ukcl:spatial-representation-type ;
+    skos:prefLabel "Triangulated irregular network"@en .
+
+inspiresrt:vector skos:inScheme ukcl:spatial-representation-type ;
+    skos:prefLabel "Vector"@en .
+
+inspiresrt:video skos:inScheme ukcl:spatial-representation-type ;
+    skos:prefLabel "Video"@en .
+
+spdx:checksumAlgorithm_blake2b256 skos:inScheme ukcl:checksum-algorithm ;
+    skos:prefLabel "BLAKE2b-256"@en .
+
+spdx:checksumAlgorithm_blake2b512 skos:inScheme ukcl:checksum-algorithm ;
+    skos:prefLabel "BLAKE2b-512"@en .
+
+spdx:checksumAlgorithm_blake3 skos:inScheme ukcl:checksum-algorithm ;
+    skos:prefLabel "BLAKE3"@en .
+
+spdx:checksumAlgorithm_md5 skos:inScheme ukcl:checksum-algorithm ;
+    skos:prefLabel "MD5"@en .
+
+spdx:checksumAlgorithm_sha1 skos:inScheme ukcl:checksum-algorithm ;
+    skos:prefLabel "SHA-1"@en .
+
+spdx:checksumAlgorithm_sha224 skos:inScheme ukcl:checksum-algorithm ;
+    skos:prefLabel "SHA-224"@en .
+
+spdx:checksumAlgorithm_sha256 skos:inScheme ukcl:checksum-algorithm ;
+    skos:prefLabel "SHA-256"@en .
+
+spdx:checksumAlgorithm_sha384 skos:inScheme ukcl:checksum-algorithm ;
+    skos:prefLabel "SHA-384"@en .
+
+spdx:checksumAlgorithm_sha3_256 skos:inScheme ukcl:checksum-algorithm ;
+    skos:prefLabel "SHA3-256"@en .
+
+spdx:checksumAlgorithm_sha3_384 skos:inScheme ukcl:checksum-algorithm ;
+    skos:prefLabel "SHA3-384"@en .
+
+spdx:checksumAlgorithm_sha3_512 skos:inScheme ukcl:checksum-algorithm ;
+    skos:prefLabel "SHA3-512"@en .
+
+spdx:checksumAlgorithm_sha512 skos:inScheme ukcl:checksum-algorithm ;
+    skos:prefLabel "SHA-512"@en .
+
+<http://www.nationalarchives.gov.uk/doc/non-commercial-government-licence/version/2/> skos:inScheme ukcl:licences ;
+    skos:prefLabel "Non-Commercial Government Licence v2.0"@en .
+
+<http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/> skos:inScheme ukcl:licences ;
+    skos:prefLabel "Open Government Licence v3.0"@en .
+
+<https://creativecommons.org/licenses/by/4.0/> skos:inScheme ukcl:licences ;
+    skos:prefLabel "Creative Commons Attribution 4.0"@en .
+
+<https://creativecommons.org/publicdomain/zero/1.0/> skos:inScheme ukcl:licences ;
+    skos:prefLabel "Creative Commons Zero 1.0"@en .
+
+<https://w3id.org/dcat-ap-uk/codelist/access-rights/commercial> a skos:Concept ;
+    skos:closeMatch euaccess:RESTRICTED ;
+    skos:definition "The data is available to anyone, for a fee or under commercial terms."@en ;
+    skos:hiddenLabel "COMMERCIAL" ;
+    skos:inScheme ukcl:access-rights ;
+    skos:notation "commercial" ;
+    skos:prefLabel "Commercial"@en ;
+    skos:scopeNote "Say in the rights statement how to buy or licence it."@en ;
+    skos:topConceptOf ukcl:access-rights .
+
+<https://w3id.org/dcat-ap-uk/codelist/access-rights/internal> a skos:Concept ;
+    skos:closeMatch euaccess:NON_PUBLIC ;
+    skos:definition "The data is available only to public sector organisations, or to named organisations, under an agreement."@en ;
+    skos:hiddenLabel "INTERNAL" ;
+    skos:inScheme ukcl:access-rights ;
+    skos:notation "internal" ;
+    skos:prefLabel "Internal to the public sector"@en ;
+    skos:scopeNote "Say in the rights statement which agreement or legal gateway is needed. Finer levels are being researched (issue 5)."@en ;
+    skos:topConceptOf ukcl:access-rights .
+
+<https://w3id.org/dcat-ap-uk/codelist/access-rights/open> a skos:Concept ;
+    skos:definition "Anyone can get the data, without registering or asking."@en ;
+    skos:exactMatch euaccess:PUBLIC ;
+    skos:hiddenLabel "OPEN" ;
+    skos:inScheme ukcl:access-rights ;
+    skos:notation "open" ;
+    skos:prefLabel "Open"@en ;
+    skos:scopeNote "Usually published under the Open Government Licence. Check the security classification is OFFICIAL and the data contains no personal data unless lawfully published."@en ;
+    skos:topConceptOf ukcl:access-rights .
+
+<https://w3id.org/dcat-ap-uk/codelist/agent-role/data-custodian> a skos:Concept ;
+    skos:definition "Runs the systems that hold the data."@en ;
+    skos:inScheme ukcl:agent-role ;
+    skos:notation "data-custodian" ;
+    skos:prefLabel "Data custodian"@en ;
+    skos:topConceptOf ukcl:agent-role .
+
+<https://w3id.org/dcat-ap-uk/codelist/agent-role/data-owner> a skos:Concept ;
+    skos:definition "Accountable for the data asset, its use and its quality. Named as a post, not a person."@en ;
+    skos:inScheme ukcl:agent-role ;
+    skos:notation "data-owner" ;
+    skos:prefLabel "Data owner"@en ;
+    skos:topConceptOf ukcl:agent-role .
+
+<https://w3id.org/dcat-ap-uk/codelist/agent-role/data-steward> a skos:Concept ;
+    skos:definition "Looks after the data day to day: its metadata, quality and access."@en ;
+    skos:inScheme ukcl:agent-role ;
+    skos:notation "data-steward" ;
+    skos:prefLabel "Data steward"@en ;
+    skos:topConceptOf ukcl:agent-role .
+
+<https://w3id.org/dcat-ap-uk/codelist/agent-role/distributor> a skos:Concept ;
+    skos:definition "Makes the data available on behalf of the publisher."@en ;
+    skos:inScheme ukcl:agent-role ;
+    skos:notation "distributor" ;
+    skos:prefLabel "Distributor"@en ;
+    skos:topConceptOf ukcl:agent-role .
+
+<https://w3id.org/dcat-ap-uk/codelist/agent-role/information-asset-owner> a skos:Concept ;
+    skos:definition "The senior role accountable for the information asset under information assurance."@en ;
+    skos:inScheme ukcl:agent-role ;
+    skos:notation "information-asset-owner" ;
+    skos:prefLabel "Information asset owner"@en ;
+    skos:topConceptOf ukcl:agent-role .
+
+<https://w3id.org/dcat-ap-uk/codelist/ai-use/evaluation-only> a skos:Concept ;
+    skos:definition "The data may be used to test or evaluate AI models, but not to train them."@en ;
+    skos:inScheme ukcl:ai-use ;
+    skos:notation "evaluation-only" ;
+    skos:prefLabel "Evaluation only"@en ;
+    skos:topConceptOf ukcl:ai-use .
+
+<https://w3id.org/dcat-ap-uk/codelist/ai-use/not-assessed> a skos:Concept ;
+    skos:definition "The owner has not decided. Treat as not permitted until they do."@en ;
+    skos:inScheme ukcl:ai-use ;
+    skos:notation "not-assessed" ;
+    skos:prefLabel "Not yet assessed"@en ;
+    skos:topConceptOf ukcl:ai-use .
+
+<https://w3id.org/dcat-ap-uk/codelist/ai-use/not-permitted> a skos:Concept ;
+    skos:definition "The data must not be used to train, fine-tune or evaluate AI models."@en ;
+    skos:inScheme ukcl:ai-use ;
+    skos:notation "not-permitted" ;
+    skos:prefLabel "Not permitted"@en ;
+    skos:topConceptOf ukcl:ai-use .
+
+<https://w3id.org/dcat-ap-uk/codelist/ai-use/permitted> a skos:Concept ;
+    skos:definition "The data may be used to train and fine-tune AI models under its licence, with no further conditions."@en ;
+    skos:inScheme ukcl:ai-use ;
+    skos:notation "permitted" ;
+    skos:prefLabel "Training permitted"@en ;
+    skos:topConceptOf ukcl:ai-use .
+
+<https://w3id.org/dcat-ap-uk/codelist/ai-use/permitted-with-conditions> a skos:Concept ;
+    skos:definition "The data may be used for AI training under conditions in the usage policy or rights statement, such as attribution, non-commercial use or a data sharing agreement."@en ;
+    skos:inScheme ukcl:ai-use ;
+    skos:notation "permitted-with-conditions" ;
+    skos:prefLabel "Training permitted with conditions"@en ;
+    skos:topConceptOf ukcl:ai-use .
+
+<https://w3id.org/dcat-ap-uk/codelist/geodetic-technique/doris> a skos:Concept ;
+    skos:definition "Doppler orbitography and radiopositioning integrated by satellite."@en ;
+    skos:inScheme ukcl:geodetic-technique ;
+    skos:notation "doris" ;
+    skos:prefLabel "DORIS"@en ;
+    skos:topConceptOf ukcl:geodetic-technique .
+
+<https://w3id.org/dcat-ap-uk/codelist/geodetic-technique/gnss> a skos:Concept ;
+    skos:definition "Positions from satellite navigation signals, such as GPS and Galileo."@en ;
+    skos:inScheme ukcl:geodetic-technique ;
+    skos:notation "gnss" ;
+    skos:prefLabel "Global navigation satellite systems (GNSS)"@en ;
+    skos:topConceptOf ukcl:geodetic-technique .
+
+<https://w3id.org/dcat-ap-uk/codelist/geodetic-technique/gravimetry> a skos:Concept ;
+    skos:definition "Measurements of gravity, used for heights and the geoid."@en ;
+    skos:inScheme ukcl:geodetic-technique ;
+    skos:notation "gravimetry" ;
+    skos:prefLabel "Gravimetry"@en ;
+    skos:topConceptOf ukcl:geodetic-technique .
+
+<https://w3id.org/dcat-ap-uk/codelist/geodetic-technique/insar> a skos:Concept ;
+    skos:definition "Ground movement measured from repeated radar images."@en ;
+    skos:inScheme ukcl:geodetic-technique ;
+    skos:notation "insar" ;
+    skos:prefLabel "Interferometric synthetic aperture radar (InSAR)"@en ;
+    skos:topConceptOf ukcl:geodetic-technique .
+
+<https://w3id.org/dcat-ap-uk/codelist/geodetic-technique/levelling> a skos:Concept ;
+    skos:definition "Height differences measured on the ground."@en ;
+    skos:inScheme ukcl:geodetic-technique ;
+    skos:notation "levelling" ;
+    skos:prefLabel "Levelling"@en ;
+    skos:topConceptOf ukcl:geodetic-technique .
+
+<https://w3id.org/dcat-ap-uk/codelist/geodetic-technique/slr> a skos:Concept ;
+    skos:definition "Distances to satellites measured by laser."@en ;
+    skos:inScheme ukcl:geodetic-technique ;
+    skos:notation "slr" ;
+    skos:prefLabel "Satellite laser ranging (SLR)"@en ;
+    skos:topConceptOf ukcl:geodetic-technique .
+
+<https://w3id.org/dcat-ap-uk/codelist/geodetic-technique/vlbi> a skos:Concept ;
+    skos:definition "Radio telescopes observing distant sources, which ties the frame to space."@en ;
+    skos:inScheme ukcl:geodetic-technique ;
+    skos:notation "vlbi" ;
+    skos:prefLabel "Very long baseline interferometry (VLBI)"@en ;
+    skos:topConceptOf ukcl:geodetic-technique .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/ad> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "ad" ;
+    skos:prefLabel "Andorra"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/ae> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "ae" ;
+    skos:prefLabel "United Arab Emirates"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/ag> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "ag" ;
+    skos:prefLabel "Antigua and Barbuda"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/ai> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "ai" ;
+    skos:prefLabel "Anguilla"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/ar> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "ar" ;
+    skos:prefLabel "Argentina"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/at> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "at" ;
+    skos:prefLabel "Austria"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/au> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "au" ;
+    skos:prefLabel "Australia"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/bat> a skos:Concept ;
+    skos:definition "Has no ISO 3166-1 code of its own; this code is this profile’s."@en ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "bat" ;
+    skos:prefLabel "British Antarctic Territory"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/bb> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "bb" ;
+    skos:prefLabel "Barbados"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/bd> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "bd" ;
+    skos:prefLabel "Bangladesh"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/be> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "be" ;
+    skos:prefLabel "Belgium"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/bg> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "bg" ;
+    skos:prefLabel "Bulgaria"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/bm> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "bm" ;
+    skos:prefLabel "Bermuda"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/bn> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "bn" ;
+    skos:prefLabel "Brunei Darussalam"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/br> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "br" ;
+    skos:prefLabel "Brazil"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/bs> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "bs" ;
+    skos:prefLabel "The Bahamas"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/bw> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "bw" ;
+    skos:prefLabel "Botswana"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/bz> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "bz" ;
+    skos:prefLabel "Belize"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/ca> a skos:Concept ;
+    skos:definition "Commercial organisations subject to PIPEDA."@en ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "ca" ;
+    skos:prefLabel "Canada"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/ch> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "ch" ;
+    skos:prefLabel "Switzerland"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/cm> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "cm" ;
+    skos:prefLabel "Cameroon"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/cn> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "cn" ;
+    skos:prefLabel "China"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/cy> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "cy" ;
+    skos:prefLabel "Cyprus"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/cz> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "cz" ;
+    skos:prefLabel "Czechia"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/de> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "de" ;
+    skos:prefLabel "Germany"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/dk> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "dk" ;
+    skos:prefLabel "Denmark"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/dm> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "dm" ;
+    skos:prefLabel "Dominica"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/ee> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "ee" ;
+    skos:prefLabel "Estonia"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/es> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "es" ;
+    skos:prefLabel "Spain"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/fi> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "fi" ;
+    skos:prefLabel "Finland"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/fj> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "fj" ;
+    skos:prefLabel "Fiji"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/fk> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "fk" ;
+    skos:prefLabel "Falkland Islands"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/fo> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "fo" ;
+    skos:prefLabel "Faroe Islands"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/fr> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "fr" ;
+    skos:prefLabel "France"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/ga> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "ga" ;
+    skos:prefLabel "Gabon"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/gb> a skos:Concept ;
+    skos:definition "The whole UK. Use a nation when you know it."@en ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "gb" ;
+    skos:prefLabel "United Kingdom"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/gb-eng> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "gb-eng" ;
+    skos:prefLabel "England"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/gb-nir> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "gb-nir" ;
+    skos:prefLabel "Northern Ireland"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/gb-sct> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "gb-sct" ;
+    skos:prefLabel "Scotland"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/gb-wls> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "gb-wls" ;
+    skos:prefLabel "Wales"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/gd> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "gd" ;
+    skos:prefLabel "Grenada"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/gg> a skos:Concept ;
+    skos:definition "The Bailiwick of Guernsey, including Alderney and Sark."@en ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "gg" ;
+    skos:prefLabel "Guernsey"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/gh> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "gh" ;
+    skos:prefLabel "Ghana"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/gi> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "gi" ;
+    skos:prefLabel "Gibraltar"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/gm> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "gm" ;
+    skos:prefLabel "The Gambia"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/gr> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "gr" ;
+    skos:prefLabel "Greece"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/gs> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "gs" ;
+    skos:prefLabel "South Georgia and the South Sandwich Islands"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/gy> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "gy" ;
+    skos:prefLabel "Guyana"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/hr> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "hr" ;
+    skos:prefLabel "Croatia"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/hu> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "hu" ;
+    skos:prefLabel "Hungary"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/id> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "id" ;
+    skos:prefLabel "Indonesia"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/ie> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "ie" ;
+    skos:prefLabel "Ireland"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/il> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "il" ;
+    skos:prefLabel "Israel"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/im> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "im" ;
+    skos:prefLabel "Isle of Man"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/in> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "in" ;
+    skos:prefLabel "India"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/io> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "io" ;
+    skos:prefLabel "British Indian Ocean Territory"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/is> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "is" ;
+    skos:prefLabel "Iceland"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/it> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "it" ;
+    skos:prefLabel "Italy"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/je> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "je" ;
+    skos:prefLabel "Jersey"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/jm> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "jm" ;
+    skos:prefLabel "Jamaica"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/jp> a skos:Concept ;
+    skos:definition "Private sector organisations."@en ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "jp" ;
+    skos:prefLabel "Japan"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/ke> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "ke" ;
+    skos:prefLabel "Kenya"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/ki> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "ki" ;
+    skos:prefLabel "Kiribati"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/kn> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "kn" ;
+    skos:prefLabel "St Kitts and Nevis"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/kr> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "kr" ;
+    skos:prefLabel "Republic of Korea"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/ky> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "ky" ;
+    skos:prefLabel "Cayman Islands"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/lc> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "lc" ;
+    skos:prefLabel "St Lucia"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/li> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "li" ;
+    skos:prefLabel "Liechtenstein"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/lk> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "lk" ;
+    skos:prefLabel "Sri Lanka"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/ls> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "ls" ;
+    skos:prefLabel "Lesotho"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/lt> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "lt" ;
+    skos:prefLabel "Lithuania"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/lu> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "lu" ;
+    skos:prefLabel "Luxembourg"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/lv> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "lv" ;
+    skos:prefLabel "Latvia"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/ms> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "ms" ;
+    skos:prefLabel "Montserrat"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/mt> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "mt" ;
+    skos:prefLabel "Malta"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/mu> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "mu" ;
+    skos:prefLabel "Mauritius"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/mv> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "mv" ;
+    skos:prefLabel "Maldives"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/mw> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "mw" ;
+    skos:prefLabel "Malawi"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/mx> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "mx" ;
+    skos:prefLabel "Mexico"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/my> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "my" ;
+    skos:prefLabel "Malaysia"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/mz> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "mz" ;
+    skos:prefLabel "Mozambique"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/na> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "na" ;
+    skos:prefLabel "Namibia"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/ng> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "ng" ;
+    skos:prefLabel "Nigeria"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/nl> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "nl" ;
+    skos:prefLabel "Netherlands"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/no> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "no" ;
+    skos:prefLabel "Norway"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/nr> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "nr" ;
+    skos:prefLabel "Nauru"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/nz> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "nz" ;
+    skos:prefLabel "New Zealand"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/pg> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "pg" ;
+    skos:prefLabel "Papua New Guinea"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/ph> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "ph" ;
+    skos:prefLabel "Philippines"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/pk> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "pk" ;
+    skos:prefLabel "Pakistan"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/pl> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "pl" ;
+    skos:prefLabel "Poland"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/pn> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "pn" ;
+    skos:prefLabel "Pitcairn, Henderson, Ducie and Oeno Islands"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/pt> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "pt" ;
+    skos:prefLabel "Portugal"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/ro> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "ro" ;
+    skos:prefLabel "Romania"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/rw> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "rw" ;
+    skos:prefLabel "Rwanda"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/sa> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "sa" ;
+    skos:prefLabel "Saudi Arabia"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/sb> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "sb" ;
+    skos:prefLabel "Solomon Islands"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/sba> a skos:Concept ;
+    skos:definition "Has no ISO 3166-1 code of its own; this code is this profile’s."@en ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "sba" ;
+    skos:prefLabel "Sovereign Base Areas of Akrotiri and Dhekelia"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/sc> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "sc" ;
+    skos:prefLabel "Seychelles"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/se> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "se" ;
+    skos:prefLabel "Sweden"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/sg> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "sg" ;
+    skos:prefLabel "Singapore"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/sh> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "sh" ;
+    skos:prefLabel "St Helena, Ascension and Tristan da Cunha"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/si> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "si" ;
+    skos:prefLabel "Slovenia"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/sk> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "sk" ;
+    skos:prefLabel "Slovakia"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/sl> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "sl" ;
+    skos:prefLabel "Sierra Leone"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/sz> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "sz" ;
+    skos:prefLabel "Eswatini"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/tc> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "tc" ;
+    skos:prefLabel "Turks and Caicos Islands"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/tg> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "tg" ;
+    skos:prefLabel "Togo"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/to> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "to" ;
+    skos:prefLabel "Tonga"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/tr> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "tr" ;
+    skos:prefLabel "Türkiye"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/tt> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "tt" ;
+    skos:prefLabel "Trinidad and Tobago"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/tv> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "tv" ;
+    skos:prefLabel "Tuvalu"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/tz> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "tz" ;
+    skos:prefLabel "Tanzania"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/ua> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "ua" ;
+    skos:prefLabel "Ukraine"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/ug> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "ug" ;
+    skos:prefLabel "Uganda"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/us> a skos:Concept ;
+    skos:definition "Organisations certified to the UK Extension to the EU-US Data Privacy Framework (the UK-US data bridge)."@en ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "us" ;
+    skos:prefLabel "United States"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/uy> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "uy" ;
+    skos:prefLabel "Uruguay"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/vc> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "vc" ;
+    skos:prefLabel "St Vincent and the Grenadines"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/vg> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "vg" ;
+    skos:prefLabel "British Virgin Islands"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/vu> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "vu" ;
+    skos:prefLabel "Vanuatu"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/ws> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "ws" ;
+    skos:prefLabel "Samoa"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/za> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "za" ;
+    skos:prefLabel "South Africa"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/jurisdiction/zm> a skos:Concept ;
+    skos:inScheme ukcl:jurisdiction ;
+    skos:notation "zm" ;
+    skos:prefLabel "Zambia"@en ;
+    skos:topConceptOf ukcl:jurisdiction .
+
+<https://w3id.org/dcat-ap-uk/codelist/licences/data-sharing-agreement-required> a skos:Concept ;
+    skos:definition "There is no licence. A data sharing agreement, memorandum of understanding or other legal instrument is needed. Describe it in the rights statement."@en ;
+    skos:hiddenLabel "DATA_SHARE_REQUEST" ;
+    skos:inScheme ukcl:licences ;
+    skos:notation "data-sharing-agreement-required" ;
+    skos:prefLabel "Data sharing agreement required"@en ;
+    skos:topConceptOf ukcl:licences .
+
+<https://w3id.org/dcat-ap-uk/codelist/metadata-audience/government> a skos:Concept ;
+    skos:definition "Central government departments and arm's-length bodies can see the record."@en ;
+    skos:inScheme ukcl:metadata-audience ;
+    skos:notation "government" ;
+    skos:prefLabel "UK government departments and their bodies"@en ;
+    skos:topConceptOf ukcl:metadata-audience .
+
+<https://w3id.org/dcat-ap-uk/codelist/metadata-audience/public> a skos:Concept ;
+    skos:definition "The record can be published openly, even if the data is not open."@en ;
+    skos:inScheme ukcl:metadata-audience ;
+    skos:notation "public" ;
+    skos:prefLabel "Everyone"@en ;
+    skos:topConceptOf ukcl:metadata-audience .
+
+<https://w3id.org/dcat-ap-uk/codelist/metadata-audience/public-sector> a skos:Concept ;
+    skos:definition "Any UK public sector organisation can see the record."@en ;
+    skos:inScheme ukcl:metadata-audience ;
+    skos:notation "public-sector" ;
+    skos:prefLabel "UK public sector"@en ;
+    skos:topConceptOf ukcl:metadata-audience .
+
+<https://w3id.org/dcat-ap-uk/codelist/metadata-audience/publisher-only> a skos:Concept ;
+    skos:definition "Only the publishing organisation can see the record."@en ;
+    skos:inScheme ukcl:metadata-audience ;
+    skos:notation "publisher-only" ;
+    skos:prefLabel "The publisher only"@en ;
+    skos:topConceptOf ukcl:metadata-audience .
+
+<https://w3id.org/dcat-ap-uk/codelist/missing-reason/inapplicable> a skos:Concept ;
+    skos:closeMatch <http://dd.eionet.europa.eu/vocabulary/common/NilReasonType/inapplicable> ;
+    skos:definition "The property does not apply to this resource, so there is no value to give."@en ;
+    skos:inScheme ukcl:missing-reason ;
+    skos:notation "inapplicable" ;
+    skos:prefLabel "Not applicable"@en ;
+    skos:topConceptOf ukcl:missing-reason .
+
+<https://w3id.org/dcat-ap-uk/codelist/missing-reason/template> a skos:Concept ;
+    skos:closeMatch <http://dd.eionet.europa.eu/vocabulary/common/NilReasonType/template> ;
+    skos:definition "The value will be given later, for example once the data is published."@en ;
+    skos:inScheme ukcl:missing-reason ;
+    skos:notation "template" ;
+    skos:prefLabel "Not yet available"@en ;
+    skos:topConceptOf ukcl:missing-reason .
+
+<https://w3id.org/dcat-ap-uk/codelist/missing-reason/unknown> a skos:Concept ;
+    skos:closeMatch <http://dd.eionet.europa.eu/vocabulary/common/NilReasonType/unknown> ;
+    skos:definition "The correct value is not known to the publisher and cannot be worked out, but it probably exists."@en ;
+    skos:inScheme ukcl:missing-reason ;
+    skos:notation "unknown" ;
+    skos:prefLabel "Unknown"@en ;
+    skos:topConceptOf ukcl:missing-reason .
+
+<https://w3id.org/dcat-ap-uk/codelist/missing-reason/unpopulated> a skos:Concept ;
+    skos:closeMatch <http://dd.eionet.europa.eu/vocabulary/common/NilReasonType/unpopulated> ;
+    skos:definition "The publisher does not hold this kind of value for any of its resources."@en ;
+    skos:inScheme ukcl:missing-reason ;
+    skos:notation "unpopulated" ;
+    skos:prefLabel "Not collected"@en ;
+    skos:topConceptOf ukcl:missing-reason .
+
+<https://w3id.org/dcat-ap-uk/codelist/missing-reason/withheld> a skos:Concept ;
+    skos:closeMatch <http://dd.eionet.europa.eu/vocabulary/common/NilReasonType/withheld> ;
+    skos:definition "A value exists but is not given in this record, for example because the record is shared more widely than the value may be."@en ;
+    skos:inScheme ukcl:missing-reason ;
+    skos:notation "withheld" ;
+    skos:prefLabel "Withheld"@en ;
+    skos:topConceptOf ukcl:missing-reason .
+
+<https://w3id.org/dcat-ap-uk/codelist/open-data-triage/closed> a skos:Concept ;
+    skos:definition "Not shared outside the organisation, for reasons recorded in the triage, such as security or privacy."@en ;
+    skos:inScheme ukcl:open-data-triage ;
+    skos:notation "closed" ;
+    skos:prefLabel "Closed"@en ;
+    skos:topConceptOf ukcl:open-data-triage .
+
+<https://w3id.org/dcat-ap-uk/codelist/open-data-triage/open> a skos:Concept ;
+    skos:definition "Published for anyone to use, under an open licence."@en ;
+    skos:inScheme ukcl:open-data-triage ;
+    skos:notation "open" ;
+    skos:prefLabel "Open"@en ;
+    skos:topConceptOf ukcl:open-data-triage .
+
+<https://w3id.org/dcat-ap-uk/codelist/open-data-triage/public> a skos:Concept ;
+    skos:definition "Available to anyone, but under a licence with conditions that make it not open."@en ;
+    skos:inScheme ukcl:open-data-triage ;
+    skos:notation "public" ;
+    skos:prefLabel "Public"@en ;
+    skos:topConceptOf ukcl:open-data-triage .
+
+<https://w3id.org/dcat-ap-uk/codelist/open-data-triage/shared> a skos:Concept ;
+    skos:definition "Shared with named people or organisations, or groups of them, under conditions."@en ;
+    skos:inScheme ukcl:open-data-triage ;
+    skos:notation "shared" ;
+    skos:prefLabel "Shared"@en ;
+    skos:topConceptOf ukcl:open-data-triage .
+
+<https://w3id.org/dcat-ap-uk/codelist/personal-data/anonymised> a skos:Concept ;
+    skos:definition "People cannot reasonably be identified, by anyone, with any means likely to be used."@en ;
+    skos:inScheme ukcl:personal-data ;
+    skos:notation "anonymised" ;
+    skos:prefLabel "Anonymised"@en ;
+    skos:topConceptOf ukcl:personal-data .
+
+<https://w3id.org/dcat-ap-uk/codelist/personal-data/none> a skos:Concept ;
+    skos:definition "The data contains no information about identifiable living people."@en ;
+    skos:inScheme ukcl:personal-data ;
+    skos:notation "none" ;
+    skos:prefLabel "No personal data"@en ;
+    skos:topConceptOf ukcl:personal-data .
+
+<https://w3id.org/dcat-ap-uk/codelist/personal-data/personal> a skos:Concept ;
+    skos:definition "The data identifies people, directly or indirectly."@en ;
+    skos:inScheme ukcl:personal-data ;
+    skos:notation "personal" ;
+    skos:prefLabel "Personal data"@en ;
+    skos:topConceptOf ukcl:personal-data .
+
+<https://w3id.org/dcat-ap-uk/codelist/personal-data/pseudonymised> a skos:Concept ;
+    skos:definition "People are not named, but could be re-identified with other information. Still personal data under UK GDPR."@en ;
+    skos:inScheme ukcl:personal-data ;
+    skos:notation "pseudonymised" ;
+    skos:prefLabel "Pseudonymised"@en ;
+    skos:topConceptOf ukcl:personal-data .
+
+<https://w3id.org/dcat-ap-uk/codelist/personal-data/unknown> a skos:Concept ;
+    skos:definition "Not yet assessed. Use only while the assessment is done."@en ;
+    skos:inScheme ukcl:personal-data ;
+    skos:notation "unknown" ;
+    skos:prefLabel "Not yet known"@en ;
+    skos:topConceptOf ukcl:personal-data .
+
+<https://w3id.org/dcat-ap-uk/codelist/security-classification/official> a skos:Concept ;
+    skos:definition "Most public sector information. The routine business of government."@en ;
+    skos:hiddenLabel "OFFICIAL" ;
+    skos:inScheme ukcl:security-classification ;
+    skos:notation "official" ;
+    skos:prefLabel "OFFICIAL"@en ;
+    skos:topConceptOf ukcl:security-classification .
+
+<https://w3id.org/dcat-ap-uk/codelist/security-classification/official-sensitive> a skos:Concept ;
+    skos:definition "OFFICIAL information that needs extra care because it is of interest to threat actors, and is not intended for public release."@en ;
+    skos:inScheme ukcl:security-classification ;
+    skos:notation "official-sensitive" ;
+    skos:prefLabel "OFFICIAL-SENSITIVE"@en ;
+    skos:topConceptOf ukcl:security-classification .
+
+<https://w3id.org/dcat-ap-uk/codelist/security-classification/secret> a skos:Concept ;
+    skos:definition "Very sensitive information. Records about it must not be held in an OFFICIAL catalogue."@en ;
+    skos:hiddenLabel "SECRET" ;
+    skos:inScheme ukcl:security-classification ;
+    skos:notation "secret" ;
+    skos:prefLabel "SECRET"@en ;
+    skos:topConceptOf ukcl:security-classification .
+
+<https://w3id.org/dcat-ap-uk/codelist/security-classification/top-secret> a skos:Concept ;
+    skos:definition "The most sensitive information. Records about it must not be held in an OFFICIAL catalogue."@en ;
+    skos:hiddenLabel "TOP_SECRET" ;
+    skos:inScheme ukcl:security-classification ;
+    skos:notation "top-secret" ;
+    skos:prefLabel "TOP SECRET"@en ;
+    skos:topConceptOf ukcl:security-classification .
+
+<https://w3id.org/dcat-ap-uk/codelist/sensitive-data/children> a skos:Concept ;
+    skos:definition "Data mainly about people under 18."@en ;
+    skos:inScheme ukcl:sensitive-data ;
+    skos:notation "children" ;
+    skos:prefLabel "Data about children"@en ;
+    skos:topConceptOf ukcl:sensitive-data .
+
+<https://w3id.org/dcat-ap-uk/codelist/sensitive-data/commercially-sensitive> a skos:Concept ;
+    skos:definition "Release could harm the commercial interests of the public body or a third party."@en ;
+    skos:inScheme ukcl:sensitive-data ;
+    skos:notation "commercially-sensitive" ;
+    skos:prefLabel "Commercially sensitive"@en ;
+    skos:topConceptOf ukcl:sensitive-data .
+
+<https://w3id.org/dcat-ap-uk/codelist/sensitive-data/criminal-offence> a skos:Concept ;
+    skos:definition "Data about criminal convictions and offences (UK GDPR Article 10)."@en ;
+    skos:inScheme ukcl:sensitive-data ;
+    skos:notation "criminal-offence" ;
+    skos:prefLabel "Criminal offence data"@en ;
+    skos:topConceptOf ukcl:sensitive-data .
+
+<https://w3id.org/dcat-ap-uk/codelist/sensitive-data/none> a skos:Concept ;
+    skos:definition "None of the kinds below."@en ;
+    skos:inScheme ukcl:sensitive-data ;
+    skos:notation "none" ;
+    skos:prefLabel "None"@en ;
+    skos:topConceptOf ukcl:sensitive-data .
+
+<https://w3id.org/dcat-ap-uk/codelist/sensitive-data/security-sensitive> a skos:Concept ;
+    skos:definition "Release could help someone attack people, places or systems."@en ;
+    skos:inScheme ukcl:sensitive-data ;
+    skos:notation "security-sensitive" ;
+    skos:prefLabel "Security sensitive"@en ;
+    skos:topConceptOf ukcl:sensitive-data .
+
+<https://w3id.org/dcat-ap-uk/codelist/sensitive-data/special-category> a skos:Concept ;
+    skos:definition "Data about health, ethnicity, religion, sexual orientation and the other categories in UK GDPR Article 9."@en ;
+    skos:inScheme ukcl:sensitive-data ;
+    skos:notation "special-category" ;
+    skos:prefLabel "Special category personal data"@en ;
+    skos:topConceptOf ukcl:sensitive-data .
+
+<https://w3id.org/dcat-ap-uk/codelist/sensitive-data/unknown> a skos:Concept ;
+    skos:definition "Not yet assessed."@en ;
+    skos:inScheme ukcl:sensitive-data ;
+    skos:notation "unknown" ;
+    skos:prefLabel "Not yet known"@en ;
+    skos:topConceptOf ukcl:sensitive-data .
+
+<https://w3id.org/dcat-ap-uk/codelist/service-status/alpha> a skos:Concept ;
+    rdfs:seeAlso <https://www.gov.uk/service-manual/agile-delivery/how-the-alpha-phase-works> ;
+    skos:hiddenLabel "ALPHA" ;
+    skos:inScheme ukcl:service-status ;
+    skos:notation "alpha" ;
+    skos:prefLabel "Alpha"@en ;
+    skos:topConceptOf ukcl:service-status .
+
+<https://w3id.org/dcat-ap-uk/codelist/service-status/beta> a skos:Concept ;
+    rdfs:seeAlso <https://www.gov.uk/service-manual/agile-delivery/how-the-beta-phase-works> ;
+    skos:hiddenLabel "BETA" ;
+    skos:inScheme ukcl:service-status ;
+    skos:notation "beta" ;
+    skos:prefLabel "Beta (unspecified)"@en ;
+    skos:scopeNote "Kept for records converted from the xGov MEM. Prefer private or public beta."@en ;
+    skos:topConceptOf ukcl:service-status .
+
+<https://w3id.org/dcat-ap-uk/codelist/service-status/deprecated> a skos:Concept ;
+    rdfs:seeAlso <https://www.gov.uk/service-manual/agile-delivery/retiring-your-service> ;
+    skos:hiddenLabel "DEPRECATED" ;
+    skos:inScheme ukcl:service-status ;
+    skos:notation "deprecated" ;
+    skos:prefLabel "Deprecated"@en ;
+    skos:topConceptOf ukcl:service-status .
+
+<https://w3id.org/dcat-ap-uk/codelist/service-status/discovery> a skos:Concept ;
+    rdfs:seeAlso <https://www.gov.uk/service-manual/agile-delivery/how-the-discovery-phase-works> ;
+    skos:hiddenLabel "DISCOVERY" ;
+    skos:inScheme ukcl:service-status ;
+    skos:notation "discovery" ;
+    skos:prefLabel "Discovery"@en ;
+    skos:topConceptOf ukcl:service-status .
+
+<https://w3id.org/dcat-ap-uk/codelist/service-status/live> a skos:Concept ;
+    rdfs:seeAlso <https://www.gov.uk/service-manual/agile-delivery/how-the-live-phase-works> ;
+    skos:hiddenLabel "LIVE" ;
+    skos:inScheme ukcl:service-status ;
+    skos:notation "live" ;
+    skos:prefLabel "Live"@en ;
+    skos:topConceptOf ukcl:service-status .
+
+<https://w3id.org/dcat-ap-uk/codelist/service-status/private-beta> a skos:Concept ;
+    rdfs:seeAlso <https://www.gov.uk/service-manual/agile-delivery/how-the-beta-phase-works> ;
+    skos:hiddenLabel "PRIVATE_BETA" ;
+    skos:inScheme ukcl:service-status ;
+    skos:notation "private-beta" ;
+    skos:prefLabel "Private beta"@en ;
+    skos:topConceptOf ukcl:service-status .
+
+<https://w3id.org/dcat-ap-uk/codelist/service-status/public-beta> a skos:Concept ;
+    rdfs:seeAlso <https://www.gov.uk/service-manual/agile-delivery/how-the-beta-phase-works> ;
+    skos:hiddenLabel "PUBLIC_BETA" ;
+    skos:inScheme ukcl:service-status ;
+    skos:notation "public-beta" ;
+    skos:prefLabel "Public beta"@en ;
+    skos:topConceptOf ukcl:service-status .
+
+<https://w3id.org/dcat-ap-uk/codelist/service-status/withdrawn> a skos:Concept ;
+    skos:hiddenLabel "WITHDRAWN" ;
+    skos:inScheme ukcl:service-status ;
+    skos:notation "withdrawn" ;
+    skos:prefLabel "Withdrawn"@en ;
+    skos:topConceptOf ukcl:service-status .
+
+<https://w3id.org/dcat-ap-uk/codelist/service-type/event> a skos:Concept ;
+    skos:definition "Messages or events pushed to subscribers, such as webhooks or a message queue."@en ;
+    skos:hiddenLabel "EVENT" ;
+    skos:inScheme ukcl:service-type ;
+    skos:notation "event" ;
+    skos:prefLabel "Event or message"@en ;
+    skos:topConceptOf ukcl:service-type .
+
+<https://w3id.org/dcat-ap-uk/codelist/service-type/file-transfer> a skos:Concept ;
+    skos:definition "Bulk files moved on a schedule, such as SFTP."@en ;
+    skos:inScheme ukcl:service-type ;
+    skos:notation "file-transfer" ;
+    skos:prefLabel "File transfer"@en ;
+    skos:topConceptOf ukcl:service-type .
+
+<https://w3id.org/dcat-ap-uk/codelist/service-type/graphql> a skos:Concept ;
+    skos:definition "A query language over a single endpoint."@en ;
+    skos:inScheme ukcl:service-type ;
+    skos:notation "graphql" ;
+    skos:prefLabel "GraphQL"@en ;
+    skos:topConceptOf ukcl:service-type .
+
+<https://w3id.org/dcat-ap-uk/codelist/service-type/ogc> a skos:Concept ;
+    skos:definition "Geospatial services such as OGC API - Features, WMS or WFS."@en ;
+    skos:inScheme ukcl:service-type ;
+    skos:notation "ogc" ;
+    skos:prefLabel "OGC web service"@en ;
+    skos:topConceptOf ukcl:service-type .
+
+<https://w3id.org/dcat-ap-uk/codelist/service-type/rest> a skos:Concept ;
+    skos:definition "Resources accessed over HTTP with standard methods."@en ;
+    skos:hiddenLabel "REST" ;
+    skos:inScheme ukcl:service-type ;
+    skos:notation "rest" ;
+    skos:prefLabel "REST"@en ;
+    skos:topConceptOf ukcl:service-type .
+
+<https://w3id.org/dcat-ap-uk/codelist/service-type/soap> a skos:Concept ;
+    skos:definition "XML messages over a SOAP envelope."@en ;
+    skos:hiddenLabel "SOAP" ;
+    skos:inScheme ukcl:service-type ;
+    skos:notation "soap" ;
+    skos:prefLabel "SOAP"@en ;
+    skos:topConceptOf ukcl:service-type .
+
+<https://w3id.org/dcat-ap-uk/codelist/service-type/sparql> a skos:Concept ;
+    skos:definition "Queries over linked data."@en ;
+    skos:inScheme ukcl:service-type ;
+    skos:notation "sparql" ;
+    skos:prefLabel "SPARQL"@en ;
+    skos:topConceptOf ukcl:service-type .
+
+<https://w3id.org/dcat-ap-uk/codelist/statistics-status/accredited-official> a skos:Concept ;
+    skos:definition "Official statistics the Office for Statistics Regulation has assessed as complying with the Code of Practice."@en ;
+    skos:inScheme ukcl:statistics-status ;
+    skos:notation "accredited-official" ;
+    skos:prefLabel "Accredited official statistics"@en ;
+    skos:topConceptOf ukcl:statistics-status .
+
+<https://w3id.org/dcat-ap-uk/codelist/statistics-status/management-information> a skos:Concept ;
+    skos:definition "Data used to run a service, not published as official statistics."@en ;
+    skos:inScheme ukcl:statistics-status ;
+    skos:notation "management-information" ;
+    skos:prefLabel "Management information"@en ;
+    skos:topConceptOf ukcl:statistics-status .
+
+<https://w3id.org/dcat-ap-uk/codelist/statistics-status/official> a skos:Concept ;
+    skos:definition "Statistics produced by a body named as producing official statistics."@en ;
+    skos:inScheme ukcl:statistics-status ;
+    skos:notation "official" ;
+    skos:prefLabel "Official statistics"@en ;
+    skos:topConceptOf ukcl:statistics-status .
+
+<https://w3id.org/dcat-ap-uk/codelist/statistics-status/official-in-development> a skos:Concept ;
+    skos:definition "New or changed official statistics still being developed and tested with users."@en ;
+    skos:inScheme ukcl:statistics-status ;
+    skos:notation "official-in-development" ;
+    skos:prefLabel "Official statistics in development"@en ;
+    skos:topConceptOf ukcl:statistics-status .
+
+<https://w3id.org/dcat-ap-uk/codelist/statistics-status/other> a skos:Concept ;
+    skos:definition "Statistics from a body that does not produce official statistics, such as a charity or company."@en ;
+    skos:inScheme ukcl:statistics-status ;
+    skos:notation "other" ;
+    skos:prefLabel "Other statistics"@en ;
+    skos:topConceptOf ukcl:statistics-status .
+
+<https://w3id.org/dcat-ap-uk/codelist/theme/business-and-economy> a skos:Concept ;
+    skos:definition "Small businesses, industry, imports, exports and trade."@en ;
+    skos:exactMatch eutheme:ECON ;
+    skos:inScheme ukcl:theme ;
+    skos:notation "business-and-economy" ;
+    skos:prefLabel "Business and economy"@en ;
+    skos:topConceptOf ukcl:theme .
+
+<https://w3id.org/dcat-ap-uk/codelist/theme/crime-and-justice> a skos:Concept ;
+    skos:definition "Courts, police, prisons, offenders and borders."@en ;
+    skos:exactMatch eutheme:JUST ;
+    skos:inScheme ukcl:theme ;
+    skos:notation "crime-and-justice" ;
+    skos:prefLabel "Crime and justice"@en ;
+    skos:topConceptOf ukcl:theme .
+
+<https://w3id.org/dcat-ap-uk/codelist/theme/defence> a skos:Concept ;
+    skos:closeMatch eutheme:GOVE ;
+    skos:definition "Armed forces, health and safety, search and rescue."@en ;
+    skos:inScheme ukcl:theme ;
+    skos:notation "defence" ;
+    skos:prefLabel "Defence"@en ;
+    skos:topConceptOf ukcl:theme .
+
+<https://w3id.org/dcat-ap-uk/codelist/theme/digital-services-performance> a skos:Concept ;
+    skos:closeMatch eutheme:TECH ;
+    skos:definition "How government digital services perform."@en ;
+    skos:inScheme ukcl:theme ;
+    skos:notation "digital-services-performance" ;
+    skos:prefLabel "Digital services performance"@en ;
+    skos:topConceptOf ukcl:theme .
+
+<https://w3id.org/dcat-ap-uk/codelist/theme/education> a skos:Concept ;
+    skos:definition "Students, training, qualifications and the national curriculum."@en ;
+    skos:exactMatch eutheme:EDUC ;
+    skos:inScheme ukcl:theme ;
+    skos:notation "education" ;
+    skos:prefLabel "Education"@en ;
+    skos:topConceptOf ukcl:theme .
+
+<https://w3id.org/dcat-ap-uk/codelist/theme/environment> a skos:Concept ;
+    skos:definition "Weather, flooding, rivers, air quality, geology and agriculture."@en ;
+    skos:exactMatch eutheme:ENVI ;
+    skos:inScheme ukcl:theme ;
+    skos:notation "environment" ;
+    skos:prefLabel "Environment"@en ;
+    skos:relatedMatch eutheme:AGRI,
+        eutheme:ENER ;
+    skos:topConceptOf ukcl:theme .
+
+<https://w3id.org/dcat-ap-uk/codelist/theme/government> a skos:Concept ;
+    skos:definition "Staff numbers and pay, local councillors and department business plans."@en ;
+    skos:exactMatch eutheme:GOVE ;
+    skos:inScheme ukcl:theme ;
+    skos:notation "government" ;
+    skos:prefLabel "Government"@en ;
+    skos:topConceptOf ukcl:theme .
+
+<https://w3id.org/dcat-ap-uk/codelist/theme/government-reference-data> a skos:Concept ;
+    skos:closeMatch eutheme:GOVE ;
+    skos:definition "Trusted data that is referenced and shared across government departments."@en ;
+    skos:inScheme ukcl:theme ;
+    skos:notation "government-reference-data" ;
+    skos:prefLabel "Government reference data"@en ;
+    skos:topConceptOf ukcl:theme .
+
+<https://w3id.org/dcat-ap-uk/codelist/theme/government-spending> a skos:Concept ;
+    skos:closeMatch eutheme:ECON ;
+    skos:definition "Payments by government departments over 25,000 pounds and other spending."@en ;
+    skos:inScheme ukcl:theme ;
+    skos:notation "government-spending" ;
+    skos:prefLabel "Government spending"@en ;
+    skos:topConceptOf ukcl:theme .
+
+<https://w3id.org/dcat-ap-uk/codelist/theme/health> a skos:Concept ;
+    skos:definition "Smoking, drugs, alcohol, medicine performance and hospitals."@en ;
+    skos:exactMatch eutheme:HEAL ;
+    skos:inScheme ukcl:theme ;
+    skos:notation "health" ;
+    skos:prefLabel "Health"@en ;
+    skos:topConceptOf ukcl:theme .
+
+<https://w3id.org/dcat-ap-uk/codelist/theme/mapping> a skos:Concept ;
+    skos:closeMatch eutheme:REGI ;
+    skos:definition "Addresses, boundaries, land ownership, aerial photographs, seabed and land terrain."@en ;
+    skos:inScheme ukcl:theme ;
+    skos:notation "mapping" ;
+    skos:prefLabel "Mapping"@en ;
+    skos:topConceptOf ukcl:theme .
+
+<https://w3id.org/dcat-ap-uk/codelist/theme/society> a skos:Concept ;
+    skos:definition "Employment, benefits, household finances, poverty and population."@en ;
+    skos:exactMatch eutheme:SOCI ;
+    skos:inScheme ukcl:theme ;
+    skos:notation "society" ;
+    skos:prefLabel "Society"@en ;
+    skos:topConceptOf ukcl:theme .
+
+<https://w3id.org/dcat-ap-uk/codelist/theme/towns-and-cities> a skos:Concept ;
+    skos:closeMatch eutheme:REGI ;
+    skos:definition "Housing, urban planning, leisure, waste and energy consumption."@en ;
+    skos:inScheme ukcl:theme ;
+    skos:notation "towns-and-cities" ;
+    skos:prefLabel "Towns and cities"@en ;
+    skos:topConceptOf ukcl:theme .
+
+<https://w3id.org/dcat-ap-uk/codelist/theme/transport> a skos:Concept ;
+    skos:definition "Airports, roads, freight, electric vehicles, parking, buses and footpaths."@en ;
+    skos:exactMatch eutheme:TRAN ;
+    skos:inScheme ukcl:theme ;
+    skos:notation "transport" ;
+    skos:prefLabel "Transport"@en ;
+    skos:topConceptOf ukcl:theme .
+
+<https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism/addendum> a skos:Concept ;
+    skos:definition "The EU standard contractual clauses with the ICO UK Addendum."@en ;
+    skos:inScheme ukcl:transfer-mechanism ;
+    skos:notation "addendum" ;
+    skos:prefLabel "UK Addendum to the EU standard contractual clauses"@en ;
+    skos:topConceptOf ukcl:transfer-mechanism .
+
+<https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism/administrative-arrangement> a skos:Concept ;
+    skos:definition "Provisions in an administrative arrangement between public authorities or bodies, authorised by the ICO."@en ;
+    skos:inScheme ukcl:transfer-mechanism ;
+    skos:notation "administrative-arrangement" ;
+    skos:prefLabel "Administrative arrangement between public bodies"@en ;
+    skos:topConceptOf ukcl:transfer-mechanism .
+
+<https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism/bcr> a skos:Concept ;
+    skos:definition "Binding corporate rules approved by the ICO, for transfers within a group."@en ;
+    skos:inScheme ukcl:transfer-mechanism ;
+    skos:notation "bcr" ;
+    skos:prefLabel "Binding corporate rules"@en ;
+    skos:topConceptOf ukcl:transfer-mechanism .
+
+<https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism/code-or-certification> a skos:Concept ;
+    skos:definition "An approved code of conduct or certification scheme, with binding commitments from the receiver."@en ;
+    skos:inScheme ukcl:transfer-mechanism ;
+    skos:notation "code-or-certification" ;
+    skos:prefLabel "Approved code of conduct or certification"@en ;
+    skos:topConceptOf ukcl:transfer-mechanism .
+
+<https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism/exception> a skos:Concept ;
+    skos:definition "One of the exceptions in Article 49 UK GDPR, such as explicit consent or important reasons of public interest. For occasional transfers only."@en ;
+    skos:inScheme ukcl:transfer-mechanism ;
+    skos:notation "exception" ;
+    skos:prefLabel "An exception (derogation)"@en ;
+    skos:topConceptOf ukcl:transfer-mechanism .
+
+<https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism/idta> a skos:Concept ;
+    skos:definition "The ICO international data transfer agreement."@en ;
+    skos:inScheme ukcl:transfer-mechanism ;
+    skos:notation "idta" ;
+    skos:prefLabel "International data transfer agreement (IDTA)"@en ;
+    skos:topConceptOf ukcl:transfer-mechanism .
+
+<https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism/law-enforcement> a skos:Concept ;
+    skos:definition "A transfer by a competent authority under Part 3 of the Data Protection Act 2018, which has its own rules."@en ;
+    skos:inScheme ukcl:transfer-mechanism ;
+    skos:notation "law-enforcement" ;
+    skos:prefLabel "Law enforcement transfer rules"@en ;
+    skos:topConceptOf ukcl:transfer-mechanism .
+
+<https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism/not-restricted> a skos:Concept ;
+    skos:definition "The ICO three-step test shows the flow is not a restricted transfer, for example because the receiver is not a separate legal entity, or the data is not personal data in the receiver's hands."@en ;
+    skos:inScheme ukcl:transfer-mechanism ;
+    skos:notation "not-restricted" ;
+    skos:prefLabel "Not a restricted transfer"@en ;
+    skos:topConceptOf ukcl:transfer-mechanism .
+
+<https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism/public-body-instrument> a skos:Concept ;
+    skos:definition "A legally binding and enforceable instrument between public authorities or bodies."@en ;
+    skos:inScheme ukcl:transfer-mechanism ;
+    skos:notation "public-body-instrument" ;
+    skos:prefLabel "Instrument between public authorities"@en ;
+    skos:topConceptOf ukcl:transfer-mechanism .
+
+<https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism/uk-adequacy> a skos:Concept ;
+    skos:definition "The receiver is in a country, territory or international organisation covered in full by UK adequacy regulations, known as data bridges. Since the Data (Use and Access) Act 2025 came into force on 5 February 2026, the test is that protection there is not materially lower than in the UK."@en ;
+    skos:inScheme ukcl:transfer-mechanism ;
+    skos:notation "uk-adequacy" ;
+    skos:prefLabel "UK adequacy regulations (data bridge)"@en ;
+    skos:topConceptOf ukcl:transfer-mechanism .
+
+<https://w3id.org/dcat-ap-uk/codelist/transfer-mechanism/uk-adequacy-partial> a skos:Concept ;
+    skos:definition "Covered by adequacy regulations for a sector or a class of receiver only, such as organisations certified to the UK-US data bridge."@en ;
+    skos:inScheme ukcl:transfer-mechanism ;
+    skos:notation "uk-adequacy-partial" ;
+    skos:prefLabel "Partial UK adequacy regulations"@en ;
+    skos:topConceptOf ukcl:transfer-mechanism .
+
+<https://w3id.org/dcat-ap-uk/codelist/transport-security/not-assessed> a skos:Concept ;
+    skos:definition "Not yet checked. Checking is part of the discovery work the NCSC asks for by 2028."@en ;
+    skos:inScheme ukcl:transport-security ;
+    skos:notation "not-assessed" ;
+    skos:prefLabel "Not yet assessed"@en ;
+    skos:topConceptOf ukcl:transport-security .
+
+<https://w3id.org/dcat-ap-uk/codelist/transport-security/pqc-hybrid> a skos:Concept ;
+    skos:definition "Negotiates a post-quantum key exchange (ML-KEM, FIPS 203) combined with a classical one, such as X25519MLKEM768 in TLS 1.3."@en ;
+    skos:inScheme ukcl:transport-security ;
+    skos:notation "pqc-hybrid" ;
+    skos:prefLabel "Hybrid post-quantum"@en ;
+    skos:topConceptOf ukcl:transport-security .
+
+<https://w3id.org/dcat-ap-uk/codelist/transport-security/pqc-only> a skos:Concept ;
+    skos:definition "Negotiates a post-quantum key exchange alone."@en ;
+    skos:inScheme ukcl:transport-security ;
+    skos:notation "pqc-only" ;
+    skos:prefLabel "Post-quantum only"@en ;
+    skos:topConceptOf ukcl:transport-security .
+
+<https://w3id.org/dcat-ap-uk/codelist/transport-security/tls12-classical> a skos:Concept ;
+    skos:definition "Upgrade to TLS 1.3 first; post-quantum key exchange needs it."@en ;
+    skos:inScheme ukcl:transport-security ;
+    skos:notation "tls12-classical" ;
+    skos:prefLabel "TLS 1.2 with classical key exchange"@en ;
+    skos:topConceptOf ukcl:transport-security .
+
+<https://w3id.org/dcat-ap-uk/codelist/transport-security/tls13-classical> a skos:Concept ;
+    skos:definition "Secure against today's attackers, but data recorded now could be decrypted later by a quantum computer (harvest now, decrypt later). Plan the migration."@en ;
+    skos:inScheme ukcl:transport-security ;
+    skos:notation "tls13-classical" ;
+    skos:prefLabel "TLS 1.3 with classical key exchange"@en ;
+    skos:topConceptOf ukcl:transport-security .
+
+<https://www.parliament.uk/site-information/copyright-parliament/open-parliament-licence/> skos:inScheme ukcl:licences ;
+    skos:prefLabel "Open Parliament Licence v3.0"@en .
+
+ukcl:access-rights a skos:ConceptScheme ;
+    skos:definition "Who can get the data, and on what terms."@en ;
+    skos:prefLabel "Access rights"@en .
+
+ukcl:spatial-representation-type a skos:ConceptScheme ;
+    skos:definition "How geographic information is represented, from the INSPIRE register of ISO 19115 spatial representation types, as GeoDCAT-AP uses them."@en ;
+    skos:prefLabel "Spatial representation types"@en .
+
+ukcl:licences a skos:ConceptScheme ;
+    skos:definition "Licences commonly used for UK public sector data, and a value for when no licence applies and an agreement is needed."@en ;
+    skos:prefLabel "Licences"@en .
+
+ukcl:metadata-audience a skos:ConceptScheme ;
+    skos:definition "Who may see the metadata record. Provisional, pending research (issue 5)."@en ;
+    skos:prefLabel "Who can see this record"@en .
+
+ukcl:open-data-triage a skos:ConceptScheme ;
+    skos:definition "The outcome of open data triage for data that is presumed open, as in the energy sector's Data Best Practice guidance. Used by the energy extension (provenance K)."@en ;
+    skos:prefLabel "Open data triage outcome"@en .
+
+ukcl:security-classification a skos:ConceptScheme ;
+    skos:definition "Classifications and the main marking from the Government Security Classifications Policy (version 2.0, August 2024)."@en ;
+    skos:prefLabel "Security classification"@en .
+
+ukcl:agent-role a skos:ConceptScheme ;
+    skos:definition "Roles an organisation can play for a resource. Roles, never people."@en ;
+    skos:prefLabel "Responsible role"@en .
+
+ukcl:ai-use a skos:ConceptScheme ;
+    skos:definition "Whether the data may be used to train, fine-tune or evaluate AI models. Used by the AI-ready extension. Provisional."@en ;
+    skos:prefLabel "Use for artificial intelligence"@en .
+
+ukcl:missing-reason a skos:ConceptScheme ;
+    skos:definition "Why a property is empty on purpose. Based on the nil reasons of GML 3.2 and the INSPIRE void reasons, so records can be mapped to geospatial and allied metadata that use the same idea."@en ;
+    skos:prefLabel "Reasons a value is missing"@en .
+
+ukcl:personal-data a skos:ConceptScheme ;
+    skos:definition "Whether the data contains information about identifiable living people (UK GDPR)."@en ;
+    skos:prefLabel "Personal data"@en .
+
+ukcl:statistics-status a skos:ConceptScheme ;
+    skos:definition "The status of statistics under the Code of Practice for Statistics, as the Office for Statistics Regulation names them. Used by the statistics extension (provenance K)."@en ;
+    skos:prefLabel "Official statistics status"@en .
+
+ukcl:transport-security a skos:ConceptScheme ;
+    skos:definition "The key exchange a service's endpoint uses to protect data in transit, for the post-quantum migration inventory."@en ;
+    skos:prefLabel "Connection security"@en .
+
+ukcl:checksum-algorithm a skos:ConceptScheme ;
+    skos:definition "Algorithms in the SPDX list for checking a file has not changed, with this profile's advice on each for long-term and quantum-era trust."@en ;
+    skos:prefLabel "Checksum algorithms"@en .
+
+ukcl:geodetic-technique a skos:ConceptScheme ;
+    skos:definition "How geodetic positions, heights or reference frame products were observed. A candidate list for the geodesy module."@en ;
+    skos:prefLabel "Geodetic observation techniques"@en .
+
+ukcl:sensitive-data a skos:ConceptScheme ;
+    skos:definition "Kinds of information that need extra care beyond being personal."@en ;
+    skos:prefLabel "Sensitive data"@en .
+
+ukcl:service-type a skos:ConceptScheme ;
+    skos:definition "The style of interface a data service offers. Use conformsTo for the exact standard."@en ;
+    skos:prefLabel "Interface style"@en .
+
+ukcl:service-status a skos:ConceptScheme ;
+    skos:definition "Phases of a service, from the Service Manual."@en ;
+    skos:prefLabel "Service status"@en .
+
+ukcl:transfer-mechanism a skos:ConceptScheme ;
+    skos:definition "The bases in UK GDPR for sending personal data outside the UK, as the ICO guidance of 15 January 2026 sets them out (provenance S)."@en ;
+    skos:prefLabel "Transfer safeguards"@en .
+
+ukcl:theme a skos:ConceptScheme ;
+    skos:definition "The 14 data.gov.uk topics (read on 6 November 2026), each mapped to the EU data themes used by DCAT-AP."@en ;
+    skos:prefLabel "Theme"@en .
+
+ukcl:jurisdiction a skos:ConceptScheme ;
+    skos:definition "Countries and territories where data may be held, processed or sent, including the UK nations, the Crown Dependencies, the British Overseas Territories, the Commonwealth, the EEA and others."@en ;
+    skos:prefLabel "Jurisdictions"@en .
+

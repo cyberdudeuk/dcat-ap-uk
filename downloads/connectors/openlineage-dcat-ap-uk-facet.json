@@ -1,0 +1,160 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cyberdudeuk.github.io/dcat-ap-uk/downloads/connectors/openlineage-dcat-ap-uk-facet.json",
+  "description": "Generated from DCAT-AP-UK. Names match the metadata weaver, so records written by the weaver load into these definitions. Not tested against a live tenant. A custom OpenLineage dataset facet carrying DCAT-AP-UK properties.",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "https://openlineage.io/spec/2-0-2/OpenLineage.json#/$defs/DatasetFacet"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "title": {
+          "description": "The name of the resource, in plain English."
+        },
+        "description": {
+          "description": "A plain English account of what the resource contains and what it can be used for."
+        },
+        "identifier": {
+          "description": "The main identifier of the resource in the publisher's own catalogue."
+        },
+        "publisher": {
+          "description": "The organisation responsible for making the resource available."
+        },
+        "contactPoint": {
+          "description": "Where to ask questions about the resource or give feedback on it."
+        },
+        "accessRights": {
+          "description": "Who can get the data, and on what terms."
+        },
+        "securityClassification": {
+          "description": "The classification under the Government Security Classifications Policy that the data itself carries."
+        },
+        "licence": {
+          "description": "The licence under which the resource can be used."
+        },
+        "accrualPeriodicity": {
+          "description": "How often the resource is updated."
+        },
+        "criticalDataAsset": {
+          "description": "Whether the resource is a critical data asset under the Data Asset Management Policy."
+        },
+        "creator": {
+          "description": "The organisation that created or compiled the content of the resource."
+        },
+        "created": {
+          "description": "The date the content of the resource was created or compiled."
+        },
+        "conformsTo": {
+          "description": "A standard, specification or schema the resource follows."
+        },
+        "temporal": {
+          "description": "The period of time the data is about."
+        },
+        "personalData": {
+          "description": "Whether the data contains information about identifiable living people, and in what form."
+        },
+        "rights": {
+          "description": "A statement of any restriction on access or use, such as the data sharing agreement or legal gateway needed."
+        },
+        "modified": {
+          "description": "The date the content of the resource last changed."
+        },
+        "issued": {
+          "description": "The date the resource was first made available."
+        },
+        "abstract": {
+          "description": "A one-sentence summary of the resource, of no more than 250 characters."
+        },
+        "theme": {
+          "description": "The broad subject of the resource, from a controlled list."
+        },
+        "keyword": {
+          "description": "Words or short phrases that people might search for, not already in the title or description."
+        },
+        "spatial": {
+          "description": "The geographic area the data is about."
+        },
+        "distribution": {
+          "description": "A form in which the data can be got, such as a file or an API."
+        },
+        "landingPage": {
+          "description": "A web page where people can find out about the resource and how to get it."
+        },
+        "version": {
+          "description": "The version of the resource."
+        },
+        "sensitiveData": {
+          "description": "Whether the data contains information that needs extra care beyond being personal, such as special category data."
+        },
+        "qualifiedAttribution": {
+          "description": "An organisation and the role it plays for the resource, such as data owner or data steward."
+        },
+        "language": {
+          "description": "The language or languages of the resource."
+        },
+        "alternative": {
+          "description": "Another name the resource is known by, such as an abbreviation or a former name."
+        },
+        "otherIdentifier": {
+          "description": "Any other identifier the resource is known by, such as one in a national or sector register."
+        },
+        "inSeries": {
+          "description": "The dataset series this dataset belongs to."
+        },
+        "isReplacedBy": {
+          "description": "A newer resource that replaces this one."
+        },
+        "expires": {
+          "description": "The date after which the resource should no longer be used."
+        },
+        "previousVersion": {
+          "description": "The version this one replaces in a sequence."
+        },
+        "versionNotes": {
+          "description": "What changed in this version."
+        },
+        "spatialResolutionInMeters": {
+          "description": "The smallest distance the data can tell apart, in metres."
+        },
+        "temporalResolution": {
+          "description": "The smallest period the data can tell apart, as an ISO 8601 duration."
+        },
+        "referenceData": {
+          "description": "A code list, classification or set of groupings the data uses, such as age bands or a geography."
+        },
+        "qualityAnnotation": {
+          "description": "A link to a published statement or measurement of the quality of the data."
+        },
+        "relation": {
+          "description": "Another resource closely related to this one, such as the report the data supports."
+        },
+        "qualifiedRelation": {
+          "description": "A related resource together with the kind of relationship."
+        },
+        "documentation": {
+          "description": "A web page that documents the resource, such as a user guide or a methodology."
+        },
+        "metadataAudience": {
+          "description": "Who is allowed to see the metadata record itself."
+        },
+        "applicableLegislation": {
+          "description": "Legislation that requires, governs or permits the publication or sharing of the resource."
+        },
+        "hasPolicy": {
+          "description": "A machine-readable policy, in the W3C Open Digital Rights Language (ODRL), saying what may and may not be done with the resource."
+        },
+        "jurisdiction": {
+          "description": "Every country or territory where the data is stored or processed, or to which it is sent."
+        },
+        "transferMechanism": {
+          "description": "The basis under UK GDPR on which personal data in the resource may be sent outside the UK."
+        },
+        "missingValue": {
+          "description": "A property this record leaves empty on purpose, and why."
+        }
+      }
+    }
+  ]
+}

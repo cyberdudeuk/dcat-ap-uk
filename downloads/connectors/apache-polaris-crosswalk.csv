@@ -1,0 +1,3 @@
+DCAT-AP-UK property,Apache Polaris (Iceberg REST catalog) field,Note
+description,properties.comment,TableProperties.COMMENT in Apache Iceberg (core/src/main/java/org/apache/iceberg/TableProperties.java at the cited commit).
+(every other property),properties,The DCAT-AP-UK extension place defined by the add-on kit.

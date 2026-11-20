@@ -1,0 +1,51 @@
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dcatuk: <https://w3id.org/dcat-ap-uk/ns#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix eufreq: <http://publications.europa.eu/resource/authority/frequency/> .
+@prefix eulang: <http://publications.europa.eu/resource/authority/language/> .
+@prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://www.data.gov.uk/dataset/2dfb82b4-741a-4b93-807e-11abb4bb0875/os-postcodes-data> a dcat:Dataset ;
+    dct:abstract "Free point locations for every postcode unit in Great Britain." ;
+    dct:accessRights <https://w3id.org/dcat-ap-uk/codelist/access-rights/open> ;
+    dct:accrualPeriodicity eufreq:QUARTERLY ;
+    dct:alternative "Code-Point Open" ;
+    dct:creator <https://www.gov.uk/government/organisations/ordnance-survey> ;
+    dct:description "The location of every postcode unit in Great Britain as a single point, with the codes of the areas it falls in. Often used for service planning, simple routing and statistical analysis." ;
+    dct:identifier "2dfb82b4-741a-4b93-807e-11abb4bb0875" ;
+    dct:issued "2022-02-01"^^xsd:date ;
+    dct:language eulang:ENG ;
+    dct:license <http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/> ;
+    dct:modified "2026-08-01"^^xsd:date ;
+    dct:publisher <https://www.gov.uk/government/organisations/ordnance-survey> ;
+    dct:spatial <http://statistics.data.gov.uk/id/statistical-geography/K03000001> ;
+    dct:title "Postcode locations for Great Britain" ;
+    dcat:contactPoint [ a vcard:Kind ;
+            vcard:fn "Ordnance Survey customer service" ;
+            vcard:hasURL <https://www.ordnancesurvey.co.uk/contact-us> ] ;
+    dcat:distribution <https://www.data.gov.uk/dataset/2dfb82b4-741a-4b93-807e-11abb4bb0875/os-postcodes-data#csv>,
+        <https://www.data.gov.uk/dataset/2dfb82b4-741a-4b93-807e-11abb4bb0875/os-postcodes-data#gpkg> ;
+    dcat:keyword "address",
+        "location",
+        "postcode" ;
+    dcat:landingPage <https://www.ordnancesurvey.co.uk/products/code-point-open> ;
+    dcat:theme <https://w3id.org/dcat-ap-uk/codelist/theme/mapping> ;
+    dcat:version "2026-08" ;
+    dcatuk:personalData <https://w3id.org/dcat-ap-uk/codelist/personal-data/none> ;
+    dcatuk:securityClassification <https://w3id.org/dcat-ap-uk/codelist/security-classification/official> .
+
+<https://www.data.gov.uk/dataset/2dfb82b4-741a-4b93-807e-11abb4bb0875/os-postcodes-data#csv> a dcat:Distribution ;
+    dct:license <http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/> ;
+    dct:title "Postcode locations, CSV" ;
+    dcat:accessURL <https://www.ordnancesurvey.co.uk/products/code-point-open> ;
+    dcat:byteSize "14330000"^^xsd:nonNegativeInteger ;
+    dcat:mediaType <https://www.iana.org/assignments/media-types/text/csv> .
+
+<https://www.data.gov.uk/dataset/2dfb82b4-741a-4b93-807e-11abb4bb0875/os-postcodes-data#gpkg> a dcat:Distribution ;
+    dct:license <http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/> ;
+    dct:title "Postcode locations, GeoPackage" ;
+    dcat:accessURL <https://www.ordnancesurvey.co.uk/products/code-point-open> ;
+    dcat:byteSize "55410000"^^xsd:nonNegativeInteger ;
+    dcat:mediaType <https://www.iana.org/assignments/media-types/application/geopackage+sqlite3> .
+

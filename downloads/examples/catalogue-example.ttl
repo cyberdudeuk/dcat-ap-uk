@@ -1,0 +1,16 @@
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix eulang: <http://publications.europa.eu/resource/authority/language/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix ukcl: <https://w3id.org/dcat-ap-uk/codelist/> .
+
+<https://example.org/catalogue> a dcat:Catalog ;
+    dct:conformsTo <https://w3id.org/dcat-ap-uk/1.0> ;
+    dct:description "Synthetic example. The data catalogue of an example department, harvested by central discovery services." ;
+    dct:language eulang:ENG ;
+    dct:publisher <https://example.org/organisations/example-department> ;
+    dct:title "Example department data catalogue" ;
+    dcat:dataset <https://example.org/dcat-ap-uk/examples/eligibility-decisions> ;
+    dcat:themeTaxonomy ukcl:theme ;
+    foaf:homepage <https://example.org/catalogue> .
+

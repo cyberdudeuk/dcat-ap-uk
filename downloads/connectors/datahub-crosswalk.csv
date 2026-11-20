@@ -1,0 +1,8 @@
+DCAT-AP-UK property,DataHub (and DataHub Cloud) field,Note
+title,name,
+description,description,
+keyword,tags,
+landingPage,externalUrl,From the ExternalReference record DatasetProperties includes.
+issued,created.time,Milliseconds since 1970; written as a date.
+modified,lastModified.time,
+(every other property),customProperties,The DCAT-AP-UK extension place defined by the add-on kit.

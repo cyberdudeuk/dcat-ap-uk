@@ -1,0 +1,18 @@
+{
+  "class": "Dataset",
+  "id": "https://example.org/x",
+  "title": "t",
+  "description": "d",
+  "identifier": "x",
+  "publisher": "https://example.org/o",
+  "contactPoint": [
+    {
+      "fn": "Team",
+      "hasEmail": "not-an-address"
+    }
+  ],
+  "accessRights": "ukcl:access-rights/open",
+  "securityClassification": "ukcl:security-classification/official",
+  "licence": "http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+  "accrualPeriodicity": "eufreq:MONTHLY"
+}

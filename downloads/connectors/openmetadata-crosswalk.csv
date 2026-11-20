@@ -1,0 +1,7 @@
+DCAT-AP-UK property,OpenMetadata (and Collate) field,Note
+title,displayName,name is a machine name; use displayName for the title.
+description,description,
+keyword,tags[].tagFQN,Tags are classification terms; free keywords need a classification of their own.
+landingPage,sourceUrl,
+contactPoint,(none),owners names users and teams. Give a team contact form as a custom property.
+(every other property),extension,The DCAT-AP-UK extension place defined by the add-on kit.

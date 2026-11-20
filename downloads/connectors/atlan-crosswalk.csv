@@ -1,0 +1,7 @@
+DCAT-AP-UK property,Atlan field,Note
+title,name,
+description,userDescription,Atlan keeps a crawled description and a user description; write the curated text to userDescription.
+identifier,qualifiedName,Atlan builds qualifiedName from the connection; keep the DCAT-AP-UK identifier in custom metadata as well.
+landingPage,sourceURL,
+contactPoint,(none),ownerUsers and ownerGroups name people and groups. Give a team contact form in custom metadata instead.
+(every other property),businessAttributes.dcat_ap_uk,The DCAT-AP-UK extension place defined by the add-on kit.
