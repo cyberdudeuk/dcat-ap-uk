@@ -110,7 +110,7 @@ glossary:
   - {id: linkml, term: LinkML, alt: [Linked Data Modeling Language], def: 'A modelling language the xGov MEM was written in. This profile still publishes a LinkML version.'}
   - {id: conformance, term: Conformance, alt: [conforms to, compliance], def: 'A record conforms when it meets every mandatory and conditional rule. Recommended properties are not needed to conform.'}
   - {id: crosswalk, term: Crosswalk, alt: [mapping, concordance], def: 'A table showing how the terms of one model match the terms of another.'}
-  - {id: ndl, term: National Data Library, alt: [NDL], def: 'The UK programme to make public sector data easier to find and use. data.gov.uk is becoming part of it.'}
+  - {id: ndl, term: National Data Library, alt: [NDL], def: 'The UK government programme to improve access to public sector data. Its January 2026 progress update reports a discovery phase and five data-sharing projects.'}
   - {id: dsa, term: Data sharing agreement, alt: [DSA, data sharing arrangement], def: 'A written agreement between organisations setting out what data is shared, why, and under what law.'}
   - {id: security-classification, term: Security classification, alt: [protective marking, OFFICIAL], def: 'The level of protection information needs under the Government Security Classifications Policy: OFFICIAL, SECRET or TOP SECRET.'}
   - {id: personal-data, term: Personal data, alt: [PII, personally identifiable information], def: 'Information about an identifiable living person (UK GDPR).'}
@@ -138,7 +138,7 @@ infrastructure_layers:
   - {id: L6, title: People and systems, text: 'Researchers, service teams, policy makers and the public find, judge and ask for data.'}
 
 nations:
-  - {nation: England, applies: 'The Data Asset Management Policy applies to UK government departments and their arm''s-length bodies. Councils are not in scope; the profile is good practice for them.', languages: 'English', notes: 'data.gov.uk is becoming the National Data Library.'}
+  - {nation: England, applies: 'The Data Asset Management Policy applies to UK government departments and their arm''s-length bodies. Councils are not in scope; the profile is good practice for them.', languages: 'English', notes: 'The National Data Library programme is evaluating data.gov.uk (progress update, January 2026).'}
   - {nation: Scotland, applies: 'Devolved bodies are not in scope of the UK policy. The profile can be adopted voluntarily. Scottish catalogues such as statistics.gov.scot and the Scottish spatial data infrastructure publish linked data and geospatial metadata.', languages: 'English, Scottish Gaelic (GLA), Scots (SCO)', notes: 'Gaelic language plans apply to some bodies. Give titles and descriptions in both languages where the body has one.'}
   - {nation: Wales, applies: 'Devolved bodies are not in scope of the UK policy. The profile can be adopted voluntarily. Data Map Wales publishes geospatial metadata.', languages: 'Welsh (CYM) and English', notes: 'The Welsh Language Standards mean Welsh must not be treated less favourably: give the title and description in Welsh, tagged cy, as well as English.'}
   - {nation: Northern Ireland, applies: 'Northern Ireland departments are not in scope of the UK policy. The profile can be adopted voluntarily. OpenDataNI publishes open data.', languages: 'English, Irish (GLE), Ulster Scots (SCO)', notes: 'Section 75 equality duties apply to public authorities.'}

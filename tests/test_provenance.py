@@ -70,6 +70,20 @@ class Provenance(unittest.TestCase):
         self.assertTrue(any(r['action'] and 're-check' in r['action'] for r in rows), 'a V check older than the limit asks to be re-checked')
         self.assertTrue(all(r['action'] for r in rows if r['prov'] in ('K', 'U')))
 
+    # Claims found on 20 November 2026 (issue 21) that the cited source does not make. Re-reading the National Data
+    # Library progress update showed it never says data.gov.uk is becoming the Library. Keep them out unless a source is cited.
+    UNSOURCED = ('data.gov.uk is becoming',)
+
+    def unsourced_claims(self, texts):
+        return [(name, c) for name, t in texts.items() for c in self.UNSOURCED if c.lower() in t.lower()]
+
+    def test_no_claim_the_cited_source_does_not_make(self):
+        texts = {p.name: p.read_text(encoding='utf-8') for p in (ROOT / 'content').glob('*.yaml')}
+        self.assertEqual(self.unsourced_claims(texts), [])
+
+    def test_negative_an_unsourced_claim_is_caught(self):
+        self.assertTrue(self.unsourced_claims({'portal.yaml': "notes: 'data.gov.uk is becoming the National Data Library.'"}))
+
     def test_status_page_and_download_show_it(self):
         site = ROOT / 'site'
         if not (site / 'status.html').exists():

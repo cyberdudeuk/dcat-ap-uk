@@ -269,8 +269,9 @@ sources:
     publisher: GOV.UK
     date: '2026-01-26'
     url: https://www.gov.uk/government/publications/national-data-library-progress-update-january-2026
-    role: Says public sector data must be easier to find; data.gov.uk is becoming the National Data Library.
+    role: Reports the National Data Library discovery phase and five data-sharing projects, and an evaluation of data.gov.uk; fuller plans were due in spring 2026.
     prov: V
+    checked: 2026-11-20
   - id: aiready
     title: Guidelines and best practices for making government datasets ready for AI
     publisher: GOV.UK
@@ -293,7 +294,7 @@ sources:
     url: https://www.agi.org.uk/uk-gemini/
     role: The UK standard for geospatial metadata. Geospatial publishers follow it as well as this profile.
     prov: V
-    checked: 2026-11-09
+    checked: 2026-11-20
   - id: dguk
     title: data.gov.uk topics
     publisher: data.gov.uk
@@ -301,6 +302,7 @@ sources:
     url: https://www.data.gov.uk/search
     role: The theme list.
     prov: V
+    checked: 2026-11-20
   - id: orgs
     title: GOV.UK organisations API
     publisher: GOV.UK
