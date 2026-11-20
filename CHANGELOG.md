@@ -4,7 +4,7 @@ All notable changes to DCAT-AP-UK. The format follows [Keep a Changelog](https:/
 
 ## [Unreleased]
 
-## [1.3.0-rc.1] - 2026-11-19
+## [1.3.0-rc.1] - 2026-11-20
 
 A minor release candidate: it adds a candidate extension (geodesy) and the changes below, so it is minor under the
 versioning rules in CONTRIBUTING.md.
