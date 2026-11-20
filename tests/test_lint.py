@@ -19,5 +19,31 @@ class Lint(unittest.TestCase):
         self.assertTrue((ROOT / 'ruff.toml').exists())
 
 
+
+def _no_duplicates(pairs):
+    keys = [k for k, _ in pairs]
+    dup = sorted({k for k in keys if keys.count(k) > 1})
+    if dup:
+        raise ValueError(f'repeated key(s): {", ".join(dup)}')
+    return dict(pairs)
+
+
+class NoDuplicateKeys(unittest.TestCase):
+    """D-041: parallel Dependabot merges left package.json with two eslint and two globals entries."""
+
+    def test_every_json_file_has_unique_keys(self):
+        skip = {'node_modules', '.git', '_site', 'dist'}
+        for path in ROOT.rglob('*.json'):
+            if skip & set(path.relative_to(ROOT).parts):
+                continue
+            with self.subTest(path=str(path.relative_to(ROOT))):
+                json.loads(path.read_text(encoding='utf-8'), object_pairs_hook=_no_duplicates)
+
+    def test_catches_the_merged_package_json(self):
+        merged = '{"devDependencies": {"eslint": "9.39.5", "globals": "17.14.0", "eslint": "10.14.0", "globals": "16.5.0"}}'
+        with self.assertRaisesRegex(ValueError, 'eslint, globals'):
+            json.loads(merged, object_pairs_hook=_no_duplicates)
+
+
 if __name__ == '__main__':
     unittest.main()
