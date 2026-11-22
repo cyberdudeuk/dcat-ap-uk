@@ -11,7 +11,7 @@ prefixes:
   healthdcatap: http://healthdataportal.eu/ns/health#
   geodcatap: http://data.europa.eu/930/
   inspiresrt: http://inspire.ec.europa.eu/metadata-codelist/SpatialRepresentationType/
-  statdcatap: http://data.europa.eu/(xyz)/statdcat-ap/
+  statdcatap: http://data.europa.eu/s1n/
   mobilitydcatap: https://w3id.org/mobilitydcat-ap#
   dspace: https://w3id.org/dspace/2025/1/
 
@@ -246,10 +246,10 @@ extensions:
       Says what status the statistics have under the Code of Practice, and describes their dimensions and measures so tables can be
       found by what they count, as StatDCAT-AP does.
     aligned_to:
-      - {name: StatDCAT-AP, source: statdcat, prov: K, note: 'Checked 22 November 2026 and not yet aligned: statMeasure is in no StatDCAT-AP version, and the (xyz) namespace is a placeholder that the 3.0.0 draft deprecates. Open item O-13 holds the choice.'}
+      - {name: StatDCAT-AP, source: statdcat, prov: V, checked: '2026-11-22', terms_at: 'https://semiceu.github.io/StatDCAT-AP/s1n/drafts/3.0.0/', note: 'Aligned to version 3.0.0, the latest, which is still a draft: its s1n namespace and its dimension, measure, attribute and numSeries terms. Re-check when 3.0.0 is released (O-13).'}
       - {name: Code of Practice for Statistics, source: osr, prov: V, checked: '2026-11-22', note: 'The three statuses accredited official statistics, official statistics and official statistics in development are as the Office for Statistics Regulation names them; management information and other statistics are this profile''s additions for data outside the Code.'}
     differences:
-      - 'StatDCAT-AP terms here are not yet aligned (checked 22 November 2026). Release 1.0.1 puts its terms in http://data.europa.eu/m8g/; the 3.0.0 draft moves them to http://data.europa.eu/s1n/ and deprecates the (xyz) placeholder used here. statMeasure is in neither: the draft''s measure (the phenomenon observed) matches its meaning, and statUnitMeasure is the unit of measurement. Open item O-13 holds the choice.'
+      - 'Follows StatDCAT-AP 3.0.0, the latest version, which is still a draft (checked 22 November 2026): it uses the draft''s namespace http://data.europa.eu/s1n/, which replaces the (xyz) placeholder of earlier versions, and its measure term for what is observed. If the released version differs, this extension changes with it (O-13).'
     classes:
       Dataset:
         - {p: statisticsStatus, ob: M, card: '1'}
@@ -257,7 +257,7 @@ extensions:
         - {p: qualityAnnotation, ob: R, card: 0..n}
         - {p: inSeries, ob: R, card: 0..n}
         - {p: dimension, ob: R, card: 0..n}
-        - {p: statMeasure, ob: R, card: 0..n}
+        - {p: measure, ob: R, card: 0..n}
         - {p: attribute, ob: O, card: 0..n}
         - {p: numSeries, ob: O, card: '0..1'}
     properties:
@@ -275,11 +275,11 @@ extensions:
         kind: iri
         definition: A dimension the statistics are broken down by, such as area, age or year, as an identifier.
         mem: {change: new}
-      statMeasure:
-        uri: statdcatap:statMeasure
+      measure:
+        uri: statdcatap:measure
         label: Measure
         kind: iri
-        definition: What the statistics count or measure, as an identifier.
+        definition: What the statistics count or measure (the phenomenon observed), as an identifier. Called statMeasure before 22 November 2026.
         mem: {change: new}
       attribute:
         uri: statdcatap:attribute
@@ -299,7 +299,7 @@ extensions:
         statisticsStatus: ukcl:statistics-status/official
         temporal: [{startDate: '2015-01-01'}]
         dimension: [https://example.org/def/dimension/area]
-        statMeasure: [https://example.org/def/measure/count]
+        measure: [https://example.org/def/measure/count]
     breaks:
       - {key: stats-without-status, rule: M-01, remove: [statisticsStatus]}
       - {key: stats-bad-status, rule: V-01, set: {statisticsStatus: ukcl:statistics-status/national}}
