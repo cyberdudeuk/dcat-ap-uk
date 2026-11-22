@@ -172,3 +172,27 @@ class SupplyChain(unittest.TestCase):
         self.assertEqual(_top_level_writes('on: push\npermissions:\n  contents: read\n  security-events: write\njobs:\n'), ['security-events'])
         self.assertEqual(_top_level_writes('on: push\npermissions:\n  contents: read\njobs:\n'), [])
         self.assertEqual(_top_level_writes('on: push\npermissions: write-all\njobs:\n'), ['(no top-level permissions block)'])
+
+
+def _imprecise_asserts(source):
+    """assertTrue or assertFalse wrapped round a single comparison, which hides both values when it fails."""
+    out = []
+    for n in ast.walk(ast.parse(source)):
+        if (isinstance(n, ast.Call) and isinstance(n.func, ast.Attribute) and n.func.attr in ('assertTrue', 'assertFalse')
+                and n.args and isinstance(n.args[0], ast.Compare) and len(n.args[0].ops) == 1):
+            out.append(n.lineno)
+    return out
+
+
+class NoImpreciseAsserts(unittest.TestCase):
+    """D-053: CodeQL alert 50 found assertTrue(a >= b) in a test added the same day D-051 fixed the same kind of finding
+    (alert 5). D-051 relied on CodeQL alone, which only reports after a merge; this check runs before."""
+
+    def test_no_assert_hides_a_comparison(self):
+        for path in sorted((ROOT / 'tests').glob('*.py')):
+            with self.subTest(path=path.name):
+                self.assertEqual(_imprecise_asserts(path.read_text(encoding='utf-8')), [])
+
+    def test_negative_a_wrapped_comparison_is_caught(self):
+        self.assertEqual(_imprecise_asserts('self.assertTrue(len(x) >= 2)\nself.assertTrue(any(y))\nself.assertFalse(a in b)\n'), [1, 3])
+

@@ -504,6 +504,6 @@ class DecisionsInOrder(unittest.TestCase):
     def test_adrs_are_listed_in_number_order(self):
         built()
         ids = re.findall(r'<section id="adr-(\d{4})"', (SITE / 'governance.html').read_text(encoding='utf-8'))
-        self.assertTrue(len(ids) >= 24)
+        self.assertGreaterEqual(len(ids), 24)
         self.assertEqual(ids, sorted(ids, key=int))
 
