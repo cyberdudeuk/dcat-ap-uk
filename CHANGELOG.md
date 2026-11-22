@@ -4,6 +4,10 @@ All notable changes to DCAT-AP-UK. The format follows [Keep a Changelog](https:/
 
 ## [Unreleased]
 
+### Changed
+
+- The statistics extension (proposed) now follows StatDCAT-AP 3.0.0, the latest version, by the owner's decision of 22 November 2026 (O-13). Its namespace moves from the `(xyz)` placeholder to `http://data.europa.eu/s1n/`, and the property `statMeasure`, which is in no StatDCAT-AP version, becomes `measure` (`s1n:measure`, the phenomenon observed). Records using `statMeasure` need the new name. StatDCAT-AP 3.0.0 is still a draft, so the terms are re-checked when it is released; `tools/check_crosswalk_names.py` checks them against the draft on every build.
+
 ## [1.3.0-rc.1] - 2026-11-20
 
 A minor release candidate: it adds a candidate extension (geodesy) and the changes below, so it is minor under the

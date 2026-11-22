@@ -1296,7 +1296,7 @@ class Site:
             ns_use[v['uri'].split(':', 1)[0]] = ns_use.get(v['uri'].split(':', 1)[0], 0) + 1
         for cl in p.classes.values():
             ns_cls[cl['uri'].split(':', 1)[0]] = ns_cls.get(cl['uri'].split(':', 1)[0], 0) + 1
-        # Namespaces are identifiers, not web pages: several do not resolve (statdcat-ap's contains "(xyz)"; w3id.org/dcat-ap-uk
+        # Namespaces are identifiers, not web pages: several do not resolve (w3id.org/dcat-ap-uk
         # is not registered yet, O-17), so they are shown as code, never as links.
         ns_rows = [[f'<code>{E(pf)}:</code>', f'<code>{E(uri)}</code>', str(ns_use.get(pf, 0)), str(ns_cls.get(pf, 0))] for pf, uri in p.prefixes.items()]
         ns = ('<div class="filters" data-for="t-ns"><label>Search<input type="search" placeholder="prefix or namespace"></label><output aria-live="polite"></output></div>'
