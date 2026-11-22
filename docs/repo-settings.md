@@ -1,7 +1,7 @@
 # Repository settings: owner checklist
 
 The build sets everything it can as files in the repository. These settings can only be changed by the repository owner,
-in the repository settings. They were open register items O-16 and O-18. All were set on 6 November 2026, except required status checks (O-28).
+in the repository settings. They were open register items O-16 and O-18. All were set on 6 November 2026, except required status checks, which ADR 0024 decided against (O-28, closed 22 November 2026).
 
 | Setting | Value | Where | Status, 6 November 2026 |
 |---|---|---|---|
@@ -13,7 +13,7 @@ in the repository settings. They were open register items O-16 and O-18. All wer
 | Features | Issues on; Discussions on; Wiki off; Projects optional | Settings → General | Done (Issues and Discussions on, Wiki off) |
 | Merge | Squash merging only; delete branches after merge; suggest updating branches | Settings → General | Done (squash only) |
 | Pages | Source: deploy from a branch, `gh-pages`, folder `/` (the pages workflow pushes it) | Settings → Pages | Done |
-| Branch protection for main | Require the pages and CodeQL checks; require linear history; no force pushes | Settings → Rules | Partly: ruleset "Protect main" blocks deletion and force pushes and requires linear history; required checks are a decision (O-28) |
+| Branch protection for main | Require the pages and CodeQL checks; require linear history; no force pushes | Settings → Rules | Partly: ruleset "Protect main" blocks deletion and force pushes and requires linear history; required checks deliberately not set (ADR 0024: publishing is the gate, and the upkeep routines push to main) |
 | Private vulnerability reporting | On | Settings → Security | Done |
 | Dependabot alerts and security updates | On | Settings → Security | Done |
 | Secret scanning and push protection | On | Settings → Security | Done |

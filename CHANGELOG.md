@@ -11,6 +11,10 @@ All notable changes to DCAT-AP-UK. The format follows [Keep a Changelog](https:/
 - A class can now take a property's values from its own codelist. Role (`dcat:hadRole`) takes the new relation-role list on a relationship and keeps the responsible-role list on an attribution. Records that put a responsible role on a relationship no longer conform; no worked example did. Under the versioning rules this narrowing could count as major; it is treated as minor because the old binding was a mistake (ADR 0023).
 - A crosswalk from the register's agreement fields, and glossary entries for sharing agreement and sharing method.
 
+### Decided
+
+- Main does not require status checks (ADR 0024, closes O-28): publishing to Pages already waits for every check, and the upkeep routines push to main. The ruleset keeps blocking deletion and force pushes and requiring linear history.
+
 ### Changed (ADR 0022, accepted 22 November 2026)
 
 - The quality score now uses the method of the EU metadata quality assessment, as data.europa.eu publishes it: every check passes or fails, weighted 1, 0.5 or 0.25; datasets, distributions and data services each score out of 7.5 and are averaged into the dataset score; bands are sufficient, good (from 2.5) and excellent (from 5). It gives two readings: the EU reading (the EU's own checks, with UK values matched to the EU lists they equal, so publishers see what data.europa.eu will score) and the UK reading (every property weighted by its DCAT-AP-UK obligation). It replaces the earlier 405-point model, which the EU has retired.
@@ -30,6 +34,7 @@ All notable changes to DCAT-AP-UK. The format follows [Keep a Changelog](https:/
 - Modules imported a second time inside functions (CodeQL alerts 48 and 49, and three more found by the new check) are imported once (D-049). Regression test: `tests/test_lint.py` NoReimports.
 - Python dependencies are pinned and hashed, including every transitive package, and CI enforces the hashes; workflows grant write scopes only to the job that needs them (D-050, Scorecard alerts 31, 33 to 36 and 46). Edit `requirements.in`; the `.txt` files are generated. Regression tests: `tests/test_lint.py` SupplyChain.
 - Seven CodeQL quality findings are corrected with no change in behaviour (D-051, alerts 5, 10, 11, 21, 23, 43, 44).
+- Decisions are listed in number order on the governance page and in docs/adr (D-052). Regression test: `tests/test_integrations.py` DecisionsInOrder.
 
 ## [1.3.0-rc.1] - 2026-11-20
 

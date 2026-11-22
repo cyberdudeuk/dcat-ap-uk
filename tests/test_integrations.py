@@ -496,3 +496,14 @@ class VerifiedSourcesWatched(unittest.TestCase):
                 self.assertTrue(s.get('watch') == 'manual' or s['key'] in state, 'run tools/health.py --record after verifying it')
                 if urlparse(s['url']).hostname == 'github.com' and s.get('watch') != 'manual':  # whole host (CodeQL #20)
                     self.assertTrue(s.get('watch'), 'GitHub pages change on every load: watch the raw files instead')
+
+
+class DecisionsInOrder(unittest.TestCase):
+    """D-052: the governance page listed ADRs out of number order (0020, 0014, 0011 ... came after 0024)."""
+
+    def test_adrs_are_listed_in_number_order(self):
+        built()
+        ids = re.findall(r'<section id="adr-(\d{4})"', (SITE / 'governance.html').read_text(encoding='utf-8'))
+        self.assertTrue(len(ids) >= 24)
+        self.assertEqual(ids, sorted(ids, key=int))
+
