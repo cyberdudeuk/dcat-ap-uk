@@ -70,6 +70,19 @@ class Register(unittest.TestCase):
             with self.subTest(break_=name):
                 self.assertTrue(broken(f), name + ' was not caught')
 
+    def test_a_verified_none_found_is_not_counted_as_a_server(self):
+        # D-044: a verified negative carries a source (where the search was made); without server: false the page
+        # would count "no MCP server was found" as an MCP server.
+        caps = build.Site.vendor_caps
+        neg = {'ai': {'prov': 'V', 'server': False, 'mcp': 'No MCP server was found.', 'source': 'https://github.com/apache/polaris'}}
+        self.assertFalse(caps(None, neg)['mcp'])
+        self.assertTrue(caps(None, {'ai': {**neg['ai'], 'server': True}})['mcp'])
+        for x in VD['vendors']:
+            ai = x.get('ai') or {}
+            if ai.get('mcp', '').startswith('No ') and ai.get('prov') in ('V', 'S'):
+                with self.subTest(vendor=x['id']):
+                    self.assertIs(ai.get('server'), False, 'a verified "none found" needs server: false')
+
     def test_secoda_lists_its_self_hosted_option(self):
         # D-036 regression: Secoda documents a self-hosted install (docs.secoda.co/enterprise/self-hosted-secoda).
         x = next(v for v in VD['vendors'] if v['id'] == 'secoda')

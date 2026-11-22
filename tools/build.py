@@ -2693,7 +2693,7 @@ class Site:
         """What a reader can do with a product today, as yes or no facts drawn from the register."""
         ai = x.get('ai') or {}
         return {'reports': len(x.get('reports', [])), 'repo': bool(x.get('repos')), 'mapped': bool(x.get('crosswalk')), 'kit': bool(x.get('kit')),
-                'weave': x.get('weave') or '', 'mcp': bool(ai.get('mcp')) and ai.get('prov') in ('V', 'S') and bool(ai.get('source')), 'claude': bool(x.get('claude'))}
+                'weave': x.get('weave') or '', 'mcp': bool(ai.get('mcp')) and ai.get('prov') in ('V', 'S') and bool(ai.get('source')) and ai.get('server', True) is not False, 'claude': bool(x.get('claude'))}
 
     def vendor_steps(self, x):
         """How to connect a product to DCAT-AP-UK, in order, from what the register says it offers."""
