@@ -10,6 +10,7 @@ import yaml
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / 'tools'))
+sys.path.insert(0, str(ROOT / 'tests'))
 import check_crosswalk_names as c  # noqa: E402
 
 SCHEMA = '{"properties": {"summary": {"$ref": "#/$defs/S"}, "provenance": {"properties": {"temporal": {"properties": ' \
@@ -74,6 +75,8 @@ class AlignmentBadges(unittest.TestCase):
 
     def test_each_alignment_shows_its_own_provenance(self):
         import re
+        from test_integrations import built  # CI runs the tests before it builds the site
+        built()
         html = (ROOT / 'site' / 'extensions.html').read_text(encoding='utf-8')
         exts = yaml.safe_load((ROOT / 'profile' / 'extensions.yaml').read_text(encoding='utf-8'))['extensions']
         for e in exts:
