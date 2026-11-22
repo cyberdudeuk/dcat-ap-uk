@@ -3119,7 +3119,6 @@ class Site:
                                for f, t, d, mt in self.dl_meta if not f.startswith(('..', 'catalog'))]}
         g = ukap.to_graph(p, cat)
         ukap.to_graph(p, ds, g)
-        res = ukap.Profile.__dict__  # noqa: F841 (kept for readability)
         (self.out / 'downloads' / 'catalog.ttl').write_text(g.serialize(format='turtle'), encoding='utf-8')
         (self.out / 'downloads' / 'catalog.jsonld').write_text(json.dumps({'@context': m['site_url'] + 'downloads/dcat-ap-uk.context.jsonld', '@graph': [cat, ds]}, indent=1, ensure_ascii=False) + '\n', encoding='utf-8')
         self.self_records = [cat, ds]

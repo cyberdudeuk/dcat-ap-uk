@@ -1,0 +1,10 @@
+# Top-level dependencies, pinned. requirements.txt is generated from this file with every transitive
+# dependency pinned and hashed (D-050): pip-compile --generate-hashes --allow-unsafe --strip-extras requirements.in
+PyYAML==6.0.3
+rdflib==7.6.0
+pyshacl==0.40.2
+jsonschema==4.26.0
+segno==1.6.6
+python-barcode==0.16.1
+playwright==1.65.1
+ruff==0.17.5

@@ -34,5 +34,5 @@ jobs:
           DRY: ${{ inputs.dry_run }}
         run: |
           python3 -m venv "$RUNNER_TEMP/venv" && . "$RUNNER_TEMP/venv/bin/activate"
-          pip install -r requirements.txt
+          pip install --require-hashes -r requirements.txt
           python -I tools/routine.py upkeep $( [ "$DRY" = "true" ] && echo --dry-run )

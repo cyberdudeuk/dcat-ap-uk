@@ -21,6 +21,8 @@ All notable changes to DCAT-AP-UK. The format follows [Keep a Changelog](https:/
 
 - The provenance issue (#4) could never close (D-048). Comparing the worked examples with their publisher's record happens at every review, so those items could never be ticked off, and the upkeep routine had no step to close the issue. Review items are now listed separately (in the review reminder and in a "When" column on the Status page), the routine lists only what needs a person now and closes the issue when that list is empty, and the Status page heading gives both counts. Regression tests: `tests/test_provenance.py` ReviewCycle.
 - Modules imported a second time inside functions (CodeQL alerts 48 and 49, and three more found by the new check) are imported once (D-049). Regression test: `tests/test_lint.py` NoReimports.
+- Python dependencies are pinned and hashed, including every transitive package, and CI enforces the hashes; workflows grant write scopes only to the job that needs them (D-050, Scorecard alerts 31, 33 to 36 and 46). Edit `requirements.in`; the `.txt` files are generated. Regression tests: `tests/test_lint.py` SupplyChain.
+- Seven CodeQL quality findings are corrected with no change in behaviour (D-051, alerts 5, 10, 11, 21, 23, 43, 44).
 
 ## [1.3.0-rc.1] - 2026-11-20
 

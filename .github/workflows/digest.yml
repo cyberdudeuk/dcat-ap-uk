@@ -7,11 +7,13 @@ on:
   workflow_dispatch:
 permissions:
   contents: read
-  issues: write
-  actions: read
-  pull-requests: read
 jobs:
   digest:
+    permissions:
+      contents: read
+      issues: write
+      actions: read
+      pull-requests: read
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:

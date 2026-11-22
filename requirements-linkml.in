@@ -1,0 +1,4 @@
+# The LinkML toolchain, used only to check the generated LinkML schema (tools/check_linkml.py, D-029).
+# Constrained by requirements.txt so the packages both files share keep one version when CI installs them together.
+-c requirements.txt
+linkml==1.12.1

@@ -48,6 +48,11 @@ class _Fails(list):
         super().__init__()
         self.fail_fast = fail_fast
 
+    def __eq__(self, other):
+        return list.__eq__(self, other) is True and getattr(other, 'fail_fast', None) == self.fail_fast
+
+    __hash__ = None
+
     def append(self, x):
         super().append(x)
         if self.fail_fast:

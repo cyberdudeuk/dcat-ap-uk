@@ -177,8 +177,8 @@ def provenance_issue(dry):
                    'publisher\'s record at each review; the review reminder lists them. Closed by the upkeep routine.', check=False)
         return
     lines = [f'{len(todo)} items need verifying or replacing. Counts: ' + ', '.join(f'{k} {v}' for k, v in sorted(reg['counts'].items())) + '.', '',
-             'Verify each against an authoritative source, then relabel it V with the date and address checked, or correct it. '
-             'Synthetic content stays only where nothing genuine can be shown in public, and must say why. The Status page lists the same items.', '']
+             ('Verify each against an authoritative source, then relabel it V with the date and address checked, or correct it. '
+              'Synthetic content stays only where nothing genuine can be shown in public, and must say why. The Status page lists the same items.'), '']
     by = {}
     for x in todo:
         by.setdefault(x['file'], []).append(x)

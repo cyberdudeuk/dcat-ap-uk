@@ -144,7 +144,7 @@ class Coverage(unittest.TestCase):
     def test_every_open_issue_is_registered(self):
         # 22 open issues in co-cddo on 6 November 2026 (read through the GitHub API)
         open_issues = {86, 78, 76, 72, 71, 70, 69, 63, 60, 49, 44, 30, 26, 25, 15, 13, 11, 5, 4, 3, 2, 1}
-        self.assertTrue(open_issues <= {b['n'] for b in P.lineage['backlog']})
+        self.assertEqual(open_issues - {b['n'] for b in P.lineage['backlog']}, set())
 
     def test_every_mem_slot_is_mapped(self):
         mem_slots = {'accessService', 'accessRights', 'address', 'alternativeTitle', 'byteSize', 'contactName', 'contactPoint', 'created',
