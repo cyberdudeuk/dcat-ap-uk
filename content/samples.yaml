@@ -33,10 +33,11 @@
   url: https://doc.ukdataservice.ac.uk/doc/9468/mrdoc/pdf/9468_volume_a_introduction_2023-24.pdf
   source: The study's user guide and the ONS survey methodology page. Written as DDI Codebook elements for the portal.
 - id: weaver-dcatus
-  label: Weaver DCAT-US sample, an invented school census
-  synthetic: Still to replace with a real US federal record from catalog.data.gov; none was verified on 7 November 2026. Listed for the weekly provenance issue.
-  replace: true
-  addresses: ['https://example.org/contact', 'https://example.org/school-census', 'https://example.org/census.csv']
+  label: Weaver DCAT-US sample, the NICE Framework components (NIST), from the US Department of Commerce data.json
+  prov: V
+  checked: '2026-11-22'
+  url: https://www.commerce.gov/data.json
+  source: 'A real US federal record (identifier ark:/88434/mds2-2502) in the Department of Commerce data.json, read on 22 November 2026. Six of its thirteen keywords and one of its twelve distributions are kept to keep the sample short. Its contact email is left out, because the portal shows no email addresses (COL-02); its contact is an office, not a person. data.nist.gov returned 502 Bad Gateway that day, so the landing page and download were not reached.'
 - id: weaver-atlas
   label: Weaver Apache Atlas (Microsoft Purview) sample, an invented data map entity
   synthetic: Data map entities live inside an organisation's own Purview account and are not published, so no real one can be shown.

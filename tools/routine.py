@@ -145,9 +145,13 @@ def review_reminder(dry):
         summary(f'**review**: would open "{title}".')
         return
     open_ = sh('gh', 'issue', 'list', '--label', 'review due', '--state', 'open', '--json', 'number', '--jq', '.[0].number', capture=True)
+    sys.path.insert(0, str(ROOT / 'tools'))
+    import provenance
+    again = [x for x in provenance.register()['items'] if x.get('at_review')]
     body = (f'The review date in profile/dcat-ap-uk.yaml is {meta["review"]}, {days} days away. A person re-reads the pages, '
             'the sources marked watch: manual in content/lineage.yaml and the open register, then moves the review date on. '
-            'Opened by the upkeep routine (tier 0).')
+            + (f'Compare these {len(again)} with their publisher\'s record: ' + '; '.join(f'{x["item"]} ({x["file"]})' for x in again) + '. ' if again else '')
+            + 'Opened by the upkeep routine (tier 0).')
     if open_:
         sh('gh', 'issue', 'comment', open_, '--body', f'Still due: {days} days left.', check=False)
     else:
@@ -161,11 +165,16 @@ def provenance_issue(dry):
     sys.path.insert(0, str(ROOT / 'tools'))
     import provenance
     reg = provenance.register()
-    todo = [x for x in reg['items'] if x['action']]
+    todo = [x for x in reg['items'] if x['action'] and not x.get('at_review')]  # review-cycle items go in the review reminder
     if reg['unexplained_synthetic'] or reg['misattributed']:
         summary(f'**provenance**: {reg["unexplained_synthetic"]} unexplained synthetic, {len(reg["misattributed"])} misattributed (the tests fail on these).')
     if not todo:
-        summary('**provenance**: nothing needs a person.')
+        summary(f'**provenance**: nothing needs verifying now; {reg["at_review"]} items are compared at each review.')
+        if not dry and os.environ.get('GH_TOKEN'):  # close the issue once its list is empty, rather than leave it open for ever
+            open_ = sh('gh', 'issue', 'list', '--label', 'provenance', '--state', 'open', '--json', 'number', '--jq', '.[0].number', capture=True)
+            if open_:
+                sh('gh', 'issue', 'close', open_, '--comment', f'Nothing needs verifying now. {reg["at_review"]} items are compared with their '
+                   'publisher\'s record at each review; the review reminder lists them. Closed by the upkeep routine.', check=False)
         return
     lines = [f'{len(todo)} items need verifying or replacing. Counts: ' + ', '.join(f'{k} {v}' for k, v in sorted(reg['counts'].items())) + '.', '',
              'Verify each against an authoritative source, then relabel it V with the date and address checked, or correct it. '

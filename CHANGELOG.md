@@ -14,6 +14,12 @@ All notable changes to DCAT-AP-UK. The format follows [Keep a Changelog](https:/
 ### Changed
 
 - The statistics extension (proposed) now follows StatDCAT-AP 3.0.0, the latest version, by the owner's decision of 22 November 2026 (O-13). Its namespace moves from the `(xyz)` placeholder to `http://data.europa.eu/s1n/`, and the property `statMeasure`, which is in no StatDCAT-AP version, becomes `measure` (`s1n:measure`, the phenomenon observed). Records using `statMeasure` need the new name. StatDCAT-AP 3.0.0 is still a draft, so the terms are re-checked when it is released; `tools/check_crosswalk_names.py` checks them against the draft on every build.
+- The DCAT-US example in the metadata weaver is now a real US federal record (the NIST NICE Framework, from the Department of Commerce data.json, checked 22 November 2026) instead of an invented one.
+- Ab Initio is no longer shown as a Leader in the Gartner Magic Quadrant for Master Data Management (2025), because that position could not be confirmed at source.
+
+### Fixed
+
+- The provenance issue (#4) could never close (D-048). Comparing the worked examples with their publisher's record happens at every review, so those items could never be ticked off, and the upkeep routine had no step to close the issue. Review items are now listed separately (in the review reminder and in a "When" column on the Status page), the routine lists only what needs a person now and closes the issue when that list is empty, and the Status page heading gives both counts. Regression tests: `tests/test_provenance.py` ReviewCycle.
 
 ## [1.3.0-rc.1] - 2026-11-20
 

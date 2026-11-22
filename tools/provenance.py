@@ -162,6 +162,13 @@ def misattributed(rows):
     return bad
 
 
+# Actions a person repeats at every review rather than finishes once: comparing a real worked example or sample with its
+# publisher's record. They belong to the review cycle, not to the provenance issue, which can then close when nothing
+# needs verifying now (the issue stayed open for ever because these could never be ticked off).
+REVIEW_ACTIONS = ("compare with the publisher's record each review", "compare the added values with the publisher's own documentation",
+                  'compare with the source each review')
+
+
 def register(today=None):
     today = today or dt.date.today()
     rows = labelled(today) + examples() + samples()
@@ -172,7 +179,10 @@ def register(today=None):
     wrong = misattributed(rows)
     for r in rows:
         r.pop('record', None)
-    return {'misattributed': wrong,'generated': str(today), 'stale_days': STALE_DAYS, 'counts': counts, 'needs_action': sum(1 for r in rows if r['action']),
+    for r in rows:
+        r['at_review'] = r['action'] in REVIEW_ACTIONS
+    return {'misattributed': wrong,'generated': str(today), 'stale_days': STALE_DAYS, 'counts': counts,
+            'needs_action': sum(1 for r in rows if r['action'] and not r['at_review']), 'at_review': sum(1 for r in rows if r['at_review']),
             'unexplained_synthetic': len(unexplained), 'items': rows}
 
 
@@ -183,7 +193,7 @@ def main(argv=None):
     reg = register()
     if a.json:
         Path(a.json).write_text(json.dumps(reg, indent=1, ensure_ascii=False) + '\n', encoding='utf-8')
-    print('Provenance:', ', '.join(f'{k} {v}' for k, v in sorted(reg['counts'].items())), f'| needs action {reg["needs_action"]}',
+    print('Provenance:', ', '.join(f'{k} {v}' for k, v in sorted(reg['counts'].items())), f'| needs action {reg["needs_action"]} | at each review {reg["at_review"]}',
           f'| unexplained synthetic {reg["unexplained_synthetic"]}')
     for r in reg['items']:
         if r['prov'] == 'synthetic' and not r.get('synthetic'):
