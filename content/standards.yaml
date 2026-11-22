@@ -29,7 +29,7 @@ standards:
   - {id: dcat3, label: W3C DCAT 3, group: core, url: 'https://www.w3.org/TR/vocab-dcat-3/', prov: V, note: 'Checked 6 November 2026: W3C Recommendation, 22 August 2024.'}
   - {id: dcatap, label: DCAT-AP 3.0.1, group: core, url: 'https://semiceu.github.io/DCAT-AP/releases/3.0.1/', prov: V, note: 'Checked 6 November 2026: 3.0.1 (27 October 2025) is the latest release; 3.0.2 is a draft.'}
   - {id: hvd, label: DCAT-AP HVD, group: core, url: 'https://semiceu.github.io/DCAT-AP/releases/3.0.0-hvd/', note: 'Checked 6 November 2026: 3.0.0 is the latest release; a 3.0.1 draft was under public review until September 2026.', prov: V}
-  - {id: mem, label: xGov MEM v0.1.0, group: core, url: 'https://github.com/co-cddo/ukgov-metadata-exchange-model', prov: V}
+  - {id: mem, label: xGov MEM v0.1.0, group: core, url: 'https://github.com/co-cddo/ukgov-metadata-exchange-model', prov: V, note: 'Checked 22 November 2026: pyproject.toml still declares version 0.1.0 at commit 3e6c6f5eb6dda6e90ca956d0273f3698fd584212 (last change 20 November 2026).'}
   - {id: dm, label: Data Marketplace schemas, group: core, url: 'https://github.com/co-cddo/data-catalogue-metadata'}
   - {id: panuk, label: Future pan-UK metadata architecture, short: 'Pan-UK architecture', group: core, url: 'https://github.com/co-cddo/future-panuk-metadata-architecture', note: 'Private repository.'}
   - {id: dct, label: Dublin Core Terms, group: vocab, url: 'https://www.dublincore.org/specifications/dublin-core/dcmi-terms/'}
