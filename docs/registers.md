@@ -82,7 +82,7 @@ Proposed. Not endorsed. To become a standard it needs, in order: review by the M
 | O-25 | Compare obligations with the statistics producers' application profile and decide every difference (RQ-27). Its public repository was not found on 6 November 2026, so the comparison needs the current version from its owners. | Owning team, with official statistics producers |
 | O-26 | Review the candidate geodesy module with geodetic specialists, including which frames, epochs and uncertainty rules to enforce (RQ-23). The EPSG codes it uses were checked at the EPSG registry on 6 November 2026. | Owning team, with geodesy specialists |
 | O-28 | Decide whether main should require the pages and CodeQL checks to pass. That would stop direct pushes to main, so every change, including automated ones, would need a pull request (GDS Way). The ruleset already blocks deletion and force pushes and requires linear history. | Repository owner |
-| O-29 | Decide whether the quality score should follow the current data.europa.eu metadata quality method, which weights each DCAT-AP 3 property and scores data services, instead of the earlier five-dimension, 405-point method it is modelled on (D-042). Level 3 on the Adopt page uses the 405-point scale. | Repository owner |
+| O-29 | Accept or amend ADR 0022 (proposed 22 November 2026): score with the EU method's mechanics, read twice, as data.europa.eu would and against DCAT-AP-UK obligations, with Level 3 as a UK reading of 5 or more of 7.5. Implementation follows acceptance. | Repository owner |
 
 ## Backlog from the xGov MEM
 
