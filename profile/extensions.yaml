@@ -246,10 +246,10 @@ extensions:
       Says what status the statistics have under the Code of Practice, and describes their dimensions and measures so tables can be
       found by what they count, as StatDCAT-AP does.
     aligned_to:
-      - {name: StatDCAT-AP, source: statdcat, prov: K}
-      - {name: Code of Practice for Statistics, source: osr, prov: K}
+      - {name: StatDCAT-AP, source: statdcat, prov: K, note: 'Checked 22 November 2026 and not yet aligned: statMeasure is in no StatDCAT-AP version, and the (xyz) namespace is a placeholder that the 3.0.0 draft deprecates. Open item O-13 holds the choice.'}
+      - {name: Code of Practice for Statistics, source: osr, prov: V, checked: '2026-11-22', note: 'The three statuses accredited official statistics, official statistics and official statistics in development are as the Office for Statistics Regulation names them; management information and other statistics are this profile''s additions for data outside the Code.'}
     differences:
-      - 'StatDCAT-AP version 3 is being revised. Its namespace in version 1 is a placeholder; check it before relying on these terms (open register O-13).'
+      - 'StatDCAT-AP terms here are not yet aligned (checked 22 November 2026). Release 1.0.1 puts its terms in http://data.europa.eu/m8g/; the 3.0.0 draft moves them to http://data.europa.eu/s1n/ and deprecates the (xyz) placeholder used here. statMeasure is in neither: the draft''s measure (the phenomenon observed) matches its meaning, and statUnitMeasure is the unit of measurement. Open item O-13 holds the choice.'
     classes:
       Dataset:
         - {p: statisticsStatus, ob: M, card: '1'}
@@ -313,7 +313,7 @@ extensions:
       Says which mode of transport, which network and which data standard (TransXChange, NeTEx, SIRI, GTFS, DATEX II) a dataset
       uses, as mobilityDCAT-AP does for European national access points.
     aligned_to:
-      - {name: mobilityDCAT-AP, source: mobilitydcat, prov: K}
+      - {name: mobilityDCAT-AP, source: mobilitydcat, prov: V, checked: '2026-11-22', terms_at: 'https://mobilitydcat-ap.github.io/mobilityDCAT-AP/releases/latest/mobilitydcat-ap.ttl', note: 'All five terms and the namespace are in the 3.0.0 vocabulary.'}
     differences:
       - 'Uses UK data standards, such as TransXChange and NaPTAN, as values of the data standard property.'
     classes:
@@ -509,7 +509,7 @@ extensions:
       GOV.UK organisation addresses only cover government. This extension asks for a registered identifier for every organisation,
       in the org-id.guide form, so a charity in Scotland, a company in Northern Ireland and a council in Wales are named the same way.
     aligned_to:
-      - {name: org-id.guide identifier lists, source: orgid, prov: K}
+      - {name: org-id.guide identifier lists, source: orgid, prov: V, checked: '2026-11-22', note: 'GB-COH, GB-CHC, GB-SC, GB-NIC, GB-MPR and XI-LEI are confirmed, current lists in the org-id.guide register.'}
     differences:
       - 'Identifiers take the form PREFIX-identifier, for example GB-COH-00000000 for a company, GB-CHC-0000000 for a charity in England and Wales, GB-SC-SC000000 in Scotland, GB-NIC-000000 in Northern Ireland, or XI-LEI-... for a legal entity identifier.'
     classes:

@@ -1547,7 +1547,10 @@ class Site:
         body += f'<h2 id="all">The extensions</h2><div class="grid">{cards}</div>'
         items = []
         for eid, e in p.extensions.items():
-            al = ''.join(f'<li>{E(a["name"])}: {self.src_link(a["source"])}</li>' for a in e['aligned_to'])
+            # D-047: the badge is the alignment's own provenance, not the source page's, so an unchecked alignment never shows V.
+            al = ''.join(f'<li>{E(a["name"])}: <a href="{E(self.src[a["source"]]["url"])}">{E(self.src[a["source"]]["title"])}</a>, alignment '
+                         f'{prov(a["prov"], a.get("checked") if a["prov"] == "V" else None)}'
+                         + (f' <span class="small">{E(a["note"])}</span>' if a.get('note') else '') + '</li>' for a in e['aligned_to'])
             rows = self.ext_rows(eid)
             ex = self.files[f'extensions/{eid}.example.json']
             dls = ' '.join(f'<a class="btn secondary small" href="downloads/extensions/{eid}.{x}" download>{icon("download")} {lab}</a>' for x, lab in
