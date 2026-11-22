@@ -4,6 +4,7 @@ Offline tests of tools/check_crosswalk_names.py, which CI runs against the publi
 import sys
 import unittest
 from pathlib import Path
+from urllib.parse import urlparse
 
 import yaml
 
@@ -23,7 +24,7 @@ class CrosswalkNames(unittest.TestCase):
                     self.assertTrue(str(cw.get('checked_at', '')).startswith('https://'))
                     self.assertRegex(str(cw.get('checked', '')), r'^\d{4}-\d{2}-\d{2}$')
                     for part in cw['checked_at'].split(' and '):
-                        if 'github.com' in part:
+                        if urlparse(part).hostname == 'github.com':  # whole host, not a substring (CodeQL #47)
                             self.assertRegex(part, r'/blob/[0-9a-f]{40}/', 'pin GitHub sources to a full commit')
 
     def test_a_renamed_json_schema_field_is_caught(self):
