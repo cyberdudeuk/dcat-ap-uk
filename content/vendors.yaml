@@ -7,6 +7,8 @@
 #      vendor press releases and report abstracts, never from the reports themselves.
 #   V  checked this session against the public repository file named, at the commit given.
 #   K  background knowledge or a secondary source; to be checked.
+# ai.server: false marks a verified finding that the vendor publishes no MCP server (D-044). Its source is where the
+#   search was made; the connectors page then shows the finding without counting it as an MCP server.
 # Nothing here is a test, an endorsement or a ranking by this project. Suppliers can correct an entry with the claim form.
 # The crosswalk "rest" rule: a DCAT-AP-UK property with no native field goes in the vendor's own extension place
 # (custom metadata, custom properties, an aspect), named in `bag`. The kit for each vendor defines that place.
@@ -240,7 +242,7 @@ vendors:
     weave: dataworld
     bag: {path: properties, style: object}
     kit: dataworld-properties
-    ai: {prov: K, mcp: No MCP server was found in a public repository.}
+    ai: {prov: V, mcp: 'A hosted MCP server at https://api.data.world/mcp, with nothing to install. It signs in with your data.world account and can only reach what that account can (checked 22 November 2026).', source: 'https://docs.data.world/en/413221-connect-to-the-data-world-mcp-server.html'}
     crosswalk:
       - [title, title, '']
       - [description, description, '']
@@ -263,7 +265,7 @@ vendors:
     weave: atlas
     bag: {path: businessAttributes.dcat_ap_uk, style: object}
     kit: atlas-business-metadata
-    ai: {prov: K, mcp: No Microsoft-published Purview MCP server was found; community servers exist. Not listed here until one is checked.}
+    ai: {prov: V, server: false, mcp: 'No Microsoft MCP server for the Purview Data Map or Unified Catalog was found on 22 November 2026. Microsofts purview-dlm-mcp diagnoses Data Lifecycle Management through Exchange Online, not the catalogue, and the Azure MCP Servers README does not mention Purview.', source: 'https://github.com/microsoft/purview-dlm-mcp'}
     crosswalk:
       - [title, name, 'Asset.name in the Atlas base model.']
       - [description, userDescription, 'Asset also has description, filled by scans.']
@@ -296,7 +298,7 @@ vendors:
     weave: atlas
     bag: {path: businessAttributes.dcat_ap_uk, style: object}
     kit: atlas-business-metadata
-    ai: {prov: K, mcp: No Apache-published MCP server was found.}
+    ai: {prov: V, server: false, mcp: 'No MCP server was found in the Apache Software Foundations repositories (repository and code search, 22 November 2026).', source: 'https://github.com/search?type=repositories&q=mcp+org%3Aapache+atlas'}
     crosswalk:
       - [title, name, '']
       - [description, description, '']
@@ -398,7 +400,7 @@ vendors:
     weave: unity
     bag: {path: properties, style: flat}
     kit: unity-properties
-    ai: {prov: K, mcp: Databricks registers MCP servers in Unity Catalog as governed objects; a Unity Catalog metadata MCP server published by the project was not found.}
+    ai: {prov: V, server: false, mcp: 'Databricks can register an external MCP server in Unity Catalog as an MCP service, governed like other catalog objects. No MCP server for Unity Catalog metadata was found in the unitycatalog or databricks organisations (22 November 2026).', source: 'https://github.com/PreciselyData/precisely-mcp-servers/blob/main/data-integrity-suite/README.md'}
     crosswalk:
       - [description, comment, '']
       - [issued, created_at, 'Milliseconds since 1970.']
@@ -593,7 +595,7 @@ vendors:
     weave: datazone
     bag: {path: 'formsInput[DcatApUkForm].content', style: object}
     kit: datazone-form-type
-    ai: {prov: K, mcp: No AWS-published MCP server for SageMaker Catalog was found.}
+    ai: {prov: V, server: false, mcp: 'No AWS MCP server specific to SageMaker Catalog or DataZone was found in awslabs/mcp on 22 November 2026. Its general AWS API MCP server can call any AWS service, DataZone included.', source: 'https://github.com/awslabs/mcp'}
     crosswalk:
       - [title, name, '']
       - [description, description, '']
@@ -614,7 +616,7 @@ vendors:
     weave: oci
     bag: {path: customPropertyMembers, style: list}
     kit: oci-custom-properties
-    ai: {prov: K, mcp: 'No Oracle-published MCP server for OCI Data Catalog was found. Oracle Analytics Cloud has an MCP server in preview; it covers analytics datasets, not the data catalogue.'}
+    ai: {prov: V, server: false, mcp: 'No Oracle MCP server specific to OCI Data Catalog was found on 22 November 2026. Oracles reference repository (not for production use) has a general OCI API server that runs OCI command-line commands.', source: 'https://github.com/oracle/mcp/blob/main/src/oci-api-mcp-server/README.md'}
     crosswalk:
       - [title, displayName, '']
       - [description, description, '']
@@ -647,7 +649,7 @@ vendors:
     weave: atlas
     bag: {path: businessAttributes.dcat_ap_uk, style: object}
     kit: atlas-business-metadata
-    ai: {prov: K, mcp: No Cloudera-published MCP server for its catalogue was found.}
+    ai: {prov: V, server: false, mcp: 'Cloudera publishes MCP servers for Iceberg tables through Impala, NiFi and its AI workbench, but none for the SDX catalogue was found (22 November 2026).', source: 'https://github.com/search?type=repositories&q=mcp+org%3Acloudera'}
     crosswalk:
       - [title, name, '']
       - [description, userDescription, '']
@@ -697,7 +699,7 @@ vendors:
     repos: []
     extend: Catalogue attributes in the Data Integrity Suite.
     gap: No public metadata model was found, so no field mapping is given.
-    ai: {prov: K, mcp: 'Reported to host an MCP server over its integration, quality and catalogue APIs; only a secondary source was found, so this is unconfirmed.'}
+    ai: {prov: V, mcp: 'A hosted Data Integrity Suite MCP server at the Precisely API gateway (/mcp, by region), signed in with an API key. The documentation does not list which catalogue tools it exposes (checked 22 November 2026).', source: 'https://github.com/PreciselyData/precisely-mcp-servers/blob/main/data-integrity-suite/README.md'}
 
   - id: select-star
     name: Select Star
@@ -758,7 +760,7 @@ vendors:
     weave: iceberg
     bag: {path: properties, style: flat}
     kit: iceberg-properties
-    ai: {prov: K, mcp: No Apache-published MCP server was found.}
+    ai: {prov: V, server: false, mcp: 'No MCP server was found in the Apache Polaris repository (code search, 22 November 2026).', source: 'https://github.com/apache/polaris'}
     crosswalk:
       - [description, properties.comment, 'TableProperties.COMMENT in Apache Iceberg (core/src/main/java/org/apache/iceberg/TableProperties.java at the cited commit).']
 
@@ -776,7 +778,7 @@ vendors:
     weave: openlineage
     bag: {path: facets.dcat_ap_uk, style: object}
     kit: openlineage-facet
-    ai: {prov: K, mcp: OpenLineage is a specification for lineage events; it has no MCP server of its own.}
+    ai: {prov: V, server: false, mcp: 'OpenLineage is a specification for lineage events. No MCP server was found in the OpenLineage or Marquez organisations (22 November 2026).', source: 'https://github.com/search?type=repositories&q=mcp+org%3AOpenLineage'}
     crosswalk:
       - [description, facets.documentation.description, '']
       - [identifier, namespace and name, 'A dataset is identified by its namespace and name; keep the DCAT-AP-UK identifier in the facet as well.']
@@ -792,7 +794,7 @@ vendors:
       - {repo: amundsen-io/amundsen, role: 'Source, including the databuilder table model', commit: '469c1b778340655d1967d1589355acb4f35c65a7', checked: '2026-11-07'}
     model: {file: databuilder/databuilder/models/table_metadata.py (TableMetadata), repo: amundsen-io/amundsen, prov: V}
     extend: Amundsen has no general extension place for extra properties; programmatic descriptions can carry text.
-    ai: {prov: K, mcp: No Amundsen-published MCP server was found.}
+    ai: {prov: V, server: false, mcp: 'No MCP server was found in the amundsen-io organisation (repository and code search, 22 November 2026).', source: 'https://github.com/search?type=repositories&q=mcp+org%3Aamundsen-io'}
     crosswalk:
       - [description, description, '']
       - [keyword, tags, '']
@@ -808,7 +810,7 @@ vendors:
       - {repo: odpi/egeria, role: Source of the open metadata types and repository services, commit: 9c2bb9761329375a24308f480901e7e3719a7e00, checked: '2026-11-07'}
     extend: Open metadata types, extensible by new type definitions.
     gap: The open metadata types are large and spread across many definitions; a mapping is not yet given.
-    ai: {prov: K, mcp: No Egeria-published MCP server was found.}
+    ai: {prov: V, mcp: 'Egeria Workspaces runs an MCP server for Dr. Egeria commands and pyegeria reports, over stdio or HTTP; its tools include listing glossaries and collections and running reports (checked 22 November 2026).', source: 'https://github.com/odpi/egeria-workspaces/blob/main/design-docs/Using%20MCP%20in%20Egeria-Workspaces.md'}
 
 # Named in a report above, with no public metadata model or MCP server found yet. Labelled K so the provenance register
 # lists each one, and the weekly run looks for a published model or MCP server.
