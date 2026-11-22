@@ -1,4 +1,5 @@
 """D-038: no linter ran in CI. These tests keep both linters, pinned, in the Build, check and publish workflow."""
+import ast
 import json
 import unittest
 from pathlib import Path
@@ -80,3 +81,32 @@ class NoSplitFlowValues(unittest.TestCase):
         # The FIPS label as it was on main: published as "FIPS 203".
         self.assertEqual(len(_split_flow_values("- {id: fips, label: FIPS 203, 204 and 205, group: policy}\n")), 1)
         self.assertEqual(_split_flow_values("- {id: fips, label: 'FIPS 203, 204 and 205', mem: null}\n"), [])
+
+
+def _reimports(source):
+    """Modules imported at the top of a file and imported again inside a function or class."""
+    tree = ast.parse(source)
+    top = {a.asname or a.name for n in tree.body if isinstance(n, ast.Import) for a in n.names}
+    found = set()
+    for node in ast.walk(tree):
+        if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef)):
+            for inner in ast.walk(node):
+                if isinstance(inner, ast.Import):
+                    found |= {f'{a.asname or a.name} (line {inner.lineno})' for a in inner.names if (a.asname or a.name) in top}
+    return sorted(found)
+
+
+class NoReimports(unittest.TestCase):
+    """D-049: CodeQL alerts 48 and 49 found provenance imported again inside test functions; ruff has no rule for it."""
+
+    def test_no_module_is_imported_twice(self):
+        skip = {'node_modules', '.git', 'site', '_site', 'dist'}
+        for path in ROOT.rglob('*.py'):
+            if skip & set(path.relative_to(ROOT).parts):
+                continue
+            with self.subTest(path=str(path.relative_to(ROOT))):
+                self.assertEqual(_reimports(path.read_text(encoding='utf-8')), [])
+
+    def test_negative_a_reimport_is_caught(self):
+        self.assertEqual(_reimports('import os\n\ndef f():\n    import os\n'), ['os (line 4)'])
+        self.assertEqual(_reimports('import os\n\ndef f():\n    import sys\n'), [])

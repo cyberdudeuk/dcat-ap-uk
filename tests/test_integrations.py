@@ -211,7 +211,6 @@ class MemPortalFeatures(unittest.TestCase):
     def test_model_maps_carry_their_details_and_a_text_list(self):
         """ADR 0019: every map works without the script (cards are links, a list repeats every link) and carries the
         details the side panel shows; no link in the data points at a card that is not there."""
-        import json
         pages = [SITE / 'profile.html'] + sorted(SITE.glob('class-*.html'))
         for f in pages:
             html = f.read_text(encoding='utf-8')

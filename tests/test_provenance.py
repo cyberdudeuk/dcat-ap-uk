@@ -7,6 +7,7 @@ Each guardrail has a negative test that shows it fails when it should.
 import copy
 import datetime as dt
 import json
+import os
 import sys
 import unittest
 from pathlib import Path
@@ -103,7 +104,6 @@ class ReviewCycle(unittest.TestCase):
     ticked off. Those items are now at_review, kept out of needs_action, and the routine closes the issue when nothing is left."""
 
     def test_review_items_are_not_counted_as_needing_action_now(self):
-        import provenance
         reg = provenance.register()
         again = [r for r in reg['items'] if r['at_review']]
         self.assertTrue(again, 'the worked examples are compared at each review')
@@ -114,14 +114,11 @@ class ReviewCycle(unittest.TestCase):
     def test_routine_closes_the_issue_when_nothing_is_left(self):
         import routine
         calls = []
-        orig_sh, orig_reg = routine.sh, None
-        import provenance
-        orig_reg = provenance.register
+        orig_sh, orig_reg = routine.sh, provenance.register
         try:
             provenance.register = lambda today=None: {'items': [{'action': "compare with the publisher's record each review", 'at_review': True, 'item': 'x', 'file': 'f', 'prov': 'U'}],
                                                        'counts': {}, 'needs_action': 0, 'at_review': 1, 'unexplained_synthetic': 0, 'misattributed': []}
             routine.sh = lambda *a, **k: calls.append(a) or ('4' if 'list' in a else 0)
-            import os
             saved = os.environ.get('GH_TOKEN')
             os.environ['GH_TOKEN'] = 'test'
             routine.provenance_issue(False)
