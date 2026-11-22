@@ -700,7 +700,7 @@
         var v = r[f[0]] === undefined ? undefined : fieldOut(f[2], r[f[0]]); if (v === undefined || (Array.isArray(v) && !v.length)) return;
         pathSet(o, f[1], v); map.push([f[0], f[1].join('.')]);
         // A native field that cannot hold the value exactly (a list cut to one, a keyword folded into a label) keeps the original in the bag too.
-        if (JSON.stringify(fieldIn(f[2], v, f[0])) === JSON.stringify(r[f[0]])) used[f[0]] = 1;
+        if (JSON.stringify(fieldIn(f[2], v)) === JSON.stringify(r[f[0]])) used[f[0]] = 1;
       });
       var bag = {};
       Object.keys(r).forEach(function (k) {
@@ -722,7 +722,7 @@
     return function (P, x) {
       var e = S.root ? S.root(x) : (name === 'atlas' ? ((x && x.entity) || x || {}) : (x || {})), rec = {}, notes = [], map = [];
       var bag = S.collibra ? null : pathGet(e, S.bag) || {};
-      S.fields.forEach(function (f) { put(rec, map, f[1].join('.'), f[0], fieldIn(f[2], pathGet(e, f[1]), f[0])); });
+      S.fields.forEach(function (f) { put(rec, map, f[1].join('.'), f[0], fieldIn(f[2], pathGet(e, f[1]))); });
       if (S.collibra) {
         Object.keys(e.attributes || {}).forEach(function (a) {
           var m = /^DCAT-AP-UK (\w+)$/.exec(a);

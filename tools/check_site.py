@@ -545,7 +545,7 @@ BREAKS = {
     'C-13': lambda s: _sub(s / 'roles.html', '<title>Your role - DCAT-AP-UK</title>', '<title>Knowledge - DCAT-AP-UK</title>'),
     'C-14': lambda s: (s / 'style.css').write_text((s / 'style.css').read_text() + '/*' + 'x' * 1_600_000 + '*/'),
     'C-16': lambda s: _sub(s / 'strategy.html', '<h2 id="layers">', '<h2 id="layers">{layers}'),
-    'C-17': lambda s: _plant_repo(s),
+    'C-17': _plant_repo,
     'C-19': lambda s: _sub(s / 'index.html', '<main id="main"', '<main style="color:red" id="main"'),
     'C-20': lambda s: _sub(s / 'builder.html', 'id="b-level"', 'id="b-level-gone"'),
     'C-24': lambda s: _sub(s / 'reuse.html', '<p class="pageflag"><span class="flag new">', '<p class="pageflag"><span class="flag">'),

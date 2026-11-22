@@ -31,6 +31,11 @@ release adds a property, a value or a recommendation; a **patch** fixes wording,
 - No email address anywhere: page, metadata, data, comments or examples. Test fixtures may use reserved example domains only.
 - No decks or films in the repository.
 - Pages load nothing from another host: no CDN, web font or analytics.
+- Python dependencies: change `requirements.in` (or `requirements-linkml.in`), never the `.txt` files. The `.txt` files are
+  generated with every dependency pinned and hashed, and CI installs them with `--require-hashes` (D-050):
+  `pip-compile --generate-hashes --allow-unsafe --strip-extras requirements.in`, then the same for `requirements-linkml.in`,
+  run with the Python version CI uses (3.12). Dependabot regenerates both files in its weekly pull requests.
+- Workflows grant `contents: read` (or `read-all`) at the top and any write scope only on the job that needs it (D-050).
 
 ## Code of conduct
 

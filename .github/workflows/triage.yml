@@ -6,9 +6,11 @@ on:
   schedule: [{cron: '23 7 * * 1-5'}]
   workflow_dispatch:
 permissions:
-  issues: write
+  contents: read
 jobs:
   triage:
+    permissions:
+      issues: write
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:

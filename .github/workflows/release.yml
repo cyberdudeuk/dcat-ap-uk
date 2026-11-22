@@ -47,7 +47,7 @@ jobs:
       - name: Build and check
         run: |
           python3 -m venv "$RUNNER_TEMP/venv" && . "$RUNNER_TEMP/venv/bin/activate"
-          pip install -r requirements.txt && npm ci && python -m playwright install --with-deps chromium
+          pip install --require-hashes -r requirements.txt && npm ci && python -m playwright install --with-deps chromium
           python -I -m unittest discover -s tests
           python -I tools/build.py
           python -I tools/check_site.py
@@ -96,5 +96,5 @@ jobs:
           TAG: ${{ needs.release.outputs.tag }}
         run: |
           python3 -m venv "$RUNNER_TEMP/venv" && . "$RUNNER_TEMP/venv/bin/activate"
-          pip install -r requirements.txt
+          pip install --require-hashes -r requirements.txt
           python -I tools/routine.py flags-reset --tag "$TAG"

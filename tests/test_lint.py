@@ -1,6 +1,7 @@
 """D-038: no linter ran in CI. These tests keep both linters, pinned, in the Build, check and publish workflow."""
 import ast
 import json
+import re
 import unittest
 from pathlib import Path
 
@@ -110,3 +111,64 @@ class NoReimports(unittest.TestCase):
     def test_negative_a_reimport_is_caught(self):
         self.assertEqual(_reimports('import os\n\ndef f():\n    import os\n'), ['os (line 4)'])
         self.assertEqual(_reimports('import os\n\ndef f():\n    import sys\n'), [])
+
+
+def _unhashed(text):
+    """Requirements in a pip lock file that carry no --hash (pip-compile puts the hashes on continuation lines)."""
+    found, current, hashed = [], None, False
+    for line in text.splitlines() + ['']:
+        if line and not line.startswith((' ', '#')):
+            if current and not hashed:
+                found.append(current)
+            current, hashed = line.split('==')[0].strip(' \\'), '--hash=' in line
+        elif '--hash=' in line:
+            hashed = True
+        elif not line and current:
+            if not hashed:
+                found.append(current)
+            current = None
+    return found
+
+
+def _top_level_writes(workflow):
+    """Write scopes granted to the whole workflow, outside any job."""
+    if re.search(r'^permissions: read-all$', workflow, re.M):
+        return []
+    m = re.search(r'^permissions:\n((?:  .*\n)+)', workflow, re.M)
+    return re.findall(r'^  ([a-z-]+): write', m.group(1), re.M) if m else ['(no top-level permissions block)']
+
+
+class SupplyChain(unittest.TestCase):
+    """D-050: Scorecard (alerts 33-36, 46) found pip installing unpinned transitive dependencies, and CodeQL's workflow
+    granted security-events: write to the whole workflow (alert 31). Every Python dependency is now pinned and hashed,
+    every install enforces the hashes, and write scopes are granted per job only."""
+
+    def test_every_python_dependency_is_hashed(self):
+        for name in ('requirements.txt', 'requirements-linkml.txt'):
+            with self.subTest(name=name):
+                text = (ROOT / name).read_text(encoding='utf-8')
+                self.assertIn('pip-compile', text)
+                self.assertEqual(_unhashed(text), [])
+
+    def test_installs_enforce_the_hashes(self):
+        for wf in sorted((ROOT / '.github' / 'workflows').glob('*.yml')):
+            for line in wf.read_text(encoding='utf-8').splitlines():
+                if re.search(r'pip install\b.*-r ', line):
+                    with self.subTest(workflow=wf.name, line=line.strip()):
+                        self.assertIn('--require-hashes', line)
+
+    def test_the_two_locks_agree(self):
+        pins = lambda p: dict(re.findall(r'^([A-Za-z0-9_.-]+)==(\S+)', (ROOT / p).read_text(encoding='utf-8'), re.M))
+        a, b = pins('requirements.txt'), pins('requirements-linkml.txt')
+        self.assertEqual({k: (a[k], b[k]) for k in a.keys() & b.keys() if a[k] != b[k]}, {})
+
+    def test_no_workflow_grants_write_to_every_job(self):
+        for wf in sorted((ROOT / '.github' / 'workflows').glob('*.yml')):
+            with self.subTest(workflow=wf.name):
+                self.assertEqual(_top_level_writes(wf.read_text(encoding='utf-8')), [])
+
+    def test_negatives(self):
+        self.assertEqual(_unhashed('attrs==1.0 \\\n    --hash=sha256:ab\nrdflib==7.0\n'), ['rdflib'])
+        self.assertEqual(_top_level_writes('on: push\npermissions:\n  contents: read\n  security-events: write\njobs:\n'), ['security-events'])
+        self.assertEqual(_top_level_writes('on: push\npermissions:\n  contents: read\njobs:\n'), [])
+        self.assertEqual(_top_level_writes('on: push\npermissions: write-all\njobs:\n'), ['(no top-level permissions block)'])
