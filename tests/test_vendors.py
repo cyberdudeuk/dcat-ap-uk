@@ -33,6 +33,20 @@ class Fake:
         self.vd, self.p = vd, P
 
 
+def membership_gaps(vd):
+    """Every disagreement between a report's evaluated list and the vendors that list that report."""
+    gaps = []
+    everyone = vd['vendors'] + vd['not_yet']
+    for r in vd['reports']:
+        if 'evaluated' not in r:
+            continue
+        claims = {x['id'] for x in everyone if r['id'] in x.get('reports', [])}
+        listed = set(r['evaluated'])
+        gaps += [f'{r["id"]}: {v} is evaluated but does not list it' for v in sorted(listed - claims)]
+        gaps += [f'{r["id"]}: {v} lists it but is not evaluated' for v in sorted(claims - listed)]
+    return gaps
+
+
 class Register(unittest.TestCase):
     def test_register_is_whole(self):
         self.assertEqual([], Fake(VD).vendor_problems())
@@ -69,6 +83,17 @@ class Register(unittest.TestCase):
         for name, f in cases.items():
             with self.subTest(break_=name):
                 self.assertTrue(broken(f), name + ' was not caught')
+
+    def test_report_membership_matches_the_vendors_evaluated(self):
+        # D-046: membership drifted from the reports (21 missing in three reports; a third edition absent). Where a report records the
+        # vendors its public abstract lists, every one carries the report and nothing else claims it.
+        self.assertEqual(membership_gaps(VD), [])
+        vd = copy.deepcopy(VD)
+        vd['vendors'][0]['reports'] = [r for r in vd['vendors'][0]['reports'] if r != 'gartner-mms-2025']
+        self.assertEqual(len(membership_gaps(vd)), 1)
+        vd['vendors'][0]['reports'].append('gartner-mms-2025')
+        next(x for x in vd['vendors'] if x['id'] == 'snowflake')['reports'] = ['gartner-mms-2025']
+        self.assertEqual(len(membership_gaps(vd)), 1)
 
     def test_a_verified_none_found_is_not_counted_as_a_server(self):
         # D-044: a verified negative carries a source (where the search was made); without server: false the page
