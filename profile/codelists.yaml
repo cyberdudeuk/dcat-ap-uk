@@ -192,6 +192,33 @@ agent-role:
     - {code: information-asset-owner, label: Information asset owner, definition: 'The senior role accountable for the information asset under information assurance.'}
     - {code: distributor, label: Distributor, definition: 'Makes the data available on behalf of the publisher.'}
 
+relation-role:
+  label: Relationship role
+  definition: >-
+    Kinds of relationship one resource has to another, for a qualified relation (ADR 0023). The organisation roles in
+    Responsible role are for attributions; these are for relations between resources.
+  concepts:
+    - {code: sharing-agreement, label: Sharing agreement, definition: 'The related resource is the agreement this resource is shared under, such as an entry in the Digital Economy Act register of information sharing agreements. Give the address of the entry.'}
+
+sharing-method:
+  label: Sharing method
+  definition: >-
+    Ways data moves between organisations when it is shared. The nine values are the information sharing methods used by the
+    Digital Economy Act register of information sharing agreements (ADR 0023).
+  source: https://www.digital-economy-act-register.data.gov.uk/
+  source_prov: V
+  definitions_prov: K
+  concepts:
+    - {code: api, label: API, definition: 'An application programming interface that the receiving organisation calls.'}
+    - {code: encrypted-email-transfer, label: Encrypted email transfer, definition: 'Files sent by email with the content encrypted.'}
+    - {code: within-secure-platform, label: Within secure platform, definition: 'The data stays on a secure platform that both organisations use; it is not sent as a copy.'}
+    - {code: secure-file-transfer, label: Secure file transfer, definition: 'Files sent over a secure file transfer service.'}
+    - {code: government-secure-email, label: Government secure email, definition: 'Email between government organisations that meets the government secure email standard.'}
+    - {code: trusted-partner-transfer, label: Trusted partner transfer, definition: 'Data passed through a partner that both organisations trust to carry it.'}
+    - {code: electronic-verification, label: Electronic verification, definition: 'A check returns an answer, such as eligible or not, without sending the underlying data.'}
+    - {code: government-secure-folders, label: Government secure folders, definition: 'Files placed in secure shared folders that both organisations can reach.'}
+    - {code: encrypted-hardware, label: Encrypted hardware, definition: 'Data carried on an encrypted physical device.'}
+
 jurisdiction:
   label: Jurisdictions
   definition: Countries and territories where data may be held, processed or sent, including the UK nations, the Crown Dependencies, the British Overseas Territories, the Commonwealth, the EEA and others.

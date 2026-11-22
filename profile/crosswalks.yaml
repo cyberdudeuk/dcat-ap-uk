@@ -188,3 +188,19 @@ ddi:
     - [issued, distDate, '']
     - [populationCoverage, universe, 'Health extension.']
     - [distribution, fileDscr, '']
+
+dea-register:
+  label: Digital Economy Act register of information sharing agreements
+  their: Fields of an agreement in the register
+  source: dea-register
+  prov: V
+  checked: '2026-11-22'
+  checked_at: 'https://www.digital-economy-act-register.data.gov.uk/agreements/205'
+  note: >-
+    The register describes agreements, not datasets. These rows say how to describe a dataset or data service shared under one
+    of them (ADR 0023). Field names as the register's agreement pages show them.
+  rows:
+    - [sharingMethod, Information sharing method, 'The register records one method per agreement; give every method the data moves by. Agreements 205, 284 and 663 record one method each yet say an API is also used.']
+    - [qualifiedRelation, (none), 'Link the agreement''s page in the register, with the role ukcl:relation-role/sharing-agreement.']
+    - [applicableLegislation, Power, 'Every power in the register is in Part 5 of the Digital Economy Act 2017: give https://www.legislation.gov.uk/ukpga/2017/30.']
+

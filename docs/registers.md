@@ -86,7 +86,6 @@ Proposed. Not endorsed. To become a standard it needs, in order: review by the M
 | O-25 | Compare obligations with the statistics producers' application profile and decide every difference (RQ-27). Its public repository was not found on 6 November 2026, so the comparison needs the current version from its owners. | Owning team, with official statistics producers |
 | O-26 | Review the candidate geodesy module with geodetic specialists, including which frames, epochs and uncertainty rules to enforce (RQ-23). The EPSG codes it uses were checked at the EPSG registry on 6 November 2026. | Owning team, with geodesy specialists |
 | O-28 | Decide whether main should require the pages and CodeQL checks to pass. That would stop direct pushes to main, so every change, including automated ones, would need a pull request (GDS Way). The ruleset already blocks deletion and force pushes and requires linear history. | Repository owner |
-| O-30 | Decide ADR 0023 (change request #34): record the sharing agreement through dcat:qualifiedRelation with a new relation-role codelist, and add an optional sharingMethod with a codelist from the Digital Economy Act register. Proposed 22 November 2026. | Profile owner |
 
 ## Backlog from the xGov MEM
 

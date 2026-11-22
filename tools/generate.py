@@ -328,7 +328,9 @@ def linkml(p):
     for ck, c in p.classes.items():
         classes[ck] = {'class_uri': c['uri'], 'description': c['definition'], 'slots': ['id', 'class'] + [x['p'] for x in c['properties']],
                        'slot_usage': {x['p']: {k2: v2 for k2, v2 in (('required', x['ob'] == 'M'), ('recommended', x['ob'] == 'R'),
-                                                                   ('multivalued', p.multi(x))) if v2} for x in c['properties']}}
+                                                                   ('multivalued', p.multi(x)),
+                                                                   ('range', x.get('codelist') and ''.join(w.title() for w in x['codelist'].split('-')) + 'Values'))
+                                               if v2} for x in c['properties']}}
     for sk, s in p.codelists.items():
         if sk in ukap.OPEN_CODELISTS:
             continue
@@ -498,7 +500,7 @@ def browser_profile(p):
 
 
 def class_entry(x):
-    return {k: x.get(k) for k in ('p', 'ob', 'card', 'cda', 'condition', 'pattern', 'ext') if x.get(k) is not None}
+    return {k: x.get(k) for k in ('p', 'ob', 'card', 'cda', 'condition', 'pattern', 'codelist', 'ext') if x.get(k) is not None}
 
 
 def prop_entry(v):

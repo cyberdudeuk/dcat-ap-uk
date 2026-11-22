@@ -226,6 +226,12 @@ class Profile:
                     errs.append(f'class {ck}.{x["p"]}: mandatory but cardinality {card}')
                 if x.get('ob') != 'M' and card.startswith('1'):
                     errs.append(f'class {ck}.{x["p"]}: cardinality {card} but obligation {x.get("ob")}')
+                if x.get('codelist'):
+                    # ADR 0023: a class may take a property's values from its own codelist (hadRole on Relationship).
+                    if (self.props.get(x['p']) or {}).get('kind') != 'concept':
+                        errs.append(f'class {ck}.{x["p"]}: codelist set on a property that is not a concept')
+                    elif x['codelist'] not in self.codelists:
+                        errs.append(f'class {ck}.{x["p"]}: unknown codelist {x["codelist"]}')
                 if x.get('pattern'):
                     try:
                         re.compile(x['pattern'])
@@ -275,8 +281,10 @@ class Profile:
 
     # -- helpers ----------------------------------------------------------------
     def class_props(self, ck):
+        """Each property of a class, with the class's own codelist applied where it sets one (ADR 0023)."""
         for x in self.classes[ck]['properties']:
-            yield x, self.props[x['p']]
+            prop = self.props[x['p']]
+            yield x, (dict(prop, codelist=x['codelist']) if x.get('codelist') else prop)
 
     def multi(self, x):
         return str(x['card']).endswith('n')
