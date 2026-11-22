@@ -2369,7 +2369,6 @@ class Site:
         rings = {'core': 140, 'vocab': 330, 'sector': 250, 'national': 330, 'model': 250, 'tech': 330, 'policy': 330, 'tool': 330}
         order = [g['id'] for g in sd['groups']]  # D-028: a hand-written list left out the tool group, so its standards were never drawn
         seq = [s for g in order for s in others if s['group'] == g]
-        import math
         for i, s in enumerate(seq):
             a = -math.pi / 2 + 2 * math.pi * i / len(seq)
             r = rings.get(s['group'], 300) + (24 if i % 2 else 0)
@@ -2448,7 +2447,6 @@ class Site:
         dl = self.out / 'downloads'
         (dl / 'requirements.json').write_text(json.dumps({'profile': self.m['short_title'], 'version': self.m['version'], 'handling': 'Public. Communities by kind only; no people, meetings or controlled material.',
                                                            'requirements': reqs}, ensure_ascii=False, indent=1) + '\n', encoding='utf-8')
-        import csv, io
         buf = io.StringIO(); w = csv.writer(buf, lineterminator='\n'); w.writerow(cols)
         for r in reqs:
             w.writerow([' '.join(r[c]) if isinstance(r.get(c), list) else r.get(c, '') for c in cols])
