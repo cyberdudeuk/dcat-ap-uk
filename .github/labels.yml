@@ -1,11 +1,11 @@
 # Labels as code. The labels workflow creates or updates these; it never deletes a label.
 - {name: change request, color: '4c2c92', description: A proposed change to the profile}
-- {name: defect, color: 'd4351c', description: Something is wrong in the profile, the portal or the tools}
+- {name: defect, color: d4351c, description: 'Something is wrong in the profile, the portal or the tools'}
 - {name: contact, color: '1d70b8', description: A question sent through the contact form}
 - {name: conformance claim, color: '00703c', description: A product claims conformance with kit evidence}
 - {name: major, color: '942514', description: Breaks existing records}
 - {name: minor, color: 'f47738', description: Adds without breaking}
-- {name: patch, color: 'ffdd00', description: Wording, guidance or a fix}
+- {name: patch, color: ffdd00, description: 'Wording, guidance or a fix'}
 - {name: extension, color: '28a197', description: A sector extension}
 - {name: crosswalk, color: '5694ca', description: A mapping to another standard}
 - {name: accessibility, color: '912b88', description: Accessibility of the portal or the profile}
@@ -18,6 +18,6 @@
 - {name: digest, color: '0b0c0c', description: The weekly operations digest (digest routine)}
 - {name: review due, color: 'b58840', description: The content review date is near (upkeep routine)}
 - {name: health, color: '00703c', description: Raised by the weekly health run}
-- {name: occurrence, color: 'f47738', description: A near miss or surprise reported without blame, so the next defect is prevented (ADR 0018)}
+- {name: occurrence, color: f47738, description: 'A near miss or surprise reported without blame, so the next defect is prevented (ADR 0018)'}
 - {name: trial, color: '28a197', description: A time-limited experiment with its own envelope and kill switch (ops/automation.yaml trials)}
-- {name: provenance, color: 'b58840', description: Content to verify against a source or replace with a real record (upkeep routine, ADR 0020)}
+- {name: provenance, color: b58840, description: 'Content to verify against a source or replace with a real record (upkeep routine, ADR 0020)'}

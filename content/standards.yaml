@@ -85,7 +85,7 @@ standards:
   - {id: ukgdpr, label: UK GDPR and ICO transfer guidance, short: 'UK GDPR (ICO)', group: policy, url: 'https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/international-transfers/', prov: S}
   - {id: ogl, label: Open Government Licence v3.0, short: 'OGL v3.0', group: policy, url: 'https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/'}
   - {id: ncsc, label: NCSC post-quantum timeline, short: 'NCSC post-quantum', group: policy, url: 'https://www.ncsc.gov.uk/guidance/pqc-migration-timelines', prov: S}
-  - {id: fips, label: FIPS 203, 204 and 205, group: policy, url: 'https://csrc.nist.gov/projects/post-quantum-cryptography'}
+  - {id: fips, label: 'FIPS 203, 204 and 205', group: policy, url: 'https://csrc.nist.gov/projects/post-quantum-cryptography'}
   - {id: copstats, label: Code of Practice for Statistics, short: 'Statistics Code', group: policy, url: 'https://code.statisticsauthority.gov.uk/'}
   - {id: wcag, label: WCAG 2.2, group: policy, url: 'https://www.w3.org/TR/WCAG22/', note: 'Checked 6 November 2026: WCAG 2.2, W3C Recommendation, 12 December 2024.', prov: V}
   - {id: orgid, label: org-id.guide, group: policy, url: 'https://org-id.guide/'}

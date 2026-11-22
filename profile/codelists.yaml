@@ -179,7 +179,7 @@ language:
     - {code: CYM, label: Welsh (Cymraeg)}
     - {code: GLA, label: Scottish Gaelic (Gàidhlig)}
     - {code: GLE, label: Irish (Gaeilge)}
-    - {code: SCO, label: Scots, including Ulster Scots}
+    - {code: SCO, label: 'Scots, including Ulster Scots'}
     - {code: COR, label: Cornish (Kernewek)}
 
 agent-role:

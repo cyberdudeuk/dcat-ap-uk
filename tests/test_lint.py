@@ -47,3 +47,36 @@ class NoDuplicateKeys(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+def _split_flow_values(text):
+    """D-043: an unquoted comma inside a {key: value} flow mapping ends the value; the rest becomes a key with no value,
+    so the page shows the statement cut short. Return every such orphan key (an explicit `key: null` is not flagged)."""
+    import yaml
+    found = []
+
+    def walk(node):
+        if isinstance(node, yaml.MappingNode):
+            for k, v in node.value:
+                if node.flow_style and isinstance(v, yaml.ScalarNode) and v.value == '' and v.style is None:
+                    found.append(f'line {k.start_mark.line + 1}: {k.value!r}')
+                walk(v)
+        elif isinstance(node, yaml.SequenceNode):
+            for v in node.value:
+                walk(v)
+    walk(yaml.compose(text))
+    return found
+
+
+class NoSplitFlowValues(unittest.TestCase):
+    def test_no_yaml_file_has_a_value_split_at_a_comma(self):
+        for p in sorted(ROOT.glob('**/*.y*ml')):
+            if 'node_modules' in p.parts or '.git' in p.parts:
+                continue
+            with self.subTest(file=str(p.relative_to(ROOT))):
+                self.assertEqual(_split_flow_values(p.read_text(encoding='utf-8')), [], 'quote values that contain a comma')
+
+    def test_catches_the_published_split(self):
+        # The FIPS label as it was on main: published as "FIPS 203".
+        self.assertEqual(len(_split_flow_values("- {id: fips, label: FIPS 203, 204 and 205, group: policy}\n")), 1)
+        self.assertEqual(_split_flow_values("- {id: fips, label: 'FIPS 203, 204 and 205', mem: null}\n"), [])
