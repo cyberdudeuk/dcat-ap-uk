@@ -3157,6 +3157,7 @@ def main(argv=None):
     a = ap.parse_args(argv)
     p = ukap.load()
     portal = yaml.safe_load((ROOT / 'content' / 'portal.yaml').read_text(encoding='utf-8'))
+    portal['governance']['adrs'].sort(key=lambda r: int(r['id']))  # D-052: list decisions in number order, whatever the source order
     out = Path(a.out)
     if out.exists():
         shutil.rmtree(out)
