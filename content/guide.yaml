@@ -104,7 +104,7 @@ tours:
     - {sel: '#b-class', title: 'What are you describing?', text: 'Choose a dataset, a data service, a series or a catalogue. The form changes to match.'}
     - {sel: '#b-ext', title: 'Sector extensions', text: 'Add the properties and rules of your sector, such as health or geospatial.'}
     - {sel: '#b-level', title: 'Your level', text: 'The conformance level updates as you type, with what to do to reach the next one.'}
-    - {sel: '#b-fair-d', title: 'Quality score', text: 'Points on five dimensions, modelled on the earlier EU metadata quality assessment, since replaced.'}
+    - {sel: '#b-fair-d', title: 'Quality score', text: 'Two readings out of 7.5 with the EU method: against UK obligations, and as data.europa.eu would score the record.'}
     - {sel: '#b-tabs', title: 'Your record, in every format', text: 'Copy or download it as JSON, JSON-LD, Turtle, schema.org or Croissant.'}
   validate:
     - {sel: '#v-ext', title: 'Choose an extension', text: 'Check against a sector extension as well as the profile.'}

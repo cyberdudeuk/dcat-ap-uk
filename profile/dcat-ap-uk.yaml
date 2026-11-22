@@ -61,6 +61,7 @@ prefixes:
   eufreq: http://publications.europa.eu/resource/authority/frequency/
   eutheme: http://publications.europa.eu/resource/authority/data-theme/
   euaccess: http://publications.europa.eu/resource/authority/access-right/
+  eulicence: http://publications.europa.eu/resource/authority/licence/
   eulang: http://publications.europa.eu/resource/authority/language/
   geosparql: http://www.opengis.net/ont/geosparql#
   odrl: http://www.w3.org/ns/odrl/2/

@@ -1511,7 +1511,7 @@ class Site:
         j = self.js[key]
         c, q = j['conformance'], j['fair']
         cls = {0: 'err', 1: 'warn', 2: 'ok', 3: 'ok'}[c['level']]
-        return f'<strong class="tag {cls}">{E(c["label"])}</strong> <span class="small">Quality {q["score"]} of {q["max"]}, {E(q["rating"].lower())}</span>'
+        return f'<strong class="tag {cls}">{E(c["label"])}</strong> <span class="small">Quality: UK {q["uk"]["score"]}, EU {"not scored" if q["eu"]["score"] is None else q["eu"]["score"]} of 7.5, {E(q["rating"].lower())}</span>'
 
     def ext_rows(self, eid):
         p = self.p
@@ -1915,11 +1915,14 @@ class Site:
                      'organization': {'title': 'Food Standards Agency', 'name': 'food-standards-agency'},
                      'extras': [{'key': 'frequency', 'value': 'DAILY'}, {'key': 'contact_uri', 'value': 'https://www.food.gov.uk/food-hygiene-rating-scheme-api-version-2'}, {'key': 'language', 'value': 'en'}],
                      'resources': [{'name': 'Food hygiene rating data API', 'url': 'https://api.ratings.food.gov.uk', 'mimetype': 'application/json'}]},
-            'dcatus': {'title': 'Example school census', 'description': 'An invented dataset, used to show the weaver. It does not exist.', 'keyword': ['schools', 'education'],
-                       'modified': '2026-09-01', 'publisher': {'name': 'Example Education Agency'}, 'contactPoint': {'fn': 'Census team', 'hasURL': 'https://example.org/contact'},
-                       'identifier': 'example-school-census', 'accessLevel': 'public', 'license': 'https://creativecommons.org/licenses/by/4.0/', 'temporal': '2015-01-01/2025-12-31',
-                       'accrualPeriodicity': 'R/P1Y', 'landingPage': 'https://example.org/school-census', 'language': ['en'],
-                       'distribution': [{'title': 'Census, CSV', 'downloadURL': 'https://example.org/census.csv', 'mediaType': 'text/csv'}]},
+            'dcatus': {'title': 'Workforce Framework for Cybersecurity (NICE Framework) Components',
+                       'description': 'NICE Framework components comprises Work Role Categories, Work Roles, Competency Areas, and Task, Knowledge, and Skill (TKS) statements as well as the relationships between those elements. '
+                                      'The JSON file for the NICE Framework is a machine-readable format that can be used to transmit structured data from system to system.',
+                       'keyword': ['competency', 'cybersecurity', 'education', 'skill', 'training', 'workforce'], 'modified': '2024-03-20', 'issued': '2021-11-03',
+                       'publisher': {'name': 'National Institute of Standards and Technology'}, 'contactPoint': {'fn': 'NICE Program Office'},
+                       'identifier': 'ark:/88434/mds2-2502', 'accessLevel': 'public', 'license': 'https://www.nist.gov/open/license',
+                       'landingPage': 'https://data.nist.gov/od/id/mds2-2502', 'language': ['en'],
+                       'distribution': [{'title': 'NICE Framework 2017', 'downloadURL': 'https://data.nist.gov/od/ds/mds2-2502/NICEFramework2017.json', 'mediaType': 'application/json'}]},
             'schemaorg': {'@context': 'https://schema.org/', '@type': 'Dataset', 'name': 'Real-time Flood Data River Levels',
                           'description': 'River levels measured by automatic field devices throughout England, relayed by telemetry and available through the Environment Agency real-time flood-monitoring API.',
                           'keywords': 'river, telemetry, flooding', 'license': 'http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/',
@@ -2212,9 +2215,13 @@ class Site:
             raised = len({x['p'] for xs in e['classes'].values() for x in xs} - set(e.get('properties') or {}))
             ex.append((e['label'], [new, raised]))
         c5 = self.bar_chart('c-ext', 'What each sector extension adds', ex, [('New properties', 2), ('Raised or narrowed', 6)])
-        qs = [(e['label'][:34], [d['score'] for d in js[e['key']]['fair']['dimensions']]) for e in p.examples]
-        c6 = self.bar_chart('c-quality', 'Quality score of each worked example, by dimension', qs, [('Findability', 1), ('Accessibility', 2), ('Interoperability', 3), ('Reusability', 4), ('Contextuality', 6)],
-                            maxv=405, note='Out of 405 points, modelled on the earlier EU metadata quality assessment, which data.europa.eu has since replaced with a property-weighted method (checked 22 November 2026).')
+        # ADR 0022: the two readings, each out of 7.5, drawn as separate charts (the bar helper stacks series).
+        qs = [(e['label'][:34], [js[e['key']]['fair']['uk']['score']]) for e in p.examples]
+        c6 = self.bar_chart('c-quality', 'UK quality reading of each worked example', qs, [('UK reading', 3)], maxv=7.5,
+                            note='Out of 7.5 with the EU method, each property weighted by its DCAT-AP-UK obligation (ADR 0022). Level 3 needs 5 or more.')
+        qe = [(e['label'][:34], [js[e['key']]['fair']['eu']['score']]) for e in p.examples if js[e['key']]['fair']['eu']['score'] is not None]
+        c6 += self.bar_chart('c-quality-eu', 'EU quality reading of each worked example', qe, [('EU reading', 1)], maxv=7.5,
+                             note='Out of 7.5: the checks data.europa.eu runs, with UK values matched to the EU lists they equal. Address checks are not tested offline; catalogues, records and series are not scored by the EU method, so are not shown.')
         groups = {g['id']: g['label'] for g in self.t['international']['groups']}
         jr = []
         for gid, gl in groups.items():
@@ -3018,14 +3025,14 @@ class Site:
               'U': 'Built from a public record, not confirmed by the publisher', 'E': 'Estimate', 'synthetic': 'Synthetic, with the reason stated'}
         crow = [[E(PL.get(k, k)), prov(k) if k in 'VSKPOUE' and len(k) == 1 else '', str(v)] for k, v in sorted(reg['counts'].items(), key=lambda x: -x[1])]
         todo = [r for r in reg['items'] if r['action']]
-        trows = [[E(r['item']), E(r['kind']), E(r['prov']), f'<code>{E(r["file"])}</code>', E(r['action'])] for r in todo]
+        trows = [[E(r['item']), E(r['kind']), E(r['prov']), f'<code>{E(r["file"])}</code>', E(r['action']), 'At each review' if r.get('at_review') else 'Now'] for r in todo]
         syn = [r for r in reg['items'] if r['prov'] == 'synthetic']
         body += ('<h2 id="provenance">Where the content comes from</h2>'
                  f'<p>Every fact, example and sample is listed with where it comes from. {len(reg["items"])} items: {sum(1 for r in reg["items"] if r["prov"] == "V")} verified at source, '
                  f'{len(syn)} synthetic. Synthetic content is used only where nothing genuine can be shown in public, says why, and never names a real organisation as its publisher. '
-                 'Every Monday the upkeep routine opens or updates one issue (label provenance) listing what needs a person: facts to verify, checks that are out of date, and samples still to replace.</p>'
+                 'Every Monday the upkeep routine opens or updates one issue (label provenance) listing what needs a person now: facts to verify, checks that are out of date, and samples still to replace. It closes the issue when that list is empty. Items compared at each review go in the review reminder instead.</p>'
                  + table('t-prov', 'Content by where it comes from', ['Source', 'Label', 'Items'], crow, sortable=False)
-                 + (f'<h3 id="provenance-todo">To verify or replace ({len(todo)})</h3>' + table('t-prov-todo', f'{len(todo)} items need a person', ['Item', 'Kind', 'Label', 'File', 'What to do'], trows)
+                 + (f'<h3 id="provenance-todo">Needs a person: {reg["needs_action"]} now, {reg["at_review"]} at each review</h3>' + table('t-prov-todo', f'{len(todo)} items need a person: {reg["needs_action"]} now, {reg["at_review"]} at each review', ['Item', 'Kind', 'Label', 'File', 'What to do', 'When'], trows)
                     if todo else '<p>Nothing needs a person.</p>')
                  + f'<details><summary>Synthetic content and why ({len(syn)})</summary>' + ul([f'{E(r["item"])}: {E(r["synthetic"] or "")}' for r in syn]) + '</details>'
                  + '<p>Machine-readable: <a href="downloads/provenance.json">provenance.json</a>.</p>')
@@ -3037,7 +3044,7 @@ class Site:
             'requirements': rq, 'gates': d['gates'], 'repository_files': dict(d['hygiene']),
             'staleness': [{'what': a, 'as_of': b, 'days': c, 'in_date': ok} for a, b, c, _, ok in d['stale']],
             'health': H, 'defects': len(d['defects']), 'open_items': len(d['open']),
-            'provenance': {'counts': reg['counts'], 'needs_action': reg['needs_action'], 'unexplained_synthetic': reg['unexplained_synthetic'], 'misattributed': len(reg['misattributed'])},
+            'provenance': {'counts': reg['counts'], 'needs_action': reg['needs_action'], 'at_review': reg['at_review'], 'unexplained_synthetic': reg['unexplained_synthetic'], 'misattributed': len(reg['misattributed'])},
             'automation': yaml.safe_load((ROOT / 'ops' / 'automation.yaml').read_text(encoding='utf-8'))}, indent=1, ensure_ascii=False) + '\n', encoding='utf-8')
         drawer = [{'title': 'Status', 'icon': 'heart-pulse', 'items': [
             {'id': 'routines', 'label': 'The five routines', 'icon': 'gauge', 'count': 5}, {'id': 'verification', 'label': 'Self-verification', 'icon': 'shield-check', 'count': len(d['checks'])},

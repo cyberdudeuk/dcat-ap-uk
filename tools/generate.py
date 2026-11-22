@@ -484,6 +484,7 @@ def browser_profile(p):
         out['codelists'][sk] = {'label': s['label'], 'open': sk in ukap.OPEN_CODELISTS, **({'pattern': s['pattern']} if s.get('pattern') else {}),
                                 'concepts': [{'code': c['code'], 'label': c['label'], 'iri': p.concept_iri(sk, c['code']),
                                               'compact': compact_forms(p, sk)[i * 2 + 1], 'mem': c.get('mem'),
+                                              **({'eu': p.expand(c['maps']['exact'])} if (c.get('maps') or {}).get('exact') else {}),
                                               **{kk: c[kk] for kk in ('status', 'groups', 'uk_adequacy') if c.get(kk)}} for i, c in enumerate(s['concepts'])]}
     out['triggers'] = {'personal': [p.concept_iri('personal-data', k) for k in PERSONAL_TRIGGERS], 'uk': [p.concept_iri('jurisdiction', k) for k in UK_CODES]}
     out['extensions'] = {}

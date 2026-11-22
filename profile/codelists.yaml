@@ -77,14 +77,14 @@ metadata-audience:
 
 licences:
   label: Licences
-  definition: Licences commonly used for UK public sector data, and a value for when no licence applies and an agreement is needed.
+  definition: Licences commonly used for UK public sector data, and a value for when no licence applies and an agreement is needed. EU equivalents were checked on 22 November 2026 against the EU licence list, whose entries link to the same licence pages; the Open Parliament Licence v3.0 has none (the EU OPL_2_1 is the OSET Public License).
   issues: [44]
   concepts:
-    - {code: ogl-3, label: Open Government Licence v3.0, uri: 'http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/', definition: 'The default licence for open UK public sector information.'}
-    - {code: ncgl-2, label: Non-Commercial Government Licence v2.0, uri: 'http://www.nationalarchives.gov.uk/doc/non-commercial-government-licence/version/2/', definition: 'For information that may be reused for non-commercial purposes only.'}
+    - {code: ogl-3, label: Open Government Licence v3.0, uri: 'http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/', definition: 'The default licence for open UK public sector information.', maps: {exact: 'eulicence:OGL_3_0', prov: V, checked: '2026-11-22'}}
+    - {code: ncgl-2, label: Non-Commercial Government Licence v2.0, uri: 'http://www.nationalarchives.gov.uk/doc/non-commercial-government-licence/version/2/', definition: 'For information that may be reused for non-commercial purposes only.', maps: {exact: 'eulicence:OGL_NC_2_0', prov: V, checked: '2026-11-22'}}
     - {code: opl-3, label: Open Parliament Licence v3.0, uri: 'https://www.parliament.uk/site-information/copyright-parliament/open-parliament-licence/', definition: 'For Parliamentary information.'}
-    - {code: cc-by-4, label: Creative Commons Attribution 4.0, uri: 'https://creativecommons.org/licenses/by/4.0/', definition: 'An international open licence, compatible with OGL v3.0.'}
-    - {code: cc0, label: Creative Commons Zero 1.0, uri: 'https://creativecommons.org/publicdomain/zero/1.0/', definition: 'A public domain dedication.'}
+    - {code: cc-by-4, label: Creative Commons Attribution 4.0, uri: 'https://creativecommons.org/licenses/by/4.0/', definition: 'An international open licence, compatible with OGL v3.0.', maps: {exact: 'eulicence:CC_BY_4_0', prov: V, checked: '2026-11-22'}}
+    - {code: cc0, label: Creative Commons Zero 1.0, uri: 'https://creativecommons.org/publicdomain/zero/1.0/', definition: 'A public domain dedication.', maps: {exact: 'eulicence:CC0', prov: V, checked: '2026-11-22'}}
     - {code: data-sharing-agreement-required, label: Data sharing agreement required, mem: DATA_SHARE_REQUEST, definition: 'There is no licence. A data sharing agreement, memorandum of understanding or other legal instrument is needed. Describe it in the rights statement.'}
 
 frequency:

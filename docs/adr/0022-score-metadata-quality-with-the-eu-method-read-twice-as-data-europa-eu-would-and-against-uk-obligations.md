@@ -1,6 +1,6 @@
 # ADR 0022: Score metadata quality with the EU method, read twice: as data.europa.eu would and against UK obligations
 
-Status: Proposed
+Status: Accepted
 
 ## Context
 
@@ -12,6 +12,6 @@ Adopt the EU method's mechanics exactly (binary checks, layer weights 1, 0.5 and
 
 ## Consequences
 
-Rejected: adopting the EU method unchanged (it would weight UK records by EU priorities and score security classification at nothing); keeping the 405-point model (it matches nothing outside this project, and counts validation, which the EU dropped); a UK method from scratch (no UK standard to align to, comparability lost, more to maintain). The licences codelist gains EU equivalents checked at source: Open Government Licence v3.0 to OGL_3_0, Non-Commercial Government Licence v2.0 to OGL_NC_2_0, Creative Commons Attribution 4.0 to CC_BY_4_0. The Open Parliament Licence v3.0 has no EU entry (OPL_2_1 is the OSET Public License, not it), so it stays unmatched and the EU reading says so. The browser checker is offline, so the EU's address-reachability checks (0.25 each) are shown as not tested, not failed; the command-line checker can run them. Ongoing effort: the EU methodology page is already watched (toolkit:mqa), so a change to it raises a health alert; about an hour a year to re-align the metric table. Until accepted, the current score stays, labelled as following the earlier EU method (D-042, O-29).
+Rejected: adopting the EU method unchanged (it would weight UK records by EU priorities and score security classification at nothing); keeping the 405-point model (it matches nothing outside this project, and counts validation, which the EU dropped); a UK method from scratch (no UK standard to align to, comparability lost, more to maintain). The licences codelist gains EU equivalents checked at source: Open Government Licence v3.0 to OGL_3_0, Non-Commercial Government Licence v2.0 to OGL_NC_2_0, Creative Commons Attribution 4.0 to CC_BY_4_0. The Open Parliament Licence v3.0 has no EU entry (OPL_2_1 is the OSET Public License, not it), so it stays unmatched and the EU reading says so. The browser checker is offline, so the EU's address-reachability checks (0.25 each) are shown as not tested, not failed; the command-line checker can run them. Ongoing effort: the EU methodology page is already watched (toolkit:mqa), so a change to it raises a health alert; about an hour a year to re-align the metric table. Accepted by the owner on 22 November 2026 and implemented the same day: validator.js fair() gives both readings, conformance level 3 uses the UK reading, and O-29 is closed.
 
 <!-- Generated from content/portal.yaml by tools/build.py. Edit there. -->

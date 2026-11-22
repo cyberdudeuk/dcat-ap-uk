@@ -37,7 +37,7 @@ if (format === 'json') process.stdout.write(JSON.stringify(report, null, 1) + '\
 else for (const r of report) {
   const where = r.file + (report.filter(x => x.file === r.file).length > 1 ? ' record ' + (r.index + 1) : '');
   if (format === 'github') r.issues.forEach(i => process.stdout.write('::' + (i.level === 'error' ? 'error' : 'warning') + ' file=' + r.file + ',title=DCAT-AP-UK ' + i.rule + '::' + (i.prop || '') + ': ' + i.text + '\n'));
-  process.stdout.write((r.ok ? 'pass ' : 'FAIL ') + where + ': ' + r.label + ', quality ' + r.score + ' of 405\n');
+  process.stdout.write((r.ok ? 'pass ' : 'FAIL ') + where + ': ' + r.label + ', quality UK ' + r.score + ', EU ' + (r.eu === null ? 'not scored' : r.eu) + ' of 7.5\n');
   if (format === 'text') r.issues.forEach(i => process.stdout.write('  ' + i.level + ' ' + i.rule + ' ' + (i.prop || '') + ': ' + i.text + '\n'));
 }
 process.exit(failed ? 1 : 0);

@@ -96,3 +96,50 @@ class Provenance(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class ReviewCycle(unittest.TestCase):
+    """The provenance issue stayed open for ever: comparing real examples with their publisher at each review can never be
+    ticked off. Those items are now at_review, kept out of needs_action, and the routine closes the issue when nothing is left."""
+
+    def test_review_items_are_not_counted_as_needing_action_now(self):
+        import provenance
+        reg = provenance.register()
+        again = [r for r in reg['items'] if r['at_review']]
+        self.assertTrue(again, 'the worked examples are compared at each review')
+        self.assertTrue(all(r['action'] in provenance.REVIEW_ACTIONS for r in again))
+        self.assertEqual(reg['needs_action'], sum(1 for r in reg['items'] if r['action'] and not r['at_review']))
+        self.assertFalse(any(r['at_review'] for r in reg['items'] if r['prov'] == 'K'), 'facts to verify are never deferred to review')
+
+    def test_routine_closes_the_issue_when_nothing_is_left(self):
+        import routine
+        calls = []
+        orig_sh, orig_reg = routine.sh, None
+        import provenance
+        orig_reg = provenance.register
+        try:
+            provenance.register = lambda today=None: {'items': [{'action': "compare with the publisher's record each review", 'at_review': True, 'item': 'x', 'file': 'f', 'prov': 'U'}],
+                                                       'counts': {}, 'needs_action': 0, 'at_review': 1, 'unexplained_synthetic': 0, 'misattributed': []}
+            routine.sh = lambda *a, **k: calls.append(a) or ('4' if 'list' in a else 0)
+            import os
+            saved = os.environ.get('GH_TOKEN')
+            os.environ['GH_TOKEN'] = 'test'
+            routine.provenance_issue(False)
+        finally:
+            routine.sh, provenance.register = orig_sh, orig_reg
+            if saved is None:
+                os.environ.pop('GH_TOKEN', None)
+            else:
+                os.environ['GH_TOKEN'] = saved
+        self.assertTrue(any(a[:3] == ('gh', 'issue', 'close') and a[3] == '4' for a in calls), calls)
+        self.assertFalse(any('create' in a or 'edit' in a for a in calls))
+
+    def test_status_heading_matches_the_register(self):
+        # D-048: the heading said "To verify or replace (6)" when nothing needed verifying now; all six were review items.
+        sys.path.insert(0, str(ROOT / 'tests'))
+        from test_integrations import built
+        built()
+        html = (ROOT / 'site' / 'status.html').read_text(encoding='utf-8')
+        reg = provenance.register()
+        self.assertIn(f'Needs a person: {reg["needs_action"]} now, {reg["at_review"]} at each review', html)
+        self.assertNotIn('To verify or replace', html)

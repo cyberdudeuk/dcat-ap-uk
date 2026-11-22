@@ -115,20 +115,61 @@ class Integrity(unittest.TestCase):
 
 
 class QualityAndLevels(unittest.TestCase):
+    """ADR 0022: the EU metadata quality method (checked 22 November 2026), read for the UK and as data.europa.eu would."""
+
     def test_scores(self):
         out = js('return d.map(function(r){return [V.fair(P,r), V.conformance(P,r)];});', [e['record'] for e in P.examples])
         for e, (q, c) in zip(P.examples, out, strict=True):
             with self.subTest(example=e['key']):
-                self.assertEqual(405, q['max'])
-                self.assertEqual(q['score'], sum(d['score'] for d in q['dimensions']))
+                self.assertEqual(7.5, q['max'])
+                for r in (q['uk'], q['eu']):
+                    if r['score'] is None:  # the EU method scores datasets, distributions and data services only
+                        self.assertNotIn(e['record']['class'], ('Dataset', 'DataService', 'Distribution'))
+                        self.assertEqual('Not scored', r['band'])
+                        continue
+                    self.assertTrue(0 <= r['score'] <= 7.5)
+                    self.assertEqual(r['band'], 'Excellent' if r['score'] >= 5 else 'Good' if r['score'] >= 2.5 else 'Sufficient')
+                self.assertEqual(q['score'], q['uk']['score'])
                 self.assertGreaterEqual(c['level'], 1, 'every example conforms')
 
-    def test_missing_keywords_lose_thirty_points(self):
+    def test_each_eu_table_sums_to_seven_and_a_half(self):
+        # The EU method gives every class the same maximum, 7.5; a transcription slip would change it.
+        rec = {'class': 'Dataset', 'title': 'x', 'distribution': [{'accessURL': 'https://example.org/f', 'accessService': [{'title': 's'}]}]}
+        q = js('return V.fair(P,d);', rec)
+        self.assertEqual(['Dataset', 'Distribution', 'DataService'], [p['cls'] for p in q['eu']['parts']])
+        for part in q['eu']['parts']:
+            with self.subTest(cls=part['cls']):
+                self.assertAlmostEqual(7.5, sum(it['weight'] for it in part['items']))
+
+    def test_missing_keywords_cost_the_eu_weight(self):
         rec = copy.deepcopy(P.examples[0]['record'])
-        a = js('return V.fair(P,d).score;', rec)
+        part = lambda r: next(x for x in js('return V.fair(P,d);', r)['eu']['parts'] if x['cls'] == 'Dataset')['score']  # noqa: E731
+        a = part(rec)
         rec.pop('keyword')
-        b = js('return V.fair(P,d).score;', rec)
-        self.assertEqual(30, a - b)
+        self.assertAlmostEqual(0.5, a - part(rec), msg='keywords are recommended in the EU table: weight 0.5')
+
+    def test_uk_licences_map_to_the_eu_list_where_one_exists(self):
+        def eu_licence(lic):
+            rec = {'class': 'Dataset', 'title': 'x', 'distribution': [{'accessURL': 'https://example.org/f', 'licence': lic}]}
+            dist = next(x for x in js('return V.fair(P,d);', rec)['eu']['parts'] if x['cls'] == 'Distribution')
+            return next(it['met'] for it in dist['items'] if it['label'] == 'Licence from the EU list')
+        self.assertTrue(eu_licence('ukcl:licences/ogl-3'), 'OGL v3.0 equals the EU OGL_3_0')
+        self.assertTrue(eu_licence('http://publications.europa.eu/resource/authority/licence/CC_BY_4_0'))
+        self.assertFalse(eu_licence('ukcl:licences/opl-3'), 'the Open Parliament Licence has no EU entry')
+
+    def test_address_checks_are_never_counted_offline(self):
+        q = js('return V.fair(P,d);', P.examples[0]['record'])
+        untested = [it for p in q['eu']['parts'] for it in p['items'] if it['untested']]
+        self.assertTrue(untested)
+        self.assertFalse(any(it['met'] for it in untested))
+
+    def test_level_three_follows_the_uk_reading(self):
+        out = js('return d.map(function(r){return [V.fair(P,r), V.conformance(P,r), V.validate(P,r)];});', [e['record'] for e in P.examples])
+        for e, (q, c, v) in zip(P.examples, out, strict=True):
+            with self.subTest(example=e['key']):
+                recs = sum(1 for i in v['issues'] if i['rule'] == 'R-00')
+                want = 0 if not v['ok'] else 1 if recs else 3 if q['uk']['score'] >= 5 else 2
+                self.assertEqual(want, c['level'])
 
     def test_break_is_level_zero(self):
         rec = copy.deepcopy(P.examples[0]['record'])
