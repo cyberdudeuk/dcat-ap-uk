@@ -227,74 +227,132 @@
     return Q;
   }
 
-  // ---- quality score -------------------------------------------------------------------------------------
-  // Modelled on the dimensions and points of the earlier data.europa.eu Metadata Quality Assessment (405 points).
-  // data.europa.eu has since replaced it with a property-weighted method (checked 22 November 2026; see D-042, O-29).
-  // Offline, so addresses are checked for form, not fetched. The weights are this profile's reading, not the EU's tool.
+  // ---- quality score (ADR 0022) ---------------------------------------------------------------------------
+  // The method of the data.europa.eu Metadata Quality Assessment, as published on 22 November 2026: every check passes or
+  // fails and is weighted 1 (mandatory), 0.5 (recommended) or 0.25 (optional); datasets, distributions and data services
+  // each score out of 7.5; a dataset's final score averages its own score with the average of its distributions and of
+  // their data services. Bands: sufficient below 2.5, good below 5, excellent from 5.
+  // Two readings with that method. EU: the EU's own checks, with UK values mapped to the EU lists they match exactly, so a
+  // publisher sees what data.europa.eu would score. UK: every property weighted by its DCAT-AP-UK obligation (and passing
+  // this profile's checks), scaled to 7.5. Offline, so address reachability (0.25 per check) is marked not tested.
   var OPEN_TYPES = /\/(text\/csv|application\/json|application\/geo\+json|application\/ld\+json|text\/turtle|application\/rdf\+xml|application\/xml|text\/xml|application\/geopackage\+sqlite3|application\/vnd\.apache\.parquet|application\/x-netcdf|application\/n-triples|application\/x-ndjson|text\/plain|application\/zip|text\/html|application\/pdf)$/;
   var MACHINE_TYPES = /\/(text\/csv|application\/json|application\/geo\+json|application\/ld\+json|text\/turtle|application\/rdf\+xml|application\/xml|text\/xml|application\/geopackage\+sqlite3|application\/vnd\.apache\.parquet|application\/x-netcdf|application\/n-triples|application\/x-ndjson)$/;
   var IANA = 'https://www.iana.org/assignments/media-types/';
+  var W = { M: 1, R: 0.5, O: 0.25 };
+  var EUB = { access: 'http://publications.europa.eu/resource/authority/access-right/', licence: 'http://publications.europa.eu/resource/authority/licence/',
+    filetype: 'http://publications.europa.eu/resource/authority/file-type/' };
+  // [dimension, property, label, EU importance, test] transcribed from the EU methodology tables; each class sums to 7.5.
+  var EU = {
+    Dataset: [['Findability', 'title', 'Title', 'M', 'set'], ['Findability', 'description', 'Description', 'M', 'set'],
+      ['Findability', 'keyword', 'Keywords', 'R', 'set'], ['Findability', 'theme', 'Categories', 'R', 'set'], ['Findability', 'spatial', 'Geographic coverage', 'R', 'set'],
+      ['Findability', 'temporal', 'Time period covered', 'R', 'set'], ['Findability', 'modified', 'Date modified', 'O', 'set'], ['Findability', 'issued', 'Date issued', 'O', 'set'],
+      ['Findability', 'relation', 'Related resource', 'O', 'set'], ['Findability', 'applicableLegislation', 'Applicable legislation', 'O', 'set'],
+      ['Accessibility', 'identifier', 'Identifier', 'O', 'set'], ['Accessibility', 'landingPage', 'Landing page', 'O', 'set'], ['Accessibility', 'otherIdentifier', 'Other identifier', 'O', 'set'],
+      ['Reusability', 'publisher', 'Publisher', 'R', 'set'], ['Reusability', 'contactPoint', 'Contact point', 'R', 'set'],
+      ['Reusability', 'accessRights', 'Access rights from the EU list', 'O', 'euaccess'], ['Reusability', 'accessRights', 'Access rights', 'O', 'set'],
+      ['Reusability', 'provenance', 'Provenance', 'O', 'set']],
+    Distribution: [['Findability', 'description', 'Description', 'R', 'set'], ['Findability', 'title', 'Title', 'O', 'set'], ['Findability', 'issued', 'Date issued', 'O', 'set'],
+      ['Findability', 'modified', 'Date modified', 'O', 'set'], ['Accessibility', 'accessURL', 'Access address', 'M', 'url'], ['Accessibility', 'format', 'Format', 'R', 'set'],
+      ['Accessibility', 'accessURL', 'Access address answers', 'M0', 'http'], ['Accessibility', 'downloadURL', 'Download address', 'O', 'url'],
+      ['Accessibility', 'downloadURL', 'Download address answers', 'O', 'http'], ['Accessibility', 'mediaType', 'Media type', 'O', 'set'], ['Accessibility', 'byteSize', 'File size', 'O', 'set'],
+      ['Interoperability', 'format', 'Format from the EU list', 'R', 'filetype'], ['Interoperability', 'format', 'Non-proprietary format', 'R', 'open'],
+      ['Interoperability', 'format', 'Machine-readable format', 'R', 'machine'], ['Interoperability', 'mediaType', 'Media type from the IANA list', 'O', 'iana'],
+      ['Reusability', 'licence', 'Licence', 'R', 'set'], ['Reusability', 'licence', 'Licence from the EU list', 'R', 'eulicence'], ['Reusability', 'rights', 'Rights', 'O', 'set'],
+      ['Reusability', 'documentation', 'Documentation', 'O', 'set'], ['Reusability', 'status', 'Status', 'O', 'set']],
+    DataService: [['Findability', 'title', 'Title', 'M', 'set'], ['Findability', 'keyword', 'Keywords', 'R', 'set'], ['Findability', 'theme', 'Categories', 'R', 'set'],
+      ['Accessibility', 'endpointURL', 'Endpoint address', 'M', 'url'], ['Accessibility', 'endpointURL', 'Endpoint answers', 'M0', 'http'],
+      ['Accessibility', 'landingPage', 'Landing page answers', 'O', 'http'], ['Accessibility', 'format', 'Format', 'O', 'set'], ['Accessibility', 'landingPage', 'Landing page', 'O', 'set'],
+      ['Interoperability', 'format', 'Format from the EU list', 'O', 'filetype'], ['Interoperability', 'conformsTo', 'Standard it conforms to', 'R', 'set'],
+      ['Interoperability', 'endpointDescription', 'Endpoint description', 'R', 'set'], ['Interoperability', 'servesDataset', 'Datasets it serves', 'R', 'set'],
+      ['Reusability', 'publisher', 'Publisher', 'R', 'set'], ['Reusability', 'licence', 'Licence', 'O', 'set'], ['Reusability', 'licence', 'Licence from the EU list', 'O', 'eulicence'],
+      ['Reusability', 'description', 'Description', 'O', 'set'], ['Reusability', 'accessRights', 'Access rights', 'O', 'set'], ['Reusability', 'documentation', 'Documentation', 'O', 'set']]
+  };
+  // The EU weights the reachability checks of mandatory addresses at 0.25, not 1 ("M0").
+  function euWeight(imp) { return imp === 'M0' ? 0.25 : W[imp]; }
+  // The exact EU equivalent of a UK codelist value (from codelists.yaml maps.exact), or the value itself if it is already EU.
+  function euValue(P, cl, v) {
+    var full = expand(P, String(v)), c = ((P.codelists[cl] || {}).concepts || []).filter(function (x) { return x.iri === full || x.compact === v; })[0];
+    return c ? (c.eu || '') : full;
+  }
+  function euTest(P, r, prop, test) {
+    var vs = asList(r[prop]);
+    if (test === 'set') return present(r[prop]);
+    if (test === 'url') return vs.some(function (v) { return URL_RE.test(v); });
+    if (test === 'http') return false;
+    if (test === 'euaccess') return vs.some(function (v) { return euValue(P, 'access-rights', v).indexOf(EUB.access) === 0; });
+    if (test === 'eulicence') return vs.some(function (v) { return euValue(P, 'licences', v).indexOf(EUB.licence) === 0; });
+    if (test === 'filetype') return vs.some(function (v) { return expand(P, String(v)).indexOf(EUB.filetype) === 0; });
+    var mt = asList(r.mediaType).concat(vs).map(function (v) { return expand(P, String(v)); });
+    if (test === 'open') return mt.some(function (v) { return OPEN_TYPES.test(v); });
+    if (test === 'machine') return mt.some(function (v) { return MACHINE_TYPES.test(v); });
+    if (test === 'iana') return asList(r.mediaType).some(function (v) { return expand(P, String(v)).indexOf(IANA) === 0; });
+    return false;
+  }
+  function round2(x) { return Math.round(x * 100) / 100; }
+  function band(x) { return x >= 5 ? 'Excellent' : x >= 2.5 ? 'Good' : 'Sufficient'; }
+  function euEntity(P, ck, r) {
+    var items = (EU[ck] || []).map(function (m) {
+      var w = euWeight(m[3]), untested = m[4] === 'http';
+      return { dimension: m[0], prop: m[1], label: m[2], weight: w, met: !untested && euTest(P, r, m[1], m[4]), untested: untested };
+    });
+    var score = items.reduce(function (a, it) { return a + (it.met ? it.weight : 0); }, 0);
+    return { score: score, max: items.reduce(function (a, it) { return a + it.weight; }, 0), items: items };
+  }
+  function ukEntity(P, ck, r, cda, bad, path) {
+    var C = P.classes[ck];
+    if (!C) return null;
+    var items = C.props.map(function (x) {
+      var ob = (cda && x.cda) ? x.cda : x.ob;
+      if (!W[ob]) return null;
+      var label = (P.props[x.p] || {}).label || x.p, given = present(r[x.p]), wrong = given && bad.some(function (b) { return b === path + x.p || b.indexOf(path + x.p + '.') === 0 || b.indexOf(path + x.p + '[') === 0; });
+      return { prop: x.p, label: label, obligation: ob, weight: W[ob], met: given && !wrong, invalid: wrong };
+    }).filter(Boolean);
+    var total = items.reduce(function (a, it) { return a + it.weight; }, 0), got = items.reduce(function (a, it) { return a + (it.met ? it.weight : 0); }, 0);
+    return { score: total ? 7.5 * got / total : 0, max: 7.5, items: items };
+  }
+  // Hierarchical aggregation, as the EU does it, for either reading.
+  function reading(P, rec, entity) {
+    var ck = rec['class'], parts = [];
+    function avg(list) { return list.reduce(function (a, e) { return a + e.score; }, 0) / list.length; }
+    var own = entity(ck, rec, '');
+    // The EU method scores datasets, distributions and data services only; any other class is not scored, not zero.
+    if (!own) return { score: null, max: 7.5, band: 'Not scored', parts: [], untested: 0 };
+    parts.push({ cls: ck, n: 1, score: round2(own.score), items: own.items });
+    var groups = [own.score];
+    if (ck === 'Dataset') {
+      var dists = asList(rec.distribution).map(function (d, i) { return [d, i]; }).filter(function (p) { return p[0] && typeof p[0] === 'object' && !/Deprecated|DEPRECATED/.test(String(p[0].status || '')); });
+      var ds = dists.map(function (p) { return entity('Distribution', p[0], 'distribution[' + p[1] + '].'); }).filter(Boolean);
+      if (ds.length) {
+        groups.push(avg(ds));
+        parts.push({ cls: 'Distribution', n: ds.length, score: round2(avg(ds)), items: ds[0].items });
+        var ss = [];
+        dists.forEach(function (p) { asList(p[0].accessService).forEach(function (sv, j) { if (sv && typeof sv === 'object') { var e = entity('DataService', sv, 'distribution[' + p[1] + '].accessService[' + j + '].'); if (e) ss.push(e); } }); });
+        if (ss.length) { groups.push(avg(ss)); parts.push({ cls: 'DataService', n: ss.length, score: round2(avg(ss)), items: ss[0].items }); }
+      }
+    }
+    var score = round2(groups.reduce(function (a, x) { return a + x; }, 0) / groups.length);
+    var untested = parts.reduce(function (a, p) { return a + p.items.filter(function (it) { return it.untested; }).length; }, 0);
+    return { score: score, max: 7.5, band: band(score), parts: parts, untested: untested };
+  }
   function fair(P, rec) {
     rec = rec || {};
-    var ck = rec['class'], service = ck === 'DataService';
-    var dists = asList(rec.distribution).filter(function (d) { return d && typeof d === 'object'; });
-    function any(f) { return dists.some(f); }
-    function anyVal(k, test) { return any(function (d) { return asList(d[k]).some(function (v) { return test ? test(String(v)) : present(v); }); }); }
-    var res = validate(P, rec);
-    var licences = (P.codelists.licences || { concepts: [] }).concepts.map(function (c) { return c.iri; });
-    var dims = [
-      { id: 'findability', label: 'Findability', items: [['keyword', 'Keywords', 30, present(rec.keyword)], ['theme', 'Themes', 30, present(rec.theme)],
-        ['spatial', 'Place covered', 20, present(rec.spatial)], ['temporal', 'Time covered', 20, present(rec.temporal)]] },
-      { id: 'accessibility', label: 'Accessibility', items: service ? [
-        ['endpointURL', 'Endpoint address', 50, asList(rec.endpointURL).some(function (v) { return URL_RE.test(v); })],
-        ['endpointDescription', 'Endpoint description', 20, present(rec.endpointDescription)],
-        ['https', 'Endpoint uses HTTPS', 30, asList(rec.endpointURL).some(function (v) { return /^https:/.test(v); })]] : [
-        ['accessURL', 'Access address on a distribution', 50, anyVal('accessURL', function (v) { return URL_RE.test(v); })],
-        ['downloadURL', 'Download address', 20, anyVal('downloadURL')],
-        ['https', 'Download address uses HTTPS', 30, anyVal('downloadURL', function (v) { return /^https:/.test(v); })]] },
-      { id: 'interoperability', label: 'Interoperability', items: service ? [
-        ['conformsTo', 'Standard the service follows', 40, present(rec.conformsTo)],
-        ['endpointDescription', 'Machine-readable description', 40, present(rec.endpointDescription)],
-        ['conforms', 'Conforms to DCAT-AP-UK', 30, res.ok]] : [
-        ['format', 'Format', 20, anyVal('format') || anyVal('mediaType')],
-        ['mediaType', 'Media type', 10, anyVal('mediaType')],
-        ['mediaTypeIana', 'Media type from the IANA list', 10, anyVal('mediaType', function (v) { return expand(P, v).indexOf(IANA) === 0; })],
-        ['open', 'Non-proprietary format', 20, anyVal('mediaType', function (v) { return OPEN_TYPES.test(expand(P, v)); })],
-        ['machine', 'Machine-readable format', 20, anyVal('mediaType', function (v) { return MACHINE_TYPES.test(expand(P, v)); })],
-        ['conforms', 'Conforms to DCAT-AP-UK', 30, res.ok]] },
-      { id: 'reusability', label: 'Reusability', items: [
-        ['licence', 'Licence', 20, present(rec.licence) || anyVal('licence')],
-        ['licenceList', 'Licence from the list', 10, asList(rec.licence).some(function (v) { return licences.indexOf(expand(P, v)) > -1 || /^ukcl:licences\//.test(v); })],
-        ['accessRights', 'Access rights', 10, present(rec.accessRights)],
-        ['accessRightsList', 'Access rights from the list', 5, present(rec.accessRights) && conceptOk(P, 'access-rights', asList(rec.accessRights)[0])],
-        ['contactPoint', 'Contact point', 20, present(rec.contactPoint)],
-        ['publisher', 'Publisher', 10, present(rec.publisher)]] },
-      { id: 'contextuality', label: 'Contextuality', items: [
-        ['rights', 'Rights statement or open access', 5, present(rec.rights) || /\/open$/.test(expand(P, asList(rec.accessRights)[0] || ''))],
-        ['byteSize', 'File size', 5, service ? present(rec.documentation) : anyVal('byteSize')],
-        ['issued', 'Date issued', 5, present(rec.issued)],
-        ['modified', 'Date modified', 5, present(rec.modified)]] }
-    ];
-    var total = 0, max = 0;
-    dims.forEach(function (d) {
-      d.score = 0; d.max = 0;
-      d.items = d.items.map(function (it) { d.max += it[2]; if (it[3]) d.score += it[2]; return { id: it[0], label: it[1], points: it[2], met: !!it[3] }; });
-      total += d.score; max += d.max;
-    });
-    var rating = total >= 351 ? 'Excellent' : total >= 221 ? 'Good' : total >= 121 ? 'Sufficient' : 'Bad';
-    return { score: total, max: max, rating: rating, dimensions: dims };
+    var res = validate(P, rec), cda = rec.criticalDataAsset === true;
+    var bad = res.issues.filter(function (i) { return i.level === 'error'; }).map(function (i) { return String(i.prop); });
+    var uk = reading(P, rec, function (ck, r, path) { return ukEntity(P, ck, r, cda, bad, path); });
+    var eu = reading(P, rec, function (ck, r) { return EU[ck] ? euEntity(P, ck, r) : null; });
+    return { method: 'EU metadata quality assessment method, read for the UK and the EU (ADR 0022)', score: uk.score, max: 7.5, rating: uk.band, uk: uk, eu: eu };
   }
 
-  // Conformance levels: 1 Core (no errors), 2 Rich (and every recommended property), 3 Exemplary (and an excellent quality score).
+  // Conformance levels: 1 Core (no errors), 2 Rich (and every recommended property), 3 Exemplary (and a UK reading of 5 or more of 7.5).
   function conformance(P, rec) {
     var res = validate(P, rec), q = fair(P, rec);
     var recs = res.issues.filter(function (i) { return i.rule === 'R-00'; }).length;
-    var level = !res.ok ? 0 : recs ? 1 : q.rating === 'Excellent' ? 3 : 2;
+    var level = !res.ok ? 0 : recs ? 1 : q.uk.score >= 5 ? 3 : 2;
     var labels = ['Does not conform', 'Level 1: Core', 'Level 2: Rich', 'Level 3: Exemplary'];
     var next = level === 0 ? 'Fix ' + res.errors + ' error' + (res.errors === 1 ? '' : 's') + ' to reach level 1.'
       : level === 1 ? 'Give the ' + recs + ' recommended propert' + (recs === 1 ? 'y' : 'ies') + ' to reach level 2.'
-      : level === 2 ? 'Raise the quality score from ' + q.score + ' to 351 or more to reach level 3.' : 'The highest level.';
-    return { level: level, label: labels[level], next: next, errors: res.errors, recommended: recs, score: q.score, rating: q.rating };
+      : level === 2 ? 'Raise the UK quality reading from ' + q.uk.score + ' to 5 or more of 7.5 to reach level 3.' : 'The highest level.';
+    return { level: level, label: labels[level], next: next, errors: res.errors, recommended: recs, score: q.uk.score, max: 7.5, rating: q.rating, eu: q.eu.score };
   }
 
   // ---- converters ------------------------------------------------------------------------------------------

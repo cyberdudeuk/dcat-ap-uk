@@ -528,11 +528,27 @@
 
 
   function meters(root) { $$('.meter span[data-w]', root).forEach(function (m) { m.style.width = m.getAttribute('data-w') + '%'; }); }
+  // ADR 0022: two readings with the EU method; each part lists every check, met or missing, with its weight.
   function fairHtml(q) {
-    return q.dimensions.map(function (d) {
-      return '<h3 class="h4">' + esc(d.label) + ' <span class="small">' + d.score + ' of ' + d.max + '</span></h3><div class="meter" aria-hidden="true"><span data-w="' + Math.round(100 * d.score / d.max) + '"></span></div><ul class="results">' +
-        d.items.map(function (it) { return '<li class="' + (it.met ? 'ok' : 'warning') + '">' + (it.met ? 'Has ' : 'Missing: ') + esc(it.label.toLowerCase()) + ' <span class="small">(' + it.points + ')</span></li>'; }).join('') + '</ul>';
-    }).join('') + '<p class="small">Modelled on the five dimensions of the EU metadata quality assessment. Addresses are checked for form, not fetched.</p>';
+    var NAMES = { Dataset: 'Dataset', Distribution: 'Distributions', DataService: 'Data services' };
+    function part(p, eu) {
+      return '<h4 class="h4">' + esc(NAMES[p.cls] || p.cls) + (p.n > 1 ? ' (average of ' + p.n + ')' : '') + ' <span class="small">' + p.score + ' of 7.5</span></h4>' +
+        '<div class="meter" aria-hidden="true"><span data-w="' + Math.round(100 * p.score / 7.5) + '"></span></div><ul class="results">' +
+        // What to add next first: missing checks by weight, then those met.
+        p.items.slice().sort(function (x, y) { return (x.met - y.met) || (y.weight - x.weight); }).map(function (it) {
+          var st = it.untested ? 'Not tested offline: ' : it.met ? 'Has ' : it.invalid ? 'Not valid: ' : 'Missing: ';
+          return '<li class="' + (it.met ? 'ok' : 'warning') + '">' + st + esc(it.label.toLowerCase()) + ' <span class="small">(' + (eu ? esc(it.dimension.toLowerCase()) + ', ' : '') + 'weight ' + it.weight + ')</span></li>';
+        }).join('') + '</ul>';
+    }
+    function reading(r, title, eu, about) {
+      if (r.score === null) return '<h3 class="h4">' + esc(title) + ' <span class="small">not scored</span></h3><p class="small">The EU method scores datasets, distributions and data services only.</p>';
+      return '<h3 class="h4">' + esc(title) + ' <span class="small">' + r.score + ' of 7.5 (' + esc(r.band.toLowerCase()) + ')</span></h3><p class="small">' + about + '</p>' +
+        r.parts.map(function (p) { return part(p, eu); }).join('');
+    }
+    return reading(q.uk, 'UK reading', false, 'Every property weighted by its DCAT-AP-UK obligation (mandatory 1, recommended 0.5, optional 0.25) and scaled to 7.5. Level 3 needs 5 or more.') +
+      reading(q.eu, 'EU reading', true, 'The checks data.europa.eu runs, with UK values matched to the EU lists they equal. This is the score UK catalogues get on data.europa.eu.' +
+        (q.eu.untested ? ' ' + q.eu.untested + ' address check' + (q.eu.untested === 1 ? ' is' : 's are') + ' not tested here, because the checker works offline.' : '')) +
+      '<p class="small">Both use the method of the EU metadata quality assessment: checks pass or fail; distributions and data services are averaged into the dataset score. <a href="governance.html#adr-0022">ADR 0022</a> explains why.</p>';
   }
   function levelHtml(c) {
     var cls = ['err', 'warn', 'ok', 'ok'][c.level];
@@ -662,7 +678,7 @@
       $('#b-cr').textContent = JSON.stringify(V.toCroissant(P, rec), null, 2);
       var q = V.fair(P, rec);
       $('#b-level').innerHTML = levelHtml(V.conformance(P, rec));
-      $('#b-fair-s').textContent = q.score + ' of ' + q.max + ' (' + q.rating.toLowerCase() + ')';
+      $('#b-fair-s').textContent = 'UK ' + q.uk.score + ', EU ' + (q.eu.score === null ? 'not scored' : q.eu.score) + ' of 7.5 (' + q.rating.toLowerCase() + ')';
       $('#b-fair').innerHTML = fairHtml(q); meters($('#b-fair'));
       var m = comp.mandatory, r = comp.recommended;
       $('#b-m').style.width = (m[1] ? 100 * m[0] / m[1] : 0) + '%'; $('#b-m-t').textContent = m[0] + ' of ' + m[1] + ' mandatory';
@@ -708,7 +724,7 @@
       out.innerHTML = recs.map(function (r, n) {
         var res = V.validate(P, r), q = V.fair(P, r);
         return '<section class="panel ' + (res.ok ? 'notice' : 'warning') + '"><h3>' + (recs.length > 1 ? 'Record ' + (n + 1) + ': ' : '') + (res.ok ? 'Conforms to DCAT-AP-UK' + (P.applied && P.applied.length ? ' with the ' + esc(P0.extensions[P.applied[0]].label.toLowerCase()) + ' extension' : '') : res.errors + ' to fix') + '</h3>' +
-          levelHtml(V.conformance(P, r)) + '<details><summary>Quality score: ' + q.score + ' of ' + q.max + ' (' + esc(q.rating.toLowerCase()) + ')</summary>' + fairHtml(q) + '</details>' +
+          levelHtml(V.conformance(P, r)) + '<details><summary>Quality: UK ' + q.uk.score + ', EU ' + (q.eu.score === null ? 'not scored' : q.eu.score) + ' of 7.5 (' + esc(q.rating.toLowerCase()) + ')</summary>' + fairHtml(q) + '</details>' +
           (notes.length ? '<p><strong>Converted from the xGov MEM.</strong></p><ul>' + notes.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul>' : '') +
           '<ul class="results">' + res.issues.map(function (i) { return '<li class="' + i.level + '"><strong>' + esc(plabel(i.prop)) + '</strong>: ' + esc(i.text) + ' <span class="small">(' + esc(i.rule) + ')</span></li>'; }).join('') + '</ul>' +
           (mode.value === 'mem' ? '<h4>Converted record</h4><pre>' + esc(JSON.stringify(r, null, 2)) + '</pre>' : '') + '</section>';
@@ -740,7 +756,7 @@
       out.innerHTML = '<section class="panel notice"><h2>' + rows.length + ' record' + (rows.length === 1 ? '' : 's') + ' checked</h2><p>' + counts[0] + ' do not conform, ' + counts[1] + ' at level 1, ' + counts[2] + ' at level 2, ' + counts[3] + ' at level 3.</p>' +
         (conv.notes.length ? '<ul>' + conv.notes.map(function (n) { return '<li>' + esc(n) + '</li>'; }).join('') + '</ul>' : '') +
         '<p class="btns"><button type="button" class="btn small" id="bk-dl-jsonld">Download all as JSON-LD</button><button type="button" class="btn secondary small" id="bk-dl-ttl">Download all as Turtle</button><button type="button" class="btn secondary small" id="bk-dl-json">Download all as JSON</button></p></section>' +
-        '<div class="table-wrap" role="region" aria-labelledby="bk-cap" tabindex="0"><table id="bk-t"><caption id="bk-cap">Every record, by spreadsheet row</caption><thead><tr><th scope="col">Row</th><th scope="col">Title</th><th scope="col">Level</th><th scope="col" class="num">Errors</th><th scope="col" class="num">Quality</th><th scope="col">First errors</th></tr></thead><tbody>' +
+        '<div class="table-wrap" role="region" aria-labelledby="bk-cap" tabindex="0"><table id="bk-t"><caption id="bk-cap">Every record, by spreadsheet row</caption><thead><tr><th scope="col">Row</th><th scope="col">Title</th><th scope="col">Level</th><th scope="col" class="num">Errors</th><th scope="col" class="num">UK quality (of 7.5)</th><th scope="col">First errors</th></tr></thead><tbody>' +
         rows.map(function (r) { return r.html; }).join('') + '</tbody></table></div>';
       $('#bk-dl-jsonld').addEventListener('click', function () { download('records.jsonld', JSON.stringify({ '@context': 'https://cyberdudeuk.github.io/dcat-ap-uk/downloads/dcat-ap-uk.context.jsonld', '@graph': last }, null, 1), 'application/ld+json'); });
       $('#bk-dl-ttl').addEventListener('click', function () { download('records.ttl', last.map(function (r) { return V.toTurtle(P, r); }).join('\n'), 'text/turtle'); });

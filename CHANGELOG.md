@@ -4,6 +4,13 @@ All notable changes to DCAT-AP-UK. The format follows [Keep a Changelog](https:/
 
 ## [Unreleased]
 
+### Changed (ADR 0022, accepted 22 November 2026)
+
+- The quality score now uses the method of the EU metadata quality assessment, as data.europa.eu publishes it: every check passes or fails, weighted 1, 0.5 or 0.25; datasets, distributions and data services each score out of 7.5 and are averaged into the dataset score; bands are sufficient, good (from 2.5) and excellent (from 5). It gives two readings: the EU reading (the EU's own checks, with UK values matched to the EU lists they equal, so publishers see what data.europa.eu will score) and the UK reading (every property weighted by its DCAT-AP-UK obligation). It replaces the earlier 405-point model, which the EU has retired.
+- Level 3 (Exemplary) now needs a UK reading of 5 or more out of 7.5, instead of 351 or more out of 405.
+- Licences carry their exact EU licence-list equivalents (OGL v3.0, NCGL v2.0, CC BY 4.0, CC0), checked at source; the Open Parliament Licence v3.0 has none. The profile export (profile.json) gives each codelist value's exact EU equivalent as `eu`.
+- `V.fair()` keeps its name; it now returns `uk` and `eu` readings, with `score`, `max` (7.5) and `rating` taken from the UK reading. `V.conformance()` adds `max` and `eu`.
+
 ### Changed
 
 - The statistics extension (proposed) now follows StatDCAT-AP 3.0.0, the latest version, by the owner's decision of 22 November 2026 (O-13). Its namespace moves from the `(xyz)` placeholder to `http://data.europa.eu/s1n/`, and the property `statMeasure`, which is in no StatDCAT-AP version, becomes `measure` (`s1n:measure`, the phenomenon observed). Records using `statMeasure` need the new name. StatDCAT-AP 3.0.0 is still a draft, so the terms are re-checked when it is released; `tools/check_crosswalk_names.py` checks them against the draft on every build.

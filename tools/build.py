@@ -1511,7 +1511,7 @@ class Site:
         j = self.js[key]
         c, q = j['conformance'], j['fair']
         cls = {0: 'err', 1: 'warn', 2: 'ok', 3: 'ok'}[c['level']]
-        return f'<strong class="tag {cls}">{E(c["label"])}</strong> <span class="small">Quality {q["score"]} of {q["max"]}, {E(q["rating"].lower())}</span>'
+        return f'<strong class="tag {cls}">{E(c["label"])}</strong> <span class="small">Quality: UK {q["uk"]["score"]}, EU {"not scored" if q["eu"]["score"] is None else q["eu"]["score"]} of 7.5, {E(q["rating"].lower())}</span>'
 
     def ext_rows(self, eid):
         p = self.p
@@ -2212,9 +2212,13 @@ class Site:
             raised = len({x['p'] for xs in e['classes'].values() for x in xs} - set(e.get('properties') or {}))
             ex.append((e['label'], [new, raised]))
         c5 = self.bar_chart('c-ext', 'What each sector extension adds', ex, [('New properties', 2), ('Raised or narrowed', 6)])
-        qs = [(e['label'][:34], [d['score'] for d in js[e['key']]['fair']['dimensions']]) for e in p.examples]
-        c6 = self.bar_chart('c-quality', 'Quality score of each worked example, by dimension', qs, [('Findability', 1), ('Accessibility', 2), ('Interoperability', 3), ('Reusability', 4), ('Contextuality', 6)],
-                            maxv=405, note='Out of 405 points, modelled on the earlier EU metadata quality assessment, which data.europa.eu has since replaced with a property-weighted method (checked 22 November 2026).')
+        # ADR 0022: the two readings, each out of 7.5, drawn as separate charts (the bar helper stacks series).
+        qs = [(e['label'][:34], [js[e['key']]['fair']['uk']['score']]) for e in p.examples]
+        c6 = self.bar_chart('c-quality', 'UK quality reading of each worked example', qs, [('UK reading', 3)], maxv=7.5,
+                            note='Out of 7.5 with the EU method, each property weighted by its DCAT-AP-UK obligation (ADR 0022). Level 3 needs 5 or more.')
+        qe = [(e['label'][:34], [js[e['key']]['fair']['eu']['score']]) for e in p.examples if js[e['key']]['fair']['eu']['score'] is not None]
+        c6 += self.bar_chart('c-quality-eu', 'EU quality reading of each worked example', qe, [('EU reading', 1)], maxv=7.5,
+                             note='Out of 7.5: the checks data.europa.eu runs, with UK values matched to the EU lists they equal. Address checks are not tested offline; catalogues, records and series are not scored by the EU method, so are not shown.')
         groups = {g['id']: g['label'] for g in self.t['international']['groups']}
         jr = []
         for gid, gl in groups.items():
