@@ -218,6 +218,30 @@ sources:
     url: https://www.gov.uk/government/publications/record-metadata-to-describe-critical-data-assets/recording-metadata-to-describe-critical-data-assets
     role: The core metadata the Data Asset Management Policy asks for. Its attributes are crosswalked to this profile.
     prov: V
+  - id: osp
+    title: 'Open Standards Principles: 3. Open standards must support flexibility and change'
+    publisher: GOV.UK (Cabinet Office)
+    date: '2018-04-05'
+    url: https://www.gov.uk/government/publications/open-standards-principles/open-standards-principles#open-standards-must-support-flexibility-and-change
+    role: How government selects open standards for software interoperability, data and document formats; principle 3 asks projects to avoid vendor lock-in.
+    prov: V
+    checked: 2026-11-22
+  - id: tcop4
+    title: 'Technology Code of Practice, point 4: Make use of open standards'
+    publisher: GOV.UK (Government Digital Service and Central Digital and Data Office)
+    date: '2021-03-31'
+    url: https://www.gov.uk/guidance/make-use-of-open-standards#how-open-standards-help-your-programme
+    role: Point 4 says open standards increase interoperability and help teams avoid vendor lock-in; point 3 asks teams to be open and use open source.
+    prov: V
+    checked: 2026-11-22
+  - id: ss13
+    title: 'Service Standard, point 13: Use and contribute to open standards, common components and patterns'
+    publisher: GOV.UK Service Manual
+    date: '2022-05-30'
+    url: https://www.gov.uk/service-manual/service-standard/point-13-use-common-standards-components-patterns
+    role: Asks service teams to use open standards and common components, and says open standards help avoid getting locked into a supplier.
+    prov: V
+    checked: 2026-11-22
   - id: dam
     title: Data asset management policy in government
     publisher: GOV.UK
