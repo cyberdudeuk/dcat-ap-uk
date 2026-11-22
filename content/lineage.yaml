@@ -315,7 +315,7 @@ sources:
     title: UK GEMINI
     publisher: Association for Geographic Information
     date: ''
-    url: https://www.agi.org.uk/uk-gemini/
+    url: https://agiorguk.github.io/gemini/1037-uk-gemini-introduction.html
     role: The UK standard for geospatial metadata. Geospatial publishers follow it as well as this profile.
     prov: V
     checked: 2026-11-20
