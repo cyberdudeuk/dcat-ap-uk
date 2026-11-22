@@ -2211,7 +2211,7 @@ class Site:
         c5 = self.bar_chart('c-ext', 'What each sector extension adds', ex, [('New properties', 2), ('Raised or narrowed', 6)])
         qs = [(e['label'][:34], [d['score'] for d in js[e['key']]['fair']['dimensions']]) for e in p.examples]
         c6 = self.bar_chart('c-quality', 'Quality score of each worked example, by dimension', qs, [('Findability', 1), ('Accessibility', 2), ('Interoperability', 3), ('Reusability', 4), ('Contextuality', 6)],
-                            maxv=405, note='Out of 405 points, modelled on the EU metadata quality assessment (provenance K).')
+                            maxv=405, note='Out of 405 points, modelled on the earlier EU metadata quality assessment, which data.europa.eu has since replaced with a property-weighted method (checked 22 November 2026).')
         groups = {g['id']: g['label'] for g in self.t['international']['groups']}
         jr = []
         for gid, gl in groups.items():
