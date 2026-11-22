@@ -826,6 +826,11 @@ class Site:
             cl_link = f'<a href="codelists.html#cl-{cl}">{E(self.p.codelists[cl]["label"])}</a>'
         rng = prop.get('range')
         facts = [('IRI', f'<code>{E(prop["uri"])}</code>'), ('Value', E(prop['kind']) + (f': <a href="{self.class_page(rng)}">{E(self.p.classes[rng]["label"])}</a>' if rng else '') + (f', from {cl_link}' if cl_link else ''))]
+        if not ck:
+            # ADR 0023: name each class that takes this property's values from its own list
+            own = [(c['label'], y['codelist']) for c in self.p.classes.values() for y in c['properties'] if y['p'] == key and y.get('codelist')]
+            if own:
+                facts.append(('Values by class', '; '.join(f'{E(lbl)}: <a href="codelists.html#cl-{cl2}">{E(self.p.codelists[cl2]["label"])}</a>' for lbl, cl2 in own)))
         if x:
             facts.insert(0, ('Obligation', tag(x['ob']) + (f' {tag("M", "Mandatory for critical data assets")}' if x.get('cda') == 'M' and x['ob'] != 'M' else '') + (f' {E(x["condition"])}' if x.get('condition') else '')))
             facts.insert(1, ('Cardinality', E(x['card'])))

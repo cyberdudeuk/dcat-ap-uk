@@ -586,7 +586,7 @@
       update();
     }
     function field(ck, x, ob) {
-      var prop = P.props[x.p], id = 'f-' + x.p, multi = /n$/.test(x.card);
+      var prop = V.propOf(P, x), id = 'f-' + x.p, multi = /n$/.test(x.card);
       var w = el('div', { 'class': 'field ' + ob, 'data-p': x.p });
       var hintText = prop.definition + (x.condition ? ' ' + x.condition : '') + (multi && prop.kind !== 'object' && prop.kind !== 'concept' ? ' One per line for more than one.' : '');
       w.appendChild(el('label', { 'for': id }, esc(prop.label) + ' <span class="tag ' + ob + '">' + ({ M: 'Mandatory', R: 'Recommended', O: 'Optional', C: 'Conditional' })[ob] + '</span>' + (prop.provisional ? ' <span class="tag warn">Provisional</span>' : '') + ' <a href="properties.html#p-' + x.p + '" class="small">about this</a>'));
@@ -654,7 +654,7 @@
       var idv = ($('#b-id').value || '').trim(); if (idv) rec.id = idv;
       if (cdaBox.checked && !cdaBox.closest('.field').hidden) rec.criticalDataAsset = 'true';
       C.props.forEach(function (x) {
-        var prop = P.props[x.p], id = 'f-' + x.p, multi = /n$/.test(x.card), node = doc.getElementById(id); if (!node) return;
+        var prop = V.propOf(P, x), id = 'f-' + x.p, multi = /n$/.test(x.card), node = doc.getElementById(id); if (!node) return;
         var v;
         if (prop.range === 'ContactPoint') {
           var cp = {}; var fn = $('#' + id + '-fn').value.trim(), u = $('#' + id + '-url').value.trim(), m = $('#' + id + '-mail').value.trim();

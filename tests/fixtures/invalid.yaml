@@ -102,3 +102,16 @@
     licence: http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/
     accrualPeriodicity: eufreq:MONTHLY
     missingValue: [{missingProperty: 'dct:temporal'}]
+- key: relation-role-from-agent-list
+  rule: V-01
+  issue: 34
+  # ADR 0023: a relationship's role comes from the relation-role list, not from the responsible roles for organisations
+  record: {class: Dataset, id: 'https://example.org/x', title: t, description: d, identifier: x, publisher: 'https://example.org/o', contactPoint: [{fn: Team, hasURL: 'https://example.org/c'}], accessRights: 'ukcl:access-rights/open', securityClassification: 'ukcl:security-classification/official', licence: 'http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/', accrualPeriodicity: 'eufreq:MONTHLY', qualifiedRelation: [{relation: 'https://example.org/agreements/1', hadRole: 'ukcl:agent-role/data-owner'}]}
+- key: attribution-role-from-relation-list
+  rule: V-01
+  issue: 34
+  record: {class: Dataset, id: 'https://example.org/x', title: t, description: d, identifier: x, publisher: 'https://example.org/o', contactPoint: [{fn: Team, hasURL: 'https://example.org/c'}], accessRights: 'ukcl:access-rights/open', securityClassification: 'ukcl:security-classification/official', licence: 'http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/', accrualPeriodicity: 'eufreq:MONTHLY', qualifiedAttribution: [{agent: 'https://example.org/o', hadRole: 'ukcl:relation-role/sharing-agreement'}]}
+- key: sharing-method-not-in-list
+  rule: V-01
+  issue: 34
+  record: {class: Dataset, id: 'https://example.org/x', title: t, description: d, identifier: x, publisher: 'https://example.org/o', contactPoint: [{fn: Team, hasURL: 'https://example.org/c'}], accessRights: 'ukcl:access-rights/open', securityClassification: 'ukcl:security-classification/official', licence: 'http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/', accrualPeriodicity: 'eufreq:MONTHLY', sharingMethod: ['ukcl:sharing-method/fax']}

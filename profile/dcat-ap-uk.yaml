@@ -871,6 +871,23 @@ properties:
     example: ukcl:transfer-mechanism/uk-adequacy
     provisional: true
     mem: {change: new}
+  sharingMethod:
+    uri: dcatuk:sharingMethod
+    label: Sharing method
+    kind: concept
+    codelist: sharing-method
+    definition: A way the data moves between organisations when it is shared, such as an API or secure file transfer.
+    purpose: >-
+      Lets people mapping data flows between public bodies see which shares already run over an API and which still use email
+      or files. Give every method the data moves by, not only the main one (ADR 0023).
+    distinct_from: >-
+      Transfer safeguard (the legal basis for sending personal data outside the UK) and access service (the API itself, which
+      a distribution links to).
+    guidance: >-
+      Give one value per method. Where one is API, link the API from a distribution through its access service as well, so a
+      reader can find it. The values are the methods the Digital Economy Act register of information sharing agreements uses.
+    example: ukcl:sharing-method/api
+    mem: {change: new}
   transportSecurity:
     uri: dcatuk:transportSecurity
     label: Connection security
@@ -994,6 +1011,7 @@ classes:
       - {p: hasPolicy, ob: O, card: 0..n}
       - {p: jurisdiction, ob: O, card: 0..n}
       - {p: transferMechanism, ob: C, card: 0..n, condition: 'Mandatory when the data contains personal data and is held in or sent to anywhere outside the UK (rule R-08).'}
+      - {p: sharingMethod, ob: O, card: 0..n}
       - {p: missingValue, ob: O, card: 0..n}
   DataService:
     uri: dcat:DataService
@@ -1031,10 +1049,12 @@ classes:
       - {p: language, ob: O, card: 0..n}
       - {p: personalData, ob: O, card: '0..1'}
       - {p: metadataAudience, ob: O, card: '0..1'}
+      - {p: qualifiedRelation, ob: O, card: 0..n}
       - {p: applicableLegislation, ob: O, card: 0..n}
       - {p: hasPolicy, ob: O, card: 0..n}
       - {p: jurisdiction, ob: O, card: 0..n}
       - {p: transferMechanism, ob: C, card: 0..n, condition: 'Mandatory when the data contains personal data and is held in or sent to anywhere outside the UK (rule R-08).'}
+      - {p: sharingMethod, ob: O, card: 0..n}
       - {p: transportSecurity, ob: O, card: '0..1'}
       - {p: missingValue, ob: O, card: 0..n}
   Distribution:
@@ -1184,11 +1204,11 @@ classes:
     label: Relationship
     ob: O
     icon: link
-    definition: How one resource relates to another.
+    definition: How one resource relates to another, such as the agreement a dataset or data service is shared under.
     mem: null
     properties:
       - {p: relation, ob: M, card: 1..n}
-      - {p: hadRole, ob: M, card: 1..n}
+      - {p: hadRole, ob: M, card: 1..n, codelist: relation-role}
   Attribution:
     uri: prov:Attribution
     label: Responsible role

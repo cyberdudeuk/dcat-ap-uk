@@ -21,6 +21,15 @@
     return s;
   }
 
+  // ADR 0023: a class may take a property's values from its own codelist (hadRole on Relationship uses relation-role).
+  function propOf(P, x) {
+    var prop = P.props[x.p];
+    if (!x.codelist || !prop) return prop;
+    var out = {};
+    Object.keys(prop).forEach(function (k) { out[k] = prop[k]; });
+    out.codelist = x.codelist;
+    return out;
+  }
   function conceptOk(P, cl, v) {
     var list = P.codelists[cl];
     if (!list || list.open) return true;
@@ -48,7 +57,7 @@
     });
     C.props.forEach(function (x) {
       known[x.p] = 1;
-      var prop = P.props[x.p];
+      var prop = propOf(P, x);
       var vals = asList(rec[x.p]);
       var has = present(rec[x.p]);
       var ob = (cda && x.cda) ? x.cda : x.ob;
@@ -1016,6 +1025,6 @@
     return { record: a.record, out: b.out, mapIn: a.map, mapOut: b.map, notes: a.notes, validation: validate(P, a.record) };
   }
 
-  return { weave: weave, readers: Object.keys(READERS), writers: Object.keys(WRITERS), vendors: VENDOR, validate: validate, completeness: completeness, fromMem: fromMem, expand: expand, withExtensions: withExtensions, fair: fair,
+  return { weave: weave, readers: Object.keys(READERS), writers: Object.keys(WRITERS), vendors: VENDOR, validate: validate, propOf: propOf, completeness: completeness, fromMem: fromMem, expand: expand, withExtensions: withExtensions, fair: fair,
     conformance: conformance, parseCSV: parseCSV, fromCSV: fromCSV, fromOpenAPI: fromOpenAPI, toSchemaOrg: toSchemaOrg, toCroissant: toCroissant, toTurtle: toTurtle };
 }));

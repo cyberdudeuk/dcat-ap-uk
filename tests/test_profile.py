@@ -66,6 +66,44 @@ class ValidExamples(unittest.TestCase):
                 self.assertTrue(j['ok'], j['issues'])
 
 
+class SharingAgreementsAndMethods(unittest.TestCase):
+    """ADR 0023 (change request #34): a record names the agreement it is shared under through a qualified relation with the
+    sharing-agreement role, and every method the data moves by. The deliberate breaks are in tests/fixtures/invalid.yaml."""
+    BASE = {'class': 'Dataset', 'id': 'https://example.org/x', 'title': 't', 'description': 'd', 'identifier': 'x',
+            'publisher': 'https://example.org/o', 'contactPoint': [{'fn': 'Team', 'hasURL': 'https://example.org/c'}],
+            'accessRights': 'ukcl:access-rights/open', 'securityClassification': 'ukcl:security-classification/official',
+            'licence': 'http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/', 'accrualPeriodicity': 'eufreq:MONTHLY'}
+
+    def records(self):
+        ds = dict(self.BASE, sharingMethod=['ukcl:sharing-method/api', 'ukcl:sharing-method/secure-file-transfer'],
+                  qualifiedRelation=[{'relation': 'https://example.org/agreements/1', 'hadRole': 'ukcl:relation-role/sharing-agreement'}],
+                  qualifiedAttribution=[{'agent': 'https://example.org/o', 'hadRole': 'ukcl:agent-role/data-owner'}])
+        svc = copy.deepcopy(next(e['record'] for e in P.examples if e['record']['class'] == 'DataService'))
+        svc.update(sharingMethod=['ukcl:sharing-method/api'],
+                   qualifiedRelation=[{'relation': 'https://example.org/agreements/1', 'hadRole': 'ukcl:relation-role/sharing-agreement'}])
+        return [ds, svc]
+
+    def test_a_record_with_both_passes_all_three(self):
+        recs = self.records()
+        for r, j in zip(recs, js_validate(recs), strict=True):
+            with self.subTest(cls=r['class']):
+                ok, text = shacl_ok(r)
+                self.assertTrue(ok, text)
+                self.assertEqual([], [x.message for x in JS.iter_errors(r)])
+                self.assertTrue(j['ok'], j['issues'])
+
+    def test_the_codelist_holds_the_registers_nine_methods(self):
+        # Read from the Digital Economy Act register on 22 November 2026: every agreement's method is one of these.
+        labels = {c['label'].lower() for c in P.codelists['sharing-method']['concepts']}
+        self.assertEqual(labels, {'api', 'encrypted email transfer', 'within secure platform', 'secure file transfer', 'government secure email',
+                                  'trusted partner transfer', 'electronic verification', 'government secure folders', 'encrypted hardware'})
+
+    def test_each_class_takes_its_own_role_list(self):
+        roles = {ck: dict((x['p'], pr.get('codelist')) for x, pr in P.class_props(ck))['hadRole'] for ck in ('Relationship', 'Attribution')}
+        self.assertEqual(roles, {'Relationship': 'relation-role', 'Attribution': 'agent-role'})
+        self.assertEqual({x['p']: x.get('codelist') for x in json.loads(FILES['profile.json'])['classes']['Relationship']['props']}['hadRole'], 'relation-role')
+
+
 class DeliberateBreaks(unittest.TestCase):
     """VER-05: every check is trusted only because a deliberate break proves it fails."""
 
@@ -123,6 +161,16 @@ class ProfileIntegrity(unittest.TestCase):
         def m(p, c, l, e):
             p['properties']['title']['guidance'] = 'Write to team@example.org'
         self.assertRefused(m, 'contains an email address')
+
+    def test_class_codelist_must_exist_and_fit(self):
+        # ADR 0023: a class may set its own codelist for a concept property, never for another kind or an unknown list
+        def unknown(prof, *_):
+            next(x for x in prof['classes']['Relationship']['properties'] if x['p'] == 'hadRole')['codelist'] = 'no-such-list'
+        self.assertRefused(unknown, 'unknown codelist no-such-list')
+
+        def wrong_kind(prof, *_):
+            next(x for x in prof['classes']['Relationship']['properties'] if x['p'] == 'relation')['codelist'] = 'relation-role'
+        self.assertRefused(wrong_kind, 'codelist set on a property that is not a concept')
 
     def test_unknown_codelist(self):
         def m(p, c, l, e):

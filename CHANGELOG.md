@@ -4,6 +4,13 @@ All notable changes to DCAT-AP-UK. The format follows [Keep a Changelog](https:/
 
 ## [Unreleased]
 
+### Added (ADR 0023, accepted 22 November 2026; change request #34)
+
+- **Sharing agreement.** A dataset or data service can link the agreement it is shared under through a qualified relation (`dcat:qualifiedRelation`) with the new role `ukcl:relation-role/sharing-agreement`, for example its entry in the Digital Economy Act register. Qualified relation is now allowed on data services too.
+- **Sharing method** (`dcatuk:sharingMethod`, optional, 0..n) on datasets and data services, from the new sharing-method codelist: the nine methods the Digital Economy Act register uses, read on 22 November 2026. Give every method the data moves by; where one is API, link the API through a distribution's access service.
+- A class can now take a property's values from its own codelist. Role (`dcat:hadRole`) takes the new relation-role list on a relationship and keeps the responsible-role list on an attribution. Records that put a responsible role on a relationship no longer conform; no worked example did. Under the versioning rules this narrowing could count as major; it is treated as minor because the old binding was a mistake (ADR 0023).
+- A crosswalk from the register's agreement fields, and glossary entries for sharing agreement and sharing method.
+
 ### Changed (ADR 0022, accepted 22 November 2026)
 
 - The quality score now uses the method of the EU metadata quality assessment, as data.europa.eu publishes it: every check passes or fails, weighted 1, 0.5 or 0.25; datasets, distributions and data services each score out of 7.5 and are averaged into the dataset score; bands are sufficient, good (from 2.5) and excellent (from 5). It gives two readings: the EU reading (the EU's own checks, with UK values matched to the EU lists they equal, so publishers see what data.europa.eu will score) and the UK reading (every property weighted by its DCAT-AP-UK obligation). It replaces the earlier 405-point model, which the EU has retired.
