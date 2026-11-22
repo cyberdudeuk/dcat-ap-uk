@@ -33,9 +33,9 @@ risks:
   - {risk: 'Paid connectors for every new partner', when: 'Later: at every new exchange', answer: 'Open, documented exchange formats and harvesting with no per-connection charge.'}
 
 policy:
-  - {text: 'The UK Open Standards Principles ask government to choose open standards for software interoperability, data and document formats, and to avoid lock-in.', prov: K}
-  - {text: 'The Technology Code of Practice asks teams to make things open, use open standards and avoid being locked into one supplier.', prov: K}
-  - {text: 'The Service Standard asks services to use open standards and common components where they exist.', prov: K}
+  - {text: 'The UK Open Standards Principles set how government chooses open standards for software interoperability, data and document formats, and ask projects to avoid vendor lock-in.', source: osp}
+  - {text: 'The Technology Code of Practice asks teams to be open, use open source and use open standards, which it says help avoid vendor lock-in.', source: tcop4}
+  - {text: 'The Service Standard asks services to use and contribute to open standards and common components, and says open standards help avoid getting locked into one supplier.', source: ss13}
   - {text: 'The Data Asset Management Policy asks for critical data assets to be described consistently so they can be found and managed.', source: dam}
   - {text: 'The Roadmap for modern digital government 2025 to 2030 sets out shared standards and a joined-up data infrastructure.', source: roadmap}
 
