@@ -103,10 +103,10 @@ test:
 
 groups:
   - {id: standards, label: Standards bodies and catalogues of standards, icon: landmark}
-  - {id: models, label: Data models, vocabularies and schemas, icon: boxes}
+  - {id: models, label: 'Data models, vocabularies and schemas', icon: boxes}
   - {id: registers, label: Registers and reference data, icon: list-checks}
   - {id: catalogues, label: Catalogues and discovery, icon: library}
-  - {id: frameworks, label: Frameworks, toolkits and playbooks, icon: book-open}
+  - {id: frameworks, label: 'Frameworks, toolkits and playbooks', icon: book-open}
 
 assets:
   - {id: dsa, group: standards, name: Data Standards Authority, owner: Government Digital Service, url: 'https://github.com/alphagov/data-standards-authority', licence: OGL v3.0, updated: '2026-10-30', what: 'Endorsed standards, guidance (reference data, APIs, spreadsheets) and the person data standard project.', use: 'Declare conformance to its endorsed standards (listed above). Follow its reference data guidance for codelists.', prov: V}
@@ -126,7 +126,7 @@ assets:
   - {id: api-lint, group: catalogues, name: API standards linting, owner: Data Standards Authority, url: 'https://github.com/co-cddo/api-standards-linting', licence: OGL v3.0, updated: '2023-06-13', what: 'Spectral rules that check OpenAPI descriptions against the government API standards.', use: 'Run before converting an OpenAPI description to a data service record.', prov: V}
   - {id: dm-api, group: catalogues, name: Data Marketplace API (2023), owner: Government Digital Service, url: 'https://github.com/co-cddo/data-marketplace-api', licence: none stated, updated: '2023-10-31', what: 'The first Data Marketplace API: a triplestore of DCAT records with a FastAPI front.', use: 'Its records are the real-world test above.', prov: V}
   - {id: jncc, group: catalogues, name: JNCC catalogue, owner: Joint Nature Conservation Committee, url: 'https://github.com/jncc/catalog', licence: none stated, updated: '2026-11-03', what: 'A metadata and data product catalogue with a REST API.', use: 'A geospatial catalogue the geospatial extension and GEMINI crosswalk serve.', prov: V}
-  - {id: dsrf, group: frameworks, name: Data Sharing Risk Framework, owner: Department for Digital, Culture, Media and Sport, url: 'https://github.com/co-cddo/data-sharing-risk-framework', licence: MIT (code), Crown copyright (documents), updated: '2026-10-21', what: 'Tools to help organisations assess the risk of sharing data.', use: 'Use alongside access rights, security classification and transfer safeguard when deciding what a record says about sharing.', prov: V}
+  - {id: dsrf, group: frameworks, name: Data Sharing Risk Framework, owner: 'Department for Digital, Culture, Media and Sport', url: 'https://github.com/co-cddo/data-sharing-risk-framework', licence: 'MIT (code), Crown copyright (documents)', updated: '2026-10-21', what: Tools to help organisations assess the risk of sharing data., use: 'Use alongside access rights, security classification and transfer safeguard when deciding what a record says about sharing.', prov: V}
   - {id: dq-commons, group: frameworks, name: Public Sector Data Quality Commons, owner: Open prototype (not official), url: 'https://github.com/cyberdudeuk/dq-commons', licence: MIT and OGL v3.0, updated: '2026-11-06', what: 'A data quality hub: checks, frameworks and standards that apply, learning.', use: 'Measure the quality the quality properties describe; the Data Quality Framework sits behind both.', prov: V}
   - {id: dam-playbooks, group: frameworks, name: Data asset management capability playbooks, owner: Open prototype (not official), url: 'https://github.com/cyberdudeuk/dam-capability-playbooks', licence: MIT and OGL v3.0, updated: '2026-11-06', what: 'Step-by-step guidance on governance, cataloguing and quality for critical data assets, following the DAM policy.', use: 'The how-to for recording a critical data asset with this profile.', prov: V}
   - {id: knowledge-web, group: frameworks, name: The Knowledge Web, owner: Open prototype (not official), url: 'https://github.com/cyberdudeuk/knowledge-web', licence: Apache 2.0, updated: '2026-08-03', what: 'An ontology-backed map of government data standards and governance artefacts, in one offline HTML file.', use: 'Another way to navigate the standards this profile relies on.', prov: V}

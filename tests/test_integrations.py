@@ -19,6 +19,7 @@ sys.path.insert(0, str(ROOT / 'tools'))
 sys.path.insert(0, str(ROOT / 'tests'))
 
 import yaml  # noqa: E402
+import health  # noqa: E402
 
 from test_toolkit import P, js  # noqa: E402
 
@@ -487,11 +488,12 @@ class VerifiedSourcesWatched(unittest.TestCase):
     source is either fingerprinted in content/source-state.json or marked watch: manual (a person re-reads it)."""
 
     def test_every_verified_source_is_watched(self):
-        lin = yaml.safe_load((ROOT / 'content' / 'lineage.yaml').read_text(encoding='utf-8'))
+        # D-042: toolkit.yaml sources are covered too, keyed toolkit:<id>.
         state = json.loads((ROOT / 'content' / 'source-state.json').read_text(encoding='utf-8'))
-        for s in lin['sources']:
-            if s['prov'] == 'V':
-                with self.subTest(source=s['id']):
-                    self.assertTrue(s.get('watch') == 'manual' or s['id'] in state, 'run tools/health.py --record after verifying it')
-                    if urlparse(s['url']).hostname == 'github.com' and s.get('watch') != 'manual':  # whole host (CodeQL #20)
-                        self.assertTrue(s.get('watch'), 'GitHub pages change on every load: watch the raw files instead')
+        sources = health.verified_sources()
+        self.assertTrue(any(s['key'].startswith('toolkit:') for s in sources), 'toolkit sources must be watched (D-042)')
+        for s in sources:
+            with self.subTest(source=s['key']):
+                self.assertTrue(s.get('watch') == 'manual' or s['key'] in state, 'run tools/health.py --record after verifying it')
+                if urlparse(s['url']).hostname == 'github.com' and s.get('watch') != 'manual':  # whole host (CodeQL #20)
+                    self.assertTrue(s.get('watch'), 'GitHub pages change on every load: watch the raw files instead')

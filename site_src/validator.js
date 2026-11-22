@@ -228,7 +228,8 @@
   }
 
   // ---- quality score -------------------------------------------------------------------------------------
-  // Modelled on the dimensions and points of the data.europa.eu Metadata Quality Assessment (405 points; provenance K).
+  // Modelled on the dimensions and points of the earlier data.europa.eu Metadata Quality Assessment (405 points).
+  // data.europa.eu has since replaced it with a property-weighted method (checked 22 November 2026; see D-042, O-29).
   // Offline, so addresses are checked for form, not fetched. The weights are this profile's reading, not the EU's tool.
   var OPEN_TYPES = /\/(text\/csv|application\/json|application\/geo\+json|application\/ld\+json|text\/turtle|application\/rdf\+xml|application\/xml|text\/xml|application\/geopackage\+sqlite3|application\/vnd\.apache\.parquet|application\/x-netcdf|application\/n-triples|application\/x-ndjson|text\/plain|application\/zip|text\/html|application\/pdf)$/;
   var MACHINE_TYPES = /\/(text\/csv|application\/json|application\/geo\+json|application\/ld\+json|text\/turtle|application\/rdf\+xml|application\/xml|text\/xml|application\/geopackage\+sqlite3|application\/vnd\.apache\.parquet|application\/x-netcdf|application\/n-triples|application\/x-ndjson)$/;

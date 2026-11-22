@@ -97,7 +97,7 @@ vendors:
     repos:
       - {repo: atlanhq/atlan-python, role: Python SDK; its typedef module defines custom metadata, commit: 3c9c37ada6c5c246a231d9a70dfe938e18da73c1, checked: '2026-11-07'}
       - {repo: atlanhq/atlan-java, role: Java SDK, commit: b44068aa921d1bfb2f92e3d823056ba75c191706, checked: '2026-11-07'}
-      - {repo: atlanhq/agent-toolkit, role: MCP server, Claude Code plugin and agent skills, commit: 17b7ae3b4852a24a9271a55eb339dea0b38f1f60, checked: '2026-11-07'}
+      - {repo: atlanhq/agent-toolkit, role: 'MCP server, Claude Code plugin and agent skills', commit: '17b7ae3b4852a24a9271a55eb339dea0b38f1f60', checked: '2026-11-07'}
     model: {file: pyatlan/model/assets/core/asset.py, repo: atlanhq/atlan-python, prov: V}
     extend: Custom metadata, sent to the typedef API as businessMetadataDefs (pyatlan/model/typedef.py). Atlan addresses custom metadata by internal names in its API, so map the kit's names to them when loading.
     weave: atlas
@@ -122,7 +122,7 @@ vendors:
         repo: {repo: atlanhq/agent-toolkit, commit: 17b7ae3b4852a24a9271a55eb339dea0b38f1f60}
         mcp: {name: atlan, transport: http, url: 'https://mcp.atlan.com/mcp', auth: OAuth}
         skills:
-          - {name: atlan-search, does: Chooses between semantic search, asset search, lineage traversal and metadata lookups, with the filter rules that make each return the right assets.}
+          - {name: atlan-search, does: 'Chooses between semantic search, asset search, lineage traversal and metadata lookups, with the filter rules that make each return the right assets.'}
         use: Find, explain and govern Atlan assets from Claude Code; lineage, glossary terms, certification and data quality rules.
   - id: collibra
     deploy: [saas, on-prem]
@@ -166,7 +166,7 @@ vendors:
     kind: ranked
     reports: [gartner-mms-2025, gartner-dagp-2025, forrester-dg-2025]
     repos:
-      - {repo: Alation/alation-ai-agent-sdk, role: AI agent SDK, MCP server and LangChain distribution, commit: ceac7b6ad6edda168894a1b47e5029503b705305, checked: '2026-11-07'}
+      - {repo: Alation/alation-ai-agent-sdk, role: 'AI agent SDK, MCP server and LangChain distribution', commit: ceac7b6ad6edda168894a1b47e5029503b705305, checked: '2026-11-07'}
     extend: Custom fields; the agent SDK has a tool that reads their definitions.
     gap: No public repository publishes Alation's catalogue object model, so no field mapping is given rather than a guessed one.
     ai:
@@ -198,7 +198,7 @@ vendors:
         repo: {repo: forcedotcom/informatica-claude-plugins, commit: 554d02e0f7f2adafeaeeedbde04435b7bd310a47}
         mcp: {name: 'informatica-catalog-discovery, informatica-data-exploration', transport: http, url: Set per IDMC tenant, auth: Tenant credentials}
         skills:
-          - {name: catalog-and-data-discovery, does: Finds tables, columns, files, glossary terms and policies in CDGC, and judges ownership, certification, sensitivity, policy and safe use from catalog metadata before any data is read.}
+          - {name: catalog-and-data-discovery, does: 'Finds tables, columns, files, glossary terms and policies in CDGC, and judges ownership, certification, sensitivity, policy and safe use from catalog metadata before any data is read.'}
         use: Ground an agent in CDGC before it queries data, so it picks the trusted, compliant asset.
       - type: connector
         name: Informatica Catalog Discovery
@@ -370,9 +370,9 @@ vendors:
         repo: {repo: datahub-project/datahub-cloud-ai-plugins, commit: 6d997e960d3e8650b9096df746f20aaeae1d16e3}
         mcp: {name: datahub, transport: http, url: 'https://mcp.datahub.com/mcp', auth: OAuth}
         skills:
-          - {name: datahub-search, does: Finds datasets, dashboards, pipelines, columns, owners, tags and domains.}
-          - {name: datahub-lineage, does: Traces what feeds and depends on an asset, for impact and root-cause analysis.}
-          - {name: datahub-quality, does: Creates and runs assertions, raises and resolves incidents, and diagnoses health.}
+          - {name: datahub-search, does: 'Finds datasets, dashboards, pipelines, columns, owners, tags and domains.'}
+          - {name: datahub-lineage, does: 'Traces what feeds and depends on an asset, for impact and root-cause analysis.'}
+          - {name: datahub-quality, does: 'Creates and runs assertions, raises and resolves incidents, and diagnoses health.'}
           - {name: datahub-sql-workflow, does: Grounds text-to-SQL in catalog evidence before writing a query.}
           - {name: datahub-setup, does: Checks the MCP connection and authentication.}
         use: Catalog search, lineage, quality and grounded SQL on DataHub Cloud.
@@ -383,7 +383,7 @@ vendors:
         skills:
           - {name: datahub-connector-planning, does: Plans a new DataHub ingestion connector.}
           - {name: datahub-connector-pr-review, does: Reviews a connector against DataHub's golden standards.}
-          - {name: datahub-enrich, does: Adds descriptions, tags, terms and owners to catalog entries.}
+          - {name: datahub-enrich, does: 'Adds descriptions, tags, terms and owners to catalog entries.'}
         use: Building and reviewing DataHub connectors, which is how a DCAT-AP-UK source would be ingested.
   - id: unity-catalog
     deploy: [open-source, cloud]
@@ -410,7 +410,7 @@ vendors:
         listing: Anthropic Directory, partner publisher databricks
         repo: {repo: databricks/databricks-agent-skills, commit: e6c32c58fbfe78e25fde84e12bf8440ff0dcc503}
         skills:
-          - {name: databricks-unity-catalog, does: Grants and revokes access, reasons about ownership, sets row filters and column masks, defines catalogs, schemas and tables, and queries the audit and lineage system tables.}
+          - {name: databricks-unity-catalog, does: 'Grants and revokes access, reasons about ownership, sets row filters and column masks, defines catalogs, schemas and tables, and queries the audit and lineage system tables.'}
           - {name: databricks-data-discovery, does: Finds where data lives and answers questions about it through Genie.}
         use: Govern Unity Catalog objects and read their lineage from Claude Code.
       - type: connector
@@ -426,8 +426,8 @@ vendors:
     reports: []
     repos:
       - {repo: googleapis/googleapis, role: The Dataplex v1 catalog API definitions, commit: bf54c1031efddde9cdfee0f89254315d0116a5f9, checked: '2026-11-07'}
-      - {repo: googleapis/genai-toolbox, role: MCP Toolbox, with prebuilt Dataplex tools, commit: 8d54da0d2c4069937f62654f3262f3f46fae850d, checked: '2026-11-07'}
-    model: {file: google/cloud/dataplex/v1/catalog.proto (Entry, EntrySource, Aspect, AspectType), repo: googleapis/googleapis, prov: V}
+      - {repo: googleapis/genai-toolbox, role: 'MCP Toolbox, with prebuilt Dataplex tools', commit: '8d54da0d2c4069937f62654f3262f3f46fae850d', checked: '2026-11-07'}
+    model: {file: 'google/cloud/dataplex/v1/catalog.proto (Entry, EntrySource, Aspect, AspectType)', repo: googleapis/googleapis, prov: V}
     extend: Aspect types with a metadata template; an entry carries aspects keyed by aspect type.
     weave: dataplex
     bag: {path: 'aspects["dcat-ap-uk"].data', style: object}
@@ -473,7 +473,7 @@ vendors:
         repo: {repo: ovaledge/oe_mcp, commit: 9587d7c1807593de3618965d64ffc76ae96d24b5}
         mcp: {name: OvalEdge, transport: 'stdio or http', url: 'https://<your OvalEdge server>/mcp', auth: API key or single sign-on}
         skills:
-          - {name: ovaledge-mcp-workflows, does: Routes catalogue, governance, access, data quality and service request work through the server's playbooks.}
+          - {name: ovaledge-mcp-workflows, does: 'Routes catalogue, governance, access, data quality and service request work through the server''s playbooks.'}
         use: Install from the repository's own plugin marketplace to search, explain and govern OvalEdge assets from Claude Code.
 
   - id: ataccama
@@ -513,8 +513,8 @@ vendors:
     reports: []
     repos:
       - {repo: apache/iceberg, role: The Iceberg REST catalog specification (open-api/rest-catalog-open-api.yaml), commit: 0cb5041b9c7afc046e84406d2785ed79cd54fa46, checked: '2026-11-07'}
-      - {repo: apache/polaris, role: Apache Polaris, the open-source Iceberg REST catalog behind Snowflake Open Catalog, commit: 5f87d86e5f64cb2ec66bac3d7344875b9781898b, checked: '2026-11-07'}
-      - {repo: Snowflake-Labs/mcp, role: Former community MCP server, now deprecated in favour of the official one, commit: 662cb486395d79ab1ad0b3538f933fe6a686ce7c, checked: '2026-11-07'}
+      - {repo: apache/polaris, role: 'Apache Polaris, the open-source Iceberg REST catalog behind Snowflake Open Catalog', commit: '5f87d86e5f64cb2ec66bac3d7344875b9781898b', checked: '2026-11-07'}
+      - {repo: Snowflake-Labs/mcp, role: 'Former community MCP server, now deprecated in favour of the official one', commit: '662cb486395d79ab1ad0b3538f933fe6a686ce7c', checked: '2026-11-07'}
     model: {file: open-api/rest-catalog-open-api.yaml (CreateTableRequest), repo: apache/iceberg, prov: V}
     extend: Iceberg table properties (strings), kept with the table by Snowflake Open Catalog, which Snowflake documents as a managed service for Apache Polaris built on the Iceberg REST protocol (https://other-docs.snowflake.com/polaris/overview.html, checked 7 November 2026), and by any Iceberg REST catalog. Snowflake now points new customers to Horizon Catalog for Iceberg tables. Snowflake's own objects carry comments and tags; their model is not published as a schema.
     weave: iceberg
@@ -552,8 +552,8 @@ vendors:
     deploy_src: {prov: V, title: 'Where it runs', source: 'https://github.com/boto/botocore', checked: '2026-11-14', note: 'An AWS service: its API is defined in the pinned repository.'}
     reports: []
     repos:
-      - {repo: boto/botocore, role: AWS service models, including Glue (botocore/data/glue/2017-03-31/service-2.json), commit: 45d5dde95e31f22f0ffeea5a790ea2ea79d1035c, checked: '2026-11-07'}
-      - {repo: awslabs/mcp, role: AWS MCP servers, including the Data Processing MCP server for Glue, commit: d33705e0890e8cf39aa42eeee7b45d6a6e088112, checked: '2026-11-07'}
+      - {repo: boto/botocore, role: 'AWS service models, including Glue (botocore/data/glue/2017-03-31/service-2.json)', commit: '45d5dde95e31f22f0ffeea5a790ea2ea79d1035c', checked: '2026-11-07'}
+      - {repo: awslabs/mcp, role: 'AWS MCP servers, including the Data Processing MCP server for Glue', commit: d33705e0890e8cf39aa42eeee7b45d6a6e088112, checked: '2026-11-07'}
     model: {file: botocore/data/glue/2017-03-31/service-2.json (TableInput), repo: boto/botocore, prov: V}
     extend: The table's Parameters map of strings.
     weave: glue
@@ -571,7 +571,7 @@ vendors:
         repo: {repo: aws/agent-toolkit-for-aws, commit: 0a218f8cc13220013f72147e2e0fdbe350b34ae2}
         mcp: {name: aws-mcp, transport: stdio, url: Runs with your AWS credentials, auth: AWS profile}
         skills:
-          - {name: exploring-data-catalog, does: Inventories and audits Glue Data Catalog assets, including S3 Tables and federated catalogues.}
+          - {name: exploring-data-catalog, does: 'Inventories and audits Glue Data Catalog assets, including S3 Tables and federated catalogues.'}
           - {name: finding-data-lake-assets, does: Resolves references to data lake and lakehouse assets across the Glue Data Catalog and S3.}
         use: Explore and audit the Glue Data Catalog from Claude Code.
     crosswalk:
@@ -587,8 +587,8 @@ vendors:
     deploy_src: {prov: V, title: 'Where it runs', source: 'https://github.com/boto/botocore', checked: '2026-11-14', note: 'An AWS service (Amazon DataZone API): defined in the pinned repository.'}
     reports: []
     repos:
-      - {repo: boto/botocore, role: AWS service models, including DataZone (botocore/data/datazone/2018-05-10/service-2.json), commit: 45d5dde95e31f22f0ffeea5a790ea2ea79d1035c, checked: '2026-11-07'}
-    model: {file: botocore/data/datazone/2018-05-10/service-2.json (CreateAssetInput, FormInput, CreateFormTypeInput), repo: boto/botocore, prov: V}
+      - {repo: boto/botocore, role: 'AWS service models, including DataZone (botocore/data/datazone/2018-05-10/service-2.json)', commit: '45d5dde95e31f22f0ffeea5a790ea2ea79d1035c', checked: '2026-11-07'}
+    model: {file: 'botocore/data/datazone/2018-05-10/service-2.json (CreateAssetInput, FormInput, CreateFormTypeInput)', repo: boto/botocore, prov: V}
     extend: Metadata form types, defined in Smithy and attached to an asset as forms.
     weave: datazone
     bag: {path: 'formsInput[DcatApUkForm].content', style: object}
@@ -608,13 +608,13 @@ vendors:
     deploy_src: {prov: V, title: 'Where it runs', source: 'https://github.com/oracle/oci-python-sdk', checked: '2026-11-14', note: 'An Oracle Cloud Infrastructure service: its client is in the pinned repository.'}
     reports: []
     repos:
-      - {repo: oracle/oci-python-sdk, role: OCI Python SDK, with the Data Catalog models, commit: ec1d21a37357b8ab1e86fec7132bc08f3df17782, checked: '2026-11-07'}
+      - {repo: oracle/oci-python-sdk, role: 'OCI Python SDK, with the Data Catalog models', commit: ec1d21a37357b8ab1e86fec7132bc08f3df17782, checked: '2026-11-07'}
     model: {file: src/oci/data_catalog/models/entity.py, repo: oracle/oci-python-sdk, prov: V}
     extend: Custom properties (create_custom_property_details.py), held on an entity as custom property members.
     weave: oci
     bag: {path: customPropertyMembers, style: list}
     kit: oci-custom-properties
-    ai: {prov: K, mcp: No Oracle-published MCP server for OCI Data Catalog was found. Oracle Analytics Cloud has an MCP server in preview; it covers analytics datasets, not the data catalogue.}
+    ai: {prov: K, mcp: 'No Oracle-published MCP server for OCI Data Catalog was found. Oracle Analytics Cloud has an MCP server in preview; it covers analytics datasets, not the data catalogue.'}
     crosswalk:
       - [title, displayName, '']
       - [description, description, '']
@@ -626,7 +626,7 @@ vendors:
     deploy_src: {prov: S, title: 'Where it runs', source: 'https://news.sap.com/?p=203037', checked: '2026-11-14', note: 'A data service built on SAP Business Technology Platform.'}
     reports: []
     repos:
-      - {repo: MarioDeFelipe/sap-datasphere-mcp, role: A community MCP server for Datasphere, not published by SAP, commit: 587811443b0344839a8bdb579887c611ea42b8d9, checked: '2026-11-07'}
+      - {repo: MarioDeFelipe/sap-datasphere-mcp, role: 'A community MCP server for Datasphere, not published by SAP', commit: '587811443b0344839a8bdb579887c611ea42b8d9', checked: '2026-11-07'}
     extend: Datasphere catalogue assets, reached through its Catalog and Consumption APIs.
     gap: SAP does not publish the catalogue's model as a schema in a public repository, so no field mapping is given.
     ai:
@@ -641,7 +641,7 @@ vendors:
     deploy_src: {prov: S, title: 'Where it runs', source: 'https://docs.cloudera.com/data-catalog/1.5.4/core-concepts/topics/dc-prereq-to-access-page.html', checked: '2026-11-14', note: 'Cloudera Data Catalog on premises (OpenShift or ECS clusters), and in Cloudera public cloud on AWS, Azure and Google Cloud.'}
     reports: []
     repos:
-      - {repo: apache/atlas, role: Apache Atlas, which Cloudera's SDX catalogue is built on, commit: 8b3f674e0f2502ba6c95201d9ff4c90435e4bbe0, checked: '2026-11-07'}
+      - {repo: apache/atlas, role: 'Apache Atlas, which Cloudera''s SDX catalogue is built on', commit: '8b3f674e0f2502ba6c95201d9ff4c90435e4bbe0', checked: '2026-11-07'}
     model: {file: addons/models/0000-Area0/0010-base_model.json, repo: apache/atlas, prov: V}
     extend: Atlas typedefs and business metadata. Cloudera's documentation names Apache Atlas as the metadata store behind its governance and Data Catalog (https://docs.cloudera.com/runtime/7.3.2/concepts-governance.html, checked 7 November 2026).
     weave: atlas
@@ -659,7 +659,7 @@ vendors:
     deploy_src: {prov: S, title: 'Where it runs', source: 'https://prod1.teradata.com/Cloud/Deployment-Options', checked: '2026-11-14', note: 'On premises, public cloud, hybrid and multi-cloud.'}
     reports: []
     repos:
-      - {repo: teradata/teradata-mcp-server, role: Teradata's MCP server (tools for querying, schema and column metadata, data quality and the feature store), commit: 2df7fcbcc47b6433102e4311f413344a5378ff3b, checked: '2026-11-07'}
+      - {repo: teradata/teradata-mcp-server, role: 'Teradata''s MCP server (tools for querying, schema and column metadata, data quality and the feature store)', commit: '2df7fcbcc47b6433102e4311f413344a5378ff3b', checked: '2026-11-07'}
     extend: Database objects carry comments; Teradata has no separate catalogue model published as a schema.
     gap: No public catalogue model, so no field mapping is given.
     ai:
@@ -697,7 +697,7 @@ vendors:
     repos: []
     extend: Catalogue attributes in the Data Integrity Suite.
     gap: No public metadata model was found, so no field mapping is given.
-    ai: {prov: K, mcp: Reported to host an MCP server over its integration, quality and catalogue APIs; only a secondary source was found, so this is unconfirmed.}
+    ai: {prov: K, mcp: 'Reported to host an MCP server over its integration, quality and catalogue APIs; only a secondary source was found, so this is unconfirmed.'}
 
   - id: select-star
     name: Select Star
@@ -789,7 +789,7 @@ vendors:
     deploy_src: {prov: V, title: 'Where it runs', source: 'https://github.com/amundsen-io/amundsen', checked: '2026-11-14', note: 'Apache-licensed source in the pinned repository.'}
     reports: []
     repos:
-      - {repo: amundsen-io/amundsen, role: Source, including the databuilder table model, commit: 469c1b778340655d1967d1589355acb4f35c65a7, checked: '2026-11-07'}
+      - {repo: amundsen-io/amundsen, role: 'Source, including the databuilder table model', commit: '469c1b778340655d1967d1589355acb4f35c65a7', checked: '2026-11-07'}
     model: {file: databuilder/databuilder/models/table_metadata.py (TableMetadata), repo: amundsen-io/amundsen, prov: V}
     extend: Amundsen has no general extension place for extra properties; programmatic descriptions can carry text.
     ai: {prov: K, mcp: No Amundsen-published MCP server was found.}

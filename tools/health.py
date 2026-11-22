@@ -3,7 +3,7 @@
 
     python3 -I tools/health.py [--out build/health.json] [--record]
 
-Reads every V-labelled source in content/lineage.yaml and compares a hash of its text with content/source-state.json.
+Reads every V-labelled source in content/lineage.yaml and content/toolkit.yaml and compares a hash of its text with content/source-state.json.
 --record stores the current hashes (do this in the same pull request that re-verifies a changed source).
 Automation never changes content: it reports. Exit code 1 if anything needs a person.
 The report (build/health.json) is rendered by tools/build.py as the Status page, the pattern the DAM playbooks use.
@@ -32,19 +32,30 @@ def fetch(url):
     return hashlib.sha256(re.sub(r'\s+', ' ', text).strip().encode()).hexdigest()
 
 
+def verified_sources():
+    """Every V-labelled source the portal relies on, keyed as recorded in source-state.json.
+
+    D-042: toolkit sources were verified but never watched, so three of them went stale unnoticed. Lineage sources keep
+    their bare id; toolkit sources are keyed 'toolkit:<id>' so the two files can never overwrite each other's hashes.
+    """
+    out = []
+    for name, prefix in (('lineage.yaml', ''), ('toolkit.yaml', 'toolkit:')):
+        for s in yaml.safe_load((ROOT / 'content' / name).read_text(encoding='utf-8'))['sources']:
+            if s.get('prov') == 'V':
+                out.append({**s, 'key': prefix + s['id']})
+    return out
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser()
     ap.add_argument('--out', default=str(ROOT / 'build' / 'health.json'))
     ap.add_argument('--record', action='store_true')
     a = ap.parse_args(argv)
-    lin = yaml.safe_load((ROOT / 'content' / 'lineage.yaml').read_text(encoding='utf-8'))
     meta = yaml.safe_load((ROOT / 'profile' / 'dcat-ap-uk.yaml').read_text(encoding='utf-8'))['meta']
     state = json.loads(STATE.read_text()) if STATE.exists() else {}
     from datetime import datetime, timezone
     problems, report = [], {'run': date.today().isoformat(), 'generated': datetime.now(timezone.utc).isoformat(timespec='seconds'), 'sources': [], 'review': meta['review']}
-    for s in lin['sources']:
-        if s['prov'] != 'V':
-            continue
+    for s in verified_sources():
         watch = s.get('watch') or [s['url']]
         if watch == 'manual':  # a site that refuses automated checking: a person re-reads it at each review
             report['sources'].append({'id': s['id'], 'title': s['title'], 'url': s['url'], 'ok': True, 'manual': True})
@@ -52,12 +63,12 @@ def main(argv=None):
         try:
             # GitHub pages change on every load, so GitHub sources are watched through their raw files (watch: in lineage.yaml)
             h = hashlib.sha256(''.join(fetch(u) for u in watch).encode()).hexdigest() if s.get('watch') else fetch(s['url'])
-            changed = s['id'] in state and state[s['id']] != h
-            report['sources'].append({'id': s['id'], 'title': s['title'], 'url': s['url'], 'ok': True, 'changed': changed, 'baselined': s['id'] in state})
+            changed = s['key'] in state and state[s['key']] != h
+            report['sources'].append({'id': s['id'], 'title': s['title'], 'url': s['url'], 'ok': True, 'changed': changed, 'baselined': s['key'] in state})
             if changed:
                 problems.append(f'Source changed: {s["title"]} ({s["url"]}). Re-verify what the profile relies on, then run health.py --record.')
             if a.record:
-                state[s['id']] = h
+                state[s['key']] = h
         except urllib.error.HTTPError as e:
             if e.code in (401, 403, 429):  # the site refuses automated checking: reported, not counted as broken (as the DAM health run does)
                 report['sources'].append({'id': s['id'], 'title': s['title'], 'url': s['url'], 'ok': True, 'blocked': True, 'error': f'HTTP {e.code}: refuses automated checking'})
