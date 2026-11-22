@@ -380,7 +380,7 @@ ai-use:
 
 statistics-status:
   label: Official statistics status
-  definition: The status of statistics under the Code of Practice for Statistics, as the Office for Statistics Regulation names them. Used by the statistics extension (provenance K).
+  definition: The status of statistics under the Code of Practice for Statistics, as the Office for Statistics Regulation names them (checked 22 November 2026); management information and other statistics are this profile's additions for data outside the Code. Used by the statistics extension.
   concepts:
     - {code: accredited-official, label: Accredited official statistics, definition: 'Official statistics the Office for Statistics Regulation has assessed as complying with the Code of Practice.'}
     - {code: official, label: Official statistics, definition: 'Statistics produced by a body named as producing official statistics.'}

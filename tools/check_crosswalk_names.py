@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-"""Check that every element a verified crosswalk names exists in that standard's own published definition (D-045).
+"""Check that every element a verified crosswalk names exists in that standard's own published definition (D-045),
+and that every term a verified extension borrows exists where the standard defines it (D-047).
 
 profile/crosswalks.yaml gives, for each crosswalk marked V, the addresses it was checked at (`checked_at`, several
 joined by " and "). This fetches them and fails if any element named in the rows is not found in that text, so a
@@ -105,9 +106,36 @@ def fetch(url):
         return r.read().decode('utf-8', errors='ignore')
 
 
+def borrowed_terms(ext, prefixes):
+    """The local names of an extension's properties whose namespace is the one the aligned standard defines.
+
+    The namespace is taken from the prefix most of the extension's borrowed properties share, so dcatuk: terms the
+    profile defines itself are never checked against another standard."""
+    uris = [p['uri'] for p in (ext.get('properties') or {}).values() if ':' in p.get('uri', '')]
+    pre = [u.split(':', 1)[0] for u in uris if not u.startswith(('dcatuk:', 'dct:', 'dcat:'))]
+    if not pre:
+        return None, []
+    ns = max(set(pre), key=pre.count)
+    return prefixes.get(ns), [u.split(':', 1)[1] for u in uris if u.startswith(ns + ':')]
+
+
+def missing_terms(namespace, names, text):
+    """Every borrowed name not defined in text, plus the namespace itself if text never mentions it."""
+    gone = [] if namespace and namespace in text else [f'namespace {namespace}']
+    return gone + [n for n in names if not re.search(r'[#/:]' + re.escape(n) + r'\b', text)]
+
+
 def main():
     cws = yaml.safe_load((ROOT / 'profile' / 'crosswalks.yaml').read_text(encoding='utf-8'))
+    exts = yaml.safe_load((ROOT / 'profile' / 'extensions.yaml').read_text(encoding='utf-8'))
     problems = 0
+    for ext in exts['extensions']:
+        for al in ext.get('aligned_to', []):
+            if al.get('prov') == 'V' and al.get('terms_at'):
+                ns, names = borrowed_terms(ext, exts["prefixes"])
+                gone = missing_terms(ns, names, fetch(al['terms_at']))
+                print(f'extension {ext["id"]} ({al["name"]}): ' + ('every term found' if not gone else 'not found: ' + ', '.join(gone)))
+                problems += len(gone)
     for cid, cw in cws.items():
         if cw.get('prov') != 'V':
             continue
