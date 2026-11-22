@@ -286,8 +286,9 @@ sources:
     date: '2026-01-19'
     url: https://questions-statements.parliament.uk/written-statements/1872558
     watch: manual   # the site refuses automated checking; a person re-reads it at each review
-    role: Commits to the National Data Library and to platforms to share and use data.
+    role: Statement HCWS1249 by the Minister of State for Digital Government and Data. Commits to common platforms across government and to building the National Data Library to unlock the value of public data.
     prov: V
+    checked: 2026-11-22
   - id: ndl
     title: 'National Data Library: progress update, January 2026'
     publisher: GOV.UK

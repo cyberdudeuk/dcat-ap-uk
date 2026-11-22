@@ -5,14 +5,15 @@
 # Provenance (ADR 0020):
 #   S  a vendor's own announcement or documentation. Analyst reports are paywalled, so report positions come from
 #      vendor press releases and report abstracts, never from the reports themselves.
-#   V  checked this session against the public repository file named, at the commit given.
+#   V  checked this session against the public repository file named, at the commit given; for report membership,
+#      against the publisher's public abstract, whose list of vendors evaluated is kept in the report's `evaluated`.
 #   K  background knowledge or a secondary source; to be checked.
 # ai.server: false marks a verified finding that the vendor publishes no MCP server (D-044). Its source is where the
 #   search was made; the connectors page then shows the finding without counting it as an MCP server.
 # Nothing here is a test, an endorsement or a ranking by this project. Suppliers can correct an entry with the claim form.
 # The crosswalk "rest" rule: a DCAT-AP-UK property with no native field goes in the vendor's own extension place
 # (custom metadata, custom properties, an aspect), named in `bag`. The kit for each vendor defines that place.
-as_of: '2026-11-07'
+as_of: '2026-11-22'
 
 intro: >-
   The products that analysts rank for data catalogues, metadata management and data governance, and the platforms
@@ -31,8 +32,10 @@ reports:
     publisher: Gartner
     date: '2025-11-19'
     url: https://www.gartner.com/en/documents/7195830
-    prov: S
-    note: The first Gartner evaluation of this market since 2020, according to Informatica's announcement. Vendors named in the published abstract include Ab Initio Software, Alation, Alex Solutions and Ataccama.
+    prov: V
+    checked: '2026-11-22'
+    note: 'The first Gartner evaluation of this market since 2020, according to Informatica''s announcement. Gartner''s public abstract lists the 15 vendors evaluated: Ab Initio Software, Alation, Alex Solutions, Ataccama, Atlan, Coalesce, Collibra, DataGalaxy, IBM, Informatica, OvalEdge, Precisely, Quest Software (here erwin by Quest), ServiceNow (data.world) and Solidatus. Positions are in the gated report.'
+    evaluated: [ab-initio, alation, alex-solutions, ataccama, atlan, coalesce, collibra, datagalaxy, ibm, informatica, ovaledge, precisely, erwin, data-world, solidatus]
     leaders:
       - {vendor: informatica, source: https://businesswire.com/news/home/20251121159172/en/Informatica-Named-a-Leader-in-the-2025-Gartner-Magic-Quadrant-for-Metadata-Management-Solutions-Report, prov: S}
       - {vendor: ibm, source: https://www.ibm.com/forms/mkt-54143, prov: S}
@@ -45,8 +48,10 @@ reports:
     publisher: Gartner
     date: '2025-01-07'
     url: https://www.gartner.com/en/documents/6059363
-    prov: S
-    note: The first Magic Quadrant for this market. The abstract names Ab Initio Software, Alation, Alex Solutions, Anjana Data, Ataccama, Atlan, Collibra, DataGalaxy, data.world, erwin by Quest, Global Data Excellence, IBM, Informatica and OvalEdge; press coverage also names Solidatus. A second edition followed on 7 January 2026.
+    prov: V
+    checked: '2026-11-22'
+    note: 'The first Magic Quadrant for this market. Gartner''s public abstract lists the 16 vendors evaluated: Ab Initio Software, Alation, Alex Solutions, Anjana Data, Ataccama, Atlan, Collibra, DataGalaxy, data.world, erwin by Quest, Global Data Excellence, IBM, Informatica, OvalEdge, Precisely and Solidatus. Positions are in the gated report.'
+    evaluated: [ab-initio, alation, alex-solutions, anjana-data, ataccama, atlan, collibra, datagalaxy, data-world, erwin, gde, ibm, informatica, ovaledge, precisely, solidatus]
     leaders:
       - {vendor: informatica, source: https://www.hpcwire.com/bigdatawire/2025/01/16/slicing-and-dicing-the-data-governance-market/, prov: S}
       - {vendor: ibm, source: https://www.hpcwire.com/bigdatawire/2025/01/16/slicing-and-dicing-the-data-governance-market/, prov: S}
@@ -55,13 +60,27 @@ reports:
     short: Gartner D&A governance 2026
     title: Magic Quadrant for Data and Analytics Governance Platforms (second edition)
     publisher: Gartner
-    date: '2026-01-07'
-    url: https://www.ibm.com/forms/mkt-54249
-    prov: S
-    note: Known from vendor announcements; other vendors' positions in this edition are not yet checked.
+    date: '2026-01-06'
+    url: https://www.gartner.com/en/documents/7315430
+    prov: V
+    checked: '2026-11-22'
+    note: 'Gartner''s public abstract lists the 15 vendors evaluated: Ab Initio, Alation, Alex Solutions, Ataccama, Atlan, BigID, Collibra, DataGalaxy, IBM, Informatica, Microsoft, OvalEdge, Precisely, ServiceNow and Solidatus. Gartner names companies: Microsoft is matched here to Purview, and ServiceNow to data.world, which Gartner''s metadata management report names as ServiceNow (data.world). Positions come from vendor announcements.'
+    evaluated: [ab-initio, alation, alex-solutions, ataccama, atlan, bigid, collibra, datagalaxy, ibm, informatica, microsoft-purview, ovaledge, precisely, data-world, solidatus]
     leaders:
       - {vendor: ibm, source: https://www.ibm.com/forms/mkt-54249, prov: S}
       - {vendor: atlan, source: https://atlan.com/p/metadata-management/, prov: S}
+  - id: gartner-dagp-2026-11
+    short: Gartner D&A governance, Nov 2026
+    title: Magic Quadrant for Data and Analytics Governance Platforms (third edition)
+    publisher: Gartner
+    date: '2026-11-12'
+    url: https://www.gartner.com/en/documents/8625433
+    prov: V
+    checked: '2026-11-22'
+    note: 'Gartner''s public abstract lists the 16 vendors evaluated: Ab Initio, Actian, Alation, Alex Solutions, Anjana Data, Ataccama, Atlan, BigID, Collibra, DataGalaxy, IBM, OvalEdge, Precisely, Salesforce (Informatica), ServiceNow and Solidatus, and has honourable mentions. ServiceNow is matched to data.world as in the second edition. Positions come from vendor announcements.'
+    evaluated: [ab-initio, actian, alation, alex-solutions, anjana-data, ataccama, atlan, bigid, collibra, datagalaxy, ibm, ovaledge, precisely, informatica, data-world, solidatus]
+    leaders:
+      - {vendor: ibm, source: 'https://www.ibm.com/forms/mkt-report-0d537', prov: S}
   - id: forrester-dg-2025
     short: Forrester data governance 2025
     title: 'The Forrester Wave: Data Governance Solutions, Q3 2025'
@@ -95,7 +114,7 @@ vendors:
     deploy_src: {prov: S, title: 'Where it runs', source: 'https://docs.atlan.com/platform/references/atlan-architecture', checked: '2026-11-14', note: 'Single-tenant SaaS on AWS, Azure or Google Cloud; a self-deployed runtime runs connectors inside the customer''s network.'}
     name: Atlan
     kind: ranked
-    reports: [gartner-mms-2025, gartner-dagp-2025, forrester-dg-2025, forrester-edc-2024]
+    reports: [gartner-mms-2025, gartner-dagp-2025, gartner-dagp-2026, gartner-dagp-2026-11, forrester-dg-2025, forrester-edc-2024]
     repos:
       - {repo: atlanhq/atlan-python, role: Python SDK; its typedef module defines custom metadata, commit: 3c9c37ada6c5c246a231d9a70dfe938e18da73c1, checked: '2026-11-07'}
       - {repo: atlanhq/atlan-java, role: Java SDK, commit: b44068aa921d1bfb2f92e3d823056ba75c191706, checked: '2026-11-07'}
@@ -131,7 +150,7 @@ vendors:
     deploy_src: {prov: S, title: 'Where it runs', source: 'https://productresources.collibra.com/docs/cpsh/latest/Content/Installation/CPSH/to_cpsh-install-upgrade.htm', checked: '2026-11-14', note: 'Collibra Platform in the cloud, or Collibra Platform Self-Hosted on infrastructure the customer chooses.'}
     name: Collibra Platform
     kind: ranked
-    reports: [gartner-dagp-2025, forrester-dg-2025, forrester-edc-2024]
+    reports: [gartner-mms-2025, gartner-dagp-2025, gartner-dagp-2026, gartner-dagp-2026-11, forrester-dg-2025, forrester-edc-2024]
     repos:
       - {repo: collibra/import-api-examples, role: Import API examples and input files, commit: 48e1e29c2a50cfcbdf8014bcb963720db5370b9f, checked: '2026-11-07'}
       - {repo: collibra/custom-technical-lineage-examples, role: Custom technical lineage files, commit: be066213450455d23d696c01d23444c73be6b919, checked: '2026-11-07'}
@@ -166,7 +185,7 @@ vendors:
     deploy_src: {prov: S, title: 'Where it runs', source: 'https://docs.alation.com/en/latest/cloud/CloudOverview/index.html', checked: '2026-11-14', note: 'Alation Cloud Service, or customer-managed Alation.'}
     name: Alation Data Intelligence Platform
     kind: ranked
-    reports: [gartner-mms-2025, gartner-dagp-2025, forrester-dg-2025]
+    reports: [gartner-mms-2025, gartner-dagp-2025, gartner-dagp-2026, gartner-dagp-2026-11, forrester-dg-2025]
     repos:
       - {repo: Alation/alation-ai-agent-sdk, role: 'AI agent SDK, MCP server and LangChain distribution', commit: ceac7b6ad6edda168894a1b47e5029503b705305, checked: '2026-11-07'}
     extend: Custom fields; the agent SDK has a tool that reads their definitions.
@@ -183,7 +202,7 @@ vendors:
     deploy_src: {prov: S, title: 'Where it runs', source: 'https://www.informatica.com/gb/resources/data-sheets/cloud-data-governance-and-catalog-with-informatica.html', checked: '2026-11-14', note: 'Cloud Data Governance and Catalog is a service of the Intelligent Data Management Cloud; its scanners can run in the customer network. The older on-premises Enterprise Data Catalog and Axon are a separate product line, not counted here.'}
     name: Informatica Cloud Data Governance and Catalog (CDGC)
     kind: ranked
-    reports: [gartner-mms-2025, gartner-dagp-2025, forrester-dg-2025, forrester-edc-2024]
+    reports: [gartner-mms-2025, gartner-dagp-2025, gartner-dagp-2026, gartner-dagp-2026-11, forrester-dg-2025, forrester-edc-2024]
     repos: []
     extend: Custom attributes and custom catalog source models.
     gap: No public repository of CDGC's model was found. No field mapping is given.
@@ -217,7 +236,7 @@ vendors:
     deploy_src: {prov: S, title: 'Where it runs', source: 'https://www.ibm.com/docs/SSQNUZ_5.0.x/cpd/overview/overview.html', checked: '2026-11-14', note: 'Managed on IBM Cloud, or Cloud Pak for Data on a private, on-premises cluster.'}
     name: IBM watsonx.data intelligence
     kind: ranked
-    reports: [gartner-mms-2025, gartner-dagp-2025, gartner-dagp-2026]
+    reports: [gartner-mms-2025, gartner-dagp-2025, gartner-dagp-2026, gartner-dagp-2026-11]
     repos:
       - {repo: IBM/data-intelligence-mcp-server, role: MCP server with agent skills (Apache 2.0), commit: ba81d268216c9188326c044b18cd9204e0f76432, checked: '2026-11-07'}
     extend: Custom asset types, custom properties and relationships, through the Watson Data API.
@@ -234,7 +253,7 @@ vendors:
     deploy_src: {prov: S, title: 'Where it runs', source: 'https://docs.data.world/en/257934-exploring-data-world-enterprise-offerings.html', checked: '2026-11-14', note: 'Private instance on a multi-tenant platform, or a single-tenant installation; both run by data.world.'}
     name: data.world
     kind: ranked
-    reports: [gartner-dagp-2025]
+    reports: [gartner-mms-2025, gartner-dagp-2025, gartner-dagp-2026, gartner-dagp-2026-11]
     repos:
       - {repo: datadotworld/data.world-py, role: Python client with the dataset API models, commit: b1c03aa590ff29e5740e8e4112602750fc0e31a2, checked: '2026-11-07'}
     model: {file: datadotworld/client/_swagger/models/dataset_create_request.py, repo: datadotworld/data.world-py, prov: V}
@@ -255,7 +274,7 @@ vendors:
     deploy_src: {prov: S, title: 'Where it runs', source: 'https://learn.microsoft.com/en-us/Purview/unified-catalog', checked: '2026-11-14', note: 'A Microsoft cloud service; Microsoft calls the catalog a single, integrated SaaS framework.'}
     name: Microsoft Purview (Data Map and Unified Catalog)
     kind: platform
-    reports: []
+    reports: [gartner-dagp-2026]
     repos:
       - {repo: apache/atlas, role: The type system Purview's Data Map uses, commit: 8b3f674e0f2502ba6c95201d9ff4c90435e4bbe0, checked: '2026-11-07'}
       - {repo: microsoft/purview-custom-connector-solution-accelerator, role: Custom connector accelerator using Atlas JSON, commit: 7a8eb4af1e9b74464a8f07f55b8f2f2da51c6cf5, checked: '2026-11-07'}
@@ -457,7 +476,7 @@ vendors:
     deploy_src: {prov: S, title: 'Where it runs', source: 'https://docs.ovaledge.com/installation-and-settings/deployment-types', checked: '2026-11-14', note: 'On premises, in the customer''s own cloud account, or as SaaS.'}
     name: OvalEdge
     kind: ranked
-    reports: [gartner-dagp-2025]
+    reports: [gartner-mms-2025, gartner-dagp-2025, gartner-dagp-2026, gartner-dagp-2026-11]
     repos:
       - {repo: ovaledge/oe_mcp, role: Open-source MCP server (MIT) with a Claude Code plugin and a Codex plugin, commit: 9587d7c1807593de3618965d64ffc76ae96d24b5, checked: '2026-11-07'}
     extend: Custom fields on catalogue objects, set through the update_custom_field_value tool.
@@ -483,7 +502,7 @@ vendors:
     deploy_src: {prov: S, title: 'Where it runs', source: 'https://docs.ataccama.com/one/17.0.0/ataccama-cloud/ataccama-cloud.html', checked: '2026-11-14', note: 'Ataccama Cloud (SaaS, optionally hybrid), or self-managed on premises.'}
     name: Ataccama ONE
     kind: ranked
-    reports: [gartner-mms-2025, gartner-dagp-2025]
+    reports: [gartner-mms-2025, gartner-dagp-2025, gartner-dagp-2026, gartner-dagp-2026-11]
     repos: []
     extend: Custom attributes in the Ataccama ONE metadata model.
     gap: No public repository of the metadata model was found, so no field mapping is given.
@@ -497,7 +516,7 @@ vendors:
     deploy_src: {prov: S, title: 'Where it runs', source: 'https://aws.amazon.com/marketplace/pp/prodview-5s6qyh3piwf44', checked: '2026-11-14', note: 'The vendor''s own marketplace listing gives delivery as Software as a Service.'}
     name: DataGalaxy
     kind: ranked
-    reports: [gartner-dagp-2025]
+    reports: [gartner-mms-2025, gartner-dagp-2025, gartner-dagp-2026, gartner-dagp-2026-11]
     repos: []
     extend: Custom attributes on catalogue objects.
     gap: No public repository of the metadata model was found, so no field mapping is given.
@@ -695,7 +714,7 @@ vendors:
     kind: catalogue
     deploy: [saas]
     deploy_src: {prov: S, title: 'Where it runs', source: 'https://www.precisely.com/press-release/precisely-advances-data-integrity-foundation-to-power-data-management-at-scale/', checked: '2026-11-14', note: 'Interoperable SaaS services sharing one catalogue; execution agents can run where the data is.'}
-    reports: []
+    reports: [gartner-mms-2025, gartner-dagp-2025, gartner-dagp-2026, gartner-dagp-2026-11]
     repos: []
     extend: Catalogue attributes in the Data Integrity Suite.
     gap: No public metadata model was found, so no field mapping is given.
@@ -736,7 +755,7 @@ vendors:
     kind: catalogue
     deploy: [saas]
     deploy_src: {prov: S, title: 'Where it runs', source: 'https://www.actian.com/data-intelligence/platform/?cdp=tx', checked: '2026-11-14', note: 'Actian describes the platform as cloud-native SaaS. A March 2025 Actian press release also says it can be deployed across hybrid, cloud and on-premises environments; the product page is followed here until Actian documents an on-premises install.'}
-    reports: []
+    reports: [gartner-dagp-2026-11]
     repos: []
     extend: Custom properties on catalogue items.
     gap: No public metadata model was found, so no field mapping is given.
@@ -815,9 +834,11 @@ vendors:
 # Named in a report above, with no public metadata model or MCP server found yet. Labelled K so the provenance register
 # lists each one, and the weekly run looks for a published model or MCP server.
 not_yet:
-  - {id: ab-initio, name: Ab Initio Software, reports: [gartner-mms-2025, gartner-dagp-2025], prov: K}
-  - {id: alex-solutions, name: Alex Solutions, reports: [gartner-mms-2025, gartner-dagp-2025], prov: K}
-  - {id: anjana-data, name: Anjana Data, reports: [gartner-dagp-2025], prov: K}
-  - {id: erwin, name: erwin by Quest, reports: [gartner-dagp-2025], prov: K}
-  - {id: gde, name: Global Data Excellence, reports: [gartner-dagp-2025], prov: K}
-  - {id: solidatus, name: Solidatus, reports: [gartner-dagp-2025], prov: K, note: 'Has an AI lineage assistant; no MCP server or public model found.', source: 'https://a-teaminsight.com/?p=76705'}
+  - {id: ab-initio, name: Ab Initio Software, reports: [gartner-mms-2025, gartner-dagp-2025, gartner-dagp-2026, gartner-dagp-2026-11], prov: V, checked: '2026-11-22', source: 'https://www.gartner.com/en/documents/6059363'}
+  - {id: alex-solutions, name: Alex Solutions, reports: [gartner-mms-2025, gartner-dagp-2025, gartner-dagp-2026, gartner-dagp-2026-11], prov: V, checked: '2026-11-22', source: 'https://www.gartner.com/en/documents/6059363'}
+  - {id: anjana-data, name: Anjana Data, reports: [gartner-dagp-2025, gartner-dagp-2026-11], prov: V, checked: '2026-11-22', source: 'https://www.gartner.com/en/documents/6059363'}
+  - {id: erwin, name: erwin by Quest, reports: [gartner-mms-2025, gartner-dagp-2025], prov: V, checked: '2026-11-22', source: 'https://www.gartner.com/en/documents/6059363'}
+  - {id: gde, name: Global Data Excellence, reports: [gartner-dagp-2025], prov: V, checked: '2026-11-22', source: 'https://www.gartner.com/en/documents/6059363'}
+  - {id: solidatus, name: Solidatus, reports: [gartner-mms-2025, gartner-dagp-2025, gartner-dagp-2026, gartner-dagp-2026-11], prov: V, checked: '2026-11-22', source: 'https://www.gartner.com/en/documents/6059363', note: 'Has an AI lineage assistant, according to a secondary source (https://a-teaminsight.com/?p=76705); no MCP server or public model found. Report membership is from Gartner''s public abstracts.'}
+  - {id: coalesce, name: Coalesce, reports: [gartner-mms-2025], prov: V, checked: '2026-11-22', source: 'https://www.gartner.com/en/documents/7195830'}
+  - {id: bigid, name: BigID, reports: [gartner-dagp-2026, gartner-dagp-2026-11], prov: V, checked: '2026-11-22', source: 'https://www.gartner.com/en/documents/7315430'}
