@@ -35,6 +35,7 @@ All notable changes to DCAT-AP-UK. The format follows [Keep a Changelog](https:/
 - Python dependencies are pinned and hashed, including every transitive package, and CI enforces the hashes; workflows grant write scopes only to the job that needs them (D-050, Scorecard alerts 31, 33 to 36 and 46). Edit `requirements.in`; the `.txt` files are generated. Regression tests: `tests/test_lint.py` SupplyChain.
 - Seven CodeQL quality findings are corrected with no change in behaviour (D-051, alerts 5, 10, 11, 21, 23, 43, 44).
 - Decisions are listed in number order on the governance page and in docs/adr (D-052). Regression test: `tests/test_integrations.py` DecisionsInOrder.
+- Tests no longer hide a comparison inside assertTrue (D-053, CodeQL alert 50); a local check now catches this kind before merge, where D-051 had relied on CodeQL alone. Regression test: `tests/test_lint.py` NoImpreciseAsserts.
 
 ## [1.3.0-rc.1] - 2026-11-20
 
