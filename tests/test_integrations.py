@@ -460,12 +460,20 @@ class ChangeFlags(unittest.TestCase):
         self.assertGreater(len(b['pages']), 40)
 
     def test_site_is_flagged(self):
+        """D-054: holds for whatever release the baseline measures from, so it still passes straight after the flags reset."""
         built()
+        base = self.S.load_baseline()
         ch = json.loads((SITE / 'downloads' / 'changes-since.json').read_text(encoding='utf-8'))
-        self.assertEqual(ch['pages']['reuse']['page'], 'new')
+        self.assertEqual(ch['since'], base['since'])
+        for page, row in ch['pages'].items():
+            with self.subTest(page=page):
+                self.assertEqual(row['page'] == 'new', page not in base['pages'])
         wn = (SITE / 'whats-new.html').read_text(encoding='utf-8')
-        self.assertIn('id="changed"', wn)
-        self.assertIn('href="reuse.html"', wn)
+        if ch['pages']:
+            self.assertIn('id="changed"', wn)
+        for page in ch['pages']:
+            with self.subTest(link=page):
+                self.assertIn(f'href="{page}.html"', wn)
 
 
 class StatusPage(unittest.TestCase):
