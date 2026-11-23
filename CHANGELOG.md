@@ -36,6 +36,7 @@ All notable changes to DCAT-AP-UK. The format follows [Keep a Changelog](https:/
 - Seven CodeQL quality findings are corrected with no change in behaviour (D-051, alerts 5, 10, 11, 21, 23, 43, 44).
 - Decisions are listed in number order on the governance page and in docs/adr (D-052). Regression test: `tests/test_integrations.py` DecisionsInOrder.
 - Tests no longer hide a comparison inside assertTrue (D-053, CodeQL alert 50); a local check now catches this kind before merge, where D-051 had relied on CodeQL alone. Regression test: `tests/test_lint.py` NoImpreciseAsserts.
+- The change-flag and kill-switch tests no longer depend on the baseline release or on a clean working copy, so the Release workflow's flags-reset step can pass (D-054). Regression test: `tests/test_automation.py` FlagsReset.
 
 ## [1.3.0-rc.1] - 2026-11-20
 

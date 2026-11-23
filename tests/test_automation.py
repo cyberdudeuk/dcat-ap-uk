@@ -8,6 +8,7 @@ import os
 import re
 import subprocess
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -57,14 +58,48 @@ class Policy(unittest.TestCase):
 
 class KillSwitch(unittest.TestCase):
     def test_routine_reports_only_when_off(self):
+        """D-054: the routine runs these tests while its own change is still in the working copy, so this test works in a
+        clean worktree of HEAD and must leave the caller's working copy exactly as it found it."""
         env = dict(os.environ, AUTOMATION='off')
         env.pop('GH_TOKEN', None)
-        before = subprocess.run(['git', 'status', '--porcelain'], cwd=ROOT, capture_output=True, text=True).stdout
-        r = subprocess.run([sys.executable, '-I', 'tools/routine.py', 'flags-reset', '--tag', 'HEAD'], cwd=ROOT, env=env, capture_output=True, text=True, timeout=600)
-        after = subprocess.run(['git', 'status', '--porcelain'], cwd=ROOT, capture_output=True, text=True).stdout
+        status = ['git', 'status', '--porcelain']
+        caller = subprocess.run(status, cwd=ROOT, capture_output=True, text=True).stdout
+        with tempfile.TemporaryDirectory() as tmp:
+            wt = Path(tmp) / 'wt'
+            subprocess.run(['git', 'worktree', 'add', '--detach', str(wt), 'HEAD'], cwd=ROOT, check=True, capture_output=True)
+            try:
+                before = subprocess.run(status, cwd=wt, capture_output=True, text=True).stdout
+                r = subprocess.run([sys.executable, '-I', 'tools/routine.py', 'flags-reset', '--tag', 'HEAD'], cwd=wt, env=env, capture_output=True, text=True, timeout=600)
+                after = subprocess.run(status, cwd=wt, capture_output=True, text=True).stdout
+            finally:
+                subprocess.run(['git', 'worktree', 'remove', '--force', str(wt)], cwd=ROOT, capture_output=True)
         self.assertEqual(before, after, r.stdout + r.stderr)
         self.assertIn('Kill switch is off', r.stdout)
+        self.assertEqual(caller, subprocess.run(status, cwd=ROOT, capture_output=True, text=True).stdout)
 
+
+
+class FlagsReset(unittest.TestCase):
+    """D-054: the Release workflow's flags-reset step failed on 20 November 2026, because the change-flag tests assumed
+    the old baseline. This resets the baseline in a clean worktree, as the release does, and runs those tests there."""
+
+    def test_change_flag_tests_pass_straight_after_a_reset(self):
+        m = re.search(r'^## \[(\d[^\]]*)\] - (\d{4}-\d\d-\d\d)', (ROOT / 'CHANGELOG.md').read_text(encoding='utf-8'), re.M)
+        self.assertIsNotNone(m, 'CHANGELOG.md names no release')
+        env = dict(os.environ, AUTOMATION='off')
+        env.pop('GH_TOKEN', None)
+        with tempfile.TemporaryDirectory() as tmp:
+            wt = Path(tmp) / 'wt'
+            subprocess.run(['git', 'worktree', 'add', '--detach', str(wt), 'HEAD'], cwd=ROOT, check=True, capture_output=True)
+            try:
+                run = lambda *cmd: subprocess.run([sys.executable, '-I', *cmd], cwd=wt, env=env, capture_output=True, text=True, timeout=600)
+                for step in (('tools/build.py',), ('tools/section_baseline.py', '--since', m.group(1), '--date', m.group(2)), ('tools/build.py',)):
+                    r = run(*step)
+                    self.assertEqual(r.returncode, 0, r.stdout + r.stderr)
+                r = run('-m', 'unittest', 'discover', '-s', 'tests', '-p', 'test_integrations.py', '-k', 'ChangeFlags')
+            finally:
+                subprocess.run(['git', 'worktree', 'remove', '--force', str(wt)], cwd=ROOT, capture_output=True)
+        self.assertEqual(r.returncode, 0, r.stdout + r.stderr)
 
 sys.path.insert(0, str(ROOT / 'tools'))
 import trials  # noqa: E402
