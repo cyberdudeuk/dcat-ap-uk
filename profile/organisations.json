@@ -1,6 +1,6 @@
 {
 "source": "https://www.gov.uk/api/organisations",
-"read": "2026-11-09",
+"read": "2026-11-23",
 "via": "GOV.UK organisations API, read directly",
 "prov": "V",
 "count": 1273,
@@ -1402,7 +1402,7 @@
 "title": "Government Property Profession",
 "abbr": null,
 "type": "Sub organisation",
-"status": "closed",
+"status": "live",
 "uri": "https://www.gov.uk/government/organisations/civil-service-government-property-profession"
 },
 {
@@ -1511,7 +1511,7 @@
 },
 {
 "slug": "civil-service-procurement-profession",
-"title": "Procurement profession",
+"title": "Procurement Profession",
 "abbr": null,
 "type": "Sub organisation",
 "status": "closed",
@@ -5290,7 +5290,7 @@
 "title": "Local Audit Office",
 "abbr": "LAO",
 "type": "Executive non-departmental public body",
-"status": "joining",
+"status": "live",
 "uri": "https://www.gov.uk/government/organisations/local-audit-office"
 },
 {
@@ -9230,14 +9230,6 @@
 "uri": "https://www.gov.uk/government/organisations/the-queen-elizabeth-memorial-committee"
 },
 {
-"slug": "the-queen-elizabeth-memorial-programme",
-"title": "The Queen Elizabeth Memorial Programme",
-"abbr": null,
-"type": "Sub organisation",
-"status": "live",
-"uri": "https://www.gov.uk/government/organisations/the-queen-elizabeth-memorial-programme"
-},
-{
 "slug": "the-revenue-list",
 "title": "The Revenue List",
 "abbr": null,
@@ -10180,6 +10172,14 @@
 "type": "Executive non-departmental public body",
 "status": "live",
 "uri": "https://www.gov.uk/government/organisations/youth-justice-board-for-england-and-wales"
+},
+{
+"slug": "youth-opportunities-unit",
+"title": "Youth Opportunities Unit",
+"abbr": null,
+"type": "Sub organisation",
+"status": "live",
+"uri": "https://www.gov.uk/government/organisations/youth-opportunities-unit"
 },
 {
 "slug": "zahid-mubarek-inquiry",
