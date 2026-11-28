@@ -1,5 +1,7 @@
 # DCAT Application Profile for the UK (DCAT-AP-UK)
 
+[![gds-dtx readiness: ready with exceptions, 10 of 10 GDS Way MUST checks met](docs/conformance/badge.svg)](docs/conformance/report.md)
+
 > **Proposed, not endorsed.** DCAT-AP-UK 1.3.0-rc.1 is a proposal for review by the Metadata Implementation Working Group. It has not
 > been endorsed by the Data Standards Authority, and it is not an official GOV.UK service or policy. The endorsed model remains the
 > [UK Cross-Government Metadata Exchange Model](https://co-cddo.github.io/ukgov-metadata-exchange-model/) (xGov MEM) until a decision is made.
