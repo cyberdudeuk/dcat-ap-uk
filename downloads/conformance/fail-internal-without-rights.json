@@ -1,0 +1,18 @@
+{
+  "class": "Dataset",
+  "id": "https://example.org/x",
+  "title": "t",
+  "description": "d",
+  "identifier": "x",
+  "publisher": "https://example.org/o",
+  "contactPoint": [
+    {
+      "fn": "Team",
+      "hasURL": "https://example.org/c"
+    }
+  ],
+  "accessRights": "ukcl:access-rights/internal",
+  "securityClassification": "ukcl:security-classification/official",
+  "licence": "ukcl:licences/data-sharing-agreement-required",
+  "accrualPeriodicity": "eufreq:MONTHLY"
+}

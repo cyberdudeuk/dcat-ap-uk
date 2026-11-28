@@ -1,0 +1,69 @@
+{
+  "class": "Dataset",
+  "id": "https://www.data.gov.uk/dataset/2dfb82b4-741a-4b93-807e-11abb4bb0875/os-postcodes-data",
+  "title": "Postcode locations for Great Britain",
+  "alternative": "Code-Point Open",
+  "abstract": "Free point locations for every postcode unit in Great Britain.",
+  "description": "The location of every postcode unit in Great Britain as a single point, with the codes of the areas it falls in. Often used for service planning, simple routing and statistical analysis.",
+  "identifier": "2dfb82b4-741a-4b93-807e-11abb4bb0875",
+  "publisher": "https://www.gov.uk/government/organisations/ordnance-survey",
+  "creator": [
+    "https://www.gov.uk/government/organisations/ordnance-survey"
+  ],
+  "contactPoint": [
+    {
+      "fn": "Ordnance Survey customer service",
+      "hasURL": "https://www.ordnancesurvey.co.uk/contact-us"
+    }
+  ],
+  "accessRights": "ukcl:access-rights/open",
+  "securityClassification": "ukcl:security-classification/official",
+  "personalData": "ukcl:personal-data/none",
+  "licence": "http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+  "accrualPeriodicity": "eufreq:QUARTERLY",
+  "theme": [
+    "ukcl:theme/mapping"
+  ],
+  "keyword": [
+    "postcode",
+    "address",
+    "location"
+  ],
+  "spatial": [
+    "http://statistics.data.gov.uk/id/statistical-geography/K03000001"
+  ],
+  "issued": "2022-02-01",
+  "modified": "2026-08-01",
+  "version": "2026-08",
+  "language": [
+    "eulang:ENG"
+  ],
+  "landingPage": [
+    "https://www.ordnancesurvey.co.uk/products/code-point-open"
+  ],
+  "distribution": [
+    {
+      "class": "Distribution",
+      "title": "Postcode locations, GeoPackage",
+      "accessURL": [
+        "https://www.ordnancesurvey.co.uk/products/code-point-open"
+      ],
+      "mediaType": "https://www.iana.org/assignments/media-types/application/geopackage+sqlite3",
+      "representationTechnique": "inspiresrt:vector"
+    }
+  ],
+  "conformsTo": [
+    "http://www.opengis.net/def/crs/EPSG/0/27700"
+  ],
+  "spatialResolutionInMeters": [
+    "1"
+  ],
+  "topicCategory": [
+    "http://inspire.ec.europa.eu/metadata-codelist/TopicCategory/location"
+  ],
+  "lineage": [
+    {
+      "statement": "Point locations derived from address data, updated each quarter."
+    }
+  ]
+}

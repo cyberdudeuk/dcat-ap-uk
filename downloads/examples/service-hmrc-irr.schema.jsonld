@@ -1,0 +1,16 @@
+{
+  "@context": "https://schema.org/",
+  "@type": "WebAPI",
+  "@id": "https://developer.service.hmrc.gov.uk/api-documentation/docs/api/service/interest-restriction-return/1.0",
+  "name": "Interest restriction return API",
+  "description": "Lets software appoint or revoke a reporting company and submit full or abbreviated interest restriction returns.",
+  "identifier": "interest-restriction-return",
+  "url": "https://developer.service.hmrc.gov.uk/api-documentation/docs/api/service/interest-restriction-return/1.0",
+  "license": "https://w3id.org/dcat-ap-uk/codelist/licences/data-sharing-agreement-required",
+  "isAccessibleForFree": false,
+  "publisher": {
+    "@id": "https://www.gov.uk/government/organisations/hm-revenue-customs"
+  },
+  "conditionsOfAccess": "Available to registered software developers. Production access needs approval through the HMRC Developer Hub.",
+  "documentation": "https://developer.service.hmrc.gov.uk/api-documentation/docs/api/service/interest-restriction-return/1.0/oas/page"
+}

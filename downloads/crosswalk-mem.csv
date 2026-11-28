@@ -1,0 +1,35 @@
+mem_slot,dcat_uk_ap_property,uri,change,note
+accessRights,accessRights,dct:accessRights,codelist-mapped,"Same three values (OPEN, COMMERCIAL, INTERNAL), now SKOS concepts mapped to the EU access-right vocabulary used by DCAT-AP. Usage notes added (issue 60)."
+accessService,accessService,dcat:accessService,unchanged,
+address,hasAddress,vcard:hasAddress,unchanged,
+alternativeTitle,alternative,dct:alternative,example-fixed,"The example for alternative title used title case, which conflicted with the rule for titles (issue 76)."
+byteSize,byteSize,dcat:byteSize,unchanged,
+contactName,fn,vcard:fn,definition-fixed,"Defined as the team, not a person, so records survive staff changes and carry no personal data."
+contactPoint,contactPoint,dcat:contactPoint,definition-fixed,The definition was a copy of the email definition (issue 71). It now describes the contact point as a whole.
+created,created,dct:created,unchanged,
+creator,creator,dct:creator,obligation-changed,"Mandatory in the xGov MEM. Recommended in general and mandatory for critical data assets, as the April 2026 guidance lists it."
+description,description,dct:description,unchanged,
+distribution,distribution,dcat:distribution,range-fixed,"Was only an IRI or CURIE, so a distribution could not be described in the same record (issue 72). Now a Distribution node or its IRI."
+downloadURL,downloadURL,dcat:downloadURL,unchanged,
+email,hasEmail,vcard:hasEmail,obligation-changed,"Mandatory in the xGov MEM. Now one of two routes: a contact form or a team mailbox, with the form preferred."
+endpointDescription,endpointDescription,dcat:endpointDescription,obligation-changed,"Mandatory in the xGov MEM; recommended, as in DCAT-AP."
+endpointURL,endpointURL,dcat:endpointURL,obligation-changed,Optional in the xGov MEM because of the security risk of publishing internal addresses. Mandatory in DCAT-AP; the guidance now says what to give instead.
+identifier,identifier,dct:identifier,range-relaxed,"Was restricted to an IRI or CURIE. A plain literal now, as in DCAT, so local catalogue identifiers can be used; the record IRI carries the web identity."
+issued,issued,dct:issued,unchanged,
+keyword,keyword,dcat:keyword,unchanged,
+licence,licence,dct:license,value-restored,"The xGov MEM had no way to say ""no licence, ask for an agreement"" after it moved to LinkML (issue 44). The value is restored as a concept."
+mediaType,mediaType,dcat:mediaType,obligation-changed,"Mandatory in the xGov MEM. Recommended now, as in DCAT-AP, because some distributions are web pages or services."
+modified,modified,dct:modified,obligation-changed,"Mandatory in the xGov MEM, but many sources do not provide it (issue 30). Recommended now, and never to be invented."
+publisher,publisher,dct:publisher,range-changed,"Was a GOV.UK organisation slug from a 2023 copy of the list (1,176 entries). Now an agent identified by its GOV.UK organisation address, from the list read on 31 October 2026 (1,271 entries, closed organisations kept and flagged)."
+relatedResource,relation,dct:relation,unchanged,
+securityClassification,securityClassification,dcatuk:securityClassification,uri-fixed,"Had no property IRI at all, so it could not be exchanged as linked data. NOT_APPLICABLE is withdrawn: public sector data always has a classification."
+servesData,servesDataset,dcat:servesDataset,renamed,Renamed to match DCAT. The property IRI was already dcat:servesDataset.
+serviceStatus,serviceStatus,adms:status,codelist-mapped,"Same phases, now SKOS concepts linked to the Service Manual."
+serviceType,serviceType,dct:type,merged,"The xGov MEM had both ""type"" (an rdf:type IRI, required) and ""serviceType"" (dct:type). rdf:type now comes from the class, and dct:type holds the interface style."
+summary,abstract,dct:abstract,uri-fixed,"The xGov MEM used rdfs:comment, a generic comment property. dct:abstract is the Dublin Core term for a summary."
+telephone,hasTelephone,vcard:hasTelephone,unchanged,
+theme,theme,dcat:theme,codelist-added,"The xGov MEM had no list of values (issue 49). The 14 data.gov.uk topics, read on 6 November 2026, are now the list."
+title,title,dct:title,unchanged,
+type,(class),rdf:type,merged,The class of a record gives its type; there is no separate type property.
+updateFrequency,accrualPeriodicity,dct:accrualPeriodicity,codelist-mapped,Dublin Core frequency terms are mapped one to one to the EU frequency vocabulary that DCAT-AP requires. Old values are still accepted and converted.
+version,version,dcat:version,obligation-changed,"Mandatory in the xGov MEM; recommended now, because not every resource is versioned."

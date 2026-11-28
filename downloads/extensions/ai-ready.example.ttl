@@ -1,0 +1,32 @@
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dcatuk: <https://w3id.org/dcat-ap-uk/ns#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix eufreq: <http://publications.europa.eu/resource/authority/frequency/> .
+@prefix odrl: <http://www.w3.org/ns/odrl/2/> .
+@prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://example.org/dataset/ai-ready> a dcat:Dataset ;
+    dct:accessRights <https://w3id.org/dcat-ap-uk/codelist/access-rights/open> ;
+    dct:accrualPeriodicity eufreq:MONTHLY ;
+    dct:description "An invented dataset used to show an extension. It does not exist." ;
+    dct:identifier "synthetic-0001" ;
+    dct:license <http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/> ;
+    dct:modified "2026-10-01"^^xsd:date ;
+    dct:publisher <https://example.org/organisations/example-department> ;
+    dct:temporal [ a dct:PeriodOfTime ;
+            dcat:endDate "2025-12-31"^^xsd:date ;
+            dcat:startDate "2024-01-01"^^xsd:date ] ;
+    dct:title "Synthetic AI training dataset" ;
+    dcat:contactPoint [ a vcard:Kind ;
+            vcard:fn "Example data team" ;
+            vcard:hasURL <https://example.org/contact> ] ;
+    dcat:keyword "example" ;
+    dcat:theme <https://w3id.org/dcat-ap-uk/codelist/theme/government> ;
+    odrl:hasPolicy <https://cyberdudeuk.github.io/dcat-ap-uk/downloads/policies/ogl-open.jsonld> ;
+    dcatuk:aiUse <https://w3id.org/dcat-ap-uk/codelist/ai-use/permitted> ;
+    dcatuk:dataCard <https://example.org/data-card> ;
+    dcatuk:personalData <https://w3id.org/dcat-ap-uk/codelist/personal-data/none> ;
+    dcatuk:securityClassification <https://w3id.org/dcat-ap-uk/codelist/security-classification/official> ;
+    dcatuk:syntheticData true .
+

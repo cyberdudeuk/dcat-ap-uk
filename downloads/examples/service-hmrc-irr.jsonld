@@ -1,0 +1,33 @@
+{
+  "@context": "https://cyberdudeuk.github.io/dcat-ap-uk/downloads/dcat-ap-uk.context.jsonld",
+  "class": "DataService",
+  "id": "https://developer.service.hmrc.gov.uk/api-documentation/docs/api/service/interest-restriction-return/1.0",
+  "title": "Interest restriction return API",
+  "description": "Lets software appoint or revoke a reporting company and submit full or abbreviated interest restriction returns.",
+  "identifier": "interest-restriction-return",
+  "endpointURL": [
+    "https://api.service.hmrc.gov.uk/"
+  ],
+  "endpointDescription": [
+    "https://developer.service.hmrc.gov.uk/api-documentation/docs/api/service/interest-restriction-return/1.0/oas/page"
+  ],
+  "conformsTo": [
+    "https://spec.openapis.org/oas/v3.0.3"
+  ],
+  "publisher": "https://www.gov.uk/government/organisations/hm-revenue-customs",
+  "contactPoint": [
+    {
+      "fn": "Software Development Support Team",
+      "hasURL": "https://developer.service.hmrc.gov.uk/developer/support"
+    }
+  ],
+  "accessRights": "ukcl:access-rights/internal",
+  "rights": "Available to registered software developers. Production access needs approval through the HMRC Developer Hub.",
+  "securityClassification": "ukcl:security-classification/official",
+  "licence": "ukcl:licences/data-sharing-agreement-required",
+  "serviceStatus": "ukcl:service-status/public-beta",
+  "serviceType": "ukcl:service-type/rest",
+  "theme": [
+    "ukcl:theme/business-and-economy"
+  ]
+}

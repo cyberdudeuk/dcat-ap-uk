@@ -1,0 +1,33 @@
+{
+  "class": "DataService",
+  "id": "https://data.food.gov.uk/food-alerts/",
+  "title": "Food alerts",
+  "description": "Current and recent food alerts: allergy alerts, product recall information notices and food alerts for action. Applications can list alerts that match a filter and get the details of one alert.",
+  "identifier": "food-alerts",
+  "endpointURL": [
+    "https://data.food.gov.uk/food-alerts/"
+  ],
+  "endpointDescription": [
+    "https://data.food.gov.uk/food-alerts/ui/reference"
+  ],
+  "publisher": "https://www.gov.uk/government/organisations/food-standards-agency",
+  "contactPoint": [
+    {
+      "fn": "Food Standards Agency data team",
+      "hasURL": "https://www.food.gov.uk/contact"
+    }
+  ],
+  "accessRights": "ukcl:access-rights/open",
+  "securityClassification": "ukcl:security-classification/official",
+  "licence": "http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+  "serviceStatus": "ukcl:service-status/public-beta",
+  "serviceType": "ukcl:service-type/event",
+  "theme": [
+    "ukcl:theme/health"
+  ],
+  "keyword": [
+    "allergy",
+    "product recall",
+    "food safety"
+  ]
+}

@@ -1,0 +1,7 @@
+DCAT-AP-UK property,Google Cloud Dataplex Universal Catalog field,Note
+title,entrySource.displayName,
+description,entrySource.description,
+issued,entrySource.createTime,
+modified,entrySource.updateTime,
+keyword,entrySource.labels,Labels are key and value pairs; each keyword becomes a key with an empty value.
+(every other property),"aspects[""dcat-ap-uk""].data",The DCAT-AP-UK extension place defined by the add-on kit.

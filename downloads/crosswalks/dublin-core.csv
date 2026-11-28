@@ -1,0 +1,16 @@
+dcat_uk_ap_property,Dublin Core Metadata Element Set 1.1,note
+title,Title,
+creator,Creator,
+keyword,Subject,"Also theme, for a controlled subject."
+description,Description,
+publisher,Publisher,
+qualifiedAttribution,Contributor,With the role played.
+issued,Date,Also created and modified.
+(class),Type,The record's class; for a service also service type.
+mediaType,Format,On the distribution; also format.
+identifier,Identifier,
+relation,Source,Use relation with a qualified relationship of role source.
+language,Language,
+relation,Relation,
+spatial,Coverage,"And temporal, for coverage in time."
+rights,Rights,And licence and access rights.

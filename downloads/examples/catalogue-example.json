@@ -1,0 +1,20 @@
+{
+  "class": "Catalogue",
+  "id": "https://example.org/catalogue",
+  "title": "Example department data catalogue",
+  "description": "Synthetic example. The data catalogue of an example department, harvested by central discovery services.",
+  "publisher": "https://example.org/organisations/example-department",
+  "homepage": "https://example.org/catalogue",
+  "conformsTo": [
+    "https://w3id.org/dcat-ap-uk/1.0"
+  ],
+  "themeTaxonomy": [
+    "https://w3id.org/dcat-ap-uk/codelist/theme"
+  ],
+  "language": [
+    "eulang:ENG"
+  ],
+  "dataset": [
+    "https://example.org/dcat-ap-uk/examples/eligibility-decisions"
+  ]
+}

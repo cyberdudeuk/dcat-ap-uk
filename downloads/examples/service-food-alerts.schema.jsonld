@@ -1,0 +1,20 @@
+{
+  "@context": "https://schema.org/",
+  "@type": "WebAPI",
+  "@id": "https://data.food.gov.uk/food-alerts/",
+  "name": "Food alerts",
+  "description": "Current and recent food alerts: allergy alerts, product recall information notices and food alerts for action. Applications can list alerts that match a filter and get the details of one alert.",
+  "identifier": "food-alerts",
+  "url": "https://data.food.gov.uk/food-alerts/",
+  "license": "http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+  "isAccessibleForFree": true,
+  "keywords": [
+    "allergy",
+    "product recall",
+    "food safety"
+  ],
+  "publisher": {
+    "@id": "https://www.gov.uk/government/organisations/food-standards-agency"
+  },
+  "documentation": "https://data.food.gov.uk/food-alerts/ui/reference"
+}

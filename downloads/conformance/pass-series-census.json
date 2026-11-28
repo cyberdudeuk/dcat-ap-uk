@@ -1,0 +1,14 @@
+{
+  "class": "DatasetSeries",
+  "id": "https://www.ons.gov.uk/census",
+  "title": "Census of population, England and Wales",
+  "description": "Every ten years, a count of all people and households in England and Wales, run by the Office for National Statistics.",
+  "publisher": "https://www.gov.uk/government/organisations/office-for-national-statistics",
+  "accrualPeriodicity": "eufreq:OTHER",
+  "theme": [
+    "ukcl:theme/society"
+  ],
+  "spatial": [
+    "http://statistics.data.gov.uk/id/statistical-geography/K04000001"
+  ]
+}

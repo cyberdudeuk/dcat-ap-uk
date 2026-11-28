@@ -1,0 +1,28 @@
+dcat_uk_ap_property,CKAN dataset and resource fields,note
+title,title,
+description,notes,
+keyword,tags,
+identifier,extras identifier,
+publisher,organization and extras publisher_uri,
+contactPoint,extras contact_name and contact_uri,"Use a contact form address for contact_uri, not an email address."
+licence,license_id,Map OGL v3.0 to the CKAN licence id your instance uses.
+issued,extras issued,
+modified,extras modified,
+landingPage,url,
+version,version,
+theme,extras theme,
+spatial,extras spatial_uri,
+temporal,extras temporal_start and temporal_end,
+language,extras language,
+accrualPeriodicity,extras frequency,
+conformsTo,extras conforms_to,
+accessRights,extras access_rights,
+distribution,resources,One CKAN resource per distribution.
+accessURL,resource access_url,
+downloadURL,resource download_url,
+mediaType,resource mimetype,
+format,resource format,
+byteSize,resource size,
+checksum,resource hash and hash_algorithm,
+securityClassification,(none),Add a scheming field; harvesters that do not know it will drop it.
+criticalDataAsset,(none),Add a scheming field.
